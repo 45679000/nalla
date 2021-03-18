@@ -46,6 +46,9 @@ $path_to_root = "../"
         <!-- file upload css -->
         <link href="<?=$path_to_root ?>assets/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
 
+		<!-- Data table css -->
+		<link href="<?=$path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
     </head>
     <div class="header py-1">
 					<div class="container-fluid">

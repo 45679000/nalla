@@ -40,6 +40,10 @@ class Model{
         $rows = $pdo->query("SELECT * FROM ".$this->tablename)->fetchAll();
         return $rows;
     }
+    public function executeQuery(){
+        $rows = $pdo->query($this->query)->fetchAll();
+        return $rows;
+    }
 
 
 }

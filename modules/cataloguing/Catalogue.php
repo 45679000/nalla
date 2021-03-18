@@ -3,6 +3,7 @@
 
     Class Catalogue extends Model{
         public $inputFileName;
+        public $is_imported = false;
         public function importClosingCatalogue(){
             // $inputFileName = 'ANJL_SPLIT_CLOSING_SALE_12.2021.xls';
             //  Read your Excel workbook
@@ -45,10 +46,45 @@
                    }
             
             }
+            $this->is_imported = true;
         
         }
         public function readImportSummaries(){
-            $query = "SELECT * FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'";
+            $rows = $this->conn->query("SELECT * FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'")->fetchAll();
+            return $rows;
+        }
+        public function summaryTotal($column, $type){
+            $query = "SELECT SUM(".$column.") AS total FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'";
+            if($type=='main'){
+                $query.= "AND grade = 'BP1' OR grade = 'PF1'";
+            }else{
+                $query.= "AND grade != 'BP1' OR grade != 'PF1'";
+            }
+            $row=$this->conn->query($query)->fetch();
+            return $row;
+        }
+        public function summaryCount($column, $type){
+            $query = "SELECT COUNT(".$column.") AS count FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'";
+            if($type=='main'){
+                $query.= "AND grade = 'BP1' OR grade = 'PF1'";
+            }else{
+                $query.= "AND grade != 'BP1' OR grade != 'PF1'";
+            }
+            $row=$this->conn->query($query)->fetch();
+            return $row;
+        }
+        public function confirmCatalogue(){
+            $confirmed = false;
+            $stmt = $this->conn->prepare("INSERT INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `import_date`, `imported`, `imported_by`)
+                                        SELECT `closing_cat_import_id`, `sale_no`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `import_date`, `imported`, `imported_by`
+                                        FROM closing_cat_import
+                                        WHERE lot REGEXP '^[0-9]+$'"
+                                        );
+                    $stmt->execute();
+
+             $stmt = $this->conn->prepare("DELETE FROM closing_cat_import WHERE 1");
+             $stmt->execute();
         }
     }
+
 ?>

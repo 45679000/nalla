@@ -50,4 +50,31 @@ CREATE TABLE closing_cat_import(
     imported                        boolean default false,
     imported_by                     integer
 );
-							
+
+CREATE TABLE closing_cat(
+    closing_cat_import_id           integer primary key AUTO_INCREMENT,
+    sale_no                         varchar(120),
+    comment                         varchar(120),
+    ware_hse                        varchar(120),
+    entry_no                        varchar(120),
+    value                           varchar(120),
+    lot                             varchar(120),
+    company                         varchar(120),
+    mark                            varchar(120),
+    grade                           varchar(120),
+    manf_date                       varchar(120),
+    ra                              varchar(120),
+    rp                              varchar(120),
+    invoice                         varchar(120),
+    pkgs                            varchar(120),
+    type                            varchar(120),
+    net                             varchar(120),
+    gross                           varchar(120),
+    kgs                             varchar(120),
+    tare                            varchar(120),
+    sale_price                      varchar(120),
+    buyer_package                   varchar(120),
+    import_date                     timestamp default current_timestamp,
+    imported                        boolean default false,
+    imported_by                     integer
+);						

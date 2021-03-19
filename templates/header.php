@@ -203,17 +203,31 @@ body {
 										<a href="#" class="dropdown-item text-center">View all</a>
 									</div>
 								</div>
+								<div class="dropdown d-none d-md-flex mt-1">
+									<a href="<? echo $path_to_root?>layouts/logout.php" class="nav-link icon" >
+										<i class="fa fa-sign-out floating"></i>
+									</a>
+								</div>
 								<div class="dropdown mt-1">
 									<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span class="avatar avatar-md brround" style="background-image: url(assets/images/faces/female/25.jpg)"></span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
 										<div class="text-center">
-											<a href="#" class="dropdown-item text-center font-weight-sembold user">Jessica Allan</a>
+											<a href="#" class="dropdown-item text-center font-weight-sembold user">Francis Chege</a>
 											<span class="text-center user-semi-title text-dark">web designer</span>
 											<div class="dropdown-divider"></div>
 										</div>
-								
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon mdi mdi-account-outline "></i> Profile
+										</a>
+										<a class="dropdown-item" href="login.html">
+											<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+											<a href="<?=$path_to_root ?>layouts/logout.php" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+										<span>Log Out</span>
+										Log Out
+									</a>
+										</a>
 									</div>
 								</div>
 							</div>

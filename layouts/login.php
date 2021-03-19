@@ -3,7 +3,7 @@ session_start();
     $path_to_root ='../';
     include $path_to_root.'modules/user-auth/Users.php';
     include $path_to_root.'modules/mailer/sendEmail.php';
-    include $path_to_r/'connection.php';
+    include $path_to_root.'database/connection.php';
 
     //check login request
     $db = new Database();
@@ -22,19 +22,20 @@ session_start();
             }
         }
     }
-    if(isset($_POST['otp'])){
+    if((isset($_POST['otp'])) && isset($_SESSION['otp'])){
         if($_POST['otp_verify'] == $_SESSION['otp']){
             $user->redirectUser($_SESSION['role_id']);
-            unset($_SESSION['otp']);
-
+           
         }
+
     }
     
+   
 
 ?>
 <html >
     <head  >
-    <!-- <link rel="stylesheet" href="<?php echo $path_to_root ?>assets/css/login.css"> -->
+    <link rel="stylesheet" href="<?php echo $path_to_root ?>assets/css/login.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   </head>
 <body class="bg">
@@ -54,10 +55,10 @@ session_start();
                         <div class="tab-content" id="myTabContent">
                         <form method="post" action="">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <p class="register-heading"><?php if($message!= null){echo $message;}else{echo "Enter your Username and Password";}?></p>
+                                <p class="register-heading"><?php if(isset($message)){echo $message;}else{echo "Enter your Username and Password";}?></p>
                                 <div class="row register-form">
                                     <div class="col-md-8">
-                                    <?php if($_SESSION["otp"]==null) 
+                                    <?php if(!isset($_SESSION["otp"])) 
                                         echo '  <div class="form-group">
                                                     <input type="text" class="form-control" name="username" placeholder="User Name *" value="" />
                                                 </div>
@@ -70,7 +71,7 @@ session_start();
                                                 ';
                                             else{
                                         echo '  <div class="form-group">
-                                                     <input type="password" class="form-control" name="otp_verify" placeholder="Password *" value="" />
+                                                     <input type="password" class="form-control" name="otp_verify" placeholder="otp *" value="" />
                                                 </div> 
                                                 <div class="col-md-8">
                                                      <input type="submit" name="otp" value="Verify"/><br/>

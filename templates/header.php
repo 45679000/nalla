@@ -48,6 +48,107 @@ $path_to_root = "../"
 
 		<!-- Data table css -->
 		<link href="<?=$path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+		<style>
+			* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  left: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content .header {
+  background: red;
+  padding: 16px;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  background-color: #ccc;
+  height: 250px;
+}
+
+.column a {
+  float: none;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.column a:hover {
+  background-color: #ddd;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    height: auto;
+  }
+}
+		</style>
 
     </head>
     <div class="header py-1">
@@ -131,39 +232,147 @@ $path_to_root = "../"
 									<span> DASHBOARD</span>
 								</a>
 							</li>
-							<li class="nav-item with-sub">
-								<a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span>Import Catalogues</span></a>
+							<li class="nav-item with-sub mega-dropdown">
+								<a class="nav-link" href="#"><i class="fa fa-pencil-square-o"></i><span>CATALOGUES</span></a>
 								<div class="sub-item">
-									<ul>
+									<div class="row">
+										<div class="col-lg-12">
+											<label class="section-label">Catalogues</label>
+											<div class="row">
+												<div class="col">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-book"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Auction Order</a>
+														</div>
+													</ul>
+												</div>
+												<div class="col">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-address-card"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Import Closing Catalogue</a>
+														</div>
+													</ul>
+												</div>
+												<div class="col">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-credit-card-alt"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Catalogue Corrections</a>
+														</div>
+											
+													</ul>
+												</div>
+												<div class="col">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Post Catalogue Import</a>
+														</div>										
+													</ul>
+												</div>
+												<div class="col">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-plus"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Add New Lots</a>
+														</div>		
+													</ul>
+												</div>
+												<div class="col">
+													<ul>
+													   <div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-cloud-upload"></i></a>
+															<a href="<? echo $path_to_root?>layouts/valuation.php">Import Valuations</a>
+														</div>
+													</ul>
+												</div>
+												<div class="col">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-list"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">View Valuations</a>
+														</div>	
+													</ul>
+												</div>
+												<div class="col-lg">
+													<ul>
+													   <div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-columns"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Valuation Corrections</a>
+														</div>
+													</ul>
+												</div><!-- col -->
+												<div class="col-lg mg-t-30 mg-lg-t-0">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-times"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Remove Catalogue</a>
+														</div>
+													
+													</ul>
+												</div><!-- col -->
+												<div class="col-lg mg-t-30 mg-lg-t-0">
+													<ul>
+													    <div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Fresh Samples</a>
+														</div>
+													</ul>
+												</div><!-- col -->
+												<div class="col-lg mg-t-30 mg-lg-t-0">
+													<ul>
+														<div class="text-center">
+															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
+															<a href="<? echo $path_to_root?>layouts/closing_import.php">Fresh Brokers</a>
+														</div>
+													</ul>
+												</div><!-- col -->
 
-										<li>
-											<a href="<? echo $path_to_root?>layouts/closing_import.php">Import Closing Catalogue</a>
-										</li>
-										<li>
-											<a href="closing_catalog_import.php">Import ITTS Catalogue</a>
-										</li>
-                                        <li>
-											<a href="closing_catalog_import.php">Import Valuation Catalogue</a>
-										</li>
-										
-										
-									</ul>
+											</div><!-- row -->
+										</div><!-- col -->
+									</div><!-- row -->
 								</div>
 								<!-- dropdown-menu -->
 							</li>
 
+
+							<li class="nav-item with-sub">
+								<a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span>Testing Grading</span></a>
+								<!-- dropdown-menu -->
+							</li>
+							<li class="nav-item with-sub">
+								<a class="nav-link" href="#"><i class="fa fa-spinner"></i> <span>Auction Process</span></a>
+								<!-- dropdown-menu -->
+							</li>
+
 							<li class="nav-item">
-								<a class="nav-link" href="#"><i class="fa fa-database"></i> <span>STOCK</span></a>	
+								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock.php"><i class="fa fa-database"></i> <span>Stocks</span></a>	
 							<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#"><i class="fa fa-pencil-square-o"></i><span>FINANCE</span></a>
-								
+								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock.php"><i class="fa fa-trademark"></i> <span>Tea Board</span></a>	
+							<!-- dropdown-menu -->
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#"><i class="fa fa-money"></i><span>Finance</span></a>
 								<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#"><i class="fa fa-cogs"></i><span>Sytem Configurations</span></a>
-							
+								<a class="nav-link" href="#"><i class="fa fa-money"></i><span>Trading</span></a>
+								<!-- dropdown-menu -->
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#"><i class="fa fa-wrench"></i><span>Logistics</span></a>
+								<!-- dropdown-menu -->
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#"><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
+								<!-- dropdown-menu -->
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#"><i class="fa fa-cogs"></i><span>Setup</span></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-file-text-o"></i> <span>Reports</span></a>

@@ -37,10 +37,10 @@ if(!empty($_FILES)){
     <div class="my-3 my-md-5">
         <div class="container">
             <div class="page-header">
-                <h4 class="page-title">Catalogue Import</h4>
+                <h4 class="page-title">Valuation Catalogue Import</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Catalogue Import</li>
+                    <li class="breadcrumb-item active" aria-current="page">Valuation Import</li>
                 </ol>
             </div>
 
@@ -48,7 +48,7 @@ if(!empty($_FILES)){
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Closing Catalogue Import</div>
+                            <div class="card-title">Valuation Catalogue Import</div>
                         </div>
                         <?php if(empty($imports))  
                         echo '<div class="card-body p-6">
@@ -59,8 +59,6 @@ if(!empty($_FILES)){
                                             <ul>
                                                 <li><a href="#step1" data-toggle="tab">STEP 1</a></li>
                                                 <li><a href="#step2" data-toggle="tab">STEP 2</a></li>
-                                                <li><a href="#step3" data-toggle="tab">STEP 3</a></li>
-
                                             </ul>
                                         </div>
 
@@ -109,29 +107,6 @@ if(!empty($_FILES)){
                                                     </div>
                                             </div>
                                             <div class="tab-pane" id="step2">
-                                                <h4 class="info-text"> Is the Opening Catalogue Split ? </h4>
-                                                <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                                <input type="checkbox" name="no" value="no">
-                                                                <div class="icon">
-                                                                    <i class="fa fa-pencil"></i>
-                                                                </div>
-                                                                <h6>No</h6>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="choice" data-toggle="wizard-checkbox">
-                                                                <input type="checkbox" name="yes" value="yes">
-                                                                <div class="icon">
-                                                                    <i class="fa fa-terminal"></i>
-                                                                </div>
-                                                                <h6>Yes</h6>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="step3">
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <h4 class="info-text"> Select Catalogue </h4>

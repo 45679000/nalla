@@ -1,4 +1,5 @@
 <?php
+session_start();
 $path_to_root = "../";
 $path_to_root1 = "../";
 
@@ -11,14 +12,16 @@ $imported = false;
 $db = new Database();
 $conn = $db->getConnection();
 $catalogue = new Catalogue($conn);
-if(!empty($_FILES)){
+if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
    
     $catalogue->inputFileName = $_FILES['excel']['tmp_name'];
     $catalogue->saleno = $_POST['saleno'];
     $catalogue->broker = $_POST['broker'];
+    $catalogue->user_id = $_SESSION["user_id"];
+    $catalogue->is_split = $_POST["split"];
+
     $imported = $catalogue->importClosingCatalogue();
 }
-    $catalogue->updateSale();
     $imports = $catalogue->readImportSummaries();
 
     $mainlots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];
@@ -30,26 +33,31 @@ if(!empty($_FILES)){
     $secpkgs = $catalogue->summaryTotal("pkgs", "sec")['total'];
 
     if(isset($_POST['confirm'])){
-        $catalogue->confirmCatalogue();
+        $confirmed = $catalogue->postCatalogueProcess();
+        if($confirmed == true){
+            echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
+        }
     }
 
 ?>
     <div class="my-3 my-md-5">
         <div class="container">
             <div class="page-header">
-                <h4 class="page-title">Valuation Catalogue Import</h4>
+                <h4 class="page-title">Valuation Upload</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Valuation Import</li>
+                    <li class="breadcrumb-item active" aria-current="page">Valuation Upload</li>
                 </ol>
             </div>
+            <div id="global-loader" ></div>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Valuation Catalogue Import</div>
+                            <div class="card-title">Valuation Catalogue Upload</div>
                         </div>
+
                         <?php if(empty($imports))  
                         echo '<div class="card-body p-6">
                             <div class="wizard-container">
@@ -59,6 +67,8 @@ if(!empty($_FILES)){
                                             <ul>
                                                 <li><a href="#step1" data-toggle="tab">STEP 1</a></li>
                                                 <li><a href="#step2" data-toggle="tab">STEP 2</a></li>
+                                                <li><a href="#step3" data-toggle="tab">STEP 3</a></li>
+
                                             </ul>
                                         </div>
 
@@ -79,9 +89,9 @@ if(!empty($_FILES)){
                                                                     <option value="2021-07"> 2021-07 </option>
                                                                     <option value="2021-08"> 2021-08 </option>
                                                                     <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
+                                                                    <option value="2021-10"> 2021-10 </option>
+                                                                    <option value="2021-11"> 2021-11 </option>
+                                                                    <option value="2021-12"> 2021-12 </option>
 
                                                                 </select>
                                                             </div>
@@ -107,6 +117,29 @@ if(!empty($_FILES)){
                                                     </div>
                                             </div>
                                             <div class="tab-pane" id="step2">
+                                                <h4 class="info-text"> Is the Opening Catalogue Split ? </h4>
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                                <input type="checkbox" name="split" value="false">
+                                                                <div class="icon">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </div>
+                                                                <h6>No</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                                <input type="checkbox" name="split" value="true">
+                                                                <div class="icon">
+                                                                    <i class="fa fa-terminal"></i>
+                                                                </div>
+                                                                <h6>Yes</h6>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="step3">
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <h4 class="info-text"> Select Catalogue </h4>
@@ -196,7 +229,7 @@ if(!empty($_FILES)){
 											</div>
                                         </div>
                                         <form action="" method="post">
-                                            <button type="submit" id="confirm" name="confirm" class="btn btn-success btn-sm">Confirm To Stock</button>
+                                            <button type="submit" id="confirm" name="confirm" class="btn btn-success btn-sm">Confirm Import</button>
                                         </form>
 									</div>
 								</div>
@@ -219,6 +252,9 @@ if(!empty($_FILES)){
                                                 <th class="wd-25p">Gross</th>
                                                 <th class="wd-25p">Kgs</th>
                                                 <th class="wd-25p">Tare</th>
+                                                <th class="wd-25p">Value</th>
+                                                <th class="wd-25p">Sale Price</th>
+                                                <th class="wd-25p">Buyer Package</th>
 
 											</tr>
 										</thead>
@@ -238,7 +274,9 @@ if(!empty($_FILES)){
                                                 $html.='<td>'.$import["gross"].'</td>';
                                                 $html.='<td>'.$import["kgs"].'</td>';
                                                 $html.='<td>'.$import["tare"].'</td>';
-
+                                                $html.='<td>'.$import["value"].'</td>';
+                                                $html.='<td>'.$import["sale_price"].'</td>';
+                                                $html.='<td>'.$import["buyer_package"].'</td>';
 											$html.='</tr>';
                                         }
                                 $html.= '</tbody>

@@ -10,7 +10,6 @@ require_once $path_to_root.'templates/header.php';
 				<div class="my-3 my-md-5">
 					<div class="container-fluid">
 						<div class="page-header">
-							<h4 class="page-title">Dashboard</h4>
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -88,7 +87,7 @@ require_once $path_to_root.'templates/header.php';
 											<div class="float-left">
 												<p class="mb-0 text-left">Employees</p>
 												<div class="">
-													<h3 class="font-weight-semibold text-left mb-0">345</h3>
+													<h3 class="font-weight-semibold text-left mb-0">1</h3>
 												</div>
 											</div>
 										</div>
@@ -101,7 +100,7 @@ require_once $path_to_root.'templates/header.php';
 						</div>
 
 						<div class="row row-cards">
-							<div class="col-md-12">
+							<div class="col-md-6" style="height:10% !important;">
 								<div class="card">
 									<div class="card-header">
 										<h3 class="card-title">Company profit</h3>
@@ -113,6 +112,19 @@ require_once $path_to_root.'templates/header.php';
 
 									</div>
 								</div>
+								
+							</div>
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">
+									
+										<h3 class="card-title">Sales By Grades</h3>
+									</div>
+									<div class="card-body">
+										<div id="highchart3" style="height:10% !important"></div>
+									</div>
+								</div>
+								
 							</div>
 							<div class="col-xs-12 col-sm-12 col-lg-12">
 								<div class="card">

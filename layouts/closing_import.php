@@ -1,4 +1,5 @@
 <?php
+session_start();
 $path_to_root = "../";
 $path_to_root1 = "../";
 
@@ -11,26 +12,31 @@ $imported = false;
 $db = new Database();
 $conn = $db->getConnection();
 $catalogue = new Catalogue($conn);
-if(!empty($_FILES)){
+if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
    
     $catalogue->inputFileName = $_FILES['excel']['tmp_name'];
     $catalogue->saleno = $_POST['saleno'];
     $catalogue->broker = $_POST['broker'];
+    $catalogue->user_id = $_SESSION["user_id"];
+    $catalogue->is_split = $_POST["split"];
+
     $imported = $catalogue->importClosingCatalogue();
 }
-    $catalogue->updateSale();
     $imports = $catalogue->readImportSummaries();
 
     $mainlots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];
-    $mainkgs = $catalogue->summaryTotal("kgs", "main")['total'];
+    $mainkgs = $catalogue->summaryTotal("net", "main")['total'];
     $mainpkgs = $catalogue->summaryTotal("pkgs", "main")['total'];
 
     $seclots = $catalogue->summaryCount("closing_cat_import_id", "sec")['count'];
-    $seckgs = $catalogue->summaryTotal("kgs", "sec")['total'];
+    $seckgs = $catalogue->summaryTotal("net", "sec")['total'];
     $secpkgs = $catalogue->summaryTotal("pkgs", "sec")['total'];
 
     if(isset($_POST['confirm'])){
-        $catalogue->confirmCatalogue();
+        $confirmed = $catalogue->confirmCatalogue();
+        if($confirmed == true){
+            echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
+        }
     }
 
 ?>
@@ -43,6 +49,7 @@ if(!empty($_FILES)){
                     <li class="breadcrumb-item active" aria-current="page">Catalogue Import</li>
                 </ol>
             </div>
+            <div id="global-loader" ></div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -50,6 +57,7 @@ if(!empty($_FILES)){
                         <div class="card-header">
                             <div class="card-title">Closing Catalogue Import</div>
                         </div>
+
                         <?php if(empty($imports))  
                         echo '<div class="card-body p-6">
                             <div class="wizard-container">
@@ -81,9 +89,12 @@ if(!empty($_FILES)){
                                                                     <option value="2021-07"> 2021-07 </option>
                                                                     <option value="2021-08"> 2021-08 </option>
                                                                     <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
+                                                                    <option value="2021-10"> 2021-10 </option>
+                                                                    <option value="2021-11"> 2021-11 </option>
+                                                                    <option value="2021-12"> 2021-12 </option>
+                                                                    <option value="2021-13"> 2021-13 </option>
+                                                                    <option value="2021-14"> 2021-14 </option>
+                                                                    <option value="2021-15"> 2021-15 </option>
 
                                                                 </select>
                                                             </div>
@@ -113,7 +124,7 @@ if(!empty($_FILES)){
                                                 <div class="row">
                                                         <div class="col-sm-6">
                                                             <div class="choice" data-toggle="wizard-checkbox">
-                                                                <input type="checkbox" name="no" value="no">
+                                                                <input type="checkbox" name="split" value="false">
                                                                 <div class="icon">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </div>
@@ -122,7 +133,7 @@ if(!empty($_FILES)){
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="choice" data-toggle="wizard-checkbox">
-                                                                <input type="checkbox" name="yes" value="yes">
+                                                                <input type="checkbox" name="split" value="true">
                                                                 <div class="icon">
                                                                     <i class="fa fa-terminal"></i>
                                                                 </div>
@@ -221,7 +232,7 @@ if(!empty($_FILES)){
 											</div>
                                         </div>
                                         <form action="" method="post">
-                                            <button type="submit" id="confirm" name="confirm" class="btn btn-success btn-sm">Confirm To Stock</button>
+                                            <button type="submit" id="confirm" name="confirm" class="btn btn-success btn-sm">Process Import</button>
                                         </form>
 									</div>
 								</div>

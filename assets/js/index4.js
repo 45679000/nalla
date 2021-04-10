@@ -10,14 +10,14 @@
             labels: [ "January", "February", "March", "April", "May", "June", "July" ],
             datasets: [
                 {
-                    label: "My First dataset",
+                    label: "This Year",
                     borderColor: "rgba(29, 193, 157, .9)",
                     borderWidth: "1",
                     backgroundColor: "rgb(29, 193, 157,0.3)",
                     data: [ 22, 44, 67, 43, 76, 45, 12 ]
                             },
                 {
-                    label: "My Second dataset",
+                    label: "Last Year",
                     borderColor: "rgba(23, 47, 113, 0.9)",
                     borderWidth: "1",
                     backgroundColor: "rgba(23, 47, 113, 0.5)",

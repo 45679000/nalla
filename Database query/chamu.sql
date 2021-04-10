@@ -25,6 +25,7 @@ CREATE TABLE closing_cat_import(
     closing_cat_import_id           integer primary key AUTO_INCREMENT,
     sale_no                         varchar(120),
     comment                         varchar(120),
+    category                        varchar(100),
     empty_col1                      varchar(120),
     ware_hse                        varchar(120),
     entry_no                        varchar(120),
@@ -77,4 +78,15 @@ CREATE TABLE closing_cat(
     import_date                     timestamp default current_timestamp,
     imported                        boolean default false,
     imported_by                     integer
-);						
+);	
+
+CREATE TABLE auctions(
+	id                              serial primary key,
+    position                        integer,
+    auction_id                      varchar(10),
+    created_by                      integer REFERENCES users,
+    created_on                      timestamp,
+	is_deleted                      boolean default false,
+    updated_on                      timestamp
+    
+);

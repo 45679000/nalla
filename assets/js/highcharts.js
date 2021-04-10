@@ -170,19 +170,18 @@ $(function(e){
 		},
 		series: [{
 			type: 'pie',
-			name: 'Browser share',
+			name: 'Grades In Stock',
 			data: [
-				['Firefox', 40.0],
-				['IE', 20.8],
+				['BP1', 40.0],
+				['PF1', 20.8],
 				{
-					name: 'Chrome',
+					name: 'FNGS1',
 					y: 18.8,
 					sliced: true,
 					selected: true
 				},
-				['Safari', 12.5],
-				['Opera', 6.2],
-				['Others', 2]
+				['DUST', 12.5]
+				
 			],
 			colors: ['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
 		}]

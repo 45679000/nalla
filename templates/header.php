@@ -48,8 +48,11 @@ $path_to_root = "../"
 
 		<!-- Data table css -->
 		<link href="<?=$path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+		<!-- select2 Plugin -->
+		<link href="<?=$path_to_root ?>assets/plugins/select2/select2.min.css" rel="stylesheet" />
 		<style>
-			* {
+* {
   box-sizing: border-box;
 }
 
@@ -257,7 +260,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-book"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Auction Order</a>
+															<a href="<? echo $path_to_root?>layouts/auction_order.php">Auction Order</a>
 														</div>
 													</ul>
 												</div>
@@ -273,7 +276,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-credit-card-alt"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Catalogue Corrections</a>
+															<a href="<? echo $path_to_root?>layouts/catalogue_correction.php">Catalogue Corrections</a>
 														</div>
 											
 													</ul>
@@ -282,7 +285,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Post Catalogue Import</a>
+															<a href="<? echo $path_to_root?>layouts/post_import.php">Post Catalogue Import</a>
 														</div>										
 													</ul>
 												</div>
@@ -290,7 +293,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-plus"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Add New Lots</a>
+															<a href="<? echo $path_to_root?>layouts/add_lot.php">Add New Lots</a>
 														</div>		
 													</ul>
 												</div>
@@ -306,7 +309,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-list"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">View Valuations</a>
+															<a href="<? echo $path_to_root?>layouts/view_valuations.php">View Valuations</a>
 														</div>	
 													</ul>
 												</div>
@@ -322,7 +325,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-times"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Remove Catalogue</a>
+															<a href="<? echo $path_to_root?>layouts/remove_catalogue.php">Remove Catalogue</a>
 														</div>
 													
 													</ul>
@@ -331,7 +334,7 @@ body {
 													<ul>
 													    <div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Fresh Samples</a>
+															<a href="<? echo $path_to_root?>reports/broker_catalogue.php">Broker Catalogue</a>
 														</div>
 													</ul>
 												</div><!-- col -->
@@ -353,7 +356,7 @@ body {
 
 
 							<li class="nav-item with-sub">
-								<a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span>Testing Grading</span></a>
+								<a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
 								<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item with-sub">
@@ -389,7 +392,7 @@ body {
 								<a class="nav-link" href="#"><i class="fa fa-cogs"></i><span>Setup</span></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-file-text-o"></i> <span>Reports</span></a>
+								<a class="nav-link"  href="<? echo $path_to_root?>reports/index.php"><i class="fa fa-file-text-o"></i> <span>Reports</span></a>
 								<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">

@@ -3,7 +3,7 @@ class Model{
     public $query;
     public $conn;
     public $tablename;
-    public $data = array();
+    public $data;
     public $conditions = array();
     public $parameters = array();
     public $limit;
@@ -12,11 +12,20 @@ class Model{
     }
 
     public function insertQuery(){
-        $columnString = implode(',', array_keys($data));
-        $valueString = implode(',', array_fill(0, count($data), '?'));
-
-        $stmt = $this->conn->prepare("INSERT INTO ".$this->$tablename." ({$columnString}) VALUES ({$valueString})");
-        $stmt->execute(array_values($data));
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        unset($this->data['save']);
+        $columnString = implode(',', array_keys($this->data));
+        $valueString = implode(',', array_fill(0, count($this->data), '?'));
+        try {
+            $stmt = $this->conn->prepare("INSERT INTO ".$this->tablename." ({$columnString}) VALUES ({$valueString})");
+            $stmt->execute(array_values($this->data));
+            return $this->conn->lastInsertId();
+        } catch (Exception $ex) {
+            echo $ex;
+        }
+      
+    
     }
     public function selectQuery(){
         $sql = $this->query;
@@ -30,18 +39,23 @@ class Model{
         $data = $stmt->fetchAll();
         return $data;
     }
-    public function selectOne($id){
-        $row = $this->conn->query("SELECT * FROM ".$this->tablename." WHERE id = ?");
-        $stmt->execute([$id]); 
-        $row = $stmt->fetch();;
-        return $row;
+    public function selectOne($id, $id_name){
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        try {
+            $row = $this->conn->query("SELECT * FROM ".$this->tablename." WHERE ".$id_name." =".$id)->fetch();
+            return $row;
+        } catch (Exception $ex) {
+            var_dump($ex);
+        }
+     
     }
     public function selectMany(){
         $rows = $pdo->query("SELECT * FROM ".$this->tablename)->fetchAll();
         return $rows;
     }
     public function executeQuery(){
-        $rows = $pdo->query($this->query)->fetchAll();
+        $rows = $this->conn->query($this->query)->fetchAll();
         return $rows;
     }
 

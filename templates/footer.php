@@ -36,5 +36,23 @@ $path_to_root = "../"
 <!-- counter  -->
 <script src="<?=$path_to_root ?>assets/plugins/counters/counterup.min.js"></script>
 <script src="<?=$path_to_root ?>assets/plugins/counters/waypoints.min.js"></script>
+
+<!-- Charts Plugin -->
+<script src="<?=$path_to_root ?>assets/plugins/chart/Chart.bundle.js"></script>
+<script src="<?=$path_to_root ?>assets/plugins/chart/utils.js"></script>
+
+	<!-- Charts Plugin -->
+<script src="<?=$path_to_root ?>assets/plugins/highcharts/highcharts.js"></script>
+<script src="<?=$path_to_root ?>assets/plugins/highcharts/highcharts-3d.js"></script>
+<script src="<?=$path_to_root ?>assets/plugins/highcharts/exporting.js"></script>
+<script src="<?=$path_to_root ?>assets/plugins/highcharts/export-data.js"></script>
+<script src="<?=$path_to_root ?>assets/plugins/highcharts/histogram-bellcurve.js"></script>
+<script src="<?=$path_to_root ?>assets/plugins/highcharts/solid-gauge.js"></script>
+
+<!-- Index Scripts -->
+<script src="<?=$path_to_root ?>assets/js/highcharts.js"></script>
+
 <!-- Custom Js-->
 <script src="<?=$path_to_root ?>assets/js/custom.js"></script>
+<script src="<?=$path_to_root ?>assets/js/index4.js"></script>
+

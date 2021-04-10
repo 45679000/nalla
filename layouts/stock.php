@@ -19,10 +19,10 @@ if(isset($_POST['saleno']) && isset($_POST['broker'])){
     <div class="my-3 my-md-12">
         <div class="container">
             <div class="page-header">
-                <h4 class="page-title">Stock</h4>
+                <h4 class="page-title">Purchase List</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Stock</li>
+                    <li class="breadcrumb-item active" aria-current="page">Purchase List</li>
                 </ol>
             </div>
 
@@ -30,7 +30,7 @@ if(isset($_POST['saleno']) && isset($_POST['broker'])){
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">In Stock</div>
+                            <div class="card-title">Purchase List</div>
                         </div>
                         <?php if(empty($stocks))  
                         echo '<div class="card-body p-6">
@@ -51,10 +51,9 @@ if(isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                     <option value="2021-07"> 2021-07 </option>
                                                                     <option value="2021-08"> 2021-08 </option>
                                                                     <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-
+                                                                    <option value="2021-10"> 2021-10 </option>
+                                                                    <option value="2021-11"> 2021-11 </option>
+                                                                    <option value="2021-12"> 2021-12 </option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -81,7 +80,7 @@ if(isset($_POST['saleno']) && isset($_POST['broker'])){
                                         </div>
                                         <div class="wizard-footer">
                                             <div class="text-center">
-                                                <input type="submit" class="btn btn-finish btn-fill btn-success btn-sm" name="filter" value="Get Stock" />
+                                                <input type="submit" class="btn btn-finish btn-fill btn-success btn-sm" name="filter" value="Retrieve" />
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>

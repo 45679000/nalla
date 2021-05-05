@@ -355,17 +355,13 @@ body {
 							</li>
 
 
-							<li class="nav-item with-sub">
-								<a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
-								<!-- dropdown-menu -->
-							</li>
-							<li class="nav-item with-sub">
-								<a class="nav-link" href="#"><i class="fa fa-spinner"></i> <span>Auction Process</span></a>
+							<li class="nav-item">
+								<a class="nav-link" href="<? echo $path_to_root?>layouts/tasting_grading.php"><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
 								<!-- dropdown-menu -->
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock.php"><i class="fa fa-database"></i> <span>Stocks</span></a>	
+								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock_index.php"><i class="fa fa-database"></i> <span>Stocks</span></a>	
 							<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">

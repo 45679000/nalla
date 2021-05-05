@@ -14,6 +14,20 @@
             $rows = $stmt->fetchAll();
             return $rows;
         }
+        public function readAllStock(){
+            $query = "SELECT * FROM `closing_cat` WHERE buyer_package = 'CSS'";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+            return $rows;
+        }
+        public function parking(){
+            $query = "SELECT * FROM `parking`";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+            return $rows;
+        }
         
     }
 

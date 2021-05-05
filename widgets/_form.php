@@ -14,18 +14,23 @@ class Form{
      public function endForm(){
         print '</form>';
      }
-     public function formField($fieldType, $name, $placeholder = "", $lableName, $dataSourse = []){
+     public function formField($fieldType, $name, $placeholder = "", $lableName, $dataSourse = [], $fieldvalue=""){
         if($fieldType=="text"){
          print '<div class="form-group">';
          print '<label class="form-label">'.$lableName.'</label>';
-         print '<input type="'.$fieldType.'" class="form-control" name="'.$name.'" placeholder="'.$placeholder.'">';
+         print '<input type="'.$fieldType.'" class="form-control" name="'.$name.'" value="'.$fieldvalue.'">';
          print '</div>';
-
+        }
+        if($fieldType=="text-area"){
+         print '<div class="form-group">';
+         print '<label class="form-label">'.$lableName.'</label>';
+         print '<textarea  type="'.$fieldType.'" class="form-control" rows="4" cols="5" name="'.$name.'" value="'.$fieldvalue.'"></textarea>';
+         print '</div>';
         }
          if($fieldType=="dropdownlist"){
          print '<div class="form-group">';
          print '<label class="form-label">'.$lableName.'</label>';
-         print '<select class="form-control select2-show-search" data-placeholder="Select)">';
+         print '<select name = '.$name.' class="form-control  select2-show-search" data-placeholder="Select)">';
          print '<label class="form-label"> Select2 with search box</label>';
          foreach($dataSourse as $key => $value){
           print '<option value="'.$key.'">'.$value.'</option>';
@@ -36,13 +41,11 @@ class Form{
 
         }
      }
-     public function addButtons(){
+     public function addButtons($name="save"){
       print '<div class="text-wrap mt-6">
                <div class="example">
                   <div class="btn-list text-center">
-                     <button type="submit" name="save" class="btn btn-success">Save changes</button>
-                     <button type="submit" class="btn btn-secondary">Save and continue</button>
-                     <button type="submit" class="btn btn-danger">Cancel</button>
+                     <button type="submit" name='.$name.' class="btn btn-success">Save changes</button>
                   </div>
                </div>
             </div>';

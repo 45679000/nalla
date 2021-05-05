@@ -14,7 +14,6 @@ class Model{
     public function insertQuery(){
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        unset($this->data['save']);
         $columnString = implode(',', array_keys($this->data));
         $valueString = implode(',', array_fill(0, count($this->data), '?'));
         try {
@@ -51,7 +50,7 @@ class Model{
      
     }
     public function selectMany(){
-        $rows = $pdo->query("SELECT * FROM ".$this->tablename)->fetchAll();
+        $rows = $this->conn->query("SELECT * FROM ".$this->tablename)->fetchAll();
         return $rows;
     }
     public function executeQuery(){

@@ -360,7 +360,7 @@ output {
 	line-height: 1.42857;
 }
 .wizard-container .form-control {
-	height: 36px;
+	/* height: 36px; */
 	padding: 7px 0;
 	font-size: 14px;
 	line-height: 1.42857;
@@ -503,7 +503,7 @@ output {
 	background-color: #e91e63;
 }
 .wizard-container .form-control,.wizard-container  .form-group .form-control {
-	border: 0;
+	border: 1;
 	background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#D2D2D2, #D2D2D2);
 	background-size: 0 2px, 100% 1px;
 	background-repeat: no-repeat;
@@ -511,7 +511,7 @@ output {
 	background-color: transparent;
 	transition: background 0s ease-out;
 	float: none;
-	box-shadow: none;
+	box-shadow: 3px;
 	border-radius: 0;
 	font-weight: 400;
 }
@@ -580,15 +580,15 @@ output {
 .form-group.has-info label.control-label, .form-group.has-info .help-block {
 	color: #00bcd4;
 }
-.form-group textarea {
+/* .form-group textarea {
 	resize: none;
-}
-.form-group textarea~.form-control-highlight {
+} */
+/* .form-group textarea~.form-control-highlight {
 	margin-top: -11px;
-}
-.form-group select {
+} */
+/* .form-group select {
 	appearance: none;
-}
+} */
 .form-group select~.material-input:after {
 	display: none;
 }
@@ -616,7 +616,7 @@ output {
 .checkbox label, .radio label, label {
 	font-size: 14px;
 	line-height: 1.42857;
-	color: #5e7cac;
+	color: #111111;
 	font-weight: 400;
 }
 label.control-label {

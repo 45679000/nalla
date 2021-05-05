@@ -4,7 +4,7 @@
                         <div class="col-md-12">
                             <div class="expanel expanel-secondary">
                                 <?php
-                                $html ='<div class="expanel-heading">
+                                echo '<div class="expanel-heading">
                                                 <h3 class="expanel-title">Filter Catalogue</h3>
                                             </div>
                                             <div class="expanel-body">
@@ -63,65 +63,68 @@
                                                 </form>
                                             
                                             </div>
-                           <div class="card-body">
-                                <div class="table-responsive">
-									<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
-										<thead>
-											<tr>
-												<th class="wd-15p">Lot No</th>
-												<th class="wd-15p">Ware Hse.</th>
-												<th class="wd-20p">Company</th>
-												<th class="wd-15p">Mark</th>
-												<th class="wd-10p">Grade</th>
-                                                <th class="wd-25p">Invoice</th>
-                                                <th class="wd-25p">Pkgs</th>
-												<th class="wd-25p">Type</th>
-												<th class="wd-25p">Net</th>
-                                                <th class="wd-25p">Gross</th>
-                                                <th class="wd-25p">Kgs</th>
-                                                <th class="wd-25p">Tare</th>
-                                                <th class="wd-25p">Value</th>
+                                            <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table id="tasting" class="table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="wd-15p">Lot No</th>
+                                                            <th class="wd-15p">Ware Hse.</th>
+                                                            <th class="wd-20p">Company</th>
+                                                            <th class="wd-15p">Mark</th>
+                                                            <th class="wd-10p">Grade</th>
+                                                            <th class="wd-25p">Invoice</th>
+                                                            <th class="wd-25p">Pkgs</th>
+                                                            <th class="wd-25p">Type</th>
+                                                            <th class="wd-25p">Net</th>
+                                                            <th class="wd-25p">Gross</th>
+                                                            <th class="wd-25p">Kgs</th>
+                                                            <th class="wd-25p">Value</th>
+                                                            <th class="wd-25p">Offer</th>
+                                                            <th class="wd-25p">Comment</th>
+                                                            <th class="wd-25p">Standard</th>
+            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>';
+                                                    $html ="";
+                                                    foreach ($imports as $import){
+                                                        $html.='<tr>';
+                                                            $html.='<td>'.$import["lot"].'</td>';
+                                                            $html.='<td>'.$import["ware_hse"].'</td>';
+                                                            $html.='<td>'.$import["company"].'</td>';
+                                                            $html.='<td>'.$import["mark"].'</td>';
+                                                            $html.='<td>'.$import["grade"].'</td>';
+                                                            $html.='<td>'.$import["invoice"].'</td>';
+                                                            $html.='<td>'.$import["pkgs"].'</td>';
+                                                            $html.='<td>'.$import["type"].'</td>';
+                                                            $html.='<td>'.$import["net"].'</td>';
+                                                            $html.='<td>'.$import["gross"].'</td>';
+                                                            $html.='<td>'.$import["tare"].'</td>';
+                                                            $html.='<td>'.$import["value"].'</td>';
+                                                            if($import["allocated"]==0){
+                                                                $html.='<td><input type="checkbox" id="unallocated" name="allocated" value="0"></td>';
+                                                            }else{
+                                                                $html.='<td><input type="checkbox" id="allocated" name="allocated" value="1" checked></td>';
+                                                            }
+                                                            $html.='<td>'.$import["comment"].'</td>';
+                                                            $html.='<td>'.$import["standard"].'</td>';
+                                                        $html.='</tr>';
+                                                    }
+                                            $html.= '</tbody>
+                                                </table>
+                                            </div>
+                                        </div>';
+                                        echo $html;
+                                ?>
+                            </div>
+                        </div>
 
-											</tr>
-										</thead>
-                                        <tbody>';
-                                        foreach ($stocks as $stock){
-                                            $html.='<tr>';
-                                                $html.='<td>'.$stock["lot"].'</td>';
-                                                $html.='<td>'.$stock["ware_hse"].'</td>';
-                                                $html.='<td>'.$stock["company"].'</td>';
-                                                $html.='<td>'.$stock["mark"].'</td>';
-                                                $html.='<td>'.$stock["grade"].'</td>';
-                                                $html.='<td>'.$stock["invoice"].'</td>';
-                                                $html.='<td>'.$stock["pkgs"].'</td>';
-                                                $html.='<td>'.$stock["type"].'</td>';
-                                                $html.='<td>'.$stock["net"].'</td>';
-                                                $html.='<td>'.$stock["gross"].'</td>';
-                                                $html.='<td>'.$stock["kgs"].'</td>';
-                                                $html.='<td>'.$stock["tare"].'</td>';
-                                                $html.='<td>'.$stock["value"].'</td>';
-
-											$html.='</tr>';
-                                        }
-                                $html.= '</tbody>
-                                    </table>
-                                </div>
-                            </div>';
-                            echo $html;
-                    
-                        ?>
-                        
                     </div>
                 </div>
             </div>
 
-
-        </div>
-    </div>
-</div>
-</body>
-
-<!-- Dashboard js -->
+            <!-- Dashboard js -->
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
@@ -133,7 +136,7 @@
 <script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
 <script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
 <script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
-<!-- file stock -->
+<!-- file import -->
 <script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
 <!-- Custom scroll bar Js-->
 <script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -147,29 +150,69 @@
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
+<script>
+    $(function(e) {
+        $('#tasting').DataTable();
+    });
+</script>
 
-<script type="text/javascript">
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop a file here or click',
-                    'replace': 'Drag and drop or click to replace',
-                    'remove': 'Remove',
-                    'error': 'Ooops, something wrong appended.'
-                },
-                error: {
-                    'fileSize': 'The file size is too big (2M max).'
-                }
-            });
-        </script>
-        <script>
-			$('.counter').countUp();
-		</script>
-        <!-- Data table js -->
-		<script>
-			$(function(e) {
-				$('#closingstocks').DataTable();
-			} );
-		</script>
-       
-</html>
+<script>
+var SubmitData = new Object();
+var Comment = [],
+    Standard = [],
+    table = $('#tasting').DataTable({
+        columnDefs: [{
+            targets: [0],
+            "className": "pk",
+            visible: true
+        },
+    ],
+    
+    });
 
+
+$('#tasting tbody').on('click', '#unallocated', function() {
+        var thisCell = table.cell(this);
+        SubmitData.lot = $(this).parents('tr').find("td:eq(0)").text();
+        SubmitData.check = 1;
+        console.log(SubmitData);
+        postData(SubmitData, "");
+
+});
+$('#tasting tbody').on('click', '#allocated', function() {
+        var thisCell = table.cell(this);
+        SubmitData.lot = $(this).parents('tr').find("td:eq(0)").text();
+        SubmitData.check = 0;
+        console.log(SubmitData);
+        postData(SubmitData, "");
+
+});
+
+
+function postData(formData, PostUrl) {
+          $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: PostUrl,
+                data: formData,
+            success: function (data) {
+                console.log('Submission was successful.');
+                // location.reload();
+                console.log(data);
+                return data;
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+        });
+
+
+}
+
+</script>
+<script>
+    $(function(e) {
+        $('#tasting').DataTable();
+    });
+</script>

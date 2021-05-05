@@ -1,7 +1,7 @@
 <?php
   
 class Grid{
-    public $titles=array();
+    public $titles=array("Test1"=>"Test1", "Test2"=>"Test2");
     public $fields=array();
 
      public function _grid_start($title, $buttonid){
@@ -33,10 +33,10 @@ class Grid{
 								<label for="selectAll"></label>
 							</span>
 						</th>';
-                        foreach($titles as $title){
+                        foreach($this->titles as $title){
                             print '<th>'.$title.'</th>';
                         }
-					'</tr>
+					print '</tr>
 				</thead>
 				<tbody>
 					<tr>

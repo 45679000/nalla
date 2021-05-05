@@ -163,78 +163,7 @@ $html.="
     echo '</pre>';
     
 
-    // $html = "<html>
-//     <style>
-//         table {
-//         font-family: arial, sans-serif;
-//         border-collapse: collapse;
-//         width: 100%;
-//         }
-
-//         td, th {
-//         border: 0px solid #dddddd;
-//         text-align: left;
-//         padding: 8px;
-//         }
-
-//         tr:nth-child(even) {
-//         background-color: #dddddd;
-//         }
-//         </style>
-//     ";
-//     $html .="
-
-
-//     <hr>
-//     <table>
-//     <tr>
-//       <th>Value</th>
-//       <th><pre>Max
-//        Low</pre></th>
-//       <th>LotNo</th>
-//       <th>Grade  Garden</th>
-//       <th>Inv.</th>
-//       <th>Pkgs  TP</th>
-//       <th>Kilos</th>
-//       <th>NW</th>
-//       <th>RP</th>
-//       <th>Comment</th>
-//       <th>Standard</th>
-//       <th>Sale Price</th>
-//       <th>Buyer</th>
-//     </tr>
-//     </table>
-
-//     <table>
-//     ";
-//     foreach ($data as $data){
-//         // foreach($data['records'] as $record){
-//         // //     $html.='<hr>
-//         // // <tr> <h3 style="text-align:center">'.$record['mark'].'</h3> </tr>
-//         // // <hr>';
-            // $html.="<tr>";
-            // $html.="<td>"."max|172".  "low|170"."</td>";
-            // $html.="<td>".$record['lot']."</td>";
-            // $html.="<td>".$record['grade']." ".$record['mark']."</td>";
-            // // $html.="<td>".$record['invoice']."</td>";
-            // $html.="<td>".$record['pkgs']."</td>";
-            // // $html.="<td>".$record['type']."</td>";
-            // // $html.="<td>".$record['kgs']."</td>";
-            // $html.="<td>70</td>";
-            // $html.="<td>".$record['rp']."</td>";
-            // $html.="<td>".$record['comment']."</td>";
-            // $html.="<td></td>";
-            // $html.="<td>".$record['sale_price']."</td>";
-            // // $html.="<td>".$record['buyer_package']."</td>";
-            // $html.="</tr>";
-        // }
-        
-
-//     }
-//   $html .= "
-//   </table>
-//   </html>";
-
+   
  echo $html;
 
     

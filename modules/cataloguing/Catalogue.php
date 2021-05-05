@@ -226,6 +226,22 @@
             
         
         }
+
+        public function privatePurchases(){
+            try {
+                $this->query = "SELECT * FROM closing_cat WHERE sale_no like '%P%'";
+                return $this->executeQuery();
+            } catch (EXCEPTION $ex) {
+                var_dump($ex);
+            }
+
+        }
+        public function addParking($data, $tablename){
+            $this->data = $data;
+            $this->tablename = $tablename;
+            $id = $this->insertQuery();
+            return $this->selectOne($id, "id");
+        }
         
     }
 

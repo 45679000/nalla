@@ -361,7 +361,7 @@ body {
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock_index.php"><i class="fa fa-database"></i> <span>Stocks</span></a>	
+								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock_index.php?view=purchase-list"><i class="fa fa-database"></i> <span>Stocks</span></a>	
 							<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">
@@ -369,24 +369,21 @@ body {
 							<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#"><i class="fa fa-money"></i><span>Finance</span></a>
+								<a class="nav-link" href="<? echo $path_to_root?>layouts/finance.php"><i class="fa fa-money"></i><span>Finance</span></a>
 								<!-- dropdown-menu -->
 							</li>
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<a class="nav-link" href="#"><i class="fa fa-money"></i><span>Trading</span></a>
-								<!-- dropdown-menu -->
-							</li>
-							<li class="nav-item">
+							</li> -->
+							<!-- <li class="nav-item">
 								<a class="nav-link" href="#"><i class="fa fa-wrench"></i><span>Logistics</span></a>
-								<!-- dropdown-menu -->
-							</li>
+							</li> -->
 							<li class="nav-item">
-								<a class="nav-link" href="#"><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
-								<!-- dropdown-menu -->
+								<a class="nav-link" href="<? echo $path_to_root?>layouts/warehousing.php?view=warehouses"><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
 							</li>
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<a class="nav-link" href="#"><i class="fa fa-cogs"></i><span>Setup</span></a>
-							</li>
+							</li> -->
 							<li class="nav-item">
 								<a class="nav-link"  href="<? echo $path_to_root?>reports/index.php"><i class="fa fa-file-text-o"></i> <span>Reports</span></a>
 								<!-- dropdown-menu -->

@@ -6,6 +6,11 @@ Class ShippingController extends Model{
         $id = $this->insertQuery();
         return $this->selectOne($id, "instruction_id");
     }
+
+    public function getShippingInstructions(){
+        $this->query = "SELECT *FROM shipping_instructions LIMIT 1";
+        return $this->executeQuery();
+    }
         
 }
 

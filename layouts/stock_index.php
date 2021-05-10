@@ -27,15 +27,20 @@ $parking = $stock->parking();
 
 $form = new Form();
 $catalogue = new Catalogue($conn);
+
+$lots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];
+$kgs = $catalogue->summaryTotal("net", "main")['total'];
+$pkgs = $catalogue->summaryTotal("pkgs", "main")['total'];
+
 $prvt = $catalogue->privatePurchases();
 $formValue = array();
+$controller = new ShippingController($conn);
 if(isset($_POST['step1'])){
-    $controller = new ShippingController($conn);
     unset($_POST['step1']);
-    unset($_POST['scart_length']);
-    unset($_POST['allocated']);
     $formValue = $controller->saveSI($_POST, 1);
+
 }
+$shippingI = $controller->getShippingInstructions();
 // if(isset($_POST['packing'])){
 //     if(!empty($_POST)){
 //         $_SESSION['packing-materials'][] = $_POST;        

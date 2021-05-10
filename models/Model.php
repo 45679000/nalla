@@ -42,7 +42,7 @@ class Model{
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         try {
-            $row = $this->conn->query("SELECT * FROM ".$this->tablename." WHERE ".$id_name." =".$id)->fetch();
+            $row = $this->conn->query("SELECT * FROM ".$this->tablename." WHERE ".$id_name." =".$id)->fetchAll();
             return $row;
         } catch (Exception $ex) {
             var_dump($ex);
@@ -56,6 +56,10 @@ class Model{
     public function executeQuery(){
         $rows = $this->conn->query($this->query)->fetchAll();
         return $rows;
+    }
+    public function softDelete($pk, $tablename){
+        $this->conn->query("UPDATE  ".$tablename." SET is_deleted = true WHERE id = ".$pk);
+        return "Record Deleted";
     }
 
 

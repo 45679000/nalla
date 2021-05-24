@@ -242,7 +242,23 @@
             $id = $this->insertQuery();
             return $this->selectOne($id, "id");
         }
+
+        public function stockList(){
+            try {
+                $this->query = "SELECT * FROM `closing_cat` WHERE allocated = 1";
+                return $this->executeQuery();
+            } catch (EXCEPTION $ex) {
+                var_dump($ex);
+            }
+
+        }
+        public  function ExcelToPHP($dateValue = 0) {
+            $UNIX_DATE = ($dateValue - 25569) * 86400;
+            return gmdate("d-m-Y", $UNIX_DATE);
+        
+         
         
     }
+}
 
 ?>

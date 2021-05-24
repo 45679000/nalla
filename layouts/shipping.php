@@ -5,11 +5,11 @@
                 <div class="wizard-card m-0" id="wizardProfile">
                     <div class="wizard-navigation">
                         <ul>
-                            <li><a href="#step1" data-toggle="tab">Shipping Instructions</a></li>
-                            <li><a href="#step2" data-toggle="tab">Add to cart</a></li>
-                            <li><a href="#step3" data-toggle="tab">Packing Materials</a></li>
-                            <li><a href="#step4" data-toggle="tab">Documentation</a></li>
-                            <li><a href="#step5" data-toggle="tab">Confirm Shipping</a></li>
+                            <li><a id="shipping_instruction_tab" href="#step1" data-toggle="tab">Shipping Instructions</a></li>
+                            <li><a id="add_to_cart_tab" href="#step2" data-toggle="tab">Add to cart</a></li>
+                            <li><a id="packing_materials_tab" href="#step3" data-toggle="tab">Packing Materials</a></li>
+                            <li><a id="documentation_tab" href="#step4" data-toggle="tab">Documentation</a></li>
+                            <li><a id="confirm_shipping_tab" href="#step5" data-toggle="tab">Confirm Shipping</a></li>
                         </ul>
                     </div>
 
@@ -211,29 +211,16 @@
                                             </div>
                                             <div class="tab-pane" id="step4">
                                                 <div class="row">
-                                                    <div class="table-responsive">
-                                                        <table id="parking" class="table table-striped table-bordered" style="width:100%">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="wd-15p">#</th>
-                                                                    <th class="wd-15p">Type</th>
-                                                                    <th class="wd-20p">Preview</th>
-
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>Shipping Instructions</td>
-                                                                    <td><button>Download</button></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>Lot Details</td>
-                                                                    <td><button>Download</button></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                    <div class="row">
+                                                      <ul style="list-style-type: none;";>
+                                                       <li>
+                                                                <a href="../reports/lot_details.php">Stock List</a>
+                                                        </li>
+                                                        <li>
+                                                                <a href="../reports/shipping_instruction.php">Shipping Instructions</a>
+                                                        </li>
+                                                      </ul>
+                                                       
                                                     </div>
                                                 </div>
 
@@ -271,7 +258,7 @@
                     </div>
                 </div>
 
-
+       
                 <!-- Dashboard js -->
                 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
                 <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -281,6 +268,8 @@
                 <script src="../assets/js/vendors/circle-progress.min.js"></script>
                 <script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
                 <!-- forn-wizard js-->
+
+
                 <script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
                 <script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
                 <script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
@@ -351,4 +340,65 @@
                     }
                 </script>
 
+                    <script>
+                        $(document).ready(function(){
+                            $('a[data-toggle="tab"]').on('click', function () {
+                                var currentId = $(this).attr("id");
+                                var href = $(this).attr("href");
+
+                                localStorage.setItem("selected_id",currentId);
+                                localStorage.setItem("id",href);
+
+                            });
+
+                            var tabElement = document.getElementById("step1");
+                            tabElement.classList.remove("active");
+
+                            // var hrefElement = document.getElementById("shipping_instruction_tab");
+                            // hrefElement.classList.remove("active");
+                            // hrefElement.classList.remove("show");
+                            $(localStorage.getItem("selected_id")).attr("class","active show");
+                            // $("#add_to_cart_tab").attr("class","active show");
+                            $(localStorage.getItem("id")).attr("class","tab-pane active show");
+                            if(localStorage.getItem("id")=="#step2"){
+                                $('.moving-tab').css({'transform': 'translate3d(273.9px, 0px, 0px)'});
+                            }else if(localStorage.getItem("id")=="#step3"){
+                                $('.moving-tab').css({'transform': 'translate3d(547.8px, 0px, 0px)'});
+                            }else if(localStorage.getItem("id")=="#step4"){
+                                $('.moving-tab').css({'transform': 'translate3d(821.7px, 0px, 0px)'});
+                            }else if(localStorage.getItem("id")=="#step5"){
+                                $('.moving-tab').css({'transform': 'translate3d(1103.6px, 0px, 0px)'});
+                            }else{
+                                $('.moving-tab').css({'transform': 'transform: translate3d(-8px, 0px, 0px)'});
+
+                            }                           
+
+                        });
+                        
+
+                    
+
+                            // var test = document.getElementById("step1");
+                            // var testClass = test.className;
+
+                            // switch (testClass) {
+                            // case "class1":
+                            //     test.innerHTML = "I have class1";
+                            //     break;
+                            // case "class2":
+                            //     test.innerHTML = "I have class2";
+                            //     break;
+                            // case "class3":
+                            //     test.innerHTML = "I have class3";
+                            //     break;
+                            // case "class4":
+                            //     test.innerHTML = "I have class4";
+                            //     break;
+                            // default:
+                            //     test.innerHTML = "";
+                            // }
+                    
+                    </script>
+
                 </html>
+                

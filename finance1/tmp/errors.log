@@ -1,0 +1,81 @@
+[10-Apr-2021 18:06:45 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[10-Apr-2021 18:06:48 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[10-Apr-2021 18:06:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[10-Apr-2021 18:06:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[10-Apr-2021 18:06:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[10-Apr-2021 18:06:58 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[10-Apr-2021 18:07:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[10-Apr-2021 18:07:09 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[10-Apr-2021 18:07:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[10-Apr-2021 18:07:11 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[10-Apr-2021 18:07:11 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[10-Apr-2021 18:07:11 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[22-Apr-2021 19:30:32 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:30:41 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:30:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:30:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:31:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:31:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:31:27 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:31:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:31:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:19 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:30 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:39 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:32:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:25 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:48 Europe/Berlin] 0:admin:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[22-Apr-2021 19:33:48 Europe/Berlin] 0:admin:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[22-Apr-2021 19:33:48 Europe/Berlin] 0:admin:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:33:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:110: mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+[22-Apr-2021 19:34:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:34:08 Europe/Berlin] 0:admin:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[22-Apr-2021 19:34:08 Europe/Berlin] 0:admin:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[22-Apr-2021 19:34:08 Europe/Berlin] 0:admin:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[22-Apr-2021 19:34:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:34:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:35:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:35:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:35:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:35:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:36:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:36:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:36:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[22-Apr-2021 19:36:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time

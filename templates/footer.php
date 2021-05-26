@@ -1,6 +1,4 @@
-<?php
-$path_to_root = "../"
-?>
+
 <footer class="footer">
         <div class="container">
             <div class="row align-items-center flex-row-reverse">
@@ -55,4 +53,7 @@ $path_to_root = "../"
 <!-- Custom Js-->
 <script src="<?=$path_to_root ?>assets/js/custom.js"></script>
 <script src="<?=$path_to_root ?>assets/js/index4.js"></script>
+
+<!---Tabs JS-->
+<script src="<?=$path_to_root ?>assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
 

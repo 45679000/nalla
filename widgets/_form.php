@@ -7,9 +7,14 @@ class Form{
     public $dropDownList;
     public $formMessage;
     public $messageType;
+    public $formId;
 
-     public function beginForm(){
-        print '<form method="post" class="card">';
+     public function beginForm($id=""){
+        if($id == ""){
+         print '<form method="post" id="'.time().'" class="card">';
+        }else{
+         print '<form method="post" id="'.$id.'" class="card">';
+        }
      }
      public function endForm(){
         print '</form>';

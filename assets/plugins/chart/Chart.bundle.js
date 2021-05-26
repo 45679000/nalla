@@ -4095,7 +4095,7 @@ module.exports = function(Chart) {
 				return;
 			}
 
-			Chart.layoutService.update(this, this.width, this.height);
+			Chart.viewservice.update(this, this.width, this.height);
 
 			/**
 			 * Provided for backward compatibility, use `afterLayout` instead.
@@ -6094,7 +6094,7 @@ module.exports = function(Chart) {
 	// The layout service is very self explanatory.  It's responsible for the layout within a chart.
 	// Scales, Legends and Plugins all rely on the layout service and can easily register to be placed anywhere they need
 	// It is this service's responsibility of carrying out that layout.
-	Chart.layoutService = {
+	Chart.viewservice = {
 		defaults: {},
 
 		/**
@@ -7839,7 +7839,7 @@ module.exports = function(Chart) {
 				scale.fullWidth = scale.options.fullWidth;
 				scale.position = scale.options.position;
 				scale.weight = scale.options.weight;
-				Chart.layoutService.addBox(chart, scale);
+				Chart.viewservice.addBox(chart, scale);
 			});
 		}
 	};
@@ -11413,7 +11413,7 @@ defaults._set('global', {
 
 module.exports = function(Chart) {
 
-	var layout = Chart.layoutService;
+	var layout = Chart.viewservice;
 	var noop = helpers.noop;
 
 	/**
@@ -11920,7 +11920,7 @@ defaults._set('global', {
 
 module.exports = function(Chart) {
 
-	var layout = Chart.layoutService;
+	var layout = Chart.viewservice;
 	var noop = helpers.noop;
 
 	Chart.Title = Element.extend({
@@ -12136,7 +12136,7 @@ module.exports = function(Chart) {
 					createNewTitleBlockAndAttach(chart, titleOpts);
 				}
 			} else if (titleBlock) {
-				Chart.layoutService.removeBox(chart, titleBlock);
+				Chart.viewservice.removeBox(chart, titleBlock);
 				delete chart.titleBlock;
 			}
 		}

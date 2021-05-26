@@ -1,0 +1,140 @@
+TRUNCATE  `0_sales_orders`;
+TRUNCATE  `0_debtor_trans_details`;
+TRUNCATE  `0_debtor_trans`; 
+TRUNCATE  `0_gl_trans`; 
+TRUNCATE  `0_sales_order_details`; 
+TRUNCATE  `0_cust_allocations`;
+TRUNCATE  `0_bank_trans`;
+TRUNCATE  `0_audit_trail`;
+TRUNCATE  `0_comments`;
+
+ALTER TABLE `0_sales_orders` CHANGE `delivery_date` `delivery_date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP; 
+ALTER TABLE `0_sales_orders` CHANGE `ord_date` `ord_date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP; 
+
+ALTER TABLE `0_gl_trans` CHANGE `tran_date` `tran_date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP; 
+
+ALTER TABLE `0_debtor_trans` CHANGE `tran_date` `tran_date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP; 
+
+ALTER TABLE `0_bank_trans` CHANGE `trans_date` `tran_date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP; 
+
+
+
+INSERT INTO `0_sales_orders`(`order_no`, `trans_type`, `version`, `type`, `debtor_no`, `branch_code`, `reference`, `customer_ref`, `comments`, `ord_date`, `order_type`, `ship_via`, `delivery_address`, `contact_phone`, `contact_email`, `deliver_to`, `freight_cost`, `from_stk_loc`, `delivery_date`, `payment_terms`, `total`, `prep_amount`, `alloc`) 
+VALUES (1,30,1,0,361,335,'auto','','','2020-12-18',1,1,'PO.BOX 16 MERU','',NULL,'Diocese Of Meru',0,'HQ','2021-01-17',7,700,0,0);
+
+INSERT INTO `0_debtor_trans_details`(`id`, `debtor_trans_no`, `debtor_trans_type`, `stock_id`, `description`, `unit_price`, `unit_tax`, `quantity`, `discount_percent`, `standard_cost`, `qty_done`, `src_id`) 
+VALUES (1,1,13,'4080','Family Day Collection',700,96.55,1,0,0,1,1),
+(2,1,10,'4080','Family Day Collection',700,96.55,1,0,0,0,1);
+
+INSERT INTO `0_debtor_trans`(`trans_no`, `type`, `version`, `debtor_no`, `branch_code`, `tran_date`, `due_date`, `reference`, `tpe`, `order_`, `ov_amount`, `ov_gst`, `ov_freight`, `ov_freight_tax`, `ov_discount`, `alloc`, `prep_amount`, `rate`, `ship_via`, `dimension_id`, `dimension2_id`, `payment_terms`, `tax_included`)
+(`trans_no`, `type`, `version`, `debtor_no`, `branch_code`, `tran_date`, `due_date`, `reference`, `tpe`, `order_`, `ov_amount`, `ov_gst`, `ov_freight`, `ov_freight_tax`, `ov_discount`, `alloc`, `prep_amount`, `rate`, `ship_via`, `dimension_id`, `dimension2_id`, `payment_terms`, `tax_included`)
+(1,10,0,361,335,'2020-12-18','2021-01-17','001/2020',1,1,700,0,0,0,0,0,0,1,1,0,0,7,1),
+(1,13,1,361,335,'2020-12-18','2021-01-17','auto',1,1,700,0,0,0,0,0,0,1,1,0,0,7,1);
+
+INSERT INTO `0_gl_trans`(`counter`, `type`, `type_no`, `tran_date`, `account`, `memo_`, `amount`, `dimension_id`, `dimension2_id`, `person_type_id`, `person_id`, `payment_type`) 
+VALUES (1,10,1,'2020-12-18','4080','admin',-603.45,0,0,NULL,NULL,'cash'),
+(2,10,1,'2020-12-18','401018','admin',700,0,0,2,'361','cash'),
+(3,10,1,'2020-12-18','2150','admin',-96.55,0,0,NULL,NULL,'cash');
+
+
+SELECT 
+  		trans.type, 
+		trans.trans_no, 
+		trans.order_, 
+		trans.reference,
+		trans.tran_date, 
+		trans.due_date, 
+		debtor.name, 
+		branch.br_name,
+		debtor.curr_code,
+		IF(prep_amount, prep_amount, trans.ov_amount + trans.ov_gst + trans.ov_freight 
+			+ trans.ov_freight_tax + trans.ov_discount)	AS TotalAmount,IF(trans.type IN(11,12,2), -1, 1)
+				*(IF(prep_amount, prep_amount, trans.ov_amount + trans.ov_gst + trans.ov_freight 
+			+ trans.ov_freight_tax + trans.ov_discount)-trans.alloc) Balance, 
+		debtor.debtor_no,trans.alloc AS Allocated,
+		((trans.type = 10 || trans.type = 0)
+			AND trans.due_date < '2020-12-18') AS OverDue ,
+		Sum(line.quantity-line.qty_done) AS Outstanding,
+		Sum(line.qty_done) AS HasChild,
+		prep_amount
+	 FROM 0_debtor_trans as trans
+			LEFT JOIN 0_debtor_trans_details as line
+				ON trans.trans_no=line.debtor_trans_no AND trans.type=line.debtor_trans_type
+			LEFT JOIN 0_voided as v
+				ON trans.trans_no=v.id AND trans.type=v.type
+                        RIGHT JOIN 0_audit_trail as audit ON (trans.type=audit.type AND trans.trans_no=audit.trans_no)
+                        RIGHT JOIN 0_users as user ON (audit.user=user.id)
+			RIGHT JOIN 0_cust_branch as branch ON trans.branch_code=branch.branch_code,0_debtors_master as debtor
+	  WHERE (debtor.debtor_no = trans.debtor_no AND ISNULL(v.date_) AND (trans.ov_amount + trans.ov_gst + trans.ov_freight + trans.ov_freight_tax + trans.ov_discount) != 0 AND trans.tran_date >= '2020-11-18'
+			AND trans.tran_date <= '2020-12-18' ) GROUP BY trans.trans_no, trans.type LIMIT 0, 10
+
+
+
+
+
+        SELECT 
+  		trans.type, 
+		trans.trans_no, 
+		trans.order_, 
+		trans.reference,
+		trans.tran_date, 
+		trans.due_date
+		
+	 FROM 0_debtor_trans as trans
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            SELECT gl.*, com.memo_ , j.event_date, j.doc_date, a.gl_seq, u.user_id, st.supp_reference, gl.person_id subcode,
+			IFNULL(IFNULL(sup.supp_name, debt.name), bt.person_id) as person_name, 
+			IFNULL(gl.person_id, IFNULL(sup.supplier_id, debt.debtor_no)) as person_id,
+                        IF(gl.person_id, gl.person_type_id, IF(sup.supplier_id,".  PT_SUPPLIER . "," .  "IF(debt.debtor_no," . PT_CUSTOMER . ", -1))) as person_type_id,
+			IFNULL(st.tran_date, IFNULL(dt.tran_date, IFNULL(bt.trans_date, IFNULL(grn.delivery_date, gl.tran_date)))) as doc_date,
+			coa.account_name, ref.reference
+			 FROM 
+			gl_trans gl
+			LEFT JOIN 0_voided v ON gl.type_no=v.id AND v.type=gl.type
+
+			LEFT JOIN 0_supp_trans st ON gl.type_no=st.trans_no AND st.type=gl.type AND (gl.type!=".ST_JOURNAL." OR gl.person_id=st.supplier_id)
+			LEFT JOIN 0_grn_batch grn ON grn.id=gl.type_no AND gl.type=".ST_SUPPRECEIVE." AND gl.person_id=grn.supplier_id
+			LEFT JOIN 0_debtor_trans dt ON gl.type_no=dt.trans_no AND dt.type=gl.type AND (gl.type!=".ST_JOURNAL." OR gl.person_id=dt.debtor_no)
+
+			LEFT JOIN 0_suppliers sup ON st.supplier_id=sup.supplier_id OR grn.supplier_id=sup.supplier_id
+			LEFT JOIN 0_cust_branch branch ON dt.branch_code=branch.branch_code
+			LEFT JOIN 0_debtors_master debt ON dt.debtor_no=debt.debtor_no
+
+			LEFT JOIN 0_bank_trans bt ON bt.type=gl.type AND bt.trans_no=gl.type_no AND bt.amount!=0
+				 AND bt.person_type_id=gl.person_type_id AND bt.person_id=gl.person_id
+
+			LEFT JOIN 0_journal j ON j.type=gl.type AND j.trans_no=gl.type_no
+			LEFT JOIN 0_audit_trail a ON a.type=gl.type AND a.trans_no=gl.type_no AND NOT ISNULL(gl_seq)
+			LEFT JOIN 0_users u ON a.user=u.id
+		    LEFT JOIN 0_comments com ON gl.type=com.type	AND gl.type_no=com.id
+
+			LEFT JOIN 0_refs ref ON ref.type=gl.type AND ref.id=gl.type_no,
+		0_chart_master coa
+		WHERE coa.account_code=gl.account
+		AND ISNULL(v.date_)
+		AND gl.tran_date = '$from'
+		AND gl.amount <> 0
+		AND u.id = '$user_id'"; 

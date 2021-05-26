@@ -1,0 +1,4 @@
+<script >
+    alert("included");
+
+</script>

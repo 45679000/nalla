@@ -1,5 +1,6 @@
-<?php
-$path_to_root = "../"
+
+<?php 
+	include $path_to_root.'database/page_init.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -51,6 +52,9 @@ $path_to_root = "../"
 
 		<!-- select2 Plugin -->
 		<link href="<?=$path_to_root ?>assets/plugins/select2/select2.min.css" rel="stylesheet" />
+			<!-- Tabs Style -->
+		<link href="<?=$path_to_root ?>assets/plugins/tabs/style.css" rel="stylesheet" />
+		<link href="<?=$path_to_root ?>assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet" />
 		<style>
 * {
   box-sizing: border-box;
@@ -207,7 +211,7 @@ body {
 									</div>
 								</div>
 								<div class="dropdown d-none d-md-flex mt-1">
-									<a href="<? echo $path_to_root?>layouts/logout.php" class="nav-link icon" >
+									<a href="<? echo $path_to_root?>views/logout.php" class="nav-link icon" >
 										<i class="fa fa-sign-out floating"></i>
 									</a>
 								</div>
@@ -226,7 +230,7 @@ body {
 										</a>
 										<a class="dropdown-item" href="login.html">
 											<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
-											<a href="<?=$path_to_root ?>layouts/logout.php" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+											<a href="<?=$path_to_root ?>views/logout.php" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span>Log Out</span>
 										Log Out
 									</a>
@@ -260,7 +264,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-book"></i></a>
-															<a href="<? echo $path_to_root?>layouts/auction_order.php">Auction Order</a>
+															<a href="<? echo $path_to_root?>views/auction_order.php">Auction Order</a>
 														</div>
 													</ul>
 												</div>
@@ -268,7 +272,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-address-card"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Import Closing Catalogue</a>
+															<a href="<? echo $path_to_root?>views/closing_import.php">Import Closing Catalogue</a>
 														</div>
 													</ul>
 												</div>
@@ -276,7 +280,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-credit-card-alt"></i></a>
-															<a href="<? echo $path_to_root?>layouts/catalogue_correction.php">Catalogue Corrections</a>
+															<a href="<? echo $path_to_root?>views/catalogue_correction.php">Catalogue Corrections</a>
 														</div>
 											
 													</ul>
@@ -285,7 +289,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
-															<a href="<? echo $path_to_root?>layouts/post_import.php">Post Catalogue Import</a>
+															<a href="<? echo $path_to_root?>views/post_import.php">Post Catalogue Import</a>
 														</div>										
 													</ul>
 												</div>
@@ -293,7 +297,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-plus"></i></a>
-															<a href="<? echo $path_to_root?>layouts/add_lot.php">Add New Lots</a>
+															<a href="<? echo $path_to_root?>views/add_lot.php">Add New Lots</a>
 														</div>		
 													</ul>
 												</div>
@@ -301,7 +305,7 @@ body {
 													<ul>
 													   <div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-cloud-upload"></i></a>
-															<a href="<? echo $path_to_root?>layouts/valuation.php">Import Valuations</a>
+															<a href="<? echo $path_to_root?>views/valuation.php">Import Valuations</a>
 														</div>
 													</ul>
 												</div>
@@ -309,7 +313,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-list"></i></a>
-															<a href="<? echo $path_to_root?>layouts/view_valuations.php">View Valuations</a>
+															<a href="<? echo $path_to_root?>views/view_valuations.php">View Valuations</a>
 														</div>	
 													</ul>
 												</div>
@@ -317,7 +321,7 @@ body {
 													<ul>
 													   <div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-columns"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Valuation Corrections</a>
+															<a href="<? echo $path_to_root?>views/closing_import.php">Valuation Corrections</a>
 														</div>
 													</ul>
 												</div><!-- col -->
@@ -325,7 +329,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-times"></i></a>
-															<a href="<? echo $path_to_root?>layouts/remove_catalogue.php">Remove Catalogue</a>
+															<a href="<? echo $path_to_root?>views/remove_catalogue.php">Remove Catalogue</a>
 														</div>
 													
 													</ul>
@@ -342,7 +346,7 @@ body {
 													<ul>
 														<div class="text-center">
 															<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
-															<a href="<? echo $path_to_root?>layouts/closing_import.php">Fresh Brokers</a>
+															<a href="<? echo $path_to_root?>views/closing_import.php">Fresh Brokers</a>
 														</div>
 													</ul>
 												</div><!-- col -->
@@ -356,20 +360,25 @@ body {
 
 
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>layouts/tasting_grading.php"><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
+								<a class="nav-link" href="<? echo $path_to_root?>views/tasting_grading.php"><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
 								<!-- dropdown-menu -->
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock_index.php?view=purchase-list"><i class="fa fa-database"></i> <span>Stocks</span></a>	
+								<a class="nav-link" href="<? echo $path_to_root?>views/stock_index.php?view=purchase-list"><i class="fa fa-database"></i> <span>Stocks</span></a>	
 							<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>layouts/stock.php"><i class="fa fa-trademark"></i> <span>Tea Board</span></a>	
+								<a class="nav-link" href="<? echo $path_to_root?>modules/shipping/index.php"><i class="fa fa-ship"></i> <span>Shipping</span></a>	
+							<!-- dropdown-menu -->
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="<? echo $path_to_root?>views/stock.php"><i class="fa fa-trademark"></i> <span>Tea Board</span></a>	
 							<!-- dropdown-menu -->
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>layouts/finance.php"><i class="fa fa-money"></i><span>Finance</span></a>
+								<a class="nav-link" href="<? echo $path_to_root?>views/finance.php"><i class="fa fa-money"></i><span>Finance</span></a>
 								<!-- dropdown-menu -->
 							</li>
 							<!-- <li class="nav-item">
@@ -379,7 +388,7 @@ body {
 								<a class="nav-link" href="#"><i class="fa fa-wrench"></i><span>Logistics</span></a>
 							</li> -->
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>layouts/warehousing.php?view=warehouses"><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
+								<a class="nav-link" href="<? echo $path_to_root?>views/warehousing.php?view=warehouses"><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
 							</li>
 							<!-- <li class="nav-item">
 								<a class="nav-link" href="#"><i class="fa fa-cogs"></i><span>Setup</span></a>

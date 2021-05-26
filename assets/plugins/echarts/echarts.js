@@ -23241,7 +23241,7 @@ var List = function (dimensions, hostModel) {
      * @type {Array.<Object>}
      * @private
      */
-    this._itemLayouts = [];
+    this._itemviews = [];
 
     /**
      * Graphic elemnents
@@ -24071,7 +24071,7 @@ listProto.getLayout = function (key) {
  * @param {number} idx
  */
 listProto.getItemLayout = function (idx) {
-    return this._itemLayouts[idx];
+    return this._itemviews[idx];
 };
 
 /**
@@ -24081,16 +24081,16 @@ listProto.getItemLayout = function (idx) {
  * @param {boolean=} [merge=false]
  */
 listProto.setItemLayout = function (idx, layout, merge$$1) {
-    this._itemLayouts[idx] = merge$$1
-        ? extend(this._itemLayouts[idx] || {}, layout)
+    this._itemviews[idx] = merge$$1
+        ? extend(this._itemviews[idx] || {}, layout)
         : layout;
 };
 
 /**
  * Clear all layout of single data item
  */
-listProto.clearItemLayouts = function () {
-    this._itemLayouts.length = 0;
+listProto.clearItemviews = function () {
+    this._itemviews.length = 0;
 };
 
 /**
@@ -35293,7 +35293,7 @@ function resizeGeo(geoModel, api) {
     var boxLayoutOption;
 
     var center = geoModel.get('layoutCenter');
-    var size = geoModel.get('layoutSize');
+    var size = geoModel.get('viewsize');
 
     var viewWidth = api.getWidth();
     var viewHeight = api.getHeight();
@@ -35315,7 +35315,7 @@ function resizeGeo(geoModel, api) {
         }
         else {
             if (__DEV__) {
-                console.warn('Given layoutCenter or layoutSize data are invalid. Use left/top/width/height instead.');
+                console.warn('Given layoutCenter or viewsize data are invalid. Use left/top/width/height instead.');
             }
         }
     }
@@ -35674,7 +35674,7 @@ var MapSeries = SeriesModel.extend({
         // If you wan't to put map in a fixed size box with right aspect ratio
         // This two properties may more conveninet
         // layoutCenter: [50%, 50%]
-        // layoutSize: 100
+        // viewsize: 100
 
 
         // 数值合并方式，默认加和，可选为：
@@ -37343,10 +37343,10 @@ Tree.prototype = {
     },
 
     /**
-     * Clear all layouts
+     * Clear all views
      */
-    clearLayouts: function () {
-        this.data.clearItemLayouts();
+    clearviews: function () {
+        this.data.clearItemviews();
     }
 };
 
@@ -40829,7 +40829,7 @@ var treemapLayout = function (ecModel, api, payload) {
             };
 
             // layout should be cleared because using updateView but not update.
-            viewRoot.hostTree.clearLayouts();
+            viewRoot.hostTree.clearviews();
 
             // TODO
             // optimize: if out of view clip, do not layout.
@@ -48021,7 +48021,7 @@ var sankeyLayout = function (ecModel, api, payload) {
         var iterations = filteredNodes.length !== 0
             ? 0 : seriesModel.get('layoutIterations');
 
-        layoutSankey(nodes, edges, nodeWidth, nodeGap, width, height, iterations);
+        viewsankey(nodes, edges, nodeWidth, nodeGap, width, height, iterations);
     });
 };
 
@@ -48041,7 +48041,7 @@ function getViewRect$3(seriesModel, api) {
     );
 }
 
-function layoutSankey(nodes, edges, nodeWidth, nodeGap, width, height, iterations) {
+function viewsankey(nodes, edges, nodeWidth, nodeGap, width, height, iterations) {
     computeNodeBreadths(nodes, nodeWidth, width);
     computeNodeDepths(nodes, edges, height, nodeGap, iterations);
     computeEdgeDepths(nodes);
@@ -48864,7 +48864,7 @@ var boxplotLayout = function (ecModel) {
         calculateBase(groupItem);
 
         each$16(seriesModels, function (seriesModel, idx) {
-            layoutSingleSeries(
+            viewsingleSeries(
                 seriesModel,
                 groupItem.boxOffsetList[idx],
                 groupItem.boxWidthList[idx]
@@ -48951,7 +48951,7 @@ function calculateBase(groupItem) {
 /**
  * Calculate points location for each series.
  */
-function layoutSingleSeries(seriesModel, offset, boxWidth) {
+function viewsingleSeries(seriesModel, offset, boxWidth) {
     var coordSys = seriesModel.coordinateSystem;
     var data = seriesModel.getData();
     var halfWidth = boxWidth / 2;
@@ -59690,7 +59690,7 @@ var GeoModel = ComponentModel.extend({
         // If you wan't to put map in a fixed size box with right aspect ratio
         // This two properties may more conveninet
         // layoutCenter: [50%, 50%]
-        // layoutSize: 100
+        // viewsize: 100
 
 
         silent: false,

@@ -7,10 +7,7 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 include $path_to_root.'widgets/_form.php';
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
-include $path_to_root1.'database/connection.php';
 
-$db = new Database();
-$conn = $db->getConnection();
 $form = new Form();
 $catalogue = new Catalogue($conn);
 if(!empty($_POST)){

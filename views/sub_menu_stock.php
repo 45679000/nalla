@@ -15,9 +15,6 @@
                                             <a href="./stock_index.php?view=stock-master" class="list-group-item list-group-item-action d-flex align-items-center">
                                                 <span class="icon mr-3"><i class="fe fe-send"></i></span>Stock Master
                                             </a>
-                                            <a href="./stock_index.php?view=shipping" class="list-group-item list-group-item-action d-flex align-items-center">
-                                                <span class="icon mr-3"><i class="fe fe-send"></i></span>Shipping Process
-                                            </a>
                                        
                                     </div>
                                     </div>

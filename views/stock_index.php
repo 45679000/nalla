@@ -5,15 +5,11 @@ $path_to_root1 = "../";
 require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require_once $path_to_root.'modules/stock/Stock.php';
-include $path_to_root1.'database/connection.php';
 include $path_to_root1.'widgets/_form.php';
 require_once $path_to_root1.'modules/cataloguing/Catalogue.php';
 include $path_to_root1.'controllers/ShippingController.php';
 
 
-
-$db = new Database();
-$conn = $db->getConnection();
 $stock = new Stock($conn);
 $stocks = array();
 $parking = array();

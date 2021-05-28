@@ -1,12 +1,11 @@
 <?php
+$path_to_root = "../";
 
 define('ROOT_PATH', dirname(__DIR__) . '/');
 include (ROOT_PATH.'models/Model.php');
 include (ROOT_PATH.'controllers/WarehouseController.php');
-include (ROOT_PATH.'database/connection.php');
 include (ROOT_PATH.'widgets/_form.php');
-$db = new Database();
-$conn = $db->getConnection();
+
 
 $warehouse = new WarehouseController($conn);
 

@@ -1,5 +1,7 @@
 <?php
 session_start();
+$path_to_root = "../";
+
 if(!defined('ROOT')) define('ROOT', dirname(__DIR__) . '/');
 include (ROOT.'templates/header.php');
 

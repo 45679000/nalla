@@ -5,7 +5,6 @@
     include $path_to_root.'models/Model.php';
     require $path_to_root."vendor/autoload.php";
     require_once $path_to_root.'modules/cataloguing/Catalogue.php';
-    include $path_to_root1.'database/connection.php';
     include 'Report.php';
 
     $db = new Database();

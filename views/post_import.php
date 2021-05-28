@@ -7,10 +7,7 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
-include $path_to_root1.'database/connection.php';
-$imported = false;
-$db = new Database();
-$conn = $db->getConnection();
+
 $catalogue = new Catalogue($conn);
 if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
    

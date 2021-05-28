@@ -8,10 +8,7 @@
     require $path_to_root."vendor/autoload.php";
     include $path_to_root.'modules/cataloguing/Catalogue.php';
     include $path_to_root1.'modules/grading/grading.php';
-    include $path_to_root1.'database/connection.php';
 
-    $db = new Database();
-    $conn = $db->getConnection();
     $catalogue = new Catalogue($conn);
     $grading = new Grading($conn);
     $imports = array();

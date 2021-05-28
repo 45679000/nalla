@@ -6,11 +6,10 @@
     include $path_to_root.'models/Model.php';
     require $path_to_root."vendor/autoload.php";
     require_once $path_to_root.'modules/cataloguing/Catalogue.php';
-    include $path_to_root1.'database/connection.php';
+
     include 'Report.php';
 
-    $db = new Database();
-    $conn = $db->getConnection();
+  
     $catalogue = new Catalogue($conn);
     echo '<pre>';
     $data = $catalogue->closingCatalogue($auction = "2021-12", $broker = "ANGL", $category = "Main");
@@ -29,6 +28,9 @@
     $html = "<html>
                     <style>
                     table {
+                    margin:20px;
+                    padding:20px;
+                    background-color:white;
                     font-family: arial, sans-serif;
                     border-collapse: collapse;
                     width: 100%;

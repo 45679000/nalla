@@ -374,19 +374,10 @@ body {
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="<? echo $path_to_root?>views/stock.php"><i class="fa fa-trademark"></i> <span>Tea Board</span></a>	
-							<!-- dropdown-menu -->
-							</li>
-							<li class="nav-item">
 								<a class="nav-link" href="<? echo $path_to_root?>views/finance.php"><i class="fa fa-money"></i><span>Finance</span></a>
 								<!-- dropdown-menu -->
 							</li>
-							<!-- <li class="nav-item">
-								<a class="nav-link" href="#"><i class="fa fa-money"></i><span>Trading</span></a>
-							</li> -->
-							<!-- <li class="nav-item">
-								<a class="nav-link" href="#"><i class="fa fa-wrench"></i><span>Logistics</span></a>
-							</li> -->
+				
 							<li class="nav-item">
 								<a class="nav-link" href="<? echo $path_to_root?>views/warehousing.php?view=warehouses"><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
 							</li>

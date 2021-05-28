@@ -31,6 +31,25 @@ $form = new Form();
     .card {
         margin-top: 30px;
     }
+    .action{
+        width:100px; 
+        height:30px;
+    }
+    .action-icon{
+        margin-top:-10px !important;
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        height: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        display: block;
+    }
+    .packages{
+        max-width: 50px;
+        border: burlywood;
+    }
 </style>
 <div class="container-fluid content">
     <div class="card">
@@ -40,12 +59,12 @@ $form = new Form();
         <div class="card-body p-6">
             <div class="tab_wrapper second_tab">
                 <ul id="tabs" class="tab_list">
-                    <li>SHIPPING INSTRUCTIONS</li>
-                    <li>ADD LOTS</li>
-                    <li>SHIPMENT TEAS</li>
-                    <li>PACKING MATERIALS</li>
-                    <li>PRINT REQUIRED DOCUMENTS</li>
-                    <li>CONFIRM SHIPMENT</li>
+                    <li id="tab1">SHIPPING INSTRUCTIONS</li>
+                    <li id="tab2">ADD LOTS</li>
+                    <li id="tab3">SHIPMENT TEAS</li>
+                    <li id="tab4">PACKING MATERIALS</li>
+                    <li id="tab5">PRINT REQUIRED DOCUMENTS</li>
+                    <li id="tab6">CONFIRM SHIPMENT</li>
 
                 </ul>
 
@@ -70,15 +89,21 @@ $form = new Form();
 
 
                     <div class="tab_content">
+                        <?php include 'shipment_teas.php';?>
+
                     </div>
 
                     <div class="tab_content">
+                        <?php include 'packing_materials.php';?>
                     </div>
 
                     <div class="tab_content">
+                         <?php include 'required_documents.php';?>
+
                     </div>
 
                     <div class="tab_content">
+                        <?php include 'shipment_summary.php';?>
                     </div>
 
 
@@ -90,17 +115,18 @@ $form = new Form();
     </div>
 
 </div>
-<?php
-$path_to_root = "../../";
-// include(ROOT_PATH . '../templates/footer.php');
-// ?>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="<?=$path_to_root ?>assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
 <!-- Sweet alert Plugin -->
 <script src="<?php echo $path_to_root ?>assets/plugins/sweet-alert/sweetalert.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/js/sweet-alert.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
 
+<?php
+include 'ajaxLoad.php';
+?>
 <!---Tabs scripts-->
 <script>
     $(function(e) {
@@ -156,6 +182,10 @@ $('#si_tab').click(function(e){
     });   
 
 });
+
+
+  
+</script> 
 
 
 

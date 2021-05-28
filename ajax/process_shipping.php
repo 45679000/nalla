@@ -28,7 +28,22 @@ if($action=='add-si'){
     if(isset($_SESSION['current-si-id'])){
         echo json_encode($shippingCtrl->getAtciveShippingInstructions($_SESSION['current-si-id']));
     }
-}else{
+}else if($action=='load-unallocated'){
+    $stockList = $shippingCtrl->loadUnallocated();
+    echo json_encode($stockList);
+}else if(($action=='allocate')){
+    $id = isset($_POST['id']) ? $_POST['id'] : die();
+    $shippingCtrl->allocateLot($id);
+    echo json_encode(array("status"=>"Lot allocated successfully"));
+    
+}else if(($action=='unallocate')){
+    $id = isset($_POST['id']) ? $_POST['id'] : die();
+    $shippingCtrl->unAllocateLot($id);
+    echo json_encode(array("status"=>"Lot allocated successfully"));
+}else if($action=='shippment-summary'){
+    echo json_encode($shippingCtrl->summaries());
+}
+else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 
 }

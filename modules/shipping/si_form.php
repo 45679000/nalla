@@ -53,8 +53,5 @@ print '
 </div>
 </div>';
 $form->endForm();
-print '</div>';
-print '</div>';
-print '</div>';
 
 ?>

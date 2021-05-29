@@ -1,7 +1,7 @@
 
 <?php 
 	include $path_to_root.'database/page_init.php';
-	include 'validate_login.php';
+	// include 'validate_login.php';
 	// Turn off error reporting
 	error_reporting(0);
 ?>

@@ -25,12 +25,20 @@ session_start();
         }
     }
     if((isset($_POST['otp'])) && isset($_SESSION['otp'])){
-        if($_POST['otp_verify'] == $_SESSION['otp']){
-            $user->redirectUser($_SESSION['role_id']);
-           
-        }
+        echo $_POST['otp_verify'] .' == '. $_SESSION['otp'];
 
+        if($_POST['otp_verify'] == $_SESSION['otp']){
+            $user->redirectUser($_SESSION['role_id']);    
+        }else{
+            $message= '<p class="alert alert-danger" role="alert">The OTP you entered is Wrong</p>';
+        }
     }
+    if((isset($_POST['reset']))){
+       // Finally, destroy the session.
+        session_destroy();
+    }
+
+    
     
    
 
@@ -75,9 +83,17 @@ session_start();
                                         echo '  <div class="form-group">
                                                      <input type="password" class="form-control" name="otp_verify" placeholder="otp *" value="" />
                                                 </div> 
-                                                <div class="col-md-8">
-                                                     <input type="submit" name="otp" value="Verify"/><br/>
-                                                </div>';
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="submit" name="otp" value="Verify"/><br/>
+
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="submit" name="reset" value="Reset"/><br/>
+                                                    </div>
+                                                 </div>
+
+                                                ';
                                                 
                                             }
                                     ?>

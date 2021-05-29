@@ -27,12 +27,12 @@ require_once $path_to_root.'templates/header.php';
 											<div class="float-left">
 												<p class="mb-0 text-left">Company Revenue</p>
 												<div class="">
-													<h3 class="font-weight-semibold text-left mb-0">KSH89,876</h3>
+													<h3 class="font-weight-semibold text-left mb-0"></h3>
 												</div>
 											</div>
 										</div>
 										<p class="text-muted mb-0">
-											<i class="mdi mdi-arrow-up-drop-circle text-success mr-1" aria-hidden="true"></i> 80% higher growth
+											<i class="mdi mdi-arrow-up-drop-circle text-success mr-1" aria-hidden="true"></i> 
 										</p>
 									</div>
 								</div>
@@ -47,7 +47,7 @@ require_once $path_to_root.'templates/header.php';
 											<div class="float-left">
 												<p class="mb-0 text-left">Projects</p>
 												<div class="">
-													<h3 class="font-weight-semibold text-left mb-0">897</h3>
+													<h3 class="font-weight-semibold text-left mb-0"></h3>
 												</div>
 											</div>
 										</div>
@@ -67,7 +67,7 @@ require_once $path_to_root.'templates/header.php';
 											<div class="float-left">
 												<p class="mb-0 text-left">Profits</p>
 												<div class="">
-													<h3 class="font-weight-semibold text-left mb-0">8278</h3>
+													<h3 class="font-weight-semibold text-left mb-0"></h3>
 												</div>
 											</div>
 										</div>
@@ -87,7 +87,7 @@ require_once $path_to_root.'templates/header.php';
 											<div class="float-left">
 												<p class="mb-0 text-left">Employees</p>
 												<div class="">
-													<h3 class="font-weight-semibold text-left mb-0">1</h3>
+													<h3 class="font-weight-semibold text-left mb-0">0</h3>
 												</div>
 											</div>
 										</div>
@@ -129,7 +129,7 @@ require_once $path_to_root.'templates/header.php';
 							<div class="col-xs-12 col-sm-12 col-lg-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Sale Details</h3>
+										<h3 class="card-title">Auction Statistcs</h3>
 									</div>
 									<div class="text-center">
 										<div class="">
@@ -141,7 +141,7 @@ require_once $path_to_root.'templates/header.php';
 															<th>Lot No</th>
 															<th>Customers</th>
 															<th >Popularity</th>
-															<th>Amount</th>
+															<th>Sale Price</th>
 
 														</tr>
 													</thead>
@@ -186,15 +186,15 @@ require_once $path_to_root.'templates/header.php';
 										<div class="row">
 											<div class="col text-center">
 												<label class="tx-12">Today</label>
-												<p class="font-weight-semibold">3,256</p>
+												<p class="font-weight-semibold"></p>
 											</div><!-- col -->
 											<div class="col border-left text-center">
 												<label class="tx-12">This Week</label>
-												<p class="font-weight-semibold">25,321</p>
+												<p class="font-weight-semibold"></p>
 											</div><!-- col -->
 											<div class="col border-left text-center">
 												<label class="tx-12">This Month</label>
-												<p class="font-weight-semibold">53,625</p>
+												<p class="font-weight-semibold"></p>
 											</div><!-- col -->
 										</div><!-- row -->
 
@@ -214,15 +214,15 @@ require_once $path_to_root.'templates/header.php';
 										<div class="row">
 											<div class="col text-center">
 												<label class="tx-12">Today</label>
-												<p class="font-weight-semibold">236 $</p>
+												<p class="font-weight-semibold"></p>
 											</div><!-- col -->
 											<div class="col border-left text-center ">
 												<label class="tx-12">This Week</label>
-												<p class="font-weight-semibold">1,365 $</p>
+												<p class="font-weight-semibold"></p>
 											</div><!-- col -->
 											<div class="col border-left text-center">
 												<label class="tx-12">This Month</label>
-												<p class="font-weight-semibold">36,254 $</p>
+												<p class="font-weight-semibold"></p>
 											</div><!-- col -->
 										</div><!-- row -->
 

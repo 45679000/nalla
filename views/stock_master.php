@@ -4,7 +4,7 @@
                         <div class="col-md-12">
                             <div class="expanel expanel-secondary">
                                 <?php
-                                $html ='<div class="expanel-heading">
+                                echo '<div class="expanel-heading">
                                                 <h3 class="expanel-title">Filter Catalogue</h3>
                                             </div>
                                             <div class="expanel-body">
@@ -15,18 +15,9 @@
                                                                 <label class="control-label">AUCTION</label>
                                                                 <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="2021-01"> 2021-01 </option>
-                                                                    <option value="2021-02"> 2021-02 </option>
-                                                                    <option value="2021-03"> 2021-03 </option>
-                                                                    <option value="2021-04"> 2021-04 </option>
-                                                                    <option value="2021-05"> 2021-05 </option>
-                                                                    <option value="2021-06"> 2021-06 </option>
-                                                                    <option value="2021-07"> 2021-07 </option>
-                                                                    <option value="2021-08"> 2021-08 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-10"> 2021-10 </option>
-                                                                    <option value="2021-11"> 2021-11 </option>
-                                                                    <option value="2021-12"> 2021-12 </option>
+                                                                    ';
+                                                                    loadAuction();
+                                                                    echo '
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -93,6 +84,7 @@
 											</tr>
 										</thead>
                                         <tbody>';
+                                        $html = "";
                                         foreach ($stocks as $stock){  
                                                 
                                             $brokerage = round(($stock['value']*$stock['pkgs'])*(0.5/100), 2);

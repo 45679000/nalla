@@ -7,6 +7,7 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+include 'includes/auction_ids.php';
 
 $catalogue = new Catalogue($conn);
 if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
@@ -55,7 +56,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                             <div class="card-title">Post Sale Catalogue Upload</div>
                         </div>
 
-                        <?php if(empty($imports))  
+                        <?php if(empty($imports)) {
                         echo '<div class="card-body p-6">
                             <div class="wizard-container">
                                 <div class="wizard-card m-0" id="wizardProfile">
@@ -77,18 +78,9 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                 <label class="control-label">SALE NO</label>
                                                                 <select name="saleno" class="form-control" ><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="2021-01"> 2021-01 </option>
-                                                                    <option value="2021-02"> 2021-02 </option>
-                                                                    <option value="2021-03"> 2021-03 </option>
-                                                                    <option value="2021-04"> 2021-04 </option>
-                                                                    <option value="2021-05"> 2021-05 </option>
-                                                                    <option value="2021-06"> 2021-06 </option>
-                                                                    <option value="2021-07"> 2021-07 </option>
-                                                                    <option value="2021-08"> 2021-08 </option>
-                                                                    <option value="2021-09"> 2021-09 </option>
-                                                                    <option value="2021-10"> 2021-10 </option>
-                                                                    <option value="2021-11"> 2021-11 </option>
-                                                                    <option value="2021-12"> 2021-12 </option>
+                                                                    ';
+                                                                    loadAuction();
+                                                                    echo '
 
                                                                 </select>
                                                             </div>
@@ -165,7 +157,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                 </div>
                             </div> <!-- wizard container -->
                         </div>'; 
-                        else{
+                        }else{
                            $html= '
                            <div class="row">
 							<div class="col-md-12 col-lg-12">

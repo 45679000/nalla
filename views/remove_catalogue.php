@@ -51,8 +51,9 @@ if(isset($_POST['confirm'])){
                                                 <label class="control-label">AUCTION</label>
                                                 <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
-                                                    <option value="2021-01"> 2021-01 </option>
-                                                    <option value="2021-12"> 2021-12 </option>
+                                                    ';
+                                                    loadAuction();
+                                                    echo '
                                                 </select>
                                             </div>
                                         </div>

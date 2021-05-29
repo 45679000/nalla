@@ -7,6 +7,8 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 include $path_to_root.'widgets/_form.php';
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+include 'includes/auction_ids.php';
+
 
 $form = new Form();
 $catalogue = new Catalogue($conn);
@@ -41,7 +43,7 @@ if(!empty($_POST)){
                                         <div class="row">
                                             <div class="col-md-6 col-lg-6">
                                             <!-- names should match the database columns -->
-                                                <?= $form->formField("dropdownlist", "sale_no", "", "Auction", array("2021-41"=>"2021-41", "2021-42"=>"2021-42")) ?>
+                                                <?= $form->formField("dropdownlist", "sale_no", "", "Auction", loadAuctionArray()) ?>
                                                 <?= $form->formField("dropdownlist", "broker", "", "Broker", array("ANGL"=>"ANGL", "NCL"=>"NCL")) ?>
                                                 <?= $form->formField("dropdownlist", "comment", "", "Sale Type", array("Main"=>"Main", "seco"=>"Secondary")) ?>
                                                 <?= $form->formField("text", "mark", "", "Garden") ?>

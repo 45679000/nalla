@@ -1,4 +1,5 @@
 <?php
+session_start();
 define('ROOT_PATH', dirname(__DIR__) . '/');
 $path_to_root = "../../";
 include(ROOT_PATH . '../templates/header.php');
@@ -77,12 +78,16 @@ $form = new Form();
 
                     <div class="tab_content">
                         <?php
+                        echo $_SESSION['shipment-type'];
+
                         if(isset($_SESSION['shipment-type'])){
+
                             if($_SESSION["shipment-type"]=="Blend Shippment"){
                                 include 'blended_shipment.php';
+                            }else if($_SESSION["shipment-type"]=="Straight Line"){
+                                include 'direct_shipment.php';
+
                             }
-                        }else{
-                            include 'direct_shipment.php';
                         }
                         ?>
                     </div>

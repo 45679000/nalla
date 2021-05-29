@@ -8,11 +8,13 @@ include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
 $imported = false;
+include 'includes/auction_ids.php';
+
 
 
 $catalogue = new Catalogue($conn);
 
-    $imports = $catalogue->closingCatalogue('2021-12', 'ANGL','Main');
+    $imports = $catalogue->closingCatalogue('2021-15', 'ANGL','Main');
 
 
 ?>
@@ -31,21 +33,23 @@ $catalogue = new Catalogue($conn);
                 <div class="col-md-12">
                     <div class="card">
 
-                        <?php 
-                           $html= '
+                        <?php
+                        $html =""; 
+                           echo '
                            <div class="row">
 							<div class="col-md-12 col-lg-12">
 								<div class="card">
 									<div class="card-body text-center">
                                     <form>
-                                    <div class="row justify-content-center">
+                                    <div class="row justify-content-center" style="width:90%;">
                                         <div class="col-md-4 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">AUCTION</label>
                                                 <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
-                                                    <option value="2021-01"> 2021-01 </option>
-                                                    <option value="2021-12"> 2021-12 </option>
+                                                    ';
+                                                    loadAuction();
+                                                    echo '
                                                 </select>
                                             </div>
                                         </div>

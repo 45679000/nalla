@@ -8,6 +8,8 @@ require_once $path_to_root.'modules/stock/Stock.php';
 include $path_to_root1.'widgets/_form.php';
 require_once $path_to_root1.'modules/cataloguing/Catalogue.php';
 include $path_to_root1.'controllers/ShippingController.php';
+include 'includes/auction_ids.php';
+
 
 
 $stock = new Stock($conn);

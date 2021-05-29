@@ -12,7 +12,7 @@
     $catalogue = new Catalogue($conn);
     if(isset($_POST['saleno']) && isset($_POST['broker']) && isset($_POST['category'])){
         echo 'Ccheking Query';
-        $data = $catalogue->closingCatalogue($auction = "2021-12", $broker = "ANGL", $category = "Main");
+        $data = $catalogue->closingCatalogue($auction = "2021-15", $broker = "ANGL", $category = "Main");
         $rep = new Report();
         $dispArr = array(); 
         foreach($data as $data){
@@ -54,6 +54,8 @@
                                                         <option value="2021-10"> 2021-10 </option>
                                                         <option value="2021-11"> 2021-11 </option>
                                                         <option value="2021-12"> 2021-12 </option>
+                                                        <option value="2021-15"> 2021-15 </option>
+
                                                     </select>
                                                 </div>
                                             </div>

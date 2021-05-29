@@ -13,7 +13,7 @@ class Mailer{
         $this->subject = $subject;
 
     }
-    public function sendEmail(){
+    public function sendEmail($recepient){
         //create an instance of PHPMailer
         //create an instance of PHPMailer
 
@@ -59,7 +59,7 @@ class Mailer{
         $mail->setFrom('amin@shiloahmega.com', 'CHAMU TIFMS');
     
         //set where we are sending email (recipients)
-        $mail->addAddress("fchege22@gmail.com", "Recepient Name");
+        $mail->addAddress($recepient, "Recepient Name");
     
         //send an email
         if($mail->send()){

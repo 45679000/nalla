@@ -15,9 +15,11 @@ if($action=='add-si'){
     unset($_POST['action']);
     $resp = $shippingCtrl->saveSI($_POST, 1);
     $_SESSION['shipment-type'] = $_POST['shippment_type'];
+    $_SESSION['blend_details'] = '';
+
     $_SESSION['current-si-id'] = $resp;
     if($resp !=null){
-        echo json_encode(array("success"=>"true", "message"=>"Saved Successfully"));
+        echo json_encode(array("success"=>"true", "message"=>"Saved Successfully", "shipment-type"=>$_SESSION['shipment-type']));
     }else{
         echo json_encode(array("success"=>"false", "message"=>"There are some errors in the Form record not saved"));
 
@@ -42,6 +44,9 @@ if($action=='add-si'){
     echo json_encode(array("status"=>"Lot allocated successfully"));
 }else if($action=='shippment-summary'){
     echo json_encode($shippingCtrl->summaries());
+}else if($action=='blend'){
+    $_SESSION['blend_details'] = $_POST;
+    echo json_encode(array("success"=>200, "message"=>"Blend Saved"));
 }
 else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));

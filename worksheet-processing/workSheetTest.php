@@ -1,12 +1,12 @@
 <?php
 // (A) CONNECT TO DATABASE - CHANGE SETTINGS TO YOUR OWN!
-$dbhost = 'localhost';
+$connost = 'localhost';
 $dbname = 'chamu';
 $dbchar = 'utf8';
 $dbuser = 'root';
 $dbpass = '';
 $pdo = new PDO(
-  "mysql:host=$dbhost;charset=$dbchar;dbname=$dbname",
+  "mysql:host=$connost;charset=$dbchar;dbname=$dbname",
   $dbuser, $dbpass, [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

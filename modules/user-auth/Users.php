@@ -33,7 +33,7 @@ class Users{
                 $otp = $this->generateOtp($user_id);
                 if($otp != null){
                     $mailer = new Mailer("<p>OTP CODE: ".$otp."</p>", $userDetails['email'], "OTP");
-                    $is_sent = $mailer->sendEmail();
+                    $is_sent = $mailer->sendEmail($userDetails['email']);
                     if($is_sent==1){
                         $_SESSION["otp"] = $otp;
                         $_SESSION["message"] = "Enter the verification code sent to your email";

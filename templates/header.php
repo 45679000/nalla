@@ -214,9 +214,12 @@ body {
 									</div>
 								</div>
 								<div class="dropdown d-none d-md-flex mt-1">
-									<a href="<? echo $path_to_root?>views/logout.php" class="nav-link icon" >
-										<i class="fa fa-sign-out floating"></i>
-									</a>
+									<?php
+											echo '<a href='.$path_to_root.'./views/logout.php class="nav-link icon" >
+											<i class="fa fa-sign-out floating"></i>
+										</a>';
+									?>
+								
 								</div>
 								<div class="dropdown mt-1">
 									<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">

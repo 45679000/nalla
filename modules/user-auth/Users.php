@@ -93,15 +93,15 @@ class Users{
                 exit();
 
             case '2':
-                header("location:trackco.php");
+                header("location:dashboard.php");
                 exit();
 
             case '3':
-                header("location:reviewer.php");
+                header("location:dashboard.php");
                 exit();
 
             case '4':
-                header("location:sub.php");
+                header("location:dashboard.php");
                 exit();
 
             default:

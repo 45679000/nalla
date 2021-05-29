@@ -34,7 +34,9 @@ $path_to_root ='../';
                                      <div class="form-group">
                                                 </div>
                                                 <div class="col-md-8">
-                                                     <a href="<? echo $path_to_root?>views/login.php">Login Back Again</a>
+                                                    <?php
+                                                    echo' <a href="./login.php">Login Back Again</a>';
+                                                    ?>
                                                 </div>
                                                
                                             

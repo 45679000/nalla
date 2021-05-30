@@ -2,31 +2,31 @@
     $role = $_SESSION['role_id'];
 	if($role==1){
       //show all menu for admin
-	  menu_catalogue($path_to_root);
-	  menu_tasting_grading($path_to_root);
-	  menu_stock($path_to_root);
-	  menu_shipping($path_to_root);
-	  menu_finance($path_to_root);
-	  menu_ware_housing($path_to_root);
-	  menu_reports($path_to_root);
-	  menu_user_management($path_to_root);
-	}else if($role = 2){
+	  echo menu_catalogue($path_to_root);
+	  echo menu_tasting_grading($path_to_root);
+	  echo menu_stock($path_to_root);
+	  echo menu_shipping($path_to_root);
+	  echo menu_finance($path_to_root);
+	  echo menu_ware_housing($path_to_root);
+	  echo menu_reports($path_to_root);
+	  echo menu_user_management($path_to_root);
+	}else if($role==2){
 		//cataloging and tasting and grading
-		menu_catalogue($path_to_root);
-		menu_tasting_grading($path_to_root);
-		menu_stock($path_to_root);
+		echo menu_catalogue($path_to_root);
+		echo menu_tasting_grading($path_to_root);
+		echo menu_stock($path_to_root);
 
-	}else if($role = 3){
+	}else if($role==3){
 		//shipping 
-		menu_stock($path_to_root);
-		menu_shipping($path_to_root);
+		echo menu_stock($path_to_root);
+		echo menu_shipping($path_to_root);
 
 	}else if($role==4){
-		menu_user_management($path_to_root);
+		echo menu_user_management($path_to_root);
 	}
 
 	function menu_catalogue($path_to_root){
-		print '
+		return '
 		<li class="nav-item with-sub mega-dropdown">
 		<a class="nav-link" href="#"><i class="fa fa-pencil-square-o"></i><span>CATALOGUES</span></a>
 		<div class="sub-item">
@@ -133,43 +133,43 @@
 	</li>';
 	}
 	function menu_tasting_grading($path_to_root){
-		print '
+		return '
 		<li class="nav-item">
 			<a class="nav-link" href='.$path_to_root.'views/tasting_grading.php><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
 		</li>';
 	}
 	function menu_stock($path_to_root){
-		print '
+		return '
 		<li class="nav-item">
 			<a class="nav-link" href='.$path_to_root.'views/stock_index.php?view=purchase-list><i class="fa fa-database"></i> <span>Stocks</span></a>
 		</li>';
 	}
 	function menu_shipping($path_to_root){
-		print '
+		return '
 		<li class="nav-item">
 			<a class="nav-link" href='.$path_to_root.'modules/shipping/index.php><i class="fa fa-ship"></i> <span>Shipping</span></a>
 		</li>';
 	}
 	function menu_finance($path_to_root){
-		print '
+		return '
 		<li class="nav-item">
 			<a class="nav-link" href='.$path_to_root.'views/finance.php><i class="fa fa-money"></i><span>Finance</span></a>
 		</li>';
 	}
 	function menu_ware_housing($path_to_root){
-		print '
+		return '
 		<li class="nav-item">
 			<a class="nav-link" href='.$path_to_root.'views/warehousing.php?view=warehouses><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
 		</li>';
 	}
 	function menu_reports($path_to_root){
-		print '
+		return '
 			<li class="nav-item">
 				<a class="nav-link" href='.$path_to_root.'reports/index.php><i class="fa fa-file-text-o"></i> <span>Reports</span></a>
 			</li>';
 	}
 	function menu_user_management($path_to_root){
-		print '
+		return '
 		<li class="nav-item">
 			<a class="nav-link" href='.$path_to_root.'admin/admin/index.php><i class="fa fa-users"></i><span>User Management</span></a>
 		</li>';

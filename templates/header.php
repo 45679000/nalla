@@ -1,9 +1,11 @@
 
 <?php 
+	session_start();
 	include $path_to_root.'database/page_init.php';
+
 	// include 'validate_login.php';
 	// Turn off error reporting
-	error_reporting(0);
+	// error_reporting(0);
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">

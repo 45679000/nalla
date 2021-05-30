@@ -5,7 +5,7 @@
 
 	// include 'validate_login.php';
 	// Turn off error reporting
-	// error_reporting(0);
+	error_reporting(0);
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">

@@ -1,5 +1,4 @@
 <?php
-session_start();
 $path_to_root = "../";
 $path_to_root1 = "../";
 
@@ -92,7 +91,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                 <label class="control-label">BROKER</label>
                                                                 <select name="broker" class="form-control"><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="ANGL"> ANGL </option>
+                                                                    <option value="ANJL"> ANJL </option>
                                                                     <option value="ATLC"> ATLC </option>
                                                                     <option value="BICL"> BICL </option>
                                                                     <option value="CENT"> CENT </option>

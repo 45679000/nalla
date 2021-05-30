@@ -70,14 +70,6 @@
 						<div class="col">
 							<ul>
 								<div class="text-center">
-									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-plus"></i></a>
-									<a href='.$path_to_root.'views/add_lot.php>Add New Lots</a>
-								</div>
-							</ul>
-						</div>
-						<div class="col">
-							<ul>
-								<div class="text-center">
 									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-cloud-upload"></i></a>
 									<a href='.$path_to_root.'views/valuation.php>Import Valuations</a>
 								</div>
@@ -91,14 +83,6 @@
 								</div>
 							</ul>
 						</div>
-						<div class="col-lg">
-							<ul>
-								<div class="text-center">
-									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-columns"></i></a>
-									<a href='.$path_to_root.'views/closing_import.php>Valuation Corrections</a>
-								</div>
-							</ul>
-						</div><!-- col -->
 						<div class="col-lg mg-t-30 mg-lg-t-0">
 							<ul>
 								<div class="text-center">

@@ -1,5 +1,4 @@
 <?php
-session_start();
 $path_to_root = "../";
 $path_to_root1 = "../";
 
@@ -7,6 +6,7 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+include 'includes/auction_ids.php';
 $imported = false;
 
 $catalogue = new Catalogue($conn);
@@ -41,10 +41,10 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     <div class="my-3 my-md-5">
         <div class="container">
             <div class="page-header">
-                <h4 class="page-title">Correction Import</h4>
+                <h4 class="page-title">Catalogue Correction</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Correction Import</li>
+                    <li class="breadcrumb-item active" aria-current="page">Catalogue Correction</li>
                 </ol>
             </div>
             <div id="global-loader" ></div>
@@ -53,10 +53,10 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Catalogue Corrections</div>
+                            <div class="card-title">Catalogue Correction</div>
                         </div>
 
-                        <?php if(empty($imports)) { 
+                        <?php if(empty($imports)){  
                         echo '<div class="card-body p-6">
                             <div class="wizard-container">
                                 <div class="wizard-card m-0" id="wizardProfile">
@@ -79,9 +79,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                 <select name="saleno" class="form-control" ><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
                                                                     ';
-                                                                    loadAuction();
+                                                                        loadAuction();
                                                                     echo '
-
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -92,7 +91,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                 <label class="control-label">BROKER</label>
                                                                 <select name="broker" class="form-control"><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="ANGL"> ANGL </option>
+                                                                    <option value="ANJL"> ANJL </option>
                                                                     <option value="ATLC"> ATLC </option>
                                                                     <option value="BICL"> BICL </option>
                                                                     <option value="CENT"> CENT </option>

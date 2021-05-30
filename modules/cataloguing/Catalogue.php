@@ -256,6 +256,14 @@
             $UNIX_DATE = ($dateValue - 25569) * 86400;
             return gmdate("d-m-Y", $UNIX_DATE);        
     }
+    public  function catalogueDate($auctionid) {
+        try {
+            $this->query = "SELECT import_date FROM `closing_cat`";
+            return $this->executeQuery();
+        } catch (EXCEPTION $ex) {
+            var_dump($ex);
+        }
+}
   
 }
 

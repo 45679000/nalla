@@ -1,5 +1,4 @@
 <?php
-session_start();
 $path_to_root = "../";
 $path_to_root1 = "../";
 
@@ -14,12 +13,12 @@ include 'includes/auction_ids.php';
 
 $catalogue = new Catalogue($conn);
 
-    $imports = $catalogue->closingCatalogue('2021-15', 'ANGL','Main');
+    $imports = $catalogue->closingCatalogue('2021-15', 'ANJL','Main');
 
 
 ?>
     <div class="my-3 my-md-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="page-header">
                 <h4 class="page-title">View Valuations</h4>
                 <ol class="breadcrumb">
@@ -58,7 +57,7 @@ $catalogue = new Catalogue($conn);
                                                 <label class="control-label">BROKER</label>
                                                 <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
-                                                    <option value="ANGL"> ANGL </option>
+                                                    <option value="ANJL"> ANJL </option>
                                                     <option value="ATLC"> ATLC </option>
                                                     <option value="BICL"> BICL </option>
                                                     <option value="CENT"> CENT </option>

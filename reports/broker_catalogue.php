@@ -13,14 +13,16 @@
     $auction = "";
     $data = [];
     $catalogue = new Catalogue($conn);
+    $import_date;
     echo '<pre>';
     if(isset($_POST['filter'])){
         $auction = $_POST['saleno'];
         $broker = $_POST['broker'];
         $category = $_POST['category'];
         $data = $catalogue->closingCatalogue($auction = $_POST['saleno'], $broker = $_POST['broker'], $category = $_POST['category']);
-      
-    }
+        $import_date = $catalogue->catalogueDate($auctionid)[0]['import_date'];
+        $import_date = date_format(date_create($import_date),"l jS  F Y");
+    }   
  
     $date =date("l jS  F Y");
 
@@ -50,7 +52,7 @@
                   <label class="control-label">BROKER</label>
                   <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
                       <option disabled="" value="..." selected="">select</option>
-                      <option value="ANGL"> ANGL </option>
+                      <option value="ANJL"> ANJL </option>
                       <option value="ATLC"> ATLC </option>
                       <option value="BICL"> BICL </option>
                       <option value="CENT"> CENT </option>
@@ -132,7 +134,7 @@
     <table>
     <tr>
           <td colspan=100%><h3 style='text-align:center'>".$broker."</h3>
-          <h4 style='text-align:left'>".$category."&emsp;&emsp;Auction&emsp;&emsp;".$auction."&emsp;&emsp; Of&emsp;".$date." </h4>
+          <h4 style='text-align:left'>".$category."&emsp;&emsp;Auction&emsp;&emsp;".$auction."&emsp;&emsp; Of&emsp;".$import_date." </h4>
           </td>
      </tr>
      <tr>

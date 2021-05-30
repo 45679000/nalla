@@ -44,7 +44,7 @@ if(!empty($_POST)){
                                             <div class="col-md-6 col-lg-6">
                                             <!-- names should match the database columns -->
                                                 <?= $form->formField("dropdownlist", "sale_no", "", "Auction", loadAuctionArray()) ?>
-                                                <?= $form->formField("dropdownlist", "broker", "", "Broker", array("ANGL"=>"ANGL", "NCL"=>"NCL")) ?>
+                                                <?= $form->formField("dropdownlist", "broker", "", "Broker", array("ANJL"=>"ANJL", "NCL"=>"NCL")) ?>
                                                 <?= $form->formField("dropdownlist", "comment", "", "Sale Type", array("Main"=>"Main", "seco"=>"Secondary")) ?>
                                                 <?= $form->formField("text", "mark", "", "Garden") ?>
                                                 <?= $form->formField("text", "lot", "", "Lot No") ?>

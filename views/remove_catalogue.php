@@ -1,5 +1,4 @@
 <?php
-session_start();
 $path_to_root = "../";
 $path_to_root1 = "../";
 
@@ -7,15 +6,19 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+include 'includes/auction_ids.php';
 $imported = false;
 
 
 $catalogue = new Catalogue($conn);
-
-$imports = $catalogue->closingCatalogue('2021-12', 'ANGL','Main');
+$imports = [];
+if(isset($_POST['filter'])){
+    $_SESSION['sale_no'] = $_POST['saleno'];
+    $imports = $catalogue->closingCatalogue($_POST['saleno'], $_POST['broker'] , $_POST['category']);
+}
 
 if(isset($_POST['confirm'])){
-    $removed = $catalogue->removeCatalogue('2021-12');
+    $removed = $catalogue->removeCatalogue($_SESSION['sale_no']);
     if($removed == true){
         echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
     }
@@ -24,15 +27,14 @@ if(isset($_POST['confirm'])){
 
 ?>
     <div class="my-3 my-md-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="page-header">
-                <h4 class="page-title">View Valuations</h4>
+                <h4 class="page-title">Remove Catalogue</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">View Valuations</li>
+                    <li class="breadcrumb-item active" aria-current="page">Remove Catalogue</li>
                 </ol>
             </div>
-            <div id="global-loader" ></div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -44,25 +46,26 @@ if(isset($_POST['confirm'])){
 							<div class="col-md-12 col-lg-12">
 								<div class="card">
 									<div class="card-body text-center">
-                                    <form>
+                                    <form method="post">
                                     <div class="row justify-content-center">
-                                        <div class="col-md-4 well">
+                                        <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">AUCTION</label>
                                                 <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                    <option disabled="" value="..." selected="">select</option>
-                                                    ';
-                                                    loadAuction();
-                                                    echo '
+                                                    <option disabled="" value="..." selected="">select</option>';
+                                                        foreach(loadAuctionArray() as $auction_id){
+                                                            $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
+                                                        }
+                                                   $html.= '
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 well">
+                                        <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BROKER</label>
                                                 <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
-                                                    <option value="ANGL"> ANGL </option>
+                                                    <option value="ANJL"> ANJL </option>
                                                     <option value="ATLC"> ATLC </option>
                                                     <option value="BICL"> BICL </option>
                                                     <option value="CENT"> CENT </option>
@@ -73,7 +76,7 @@ if(isset($_POST['confirm'])){
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 well">
+                                        <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">CATEGORY</label>
                                                 <select id="category" name="category" class="form-control well" ><small>(required)</small>
@@ -83,6 +86,13 @@ if(isset($_POST['confirm'])){
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+
+                                            <button type="submit" id="search" value="filter" name="filter" class="btn btn-success btn-sm">Search Catalogue</button>
+
+                                        </div>
+                                    </div>
                                     </div>
                                 </form>
                                 <form action="" method="post">
@@ -180,7 +190,7 @@ if(isset($_POST['confirm'])){
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
-<script>
+<!-- <script>
 $(function() {
 
     $('select').on('change', function() {
@@ -220,7 +230,7 @@ $(function() {
     
 });
     
-</script>
+</script> -->
 <script>
     $(function(e) {
         $('#closingimports').DataTable();

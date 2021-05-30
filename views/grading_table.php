@@ -3,7 +3,7 @@
                     <div class="card-body p-6">
                         <div class="col-md-12">
                             <div class="expanel expanel-secondary">
-                                <?php
+                            <?php
                                 echo '<div class="expanel-heading">
                                                 <h3 class="expanel-title">Filter Catalogue</h3>
                                             </div>
@@ -12,21 +12,13 @@
                                                     <div class="row justify-content-center">
                                                         <div class="col-md-3 well">
                                                             <div class="form-group label-floating">
-                                                                <label class="control-label">AUCTION</label>
-                                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    ';
-                                                                        loadAuction();
-                                                                    echo '
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 well">
+
+                                                            <div class="col-md-3 well">
                                                             <div class="form-group label-floating">
                                                                 <label class="control-label">BROKER</label>
                                                                 <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="ANGL"> ANGL </option>
+                                                                    <option value="ANJL"> ANJL </option>
                                                                     <option value="ATLC"> ATLC </option>
                                                                     <option value="BICL"> BICL </option>
                                                                     <option value="CENT"> CENT </option>
@@ -37,6 +29,16 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                                <label class="control-label">AUCTION</label>
+                                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
+                                                                    <option disabled="" value="..." selected="">select</option>
+                                                                    ';
+                                                                    loadAuction();
+                                                                    echo '
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        
                                                         <div class="col-md-3 well">
                                                             <div class="form-group label-floating">
                                                                 <label class="control-label">CATEGORY</label>
@@ -77,7 +79,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>';
-                                                    $html ="";
+                                                   
                                                     foreach ($imports as $import){
                                                         $html.='<tr>';
                                                             $html.='<td>'.$import["lot"].'</td>';

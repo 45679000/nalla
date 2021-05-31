@@ -50,8 +50,8 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="wd-15p">#</th>
-                                                            <th class="wd-15p">Comment</th>
-                                                            <th class="wd-20p">Description</th>                                        
+                                                            <th class="wd-15p">Code</th>
+                                                            <th class="wd-20p">Comment</th>                                        
                                                         </tr>
                                                     </thead>
                                                     <tbody>';

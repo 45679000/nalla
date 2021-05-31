@@ -15,9 +15,9 @@
         $data = $catalogue->closingCatalogue($auction = "2021-15", $broker = "ANJL", $category = "Main");
         $rep = new Report();
         $dispArr = array(); 
-        foreach($data as $data){
-            $dispArr = $data['mark'];
-        }
+        // foreach($data as $data){
+        //     $dispArr = $data['mark'];
+        // }
         var_dump($dispArr);
         $rep->printReport($dispArr);
 

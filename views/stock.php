@@ -3,59 +3,65 @@
                     <div class="card-body p-6">
                         <div class="col-md-12">
                             <div class="expanel expanel-secondary">
-                                <?php
-                                $html ='<div class="expanel-heading">
-                                                <h3 class="expanel-title">Filter Catalogue</h3>
+                            <?php 
+                           $html= '
+                           <div class="row">
+							<div class="col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-body text-center">
+                                    <form method="post">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-3 well">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">AUCTION</label>
+                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
+                                                    <option disabled="" value="..." selected="">select</option>';
+                                                        foreach(loadAuctionArray() as $auction_id){
+                                                            $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
+                                                        }
+                                                   $html.= '
+                                                </select>
                                             </div>
-                                            <div class="expanel-body">
-                                                <form method="post" class="filter">
-                                                    <div class="row justify-content-center">
-                                                        <div class="col-md-3 well">
-                                                            <div class="form-group label-floating">
-                                                                <label class="control-label">AUCTION</label>
-                                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    ';
-                                                                    loadAuction();
-                                                                    echo '
-
-
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 well">
-                                                            <div class="form-group label-floating">
-                                                                <label class="control-label">BROKER</label>
-                                                                <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="ANJL"> ANJL </option>
-                                                                    <option value="ATLC"> ATLC </option>
-                                                                    <option value="BICL"> BICL </option>
-                                                                    <option value="CENT"> CENT </option>
-                                                                    <option value="CTBL"> CTBL </option>
-                                                                    <option value="VENS"> VENS </option>
-                                                                    <option value="UNTB"> UNTB </option>
-                                                                    <option value="TBE"> TBE </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 well">
-                                                            <div class="form-group label-floating">
-                                                                <label class="control-label">CATEGORY</label>
-                                                                <select id="category" name="category" class="form-control well" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="Main">Main</option>
-                                                                    <option value="Sec">Sec</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 well">
-                                                            <button type="submit" class="btn btn-primary">View</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            
+                                        </div>
+                                        <div class="col-md-3 well">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">BROKER</label>
+                                                <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
+                                                    <option disabled="" value="..." selected="">select</option>
+                                                    <option value="ANJL"> ANJL </option>
+                                                    <option value="ATLC"> ATLC </option>
+                                                    <option value="BICL"> BICL </option>
+                                                    <option value="CENT"> CENT </option>
+                                                    <option value="CTBL"> CTBL </option>
+                                                    <option value="VENS"> VENS </option>
+                                                    <option value="UNTB"> UNTB </option>
+                                                    <option value="TBE"> TBE </option>
+                                                </select>
                                             </div>
+                                        </div>
+                                        <div class="col-md-3 well">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">CATEGORY</label>
+                                                <select id="category" name="category" class="form-control well" ><small>(required)</small>
+                                                    <option disabled="" value="..." selected="">select</option>
+                                                    <option value="Main">Main</option>
+                                                    <option value="Sec">Sec</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+
+                                            <button type="submit" id="search" value="filter" name="filter" class="btn btn-success btn-sm">Search Purchase List</button>
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+									</div>
+								</div>
+							</div>
+						</div>
                            <div class="card-body">
                                 <div class="table-responsive">
 									<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">

@@ -13,7 +13,7 @@
                                                 <span class="icon mr-3"><i class="fe fe-send"></i></span>Offered Teas
                                             </a>
                                             <a href="./tasting_grading.php?view=comment" class="list-group-item list-group-item-action d-flex align-items-center">
-                                                <span class="icon mr-3"><i class="fe fe-send"></i></span>Grading Comments
+                                                <span class="icon mr-3"><i class="fe fe-send"></i></span>Grading Codes
                                             </a>
                                             <a href="./tasting_grading.php?view=labels" class="list-group-item list-group-item-action d-flex align-items-center">
                                                 <span class="icon mr-3"><i class="fe fe-send"></i></span>Generate Labels

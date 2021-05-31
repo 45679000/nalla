@@ -25,8 +25,6 @@ session_start();
         }
     }
     if((isset($_POST['otp'])) && isset($_SESSION['otp'])){
-        echo $_POST['otp_verify'] .' == '. $_SESSION['otp'];
-
         if($_POST['otp_verify'] == $_SESSION['otp']){
             $user->redirectUser($_SESSION['role_id']);    
         }else{

@@ -78,7 +78,6 @@ $form = new Form();
 
                     <div class="tab_content">
                         <?php
-                        echo $_SESSION['shipment-type'];
 
                         if(isset($_SESSION['shipment-type'])){
 

@@ -10,10 +10,12 @@ $imported = false;
 include 'includes/auction_ids.php';
 
 
-
+$imports = [];
 $catalogue = new Catalogue($conn);
-
-    $imports = $catalogue->closingCatalogue('2021-15', 'ANJL','Main');
+if(isset($_POST['filter'])){
+    $_SESSION['sale_no'] = $_POST['saleno'];
+    $imports = $catalogue->closingCatalogue($_POST['saleno'], $_POST['broker'] , $_POST['category']);
+}
 
 
 ?>
@@ -32,27 +34,27 @@ $catalogue = new Catalogue($conn);
                 <div class="col-md-12">
                     <div class="card">
 
-                        <?php
-                        $html =""; 
-                           echo '
+                    <?php 
+                           $html= '
                            <div class="row">
 							<div class="col-md-12 col-lg-12">
 								<div class="card">
 									<div class="card-body text-center">
-                                    <form>
-                                    <div class="row justify-content-center" style="width:90%;">
-                                        <div class="col-md-4 well">
+                                    <form method="post">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">AUCTION</label>
                                                 <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                    <option disabled="" value="..." selected="">select</option>
-                                                    ';
-                                                    loadAuction();
-                                                    echo '
+                                                    <option disabled="" value="..." selected="">select</option>';
+                                                        foreach(loadAuctionArray() as $auction_id){
+                                                            $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
+                                                        }
+                                                   $html.= '
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 well">
+                                        <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BROKER</label>
                                                 <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
@@ -68,7 +70,7 @@ $catalogue = new Catalogue($conn);
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 well">
+                                        <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">CATEGORY</label>
                                                 <select id="category" name="category" class="form-control well" ><small>(required)</small>
@@ -78,6 +80,13 @@ $catalogue = new Catalogue($conn);
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+
+                                            <button type="submit" id="search" value="filter" name="filter" class="btn btn-success btn-sm">Search Catalogue</button>
+
+                                        </div>
+                                    </div>
                                     </div>
                                 </form>
 									</div>
@@ -172,7 +181,7 @@ $catalogue = new Catalogue($conn);
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
-<script>
+<!-- <script>
 $(function() {
 
     $('select').on('change', function() {
@@ -212,7 +221,7 @@ $(function() {
     
 });
     
-</script>
+</script> -->
 <script>
     $(function(e) {
         $('#closingimports').DataTable();

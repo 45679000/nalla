@@ -175,8 +175,13 @@
             return $this->selectOne($id, "closing_cat_import_id");
         }
         public function closingCatalogue($auction = "", $broker = "", $category = ""){
-                $this->query = "SELECT * FROM closing_cat WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."'";
-                return $this->executeQuery();
+                if($category =="All"){
+                    $this->query = "SELECT * FROM closing_cat WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
+                    return $this->executeQuery();
+                }else{
+                    $this->query = "SELECT * FROM closing_cat WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."'";
+                    return $this->executeQuery();
+                }
         }
         public function postCatalogueProcess(){
             $processed = false;
@@ -266,5 +271,3 @@
 }
   
 }
-
-?>

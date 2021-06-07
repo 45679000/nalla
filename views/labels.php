@@ -2,46 +2,20 @@
                 <div class="card">
                     <div class="card-body p-6">
                         <div class="col-md-12">
+                            <div style="text-align: center;">
+                                <button style="width:15%; height:40px;" class="btn btn-primary">Load</button>
+                            </div>
                             <div class="expanel expanel-secondary">
-                                <?php
-                                $id = 2;
-                                    $html='
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                        ';
-                                        foreach($offered as $offer){
-                                                $html.='
-                                                <div class="col-md-3" style="padding:100px;">
-                                                        <table>
-                                                            <tr>
-                                                                <td>SALE'.$offer['sale_no'].'</td>
-                                                                <td>DATE'.$offer['manf_date'].'</td> 
-                                                            </tr>
-                                                            <tr>
-                                                                <td>'.$offer['mark'].'</td>
-                                                                <td>'.$offer['grade'].'</td>   
-                                                            </tr>
-                                                            <tr>
-                                                                <td>PKGS'.$offer['pkgs'].'</td>
-                                                                <td>LOT#'.$offer['lot'].'</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>WGHT'.$offer['net'].'</td>
-                                                                <td>Invoice'.$offer['invoice'].'</td>
-                                                            </tr>
-                                                        </table>
-                                                     </div>';
-                                            }
-                                            $html.='</div>
-                                            </div>';
-                                    echo $html;
-                                ?>
+                                <iframe src="../reports/files/labels.pdf" width="100%" height="800px">
+                                </iframe>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
+
+
 
             <!-- Dashboard js -->
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
@@ -73,5 +47,28 @@
     $(function(e) {
         $('#tasting').DataTable();
     });
+</script>
+<script>
+$(document).ready(function () {    
+    $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "../ajax/grading.php",
+                data: {action: 'generate-lables'},
+            success: function (data) {
+                console.log('Submission was successful.');
+                // location.reload();
+                console.log(data);
+                return data;
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+        });
+      
+
+});
+
 </script>
 

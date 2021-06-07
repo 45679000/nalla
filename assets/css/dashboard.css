@@ -10256,7 +10256,7 @@ button.close {
 	padding: 0;
 	border-radius: 7px;
 	position: relative;
-	min-height: 50px;
+	min-height: 0px !important;
 }
 .page-title {
 	margin: 0;

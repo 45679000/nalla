@@ -17,36 +17,12 @@
                             <div class="expanel expanel-secondary">
                                 <?php
                                 echo '<div class="expanel-heading">
-                                        <h3 class="expanel-title">Grading Comments</h3>
+                                        <h3 class="expanel-title">Grading Codes</h3>
                                             </div>
-                                            <div class="modal" id="myModal">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form method="post" style="padding-top:20px;" class="comment container">
-                                                            <div class="form-outline mb-4">
-                                                                <input type="text" id="comment" name="comment" class="form-control" />
-                                                                <label class="form-label" for="comment">Comment</label>
-                                                            </div>
-                                                        
-                                                            <div class="form-outline mb-4">
-                                                                <textarea type="text" name="description" id="description" class="form-control"></textarea>
-                                                                <label class="form-label" for="details">Description</label>
-                                                            </div>
-                                                            <button type="submit" name="addcomment" class="btn btn-primary">Save</button>
-                                                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
-
-                                                        </form>        
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                
-                                            </div>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-                                                New Comment
-                                             </button>
+                                        
                                             <div class="card-body">
                                             <div class="table-responsive">
-                                                <table id="closingimports" class="table table-striped table-bordered" style="width:100%">
+                                                <table  class="table table-striped table-bordered" style="width:100%">
                                                     <thead>
                                                         <tr>
                                                             <th class="wd-15p">#</th>
@@ -59,7 +35,7 @@
                                                     foreach ($comments as $comment){
                                                         $html.='<tr>';
                                                             $html.='<td>'.$comment["id"].'</td>';
-                                                            $html.='<td>'.$comment["comment"].'</td>';
+                                                            $html.='<td>'.$comment["code"].'</td>';
                                                             $html.='<td>'.$comment["description"].'</td>';
                                                         $html.='</tr>';
                                                     }
@@ -75,3 +51,21 @@
                     </div>
                 </div>
             </div>
+            <!-- Dashboard js -->
+<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../assets/js/vendors/selectize.min.js"></script>
+<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
+<!-- Custom Js-->
+<script src="../assets/js/custom.js"></script>
+
+<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+            <script>
+            $("table").DataTable({
+                       
+                    });
+            </script>

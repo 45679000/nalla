@@ -1,11 +1,10 @@
 <?php
-session_start();
 $path_to_root = "../";
 $path_to_root1 = "../";
-require_once $path_to_root.'templates/header.php';
+include $path_to_root.'templates/header.php';
 
 ?>
-    <div class="my-3 my-md-5">
+    <div class="my-3 my-md-5" style="margin-top:-20px;">
         <div class="container-fluid">
             <div class="page-header">
                 <ol class="breadcrumb">
@@ -14,8 +13,30 @@ require_once $path_to_root.'templates/header.php';
                 </ol>
             </div>
             <div class="row">
-                <?php include 'sub_menu.php' ?>
-                <?php include 'rep_broker_catalogue.php' ?>
+                <?php  
+                include 'sub_menu.php'; 
+
+                if(isset($_GET['rep'])){
+                    $report = $_GET['rep'];
+                    switch ($report) {
+                        case "broker-catalog":
+                            include 'rep_broker.php';
+                          break;
+                        case "blue":
+                          echo "Your favorite color is blue!";
+                          break;
+                        case "green":
+                          echo "Your favorite color is green!";
+                          break;
+                        default:
+                          echo "Your favorite color is neither red, blue, nor green!";
+                      }
+
+
+
+                }            
+
+                ?>
 
             </div>
         </div>

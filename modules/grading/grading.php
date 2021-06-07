@@ -32,7 +32,7 @@
             
         }
         public function readComments(){
-            $this->query="SELECT *FROM grading_comments WHERE is_deleted = false";
+            $this->query="SELECT *FROM grading_comments WHERE deleted = false";
             return($this->executeQuery());
 
         }
@@ -41,8 +41,7 @@
             return($this->executeQuery());
 
         }
-        
-        
+
     
     }
 

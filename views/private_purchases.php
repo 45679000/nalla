@@ -14,7 +14,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-3 col-md-3">
                                                                 <!-- names should match the database columns -->
-                                                                    <?= $form->formField("dropdownlist", "sale_no", "", "Auction", array("PRVT-01-2021"=>"PRVT-01-2021", "PRVT-02-2021"=>"PRVT-02-2021")) ?>
+                                                                    <?= $form->formField("dropdownlist", "sale_no", "", "Auction", loadPrivateAuctionArray()) ?>
                                                                     <?= $form->formField("dropdownlist", "broker", "", "Broker", array("ANJL"=>"ANJL", "NCL"=>"NCL")) ?>
                                                                     <?= $form->formField("dropdownlist", "comment", "", "Sale Type", array("Main"=>"Main", "seco"=>"Secondary")) ?>
                                                                 </div>
@@ -35,7 +35,6 @@
                                                                     <?= $form->formField("text", "ware_hse", "", "Ware House") ?>
 
                                                                 </div>
-                                                                <?= $form->addButtons() ?>
 
                                                             </div>
                                                         </div>

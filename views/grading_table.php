@@ -40,7 +40,7 @@
                                             <div class="form-group label-floating">
                                                 <label class="control-label">CATEGORY</label>
                                                 <select id="category" name="category" class="form-control well" ><small>(required)</small>
-                                                    <option disabled="" value="..." selected="">select</option>
+                                                    <option value="All" selected="All">All</option>
                                                     <option value="Main">Main</option>
                                                     <option value="Sec">Sec</option>
                                                 </select>
@@ -148,8 +148,8 @@
 
 <script>
 var SubmitData = new Object();
-var Comment = [],
-    Standard = [],
+var Comment = [""],
+    Standard = [""],
     table = $('#closingimports').DataTable({
         columnDefs: [{
             targets: [0],
@@ -163,13 +163,30 @@ var Comment = [],
             "className": "location"
         }],
         initComplete: function() {
-            Comment.push("EB1");
-            Comment.push("EB1+");
-            Comment.push("EB1*");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "../ajax/grading.php",
+                data: {action: 'grading-codes'},
+            success: function (data) {
+                for(var i=0; i<data.length; i++){
+                    Comment.push(data[i].code);
+                    }
+                },
+            });
 
-            Standard.push("2016");
-            Standard.push("2017");
-            Standard.push("2018");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "../ajax/grading.php",
+                data: {action: 'grading-standards'},
+            success: function (data) {
+                for(var i=0; i<data.length; i++){
+                    Standard.push(data[i].standard);
+                    }
+                },
+            });
+            
 
         }
     });
@@ -229,6 +246,7 @@ $('#closingimports tbody').on("change", ".changeLocation", () => {
     table.cell($(".changeLocation").parents('td')).data($(".changeLocation").val());
     $('#closingimports').removeClass("editing");
 });
+
 function postData(formData, PostUrl) {
           $.ajax({
                 type: "POST",

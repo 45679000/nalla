@@ -10,19 +10,23 @@
 	  echo menu_ware_housing($path_to_root);
 	  echo menu_reports($path_to_root);
 	  echo menu_user_management($path_to_root);
+	  echo menu_setup($path_to_root);
 	}else if($role==2){
 		//cataloging and tasting and grading
 		echo menu_catalogue($path_to_root);
 		echo menu_tasting_grading($path_to_root);
 		echo menu_stock($path_to_root);
+		echo menu_setup($path_to_root);
 
 	}else if($role==3){
 		//shipping 
 		echo menu_stock($path_to_root);
 		echo menu_shipping($path_to_root);
+		echo menu_setup($path_to_root);
 
 	}else if($role==4){
 		echo menu_user_management($path_to_root);
+		echo menu_setup($path_to_root);
 	}
 
 	function menu_catalogue($path_to_root){
@@ -37,7 +41,7 @@
 						<div class="col">
 							<ul>
 								<div class="text-center">
-									<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-book"></i></a>
+									<a href="#"><i style="font-size:65px; color: Dodgerblue;" class="fa fa-file-text-o"></i></a>
 									<a href='.$path_to_root.'views/auction_order.php>Auction Order</a>
 								</div>
 							</ul>
@@ -62,7 +66,7 @@
 						<div class="col">
 							<ul>
 								<div class="text-center">
-									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
+									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-file-text-o"></i></a>
 									<a href='.$path_to_root.'views/post_import.php>Post Catalogue Import</a>
 								</div>
 							</ul>
@@ -95,7 +99,7 @@
 						<div class="col-lg mg-t-30 mg-lg-t-0">
 							<ul>
 								<div class="text-center">
-									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-book"></i></a>
+									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-file"></i></a>
 									<a href='.$path_to_root.'reports/broker_catalogue.php>Broker Catalogue</a>
 								</div>
 							</ul>
@@ -119,7 +123,7 @@
 	function menu_tasting_grading($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link" href='.$path_to_root.'views/tasting_grading.php><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
+			<a class="nav-link" href='.$path_to_root.'views/tasting_grading.php?view=grading><i class="fa fa-bar-chart"></i> <span>Tasting Grading</span></a>
 		</li>';
 	}
 	function menu_stock($path_to_root){
@@ -149,7 +153,7 @@
 	function menu_reports($path_to_root){
 		return '
 			<li class="nav-item">
-				<a class="nav-link" href='.$path_to_root.'reports/index.php><i class="fa fa-file-text-o"></i> <span>Reports</span></a>
+				<a class="nav-link" href='.$path_to_root.'reports/index.php?rep=broker-catalog><i class="fa fa-file-text-o"></i> <span>Reports</span></a>
 			</li>';
 	}
 	function menu_user_management($path_to_root){
@@ -158,6 +162,13 @@
 			<a class="nav-link" href='.$path_to_root.'admin/admin/index.php><i class="fa fa-users"></i><span>User Management</span></a>
 		</li>';
 	}
+	function menu_setup($path_to_root){
+		return '
+		<li class="nav-item">
+			<a class="nav-link" href='.$path_to_root.'modules/setup/index.php?view=standards><i class="fa fa-cogs"></i><span>Setup</span></a>
+		</li>';
+	}
+	
 ?>
 
 

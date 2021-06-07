@@ -6,7 +6,7 @@
                                     </div>
                                     <div class="expanel-body">
                                     <div class="list-group list-group-transparent mb-0 mail-inbox">
-                                            <a href="rep_broker_catalogue.php" class="list-group-item list-group-item-action d-flex align-items-center">
+                                            <a href="?rep=broker-catalog" class="list-group-item list-group-item-action d-flex align-items-center">
                                                 <span class="icon mr-3"><i class="fe fe-send"></i></span>Print Catalogue
                                             </a>
                                             <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">

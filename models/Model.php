@@ -61,6 +61,10 @@ class Model{
         $this->conn->query("UPDATE  ".$tablename." SET is_deleted = true WHERE id = ".$pk);
         return "Record Deleted";
     }
+    public function execute(){
+        $rows = $this->conn->query($this->query);
+        return $rows;
+    }
 
 
 }

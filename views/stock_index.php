@@ -59,7 +59,7 @@ $shippingI = $controller->getShippingInstructions();
             <?php
             if(isset($_GET['view'])){
                 if($_GET['view']=='purchase-list'){
-                    include 'stock.php'; 
+                    include 'purchase_list.php'; 
                 }else if(($_GET['view']=='ppurchase-list')){
                     include 'private_purchases.php'; 
     

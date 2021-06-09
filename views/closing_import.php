@@ -89,7 +89,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                     <div class="col-sm-6">
                                                               <div class="form-group label-floating">
                                                                 <label class="control-label">BROKER</label>
-                                                                <select class="broker" name="broker" class="form-control"><small>(required)</small>
+                                                                <select id="broker" class="broker" name="broker" class="form-control"><small>(required)</small>
                                                                    
                                                               </select>
                                                             </div>
@@ -294,6 +294,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 <script src="../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
+<script src="../assets/js/common.js"></script>
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>

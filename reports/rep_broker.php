@@ -7,7 +7,7 @@ ob_start();//Enables Output Buffering
     include $path_to_root.'models/Model.php';
     require $path_to_root."vendor/autoload.php";
     include $path_to_root.'modules/cataloguing/Catalogue.php';
-    // include '../views/includes/auction_ids.php';
+    include '../views/includes/auction_ids.php';
     include $path_to_root1.'database/connection2.php';
     
     $broker ="";
@@ -279,7 +279,7 @@ return $html;
             <div class="col-md-12">
                 <div class="expanel expanel-secondary">
                 <?php
-                        echo '<div class="expanel-heading">
+                        $html= '<div class="expanel-heading">
                                     <h3 class="expanel-title">Print Catalogue</h3>
                                 </div>
                                 <div class="expanel-body">
@@ -289,20 +289,11 @@ return $html;
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">AUCTION</label>
                                                     <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                        <option disabled="" value="..." selected="">select</option>
-                                                        <option value="2021-01"> 2021-01 </option>
-                                                        <option value="2021-02"> 2021-02 </option>
-                                                        <option value="2021-03"> 2021-03 </option>
-                                                        <option value="2021-04"> 2021-04 </option>
-                                                        <option value="2021-05"> 2021-05 </option>
-                                                        <option value="2021-06"> 2021-06 </option>
-                                                        <option value="2021-07"> 2021-07 </option>
-                                                        <option value="2021-08"> 2021-08 </option>
-                                                        <option value="2021-09"> 2021-09 </option>
-                                                        <option value="2021-10"> 2021-10 </option>
-                                                        <option value="2021-11"> 2021-11 </option>
-                                                        <option value="2021-12"> 2021-12 </option>
-                                                        <option value="2021-15"> 2021-15 </option>
+                                                        <option disabled="" value="..." selected="">select</option>';
+                                                        foreach(loadAuctionArray() as $auction_id){
+                                                          $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
+                                                      }
+                                                 $html.= '
 
                                                     </select>
                                                 </div>
@@ -311,15 +302,7 @@ return $html;
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">BROKER</label>
                                                     <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
-                                                        <option disabled="" value="..." selected="">select</option>
-                                                        <option value="ANJL"> ANJL </option>
-                                                        <option value="ATLC"> ATLC </option>
-                                                        <option value="BICL"> BICL </option>
-                                                        <option value="CENT"> CENT </option>
-                                                        <option value="CTBL"> CTBL </option>
-                                                        <option value="VENS"> VENS </option>
-                                                        <option value="UNTB"> UNTB </option>
-                                                        <option value="TBE"> TBE </option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -334,6 +317,16 @@ return $html;
                                                 </div>
                                             </div>
                                             <div class="col-md-3 well">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Grade</label>
+                                                    <select id="gradeCat" name="gradeCat" class="form-control well" ><small>(required)</small>
+                                                        <option disabled="" value="..." selected="">select</option>
+                                                        <option value="dust">DUST</option>
+                                                        <option value="leaf">LEAFY</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 well">
                                                 <button class="btn-btn success">Generate</button>
                                             </div>
                                         </div>
@@ -341,6 +334,8 @@ return $html;
                                     <iframe src="files/rep.pdf" width="100%" height="800px">
                                     </iframe>
                                 </div>';
+
+                                echo $html;
                 ?>
                 </div>   
             </div>
@@ -349,7 +344,8 @@ return $html;
     </div>
 </div>
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-                
+<script src="../assets/js/common.js"></script>
+       
 <script type="text/javascript">
 
 $(function() {

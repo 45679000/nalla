@@ -64,15 +64,7 @@ if(isset($_POST['confirm'])){
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BROKER</label>
                                                 <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
-                                                    <option disabled="" value="..." selected="">select</option>
-                                                    <option value="ANJL"> ANJL </option>
-                                                    <option value="ATLC"> ATLC </option>
-                                                    <option value="BICL"> BICL </option>
-                                                    <option value="CENT"> CENT </option>
-                                                    <option value="CTBL"> CTBL </option>
-                                                    <option value="VENS"> VENS </option>
-                                                    <option value="UNTB"> UNTB </option>
-                                                    <option value="TBE"> TBE </option>
+                                                   
                                                 </select>
                                             </div>
                                         </div>
@@ -186,51 +178,13 @@ if(isset($_POST['confirm'])){
 <script src="../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
+<script src="../assets/js/common.js"></script>
+
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
-<!-- <script>
-$(function() {
 
-    $('select').on('change', function() {
-         var saleno = $('#saleno').find(":selected").text();
-         var broker = $('#broker').find(":selected").text();
-         var category = $('#category').find(":selected").text();
-         console.log("ready "+saleno+" broker "+broker+" category "+category);
-
-         if(saleno !=='select' && broker !== 'select' && category !== 'select'){
-
-            var formData = {
-                saleno: saleno,
-                broker: broker,
-                category: category,
-            };
-
-          $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "",
-                data: formData,
-            success: function (data) {
-                console.log('Submission was successful.');
-                location.reload();
-                console.log(data);
-            },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-        });
-
-    }
-
-    });
-
-    
-});
-    
-</script> -->
 <script>
     $(function(e) {
         $('#closingimports').DataTable();

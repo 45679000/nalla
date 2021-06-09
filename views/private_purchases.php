@@ -1,3 +1,11 @@
+<style>
+    .form-control{
+        border: 1px solid !important;
+        padding-bottom: 5px !important;
+        color:black !important;
+    }
+
+</style>
 <div class="col-md-8 col-lg-10">
                 <div class="card">
                     <div class="card-body p-6">
@@ -8,34 +16,40 @@
                                             </div>
                                             <div class="expanel-body">
                                             <div class="card-body p-6">
-                                                <?= $form->beginForm() ?>
+                                                <?= $form->beginForm("prvt_purchase") ?>
                                                     <?= $form->formMessage() ?>
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-md-3 col-md-3">
                                                                 <!-- names should match the database columns -->
                                                                     <?= $form->formField("dropdownlist", "sale_no", "", "Auction", loadPrivateAuctionArray()) ?>
-                                                                    <?= $form->formField("dropdownlist", "broker", "", "Broker", array("ANJL"=>"ANJL", "NCL"=>"NCL")) ?>
-                                                                    <?= $form->formField("dropdownlist", "comment", "", "Sale Type", array("Main"=>"Main", "seco"=>"Secondary")) ?>
+                                                                    <?= $form->formField("dropdownlist", "broker", "", "Broker", '') ?>
+                                                                    <?= $form->formField("dropdownlist", "category", "", "Sale Type", array("Main"=>"Main", "seco"=>"Secondary")) ?>
+                                                                    <?= $form->formField("text", "invoice", "", "Invoice") ?>
+
                                                                 </div>
                                                                 <div class="col-md-3 col-md-3">
-                                                                    <?= $form->formField("text", "mark", "", "Garden") ?>
+                                                                    <?= $form->formField("dropdownlist", "mark", "", "Garden", '') ?>
                                                                     <?= $form->formField("text", "lot", "", "Lot No") ?>
-                                                                    <?= $form->formField("text", "grade", "", "Grade") ?>
-                                                                    <?= $form->formField("text", "invoice", "", "Invoice") ?>
+                                                                    <?= $form->formField("dropdownlist", "grade", "", "Grade", '') ?>
+                                                                    <?= $form->formField("text", "gross", "", "Gross") ?>
+
                                                                 </div>
                                                                 <div class="col-md-3 col-md-3">
                                                                     <?= $form->formField("text", "pkgs", "", "Pkgs") ?>
                                                                     <?= $form->formField("text", "net", "", "Net Weight") ?>
                                                                     <?= $form->formField("text", "kgs", "", "Kilos") ?>
+                                                                    <?= $form->formField("text", "company", "", "company") ?>
+
                                                                 </div>
                                                                 <div class="col-md-3 col-md-3">
                                                                     <?= $form->formField("text", "value", "", "Valuations") ?>
                                                                     <?= $form->formField("dropdownlist", "type", "", "Pkg Type", array("BPP"=>"BPP", "TPP"=>"TPP")) ?>
                                                                     <?= $form->formField("text", "ware_hse", "", "Ware House") ?>
+                                                                    <?= $form->formField("text", "sale_price", "", "Sale Price") ?>
 
                                                                 </div>
-
+                                                                <button type="submit" id="savePrivate" class="btn btn-success">Save</button>
                                                             </div>
                                                         </div>
                                                        
@@ -63,7 +77,7 @@
 
 											</tr>
 										</thead>
-                                        <tbody>;
+                                        <tbody>
                                         <?php
                                         foreach ($prvt as $stock){
                                             $html='<tr>';
@@ -95,8 +109,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -124,9 +136,13 @@
 <script src="../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
+<script src="../assets/js/common.js"></script>
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
+
+<script src="../assets/js/sweet-alert.js"></script>
 
 
 <script type="text/javascript">
@@ -142,15 +158,30 @@
                 }
             });
         </script>
-        <script>
-			$('.counter').countUp();
-		</script>
         <!-- Data table js -->
 		<script>
 			$(function(e) {
 				$('#closingstocks').DataTable();
 			} );
 		</script>
+<script>
+    $(document).ready(function() {
+        $("#savePrivate").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                    url: "../modules/stock/stock-action.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: $("#prvt_purchase").serialize() + "&action=insert",
+                    success: function(response) {
+                        swal('','Saved Successfully', 'success');
+                        $('#prvt_purchase').trigger("reset");
+                    }
+                });
+        });
+
+    })
+</script>
        
 </html>
 

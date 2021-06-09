@@ -38,6 +38,9 @@ include $path_to_root . 'templates/header.php';
                                 <a href="./index.php?view=standards" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-send"></i></span>Tea Standards
                                 </a>
+                                <a href="./index.php?view=grades" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Tea Grades
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -63,6 +66,10 @@ include $path_to_root . 'templates/header.php';
 
                             case 'standards':
                                 include('views/grading_standards.php');
+                                break;
+
+                            case 'grades':
+                                include('views/grades.php');
                                 break;
                             
                             default:

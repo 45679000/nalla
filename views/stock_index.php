@@ -15,12 +15,11 @@ include 'includes/auction_ids.php';
 $stock = new Stock($conn);
 $stocks = array();
 $parking = array();
-if(isset($_POST['saleno']) && isset($_POST['broker'])){
+if(isset($_POST['saleno'])){
     $stock->saleno = $_POST['saleno'];
-    $stock->broker = $_POST['broker'];
-    $stocks = $stock->readStock();
+    $stocks = $stock->readPurchaseList();
 }
-$scart = $stock->readAllStock();
+$scart = $stock->readPurchaseList();
 $parking = $stock->parking();
 
 $form = new Form();

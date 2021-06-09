@@ -89,16 +89,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                     <div class="col-sm-6">
                                                               <div class="form-group label-floating">
                                                                 <label class="control-label">BROKER</label>
-                                                                <select name="broker" class="form-control"><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="ANJL"> ANJL </option>
-                                                                    <option value="ATLC"> ATLC </option>
-                                                                    <option value="BICL"> BICL </option>
-                                                                    <option value="CENT"> CENT </option>
-                                                                    <option value="CTBL"> CTBL </option>
-                                                                    <option value="VENS"> VENS </option>
-                                                                    <option value="UNTB"> UNTB </option>
-                                                                    <option value="TBE"> TBE </option>
+                                                                <select class="broker" name="broker" class="form-control"><small>(required)</small>
+                                                                   
                                                               </select>
                                                             </div>
                                                         </div>

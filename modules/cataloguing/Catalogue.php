@@ -260,14 +260,46 @@
         public  function ExcelToPHP($dateValue = 0) {
             $UNIX_DATE = ($dateValue - 25569) * 86400;
             return gmdate("d-m-Y", $UNIX_DATE);        
-    }
-    public  function catalogueDate($auctionid) {
-        try {
-            $this->query = "SELECT import_date FROM `closing_cat`";
-            return $this->executeQuery();
-        } catch (EXCEPTION $ex) {
-            var_dump($ex);
+         }
+        public function catalogueDate($auctionid) {
+                try {
+                    $this->query = "SELECT import_date FROM `closing_cat`";
+                    return $this->executeQuery();
+                } catch (EXCEPTION $ex) {
+                    var_dump($ex);
+                }
         }
-}
+        public function PrintBrokers(){
+            try {
+                $this->query = "SELECT * FROM `brokers` WHERE deleted = 0";
+                return $this->executeQuery();
+            } catch (EXCEPTION $ex) {
+                var_dump($ex);
+            }
+        }
+        public function PrintGardens(){
+            try {
+                $this->query = "SELECT * FROM `mark_country` WHERE deleted = 0";
+                return $this->executeQuery();
+            } catch (EXCEPTION $ex) {
+                var_dump($ex);
+            }
+        }
+        public function PrintGrades(){
+            try {
+                $this->query = "SELECT * FROM `grades` WHERE deleted = 0";
+                return $this->executeQuery();
+            } catch (EXCEPTION $ex) {
+                var_dump($ex);
+            }
+        }
+        public function totalRowCount($tableName){
+			$this->query= "SELECT * FROM $tableName"; 
+			$stmt = $this->execute(); 
+			$row_count = $stmt->rowCount();
+			return $row_count;
+		}
+
+
   
 }

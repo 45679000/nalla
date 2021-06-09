@@ -35,7 +35,7 @@ class Form{
          if($fieldType=="dropdownlist"){
          print '<div class="form-group">';
          print '<label class="form-label">'.$lableName.'</label>';
-         print '<select name = '.$name.' class="form-control  select2-show-search" data-placeholder="Select)">';
+         print '<select name = '.$name.' id='.$name.' class="form-control  select2-show-search" data-placeholder="Select)">';
          print '<label class="form-label"> Select2 with search box</label>';
          foreach($dataSourse as $key => $value){
           print '<option value="'.$key.'">'.$value.'</option>';

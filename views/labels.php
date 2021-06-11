@@ -17,7 +17,7 @@ function print_labels($offered)
                     <div class="card-body p-6">
                         <div class="col-md-12">
                             <div style="text-align: center;">
-                                <input type="button" id="create_pdf" value="Generate PDF">  
+                                <input type="button" id="create_pdf" value="Print to PDF">  
                             </div>
                             <div class="expanel expanel-secondary form">
                                 <div class="row">';

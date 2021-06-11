@@ -17,7 +17,6 @@
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
                 $reader->setReadDataOnly(true);
                 $spreadsheet = $reader->load($this->inputFileName);
-                echo $this->is_split;
                 if($this->is_split == "true"){
                     $this->readRecords($this->conn,$spreadsheet, 2, 5);
                     $this->readRecords($this->conn,$spreadsheet, 3, 5);
@@ -50,7 +49,6 @@
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?);";
 
             $excelData = $this->excelToAssociativeArray(3, $spreadsheet, $activesheet);
-            var_dump($excelData);
             try {
                 $stmt = $pdo->prepare($sql);
                 foreach($excelData as $data){

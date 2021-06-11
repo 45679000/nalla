@@ -10,6 +10,7 @@ include 'includes/auction_ids.php';
 $imported = false;
 
 $catalogue = new Catalogue($conn);
+echo 'Test';
 if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
    
     $catalogue->inputFileName = $_FILES['excel']['tmp_name'];

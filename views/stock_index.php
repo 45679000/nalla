@@ -13,12 +13,18 @@ include 'includes/auction_ids.php';
 
 
 $stock = new Stock($conn);
-$stocks = $stock->readStock($condition="WHERE 1");
+$stocks = $stock->readStock($condition="WHERE lot IN(SELECT lot FROM closing_stock)");
 $parking = array();
-if(isset($_POST['saleno'])){
-    $stock->saleno = $_POST['saleno'];
-    $stocks = $stock->readPurchaseList();
+$saleNo = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+$broker = isset($_POST['broker']) ? $_POST['broker'] : '';
+$category = isset($_POST['category']) ? $_POST['category'] : '';
+$condition = "";
+if($saleNo != '' && $broker != '' && $category != ''){
+    $condition .=" WHERE sale_no = '".$saleNo. "' AND broker = '$broker' AND category = '$category' AND lot IN(SELECT lot FROM closing_stock)";
+    $stocks = $stock->readStock($condition);
+
 }
+
 $scart = $stock->readPurchaseList();
 $parking = $stock->parking();
 

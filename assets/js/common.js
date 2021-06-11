@@ -1,7 +1,20 @@
 $(document).ready(function() {
     brokerList();
     gardenList();
-    gradeList()
+    gradeList();
+
+    $("#gen-broker-cat").click(function(e) {
+        var form = {
+              saleno: "2021-12",
+              broker: "ANJL",
+              category: "Main",
+              filter:'filter',
+
+          };
+          e.preventDefault();
+          postData(form);
+
+      });
     //View Record
     function brokerList() {
         $.ajax({
@@ -46,6 +59,17 @@ $(document).ready(function() {
 
         });
     }
+    function postData(form){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "rep_broker.php",
+            data: form,
+        success: function (data) {
+            $("#brokerCatalogue").html(data);
+        }
+        });
+    }
+
 });
 
-mark

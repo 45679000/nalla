@@ -1,16 +1,25 @@
 <?php 
-    $path_to_root = '../../';
+    // $path_to_root = '../../';
 
     Class Stock extends Model{
         public $saleno;
         public $broker;
     
         public function readPurchaseList(){
-            $query = "SELECT * FROM `closing_cat` WHERE sale_no =? OR sale_no = ? AND buyer_package = 'CSS'";
+            $query = "SELECT * FROM `closing_cat` WHERE (sale_no = ? OR sale_no = ?) AND buyer_package = 'CSS'";
         
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(1, $this->saleno);
             $stmt->bindValue(2, 'PRVT-'.$this->saleno);
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+            return $rows;
+        }
+
+        public function readAllPurchaseList(){
+            $query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS'";
+        
+            $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();
             return $rows;

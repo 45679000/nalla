@@ -1,7 +1,8 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
-	header("Content-Type: application/json; charset=UTF-8");
     include_once('../../models/Model.php');
+	include ('../grading/grading.php');
+	require "../../vendor/autoload.php";
     include_once('../../database/page_init.php');
     include 'Stock.php';
     
@@ -15,38 +16,69 @@
 		echo json_encode(array("message"=>"Saved Successfully"));
 	}
 
+	if(isset($_POST['action']) && $_POST['action'] == "generate-lables"){
+		$grading = new Grading($conn);
+		$offered = $grading->readOffers();
+		print_labels($offered);
+		echo json_encode(array("message"=>"Saved Successfully"));
+
+	}
 	// View record
-	if (isset($_POST['action']) && $_POST['action'] == "view") {
+	if (isset($_POST['action']) && $_POST['action'] == "purchase-list") {
 		$output = "";
 
-		$customers = $garden->displayRecord();
-
-		if ($garden->totalRowCount() > 0) {
-			$output .="<table class='table table-striped table-hover'>
+		$purchaseList = $stock->readAllPurchaseList();
+		if (sizeOf($purchaseList) > 0) {
+			$output .='<table id="purchaseListTable" class="table table-striped table-hover">
 			        <thead>
-			          <tr>
-			            <th>Id</th>
-			            <th>Garden Name</th>
-			            <th>Country</th>
-			            <th>Action</th>
-			          </tr>
+					<tr>
+						<th class="wd-15p">Lot No</th>
+						<th class="wd-15p">Ware Hse.</th>
+						<th class="wd-20p">Company</th>
+						<th class="wd-15p">Mark</th>
+						<th class="wd-10p">Grade</th>
+						<th class="wd-25p">Invoice</th>
+						<th class="wd-25p">Pkgs</th>
+						<th class="wd-25p">Type</th>
+						<th class="wd-25p">Net</th>
+						<th class="wd-25p">Gross</th>
+						<th class="wd-25p">Kgs</th>
+						<th class="wd-25p">Value</th>
+						<th class="wd-25p">Confirm</th>
+						<th class="wd-25p">Comment</th>
+						<th class="wd-25p">Standard</th>
+					</tr>
 			        </thead>
-			        <tbody>";
-			foreach ($customers as $customer) {
-			$output.="<tr>
-			            <td>".$customer['id']."</td>
-			            <td>".$customer['mark']."</td>
-			            <td>".$customer['country']."</td>
-			            <td>
-			              <a href='#editModal' style='color:green' data-toggle='modal' 
-			              class='editBtn' id='".$customer['id']."'><i class='fa fa-pencil'></i></a>&nbsp;
-			              <a href='' style='color:red' class='deleteBtn' id='".$customer['id']."'>
-			              <i class='fa fa-trash' ></i></a>
-			            </td>
-			        </tr>";
-				}
-			$output .= "</tbody>
-      		</table>";
+			        <tbody>';
+					foreach ($purchaseList as $purchase){
+						$output.='<tr>';
+							$output.='<td>'.$purchase["lot"].'</td>';
+							$output.='<td>'.$purchase["ware_hse"].'</td>';
+							$output.='<td>'.$purchase["company"].'</td>';
+							$output.='<td>'.$purchase["mark"].'</td>';
+							$output.='<td>'.$purchase["grade"].'</td>';
+							$output.='<td>'.$purchase["invoice"].'</td>';
+							$output.='<td>'.$purchase["pkgs"].'</td>';
+							$output.='<td>'.$purchase["type"].'</td>';
+							$output.='<td>'.$purchase["net"].'</td>';
+							$output.='<td>'.$purchase["gross"].'</td>';
+							$output.='<td>'.$purchase["tare"].'</td>';
+							$output.='<td>'.$purchase["value"].'</td>';
+							if($purchase["allocated"]==0){
+								$output.='<td>
+								<form method="post">
+								<input type="hidden" name="lot" value="'.$purchase["lot"].'"></input>
+								<button type="submit" id="unallocated" name="allocated" value="0">Confirm</button>
+								</form></td>';
+							}else{
+								$output.='<td><button type="submit" id="allocated" name="allocated" value="0">Confirmed</button></td>';
+							}
+							$output.='<td>'.$purchase["comment"].'</td>';
+							$output.='<td>'.$purchase["standard"].'</td>';
+						$output.='</tr>';
+					}
+			$output.= '</tbody>
+				</table>';
       		echo $output;	
 		}else{
 			echo '<h3 class="text-center mt-5">No records found</h3>';
@@ -74,7 +106,91 @@
 		$row = $garden->delete($deleteId);
 		echo json_encode(array("msg"=>"Record Deleted Successfully"));
 	}
+	function print_labels($offered){
 
-    
+
+		$tableStart='<table>';
+		$cellsOdd = '';
+		$cellsEven = '';
+		
+		$rowsStart = '<tr>';
+		$rowsEnd = '</tr>';
+		
+		$total = sizeof($offered);
+			foreach($offered as $offer){
+				if($total%3==0){
+					$cellsEven.= '
+					<td style="padding-left:30px; padding-bottom:30px; padding-top:10px;">
+						<table>
+							<tr>
+								<td><b>SALE:'.$offer['sale_no'].'</b></td>
+								<td>DATE: '.ExcelToPHP($offer['manf_date']). '</td> 
+							</tr>
+							<tr>
+								<td>'.$offer['mark'].'</td>
+								<td>'.$offer['grade'].'</td>  
+							</tr> 
+							<tr>
+								<td>PKGS: '.$offer['pkgs'].'</td>
+								<td><b>LOT#: '.$offer['lot'].'</b></td>
+							</tr>
+							<tr>
+								<td>WGHT:<b>'.$offer['net'].'</b></td>
+								<td>Invoice:<b>'.$offer['invoice'].'</b></td>
+							</tr>
+						</table>
+					</td>';
+				}else{
+					$cellsOdd.= '
+					<td style="padding-left:30px; padding-bottom:30px; padding-top:10px;">
+							<table>
+							<tr>
+								<td><b>SALE:'.$offer['sale_no'].'</b></td>
+								<td>DATE: '.ExcelToPHP($offer['manf_date']). '</td> 
+							</tr>
+							<tr>
+								<td>'.$offer['mark'].'</td>
+								<td>'.$offer['grade'].'</td>  
+							</tr> 
+							<tr>
+								<td>PKGS: '.$offer['pkgs'].'</td>
+								<td><b>LOT#: '.$offer['lot'].'</b></td>
+							</tr>
+							<tr>
+								<td>WGHT:<b>'.$offer['net'].'</b></td>
+								<td>Invoice:<b>'.$offer['invoice'].'</b></td>
+							</tr>
+						</table>
+					</td> 
+					';
+				}
+						
+			$total--;
+			} 
+		$tableEnd ='</table>'; 
+		  
+		$html = $tableStart;
+		$html.= $rowsStart;
+		$html .=$cellsOdd;
+		$html.= $rowsEnd;
+		$html.= $rowsStart;
+		$html .=$cellsEven;
+		$html.= $rowsEnd;
+		$html.=$tableEnd;
+	 
+		ob_start();//Enables Output Buffering
+		$mpdf = new \Mpdf\Mpdf(['orientation' => 'P', 'tempDir' => __DIR__ . '../../reports/files', 	'default_font' => 'dejavusans']);
+		$mpdf->WriteHTML($html);
+		ob_end_clean();//End Output Buffering
+		$mpdf->Output("../../reports/files/labels.pdf", "F");
+	
+		
+	}
+	function ExcelToPHP($dateValue = 0) {
+		$UNIX_DATE = ($dateValue - 25569) * 86400;
+		return gmdate("d-m-Y", $UNIX_DATE);  
+	
+	}
+
 
 ?>

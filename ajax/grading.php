@@ -27,8 +27,10 @@ if($action=='generate-lables'){
     $offered = $grading->readOffers();
 
     print_labels($offered);
-    echo json_encode(array("succcess"=>"200"));
 
+   $labls= '<iframe src="../reports/files/labels.pdf" width="100%" height="800px">
+         </iframe>';
+    json_encode(array("response"=>$labls));
 }
 function ExcelToPHP($dateValue = 0) {
     $UNIX_DATE = ($dateValue - 25569) * 86400;

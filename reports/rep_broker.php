@@ -7,7 +7,6 @@ ob_start();//Enables Output Buffering
     include $path_to_root.'models/Model.php';
     require $path_to_root."vendor/autoload.php";
     include $path_to_root.'modules/cataloguing/Catalogue.php';
-    include '../views/includes/auction_ids.php';
     include $path_to_root1.'database/connection2.php';
     
     $broker ="";
@@ -42,13 +41,16 @@ ob_start();//Enables Output Buffering
 
 
         $print = print_catalogue($data, $broker, $auction, $max, $min, $category, $import_date);
-        $mpdf = new \Mpdf\Mpdf(['orientation' => 'L', 'tempDir' => __DIR__ . '/files', 	'default_font' => 'dejavusans']);
+        $mpdf = new \Mpdf\Mpdf(['orientation' => 'P', 'tempDir' => __DIR__ . 'files', 	'default_font' => 'dejavusans']);
         $mpdf->debug = true;
         $mpdf->shrink_tables_to_fit=0;
         $mpdf->WriteHTML($print);
         $mpdf->Output('files/rep.pdf', \Mpdf\Output\Destination::FILE);
 
-    }   
+    }   echo '
+            <iframe frameBorder="0" src="files/rep.pdf" width="100%" height="800px">
+            </iframe>
+      ';
  
     $date =date("l jS  F Y");
 
@@ -278,65 +280,7 @@ return $html;
         <div class="card-body p-6">
             <div class="col-md-12">
                 <div class="expanel expanel-secondary">
-                <?php
-                        $html= '<div class="expanel-heading">
-                                    <h3 class="expanel-title">Print Catalogue</h3>
-                                </div>
-                                <div class="expanel-body">
-                                    <form method="post" action="./index?rep=broker-catalog">
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-3 well">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">AUCTION</label>
-                                                    <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                        <option disabled="" value="..." selected="">select</option>';
-                                                        foreach(loadAuctionArray() as $auction_id){
-                                                          $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
-                                                      }
-                                                 $html.= '
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 well">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">BROKER</label>
-                                                    <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
-                                                        
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 well">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">CATEGORY</label>
-                                                    <select id="category" name="category" class="form-control well" ><small>(required)</small>
-                                                        <option disabled="" value="..." selected="">select</option>
-                                                        <option value="Main">Main</option>
-                                                        <option value="Sec">Sec</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 well">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Grade</label>
-                                                    <select id="gradeCat" name="gradeCat" class="form-control well" ><small>(required)</small>
-                                                        <option disabled="" value="..." selected="">select</option>
-                                                        <option value="dust">DUST</option>
-                                                        <option value="leaf">LEAFY</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 well">
-                                                <button class="btn-btn success">Generate</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <iframe src="files/rep.pdf" width="100%" height="800px">
-                                    </iframe>
-                                </div>';
-
-                                echo $html;
-                ?>
+           
                 </div>   
             </div>
             
@@ -346,45 +290,3 @@ return $html;
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../assets/js/common.js"></script>
        
-<script type="text/javascript">
-
-$(function() {
-
-    $('select').on('change', function() {
-         var saleno = $('#saleno').find(":selected").text();
-         var broker = $('#broker').find(":selected").text();
-         var category = $('#category').find(":selected").text();
-         console.log("ready "+saleno+" broker "+broker+" category "+category);
-
-         if(saleno !=='select' && broker !== 'select' && category !== 'select'){
-
-            var formData = {
-                saleno: saleno,
-                broker: broker,
-                category: category,
-                filter:'filter',
-
-            };
-
-          $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "rep_broker.php",
-                data: formData,
-            success: function (data) {
-                console.log('Submission was successful.');
-                location.reload();
-                console.log(data);
-            },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-        });
-
-    }
-
-    });    
-});
-    
-</script>

@@ -24,15 +24,7 @@
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BROKER</label>
                                                 <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
-                                                    <option disabled="" value="..." selected="">select</option>
-                                                    <option value="ANJL"> ANJL </option>
-                                                    <option value="ATLC"> ATLC </option>
-                                                    <option value="BICL"> BICL </option>
-                                                    <option value="CENT"> CENT </option>
-                                                    <option value="CTBL"> CTBL </option>
-                                                    <option value="VENS"> VENS </option>
-                                                    <option value="UNTB"> UNTB </option>
-                                                    <option value="TBE"> TBE </option>
+                                                    
                                                 </select>
                                             </div>
                                         </div>
@@ -136,6 +128,7 @@
 <script src="../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
+<script src="../assets/js/common.js"></script>
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>

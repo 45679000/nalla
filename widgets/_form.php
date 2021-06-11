@@ -29,7 +29,7 @@ class Form{
         if($fieldType=="text-area"){
          print '<div class="form-group">';
          print '<label class="form-label">'.$lableName.'</label>';
-         print '<textarea  type="'.$fieldType.'" class="form-control" rows="4" cols="5" name="'.$name.'" value="'.$fieldvalue.'"></textarea>';
+         print '<textarea  type="'.$fieldType.'" class="form-control" rows="2" cols="5" name="'.$name.'" value="'.$fieldvalue.'"></textarea>';
          print '</div>';
         }
          if($fieldType=="dropdownlist"){

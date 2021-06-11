@@ -81,7 +81,7 @@
                     $stmt->execute();
                 }
             } catch (Exception $ex) {
-                // var_dump($ex);
+                var_dump($ex);
             }
             $this->is_imported = true;
         

@@ -1,8 +1,15 @@
 <?php
+echo '
+<div style="text-align:center;";>
+    <button data-toggle="modal" data-target="loadPreviousSi" type="button" 
+    style="width:60%; height:30px; font-size:15px; text-align:center; padding:0px; margin:auto;" class="btn btn-success">Copy From A previous SI</button>
+</div>';
 $form->beginForm("si_form");
 $form->formMessage("Saved");
 print '
+
 <div class="card-body">
+
     <div class="row">
         <div class="col-md-3 col-md-3">';
             $form->formField("dropdownlist", "shippment_type", "", "Shippment Type", array("Blend Shippment" => "Blend Shippment", "Straight Line" => "Straight Line"));
@@ -53,5 +60,50 @@ print '
 </div>
 </div>';
 $form->endForm();
+ 
 
 ?>
+
+<!-- Edit Record  Modal -->
+<div class="modal" id="loadPreviousSi">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Broker</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="EditformData">
+                    <input type="hidden" name="id" id="edit-form-id">
+                    <div class="form-group">
+                        <label for="code">Code:</label>
+                        <input type="text" class="form-control" name="code" id="code" placeholder="Enter code" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Broker Name:</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Broker Name" required="">
+                    </div>
+           
+                    <hr>
+                    <div class="form-group float-right">
+                        <button type="submit" class="btn btn-primary" id="update">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+    $("#loadPreviousSi").click(function(){
+    alert("Clicked");
+});
+    
+});
+</script>
+    

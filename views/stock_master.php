@@ -5,7 +5,7 @@
                             <div class="expanel expanel-secondary">
                                 <?php
                                 echo '<div class="expanel-heading">
-                                                <h3 class="expanel-title">Filter Catalogue</h3>
+                                                <h3 class="expanel-title">Filter Stock</h3>
                                             </div>
                                             <div class="expanel-body">
                                                 <form method="post" class="filter">
@@ -25,15 +25,7 @@
                                                             <div class="form-group label-floating">
                                                                 <label class="control-label">BROKER</label>
                                                                 <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="ANJL"> ANJL </option>
-                                                                    <option value="ATLC"> ATLC </option>
-                                                                    <option value="BICL"> BICL </option>
-                                                                    <option value="CENT"> CENT </option>
-                                                                    <option value="CTBL"> CTBL </option>
-                                                                    <option value="VENS"> VENS </option>
-                                                                    <option value="UNTB"> UNTB </option>
-                                                                    <option value="TBE"> TBE </option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -85,8 +77,27 @@
 										</thead>
                                         <tbody>';
                                         $html = "";
-                                        foreach ($stocks as $stock){  
-                                                
+                                        $totalPkgs = 0;
+                                        $totalLots = 0;
+                                        $totalKgs = 0;
+                                        $totalNet = 0;
+                                        $totalHammer = 0;
+                                        $totalValue = 0;
+                                        $totalBrokerage = 0;
+                                        $totalbrokerage =0;
+                                        $totalAmount = 0;
+                                        $totalAfterTax = 0;
+                                        $totalAddon = 0;
+                                        $totalpayable = 0;
+                                        $totalPayableStock = 0;
+                                        $totalLots=0;
+
+                                        foreach ($stocks as $stock){ 
+                                            $totalLots++; 
+                                            $totalPkgs+=$stock['pkgs'];
+                                            $totalKgs+=$stock['kgs'];
+                                            $totalNet+=$stock['net'];
+
                                             $brokerage = round(($stock['value']*$stock['pkgs'])*(0.5/100), 2);
                                             $value = round($stock['value']*$stock['pkgs'],2);
                                             $totalamount = round($brokerage+$value,2);
@@ -95,6 +106,18 @@
                                             $addon = round(($auctionHammer+$brokerage)/$stock['pkgs'],2);
                                             $totalPayable = round($addon+$auctionHammer, 2);
                                             $hammerPrice = round($stock['value']/$stock['kgs'],2);
+
+                                            $totalBrokerage+=$brokerage;
+                                            $totalValue+=$value;
+                                            $totalHammer+=$hammerPrice;
+                                            $totalAmount += $totalamount;
+                                            $totalbrokerage+=(5/100)*$brokerage;
+
+                                            $totalAfterTax += $afterTax;
+                                            $totalAddon +=$addon;
+                                            $totalpayable+=$totalPayable;
+
+                                            $totalPayableStock+=$totalPayable*$stock['net'];
                                 
                                             $html.='<td>'.$stock['sale_no'].'</td>';
                                             $html.='<td>'.$catalogue->ExcelToPHP($stock['manf_date']).'</td>';
@@ -111,7 +134,7 @@
                                             $html.='<td>'.$hammerPrice.'</td>'; //auction hammer
                                             $html.='<td>'.$value.'</td>'; //value ex auction
                                             $html.='<td>'.$brokerage.'</td>';// brokerage fee
-                                            $html.='<td>'.$totalamount.'</td>'; //final prompt value
+                                            $html.='<td>'.$totalAmount.'</td>'; //final prompt value
                                             $html.='<td>'.(5/100)*$brokerage.'</td>';
                                             $html.='<td>'.$afterTax.'</td>';
                                             $html.='<td>'.$addon.'</td>';
@@ -120,6 +143,31 @@
                                        $html.='</tr>';
                               
                                         }
+                                $html.='<tr style="background-color:green; color:white; border:none;">';
+                                
+                                $html.='<td><b>TOTALS</td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td><b>'.$totalLots.'</b></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>'; 
+                                $html.='<td><b>'.$totalPkgs.'</b></td>'; //pkgs
+                                $html.='<td><b>'.$totalKgs.'</b></td>'; //net
+                                $html.='<td><b>'.$totalNet.'</b></td>'; //kgs
+                                $html.='<td><b>'.$totalHammer.'</b></td>'; //auction hammer
+                                $html.='<td><b>'.$totalValue.'</b></td>'; //value ex auction
+                                $html.='<td><b>'.$totalBrokerage.'</b></td>';// brokerage fee
+                                $html.='<td><b>'.$totalAmount.'</b></td>'; //final prompt value
+                                $html.='<td><b>'.$totalbrokerage.'</b></td>';
+                                $html.='<td><b>'.$totalAfterTax.'</b></td>';
+                                $html.='<td><b>'.$totalAddon.'</b></td>';
+                                $html.='<td><b>'.$totalpayable.'</b></td>';
+                                $html.='<td><b>'.$totalPayableStock.'</b></td>';
+     
+                                $html.='</tr>';
                                 $html.= '</tbody>
                                     </table>
                                 </div>
@@ -160,9 +208,18 @@
 <script src="../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
+<script src="../assets/js/common.js"></script>
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+
+<script src="../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../assets/plugins/datatable/buttons.print.min.js"></script>
 
 
 <script type="text/javascript">
@@ -182,11 +239,24 @@
 			$('.counter').countUp();
 		</script>
         <!-- Data table js -->
-		<script>
+
+        <script>
 			$(function(e) {
-				$('#closingstocks').DataTable();
+				$('#closingstocks').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print',
+                        {
+                            extend: 'pdfHtml5',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL'
+                        },
+                        
+                    ]
+                });
 			} );
 		</script>
+		
        
 </html>
 

@@ -13,7 +13,7 @@ include 'includes/auction_ids.php';
 
 
 $stock = new Stock($conn);
-$stocks = array();
+$stocks = $stock->readStock($condition="WHERE 1");
 $parking = array();
 if(isset($_POST['saleno'])){
     $stock->saleno = $_POST['saleno'];

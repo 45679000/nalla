@@ -16,6 +16,25 @@
             return $rows;
         }
 
+        public function readStock($condition="WHERE 1"){
+            $query = "SELECT * FROM `closing_stock` ".$condition;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+            return $rows;
+        }
+
+        public function unconfrimedPurchaseList(){
+            $query = "SELECT * FROM `closing_cat` WHERE (sale_no = ? OR sale_no = ?) AND buyer_package = 'CSS' AND lot NOT IN (SELECT lot FROM closing_stock)";
+        
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $this->saleno);
+            $stmt->bindValue(2, 'PRVT-'.$this->saleno);
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+            return $rows;
+        }
+
         public function readAllPurchaseList(){
             $query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS'";
         
@@ -31,6 +50,31 @@
             $stmt->execute();
             $rows = $stmt->fetchAll();
             return $rows;
+        }
+        public function addToStock($lotId, $add=0, $confirmed =0){
+            if($add == 1){
+                $query = "UPDATE closing_cat SET added_to_stock = 1 WHERE lot = '$lotId'";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+            }
+            if($add == 0){
+                $query = "UPDATE closing_cat SET added_to_stock = 0 WHERE lot = '$lotId'";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+            }
+
+            if($confirmed == 1){
+                $query2 = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`,
+                `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`,
+                `tare`, `sale_price`, `standard`,  `import_date`)
+                SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`,
+                `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`,
+                `tare`, `sale_price`, `standard`,  `import_date`
+                FROM closing_cat WHERE added_to_stock = 1 AND lot NOT IN(SELECT lot FROM closing_stock)";
+                $stmt2 = $this->conn->prepare($query2);
+                $stmt2->execute();
+            }
+     
         }
 
         public function addPrivatePurchase($data){

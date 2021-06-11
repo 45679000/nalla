@@ -1,5 +1,4 @@
 <?php
-session_start();
 define('ROOT_PATH', dirname(__DIR__) . '/');
 $path_to_root = "../../";
 include(ROOT_PATH . '../templates/header.php');
@@ -50,6 +49,13 @@ $form = new Form();
     .packages{
         max-width: 50px;
         border: burlywood;
+    }
+    form .error {
+    color: #ff0000;
+    }
+    .form-control{
+        color:black!important;
+        padding:1px !important;
     }
 </style>
 <div class="container-fluid content">
@@ -124,13 +130,11 @@ $form = new Form();
 <!-- Sweet alert Plugin -->
 <script src="<?php echo $path_to_root ?>assets/plugins/sweet-alert/sweetalert.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/js/sweet-alert.js"></script>
+<script src="shipping.js"></script>
+
 <script src="<?php echo $path_to_root ?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
-
-<?php
-include 'ajaxLoad.php';
-?>
 <!---Tabs scripts-->
 <script>
     $(function(e) {
@@ -152,7 +156,7 @@ include 'ajaxLoad.php';
     });
 </script>
 
-<script>
+<!-- <script>
 $('#si_form').submit(function(e){
     e.preventDefault();
     $("<input />").attr("type", "hidden")
@@ -163,7 +167,7 @@ $('#si_form').submit(function(e){
         type: "POST",
         data : $(this).serialize(),
         cache: false,  
-        url: "../../ajax/process_shipping.php",   
+        url: "shipping_action.php",   
         success: function(data){
             swal('',data.message, 'success');
         }   
@@ -171,12 +175,14 @@ $('#si_form').submit(function(e){
     return false;   
 });
 
+
+
 $('#si_tab').click(function(e){
     $.ajax({   
         type: "POST",
         data : $(this).serialize(),
         cache: false,  
-        url: "../../ajax/process_shipping.php",   
+        url: "shipping_action.php",   
         success: function(data){
             const keys = Object.keys(data);
             keys.forEach((key, index) => {
@@ -189,8 +195,7 @@ $('#si_tab').click(function(e){
 
 
   
-</script> 
+</script>  -->
 
 
 
-</script>

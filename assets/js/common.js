@@ -8,7 +8,7 @@ $(document).ready(function() {
               saleno: $('#saleno').val(),
               broker: $('#broker').val(),
               category: $('#category').val(),
-              filter:'filter',
+              filter:'filters',
 
           };
           e.preventDefault();

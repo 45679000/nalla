@@ -91,7 +91,30 @@ include '../views/includes/auction_ids.php';
 
                                 echo $html;
                 ?>
-                      <?php include 'rep_broker.php';?>
                       </div>
         </div>
 </div>
+<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/common.js"></script>
+
+<script>
+
+$(document).ready(function() {
+    $("#gen-broker-cat").click(function(e) {
+        e.preventDefault();
+                $.ajax({
+                    url: "rep_broker.php",
+                    type: "POST",
+                    data: $("#brokerCatalog").serialize() + "&action=filter",
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Customer Updated successfully',
+                        });
+                       
+                    }
+                });
+
+      });
+    });
+</script>

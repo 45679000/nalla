@@ -287,6 +287,4 @@ return $html;
         </div>
     </div>
 </div>
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/common.js"></script>
        

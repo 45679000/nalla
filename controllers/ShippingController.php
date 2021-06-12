@@ -22,7 +22,7 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function loadUnallocated(){
-        $this->query = "SELECT *FROM closing_cat WHERE buyer_package = 'CSS' ORDER BY lot";
+        $this->query = "SELECT *FROM closing_stock WHERE pkgs>0";
         return $this->executeQuery();
     }
     public function allocateLot($id){

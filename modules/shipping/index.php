@@ -84,21 +84,14 @@ $form = new Form();
                     </div>
 
                     <div class="tab_content">
-                        <?php
+                        <div id="blend">
+                            <?php include 'blended_shipment.php';?>
+                        </div>
 
-                        if(isset($_SESSION['shipment-type'])){
-
-                            if($_SESSION["shipment-type"]=="Blend Shippment"){
-                                include 'blended_shipment.php';
-                            }else if($_SESSION["shipment-type"]=="Straight Line"){
-                                include 'direct_shipment.php';
-
-                            }
-                        }
-                        ?>
+                        <div id="straight">
+                            <?php include 'direct_shipment.php';?>
+                        </div>    
                     </div>
-
-
                     <div class="tab_content">
                         <?php include 'shipment_teas.php';?>
 
@@ -157,46 +150,14 @@ $form = new Form();
     });
 </script>
 
-<!-- <script>
-$('#si_form').submit(function(e){
-    e.preventDefault();
-    $("<input />").attr("type", "hidden")
-          .attr("name", "action")
-          .attr("value", "add-si")
-          .appendTo("#si_form");
-    $.ajax({   
-        type: "POST",
-        data : $(this).serialize(),
-        cache: false,  
-        url: "shipping_action.php",   
-        success: function(data){
-            swal('',data.message, 'success');
-        }   
-    });   
-    return false;   
+<script>
+$(document).ready(function() {
+    switchView("blend");
+    $('#straight').hide();
+    
 });
+</script>
 
-
-
-$('#si_tab').click(function(e){
-    $.ajax({   
-        type: "POST",
-        data : $(this).serialize(),
-        cache: false,  
-        url: "shipping_action.php",   
-        success: function(data){
-            const keys = Object.keys(data);
-            keys.forEach((key, index) => {
-                console.log(`${key}: ${data[key]}`);
-            });
-        }   
-    });   
-
-});
-
-
-  
-</script>  -->
 
 
 

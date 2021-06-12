@@ -5,9 +5,9 @@ $(document).ready(function() {
 
     $("#gen-broker-cat").click(function(e) {
         var form = {
-              saleno: "2021-12",
-              broker: "ANJL",
-              category: "Main",
+              saleno: $('#saleno').val(),
+              broker: $('#broker').val(),
+              category: $('#category').val(),
               filter:'filter',
 
           };

@@ -1,14 +1,20 @@
 <?php
 echo '
 <div style="text-align:center;";>
-    <button data-toggle="modal" data-target="loadPreviousSi" type="button" 
-    style="width:60%; height:30px; font-size:15px; text-align:center; padding:0px; margin:auto;" class="btn btn-success">Copy From A previous SI</button>
+    <form method="post">
+    <div class="form-group label-floating">
+        <label class="control-label">LOAD FROM A TEMPLATE</label>
+        <select id="si-templates" class="template" name="template" class="form-control"><small>(required)</small>
+        
+    </select>
+    </form>
 </div>';
 $form->beginForm("si_form");
 $form->formMessage("Saved");
 print '
 
-<div class="card-body">
+
+<div  class="card-body">
 
     <div class="row">
         <div class="col-md-3 col-md-3">';
@@ -96,13 +102,12 @@ $form->endForm();
         </div>
     </div>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="shipping.js"></script>
 
 <script>
 $(document).ready(function() {
-
-    $("#loadPreviousSi").click(function(){
-    alert("Clicked");
-});
+    siTemplate();
+    editData();
     
 });
 </script>

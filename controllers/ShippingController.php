@@ -54,6 +54,16 @@ Class ShippingController extends Model{
             "shippingDetails"=>$shippingDetails[0]
         );
     }
+    public function loadSItemplates($id=0){
+        if($id==0){
+            $this->query = "SELECT *FROM shipping_instructions";
+            return $this->executeQuery();
+        }else{
+            $this->query = "SELECT *FROM shipping_instructions WHERE instruction_id = '$id'";
+            return $this->executeQuery();
+        }
+      
+    }
 }
 
 

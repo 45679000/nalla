@@ -58,7 +58,8 @@ $form = new Form();
         padding:1px !important;
     }
 </style>
-<div class="container-fluid content">
+<div  class="container-fluid content">
+
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Shipping Process</h3>

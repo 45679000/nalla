@@ -23,13 +23,13 @@ class Form{
         if($fieldType=="text"){
          print '<div class="form-group">';
          print '<label class="form-label">'.$lableName.'</label>';
-         print '<input type="'.$fieldType.'" class="form-control" name="'.$name.'" value="'.$fieldvalue.'">';
+         print '<input type="'.$fieldType.'" class="form-control" id="'.$name.'" name="'.$name.'" value="'.$fieldvalue.'">';
          print '</div>';
         }
         if($fieldType=="text-area"){
          print '<div class="form-group">';
          print '<label class="form-label">'.$lableName.'</label>';
-         print '<textarea  type="'.$fieldType.'" class="form-control" rows="2" cols="5" name="'.$name.'" value="'.$fieldvalue.'"></textarea>';
+         print '<textarea  type="'.$fieldType.'" class="form-control" rows="2" cols="5" id="'.$name.'" name="'.$name.'" value="'.$fieldvalue.'"></textarea>';
          print '</div>';
         }
          if($fieldType=="dropdownlist"){

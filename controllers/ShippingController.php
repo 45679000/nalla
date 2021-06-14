@@ -25,20 +25,20 @@ Class ShippingController extends Model{
         $this->query = "SELECT *FROM closing_stock WHERE pkgs>0";
         return $this->executeQuery();
     }
-    public function allocateLot($id){
-        $this->query = "UPDATE closing_cat SET allocated = 1 WHERE closing_cat_import_id = ".$id;
+    public function allocateForShippment($id){
+        $this->query = "UPDATE closing_stock SET selected_for_shipment = 1 WHERE stock_id = ".$id;
         return $this->executeQuery();
     }
-    public function unAllocateLot($id){
-        $this->query = "UPDATE closing_cat SET allocated = 0 WHERE closing_cat_import_id = ".$id;
+    public function unAllocateForShippment($id){
+        $this->query = "UPDATE closing_stock SET selected_for_shipment = 0 WHERE stock_id = ".$id;
         return $this->executeQuery();
     }
     public function summaries(){
-        $this->query = "SELECT COUNT(lot) AS totalLots FROM closing_cat WHERE allocated = 1";
+        $this->query = "SELECT COUNT(lot) AS totalLots FROM closing_stock WHERE selected_for_shipment = 1";
         $lots = $this->executeQuery();
-        $this->query = "SELECT SUM(kgs) AS totalkgs FROM closing_cat WHERE allocated = 1";
+        $this->query = "SELECT SUM(kgs) AS totalkgs FROM closing_stock WHERE selected_for_shipment = 1";
         $kgs = $this->executeQuery();
-        $this->query = "SELECT SUM(pkgs) AS totalpkgs FROM closing_cat WHERE allocated = 1";
+        $this->query = "SELECT SUM(pkgs) AS totalpkgs FROM closing_stock WHERE selected_for_shipment = 1";
         $pkgs = $this->executeQuery();
         $this->query = "SELECT SUM((net * value)) AS totalAmount FROM closing_cat WHERE allocated = 1";
         $totalAmount = $this->executeQuery();
@@ -63,6 +63,17 @@ Class ShippingController extends Model{
             return $this->executeQuery();
         }
       
+    }
+    public function loadSelectedForshipment(){
+        $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment = 1";
+        return $this->executeQuery();
+    }public function allocateBlend($id, $pkgs){
+        $this->query = "UPDATE closing_stock SET  current_allocation= ".$pkgs." WHERE stock_id = ".$id;
+        return $this->executeQuery();
+    }
+    public function confirmShipment(){
+        $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment = 1";
+        return $this->executeQuery();
     }
 }
 

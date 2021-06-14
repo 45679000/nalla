@@ -1,24 +1,25 @@
-<table id="shippment_teas" class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th class="wd-15p">Lots No</th>
-            <th class="wd-15p">Ware Hse.</th>
-            <th class="wd-20p">Company</th>
-            <th class="wd-15p">Mark</th>
-            <th class="wd-10p">Grade</th>
-            <th class="wd-25p">Invoice</th>
-            <th class="wd-25p">Pkgs</th>
-            <th class="wd-25p">Type</th>
-            <th class="wd-25p">Net</th>
-            <th class="wd-25p">Gross</th>
-            <th class="wd-25p">Kgs</th>
-            <th class="wd-25p">Value</th>
-            <th class="wd-25p">Comment</th>
-            <th class="wd-25p">Standard</th>
+<div id="shippment_teas">
+</div>
+<script src="shipping.js"></script>
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../../assets/js/vendors/selectize.min.js"></script>
+<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
 
-        </tr>
-    </thead>
-    <tbody>
+<!-- counter  -->
+<script src="../../assets/plugins/counters/counterup.min.js"></script>
+<script src="../../assets/plugins/counters/waypoints.min.js"></script>
 
-    </tbody>
-</table>
+<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#tab3').click(function(){
+        shipmentTeas("blend");
+    })
+});
+</script>
+

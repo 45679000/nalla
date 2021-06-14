@@ -68,9 +68,8 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
       <style>
           table {
           background-color:white;
-          margin-left:12px;
           font-family: arial, sans-serif;
-          font-size:10px;
+          font-size:15px;
           border: 1px solid #000000;
           border-collapse: collapse;
           width: 100%;
@@ -139,11 +138,11 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
             </table>
           </th>
           <th style='max-width: 10px;'>LotNo</th>
-          <th style='max-width: 50px;'>
+          <th>
               Garden
               Grd
+              Inv.
           </th>
-          <th>Inv.</th>
           <th>Pkgs</th>
           <th>TP</th>
           <th>Kilos</th>
@@ -161,12 +160,13 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
                 <td></td>
                 <td></td>
                 <td></td>
-                <td style='text-align:left';>
-                  <div style='position:relative; margin-left:50px;'>
+                <td style='text-align:right';>
+                <div style='text-align:right';>
                     <h3>".$value['mark']."</h3>
-                  </div>
+                </div>
+              </td>
+                <td>
                 </td> 
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -195,26 +195,27 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
              </td>
              <td style='border-right: 1px solid #000000;'>
                  <table style='border:none;';>
-                     <tr style='border: none;'><td style='border: none;';>".$value['lot']."</td></tr>
-                     <tr style='border: none;'><td style='border: none;';>".$value['ra']."</td></tr>
+                     <tr style='border: none;'><td style='border: none;';><b>".$value['lot']."</b></td></tr>
+                     <tr style='border: none;'><td style='border: none;';<b>>".$value['ra']."</b></td></tr>
                  </table>
               </td>
              <td style='border-right: 1px solid #000000;'>
-                 <table style='border:none;';>
-                     <tr style='border: none;'><td style='border: none;';>".$value['mark']."</td></tr>
-                     <tr style='border: none;'>
-                         <td style='border: none;';>".$value['grade']."</td>
-                         <td style='border: none;';>".$value['manf_date']."</td>
-                     </tr>
+               <table style='border:none;';>
+                     <tr style='border: none;'><td style='border: none;';><b>".$value['mark']."</b></td></tr>
+                      <tr style='border: none;'>
+                      <td style='border: none;';><b>".$value['grade']."</b></td>
+                      <td style='border: none;';><b>".$value['manf_date']."</b></td>
+                      <td style='border-right: 1px solid #000000;'><b>".$value['invoice']."</b></td>
+                    </tr>
                  </table>
              </td>
-             <td style='border-right: 1px solid #000000;'>".$value['invoice']."</td>
+            
              <td style='border-right: 1px solid #000000;'>".$value['pkgs']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['type']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['net']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['net']/$value['pkgs']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['comment']."</td>
+             <td style='border-right: 1px solid #000000;width:100px;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['buyer_package']."</td>
@@ -242,20 +243,21 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
  
               <td style='border-right: 1px solid #000000;'>
                  <table style='border:none;';>
-                     <tr style='border: none;'><td style='border: none;';>".$value['lot']."</td></tr>
-                     <tr style='border: none;'><td style='border: none;';>".$value['ra']."</td></tr>
+                     <tr style='border: none;'><td style='border: none;';><b>".$value['lot']."</b></td></tr>
+                     <tr style='border: none;'><td style='border: none;';><b>".$value['ra']."</b></td></tr>
                  </table>
              </td>
              <td style='border-right: 1px solid #000000;'>
                  <table style='border:none;';>
-                     <tr style='border: none;'><td style='border: none;';>".$value['mark']."</td></tr>
+                     <tr style='border: none;'><td style='border: none;';><b>".$value['mark']."</b></td></tr>
                      <tr style='border: none;'>
-                         <td style='border: none;';>".$value['grade']."</td>
-                         <td style='border: none;';>".$value['manf_date']."</td>
+                         <td style='border: none;';><b>".$value['grade']."</b></td>
+                         <td style='border: none;';><b>".$value['manf_date']."</b></td>
+                         <td style='border-right: 1px solid #000000;'><b>".$value['invoice']."</b></td>
                      </tr>
                  </table>
               </td>
-             <td style='border-right: 1px solid #000000;'>".$value['invoice']."</td>
+             
              <td style='border-right: 1px solid #000000;'>".$value['pkgs']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['type']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['net']."</td>

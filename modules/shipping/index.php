@@ -86,11 +86,11 @@ $form = new Form();
                     <div class="tab_content">
                         <div id="blend">
                             <?php include 'blended_shipment.php';?>
-                        </div>
 
+                        </div>
                         <div id="straight">
                             <?php include 'direct_shipment.php';?>
-                        </div>    
+                        </div>
                     </div>
                     <div class="tab_content">
                         <?php include 'shipment_teas.php';?>
@@ -153,9 +153,12 @@ $form = new Form();
 <script>
 $(document).ready(function() {
     switchView("blend");
+    viewSelectionSummary();
+    
     $('#straight').hide();
     
 });
+
 </script>
 
 

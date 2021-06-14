@@ -30,6 +30,8 @@ if($action=='add-si'){
         echo json_encode($shippingCtrl->getAtciveShippingInstructions($_SESSION['current-si-id']));
     }
 }else if($action=='load-unallocated'){
+    $type = isset($_POST['type']) ? $_POST['type'] : '';
+    $blendBalance = 0;
     $output ="";
     $stockList = $shippingCtrl->loadUnallocated();
     if (sizeOf($stockList)> 0) {
@@ -43,8 +45,9 @@ if($action=='add-si'){
                 <th class="wd-15p">Mark</th>
                 <th class="wd-10p">Grade</th>
                 <th class="wd-25p">Invoice</th>
-                <th class="wd-25p">Pkgs</th>
                 <th class="wd-25p">Type</th>
+                <th class="wd-25p">Kgs</th>
+                <th class="wd-25p">Pkgs</th>
                 <th class="wd-25p">Net</th>
                 <th class="wd-25p">Gross</th>
                 <th class="wd-25p">Value</th>
@@ -57,26 +60,45 @@ if($action=='add-si'){
         <tbody>';
         foreach ($stockList as $stock) {
             $output.='<tr>';
+            $blendBalance = $stock["pkgs"];
+            $gross = $stock["gross"];
+            $net = $stock["net"];
+            if($type =="blend"){
+                $blendBalance = $stock["pkgs"]-$stock["current_allocation"];
+                $gross = $blendBalance*$stock["kgs"];
+                $net = $gross-$stock["tare"];
+                $gross = $blendBalance*$stock["kgs"];
+                $net = $gross-$stock["tare"];
+            }
                 $output.='<td>'.$stock["lot"].'</td>';
                 $output.='<td>'.$stock["ware_hse"].'</td>';
                 $output.='<td>'.$stock["company"].'</td>';
                 $output.='<td>'.$stock["mark"].'</td>';
                 $output.='<td>'.$stock["grade"].'</td>';
                 $output.='<td>'.$stock["invoice"].'</td>';
-                $output.='<td>'.$stock["pkgs"].'</td>';
                 $output.='<td>'.$stock["type"].'</td>';
-                $output.='<td>'.$stock["net"].'</td>';
-                $output.='<td>'.$stock["gross"].'</td>';
+                $output.='<td>'.$stock["kgs"].'</td>';
+                if($type =="blend"){
+          
+                    $output.='<td><input id="'.$stock["stock_id"].'" onclick="splitLot(this.id)" class="packages" value="'.$blendBalance.'"></input></td>';
+                }else{
+                    $output.='<td>'.$blendBalance.'</td>';
+                }
+                $output.='<td>'.$net.'</td>';
+                $output.='<td>'.$gross.'</td>';
                 $output.='<td>'.$stock["value"].'</td>';
                 $output.='<td>'.$stock["comment"].'</td>';
                 $output.='<td>'.$stock["standard"].'</td>';
                 if($stock["selected_for_shipment"]==0){
-                    $output.='<td>
-                        <button style="background:green; width:50px; color:white;" type="button"  onclick="myFunction()" name="allocated"><i class="fa fa-plus"></i></button>
+                    $output.='
+                    <td>
+                        <button id="'.$stock["stock_id"].'" style="background:green; width:50px; color:white;" type="button"  onclick="allocateForShippment(this.id)" name="allocated"><i class="fa fa-plus"></i></button>
                     </td>';
                 }else{
-                    $output.='<td><input type="button"  name="allocated"><i class="fa fa-minus"></i></button></td>';
-                }                
+                    $output.='
+                    <td>
+                        <button id="'.$stock["stock_id"].'" style="background:red; width:50px; color:white;" type="button"  onclick="deAllocateForShippment(this.id)" name="allocated"><i class="fa fa-minus"></i></button>
+                    </td>';                }                
             $output.='</tr>';
                 }
 
@@ -86,13 +108,16 @@ if($action=='add-si'){
    echo $output;
 }else if(($action=='allocate')){
     $id = isset($_POST['id']) ? $_POST['id'] : die();
-    $shippingCtrl->allocateLot($id);
+    $shippingCtrl->allocateForShippment($id);
+
     echo json_encode(array("status"=>"Lot allocated successfully"));
     
 }else if(($action=='unallocate')){
     $id = isset($_POST['id']) ? $_POST['id'] : die();
-    $shippingCtrl->unAllocateLot($id);
+    $shippingCtrl->unAllocateForShippment($id);
+
     echo json_encode(array("status"=>"Lot allocated successfully"));
+
 }else if($action=='shippment-summary'){
     echo json_encode($shippingCtrl->summaries());
 }else if($action=='blend'){
@@ -111,7 +136,100 @@ if($action=='add-si'){
     }else{
         echo '<option disabled="" value="..." selected="">select</option>';
     }
+}else if($action=='shipment-teas'){
+    $output ="";
+    $totalLots=0;
+    $totalPkgs=0;
+    $totalKgs=0;
+    $totalAmount=0;
+    $totalGross=0;
+    $stockList = $shippingCtrl->loadSelectedForshipment();
+    if (sizeOf($stockList)> 0) {
+        $output .='
+        <table id="shippmentTeas" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="wd-15p">Sale No</th>
+                <th class="wd-15p">Broker</th>
+                <th class="wd-15p">Lots No</th>
+                <th class="wd-15p">Ware Hse.</th>
+                <th class="wd-20p">Company</th>
+                <th class="wd-15p">Mark</th>
+                <th class="wd-10p">Grade</th>
+                <th class="wd-25p">Invoice</th>
+                <th class="wd-25p">Type</th>
+                <th class="wd-25p">Pkgs</th>
+                <th class="wd-25p">Net</th>
+                <th class="wd-25p">Gross</th>
+                <th class="wd-25p">Value</th>
+                <th class="wd-25p">Comment</th>
+                <th class="wd-25p">Standard</th>
+
+            </tr>
+        </thead>
+        <tbody>';
+        foreach ($stockList as $stock) {
+            $totalLots++;
+            $totalPkgs+=$stock["pkgs"];
+            $totalKgs+=$stock["net"];
+            $totalAmount+=$stock["value"];
+            $totalGross+=$stock["gross"];
+            $output.='<tr>';
+                $output.='<td>'.$stock["sale_no"].'</td>';
+                $output.='<td>'.$stock["broker"].'</td>';
+                $output.='<td>'.$stock["lot"].'</td>';
+                $output.='<td>'.$stock["ware_hse"].'</td>';
+                $output.='<td>'.$stock["company"].'</td>';
+                $output.='<td>'.$stock["mark"].'</td>';
+                $output.='<td>'.$stock["grade"].'</td>';
+                $output.='<td>'.$stock["invoice"].'</td>';
+                $output.='<td>'.$stock["type"].'</td>';
+                $output.='<td>'.$stock["pkgs"].'</td>';
+                $output.='<td>'.$stock["net"].'</td>';
+                $output.='<td>'.$stock["gross"].'</td>';
+                $output.='<td>'.$stock["value"].'</td>';
+                $output.='<td>'.$stock["comment"].'</td>';
+                $output.='<td>'.$stock["standard"].'</td>';             
+            $output.='</tr>';
+                }
+                $output.='<tr style="background-color:green; color:white; border:none;">';            
+                    $output.='<td><b>TOTALS</td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>';
+                    $output.='<td><b>'.$totalLots.'</b></td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>'; 
+                    $output.='<td></td>';
+                    $output.='<td><b>'.$totalPkgs.'</b></td>'; //pkgs
+                    $output.='<td><b>'.$totalKgs.'</b></td>'; //net
+                    $output.='<td><b>'. $totalGross.'</b></td>'; //net
+                    $output.='<td><b>'.$totalAmount.'</b></td>'; //final prompt value
+                    $output.='<td></td>'; 
+                    $output.='<td></td>'; 
+
+                   
+     
+            $output.='</tr>';
+
+        $output.='</tbody>
+    </table>';
+            }
+   echo $output;
 }else if($action=="edit-si"){
+    if(isset($_POST['id'])){
+        $siRecord = $shippingCtrl->loadSItemplates($_POST['id']);
+        echo json_encode($siRecord);
+    }else{
+        echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
+
+    }       
+}else if ($action=="allocate-blend"){
+    $id = isset($_POST['id']) ? $_POST['id'] : die();
+    $pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : die();
+    $shippingCtrl->allocateBlend($id, $pkgs);
+}else if($action=="confirm-shippment"){
     if(isset($_POST['id'])){
         $siRecord = $shippingCtrl->loadSItemplates($_POST['id']);
         echo json_encode($siRecord);

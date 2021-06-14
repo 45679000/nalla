@@ -48,7 +48,7 @@ function addSi(){
             cache: false,  
             url: "shipping_action.php",   
             success: function(data){
-                swal('',data.message, 'success');
+                swal('Success',data.message, 'success');
             }   
         });   
         return false;   
@@ -68,8 +68,8 @@ function switchView(siType){
             url: "shipping_action.php",   
                 success: function(data){
                     $('#blendTable').html(data);
-                    // $("table").DataTable({
-                    // });
+                    $("#direct_lot").DataTable({
+                    });
                 }   
             }); 
 
@@ -95,24 +95,41 @@ function switchView(siType){
         });
     }
 }
-function updateAllocation(){
-    $('#direct_lot tbody').on('click', '#unallocated', function() {
-        var thisCell = table.cell(this);
-        SubmitData.lot = $(this).parents('tr').find("td:eq(0)").text();
-        SubmitData.check = 1;
-        console.log(SubmitData);
-        postData(SubmitData, "shipping_action.php");
-
-    });
-    $('#direct_lot tbody').on('click', '#allocated', function() {
-            var thisCell = table.cell(this);
-            SubmitData.lot = $(this).parents('tr').find("td:eq(0)").text();
-            SubmitData.check = 0;
-            console.log(SubmitData);
-            postData(SubmitData, "shipping_action.php");
-
-    });
+function refreshLots(){
+    $.ajax({   
+        type: "POST",
+        dataType:"html",
+        data : {
+                action:"load-unallocated",
+                type:"blend"
+        },
+        cache: true,  
+        url: "shipping_action.php",   
+            success: function(data){
+                $('#blendTable').html(data);
+                $("#direct_lot").DataTable({
+                });
+            }   
+        }); 
 }
+function refreshBlendLots(){
+    $.ajax({   
+        type: "POST",
+        dataType:"html",
+        data : {
+                action:"load-unallocated",
+                type:"blend"
+        },
+        cache: true,  
+        url: "shipping_action.php",   
+            success: function(data){
+                $('#blendTable').html(data);
+                $("#direct_lot").DataTable({
+                });
+            }   
+        }); 
+}
+
 function postData(formData, PostUrl) {
     $.ajax({
           type: "POST",
@@ -134,7 +151,111 @@ function postData(formData, PostUrl) {
 
 }
 
-function myFunction(){
-    alert("I clicked Something");
+function allocateForShippment(id){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"allocate", id:id},
+    success: function (data) {
+        refreshLots();
+        viewSelectionSummary();
+        console.log(data);
+    },
+    error: function (data) {
+
+    },
+});
 }
 
+function deAllocateForShippment(id){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"unallocate", id:id},
+        success: function (data) {
+            refreshLots();
+            viewSelectionSummary();
+        },
+        error: function (data) {
+        
+        },
+    });
+
+}
+function viewSelectionSummary(){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"shippment-summary"},
+    success: function (data) {
+        $('#totalLots').text(data.totalLots);
+        $('#totalPackages').text(data.totalkgs);
+        $('#totalKilos').text(data.totalpkgs);
+        $('#totalValue').text(data.totalAmount);
+        $('.counter-value').each(function(){
+            $(this).prop('Counter',0).animate({
+                Counter: $(this).text()
+            },{
+                duration: 20,
+                easing: 'swing',
+                step: function (now){
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+    },
+    error: function (data) {
+       
+    },
+});
+}
+
+function shipmentTeas(type){
+    $.ajax({   
+        type: "POST",
+        dataType:"html",
+        data : {
+                action:"shipment-teas",
+                type:type
+        },
+        cache: true,  
+        url: "shipping_action.php",   
+            success: function(data){
+                $('#shippment_teas').html(data);
+                $("#shippmentTeas").DataTable({
+                });
+            }   
+        }); 
+}
+
+function splitLot(id) {
+    swal("Do you wish to continue spliting the lot?");
+    $('.packages').keypress(function (e) {
+        if (e.which == 13) {
+          id = $(this).attr("id");
+          var pkgs = $(this).val();
+          allocateBlend(id, pkgs)
+          return false;    //<---- Add this line
+        }
+      });
+}
+
+function allocateBlend(id, pkgs){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"allocate-blend", id:id, pkgs:pkgs},
+    success: function (data) {
+        refreshBlendLots();
+        viewSelectionSummary();
+        console.log(data);
+    },
+    error: function (data) {
+
+    },
+});
+}

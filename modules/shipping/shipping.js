@@ -54,6 +54,38 @@ function addSi(){
         return false;   
     });
 }
+function addBlend(){
+    $('#blendIt').click(function(e){
+        e.preventDefault();
+        var formData = {
+            blend_no:$('#blend_no').val(),
+            date_:$('#date_').val(),
+            client_name:$('#client_name').val(),
+            std_name:$('#std_name').val(),
+            blend_no:$('#blend_no').val(),
+            grade:$('#grade').val(),
+            blend_no:$('#blend_no').val(),
+            nw:$('#nw').val(),
+            output_pkgs:$('#output_pkgs').val(),
+            sale_no:$('#sale_no').val(),
+            output_kgs:$('#output_kgs').val(),
+            comments:$('#comments').val(),
+            action:"add-blend"
+
+        };
+        $.ajax({   
+            type: "POST",
+            data : formData,
+            cache: false,  
+            url: "shipping_action.php",   
+            success: function(data){
+                swal('Success',data.message, 'success');
+            }   
+        });   
+        return false;   
+    });
+}
+
 function switchView(siType){
     if(siType == "blend"){
         $('#tab2').click(function(e) {
@@ -219,7 +251,7 @@ function shipmentTeas(type){
         dataType:"html",
         data : {
                 action:"shipment-teas",
-                type:type
+                type:"blend"
         },
         cache: true,  
         url: "shipping_action.php",   
@@ -258,4 +290,18 @@ function allocateBlend(id, pkgs){
 
     },
 });
+}
+function gradeList(){
+    $.ajax({
+        url: "../../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "grade-list"
+        },
+        success: function(response) {
+            $("#grade").html(response);
+        }
+
+    });
 }

@@ -143,8 +143,44 @@ if($action=='add-si'){
     $totalKgs=0;
     $totalAmount=0;
     $totalGross=0;
+    $blendList = $shippingCtrl->loadActiveBlend();
     $stockList = $shippingCtrl->loadSelectedForshipment();
-    if (sizeOf($stockList)> 0) {
+    if (sizeOf($blendList)> 0) {
+        if($_POST['type']=="blend"){
+            $output .='
+        <table id="shippmentTeasBlend" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="wd-15p">Blend No</th>
+                <th class="wd-15p">Sale No</th>
+                <th class="wd-15p">STD Name</th>
+                <th class="wd-15p">Grade</th>
+                <th class="wd-20p">Client Name</th>
+                <th class="wd-15p">NW</th>
+                <th class="wd-10p">Output Pkgs</th>
+                <th class="wd-25p">Input Pkgs</th>
+            </tr>
+        </thead>
+        <tbody>';
+        foreach ($blendList as $blend) {
+            $output.='<tr>';
+                $output.='<td>'.$blend["blend_no"].'</td>';
+                $output.='<td>'.$blend["sale_no"].'</td>';
+                $output.='<td>'.$blend["std_name"].'</td>';
+                $output.='<td>'.$blend["Grade"].'</td>';
+                $output.='<td>'.$blend["client_name"].'</td>';
+                $output.='<td>'.$blend["nw"].'</td>';
+                $output.='<td>'.$blend["output_pkgs"].'</td>';
+                $output.='<td>'.$blend["output_pkgs"].'</td>';            
+            $output.='</tr>';
+            $output.='</tr>';
+
+            $output.='</tbody>
+        </table>';
+                }
+       echo $output;
+
+        }else{
         $output .='
         <table id="shippmentTeas" class="table table-striped table-bordered">
         <thead>
@@ -216,6 +252,7 @@ if($action=='add-si'){
         $output.='</tbody>
     </table>';
             }
+        }
    echo $output;
 }else if($action=="edit-si"){
     if(isset($_POST['id'])){
@@ -237,6 +274,18 @@ if($action=='add-si'){
         echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
 
     }       
+}else if($action=='add-blend'){
+    unset($_POST['action']);
+    $resp = $shippingCtrl->saveBlend($_POST);
+    $_SESSION['blend-id'] = $_POST['id'];
+    $_SESSION['blend-id'] = $resp;
+
+    if($resp !=null){
+        echo json_encode(array("success"=>"true", "message"=>"Saved Successfully", "shipment-type"=>$_SESSION['shipment-type']));
+    }else{
+        echo json_encode(array("success"=>"false", "message"=>"There are some errors in the Form record not saved"));
+
+    }
 }
 else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));

@@ -67,13 +67,24 @@ Class ShippingController extends Model{
     public function loadSelectedForshipment(){
         $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment = 1";
         return $this->executeQuery();
-    }public function allocateBlend($id, $pkgs){
+    }
+    public function loadActiveBlend(){
+        $this->query = "SELECT *FROM blend_master LIMIT 1";
+        return $this->executeQuery();
+    }
+    public function allocateBlend($id, $pkgs){
         $this->query = "UPDATE closing_stock SET  current_allocation= ".$pkgs." WHERE stock_id = ".$id;
         return $this->executeQuery();
     }
     public function confirmShipment(){
         $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment = 1";
         return $this->executeQuery();
+    }
+    public function saveBlend($post){
+        $this->data = $post;
+        $this->tablename = "blend_master";
+        $id = $this->insertQuery();
+        return $id;
     }
 }
 

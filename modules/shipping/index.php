@@ -3,6 +3,7 @@ define('ROOT_PATH', dirname(__DIR__) . '/');
 $path_to_root = "../../";
 include(ROOT_PATH . '../templates/header.php');
 include(ROOT_PATH . '../widgets/_form.php');
+include(ROOT_PATH . '../views/includes/auction_ids.php');
 
 $form = new Form();
 
@@ -151,10 +152,10 @@ $form = new Form();
 </script>
 
 <script>
+
 $(document).ready(function() {
     switchView("blend");
     viewSelectionSummary();
-    
     $('#straight').hide();
     
 });

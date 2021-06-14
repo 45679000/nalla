@@ -99,38 +99,47 @@
         }
     }
 </style>
-<?php
-$form->beginForm("si_form");
-print '
-
-<div  class="card-body" style="height:40% !important;">
-
+<div style="height:40% !important;">
     <div class="row">
-        <div class="col-md-3 col-md-3">';
-            $form->formField("text", "blend_no", "", "Blend No");
-            $form->formField("text", "date_", "", "Date");
-            $form->formField("dropdownlist", "client_name", "", "Client Name", array("BASU" => "BASU", "KARACHI" => "KARACHI"));           
-            print '</div>
-        <div class="col-md-3 col-md-3">';
-            $form->formField("text", "std_name", "", "Std Name");
-            $form->formField("dropdownlist", "Grade", "", "Grade", array("BP1" => "BP1", "PF1" => "PF1"));           
-            $form->formField("text", "nw", "", "NW");
-            print '</div>
-        <div class="col-md-3 col-md-3">';
-            $form->formField("dropdownlist", "sale_no", "", "Auction Week", "");           
-            $form->formField("text", "output_pkgs", "", "Output Pkgs");
-            $form->formField("text", "output_kgs", "", "Output Kgs");
-            print '</div>
-        <div class="col-md-3 col-md-3">';
-            $form->formField("text-area", "comments", "", "comments");
-            print '</div>';
-        $form->addButtons('step1');
-        print '
-    </div>
-</div>
-';
+        <form id="blend_master" method="post">
 
-?>
+            <div class="col-md-3 col-md-3">
+                <div class="form-group"><label class="form-label">Blend No</label><input type="text" class="form-control" id="blend_no" name="blend_no" value=""></div>
+                <div class="form-group"><label class="form-label">Date</label><input type="text" class="form-control" id="date_" name="date_" value=""></div>
+                <div class="form-group"><label class="form-label">Client Name</label><select name="client_name" id="client_name" class="form-control  select2-show-search" data-placeholder="Select)"> Select2 with search box<option value="BASU">BASU</option>
+                        <option value="KARACHI">KARACHI</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-3">
+                <div class="form-group"><label class="form-label">Std Name</label><input type="text" class="form-control" id="std_name" name="std_name" value=""></div>
+                <div class="form-group"><label class="form-label">Grade</label><select name="grade" id="grade" class="form-control  select2-show-search" data-placeholder="Select)">
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">NW</label><input type="text" class="form-control" id="nw" name="nw" value=""></div>
+            </div>
+            <div class="col-md-3 col-md-3">
+                <div class="form-group"><label class="form-label">Auction Week</label><select name="sale_no" id="sale_no" class="form-control  select2-show-search" data-placeholder="Select)"> Select2 with search box<option value="2021-00">2021-00</option>
+
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">Output Pkgs</label><input type="text" class="form-control" id="output_pkgs" name="output_pkgs" value=""></div>
+                <div class="form-group"><label class="form-label">Output Kgs</label><input type="text" class="form-control" id="output_kgs" name="output_kgs" value=""></div>
+            </div>
+            <div class="col-md-3 col-md-3">
+                <div class="form-group"><label class="form-label">comments</label><textarea type="text-area" class="form-control" rows="5" cols="5" id="comments" name="comments" value=""></textarea></div>
+            </div>
+            <div style="text-align:center; margin:auto;">
+                <button id="blendIt" class="btn btn-success"><i class="fa fa-hourglass"></i>Create Blend</button>
+
+            </div>
+        </form>
+    </div>
+   
+</div>
+
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -172,8 +181,8 @@ print '
         </div>
     </div>
     <div class="row">
-    <div class="col-md-12">
-        <div id="blendTable"></div>
+        <div class="col-md-12">
+            <div id="blendTable"></div>
         </div>
     </div>
 </div>
@@ -193,3 +202,8 @@ print '
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    addBlend();
+    gradeList();
+</script>

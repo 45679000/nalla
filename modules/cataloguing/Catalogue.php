@@ -175,10 +175,10 @@
         }
         public function closingCatalogue($auction = "", $broker = "", $category = ""){
                 if($category =="All"){
-                    $this->query = "SELECT * FROM closing_cat WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
                     return $this->executeQuery();
                 }else{
-                    $this->query = "SELECT * FROM closing_cat WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."'";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."'";
                     return $this->executeQuery();
                 }
         }

@@ -40,7 +40,7 @@ ob_start();//Enables Output Buffering
         $min = 180;
 
 
-        $print = print_catalogue($data, $broker, $auction, $max, $min, $category, $import_date);
+        $print = print_catalogue($data, $broker, $auction, $max, $min, $category, $import_date, $conn2);
         $mpdf = new \Mpdf\Mpdf(['orientation' => 'P', 'tempDir' => __DIR__ . 'files', 	'default_font' => 'dejavusans']);
         $mpdf->debug = true;
         $mpdf->shrink_tables_to_fit=0;
@@ -54,14 +54,17 @@ ob_start();//Enables Output Buffering
  
     $date =date("l jS  F Y");
 
-function convertDate($dateValue) {    
 
-        $unixDate = ($dateValue - 25569) * 86400;
-        return gmdate("Y-m-d", $unixDate);
-        'where Y is YYYY, m is MM, and d is DD';
-      
-      }
-function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd){
+function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd, $conn2){
+  function convertDate($dateValue) {    
+
+    $unixDate = ($dateValue - 25569) * 86400;
+    return gmdate("Y-m-d", $unixDate);
+    'where Y is YYYY, m is MM, and d is DD';
+  
+  }
+  $catalogue = new Catalogue($conn2);
+  
   $mark="34";
     $html = "
     <html>
@@ -78,7 +81,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
           td {
           border-bottom: 1px solid #000000;
           text-align: left;
-          padding: 2px;
+          padding-bottom: 5px;
           }
 
           tr {
@@ -114,11 +117,18 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
       </style>
       <body>
       <div>
-   
-      <p>
-        <h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;".$broker."       ".$cat."&emsp;&emsp;Auction&emsp;&emsp;".$auct."</h4>
-        <h4 style='text-align:left'>"."&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;".$impd." </h4>
-      </p>
+        <div style='text-align:right; margin:auto;'><b><i>CHAMU TIFMS</i></b></div>
+        <div style='text-align:center; margin:auto;'><h3>".$data[0]['name']."</h3></div>
+        <table style='border: none;'>
+            <tr style='border: none; padding-bottom:30px;'>
+              <td style='border: none; text-align:left;'>
+                <h6>".$cat."&emsp;&emsp;Auction&emsp;&emsp;".$auct."</h6>
+              </td>
+              <td style='border: none; text-align:right;'>
+                <h6>".$impd."</h6>
+              </td>
+            </tr>
+        </table>
       </div>
       <table autosize='2.4'>
         <tr>
@@ -161,8 +171,8 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
                 <td></td>
                 <td></td>
                 <td style='text-align:right';>
-                <div style='text-align:right';>
-                    <h3>".$value['mark']."</h3>
+                <div style='text-align:right; padding-bottom:5px;'>
+                    <h3 style='height:115px;'>".$value['mark']."</h3>
                 </div>
               </td>
                 <td>
@@ -183,12 +193,12 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
                   <table style='border: none; padding:0px;'>
                     <tr>
                       <td style='border: none;'>
-                      <b style='color:red';>".$maximum."</b>
+                      <b style='color:red';>".$catalogue->maxLow($value['mark'], $value['grade'], $auct)[0]["min"]."</b>
                       </td>
                     </tr>
                     <tr>
                       <td style='border: none;'>
-                      <b style='color:green';>".$minmum."</b>
+                      <b style='color:green';>".$catalogue->maxLow($value['mark'], $value['grade'], $auct)[1]["max"]."</b>
                       </td>
                     </tr>
                   </table>
@@ -199,21 +209,23 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
                      <tr style='border: none;'><td style='border: none;';<b>>".$value['ra']."</b></td></tr>
                  </table>
               </td>
-             <td style='border-right: 1px solid #000000;'>
+             <td>
                <table style='border:none;';>
-                     <tr style='border: none;'><td style='border: none;';><b>".$value['mark']."</b></td></tr>
                       <tr style='border: none;'>
-                      <td style='border: none;';><b>".$value['grade']."</b></td>
-                      <td style='border: none;';><b>".$value['manf_date']."</b></td>
-                      <td style='border-right: 1px solid #000000;'><b>".$value['invoice']."</b></td>
-                    </tr>
+                        <td style='border: none;';><b>".$value['mark']."</b></td>
+                        <td style='border-right: 1px solid #000000;'><b>".$value['invoice']."</b></td>  
+                      </tr>
+                      <tr style='border: none;'>
+                        <td style='border: none;';><b>".$value['grade']."</b></td>
+                        <td style='border: none;';><b>".convertDate($value['manf_date'])."</b></td>
+                     </tr>
                  </table>
              </td>
             
-             <td style='border-right: 1px solid #000000;'>".$value['pkgs']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['type']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['net']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['net']/$value['pkgs']."</td>
+             <td>".$value['pkgs']."</td>
+             <td>".$value['type']."</td>
+             <td>".$value['net']."</td>
+             <td>".$value['net']/$value['pkgs']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
              <td style='border-right: 1px solid #000000;width:100px;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
@@ -228,17 +240,17 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
              <td style='border-right: 1px solid #000000;'>".$value['value']."</td>
              <td style='border-right: 1px solid #000000;'>
              <table style='border: none; padding:0px;'>
-               <tr>
-                 <td style='border: none;'>
-                 <b style='color:red';>".$maximum."</b>
-                 </td>
-               </tr>
-               <tr>
-                 <td style='border: none;'>
-                 <b style='color:green';>".$minmum."</b>
-                 </td>
-               </tr>
-             </table>
+                    <tr>
+                      <td style='border: none;'>
+                      <b style='color:red';>".$catalogue->maxLow($value['mark'], $value['grade'], $auct)[0]["min"]."</b>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style='border: none;'>
+                      <b style='color:green';>".$catalogue->maxLow($value['mark'], $value['grade'], $auct)[1]["max"]."</b>
+                      </td>
+                    </tr>
+                  </table>
             </td>
  
               <td style='border-right: 1px solid #000000;'>
@@ -247,21 +259,22 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd)
                      <tr style='border: none;'><td style='border: none;';><b>".$value['ra']."</b></td></tr>
                  </table>
              </td>
-             <td style='border-right: 1px solid #000000;'>
-                 <table style='border:none;';>
-                     <tr style='border: none;'><td style='border: none;';><b>".$value['mark']."</b></td></tr>
-                     <tr style='border: none;'>
-                         <td style='border: none;';><b>".$value['grade']."</b></td>
-                         <td style='border: none;';><b>".$value['manf_date']."</b></td>
-                         <td style='border-right: 1px solid #000000;'><b>".$value['invoice']."</b></td>
+             <td>
+               <table style='border:none;';>
+                      <tr style='border: none;'>
+                        <td style='border: none;';><b>".$value['mark']."</b></td>
+                        <td style='border-right: 1px solid #000000;'><b>".$value['invoice']."</b></td>  
+                      </tr>
+                      <tr style='border: none;'>
+                        <td style='border: none;';><b>".$value['grade']."</b></td>
+                        <td style='border: none;';><b>".convertDate($value['manf_date'])."</b></td>
                      </tr>
                  </table>
-              </td>
-             
-             <td style='border-right: 1px solid #000000;'>".$value['pkgs']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['type']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['net']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['net']/$value['pkgs']."</td>
+             </td>
+             <td>".$value['pkgs']."</td>
+             <td>".$value['type']."</td>
+             <td>".$value['net']."</td>
+             <td>".$value['net']/$value['pkgs']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>

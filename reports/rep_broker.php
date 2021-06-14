@@ -57,11 +57,12 @@ ob_start();//Enables Output Buffering
 
 function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd, $conn2){
   function convertDate($dateValue) {    
-
-    $unixDate = ($dateValue - 25569) * 86400;
-    return gmdate("Y-m-d", $unixDate);
-    'where Y is YYYY, m is MM, and d is DD';
-  
+    if(is_numeric($dateValue)==1){
+      $unixDate = ($dateValue - 25569) * 86400;
+      return gmdate("Y-m-d", $unixDate);
+      'where Y is YYYY, m is MM, and d is DD';
+    }
+    
   }
   $brokerName = "";
   if(sizeOf($data)>1){

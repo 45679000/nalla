@@ -63,8 +63,13 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
     'where Y is YYYY, m is MM, and d is DD';
   
   }
+  $brokerName = "";
+  if(sizeOf($data)>1){
+    $brokerName = $data[0]['name'];
+  }
   $catalogue = new Catalogue($conn2);
-  
+  $html="No records Found";
+ 
   $mark="34";
     $html = "
     <html>
@@ -118,7 +123,8 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
       <body>
       <div>
         <div style='text-align:right; margin:auto;'><b><i>CHAMU TIFMS</i></b></div>
-        <div style='text-align:center; margin:auto;'><h3>".$data[0]['name']."</h3></div>
+
+        <div style='text-align:center; margin:auto;'><h3>".$brokerName."</h3></div>
         <table style='border: none;'>
             <tr style='border: none; padding-bottom:30px;'>
               <td style='border: none; text-align:left;'>

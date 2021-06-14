@@ -13,8 +13,9 @@
             // $inputFileName = 'ANJL_SPLIT_CLOSING_SALE_12.2021.xls';
             //  Read your Excel workbook
             try {
+                $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($this->inputFileName);
 
-                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+                $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
                 $reader->setReadDataOnly(true);
                 $spreadsheet = $reader->load($this->inputFileName);
                 if($this->is_split == "true"){

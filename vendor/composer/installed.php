@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'f404c364e89ec42088cbc7685c152e88f8750cc7',
+    'reference' => '2fb73c5527fb663f8793b7f377ce73491e92f577',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'f404c364e89ec42088cbc7685c152e88f8750cc7',
+      'reference' => '2fb73c5527fb663f8793b7f377ce73491e92f577',
     ),
     'ezyang/htmlpurifier' => 
     array (
@@ -40,30 +40,30 @@
     ),
     'markbaker/complex' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '2.0.3',
+      'version' => '2.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9999f1432fae467bc93c53f357105b4c31bb994c',
+      'reference' => '6f724d7e04606fd8adaa4e3bb381c3e9db09c946',
     ),
     'markbaker/matrix' => 
     array (
-      'pretty_version' => '2.1.2',
-      'version' => '2.1.2.0',
+      'pretty_version' => '2.1.3',
+      'version' => '2.1.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '361c0f545c3172ee26c3d596a0aa03f0cef65e6a',
+      'reference' => '174395a901b5ba0925f1d790fa91bab531074b61',
     ),
     'mpdf/mpdf' => 
     array (
-      'pretty_version' => 'v8.0.10',
-      'version' => '8.0.10.0',
+      'pretty_version' => 'v8.0.11',
+      'version' => '8.0.11.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1333a962cd2f7ae1a127b7534b7734b58179186f',
+      'reference' => 'af17afbbfa0b6ce76defc8da5d02a73d54f94c64',
     ),
     'myclabs/deep-copy' => 
     array (
@@ -98,12 +98,12 @@
     ),
     'phpoffice/phpspreadsheet' => 
     array (
-      'pretty_version' => '1.17.1',
-      'version' => '1.17.1.0',
+      'pretty_version' => '1.18.0',
+      'version' => '1.18.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c55269cb06911575a126dc225a05c0e4626e5fb4',
+      'reference' => '418cd304e8e6b417ea79c3b29126a25dc4b1170c',
     ),
     'psr/http-client' => 
     array (
@@ -134,12 +134,12 @@
     ),
     'psr/log' => 
     array (
-      'pretty_version' => '1.1.3',
-      'version' => '1.1.3.0',
+      'pretty_version' => '1.1.4',
+      'version' => '1.1.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0f73288fd15629204f9d42b7055f72dacbe811fc',
+      'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
     ),
     'psr/simple-cache' => 
     array (
@@ -161,12 +161,12 @@
     ),
     'symfony/polyfill-mbstring' => 
     array (
-      'pretty_version' => 'v1.22.1',
-      'version' => '1.22.1.0',
+      'pretty_version' => 'v1.23.0',
+      'version' => '1.23.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5232de97ee3b75b0360528dae24e73db49566ab1',
+      'reference' => '2df51500adbaebdc4c38dea4c89a2e131c45c8a1',
     ),
   ),
 );

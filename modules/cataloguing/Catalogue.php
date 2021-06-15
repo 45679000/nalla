@@ -50,7 +50,6 @@
             $highestColumn = $sheet->getHighestColumn();
             $sql = "INSERT INTO `closing_cat_import`(`comment`,  `ware_hse`, `entry_no`, `value`,  `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `sale_no`, `broker`, `imported_by`, `category`)
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?);";
-
             $excelData = $this->excelToAssociativeArray(3, $spreadsheet, $activesheet);
             try {
                 $stmt = $pdo->prepare($sql);
@@ -74,7 +73,7 @@
                     $stmt->bindParam(17, $data["Kgs"]);
                     $stmt->bindParam(18, $data["Tare"]);
                     $stmt->bindParam(19, $data["Sale Price"]);
-                    $stmt->bindParam(20, $data["Buyer & Packa"]);
+                    $stmt->bindParam(20, $data["Buyer & Packages"]);
                     $stmt->bindParam(21, $this->saleno);
                     $stmt->bindParam(22, $this->broker);
                     $stmt->bindParam(23, $this->user_id);

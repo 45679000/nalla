@@ -51,9 +51,11 @@
             $sql = "INSERT INTO `closing_cat_import`(`comment`,  `ware_hse`, `entry_no`, `value`,  `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `sale_no`, `broker`, `imported_by`, `category`)
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?);";
             $excelData = $this->excelToAssociativeArray(3, $spreadsheet, $activesheet);
+            $buyer = trim($spreadsheet->getActiveSheet()->getCell('V3'));
             try {
                 $stmt = $pdo->prepare($sql);
                 foreach($excelData as $data){
+                    $buyerPackage = trim($data[$buyer]);
                     $stmt->bindParam(1, $data["Comment"]);
                     $stmt->bindParam(2, $data["Ware Hse"]);
                     $stmt->bindParam(3, $data["Entry No"]);
@@ -73,7 +75,7 @@
                     $stmt->bindParam(17, $data["Kgs"]);
                     $stmt->bindParam(18, $data["Tare"]);
                     $stmt->bindParam(19, $data["Sale Price"]);
-                    $stmt->bindParam(20, $data["Buyer & Packages"]);
+                    $stmt->bindValue(20, $buyerPackage);
                     $stmt->bindParam(21, $this->saleno);
                     $stmt->bindParam(22, $this->broker);
                     $stmt->bindParam(23, $this->user_id);

@@ -59,7 +59,7 @@
 											</tr>
 										</thead>
                                         <tbody>';
-                                        foreach ($stocks as $stock){
+                                        foreach ($scart as $stock){
                                             $html.='<tr>';
                                                 $html.='<td>'.$stock["lot"].'</td>';
                                                 $html.='<td>'.$stock["ware_hse"].'</td>';

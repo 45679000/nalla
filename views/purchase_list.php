@@ -39,49 +39,130 @@
 						</div>
                            <div class="card-body">
                                 <div class="table-responsive">
-									<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
-										<thead>
-											<tr>
-												<th class="wd-15p">Lot No</th>
-												<th class="wd-15p">Ware Hse.</th>
-												<th class="wd-20p">Company</th>
-												<th class="wd-15p">Mark</th>
-												<th class="wd-10p">Grade</th>
-                                                <th class="wd-25p">Invoice</th>
-                                                <th class="wd-25p">Pkgs</th>
-												<th class="wd-25p">Type</th>
-												<th class="wd-25p">Net</th>
-                                                <th class="wd-25p">Gross</th>
-                                                <th class="wd-25p">Kgs</th>
-                                                <th class="wd-25p">Tare</th>
-                                                <th class="wd-25p">Value</th>
+                                <table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <td>Sale No</td>
+                                        <td>DD/MM/YY</td>
+                                        <td>Broker</td>
+                                        <td>Warehouse</td>
+                                        <td>Lot</td>
+                                        <td>Origin</td>
+                                        <td>Mark</td>
+                                        <td>Grade</td>
+                                        <td>Invoice</td>
+                                        <td>Pkgs</td>
+                                        <td>Net</td>
+                                        <td>Kgs</td>
+                                        <td>Auction Hammer Price per Kg(USD)</td>
+                                        <td>Value Ex Auction</td>
+                                        <td>Brokerage Amount 0.5 % on value(USD)</td>
+                                        <td>Final Prompt Value Including Brokerage 0.5 % on value(USD)</td>
+                                        <td>Witdholding Tax @ 5% Of Brokerage Amount Payable to Domestic Taxes Dept(USD)</td>
+                                        <td>Prompt Payable to EATTA-TCA After Deduction of W.Tax</td>
+                                        <td>Add on(Over Auction Hammer Price+ Brokerage) Per Kg (USD))</td>
+                                        <td>Final Sales Invoice Price Per Kg(USD)</td>
+                                        <td>Final Sales Invoice Value(USD)</td>
 
-											</tr>
-										</thead>
-                                        <tbody>';
-                                        foreach ($scart as $stock){
-                                            $html.='<tr>';
-                                                $html.='<td>'.$stock["lot"].'</td>';
-                                                $html.='<td>'.$stock["ware_hse"].'</td>';
-                                                $html.='<td>'.$stock["company"].'</td>';
-                                                $html.='<td>'.$stock["mark"].'</td>';
-                                                $html.='<td>'.$stock["grade"].'</td>';
-                                                $html.='<td>'.$stock["invoice"].'</td>';
-                                                $html.='<td>'.$stock["pkgs"].'</td>';
-                                                $html.='<td>'.$stock["type"].'</td>';
-                                                $html.='<td>'.$stock["net"].'</td>';
-                                                $html.='<td>'.$stock["gross"].'</td>';
-                                                $html.='<td>'.$stock["kgs"].'</td>';
-                                                $html.='<td>'.$stock["tare"].'</td>';
-                                                $html.='<td>'.$stock["value"].'</td>';
+                                    </tr>
+                                </thead>
+                                <tbody>';
+                                $totalPkgs = 0;
+                                $totalLots = 0;
+                                $totalKgs = 0;
+                                $totalNet = 0;
+                                $totalHammer = 0;
+                                $totalValue = 0;
+                                $totalBrokerage = 0;
+                                $totalbrokerage =0;
+                                $totalAmount = 0;
+                                $totalAfterTax = 0;
+                                $totalAddon = 0;
+                                $totalpayable = 0;
+                                $totalPayableStock = 0;
+                                $totalLots=0;
 
-											$html.='</tr>';
-                                        }
-                                $html.= '</tbody>
-                                    </table>
-                                </div>
-                            </div>';
-                            echo $html;
+                                foreach ($scart as $stock){ 
+                                    $totalLots++; 
+                                    $totalPkgs+=$stock['pkgs'];
+                                    $totalKgs+=$stock['kgs'];
+                                    $totalNet+=$stock['net'];
+
+                                    $brokerage = round(($stock['value']*$stock['pkgs'])*(0.5/100), 2);
+                                    $value = round($stock['value']*$stock['pkgs'],2);
+                                    $totalamount = round($brokerage+$value,2);
+                                    $afterTax = round(($totalamount)-(5/100)*$brokerage,2);
+                                    $auctionHammer = round(($stock['value']/$stock['kgs']),2);
+                                    $addon = round(($auctionHammer+$brokerage)/$stock['pkgs'],2);
+                                    $totalPayable = round($addon+$auctionHammer, 2);
+                                    $hammerPrice = round($stock['value']/$stock['kgs'],2);
+
+                                    $totalBrokerage+=$brokerage;
+                                    $totalValue+=$value;
+                                    $totalHammer+=$hammerPrice;
+                                    $totalAmount += $totalamount;
+                                    $totalbrokerage+=(5/100)*$brokerage;
+
+                                    $totalAfterTax += $afterTax;
+                                    $totalAddon +=$addon;
+                                    $totalpayable+=$totalPayable;
+
+                                    $totalPayableStock+=$totalPayable*$stock['net'];
+                        
+                                    $html.='<td>'.$stock['sale_no'].'</td>';
+                                    $html.='<td>'.$catalogue->ExcelToPHP($stock['manf_date']).'</td>';
+                                    $html.='<td>'.$stock['broker'].'</td>';
+                                    $html.='<td>'.$stock['ware_hse'].'</td>';
+                                    $html.='<td>'.$stock['lot'].'</td>';
+                                    $html.='<td>KENYA</td>';
+                                    $html.='<td>'.$stock['mark'].'</td>';
+                                    $html.='<td>'.$stock['grade'].'</td>';
+                                    $html.='<td>'.$stock['invoice'].'</td>'; 
+                                    $html.='<td>'.$stock['pkgs'].'</td>'; //pkgs
+                                    $html.='<td>'.$stock['kgs'].'</td>'; //net
+                                    $html.='<td>'.$stock['net'].'</td>'; //kgs
+                                    $html.='<td>'.$hammerPrice.'</td>'; //auction hammer
+                                    $html.='<td>'.$value.'</td>'; //value ex auction
+                                    $html.='<td>'.$brokerage.'</td>';// brokerage fee
+                                    $html.='<td>'.$totalAmount.'</td>'; //final prompt value
+                                    $html.='<td>'.(5/100)*$brokerage.'</td>';
+                                    $html.='<td>'.$afterTax.'</td>';
+                                    $html.='<td>'.$addon.'</td>';
+                                    $html.='<td>'.$totalPayable.'</td>';
+                                    $html.='<td>'.$totalPayable*$stock['net'].'</td>';
+                               $html.='</tr>';
+                      
+                                }
+                        $html.='<tr style="background-color:green; color:white; border:none;">';
+                        
+                        $html.='<td><b>TOTALS</td>';
+                        $html.='<td></td>';
+                        $html.='<td></td>';
+                        $html.='<td></td>';
+                        $html.='<td><b>'.$totalLots.'</b></td>';
+                        $html.='<td></td>';
+                        $html.='<td></td>';
+                        $html.='<td></td>';
+                        $html.='<td></td>'; 
+                        $html.='<td><b>'.$totalPkgs.'</b></td>'; //pkgs
+                        $html.='<td><b>'.$totalKgs.'</b></td>'; //net
+                        $html.='<td><b>'.$totalNet.'</b></td>'; //kgs
+                        $html.='<td><b>'.$totalHammer.'</b></td>'; //auction hammer
+                        $html.='<td><b>'.$totalValue.'</b></td>'; //value ex auction
+                        $html.='<td><b>'.$totalBrokerage.'</b></td>';// brokerage fee
+                        $html.='<td><b>'.$totalAmount.'</b></td>'; //final prompt value
+                        $html.='<td><b>'.$totalbrokerage.'</b></td>';
+                        $html.='<td><b>'.$totalAfterTax.'</b></td>';
+                        $html.='<td><b>'.$totalAddon.'</b></td>';
+                        $html.='<td><b>'.$totalpayable.'</b></td>';
+                        $html.='<td><b>'.$totalPayableStock.'</b></td>';
+
+                        $html.='</tr>';
+                        $html.= '</tbody>
+                            </table>
+                        </div>
+                    </div>';
+                    echo $html;
                     
                         ?>
                         

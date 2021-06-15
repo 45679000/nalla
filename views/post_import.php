@@ -35,6 +35,12 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
             echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
         }
     }
+    if(isset($_POST['cancel'])){
+        $confirmed = $catalogue->clearImport();
+        if($confirmed == true){
+            echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
+        }
+    }
 
 ?>
     <div class="my-3 my-md-5">
@@ -209,7 +215,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 											</div>
                                         </div>
                                         <form action="" method="post">
-                                            <button type="submit" id="confirm" name="confirm" class="btn btn-success btn-sm">Confirm Import</button>
+                                            <button type="submit" id="confirm" name="confirm" class="btn btn-success btn-sm">Process Import</button>
+                                            <button type="submit" id="cancel" name="cancel" class="btn btn-success btn-sm">Cancel</button>
                                         </form>
 									</div>
 								</div>

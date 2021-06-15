@@ -146,6 +146,22 @@
             }
             
         }
+        public function clearImport(){
+            $confirmed = false;
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            try {
+             $stmt2 = $this->conn->prepare("DELETE FROM closing_cat_import WHERE 1");
+             $stmt2->execute();
+             $confirmed = true;
+             return $confirmed;
+            } catch (Exception $ex) {
+                var_dump($ex);
+            }
+            
+        }
+
+
         public function excelToAssociativeArray($headerRow, $spreadsheet, $activesheet) {
 
             $spreadsheet->setActiveSheetIndex($activesheet);

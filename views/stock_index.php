@@ -24,8 +24,11 @@ if($saleNo != '' && $broker != '' && $category != ''){
     $stocks = $stock->readStock($condition);
 
 }
-
 $scart = $stock->readPurchaseList();
+
+if($saleNo != null){
+    $scart = $stock->readPurchaseList();
+}
 $parking = $stock->parking();
 
 $form = new Form();

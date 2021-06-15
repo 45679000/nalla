@@ -24,11 +24,11 @@ if($saleNo != '' && $broker != '' && $category != ''){
     $stocks = $stock->readStock($condition);
 
 }
-$scart = $stock->readPurchaseList();
+$scart = array();;
 
 if($saleNo != null){
     $stock->saleno = $saleNo;
-    $scart = $stock->readPurchaseList($saleNo);
+    $scart = $stock->readPurchaseList();
 }
 $parking = $stock->parking();
 

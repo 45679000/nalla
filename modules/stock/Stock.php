@@ -6,7 +6,7 @@
         public $broker;
     
         public function readPurchaseList(){
-            $query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS'";
+            $query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS' AND sale_no = '".$this->saleno."'";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();

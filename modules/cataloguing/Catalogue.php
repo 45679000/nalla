@@ -23,7 +23,6 @@
                     $this->readRecords($this->conn,$spreadsheet, 3, 5);
                     $this->readRecords($this->conn,$spreadsheet, 4, 5);
                 }else{
-                    $this->readRecords($this->conn,$spreadsheet, 2, 5);
                     $this->readRecords($this->conn,$spreadsheet, 3, 5);
                     $this->readRecords($this->conn,$spreadsheet, 4, 5);
                     $this->readRecords($this->conn,$spreadsheet, 5, 5);

@@ -52,6 +52,8 @@
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?);";
             $excelData = $this->excelToAssociativeArray(3, $spreadsheet, $activesheet);
             $buyer = trim($spreadsheet->getActiveSheet()->getCell('V3'));
+            
+           
             try {
                 $stmt = $pdo->prepare($sql);
                 foreach($excelData as $data){
@@ -132,7 +134,7 @@
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             try {
-                $stmt = $this->conn->prepare("INSERT INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`)
+                $stmt = $this->conn->prepare("REPLACE INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`)
                                           SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`
                                           FROM closing_cat_import"
                                         );
@@ -161,21 +163,21 @@
             
         }
 
-
         public function excelToAssociativeArray($headerRow, $spreadsheet, $activesheet) {
-
             $spreadsheet->setActiveSheetIndex($activesheet);
             $sheet = $spreadsheet->getActiveSheet(); 
-        
             $highestRow = $sheet->getHighestRow(); 
             $highestColumn = $sheet->getHighestColumn();
             $title = call_user_func_array('array_merge', $sheet->rangeToArray('A' . $headerRow . ':' . $highestColumn . $headerRow, NULL,TRUE, FALSE));
+            $title[12]="RA";
+            $title[20]="Pkgs";
+
             $arr = array();
             for ($row = 5; $row <= $highestRow; $row++){ 
                 $rowData = call_user_func_array('array_merge',$sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL,TRUE, FALSE));
                     $table = array();
                     for($i = 0; $i<22; $i++){
-                        if((trim($title[$i])=="Lot") && ( !is_numeric($rowData[$i]) )){
+                        if((trim($title[$i])=="Lot") && $this->stringCount($title[$i])>7){
                             break;
                         }else{
                             $table[trim($title[$i])] = $rowData[$i];
@@ -186,6 +188,9 @@
                     }
             }
             return $arr;
+        }
+        public function stringCount($str){
+            return preg_match_all( "/[0-9]/", $str );
         }
         public function addLot($data, $tablename){
             $this->data = $data;

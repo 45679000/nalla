@@ -54,8 +54,18 @@ class Model{
         return $rows;
     }
     public function executeQuery(){
-        $rows = $this->conn->query($this->query)->fetchAll();
-        return $rows;
+        $duplicate = 0;
+        try{
+            $rows = $this->conn->query($this->query)->fetchAll();
+            return $rows;
+        }catch(PDOException $ex){
+            if ($ex->errorInfo[1] == 1062) {
+                $duplicate = 1;
+                return $duplicate;
+             } else {
+                var_dump($ex);
+             }
+        }
     }
     public function softDelete($pk, $tablename){
         $this->conn->query("UPDATE  ".$tablename." SET is_deleted = true WHERE id = ".$pk);

@@ -100,8 +100,8 @@
     }
 </style>
 <div style="height:40% !important;">
-    <div class="row">
         <form id="blend_master" method="post">
+        <div class="row">
 
             <div class="col-md-3 col-md-3">
                 <div class="form-group"><label class="form-label">Blend No</label><input type="text" class="form-control" id="blend_no" name="blend_no" value=""></div>
@@ -133,12 +133,11 @@
                 <button id="blendIt" class="btn btn-success"><i class="fa fa-hourglass"></i>Create Blend</button>
 
             </div>
+        </div>
         </form>
-    </div>
+    
    
 </div>
-
-
 
 <div class="container-fluid">
     <div class="row">

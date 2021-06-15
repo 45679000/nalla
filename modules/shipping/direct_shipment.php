@@ -102,7 +102,7 @@
 
 
 
-<div class="container-fluid">
+<div  class="container-fluid">
     <div class="row" style="max-height:20%;">
         <div class="col-md-3 col-sm-6">
             <div class="counter">
@@ -114,7 +114,7 @@
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="counter orange">
-                <span id="totalPackages" class="counter-value">10</span>
+                <span id="totalPackages" class="counter-value">0</span>
                 <div class="counter-content">
                     <h3>Packages</h3>
                 </div>
@@ -139,7 +139,7 @@
     </div>
     <div class="row">
     <div class="col-md-12">
-        <div id="blendTable"></div>
+        <div id="straightTable"></div>
         </div>
     </div>
 </div>

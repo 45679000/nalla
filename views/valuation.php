@@ -45,7 +45,6 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                     <li class="breadcrumb-item active" aria-current="page">Valuation Upload</li>
                 </ol>
             </div>
-            <div id="global-loader" ></div>
 
             <div class="row">
                 <div class="col-md-12">

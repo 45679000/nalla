@@ -38,17 +38,20 @@ function editData(){
 function addSi(){
     $('#si_form').submit(function(e){
         e.preventDefault();
-        $("<input />").attr("type", "hidden")
+        $("<input/>").attr("type", "hidden")
               .attr("name", "action")
               .attr("value", "add-si")
               .appendTo("#si_form");
         $.ajax({   
             type: "POST",
             data : $(this).serialize(),
-            cache: false,  
+            dataType: "json", 
             url: "shipping_action.php",   
             success: function(data){
                 swal('Success',data.message, 'success');
+                localStorage.setItem("siId", data.id);
+                localStorage.setItem("siType", data.shipment_type);
+
             }   
         });   
         return false;   
@@ -87,7 +90,7 @@ function addBlend(){
 }
 
 function switchView(siType){
-    if(siType == "blend"){
+    if(siType == "Blend Shippment"){
         $('#tab2').click(function(e) {
             $.ajax({   
             type: "POST",
@@ -100,8 +103,10 @@ function switchView(siType){
             url: "shipping_action.php",   
                 success: function(data){
                     $('#blendTable').html(data);
-                    $("#direct_lot").DataTable({
-                    });
+                    $("#direct_lot").DataTable({});
+                    $("#straight").hide();
+                    $("#blend").show();
+
                 }   
             }); 
 
@@ -117,10 +122,11 @@ function switchView(siType){
             cache: true,  
             url: "shipping_action.php",   
                 success: function(data){
-                    if(data !=null && data !='undefined'){
-                        console.log(data);
-                        populateDataTable(data);
-                    }
+                    $("#blend").hide();
+                    $("#straight").show();
+                    $('#straightTable').html(data);
+                    $("#direct_lot").DataTable({});
+
                 }   
             }); 
 

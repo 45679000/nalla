@@ -154,9 +154,9 @@ $form = new Form();
 <script>
 
 $(document).ready(function() {
-    switchView("blend");
+    var siType = localStorage.getItem("siType");
+    switchView(siType);
     viewSelectionSummary();
-    $('#straight').hide();
     
 });
 

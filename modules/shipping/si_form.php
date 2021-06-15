@@ -1,5 +1,5 @@
 <?php
-echo '
+            echo '
 <div style="text-align:center;";>
     <form method="post">
         <div class="form-group label-floating">
@@ -9,12 +9,12 @@ echo '
         </div>
     </form>
 </div>';
-$form->beginForm("si_form");
+            
 print '
-
-<div  class="card-body" style="height:40% !important;">
-
-    <div class="row">
+<div  class="card-body" style="height:40% !important;">';
+$form->beginForm("si_form");
+            
+print' <div class="row">
         <div class="col-md-3 col-md-3">';
             $form->formField("dropdownlist", "shippment_type", "", "Shippment Type", array("Blend Shippment" => "Blend Shippment", "Straight Line" => "Straight Line"));
             $form->formField("text", "contract_no", "", "Contract No");
@@ -58,21 +58,21 @@ print '
             $form->formField("text-area", "shipper", "", "Shipper");
             $form->formField("text-area", "2nd_notify_party", "", "2nd Notify Party");
             print '</div>';
-        $form->addButtons('step1');
-        print '
-    </div>
-</div>
+            $form->addButtons('add');
+            print '
+    </div>';
+    $form->endForm();
+print'</div>
 ';
-?>
-<script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="shipping.js"></script>
+            ?>
+            <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
+            <script src="shipping.js"></script>
 
-<script>
-$(document).ready(function() {
-    siTemplate();
-    editData();
-    addSi();
-    
-});
-</script>
-    
+            <script>
+                $(document).ready(function() {
+                    siTemplate();
+                    editData();
+                    addSi();
+
+                });
+            </script>

@@ -52,7 +52,6 @@
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?);";
 
             $excelData = $this->excelToAssociativeArray(3, $spreadsheet, $activesheet);
-            var_dump($excelData);
             try {
                 $stmt = $pdo->prepare($sql);
                 foreach($excelData as $data){

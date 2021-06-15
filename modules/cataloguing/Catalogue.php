@@ -39,7 +39,7 @@
 
             $sheetType = 'Sec';
 
-            if($activesheet==2 || $activesheet ==3){
+            if($activesheet==3 || $activesheet ==4 || $activesheet ==5){
                 $sheetType = 'Main';
             }
         

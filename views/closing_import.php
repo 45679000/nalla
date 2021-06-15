@@ -10,14 +10,19 @@ include 'includes/auction_ids.php';
 $imported = false;
 
 $catalogue = new Catalogue($conn);
-echo 'Test';
 if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
    
     $catalogue->inputFileName = $_FILES['excel']['tmp_name'];
     $catalogue->saleno = $_POST['saleno'];
     $catalogue->broker = $_POST['broker'];
     $catalogue->user_id = $_SESSION["user_id"];
-    $catalogue->is_split = $_POST["split"];
+    if(isset($_POST["split"])){
+        $catalogue->is_split = $_POST["split"];
+
+    }else{
+        $catalogue->is_split = "No";
+
+    }
 
     $imported = $catalogue->importClosingCatalogue();
 }

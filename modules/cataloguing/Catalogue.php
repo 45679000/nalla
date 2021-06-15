@@ -39,7 +39,10 @@
 
             $sheetType = 'Sec';
 
-            if($activesheet==3 || $activesheet ==4 || $activesheet ==5){
+            if(($activesheet==2 || $activesheet ==3) && $this->is_split == "true"){
+                $sheetType = 'Main';
+            }
+            if(($activesheet==3 || $activesheet ==4) && $this->is_split == "false"){
                 $sheetType = 'Main';
             }
         

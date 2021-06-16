@@ -46,7 +46,8 @@ if($action=='add-si'){
                 <th class="wd-25p">Invoice</th>
                 <th class="wd-25p">Type</th>
                 <th class="wd-25p">Kgs</th>
-                <th class="wd-25p">Pkgs</th>
+                <th class="wd-25p">Pkgs IN Stock</th>
+                <th class="wd-25p">SI Allocation</th>
                 <th class="wd-25p">Net</th>
                 <th class="wd-25p">Gross</th>
                 <th class="wd-25p">Value</th>
@@ -59,6 +60,10 @@ if($action=='add-si'){
         <tbody>';
         foreach ($stockList as $stock) {
             $output.='<tr>';
+            $currentAllocation = $stock["pkgs"];
+            if($stock["current_allocation"] > 0){
+                $currentAllocation = $stock["current_allocation"];
+            }
             $blendBalance = $stock["pkgs"];
             $gross = $stock["gross"];
             $net = $stock["net"];
@@ -77,9 +82,10 @@ if($action=='add-si'){
                 $output.='<td>'.$stock["invoice"].'</td>';
                 $output.='<td>'.$stock["type"].'</td>';
                 $output.='<td>'.$stock["kgs"].'</td>';
+                $output.='<td>'.$blendBalance.'</td>';
                 if($type =="blend"){
           
-                    $output.='<td><input id="'.$stock["stock_id"].'" onclick="splitLot(this.id)" class="packages" value="'.$blendBalance.'"></input></td>';
+                    $output.='<td><input id="'.$stock["stock_id"].'" onclick="splitLot(this.id)" class="packages" value="'.$currentAllocation.'"></input></td>';
                 }else{
                     $output.='<td>'.$blendBalance.'</td>';
                 }
@@ -118,7 +124,7 @@ if($action=='add-si'){
     echo json_encode(array("status"=>"Lot allocated successfully"));
 
 }else if($action=='shippment-summary'){
-    echo json_encode($shippingCtrl->summaries());
+    echo json_encode($shippingCtrl->summaries($_POST['type']));
 }else if($action=='blend'){
     $_SESSION['blend_details'] = $_POST;
     echo json_encode(array("success"=>200, "message"=>"Blend Saved"));
@@ -158,6 +164,7 @@ if($action=='add-si'){
                 <th class="wd-15p">NW</th>
                 <th class="wd-10p">Output Pkgs</th>
                 <th class="wd-25p">Input Pkgs</th>
+                <th class="wd-25p">LIST<th/>
             </tr>
         </thead>
         <tbody>';
@@ -170,14 +177,15 @@ if($action=='add-si'){
                 $output.='<td>'.$blend["client_name"].'</td>';
                 $output.='<td>'.$blend["nw"].'</td>';
                 $output.='<td>'.$blend["output_pkgs"].'</td>';
-                $output.='<td>'.$blend["output_pkgs"].'</td>';            
-            $output.='</tr>';
+                $output.='<td>'.$blend["output_pkgs"].'</td>'; 
+                $output.='<td><a id="list" href="#" onclick="loadAllocationSummaryForBlends()">List</a></td>'; 
+     
             $output.='</tr>';
 
             $output.='</tbody>
         </table>';
                 }
-       echo $output;
+       
 
         }else{
         $output .='
@@ -288,8 +296,134 @@ if($action=='add-si'){
 }else if($_POST['action']=="session-data"){
     echo json_encode($_SESSION);
 
-}
-else{
+}else if($action=="complete"){
+    $shippingCtrl->completeShipment($_POST["type"], 1);
+}else if($action=='load-packing-materials'){
+    $output = "";
+    $packingMaterials = $shippingCtrl->viewPackingMaterials();
+    if (sizeOf($packingMaterials)> 0) {
+        $output='<table id="packingMaterials" class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+                            <th>Warehouse</th>
+							<th>in_stock</th>
+                            <th>Allocation for current si</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>';
+                            foreach($packingMaterials as $packing){
+                                $allocated = $packing['allocated'];
+                                $id = $packing['id'];
+                                $output.= '
+                                    <tr>
+                                        <td>'.$packing['id'].'</td>
+                                        <td>'.$packing['name'].'</td>
+                                        <td>'.$packing['warehouse'].'</td>
+                                        <td>'.$packing['in_stock'].'</td>
+                                        <td>
+                                            <input name="a'.$id.'" value="'.$allocated.'"></input>
+                                        </td>';
+                                            $output.='
+                                            <td>
+                                                <button id="a'.$packing["id"].'" style="background:green; width:50px; color:white;" type="button"   name="allocated"><i class="fa fa-plus"></i></button>
+
+                                                <button id="b'.$packing["id"].'" style="background:red; width:50px; color:white;" type="button"   name="allocated"><i class="fa fa-minus"></i></button>
+                                            </td>';             
+                            }
+                        $output.='</tr>';
+  
+                   $output.=' 
+					</tbody>
+				</table>';
+            }else{
+                $output.="Materials Out of Stock";
+            }
+                echo $output;
+    }
+
+else if($action = 'load_blend_summary'){
+    $output ="";
+    $totalLots=0;
+    $totalPkgs=0;
+    $totalKgs=0;
+    $totalAmount=0;
+    $totalGross=0;
+    $stockList = $shippingCtrl->loadSelectedForshipment();
+    $output ='
+        <table id="shippmentTeasSummary" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="wd-15p">Sale No</th>
+                <th class="wd-15p">Broker</th>
+                <th class="wd-15p">Lots No</th>
+                <th class="wd-15p">Ware Hse.</th>
+                <th class="wd-20p">Company</th>
+                <th class="wd-15p">Mark</th>
+                <th class="wd-10p">Grade</th>
+                <th class="wd-25p">Invoice</th>
+                <th class="wd-25p">Type</th>
+                <th class="wd-25p">Pkgs</th>
+                <th class="wd-25p">Net</th>
+                <th class="wd-25p">Gross</th>
+                <th class="wd-25p">Value</th>
+                <th class="wd-25p">Comment</th>
+                <th class="wd-25p">Standard</th>
+
+            </tr>
+        </thead>
+        <tbody>';
+        foreach ($stockList as $stock) {
+            $totalLots++;
+            $totalPkgs+=$stock["current_allocation"];
+            $totalKgs+=$stock["current_allocation"]*$stock["pkgs"];
+            $totalAmount+=$stock["sale_price"];
+            $totalGross+=$stock["gross"];
+            $output.='<tr>';
+                $output.='<td>'.$stock["sale_no"].'</td>';
+                $output.='<td>'.$stock["broker"].'</td>';
+                $output.='<td>'.$stock["lot"].'</td>';
+                $output.='<td>'.$stock["ware_hse"].'</td>';
+                $output.='<td>'.$stock["company"].'</td>';
+                $output.='<td>'.$stock["mark"].'</td>';
+                $output.='<td>'.$stock["grade"].'</td>';
+                $output.='<td>'.$stock["invoice"].'</td>';
+                $output.='<td>'.$stock["type"].'</td>';
+                $output.='<td>'.$stock["pkgs"].'</td>';
+                $output.='<td>'.$stock["net"].'</td>';
+                $output.='<td>'.$stock["gross"].'</td>';
+                $output.='<td>'.$stock["value"].'</td>';
+                $output.='<td>'.$stock["comment"].'</td>';
+                $output.='<td>'.$stock["standard"].'</td>';             
+            $output.='</tr>';
+                }
+                $output.='<tr style="background-color:green; color:white; border:none;">';            
+                    $output.='<td><b>TOTALS</td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>';
+                    $output.='<td><b>'.$totalLots.'</b></td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>';
+                    $output.='<td></td>'; 
+                    $output.='<td></td>';
+                    $output.='<td><b>'.$totalPkgs.'</b></td>'; //pkgs
+                    $output.='<td><b>'.$totalKgs.'</b></td>'; //net
+                    $output.='<td><b>'. $totalGross.'</b></td>'; //net
+                    $output.='<td><b>'.$totalAmount.'</b></td>'; //final prompt value
+                    $output.='<td></td>'; 
+                    $output.='<td></td>'; 
+
+                   
+     
+            $output.='</tr>';
+
+        $output.='</tbody>
+    </table>';
+    echo $output;
+}else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }
 

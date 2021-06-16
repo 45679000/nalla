@@ -101,29 +101,27 @@
 <script src="<?php echo $path_to_root ?>assets/plugins/sweet-alert/sweetalert.min.js"></script>
 <script>
     $('#shipit').click(function(e) {
+        completeShippment(localStorage.getItem("siType"));
         swal('', 'Shipment Completed Successfully', 'success');
-
     });
     $('#tab6').click(function(){
         $.ajax({   
         type: "POST",
-        data : {action:"shippment-summary"},
+        dataType:"json",
+        data : {action:"shippment-summary", type:"blend"},
         cache: true,  
-        url: "../../ajax/process_shipping.php",   
+        url: "shipping_action.php",   
         success: function(data){
-            loadSummaries(data);
+            $('#totalLots').text(data.totalLots);
+            $('#totalPackages').html(data.totalkgs);
+            $('#totalKilos').html(data.totalpkgs);
+            $('#totalAmount').html(data.totalAmount);
+            $('#buyer').html(data.shippingDetails.contract_no);
+            $('#consignee').html(data.shippingDetails.consignee);
+            $('#si_no').html(data.shippingDetails.contract_no);
+            $('#target_vessel').html(data.shippingDetails.contract_no);
         }   
     }); 
     });
-    function loadSummaries(data){
-        $('#totalLots').html(data.totalLots);
-        $('#totalPackages').html(data.totalkgs);
-        $('#totalKilos').html(data.totalpkgs);
-        $('#totalAmount').html(data.totalAmount);
-        $('#buyer').html(data.shippingDetails.buyer);
-        $('#consignee').html(data.shippingDetails.consignee);
-        $('#si_no').html(data.shippingDetails.contract_no);
-        $('#target_vessel').html(data.shippingDetails.target_vessel);
 
-    }
 </script>

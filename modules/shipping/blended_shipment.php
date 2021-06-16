@@ -148,7 +148,7 @@
     <div class="row" style="max-height:20%;">
         <div class="col-md-3 col-sm-6">
             <div class="counter">
-                <span id="totalLots" class="counter-value">0</span>
+                <span id="BtotalLots" class="counter-value">0</span>
                 <div class="counter-content">
                     <h3>Lots</h3>
                 </div>
@@ -156,7 +156,15 @@
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="counter orange">
-                <span id="totalPackages" class="counter-value">10</span>
+                <span id="BtotalPackages" class="counter-value">10</span>
+                <div class="counter-content">
+                    <h3>KGS</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="counter orange">
+                <span id="BtotalKilos" class="counter-value">0</span>
                 <div class="counter-content">
                     <h3>Packages</h3>
                 </div>
@@ -164,15 +172,7 @@
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="counter orange">
-                <span id="totalKilos" class="counter-value">0</span>
-                <div class="counter-content">
-                    <h3>Kilos</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="counter orange">
-                <span id="totalValue" class="counter-value">0</span>
+                <span id="BtotalValue" class="counter-value">0</span>
                 <div class="counter-content">
                     <h3>Amount USD</h3>
                 </div>

@@ -156,8 +156,20 @@ $form = new Form();
 $(document).ready(function() {
     var siType = localStorage.getItem("siType");
     switchView(siType);
-    viewSelectionSummary();
-    
+    viewStraightSelectionSummary();
+    viewBlendSelectionSummary();
+
+    $('#tab4').click(function(e) {
+        PackingMaterial();
+    });
+    $('#a1').click(function() {
+        alert("clicked");
+        $('#packingMaterials tr').each(function() {
+          var keval = $(this).find(".a1 input").val();
+          console.log(keval);
+        });
+      });
+
 });
 
 </script>

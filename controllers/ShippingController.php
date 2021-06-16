@@ -33,16 +33,20 @@ Class ShippingController extends Model{
         $this->query = "UPDATE closing_stock SET selected_for_shipment = 0 WHERE stock_id = ".$id;
         return $this->executeQuery();
     }
-    public function summaries(){
+    public function summaries($siType="straight"){
+   
         $this->query = "SELECT COUNT(lot) AS totalLots FROM closing_stock WHERE selected_for_shipment = 1";
         $lots = $this->executeQuery();
         $this->query = "SELECT SUM(kgs) AS totalkgs FROM closing_stock WHERE selected_for_shipment = 1";
         $kgs = $this->executeQuery();
-        $this->query = "SELECT SUM(pkgs) AS totalpkgs FROM closing_stock WHERE selected_for_shipment = 1";
+        $this->query = "SELECT SUM((pkgs)) AS totalpkgs FROM closing_stock WHERE selected_for_shipment = 1";
         $pkgs = $this->executeQuery();
-        $this->query = "SELECT SUM((net * value)) AS totalAmount FROM closing_cat WHERE allocated = 1";
+        $this->query = "SELECT SUM((net * sale_price/100)) AS totalAmount FROM closing_stock WHERE selected_for_shipment = 1";
         $totalAmount = $this->executeQuery();
-
+        if($siType!=="straight"){
+            $this->query = "SELECT SUM((current_allocation)) AS totalpkgs FROM closing_stock WHERE selected_for_shipment = 1";
+            $pkgs = $this->executeQuery();
+        }
         $this->query = "SELECT contract_no, target_vessel, buyer, consignee FROM shipping_instructions ORDER BY instruction_id DESC LIMIT 1";
         $shippingDetails = $this->executeQuery();
 
@@ -86,8 +90,35 @@ Class ShippingController extends Model{
         $id = $this->insertQuery();
         return $id;
     }
-}
+    public function viewPackingMaterials(){
+        $this->query = "SELECT *FROM packaging_materials WHERE in_stock>0";
+        return $this->executeQuery();
+    }
+    public function completeShipment($siType, $user){
+        $this->query = "INSERT INTO `shippments`(`si_no`, `lot_no`, `pkgs_shipped`, `siType`, `shippedBy`, `shipped_on`, `details`) 
+        SELECT instruction_id, lot, IF(`current_allocation` !=0, `current_allocation`, `pkgs`) AS allocated , '', 1, current_date, 'Shippment completed' 
+        FROM closing_stock, shipping_instructions
+        WHERE selected_for_shipment = 1 AND shipping_instructions.is_current = 1";
+        echo $this->query;
+        return $this->executeQuery();
+
+        if($siType="blend"){
+            $this->query = "UPDATE closing_stock SET pkgs = (pkgs-current_allocation), net=(pkgs-current_allocation)*kgs, gross=(pkgs-current_allocation)*kgs+(gross-net),
+            is_blend_balance = 1, current_allocation=0, selected_for_shipment =0
+             WHERE selected_for_shipment = 1";
+             return $this->executeQuery();        
+        }else{
+            $this->query = "UPDATE closing_stock SET pkgs = 0, net=0, gross=0, is_blend_balance = 0, current_allocation=0, selected_for_shipment =0
+             WHERE selected_for_shipment = 1";
+             return $this->executeQuery();  
+        }
+      
+    }
+}        
+
 
 
 ?>
+
+
 

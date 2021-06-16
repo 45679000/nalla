@@ -1,5 +1,7 @@
 <div id="shippment_teas">
 </div>
+<div id="blend_lots">
+</div>
 <script src="shipping.js"></script>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -18,7 +20,13 @@
 <script>
 $(document).ready(function() {
     $('#tab3').click(function(){
-        shipmentTeas("blend");
+        var siType = localStorage.getItem("siType");
+        if(siType=="Blend Shippment"){
+            shipmentTeas("blend");
+
+        }else{
+            shipmentTeas("straight");
+        }
     })
 });
 </script>

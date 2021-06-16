@@ -133,7 +133,7 @@ function switchView(siType){
         });
     }
 }
-function refreshLots(){
+function refreshLots(section){
     $.ajax({   
         type: "POST",
         dataType:"html",
@@ -147,10 +147,11 @@ function refreshLots(){
                 $('#blendTable').html(data);
                 $("#direct_lot").DataTable({
                 });
+               
             }   
         }); 
 }
-function refreshBlendLots(){
+function refreshStraightLots(){
     $.ajax({   
         type: "POST",
         dataType:"html",
@@ -196,9 +197,9 @@ function allocateForShippment(id){
         url: "shipping_action.php",
         data: {action:"allocate", id:id},
     success: function (data) {
-        refreshLots();
-        viewSelectionSummary();
-        console.log(data);
+        refreshLots("straightTable");
+        viewStraightSelectionSummary();
+        viewBlendSelectionSummary();
     },
     error: function (data) {
 
@@ -213,8 +214,9 @@ function deAllocateForShippment(id){
         url: "shipping_action.php",
         data: {action:"unallocate", id:id},
         success: function (data) {
-            refreshLots();
-            viewSelectionSummary();
+            refreshLots("straightTable");
+            viewStraightSelectionSummary();
+            viewBlendSelectionSummary();
         },
         error: function (data) {
         
@@ -222,17 +224,45 @@ function deAllocateForShippment(id){
     });
 
 }
-function viewSelectionSummary(){
+function viewStraightSelectionSummary(){
     $.ajax({
         type: "POST",
         dataType: "json",
         url: "shipping_action.php",
-        data: {action:"shippment-summary"},
+        data: {action:"shippment-summary", type:"straight"},
     success: function (data) {
-        $('#totalLots').text(data.totalLots);
-        $('#totalPackages').text(data.totalkgs);
-        $('#totalKilos').text(data.totalpkgs);
-        $('#totalValue').text(data.totalAmount);
+        $('#StotalLots').text(data.totalLots);
+        $('#StotalPackages').text(data.totalkgs);
+        $('#StotalKilos').text(data.totalpkgs);
+        $('#StotalValue').text(data.totalAmount);
+        $('.counter-value').each(function(){
+            $(this).prop('Counter',0).animate({
+                Counter: $(this).text()
+            },{
+                duration: 20,
+                easing: 'swing',
+                step: function (now){
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+    },
+    error: function (data) {
+       
+    },
+});
+}
+function viewBlendSelectionSummary(){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"shippment-summary", type:"blend"},
+    success: function (data) {
+        $('#BtotalLots').text(data.totalLots);
+        $('#BtotalPackages').text(data.totalkgs);
+        $('#BtotalKilos').text(data.totalpkgs);
+        $('#BtotalValue').text(data.totalAmount);
         $('.counter-value').each(function(){
             $(this).prop('Counter',0).animate({
                 Counter: $(this).text()
@@ -257,7 +287,7 @@ function shipmentTeas(type){
         dataType:"html",
         data : {
                 action:"shipment-teas",
-                type:"blend"
+                type:type
         },
         cache: true,  
         url: "shipping_action.php",   
@@ -289,7 +319,7 @@ function allocateBlend(id, pkgs){
         data: {action:"allocate-blend", id:id, pkgs:pkgs},
     success: function (data) {
         refreshBlendLots();
-        viewSelectionSummary();
+        viewBlendSelectionSummary();
         console.log(data);
     },
     error: function (data) {
@@ -297,6 +327,39 @@ function allocateBlend(id, pkgs){
     },
 });
 }
+function deAllocateBlend(id, pkgs){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"allocate-blend", id:id, pkgs:pkgs},
+    success: function (data) {
+        refreshBlendLots();
+        viewBlendSelectionSummary();
+        console.log(data);
+    },
+    error: function (data) {
+
+    },
+});
+}
+function deAllocateBlend(id, pkgs){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"unallocate", id:id},
+        success: function (data) {
+            refreshLots("straightTable");
+            viewBlendSelectionSummary();
+        },
+        error: function (data) {
+        
+        },
+    });
+
+}
+
 function gradeList(){
     $.ajax({
         url: "../../ajax/common.php",
@@ -311,3 +374,73 @@ function gradeList(){
 
     });
 }
+
+function PackingMaterial(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "shipping_action.php",
+        data: {action:"load-packing-materials"},
+    success: function (data) {
+        $('#packingMaterial').html(data);
+        $("#packingMaterials").DataTable({});
+    },
+    error: function (data) {
+
+    },
+});
+}
+
+function allocateMaterial(id){
+  
+    
+    alert(qty);
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"allocate-material", id:id, allocated:$('.a'+id).val()},
+    success: function (data) {
+        refreshBlendLots();
+        viewBlendSelectionSummary();
+        console.log(data);
+    },
+    error: function (data) {
+
+    },
+});
+
+
+}
+function loadAllocationSummaryForBlends(){
+    $.ajax({   
+        type: "POST",
+        dataType:"html",
+        data : {
+                action:"load_blend_summary"
+        },
+        cache: true,  
+        url: "shipping_action.php",   
+            success: function(data){
+                $('#blend_lots').html(data);
+                $("#shippmentTeasSummary").DataTable({
+                });
+            }   
+        }); 
+}
+function completeShippment(siType){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "shipping_action.php",
+        data: {action:"complete", type:siType},
+    success: function (data) {
+        localStorage.setItem("siType") = "";
+    },
+    error: function (data) {
+
+    },
+});
+}
+
+

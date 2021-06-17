@@ -35,14 +35,29 @@ ob_start();//Enables Output Buffering
         $data = $catalogue->closingCatalogue($auction, $broker, $category);
 
         $import_date = $catalogue->catalogueDate($auction)[0]['import_date'];
+        $brokerName = $data[0]['name'];
+
         $import_date = date_format(date_create($import_date),"l jS  F Y");
         $max = 170;
         $min = 180;
 
 
         $print = print_catalogue($data, $broker, $auction, $max, $min, $category, $import_date, $conn2);
-        $mpdf = new \Mpdf\Mpdf(['orientation' => 'P', 'tempDir' => __DIR__ . 'files', 	'default_font' => 'dejavusans']);
-        $mpdf->debug = true;
+        $mpdf = new \Mpdf\Mpdf([
+          'orientation' => 'P',
+          'format' => 'A4', 
+          'setAutoTopMargin' => 'stretch',
+          'autoMarginPadding' => 0,
+          'tempDir' => __DIR__ . 'files', 
+          'default_font' => 'dejavusans']);
+          $mpdf->SetHTMLFooter('<div style="text-align: center">{PAGENO} of {nbpg}</div>');
+          
+          $mpdf->SetHTMLHeader("
+          <div>
+          <div style='text-align:center; margin:auto;'><h6>".$brokerName."</h6></div>
+          <div style='text-align:center; margin:auto;'><h6>".$category."  AUCTION OF  ".$auction."  ".$import_date."</h6></div>
+        </div>
+        ");
         $mpdf->shrink_tables_to_fit=0;
         $mpdf->WriteHTML($print);
         $mpdf->Output('files/rep.pdf', \Mpdf\Output\Destination::FILE);
@@ -121,21 +136,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
 
       </style>
       <body>
-      <div>
-        <div style='text-align:right; margin:auto;'><b><i>CHAMU TIFMS</i></b></div>
-
-        <div style='text-align:center; margin:auto;'><h3>".$brokerName."</h3></div>
-        <table style='border: none;'>
-            <tr style='border: none; padding-bottom:30px;'>
-              <td style='border: none; text-align:left;'>
-                <h6>".$cat."&emsp;&emsp;Auction&emsp;&emsp;".$auct."</h6>
-              </td>
-              <td style='border: none; text-align:right;'>
-                <h6>".$impd."</h6>
-              </td>
-            </tr>
-        </table>
-      </div>
+    
       <table autosize='2.4'>
         <tr>
           <td style='max-width: 25px;'>Value</td>

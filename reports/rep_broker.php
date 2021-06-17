@@ -234,8 +234,8 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
              <td style='text-align: center;'>".$value['net']/$value['pkgs']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
              <td style='border-right: 1px solid #000000;width:100px;'>".$value['comment']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['standard']."</td>
+             <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
              <td style='padding-left:30px;' >".$value['buyer_package']."</td>
  
              <tr>";

@@ -242,10 +242,9 @@
             $year=explode('-',$auction,2)[0];
             $previousAuction = $year."-".$month_id;
                 try {
-                    $this->query = "SELECT  max(value) AS max FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  ".$previousAuction;
+                    $this->query = "SELECT  max(value) AS max FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  '".$previousAuction."'";
                     $max = $this->executeQuery();
-             
-                    $this->query = "SELECT  min(value) AS min FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  ".$previousAuction;
+                    $this->query = "SELECT  min(value) AS min FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  '".$previousAuction."'";
                     $min = $this->executeQuery();
                     
                     return array_merge(array_merge($min, $max));

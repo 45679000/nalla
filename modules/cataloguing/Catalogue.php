@@ -137,7 +137,7 @@
                 $stmt = $this->conn->prepare("REPLACE INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`)
                                           SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`
                                           FROM closing_cat_import
-                                          WHERE lot REGEXP '^[0-9]+$'"
+                                          WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL"
                                         );
                 $stmt->execute();
              $stmt2 = $this->conn->prepare("DELETE FROM closing_cat_import WHERE 1");

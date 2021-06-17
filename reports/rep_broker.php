@@ -232,7 +232,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
              <td>".$value['pkgs']."</td>
              <td>".$value['type']."</td>
              <td>".$value['net']."</td>
-             <td style='text-align: center;'>".$value['net']/$value['pkgs']."</td>
+             <td style='text-align: center;'>".round($value['net']/$value['pkgs'],1)."</td>
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
              <td style='border-right: 1px solid #000000;width:100px;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['standard']."</td>
@@ -281,7 +281,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
              <td>".$value['pkgs']."</td>
              <td>".$value['type']."</td>
              <td>".$value['net']."</td>
-             <td style='text-align: center;'>".$value['net']/$value['pkgs']."</td>
+             <td style='text-align: center;'>".round($value['net']/$value['pkgs'],1)."</td>
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['standard']."</td>

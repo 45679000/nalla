@@ -19,7 +19,7 @@ ob_start();//Enables Output Buffering
 
     $catalogue = new Catalogue($conn2);
     $import_date ="";
-    error_reporting(0); 
+    // error_reporting(0); 
     // $auction = $_POST['saleno'];
     // $broker = $_POST['broker'];
     // $category = $_POST['category'];
@@ -32,8 +32,7 @@ ob_start();//Enables Output Buffering
         $auction = trim($_POST['saleno']);
         $broker = trim($_POST['broker']);
         $category = trim($_POST['category']);
-        $gradeCat = trim($_POST['gradeCat']);
-        $data = $catalogue->closingCatalogue($auction, $broker, $category, $gradeCat);
+        $data = $catalogue->closingCatalogue($auction, $broker, $category);
 
         $import_date = $catalogue->catalogueDate($auction)[0]['import_date'];
         $brokerName = $data[0]['name'];

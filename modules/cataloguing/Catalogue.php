@@ -198,16 +198,15 @@
             $id = $this->insertQuery();
             return $this->selectOne($id, "closing_cat_import_id");
         }
-        public function closingCatalogue($auction = "", $broker = "", $category = "", $gradeCat=""){
-            echo $category." ".$gradeCat;
+        public function closingCatalogue($auction = "", $broker = "", $category = ""){
                 if($category =="All"){
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
                     return $this->executeQuery();
-                }else if($gradeCat =="leaf" && $category =="Main"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE grade IN ('D1','PD') sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
+                }else if($category =="leaf"){
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('BP1','PF1')";
                     return $this->executeQuery();
-                }else if($gradeCat =="leaf" && $category =="Main"){
-                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE grade NOT IN ('BF1','PF1') sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
+                }else if($category=="dust"){
+                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('PD','D1')";
                         return $this->executeQuery(); 
                 }else{
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."'";

@@ -62,20 +62,13 @@ include '../views/includes/auction_ids.php';
                                                     <select id="category" name="category" class="form-control well" ><small>(required)</small>
                                                         <option disabled="" value="..." selected="">select</option>
                                                         <option value="Main">Main</option>
+                                                        <option value="dust">DUST</option>
+                                                        <option value="leaf">LEAFY</option>
                                                         <option value="Sec">Sec</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 well">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Grade</label>
-                                                    <select id="gradeCat" name="gradeCat" class="form-control well" ><small>(required)</small>
-                                                        <option disabled="" value="..." selected="">select</option>
-                                                        <option value="dust">DUST</option>
-                                                        <option value="leaf">LEAFY</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="col-md-3 well">
                                                 <button type="submit" id="gen-broker-cat" class="btn btn-success">Generate</button>
                                             </div>

@@ -169,8 +169,13 @@
             $highestRow = $sheet->getHighestRow(); 
             $highestColumn = $sheet->getHighestColumn();
             $title = call_user_func_array('array_merge', $sheet->rangeToArray('A' . $headerRow . ':' . $highestColumn . $headerRow, NULL,TRUE, FALSE));
-            $title[12]="RA";
-            $title[20]="Pkgs";
+            
+            if($title[20]=""){
+                $title[20]="Pkgs";
+            }
+            if($title[12]=""){
+                $title[12]="RA";
+            }
 
             $arr = array();
             for ($row = 3; $row <= $highestRow; $row++){ 

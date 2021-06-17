@@ -6,6 +6,7 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+include 'includes/auction_ids.php';
 
 $catalogue = new Catalogue($conn);
 if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
@@ -45,12 +46,13 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     <div class="my-3 my-md-5">
         <div class="container">
             <div class="page-header">
-                <h4 class="page-title">Valuation Upload</h4>
+                <h4 class="page-title">Catalogue Upload</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Valuation Upload</li>
+                    <li class="breadcrumb-item active" aria-current="page">Catalogue Upload</li>
                 </ol>
             </div>
+            <div id="global-loader" ></div>
 
             <div class="row">
                 <div class="col-md-12">

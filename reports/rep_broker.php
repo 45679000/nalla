@@ -32,7 +32,8 @@ ob_start();//Enables Output Buffering
         $auction = trim($_POST['saleno']);
         $broker = trim($_POST['broker']);
         $category = trim($_POST['category']);
-        $data = $catalogue->closingCatalogue($auction, $broker, $category);
+        $gradeCat = trim($_POST['gradeCat']);
+        $data = $catalogue->closingCatalogue($auction, $broker, $category, $gradeCat);
 
         $import_date = $catalogue->catalogueDate($auction)[0]['import_date'];
         $brokerName = $data[0]['name'];

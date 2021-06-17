@@ -52,12 +52,13 @@
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?);";
             $excelData = $this->excelToAssociativeArray(3, $spreadsheet, $activesheet);
             $buyer = trim($spreadsheet->getActiveSheet()->getCell('V3'));
-            
+            $salePrice = trim($spreadsheet->getActiveSheet()->getCell('U3'));
            
             try {
                 $stmt = $pdo->prepare($sql);
                 foreach($excelData as $data){
                     $buyerPackage = trim($data[$buyer]);
+                    $saleprice = trim($data["Sale Price"]);
                     $stmt->bindParam(1, $data["Comment"]);
                     $stmt->bindParam(2, $data["Ware Hse"]);
                     $stmt->bindParam(3, $data["Entry No"]);
@@ -76,7 +77,7 @@
                     $stmt->bindParam(16, $data["Gross"]);
                     $stmt->bindParam(17, $data["Kgs"]);
                     $stmt->bindParam(18, $data["Tare"]);
-                    $stmt->bindParam(19, $data["Sale Price"]);
+                    $stmt->bindParam(19, $saleprice);
                     $stmt->bindValue(20, $buyerPackage);
                     $stmt->bindParam(21, $this->saleno);
                     $stmt->bindParam(22, $this->broker);
@@ -171,15 +172,8 @@
             $highestColumn = $sheet->getHighestColumn();
             $title = call_user_func_array('array_merge', $sheet->rangeToArray('A' . $headerRow . ':' . $highestColumn . $headerRow, NULL,TRUE, FALSE));
             
-            if($title[20]=""){
-                $title[20]="Pkgs";
-            }
-            if($title[12]=""){
-                $title[12]="RA";
-            }
-
             $arr = array();
-            for ($row = 3; $row <= $highestRow; $row++){ 
+            for ($row = 4; $row <= $highestRow; $row++){ 
                 $rowData = call_user_func_array('array_merge',$sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL,TRUE, FALSE));
                     $table = array();
                     for($i = 0; $i<22; $i++){
@@ -204,10 +198,17 @@
             $id = $this->insertQuery();
             return $this->selectOne($id, "closing_cat_import_id");
         }
-        public function closingCatalogue($auction = "", $broker = "", $category = ""){
+        public function closingCatalogue($auction = "", $broker = "", $category = "", $gradeCat=""){
+            echo $category." ".$gradeCat;
                 if($category =="All"){
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
                     return $this->executeQuery();
+                }else if($gradeCat =="leaf" && $category =="Main"){
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE grade IN ('D1','PD') sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
+                    return $this->executeQuery();
+                }else if($gradeCat =="leaf" && $category =="Main"){
+                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE grade NOT IN ('BF1','PF1') sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
+                        return $this->executeQuery(); 
                 }else{
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."'";
                     return $this->executeQuery();

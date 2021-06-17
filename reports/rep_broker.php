@@ -19,7 +19,7 @@ ob_start();//Enables Output Buffering
 
     $catalogue = new Catalogue($conn2);
     $import_date ="";
-
+    error_reporting(0); 
     // $auction = $_POST['saleno'];
     // $broker = $_POST['broker'];
     // $category = $_POST['category'];
@@ -51,7 +51,7 @@ ob_start();//Enables Output Buffering
           'tempDir' => __DIR__ . 'files', 
           'default_font' => 'dejavusans']);
           $mpdf->SetHTMLFooter('<div style="text-align: center">{PAGENO} of {nbpg}</div>');
-          
+          $mpdf->useSubstitutions = false;
           $mpdf->SetHTMLHeader("
           <div>
           <div style='text-align:center; margin:auto;'><h6>".$brokerName."</h6></div>

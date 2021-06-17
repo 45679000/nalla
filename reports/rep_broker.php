@@ -77,8 +77,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
       <style>
           table {
           background-color:white;
-          font-family: arial, sans-serif;
-          font-size:15px;
+          font-size:12px;
           border: 1px solid #000000;
           border-collapse: collapse;
           width: 100%;
@@ -87,7 +86,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
           td {
           border-bottom: 1px solid #000000;
           text-align: left;
-          padding-bottom: 4px;
+          padding-bottom: 2px;
           }
 
           tr {
@@ -236,7 +235,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
              <td style='border-right: 1px solid #000000;width:100px;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
+             <td style='border-right: 1px solid #000000;'>".$value['standard']."</td>
              <td style='padding-left:30px;' >".$value['buyer_package']."</td>
  
              <tr>";
@@ -284,7 +283,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
              <td style='text-align: center;'>".$value['net']/$value['pkgs']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['rp']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['comment']."</td>
-             <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
+             <td style='border-right: 1px solid #000000;'>".$value['standard']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
              <td style='padding-left:30px;'> ".$value['buyer_package']."</td>
              <tr>";

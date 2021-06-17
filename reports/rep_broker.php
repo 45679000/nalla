@@ -171,6 +171,10 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
           <td>Buyer</td>
      </tr>";
      foreach($data as $key=>$value){
+       $rp = "";
+       if($value['kgs'] != ($value['net']/$value['pkgs'])){
+        $rp = "R";
+       }
          if($mark != $value['mark']){
              $html.="
              <tr>
@@ -233,7 +237,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
              <td>".$value['type']."</td>
              <td>".$value['net']."</td>
              <td style='text-align: center;border-right: 1px solid #000000;'>".$value['kgs']."</td>
-             <td style='border-right: 1px solid #000000;'><b style='color:red';>".$value['rp']."</b></td>
+             <td style='border-right: 1px solid #000000;'><b style='color:red';>".$rp."</b></td>
              <td style='border-right: 1px solid #000000;width:100px;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['standard']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>
@@ -282,7 +286,7 @@ function print_catalogue($data,  $broker, $auct, $maximum, $minmum, $cat, $impd,
              <td>".$value['type']."</td>
              <td>".$value['net']."</td>
              <td style='text-align: center;border-right: 1px solid #000000;'>".$value['kgs']."</td>
-             <td style='border-right: 1px solid #000000;'><b style='color:red';>".$value['rp']."</b></td>
+             <td style='border-right: 1px solid #000000;'><b style='color:red';>".$rp."</b></td>
              <td style='border-right: 1px solid #000000;'>".$value['comment']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['standard']."</td>
              <td style='border-right: 1px solid #000000;'>".$value['sale_price']."</td>

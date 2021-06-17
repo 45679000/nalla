@@ -173,7 +173,7 @@
             $title[20]="Pkgs";
 
             $arr = array();
-            for ($row = 5; $row <= $highestRow; $row++){ 
+            for ($row = 3; $row <= $highestRow; $row++){ 
                 $rowData = call_user_func_array('array_merge',$sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL,TRUE, FALSE));
                     $table = array();
                     for($i = 0; $i<22; $i++){

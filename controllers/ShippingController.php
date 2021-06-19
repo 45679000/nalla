@@ -114,6 +114,15 @@ Class ShippingController extends Model{
         }
       
     }
+    public function fetchShippingInstruction($id){
+        $this->query = "SELECT *FROM shipping_instructions WHERE instruction_id = ".$id;
+        return $this->executeQuery();
+    }
+    public function updateInstructionFile($file, $id){
+        $this->query = "UPDATE shipping_instructions SET file = '$file' WHERE instruction_id = ".$id;
+        return $this->executeQuery();
+
+    }
 }        
 
 

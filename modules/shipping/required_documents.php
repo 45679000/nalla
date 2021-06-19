@@ -1,3 +1,12 @@
+<style>
+    #ishippingInstructions, #ilotdetails{
+        width:100%;
+        height:1000px;
+        border:none;
+    }
+
+</style>
+
 <div class="my-3 my-md-5">
     <div class="container-fluid">
         <div class="page-header">
@@ -38,28 +47,63 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <iframe id="ishippingInstructions" src="../../reports/shipping_instruction.php" width="100%" height="1000" style="border:none;">
-            </iframe>
-            <iframe id="ilotdetails" src="../../reports/lot_details.php" width="100%" height="1000" style="border:none;">
+        <div id="display" class="row">
+       
+            <!-- <iframe id="ilotdetails" src="../../reports/lot_details.php" width="100%" height="1000" style="border:none;">
             </iframe>
             <iframe id="iprofomainvoice" src="../../reports/shipping_instruction.php" width="100%" height="1000" style="border:none;">
-            </iframe>
+            </iframe> -->
         </div>
     </div>
 </div>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
 
 <script>
-    $('#lot-details').click(function(){
-        $('#ilotdetails').show();
+        $('#tab5').click(function(){
+            $.ajax({   
+                    type: "POST",
+                    data : {action:"generate", siId:localStorage.getItem("siId")},
+                    dataType: "json", 
+                    url: "../../reports/lot_details.php",   
+                    success: function(data){
+
+                    }   
+            })
+
+        });
+
+        $('#ilotdetails').hide();
         $('#ishippingInstructions').hide();
         $('#iprofomainvoice').hide();
+
+        $('#lot-details').click(function(){
+            $('#ishippingInstructions').hide();
+            $('#iprofomainvoice').hide();
+            $('#display').html('<iframe id="ilotdetails"></iframe>');
+            $("#ilotdetails").attr('src', '../../reports/files/si-lots/lot_details_'+localStorage.getItem("siId")+".pdf");
+            $.ajax({   
+                    type: "POST",
+                    data : {action:"generate", siId:localStorage.getItem("siId")},
+                    dataType: "json", 
+                    url: "../../reports/lot_details.php",   
+                    success: function(data){
+                        $('#ilotdetails').show();
+
+                }   
+            });   
+
+        
     });
+   
     $('#shippingInstructions').click(function(){
+        $('#display').html('<iframe id="ishippingInstructions"></iframe>');
+        $("#ishippingInstructions").attr('src', '../../reports/files/si/instruction_'+localStorage.getItem("siId")+".pdf");
+
         $('#ishippingInstructions').show();
         $('#ilotdetails').hide();
         $('#iprofomainvoice').hide();
+
+
     });
     $('#profomainvoice').click(function(){
         $('#ishippingInstructions').hide();

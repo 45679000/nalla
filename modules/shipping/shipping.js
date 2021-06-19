@@ -48,9 +48,19 @@ function addSi(){
             dataType: "json", 
             url: "shipping_action.php",   
             success: function(data){
-                swal('Success',data.message, 'success');
+                $.ajax({   
+                    type: "POST",
+                    data : {action:"generate", siId:data.id},
+                    dataType: "json", 
+                    url: "../../reports/shipping_instruction.php",   
+                    success: function(data){
+                        swal('Success',data.message, 'success');
+                    }   
+                });   
+
                 localStorage.setItem("siId", data.id);
                 localStorage.setItem("siType", data.shipment_type);
+
 
             }   
         });   

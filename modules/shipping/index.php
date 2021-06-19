@@ -132,6 +132,7 @@ $form = new Form();
 
 <!---Tabs scripts-->
 <script>
+    
     $(function(e) {
         $(".first_tab").champ();
         $(".accordion_example").champ({

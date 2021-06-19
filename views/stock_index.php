@@ -72,9 +72,11 @@ $shippingI = $controller->getShippingInstructions();
                 }else if(($_GET['view']=='ppurchase-list')){
                     include 'private_purchases.php'; 
     
-                }elseif(($_GET['view']=='stock-master')){
+                }else if(($_GET['view']=='allocate-stock')){
+                    include 'allocate_stock.php'; 
+                }else if(($_GET['view']=='stock-master')){
                     include 'stock_master.php'; 
-                }elseif(($_GET['view']=='shipping')){
+                }else if(($_GET['view']=='shipping')){
                     include 'shipping.php'; 
                 }else{
                     include 'grading_table.php'; 

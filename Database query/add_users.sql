@@ -44,3 +44,8 @@ VALUES ('16', 'mail@chamusupplies.com', md5('KUNAL123#'), 'KUNAL', '1', 'mail@ch
 
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `full_name`, `role_id`, `email`, `two_factor_auth_code`, `last_login`, `is_active`, `gender`, `mobile`, `image`, `status`, `designation`) 
 VALUES ('17', 'steve.kamau@chamusupplies.com', md5('KUNAL123#'), 'KUNAL', '1', 'steve.kamau@chamusupplies.com', NULL, current_timestamp(), '1', 'Male', NULL, NULL, NULL, 'admin');
+
+
+
+INSERT INTO `users` (`user_id`, `user_name`, `password`, `full_name`, `role_id`, `email`, `two_factor_auth_code`, `last_login`, `is_active`, `gender`, `mobile`, `image`, `status`, `designation`) 
+VALUES ('18', 'faith.muthengi@chamusupplies.com', md5('FAITH123#'), 'FAITH NGACHI', '8', 'faith.muthengi@chamusupplies.com', NULL, current_timestamp(), '1', 'Male', NULL, NULL, NULL, 'admin');

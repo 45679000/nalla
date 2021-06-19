@@ -12,6 +12,9 @@
                     <a href="./stock_index.php?view=purchase-list" class="list-group-item list-group-item-action d-flex align-items-center">
                         <span class="icon mr-3"><i class="fa fa-cubes"></i></span>Purchase List
                     </a>
+                    <a href="./stock_index.php?view=allocate-stock" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="icon mr-3"><i class="fa fa-cubes"></i></span>Allocate Stock
+                    </a>
                     <a href="./stock_index.php?view=stock-master" class="list-group-item list-group-item-action d-flex align-items-center">
                         <span class="icon mr-3"><i class="fa fa-database"></i></span>Stock Master
                     </a>

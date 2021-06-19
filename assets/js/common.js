@@ -70,6 +70,22 @@ $(document).ready(function() {
         }
         });
     }
+    function updateValue(tableName, column, value, id){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "../ajax/common.php",
+            data: {
+                table:tableName,
+                column: column,
+                value:value,
+                id:id
+            },
+        success: function (data) {
+            $("#brokerCatalogue").html(data);
+        }
+        });
+    }
 
 });
 

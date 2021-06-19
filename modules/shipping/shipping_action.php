@@ -391,7 +391,7 @@ else if($action = 'load_blend_summary'){
                 $output.='<td>'.$stock["grade"].'</td>';
                 $output.='<td>'.$stock["invoice"].'</td>';
                 $output.='<td>'.$stock["type"].'</td>';
-                if($stock["current_allocation"] != 0){
+                if($stock["current_allocation"]> 0){
                     $output.='<td>'.$stock["current_allocation"].'</td>';
                 }else{
                     $output.='<td>'.$stock["pkgs"].'</td>';

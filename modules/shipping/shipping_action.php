@@ -359,17 +359,13 @@ else if($action = 'load_blend_summary'){
                 <th class="wd-15p">Sale No</th>
                 <th class="wd-15p">Broker</th>
                 <th class="wd-15p">Lots No</th>
-                <th class="wd-15p">Ware Hse.</th>
-                <th class="wd-20p">Company</th>
                 <th class="wd-15p">Mark</th>
                 <th class="wd-10p">Grade</th>
                 <th class="wd-25p">Invoice</th>
                 <th class="wd-25p">Type</th>
                 <th class="wd-25p">Pkgs</th>
                 <th class="wd-25p">Net</th>
-                <th class="wd-25p">Gross</th>
-                <th class="wd-25p">Value</th>
-                <th class="wd-25p">Comment</th>
+                <th class="wd-25p">Kgs</th>
                 <th class="wd-25p">Standard</th>
 
             </tr>
@@ -385,8 +381,6 @@ else if($action = 'load_blend_summary'){
                 $output.='<td>'.$stock["sale_no"].'</td>';
                 $output.='<td>'.$stock["broker"].'</td>';
                 $output.='<td>'.$stock["lot"].'</td>';
-                $output.='<td>'.$stock["ware_hse"].'</td>';
-                $output.='<td>'.$stock["company"].'</td>';
                 $output.='<td>'.$stock["mark"].'</td>';
                 $output.='<td>'.$stock["grade"].'</td>';
                 $output.='<td>'.$stock["invoice"].'</td>';
@@ -395,11 +389,10 @@ else if($action = 'load_blend_summary'){
                     $output.='<td>'.$stock["current_allocation"].'</td>';
                 }else{
                     $output.='<td>'.$stock["pkgs"].'</td>';
+                    $totalKgs += $stock["net"]*$stock["pkgs"];
                 }
                 $output.='<td>'.$stock["net"].'</td>';
-                $output.='<td>'.$stock["gross"].'</td>';
-                $output.='<td>'.$stock["value"].'</td>';
-                $output.='<td>'.$stock["comment"].'</td>';
+                $output.='<td>'.$totalKgs.'</td>';
                 $output.='<td>'.$stock["standard"].'</td>';             
             $output.='</tr>';
                 }

@@ -1,3 +1,39 @@
+CREATE TABLE `closing_stock_import_1` (
+ `stock_id` int(3) DEFAULT NULL,
+ `sale_no` varchar(10) DEFAULT NULL,
+ `broker` varchar(4) DEFAULT NULL,
+ `category` varchar(10) DEFAULT NULL,
+ `comment` varchar(4) DEFAULT NULL,
+ `ware_hse` varchar(6) DEFAULT NULL,
+ `entry_no` varchar(10) DEFAULT NULL,
+ `value` varchar(10) DEFAULT NULL,
+ `lot` varchar(5) DEFAULT NULL,
+ `company` varchar(10) DEFAULT NULL,
+ `mark` varchar(18) DEFAULT NULL,
+ `grade` varchar(6) DEFAULT NULL,
+ `manf_date` varchar(10) DEFAULT NULL,
+ `ra` varchar(10) DEFAULT NULL,
+ `rp` varchar(10) DEFAULT NULL,
+ `invoice` varchar(15) DEFAULT NULL,
+ `pkgs` int(2) DEFAULT NULL,
+ `type` varchar(10) DEFAULT NULL,
+ `net` varchar(19) DEFAULT NULL,
+ `gross` varchar(10) DEFAULT NULL,
+ `kgs` decimal(5,1) DEFAULT NULL,
+ `tare` varchar(10) DEFAULT NULL,
+ `sale_price` decimal(3,2) DEFAULT NULL,
+ `standard` varchar(34) DEFAULT NULL,
+ `buyer_package` varchar(7) DEFAULT NULL,
+ `import_date` varchar(10) DEFAULT NULL,
+ `imported` varchar(10) DEFAULT NULL,
+ `imported_by` varchar(10) DEFAULT NULL,
+ `allocated` varchar(10) DEFAULT NULL,
+ `selected_for_shipment` varchar(10) DEFAULT NULL,
+ `current_allocation` varchar(10) DEFAULT NULL,
+ `is_blend_balance` varchar(10) DEFAULT NULL
+);
+
+
 INSERT INTO `chamu`.`closing_stock_import_1` (`stock_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`, `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`) VALUES (1, '2020-11', 'TBEA', '', 'WB8', 'CTCMRA', '', '', '6581', '', 'OLENG', 'DUST', '', '', '', 'OL19200945', 20, '', '70', '', 1400, '', 1.7, 'STOCK - ATC/AHI (KARACHI)', 'KARACHI', '', '', '', '', '', '', ''),
  (2, '2020-16', 'COMK', '', 'KB6', 'JFL003', '', '', '5471', '', 'MATA', 'PF', '', '', '', '10205', 20, '', '66', '', 1316, '', 2, 'STOCK - TMK (KARACHI)', 'KARACHI', '', '', '', '', '', '', ''),
  (3, '2020-29', 'CENT', '', 'BA7', 'BEL122', '', '', '29023', '', 'TORA', 'F1', '', '', '', '205370', 20, '', '58', '', 1156, '', 1.35, 'STOCK - ATC/AHI (KARACHI)', 'KARACHI', '', '', '', '', '', '', ''),
@@ -685,3 +721,17 @@ FROM closing_stock_import_1;
 DELETE FROM closing_stock_import_1 WHERE stock_id = 97;
 ALTER TABLE closing_stock
 ADD CONSTRAINT lot_invoice UNIQUE(lot, invoice, sale_no, kgs);
+
+
+(667, '2021-TB026', 'x', '', 'EB1*', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'BP1', '', '', '', 'K2016/071', 8, '', '4x55+4x50', '', 420, '', 2.29, 'STOCK - 2016', '', '', '', '', '', '', '', ''),
+ (668, '2021-TB027', 'x', '', 'EB1*', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'BP1', '', '', '', 'K2016/072', 6, '', '5x50+1x30', '', 280, '', 2.24, 'STOCK - 2016', '', '', '', '', '', '', '', ''),
+ (669, '2021-TB028', 'x', '', 'KD2', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'PF1', '', '', '', '1897/26(B)', 3, '', '1x55+1x50+1x40', '', 145, '', 1.33, 'STOCK - 1897', '', '', '', '', '', '', '', ''),
+ (670, '2021-TB029', 'x', '', 'KD2', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'PF1', '', '', '', '1897/27', 9, '', '1x55+6x50+1x41+1x36', '', 432, '', 1.36, 'STOCK - 1897', '', '', '', '', '', '', '', ''),
+ (671, '2021-TB030', 'x', '', 'EB1*', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'BP1', '', '', '', 'K2016/073', 3, '', '1x55+1x50+1x40', '', 145, '', 2.28, 'STOCK - 2016', '', '', '', '', '', '', '', ''),
+ (672, '2021-TB031', 'x', '', 'KC3', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'PD', '', '', '', '8192/07', 5, '', '2x66+2x50+1x40', '', 272, '', 1.62, 'STOCK - 8192', '', '', '', '', '', '', '', ''),
+ (673, '2021-TB032', 'x', '', 'KD3', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'PD', '', '', '', '8117/05(B)', 1, '', '20', '', 20, '', 1.35, 'STOCK - 8117', '', '', '', '', '', '', '', ''),
+ (674, '2021-TB033', 'x', '', 'KC7', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'FNGS', '', '', '', '8146/05', 9, '', '8x50+1x20', '', 420, '', 0.92, 'ITL 21721, 21722 & 21723 - 8146/06', '', '', '', '', '', '', '', ''),
+ (675, '2021-TB034', 'x', '', 'UC3', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'PD', '', '', '', '8125/09', 10, '', '9x60+1x30', '', 570, '', 1.27, 'STOCK - 8125', '', '', '', '', '', '', '', ''),
+ (676, '2021-TB035', 'x', '', 'UC6+', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'PF', '', '', '', '8230/11(A)', 9, '', '8x50+1x40', '', 440, '', 1.07, 'ITL 21724, 21725 & 21726 - 8146/07', '', '', '', '', '', '', '', ''),
+ (677, '2021-TB036', 'x', '', 'RB5*', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'BP', '', '', '', '8147/06', 9, '', '8x50+1x30', '', 430, '', 2.2, 'STOCK - 2016', '', '', '', '', '', '', '', ''),
+ (678, '2021-TB037', 'x', '', 'EB1*', 'PHL', '', '', 'x', '', 'BLENDED TEA', 'BP1', '', '', '', 'K2016/074', 12, '', '11x50+1x55', '', 605, '', 2.26, 'STOCK - 2016', '', '', '', '', '', '', '', '');

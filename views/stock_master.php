@@ -61,8 +61,8 @@
                                                 <td>Grade</td>
                                                 <td>Invoice</td>
                                                 <td>Pkgs</td>
-                                                <td>Net</td>
                                                 <td>Kgs</td>
+                                                <td>Net</td>
                                                 <td>Auction Hammer Price per Kg(USD)</td>
                                                 <td>Value Ex Auction</td>
                                                 <td>Brokerage Amount 0.5 % on value(USD)</td>
@@ -102,7 +102,7 @@
                                             $value = round($stock['value']*$stock['pkgs'],2);
                                             $totalamount = round($brokerage+$value,2);
                                             $afterTax = round(($totalamount)-(5/100)*$brokerage,2);
-                                            $auctionHammer = round(($stock['value']/$stock['kgs']),2);
+                                            $auctionHammer = round(($stock['value']/100),2);
                                             $addon = round(($auctionHammer+$brokerage)/$stock['pkgs'],2);
                                             $totalPayable = round($addon+$auctionHammer, 2);
                                             $hammerPrice = round($stock['value']/$stock['kgs'],2);

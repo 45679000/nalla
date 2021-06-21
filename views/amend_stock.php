@@ -96,8 +96,10 @@
                         <td><div><?=$grade?></div></td>
                         <td><div><?=$invoice?></div></td>
                         <td><div name="pkgs" contenteditable="true" id="<?=$id?>" onblur = "updateValue(this);" onclick = "editColumn(this);" ><?=$pkgs?></div></td>
+
                         <td><div id="<?="K".$id?>" contenteditable="true" class="edit"><?=$kgs?></div></td>
                         <td><div id="<?="T".$id?>" class="edit"><?=$net*$pkgs?></div></td>
+
                     </tbody>
                 </table>
             </div>
@@ -141,7 +143,7 @@
         var column=$(element).attr('name');
         var pkgs = $("#T"+id).text();
         var net = $("#K"+id).text();
-        $("#K"+id).text(pkgs*value);
+        $("#T"+id).text(pkgs*value);
 
 
         $.ajax({

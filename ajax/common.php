@@ -58,9 +58,61 @@ if (isset($_POST['action']) && $_POST['action'] == "grade-list") {
         echo '<option disabled="" value="..." selected="">select</option>';
     }
 }
+if (isset($_POST['action']) && $_POST['action'] == "standard-list") {
+    $output = "";
+
+    $standard= $catalogue->PrintStandard();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($standard) > 0) {
+         foreach($standard as $standard){
+            $output .= '<option value="'.$standard['id'].'">'.$standard['standard'].'</option>';
+
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
+
+if (isset($_POST['action']) && $_POST['action'] == "lot-list") {
+    $output = "";
+
+    if(isset($_POST['id'])){
+        $lots= $catalogue->PrintLots($_POST['id']);
+        echo json_encode($lots);
+    }else{
+        $lots= $catalogue->PrintLots(0);
+
+        $output = '<option disabled="" value="..." selected="">select</option>';
+        if (sizeOf($lots) > 0) {
+             foreach($lots as $lots){
+                $output .= '<option value="
+                 '.$lots['stock_id'].'">'.$lots['lot']. 
+                "<b> ||GARDEN  </b>||".$lots['mark']."  
+                GRADE || ".$lots['grade']. " 
+                || PACKAGES IN STOCK:".$lots['pkgs'].'</option>';
+             }
+              echo $output;	
+        }else{
+            echo '<option disabled="" value="..." selected="">select</option>';
+        }
+    }
+    
+}
+
+if (isset($_POST['action']) && $_POST['action'] == "update") {
+    $output = "Allocated successfully";
+    $tableName = isset($_POST['tableName']) ? $_POST['tableName'] : ''; 
+    $value = isset($_POST['value']) ? $_POST['value'] : ''; 
+    $id = isset($_POST['id']) ? $_POST['id'] : ''; 
+    $columnName = isset($_POST['columnName']) ? $_POST['columnName'] : ''; 
+
+    $catalogue->update($tableName, $value, $id, $columnName);
 
 
 
+}
 
 
 ?>

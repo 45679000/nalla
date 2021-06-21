@@ -1,165 +1,177 @@
+<style>
+    .form-control {
+        border: 1px solid !important;
+        padding-bottom: 5px !important;
+        color: black !important;
+    }
+    table{
+        margin: 0 auto;
+        width: 60%;
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed; 
+        word-wrap:break-word;
+}td,th{
+    width:20%;
+}
+</style>
+
 <div class="col-md-8 col-lg-10">
-                <div class="card">
-                    <div class="card-body p-6">
-                        <div class="col-md-12">
-                            <div class="expanel expanel-secondary">
-                                <?php
-                                echo '<div class="expanel-heading">
-                                                <h3 class="expanel-title">Filter Stock</h3>
-                                            </div>
-                                            <div class="expanel-body">
-                                                <form method="post" class="filter">
-                                                    <div class="row justify-content-center">
-                                                        <div class="col-md-3 well">
-                                                            <div class="form-group label-floating">
-                                                                <label class="control-label">AUCTION</label>
-                                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    ';
-                                                                    loadAuction();
-                                                                    echo '
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 well">
-                                                            <div class="form-group label-floating">
-                                                                <label class="control-label">BROKER</label>
-                                                                <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
-                                                                    
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 well">
-                                                            <div class="form-group label-floating">
-                                                                <label class="control-label">CATEGORY</label>
-                                                                <select id="category" name="category" class="form-control well" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="Main">Main</option>
-                                                                    <option value="Sec">Sec</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 well">
-                                                            <button type="submit" class="btn btn-primary">View</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            
-                                            </div>
-                           <div class="card-body">
-                                <div class="table-responsive">
-									<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
-										<thead>
-											<tr>
-                                                <td>Sale No</td>
-                                                <td>DD/MM/YY</td>
-                                                <td>Broker</td>
-                                                <td>Warehouse</td>
-                                                <td>Lot</td>
-                                                <td>Origin</td>
-                                                <td>Mark</td>
-                                                <td>Grade</td>
-                                                <td>Invoice</td>
-                                                <td>Pkgs</td>
-                                                <td>Net</td>
-                                                <td>Kgs</td>
-                                                <td>Hammer Price per Kg(USD)</td>
-                                                <td>MRP Value</td>
+    <div class="card">
+        <div class="card-body p-6">
+            <div class="col-md-12">
+                <div class="expanel expanel-secondary">
 
-											</tr>
-										</thead>
-                                        <tbody>';
-                                        $html = "";
-                                   
+                    <div class="expanel-heading">
+                        <h3 class="expanel-title">Allocate Stock</h3>
+                        <?php  echo $msg ?>
+                    </div>
+                    <div class="expanel-body">
+                        <form method="post" class="allocate">
+                            <div class="form-group">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12 well">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Lot Details</label>
+                                            <select id="stock_id" name="stock_id" class="form-control select2-show-search"><small>(required)</small>
+                                                <option disabled="" value="..." selected="">select</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Client/Standard</label>
+                                            <select id="buyer_standard" name="buyer_standard" class="form-control select2-show-search well"><small>(required)</small>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Pkgs To Allocate</label>
+                                            <input id="pkgs" name="pkgs" class="form-control well"></input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">MRP value(USD)</label>
+                                            <input id="mrpValue" name="mrpValue" class="form-control well"></input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Offer Price Max(USD)</label>
+                                            <input id="offerPrice" name="offerPrice" class="form-control well"></input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 well">
+                                        <div class="form-group label-floating">
+                                            <button id="allocate" name="allocate" class="btn btn-success">Allocate</button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="pkg_stock" name="pkg_stock" value=""></input>
+                                </div>
+                        </form>
 
-                                        foreach ($stocks as $stock){ 
-                                
-                                            $hammerPrice = round($stock['value']/$stock['kgs'],2);
-                                    
-                                            $html.='<td><div>'.$stock['sale_no'].'</div></td>';
-                                            $html.='<td>'.$catalogue->ExcelToPHP($stock['manf_date']).'</td>';
-                                            $html.='<td>'.$stock['broker'].'</td>';
-                                            $html.='<td>'.$stock['ware_hse'].'</td>';
-                                            $html.='<td>'.$stock['lot'].'</td>';
-                                            $html.='<td>KENYA</td>';
-                                            $html.='<td>'.$stock['mark'].'</td>';
-                                            $html.='<td>'.$stock['grade'].'</td>';
-                                            $html.='<td>'.$stock['invoice'].'</td>'; 
-                                            $html.='<td>'.$stock['pkgs'].'</td>'; //pkgs
-                                            $html.='<td>'.$stock['kgs'].'</td>'; //net
-                                            $html.='<td>'.$stock['net'].'</td>'; //kgs
-                                            $html.='<td>'.$hammerPrice.'</td>'; //auction hammer
-                                            $html.="<td><div class='editable' contenteditable='true'>".$hammerPrice."</div></td>"; 
+                    </div>
 
-                                       $html.='</tr>';
-                              
-                                        }
-                            
-                                $html.= '</tbody>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="allocatedStock" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <td>#Id</td>
+                                        <td>Lot</td>
+                                        <td>Sale No</td>
+                                        <td>Broker</td>
+                                        <td>Mark</td>
+                                        <td>Grade</td>
+                                        <td>Invoice</td>
+                                        <td>Allocated Pkgs</td>
+                                        <td>Kgs</td>
+                                        <td>Net</td>
+                                        <td>Hammer.P(USD)</td>
+                                        <td>MRP Value</td>
+                                        <td>Buyer/STD</td>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $html = "";
+                                    foreach ($allocated as $allocated) {
+                                        $html .= '<td>' . $allocated['allocation_id'] . '</td>';
+                                        $html .= '<td>' . $allocated['lot'] . '</td>';
+                                        $html .= '<td><div>' . $allocated['sale_no'] . '</div></td>';
+                                        $html .= '<td>' . $allocated['broker'] . '</td>';
+                                        $html .= '<td>' . $allocated['mark'] . '</td>';
+                                        $html .= '<td>' . $allocated['grade'] . '</td>';
+                                        $html .= '<td>' . $allocated['invoice'] . '</td>';
+                                        $html .= '<td>' . $allocated['allocated_pkgs'] . '</td>'; 
+                                        $html .= '<td>' . $allocated['kgs'] . '</td>'; 
+                                        $html .= '<td>' . $allocated['net_allocation'] . '</td>'; 
+                                        $html .= '<td>' . $allocated['sale_price'] . '</td>'; 
+                                        $html .= '<td>' . $allocated['mrp_value'] . '</td>'; //auction hammer
+                                        $html .= '<td>' . $allocated['buyerstandard'] . '</td>'; //auction hammer
+
+                                        $html .= '</tr>';
+                                    }
+
+                                    $html .= '</tbody>
                                     </table>
                                 </div>
                             </div>';
-                            echo $html;
-                    
-                        ?>
-                        
+                                    echo $html;
+
+                                    ?>
+
+                        </div>
                     </div>
                 </div>
+
+
             </div>
-
-
         </div>
     </div>
-</div>
-</body>
+    </body>
 
-<!-- Dashboard js -->
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
-<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../assets/js/vendors/circle-progress.min.js"></script>
-
-
-<script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
-
-
-<script src="../assets/js/custom.js"></script>
-<script src="../assets/js/common.js"></script>
-
-<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+    <!-- Dashboard js -->
+    <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+    <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+    <script src="../assets/js/vendors/selectize.min.js"></script>
+    <script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
+    <script src="../assets/js/vendors/circle-progress.min.js"></script>
+    <script src="../assets/plugins/jquery-tabledit/jquery.tabledit.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/plugins/select2/select2.full.min.js"></script>
 
 
+    <script>
+        lotList();
+        standardList();
+        $('.select2-show-search').select2({
 
-<script type="text/javascript">
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop a file here or click',
-                    'replace': 'Drag and drop or click to replace',
-                    'remove': 'Remove',
-                    'error': 'Ooops, something wrong appended.'
+            placeholder: 'Select an item',
+        });
+        $('#stock_id').change(function() {
+            var stock_id = $('#stock_id').val();
+            $.ajax({
+                url: "../ajax/common.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    action: "lot-list",
+                    id: stock_id
                 },
-                error: {
-                    'fileSize': 'The file size is too big (2M max).'
+                success: function(data) {
+                    $("#pkgs").val(data[0].pkgs);
+                    $('#pkg_stock').val(data[0].pkgs);
                 }
-            });
-        </script>
-        <script>
-            $('.editable').click(function(e){
-                alert($('.editable').html());
-            });
-		</script>
-        <!-- Data table js -->
 
-        <script>
-			$(function(e) {
-				$('#closingstocks').DataTable({
-                });
-			} );
-		</script>
-		
-       
-</html>
+            });
+        })
+    </script>
 
+    </html>

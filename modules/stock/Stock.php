@@ -107,6 +107,34 @@
             return $inserted;
         
         }
+        public function allocateStock($stock_id, $buyer, $mrpValue, $offerPrice, $pkgs){
+            try {
+                $query = "INSERT INTO `stock_allocation`( `stock_id`, `buyer_standard`, `allocated_pkgs`,  `max_offered_price`, `mrp_value`)
+                VALUES (?,?,?,?,?)";
+               $stmt = $this->conn->prepare($query);
+               $stmt->bindParam(1, $stock_id);
+               $stmt->bindParam(2, $buyer);
+               $stmt->bindParam(3, $pkgs);
+               $stmt->bindParam(4, $offerPrice);
+               $stmt->bindParam(5, $mrpValue);
+               $stmt->execute();
+            } catch (Exception $th) {
+                var_dump($th);   
+             }
+
+        }
+        public function allocatedStock(){
+            $query = "SELECT allocation_id, sale_no, broker, mark, grade, sale_price, lot, allocated_pkgs, kgs, invoice, mrp_value,
+            allocated_pkgs*kgs AS net_allocation, buyer_standard, si_id, shipped, max_offered_price, c.standard as buyerstandard
+            FROM closing_stock b
+            LEFT JOIN stock_allocation a ON a.stock_id = b.stock_id
+            LEFT JOIN grading_standard c ON c.id = a.buyer_standard 
+            WHERE deallocated = 0";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+            return $rows;
+        }
     }
 
 ?>

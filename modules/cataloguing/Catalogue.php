@@ -328,6 +328,45 @@
 			$row_count = $stmt->rowCount();
 			return $row_count;
 		}
+        public function PrintStandard(){
+            try {
+                $this->query = "SELECT * FROM `grading_standard` WHERE deleted = 0";
+                return $this->executeQuery();
+            } catch (EXCEPTION $ex) {
+                var_dump($ex);
+            }
+        }
+        public function PrintLots($id){
+            if($id>0){
+                try {
+                    $this->query = "SELECT * FROM `closing_stock` WHERE stock_id = ".$id;
+                    return $this->executeQuery();
+                } catch (EXCEPTION $ex) {
+                    var_dump($ex);
+                }
+            }else{
+                try {
+                    $this->query = "SELECT * FROM `closing_stock`";
+                    return $this->executeQuery();
+                } catch (EXCEPTION $ex) {
+                    var_dump($ex);
+                }
+            }
+            
+        }
+        public function update($tableName, $value, $id, $columnName){
+            $updated = 0;
+            try{
+                $this->query = "UPDATE $tableName  SET $columnName = '$value' WHERE `stock_id` = $id"; 
+                if($this->executeQuery()){
+                    $updated = 1;
+                }
+            }catch(Exception $ex){
+                return $ex;
+            }
+            return $updated;
+
+        }
 
 
   

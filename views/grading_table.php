@@ -53,7 +53,7 @@
 						</div>
                                             <div class="card-body">
                                             <div class="table-responsive">
-                                                <table id="closingimports" class="table table-striped table-bordered" style="width:100%">
+                                                <table id="closingimport" class="table table-striped table-bordered" style="width:100%">
                                                     <thead>
                                                         <tr>
                                                             <th class="wd-15p">Lot No</th>
@@ -133,17 +133,13 @@
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
-<script>
-    $(function(e) {
-        $('#closingimports').DataTable();
-    });
-</script>
+
 
 <script>
 var SubmitData = new Object();
 var Comment = [""],
     Standard = [""],
-    table = $('#closingimports').DataTable({
+    table = $('#closingimport').DataTable({
         columnDefs: [{
             targets: [0],
             "className": "pk",
@@ -185,9 +181,9 @@ var Comment = [""],
     });
 
 
-$('#closingimports tbody').on('click', '.position', function() {
-    if (!$('#closingimports').hasClass("editing")) {
-        $('#closingimports').addClass("editing");
+$('#closingimport tbody').on('click', '.position', function() {
+    if (!$('#closingimport').hasClass("editing")) {
+        $('#closingimport').addClass("editing");
         var thisCell = table.cell(this);
 
         SubmitData.pkey = $(this).parents('tr').find("td:eq(0)").text();
@@ -209,9 +205,9 @@ $('#closingimports tbody').on('click', '.position', function() {
         });
     }
 });
-$('#closingimports tbody').on('click', '.location', function() {
-    if (!$('#closingimports').hasClass("editing")) {
-        $('#closingimports').addClass("editing");
+$('#closingimport tbody').on('click', '.location', function() {
+    if (!$('#closingimport').hasClass("editing")) {
+        $('#closingimport').addClass("editing");
         var thisCell = table.cell(this);
         thisCell.data($("<select></select>", {
             "class": "changeLocation"
@@ -231,13 +227,13 @@ $('#closingimports tbody').on('click', '.location', function() {
     });
 
 });
-$('#closingimports tbody').on("change", ".changePosition", () => {
+$('#closingimport tbody').on("change", ".changePosition", () => {
     table.cell($(".changePosition").parents('td')).data($(".changePosition").val());
-    $('#closingimports').removeClass("editing");
+    $('#closingimport').removeClass("editing");
 });
-$('#closingimports tbody').on("change", ".changeLocation", () => {
+$('#closingimport tbody').on("change", ".changeLocation", () => {
     table.cell($(".changeLocation").parents('td')).data($(".changeLocation").val());
-    $('#closingimports').removeClass("editing");
+    $('#closingimport').removeClass("editing");
 });
 
 function postData(formData, PostUrl) {
@@ -264,6 +260,6 @@ function postData(formData, PostUrl) {
 </script>
 <script>
     $(function(e) {
-        $('#closingimports').DataTable();
+        $('#closingimport').DataTable();
     });
 </script>

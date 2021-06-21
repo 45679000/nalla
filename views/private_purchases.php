@@ -58,7 +58,7 @@
                                         </div>
                            <div class="card-body">
                                 <div class="table-responsive">
-									<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
+									<table id="privatePurchase" class="table table-striped table-bordered" style="width:100%">
 										<thead>
 											<tr>
 												<th class="wd-15p">Lot No</th>
@@ -116,54 +116,10 @@
 
 <!-- Dashboard js -->
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
-<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
-<!-- forn-wizard js-->
-<script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
-<!-- file stock -->
-<script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
-<!-- Custom scroll bar Js-->
-<script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
-
-<!-- counter  -->
-<script src="../assets/plugins/counters/counterup.min.js"></script>
-<script src="../assets/plugins/counters/waypoints.min.js"></script>
-<!-- Custom Js-->
-<script src="../assets/js/custom.js"></script>
-<script src="../assets/js/common.js"></script>
-
-<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 <script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
-
 <script src="../assets/js/sweet-alert.js"></script>
 
 
-<script type="text/javascript">
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop a file here or click',
-                    'replace': 'Drag and drop or click to replace',
-                    'remove': 'Remove',
-                    'error': 'Ooops, something wrong appended.'
-                },
-                error: {
-                    'fileSize': 'The file size is too big (2M max).'
-                }
-            });
-        </script>
-        <!-- Data table js -->
-		<script>
-			$(function(e) {
-				$('#closingstocks').DataTable();
-			} );
-		</script>
 <script>
     $(document).ready(function() {
         $("#savePrivate").click(function(e) {

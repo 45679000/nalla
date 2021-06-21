@@ -30,7 +30,7 @@ $(document).ready(function() {
 
         });
     }
-
+    
     function gardenList() {
         $.ajax({
             url: "../ajax/common.php",
@@ -70,22 +70,38 @@ $(document).ready(function() {
         }
         });
     }
-    function updateValue(tableName, column, value, id){
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "../ajax/common.php",
-            data: {
-                table:tableName,
-                column: column,
-                value:value,
-                id:id
-            },
-        success: function (data) {
-            $("#brokerCatalogue").html(data);
-        }
-        });
-    }
-
+    
 });
+function lotList(){
+    $.ajax({
+        url: "../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "lot-list"
+        },
+        success: function(data) {
+            $("#stock_id").html(data);
+
+        }
+
+    });
+}
+function standardList(){
+    $.ajax({
+        url: "../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "standard-list"
+        },
+        success: function(data) {
+            $("#buyer_standard").html(data);
+
+        }
+
+    });
+    
+}
+
 

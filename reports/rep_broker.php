@@ -2,19 +2,9 @@
 
     $path_to_root = "../";
     $path_to_root1 = "../";
-<<<<<<< HEAD
-    // require_once $path_to_root.'templates/header.php';
-    include $path_to_root.'models/Model.php';
-    require $path_to_root."vendor/autoload.php";
-    include $path_to_root.'modules/cataloguing/Catalogue.php';
-    include $path_to_root1.'database/connection2.php';
-    ini_set("pcre.backtrack_limit", "5000000");
-	ini_set('memory_limit', '500M'); 
-=======
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
     include_once ($path_to_root1.'setting.php');
 
->>>>>>> 69b795014357d0cbcac01869cb69bf9a85f6f580
     $broker ="";
     $category = "";
     $auction = "";

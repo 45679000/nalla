@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="brokersCatalogue" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="f88c2213-fe68-4a10-ad23-1a56ca3016e5">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sale_no" class="java.lang.String"/>
+	<parameter name="broker" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT sale_no, broker, category, import_date,
+(CASE WHEN comment IS NULL THEN '' ELSE comment END) AS comment,
+(CASE WHEN rp IS NULL THEN '' ELSE 'RP' END) AS rp,
+(CASE WHEN ra IS NULL THEN '' ELSE 'RA' END) AS ra,
+(CASE WHEN type IS NULL THEN '' ELSE type END) AS type,
+(CASE WHEN standard IS NULL THEN '' ELSE standard END) AS standard,
+lot, a.mark, a.grade,  value, ra, rp, invoice,
+type, net, pkgs, kgs, sale_price, buyer_package, b.maxval, b.minval, brokers.name AS brokername,
+DATE('1899-12-30') + INTERVAL a.manf_date DAY AS manf_date
+FROM closing_cat a
+LEFT JOIN brokers ON brokers.code = a.broker
+LEFT JOIN (SELECT min(value) AS minval, max(value) AS maxval, mark, grade
+FROM `closing_cat`
+WHERE sale_no ='$P{sale_no}'
+GROUP BY grade, mark) AS b
+ON b.grade = a.grade AND b.mark = a.mark
+WHERE sale_no = '$P{sale_no}' AND broker = '$P{broker}']]>
+	</queryString>
+	<field name="sale_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="broker" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="category" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="import_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="comment" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rp" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="standard" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lot" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mark" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="grade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="value" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invoice" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="net" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pkgs" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kgs" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sale_price" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="buyer_package" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="maxval" class="java.lang.String"/>
+	<field name="minval" class="java.lang.String"/>
+	<field name="brokername" class="java.lang.String"/>
+	<field name="manf_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="mark">
+		<groupExpression><![CDATA[$F{mark}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField>
+					<reportElement x="250" y="0" width="92" height="14" uuid="2dc30557-69e4-4aba-b597-41b2f6f84027"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="9">
+				<line>
+					<reportElement x="3" y="0" width="551" height="1" uuid="3064707e-259c-4139-bde9-7748cae1a7ee"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#180606"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="183" y="0" width="220" height="15" uuid="8e200bad-8468-45d7-b999-8affe5a9151a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brokername}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="2" width="100" height="14" uuid="3dba6bf3-cc9b-400e-b1cf-8ed613aedd00"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Auction]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="1" width="66" height="15" uuid="9aa567b0-101a-4894-a403-505e657ccae4"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="1" width="66" height="15" uuid="63ca359e-56aa-4519-bca1-0e6c014b91da"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sale_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="0" width="115" height="15" uuid="c6b508dc-2a22-497c-9699-003a7429e3b5"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{import_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="286" y="2" width="46" height="13" uuid="6d24d579-bb09-4a1a-88c1-ac722b4b160b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="4" width="28" height="29" uuid="af752a04-7f6c-43f9-84bb-9ffaf964f984"/>
+				<box>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="4" width="20" height="14" uuid="682ca229-2062-4e10-aacc-dfd86b13f9dc"/>
+				<box>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Max]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="18" width="20" height="14" uuid="3893bfd4-d801-4374-88d0-14bf79e91a8f"/>
+				<box>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Low]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="4" width="42" height="29" uuid="aa8e8f81-6b38-4001-9a2e-fedfc3a26239"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LotNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="4" width="34" height="29" uuid="babff098-8bd3-4fd5-8f76-868872fa744d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="4" width="46" height="29" uuid="d4b4add0-62c3-4eb5-8332-35e81a71f389"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Garden]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="4" width="28" height="29" uuid="6b92a8f0-bc3b-465b-94e3-fc5a71d6e92b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="4" width="31" height="29" uuid="ffb5685c-2c9c-46aa-96a2-49d6519243c9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pkgs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="4" width="29" height="29" uuid="1ae42854-04b8-4aff-8a05-c4725202f264"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="263" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kilos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="4" width="20" height="29" uuid="50fa5406-0247-4000-89af-3e5479f1b20c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="4" width="17" height="29" uuid="9f393bd3-123a-4bfb-87a9-cb5e827130d5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="4" width="91" height="29" uuid="81fba878-fa04-4bbb-93be-7080984b6e05"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="4" width="69" height="29" uuid="d520ac61-78dc-4bc3-8278-ccacc1901a2f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Standard]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="4" width="30" height="29" uuid="a59e7aed-dfeb-4bd7-9dee-3d4c154e01ac"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sale Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="4" width="30" height="29" uuid="6913b6bf-84b3-463f-b9de-0d196de10cc0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Buyer]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="31" width="547" height="1" uuid="7d047365-43a4-402f-9ae9-f9da02aaf856"/>
+			</line>
+			<line>
+				<reportElement x="2" y="0" width="552" height="1" uuid="8f507e39-9976-4642-8718-424db1748023"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="54" y="0" width="43" height="15" uuid="1f4bca60-ea93-4d58-8ab6-ab80c0cb71cf"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="15" width="66" height="15" uuid="fad712e0-23d3-4220-8e1a-ff452b9422c8"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="0" width="27" height="33" uuid="2c30b1b4-1714-4091-947b-2bc9473c8eab"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="70" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="15" width="38" height="15" uuid="d8a06532-d32b-4881-917f-bc6b7a4991c3"/>
+				<textFieldExpression><![CDATA[$F{manf_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="0" width="20" height="15" uuid="b448e9f5-8054-4cf3-8389-70e897603c06"/>
+				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="31" height="33" uuid="a79703c4-e3a7-448c-98e3-50dbeedf4c75"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pkgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="0" width="23" height="33" uuid="a57f167f-c10d-493e-bae1-77da39a2f28e"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="31" height="33" uuid="788df640-fa0b-467f-b91a-29203e0e68ac"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="23" height="33" uuid="0e169ef2-ba71-437c-941d-7b1e407e89b9"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="0" width="15" height="33" uuid="dd0a56fb-ca8e-48c3-aedc-245fe7f4837a"/>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{rp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="0" width="91" height="33" uuid="e6fd7176-f849-462b-959a-167ba4df7596"/>
+				<box>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="0" width="69" height="33" uuid="850e1ddb-6c01-4c09-bfa7-4e86460dbb81"/>
+				<box>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{standard}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="0" width="32" height="33" uuid="8e73c318-730f-4396-a87a-f46a75ae7861"/>
+				<box>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sale_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="0" width="28" height="33" uuid="619cbfe6-963c-4a99-b1d0-7e864ffb1b4f"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buyer_package}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="551" height="1" uuid="b1f39ce7-9bea-455d-affe-4fa988a45988"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="33" y="0" width="20" height="15" uuid="de7f9fe5-790a-4975-b780-7651b7f7cd94"/>
+				<box>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{maxval}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="15" width="43" height="15" uuid="c8d24c81-082e-4f71-bfc0-9f60956e5edc"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="14" width="20" height="19" uuid="a39e1f60-fec3-4b18-bc81-fcf802cd3175"/>
+				<box>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{minval}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -200,16 +200,16 @@
         }
         public function closingCatalogue($auction = "", $broker = "", $category = ""){
                 if($category =="All"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' LIMIT 10";
                     return $this->executeQuery();
                 }else if($category =="leaf"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('BP1','PF1')";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('BP1','PF1') LIMIT 10";
                     return $this->executeQuery();
                 }else if($category=="dust"){
-                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('PD','D1')";
+                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('PD','D1') LIMIT 10";
                         return $this->executeQuery(); 
                 }else{
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."'";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'"." AND category =  "."'".$category ."' LIMIT 10";
                     return $this->executeQuery();
                 }
         }

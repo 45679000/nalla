@@ -9,6 +9,7 @@ ob_start();//Enables Output Buffering
     include $path_to_root.'modules/cataloguing/Catalogue.php';
     include $path_to_root1.'database/connection2.php';
     ini_set("pcre.backtrack_limit", "5000000");
+	ini_set('memory_limit', '500M'); 
     $broker ="";
     $category = "";
     $auction = "";

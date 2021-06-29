@@ -6,7 +6,7 @@
 	<parameter name="sale_no" class="java.lang.String"/>
 	<parameter name="broker" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT sale_no, broker, category, import_date,
+		<![CDATA[SELECT sale_no, broker, category, DATE_FORMAT(import_date, 'Mon, %b %Y') AS import_date,
 (CASE WHEN comment IS NULL THEN '' ELSE comment END) AS comment,
 (CASE WHEN rp IS NULL THEN '' ELSE 'RP' END) AS rp,
 (CASE WHEN ra IS NULL THEN '' ELSE 'RA' END) AS ra,
@@ -125,42 +125,42 @@ WHERE sale_no = '$P{sale_no}' AND broker = '$P{broker}' AND category = 'Sec']]>
 			</textField>
 		</band>
 	</title>
-	<pageHeader>
+		<pageHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement x="80" y="2" width="100" height="14" uuid="3dba6bf3-cc9b-400e-b1cf-8ed613aedd00"/>
+				<reportElement x="121" y="2" width="64" height="14" uuid="3dba6bf3-cc9b-400e-b1cf-8ed613aedd00"/>
 				<textElement>
-					<font fontName="Times New Roman" size="10" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Auction]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="3" y="1" width="66" height="15" uuid="9aa567b0-101a-4894-a403-505e657ccae4"/>
+				<reportElement x="45" y="3" width="66" height="15" uuid="9aa567b0-101a-4894-a403-505e657ccae4"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="203" y="1" width="66" height="15" uuid="63ca359e-56aa-4519-bca1-0e6c014b91da"/>
+				<reportElement x="265" y="1" width="66" height="15" uuid="63ca359e-56aa-4519-bca1-0e6c014b91da"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sale_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="351" y="0" width="115" height="15" uuid="c6b508dc-2a22-497c-9699-003a7429e3b5"/>
+				<reportElement x="357" y="1" width="115" height="15" uuid="c6b508dc-2a22-497c-9699-003a7429e3b5"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{import_date}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="286" y="2" width="46" height="13" uuid="6d24d579-bb09-4a1a-88c1-ac722b4b160b"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="10" isBold="true"/>
+				<reportElement x="206" y="2" width="39" height="14" uuid="f6bf7b9f-2557-4141-b4fe-76e288871ded"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[of]]></text>
+				<text><![CDATA[Of]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

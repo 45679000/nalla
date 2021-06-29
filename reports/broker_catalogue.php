@@ -77,7 +77,11 @@ include 'rep_broker.php';
                         </div>
                     </div>
                     <div id ="catalogPrint" class="col-md-8">
-                        
+                    <div class="card-body">
+                            <div class="dimmer active">
+                                <div class="lds-hourglass"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,13 +91,24 @@ include 'rep_broker.php';
 
         <script>
             $(document).ready(function() {
+                $('.dimmer').hide();
                 $("#gen-broker-cat").click(function(e) {
+                    $('.dimmer').show();
                     e.preventDefault();
                     var saleno = $("#saleno").val();
                     var broker = $("#broker").val();
                     var category = $("#category").val();
-                    $("#catalogPrint").append('<iframe class="frame" frameBorder="0" src="rep_broker.php?saleno='+saleno+'&broker='+broker+'&category='+category+'&filter=true" width="80%" height="800px"></iframe>');
-                
+                    $("#catalogPrint").html('<iframe class="frame" frameBorder="0" src="rep_broker.php?saleno='+saleno+'&broker='+broker+'&category='+category+'&filter=true" width="80%" height="800px"></iframe>');
+                    $('.dimmer').hide();
+
                 });
             });
+
+            $('.frame').ready(function () {
+                $('.dimmer').hide();
+            });
+            $('.frame').load(function () {
+                $('.dimmer').show();
+            });
+
         </script>

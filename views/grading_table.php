@@ -63,11 +63,8 @@
                                                             <th class="wd-10p">Grade</th>
                                                             <th class="wd-25p">Invoice</th>
                                                             <th class="wd-25p">Pkgs</th>
-                                                            <th class="wd-25p">Type</th>
                                                             <th class="wd-25p">Net</th>
-                                                            <th class="wd-25p">Gross</th>
-                                                            <th class="wd-25p">Kgs</th>
-                                                            <th class="wd-25p">Value</th>
+                                                            <th class="wd-25p">Code</th>
                                                             <th class="wd-25p">Comment</th>
                                                             <th class="wd-25p">Standard</th>
             
@@ -76,6 +73,8 @@
                                                     <tbody>';
                                                    
                                                     foreach ($imports as $import){
+                                                        $comment = $import["grading_comment"];
+                                                        $id = $import["closing_cat_import_id"];
                                                         $html.='<tr>';
                                                             $html.='<td>'.$import["lot"].'</td>';
                                                             $html.='<td>'.$import["ware_hse"].'</td>';
@@ -84,12 +83,9 @@
                                                             $html.='<td>'.$import["grade"].'</td>';
                                                             $html.='<td>'.$import["invoice"].'</td>';
                                                             $html.='<td>'.$import["pkgs"].'</td>';
-                                                            $html.='<td>'.$import["type"].'</td>';
                                                             $html.='<td>'.$import["net"].'</td>';
-                                                            $html.='<td>'.$import["gross"].'</td>';
-                                                            $html.='<td>'.$import["tare"].'</td>';
-                                                            $html.='<td>'.$import["value"].'</td>';
                                                             $html.='<td>'.$import["comment"].'</td>';
+                                                            $html.='<td><div id="'.$id.'" onclick ="prepareComment(this)">'.$comment.'</div></td>';                                                            
                                                             $html.='<td>'.$import["standard"].'</td>';
                                                         $html.='</tr>';
                                                     }
@@ -145,10 +141,10 @@ var Comment = [""],
             "className": "pk",
             visible: true
         }, {
-            targets: [12],
+            targets: [8],
             "className": "position"
         }, {
-            targets: [13],
+            targets: [10],
             "className": "location"
         }],
         initComplete: function() {

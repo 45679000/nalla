@@ -33,6 +33,64 @@
                 die('Error loading file "'.pathinfo($this->inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
             }
         }
+        public function ittsCatalogueImport($action="display"){
+            try {
+                if($action=="insert"){
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($this->inputFileName);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $reader->setReadDataOnly(true);
+                    $spreadsheet = $reader->load($this->inputFileName);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $highestRow = $worksheet->getHighestRow(); // e.g. 10
+                    $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
+                    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+                    $excelData = $worksheet->toArray();
+
+                    $sql = "INSERT INTO `itts_import`(`Sno`,`producer`, `mark`, `warehouse`, `Lot_no`, `grade`, `invoice_no`, `packages`, `packaging_type`, `net`, `gross`, `price`, `broker_starting_price`, `sale_price`, `buyer`, `Warehouse_location`, `broker`, `dispatch_date`, `receive_date`, `total_tare`, `current_qty`, `current_packages`, `goods_condition`, `warrant_no`, `weight_note_number`, `auction_number`, `auction_date`) 
+                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    $stmt = $this->conn->prepare($sql);
+                    foreach($excelData as $data){
+                        for($i=0; $i<27; $i++){
+                            $stmt->bindParam($i+1, $data[$i]);
+                        }
+                        $stmt->execute();
+                    }   
+                }else if($action=="display"){
+                    $rows = $this->conn->query("SELECT * FROM `itts_import`")->fetchAll();
+                    return $rows;
+                }else if($action=="confirm"){
+                            $sql = "UPDATE
+                            `closing_cat` AS `dest`,
+                            (
+                                SELECT
+                                    *
+                                FROM
+                                    `itts_import`
+                            ) AS `src`
+                        SET
+                            `dest`.`pkgs` = `src`.`current_packages`,
+                            `dest`.`net` = `src`.`net`,
+                            `dest`.`gross` = `src`.`gross`,
+                            `dest`.`sale_price` = `src`.`sale_price`
+                        WHERE
+                            `dest`.`lot` = src.lot_no";
+                        
+                        $stmt = $this->conn->prepare($sql);
+                        $stmt->execute();
+                        $sql = "DELETE FROM itts_import";
+                        $stmt = $this->conn->prepare($sql);
+                        $stmt->execute();
+                }else if($action=="cancel"){
+                    $sql = "DELETE FROM itts_import";
+                    $stmt = $this->conn->prepare($sql);
+                }
+            }catch(Exception $e){
+                    var_dump($e);
+                
+            
+            }
+
+        }
         public function readRecords($pdo, $spreadsheet, $activesheet, $dataStartRow){
             $spreadsheet->setActiveSheetIndex($activesheet);
             $sheet = $spreadsheet->getActiveSheet(); 

@@ -72,6 +72,14 @@
 							</ul>
 						</div>
 						<div class="col">
+						<ul>
+							<div class="text-center">
+								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php><i style="font-size:65px; color: brown;" class="fa fa-file-text-o"></i></a>
+								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php>ITTS Import</a>
+							</div>
+						</ul>
+					</div>
+						<div class="col">
 							<ul>
 								<div class="text-center">
 									<a href="#"><i style="font-size:65px; color: red;" class="fa fa-cloud-upload"></i></a>

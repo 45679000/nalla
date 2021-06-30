@@ -21,15 +21,11 @@ $catalogue = new Catalogue($conn);
 
     if(isset($_POST['confirm'])){
         $confirmed = $catalogue->ittsCatalogueImport("confirm");
-        if($confirmed == true){
-            echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
-        }
+        echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
     }
     if(isset($_POST['cancel'])){
         $confirmed = $catalogue->ittsCatalogueImport("cancel");
-        if($confirmed == true){
-            echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
-        }
+        echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
     }
 
 ?>

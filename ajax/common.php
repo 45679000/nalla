@@ -110,9 +110,16 @@ if (isset($_POST['action']) && $_POST['action'] == "update") {
 
     $catalogue->update($tableName, $value, $id, $columnName);
 
-
+}
+if (isset($_POST['action']) && $_POST['action'] == "add-remark") {
+     $remark = $_POST['remark'];
+     $lot = $_POST['lot'];
+    $catalogue->insertRemarks($remark, $lot);
 
 }
+if (isset($_POST['action']) && $_POST['action'] == "remark-opt") {
+   echo json_encode($catalogue->loadRemarks());
 
+}
 
 ?>

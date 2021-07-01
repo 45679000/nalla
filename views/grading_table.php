@@ -9,6 +9,17 @@
     background-color: white;
     width:30%;
 }
+.form-control{
+    color: black !important;
+    border:1px solid black !important;
+}
+.card{
+    max-height: 30% !important;
+    padding-bottom: 0px !important;
+}
+.card-body{
+    background-color: white !important;
+}
 </style>
 
 <div class="col-md-8 col-lg-10">

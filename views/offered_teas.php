@@ -120,18 +120,12 @@
 <script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
 <script src="../assets/js/vendors/circle-progress.min.js"></script>
 <script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
-<!-- forn-wizard js-->
-<script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
-<!-- file import -->
-<script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
+
+
 <!-- Custom scroll bar Js-->
 <script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
-<!-- counter  -->
-<script src="../assets/plugins/counters/counterup.min.js"></script>
-<script src="../assets/plugins/counters/waypoints.min.js"></script>
+
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
 <script src="../assets/js/common.js"></script>
@@ -139,11 +133,10 @@
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
-<script>
-    $(function(e) {
-        $('#tasting').DataTable();
-    });
-</script>
+<script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="../assets/js/sweet-alert.js"></script>
+
+
 
 <script>
 var SubmitData = new Object();
@@ -204,4 +197,28 @@ function postData(formData, PostUrl) {
     $(function(e) {
         $('#tasting').DataTable();
     });
+
+    $(document).ready( function () {
+    $('.pagination').prepend('<li><button id="clear" class="fa fa-success clear">Clear Selected</button></li>');
+
+    var ele = document.getElementById("clear");
+    ele.addEventListener("click", function(){
+        $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "../ajax/common.php",
+                data: {action:"clear"},
+            success: function (data) {
+                swal('','Offers Cleared', 'success');
+                location.reload();
+
+            },
+            error: function (data) {
+                
+            },
+        });
+        
+    })
+  
+} );
 </script>

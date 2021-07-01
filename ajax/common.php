@@ -121,5 +121,10 @@ if (isset($_POST['action']) && $_POST['action'] == "remark-opt") {
    echo json_encode($catalogue->loadRemarks());
 
 }
+if (isset($_POST['action']) && $_POST['action'] == "clear") {
+    $catalogue->clearOffers();
+    echo json_encode("offers cleared");
+ 
+ }
 
 ?>

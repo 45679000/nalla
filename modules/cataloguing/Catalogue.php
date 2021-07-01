@@ -451,6 +451,16 @@
             }
 
         }
+        public function clearOffers(){
+            try{
+                $this->query = "UPDATE closing_cat SET allocated = 0 WHERE allocated = 1";
+                $this->executeQuery();
+                
+            }catch(Exception $ex){
+                return $ex;
+            }
+
+        }
         
 
 

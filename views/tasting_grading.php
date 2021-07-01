@@ -13,8 +13,12 @@
     $catalogue = new Catalogue($conn);
     $grading = new Grading($conn);
     $imports = array();
-    if(isset($_POST['saleno']) && isset($_POST['broker']) && isset($_POST['category'])){
-        $imports = $catalogue->closingCatalogue($_POST['saleno'], $_POST['broker'], $_POST['category']);
+    $saleNo = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+    $broker = isset($_POST['broker']) ? $_POST['broker'] : '';
+    $category = isset($_POST['category']) ? $_POST['category'] : 'All';
+
+    if($saleNo!==''){
+        $imports = $catalogue->closingCatalogue($saleNo, $broker, $category);
     }
     if(isset($_POST['pkey'])){
         $grading->grade($_POST['pkey'], $_POST['fieldValue'], $_POST['fieldName']);
@@ -55,7 +59,7 @@
     background-color: white !important;
 }.clear{
     height: 100%;
-    
+
 }
 </style>
 <div class="my-3 my-md-5">

@@ -69,7 +69,7 @@
                                                             <th class="wd-25p">Kgs</th>
                                                             <th class="wd-25p">Value</th>
                                                             <th class="wd-25p">Offer</th>
-                                                            <th class="wd-25p">Comment</th>
+                                                            <th class="wd-25p">Code</th>
                                                             <th class="wd-25p">Standard</th>
             
                                                         </tr>

@@ -1,3 +1,16 @@
+<style>
+.noedit{
+    outline: none;
+    border: 0px;
+    background-color: inherit;
+}
+.edit{
+    border: 0.5px;
+    background-color: white;
+    width:30%;
+}
+</style>
+
 <div class="col-md-8 col-lg-10">
                 <div class="card">
                 <?php 
@@ -74,7 +87,7 @@
                                                    
                                                     foreach ($imports as $import){
                                                         $comment = $import["grading_comment"];
-                                                        $id = $import["closing_cat_import_id"];
+                                                        $id = $import["lot"];
                                                         $html.='<tr>';
                                                             $html.='<td>'.$import["lot"].'</td>';
                                                             $html.='<td>'.$import["ware_hse"].'</td>';
@@ -85,7 +98,19 @@
                                                             $html.='<td>'.$import["pkgs"].'</td>';
                                                             $html.='<td>'.$import["net"].'</td>';
                                                             $html.='<td>'.$import["comment"].'</td>';
-                                                            $html.='<td><div id="'.$id.'" onclick ="prepareComment(this)">'.$comment.'</div></td>';                                                            
+                                                            $html.='<td><input
+                                                                name="remark"
+                                                                id="'.$id.'"
+                                                                list="remarks"
+                                                                class="noedit"
+                                                                onBlur="addRemark(this)"
+                                                                onClick="toggleClass(this)"
+                                                                value="'.$comment.'"
+                                                                />
+                                                                <datalist id="remarks">
+                                                                    <option>opt 1</option>
+                                                                    <option>opt 2</option>
+                                                                </datalist>';
                                                             $html.='<td>'.$import["standard"].'</td>';
                                                         $html.='</tr>';
                                                     }
@@ -129,7 +154,64 @@
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
+<script>
+   $(document).ready(function(){
+        var dataList = document.getElementById("remarks");
+        loadRemarkOptions(dataList);
+   });
+function toggleClass(element){
+    $(element).removeClass('noedit');
+    $(element).addClass('edit');
 
+}
+function addRemark(element){
+    if(($(element).val() !== null) && ($(element).val() !== "")){
+      
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: '../ajax/common.php',
+                data: {
+                    action:'add-remark',
+                    lot:$(element).attr('id'),
+                    remark:$(element).val()
+                },
+            success: function (data) {
+                $(element).removeClass('edit');
+                $(element).addClass('noedit');
+                return data;
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+        });
+    }
+}
+function loadRemarkOptions(element){
+            $.ajax({  
+                type: "POST",
+                dataType: "json",
+                url: '../ajax/common.php',
+                data: {
+                    action:'remark-opt'
+                },
+            success: function (data) {
+              for($i = 0; $i<data.length; $i++){
+                $(element).append('<option>'+data[$i].remark+'</option>');
+
+              }
+
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+         });
+        }
+
+
+</script>
 
 <script>
 var SubmitData = new Object();

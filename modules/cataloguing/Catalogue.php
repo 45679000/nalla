@@ -426,6 +426,33 @@
 
         }
 
+        public function insertRemarks($remark, $lot){
+            $updated = "0";
+            try{
+                $this->query = "UPDATE closing_cat  SET grading_comment = '$remark' WHERE `lot` = '$lot'";
+                $this->executeQuery();
+                $this->query = "INSERT INTO grading_remarks(remark) VALUE('$remark')";
+                $this->executeQuery();
+                
+            }catch(Exception $ex){
+                return $ex;
+            }
+            return $updated;
+
+        }
+        public function loadRemarks(){
+            try{
+                $this->query = "SELECT DISTINCT remark FROM grading_remarks";
+                $remarks = $this->executeQuery();
+                return $remarks;
+                
+            }catch(Exception $ex){
+                return $ex;
+            }
+
+        }
+        
+
 
   
 }

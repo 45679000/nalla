@@ -255,12 +255,7 @@ body {
 				<div class="admin-navbar container-fluid" id="headerMenuCollapse">
 					<div class="container-fluid">
 						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link active" href="./dashboard.php">
-									<i class="fa fa-home"></i>
-									<span> DASHBOARD</span>
-								</a>
-							</li>
+						
 							<?php include 'acl_menu.php'?>
 						</ul>
 					</div>

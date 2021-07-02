@@ -5,12 +5,15 @@ header("Content-Type: application/json; charset=UTF-8");
 include '../database/connection.php';
 include '../models/Model.php';
 include '../modules/cataloguing/Catalogue.php';
+include '../modules/grading/grading.php';
+
 
 
 
 $db = new Database();
 $conn = $db->getConnection();
 $catalogue = new Catalogue($conn);
+$grading = new Grading($conn);
 if (isset($_POST['action']) && $_POST['action'] == "list-brokers") {
     $output = "";
 
@@ -125,6 +128,79 @@ if (isset($_POST['action']) && $_POST['action'] == "clear") {
     $catalogue->clearOffers();
     echo json_encode("offers cleared");
  
+ }
+ if(isset($_POST['action']) && $_POST['action'] == "load-target"){
+    $imports = array();
+    $saleNo = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+    $broker = isset($_POST['broker']) ? $_POST['broker'] : '';
+    $category = isset($_POST['category']) ? $_POST['category'] : 'All';
+
+    if($saleNo!==''){
+        $imports = $catalogue->closingCatalogue($saleNo, $broker, $category);
+    }
+
+    $html='<table id="closingimport" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="wd-15p">Lot No</th>
+                    <th class="wd-15p">Ware Hse.</th>
+                    <th class="wd-20p">Company</th>
+                    <th class="wd-15p">Mark</th>
+                    <th class="wd-10p">Grade</th>
+                    <th class="wd-25p">Invoice</th>
+                    <th class="wd-25p">Pkgs</th>
+                    <th class="wd-25p">Net</th>
+                    <th class="wd-25p">Code</th>
+                    <th class="wd-25p">Comment</th>
+                    <th class="wd-25p">Standard</th>
+
+                </tr>
+            </thead>
+            <tbody>';
+         
+            foreach ($imports as $import){
+                $comment = $import["grading_comment"];
+                $id = $import["lot"];
+                $html.='<tr>';
+                    $html.='<td>'.$import["lot"].'</td>';
+                    $html.='<td>'.$import["ware_hse"].'</td>';
+                    $html.='<td>'.$import["company"].'</td>';
+                    $html.='<td>'.$import["mark"].'</td>';
+                    $html.='<td>'.$import["grade"].'</td>';
+                    $html.='<td>'.$import["invoice"].'</td>';
+                    $html.='<td>'.$import["pkgs"].'</td>';
+                    $html.='<td>'.$import["net"].'</td>';
+                    $html.='<td>'.$import["comment"].'</td>';
+                    $html.='<td><input
+                        name="remark"
+                        id="'.$id.'"
+                        list="remarks"
+                        class="noedit"
+                        onBlur="addRemark(this)"
+                        onClick="toggleClass(this)"
+                        value="'.$comment.'"
+                        />
+                        <datalist id="remarks">
+                            <option>opt 1</option>
+                            <option>opt 2</option>
+                        </datalist>';
+                    $html.= '<td>'.$import["standard"].'</td>';
+                $html.='</tr>';
+            }
+        $html.= '</tbody>
+        </table>';
+        return $html;
+
+ }
+ if (isset($_POST['action']) && $_POST['action'] == "add-target") {
+    if(isset($_POST['lot'])){
+        $grading->grade($_POST['lot'], $_POST['check'], "target");
+    }  
+ }
+ if (isset($_POST['action']) && $_POST['action'] == "add-price") {
+    if(isset($_POST['lot'])){
+        $grading->grade($_POST['lot'], $_POST['maxPrice'], "max_bp");
+    }  
  }
 
 ?>

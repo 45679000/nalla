@@ -128,6 +128,7 @@
 		<!-- dropdown-menu -->
 	</li>';
 	}
+
 	function menu_tasting_grading($path_to_root){
 		return '
 		<li class="nav-item">

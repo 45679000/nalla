@@ -1,5 +1,5 @@
 <?php 
-
+ ob_start();
     $path_to_root = "../";
     $path_to_root1 = "../";
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
@@ -13,6 +13,7 @@
           $PHPJasperXML->arrayParameter=array("sale_no"=>$auction);
           $PHPJasperXML->load_xml_file("jrxmlFiles/auction_targets.jrxml");
           $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+          ob_end_clean();
           $PHPJasperXML->outpage("I");
         
     }

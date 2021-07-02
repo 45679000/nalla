@@ -1,12 +1,10 @@
 <?php 
-
+ ob_start();
     $path_to_root = "../";
     $path_to_root1 = "../";
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
     include_once ($path_to_root1.'setting.php');
 
-    $broker ="";
-    $category = "";
     $auction = "";
     $PHPJasperXML = new PHPJasperXML();
     if(isset($_GET['filter'])){
@@ -15,6 +13,7 @@
           $PHPJasperXML->arrayParameter=array("sale_no"=>$auction);
           $PHPJasperXML->load_xml_file("jrxmlFiles/auction_targets.jrxml");
           $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+          ob_end_clean();
           $PHPJasperXML->outpage("I");
         
     }

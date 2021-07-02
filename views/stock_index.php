@@ -75,6 +75,22 @@ $shippingI = $controller->getShippingInstructions();
 // }
 
 ?>
+<style>
+.form-control{
+    color: black !important;
+    border:1px solid black !important;
+}
+.card{
+    max-height: 30% !important;
+    padding-bottom: 0px !important;
+}
+.card-body{
+    background-color: white !important;
+}.clear{
+    height: 100%;
+
+}
+</style>
 <div class="my-3 my-md-5">
     <div class="container-fluid">
         <div class="page-header">

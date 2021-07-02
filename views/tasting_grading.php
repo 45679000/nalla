@@ -59,7 +59,12 @@
     background-color: white !important;
 }.clear{
     height: 100%;
-
+}
+list-group:hover{
+  background-color: brown !important;
+}
+.pdfViewer{
+    background-color: white !important;
 }
 </style>
 <div class="my-3 my-md-5">
@@ -83,6 +88,10 @@
                     include 'offered_teas.php'; 
                 }elseif(($_GET['view']=='labels')){
                     include 'labels.php'; 
+                }else if(($_GET['view']=='targets')){
+                    include 'auction_targets.php'; 
+                }else if(($_GET['view']=='print_out')){
+                    include 'auction_target_print.php';
                 }else{
                     include 'grading_table.php'; 
                 }
@@ -93,7 +102,9 @@
 </div>
 
 </body>
-
-
-
+<script>
+    $('.list-group-item').click(function(element){
+        $(element).addClass('list-group-item-active');
+    });
+</script>
 </html>

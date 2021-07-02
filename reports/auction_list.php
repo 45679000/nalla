@@ -5,8 +5,6 @@
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
     include_once ($path_to_root1.'setting.php');
 
-    $broker ="";
-    $category = "";
     $auction = "";
     $PHPJasperXML = new PHPJasperXML();
     if(isset($_GET['filter'])){

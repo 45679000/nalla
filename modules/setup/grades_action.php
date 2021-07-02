@@ -22,7 +22,7 @@
 		$grades = $grade->displayRecord();
 
 		if ($grade->totalRowCount() > 0) {
-			$output .="<table class='table table-striped table-hover'>
+			$output .="<table class='table table-striped table-bordered table-hover'>
 			        <thead>
 			          <tr>
 			            <th>Id</th>

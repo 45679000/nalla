@@ -1,9 +1,8 @@
 <div class="row">
-    <div class="col-md-2">
-        <button type="button" class="btn btn-primary m-1 float-right" data-toggle="modal" data-target="#addModal">
+        <button type="button" class="btn btn-success m-1 float-right" data-toggle="modal" data-target="#addModal">
             <i class="fa fa-plus"></i> Add New Broker</button>
-    </div>
-</div><br>
+</div>
+<br>
 
 <div class="container-fluid">
     <div class="row">
@@ -80,9 +79,16 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../assets/js/vendors/circle-progress.min.js"></script>
+<!-- Custom Js-->
+<script src="../../assets/js/custom.js"></script>
+
+<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 

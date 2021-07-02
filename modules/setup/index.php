@@ -4,14 +4,12 @@ include $path_to_root . 'templates/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-</head>
+<style>
+    .table{
+        background-color: white;
+    }
+</style>
+
 <body>
     <div class="page-header">
        
@@ -25,21 +23,21 @@ include $path_to_root . 'templates/header.php';
                             <h3 class="expanel-title">System Settings</h3>
                         </div>
                         <div class="expanel-body">
-                            <div class="list-group list-group-transparent mb-0 mail-inbox">
+                            <div class="list-group  mb-0 mail-inbox">
                                 <a href="./index.php?view=gardens" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Gardens
+                                    <span class="icon mr-3"><i class="fe fe-list"></i></span>Gardens
                                 </a>
                                 <a href="./index.php?view=brokers" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Brokers
+                                    <span class="icon mr-3"><i class="fe fe-users"></i></span>Brokers
                                 </a>
                                 <a href="./index.php?view=codes" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Grading Codes
+                                    <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Grading Codes
                                 </a>
                                 <a href="./index.php?view=standards" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Tea Standards
+                                    <span class="icon mr-3"><i class="fe fe-shuffle"></i></span>Tea Standards
                                 </a>
                                 <a href="./index.php?view=grades" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Tea Grades
+                                    <span class="icon mr-3"><i class="fe fe-sidebar"></i></span>Tea Grades
                                 </a>
                             </div>
                         </div>

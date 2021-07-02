@@ -22,7 +22,7 @@
 		$codess = $codes->displayRecord();
 
 		if ($codes->totalRowCount() > 0) {
-			$output .="<table class='table table-striped table-hover'>
+			$output .="<table class='table table-striped table-bordered table-hover'>
 			        <thead>
 			          <tr>
 			            <th>Id</th>

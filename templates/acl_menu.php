@@ -1,7 +1,7 @@
 <?php
     $role = $_SESSION['role_id'];
 	if($role==1){
-      //show all menu for admin
+      echo dashboard($path_to_root);
 	  echo menu_catalogue($path_to_root);
 	  echo menu_tasting_grading($path_to_root);
 	  echo menu_stock($path_to_root);
@@ -13,6 +13,7 @@
 	  echo menu_setup($path_to_root);
 	}else if($role==2){
 		//cataloging and tasting and grading
+		echo dashboard($path_to_root);
 		echo menu_catalogue($path_to_root);
 		echo menu_tasting_grading($path_to_root);
 		echo menu_stock($path_to_root);
@@ -20,11 +21,13 @@
 
 	}else if($role==3){
 		//shipping 
+		echo dashboard($path_to_root);
 		echo menu_stock($path_to_root);
 		echo menu_shipping($path_to_root);
 		echo menu_setup($path_to_root);
 
 	}else if($role==4){
+		echo dashboard($path_to_root);
 		echo menu_user_management($path_to_root);
 		echo menu_setup($path_to_root);
 	}
@@ -176,6 +179,16 @@
 		<li class="nav-item">
 			<a class="nav-link" href='.$path_to_root.'modules/setup/index.php?view=standards><i class="fa fa-cogs"></i><span>Setup</span></a>
 		</li>';
+	}
+	function dashboard($path_to_root){
+		return '
+		<li class="nav-item">
+			<a class="nav-link active" href='.$path_to_root.'views/dashboard.php>
+				<i class="fa fa-home"></i>
+				<span> DASHBOARD</span>
+			</a>
+		</li>
+		';
 	}
 	
 ?>

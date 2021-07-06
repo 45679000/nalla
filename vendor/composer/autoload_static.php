@@ -68,6 +68,10 @@ class ComposerStaticInitdcd891a1367d8dfddf687ba051494f48
         '8d37dad4703fab45bfec9dd0bbf3278e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/multiply.php',
         '4888a6f58c08148ebe17682f9ce9b2a8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideby.php',
         'eef6fa3879d3efa347cd24d5eb348f85' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideinto.php',
+
+
+        '0b17741e1be8bc33be28693cd04d2893' => __DIR__ . '/..' . '/koolreport/core/autoload.php',
+8ccb05fbe853cb5caa06bee1dbdf2979189d10c8
     );
 
     public static $prefixLengthsPsr4 = array (

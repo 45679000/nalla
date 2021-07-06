@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="total_purchases" language="groovy" pageWidth="1050" pageHeight="595" orientation="Landscape" columnWidth="1010" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="91abfdbd-4811-42f5-96ff-a39eae2145e8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT `stock_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `closing_stock`.`mark`, `mark_country`.`country`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, DATE_FORMAT(`import_date`, "%d/%m/%y") AS import_date, `imported`, `imported_by`, `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`, ROUND((kgs*sale_price),2) AS value_ex_auction, ROUND(((kgs*sale_price)*0.5),2) AS brokerage_amount, ROUND(((kgs*sale_price)+((kgs*sale_price)*0.5)),2) AS final_prompt_value, ROUND((((kgs*sale_price)*0.5)*0.05),2) AS withholding_tax, ROUND((((kgs*sale_price)+((kgs*sale_price)*0.5))-(((kgs*sale_price)*0.5)*0.05)),2) AS prompt_payable,
+ROUND((((kgs*sale_price)*0.5)+sale_price),2) AS add_on, ROUND(((((kgs*sale_price)*0.5)+sale_price) + ((kgs*sale_price)*0.5)),2) AS final_sale_invoice_value_per_kg, ROUND((((((kgs*sale_price)*0.5)+sale_price) + ((kgs*sale_price)*0.5))*kgs),2) AS final_sale_invoice_value, allocated_whse, si_blend_no, DATE_FORMAT(current_date, "%d %M, %Y") AS stck_date
+FROM `closing_stock`
+LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark
+WHERE mark_country.deleted = 0]]>
+	</queryString>
+	<field name="stock_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sale_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="broker" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="category" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="comment" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ware_hse" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entry_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="value" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lot" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="company" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mark" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="country" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="grade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="manf_date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rp" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invoice" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pkgs" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="net" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gross" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kgs" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tare" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sale_price" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="standard" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="buyer_package" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="import_date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="imported" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="imported_by" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="allocated" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="selected_for_shipment" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="current_allocation" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="is_blend_balance" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="value_ex_auction" class="java.lang.Double"/>
+	<field name="brokerage_amount" class="java.lang.Double"/>
+	<field name="final_prompt_value" class="java.lang.Double"/>
+	<field name="withholding_tax" class="java.lang.Double"/>
+	<field name="prompt_payable" class="java.lang.Double"/>
+	<field name="add_on" class="java.lang.Double"/>
+	<field name="final_sale_invoice_value_per_kg" class="java.lang.Double"/>
+	<field name="final_sale_invoice_value" class="java.lang.Double"/>
+	<field name="allocated_whse" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="si_blend_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stck_date" class="java.lang.String"/>
+	<variable name="totalLots" class="java.lang.Integer" resetType="None" calculation="Count">
+		<variableExpression><![CDATA[$F{stock_id}]]></variableExpression>
+	</variable>
+	<variable name="totalPkgs" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pkgs}]]></variableExpression>
+	</variable>
+	<variable name="totalNet" class="java.lang.String"/>
+	<variable name="totalKgs" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{kgs}]]></variableExpression>
+	</variable>
+	<variable name="totalActHam" class="java.lang.String"/>
+	<variable name="totalBrkrg" class="java.lang.String"/>
+	<variable name="totalValueExActn" class="java.lang.String"/>
+	<variable name="finalPromptval" class="java.lang.String"/>
+	<variable name="totalWithHoldingTax" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{withholding_tax}]]></variableExpression>
+	</variable>
+	<variable name="totalPrompt" class="java.lang.String"/>
+	<variable name="totalAddon" class="java.lang.String"/>
+	<variable name="totalfinalInvoiceValue" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{final_sale_invoice_value}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement x="376" y="0" width="330" height="30" uuid="a551f57c-4729-4f62-a8fa-a984f96cb9ca"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHAMU SUPPLIERS LIMITED]]></text>
+			</staticText>
+			<image>
+				<reportElement x="7" y="1" width="137" height="44" uuid="7576e3d3-45f4-47da-b919-c8dcc80bd6d6"/>
+				<imageExpression><![CDATA["/opt/lampp/htdocs/chamu-tifms/images/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="472" y="2" width="72" height="24" uuid="f46d0274-8f9e-46e8-8308-17f933524c41"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[As at]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="3" width="113" height="23" uuid="83e4ecda-08c2-4598-b186-02db804b47e3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Purchases ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="544" y="3" width="100" height="20" uuid="5aaf6647-5631-4f9f-b97d-c410854b7b6c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stck_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="-1" width="36" height="83" uuid="e7ee61dd-e335-4ab0-8cee-4592eacb2327"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sale No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="-1" width="44" height="83" uuid="515f69d2-9f4c-451b-807b-88ec7514edc6"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DD/MM/YY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="-1" width="39" height="83" uuid="b8d0280e-6a0b-4b68-b84b-f531bdb3d77f"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Broker]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="-1" width="49" height="83" uuid="cb3b5451-ce62-4eda-bf8c-b1d34d69daa7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Warehouse]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="167" y="-1" width="30" height="83" uuid="602ee639-555f-4bc0-ab0e-daf16d10b9ed"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lot]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="-1" width="47" height="83" uuid="0a61ea56-530e-4d7b-90d1-91c7cd2e496b"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Origin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="-1" width="61" height="83" uuid="6245c6d7-b56a-47b8-a1d2-5df66bdf6a3c"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="-1" width="36" height="83" uuid="8d623a13-1515-4838-be8d-fefa152fbaad"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="-1" width="55" height="83" uuid="241f356a-8d85-4752-8719-6dc5c0d3444e"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="-1" width="21" height="83" uuid="6bb53740-5664-421c-b791-6483e13e4486"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pkgs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="-1" width="37" height="83" uuid="8f2351ea-7ec5-4f98-971f-fd4ce9795de0"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="-1" width="35" height="83" uuid="cbd8e3e0-21bd-40dd-9a5a-9e9cd62f0635"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[kgs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="-1" width="39" height="83" uuid="7524bf31-9d7a-4642-87fa-73cdf45e6502"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Auction Hammer Price Per Kg (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="527" y="-1" width="38" height="83" uuid="41dc8324-e7c4-48ad-8ebc-76440a969a04"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Value Ex-Auction (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="565" y="-1" width="48" height="83" uuid="cb8d3bf8-c98b-4832-9861-a37ddf8d548c"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Brokerage Amount @ 0.5% on Value (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="-1" width="48" height="83" uuid="fe508044-fff8-43c0-8c10-e675a6a114e2"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Final Prompt Value Including Brokerage (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="661" y="-1" width="58" height="83" uuid="02449145-2b20-4b65-bbaa-1d89f36fecba"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Withholding Tax @ 5% of Brokerage Amount Payable to Domestic Taxes Deptt. (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="719" y="-1" width="47" height="83" uuid="48cbf2ea-8d9e-488d-b4a9-64b5d242890e"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prompt Payable to EATTA-TCA after Deduction of W/Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="766" y="-1" width="46" height="83" uuid="5b6fbced-673e-4b0c-8118-8a0250aeea6d"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Add On [Over Auction Hammer Price + Brokerage] Per Kg (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="848" y="-1" width="49" height="83" uuid="4a62668d-0daa-4a48-bd17-8c201065e42e"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Final Sales Invoice Value (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="811" y="-1" width="37" height="83" uuid="cc46adda-f8f4-45d7-8254-bd35757286ac"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Final Sales Invoice Price Per Kg (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="897" y="-1" width="24" height="83" uuid="b29c25ce-f8e2-49e1-80e2-c93dfb2db27f"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grade Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="921" y="21" width="41" height="61" uuid="2c443c87-fba9-417d-8137-a70347b7c45c"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Warehouse]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="962" y="21" width="50" height="61" uuid="00574675-0689-4ada-9145-05978cbe9538"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SI/Blend No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="920" y="0" width="92" height="20" uuid="2ffc7698-2fd6-40f9-a6d3-74941b4900ec"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Allocation]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="1" width="36" height="20" uuid="cbcc9d74-94fb-4867-a7d0-8edb9979938e"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sale_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="1" width="44" height="20" uuid="e8fd4b12-50cb-4adc-aebb-201a43e9bbff"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{import_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="1" width="39" height="20" uuid="0ed6906d-fef1-42dc-b3ac-f3b7ca7989d7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{broker}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="1" width="49" height="20" uuid="0318cb54-127b-40d1-b045-8ae948dc72cf"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ware_hse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="1" width="30" height="20" uuid="f115c868-2ff1-4435-b23d-4ccc5c4d2e36"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="1" width="48" height="20" uuid="c0783656-0a7d-4877-a450-3f083c80815f"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="1" width="61" height="20" uuid="1f7c2895-386d-4cfa-905f-d8cb3237ed4a"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="1" width="36" height="20" uuid="7b95eb4a-78f5-4dca-979a-ef8604852708"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="1" width="55" height="20" uuid="e883ca24-278d-43b4-adc6-ee0c2a0a68ed"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="1" width="21" height="20" uuid="d39e92e4-b140-4187-a322-4d3503516cec"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pkgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="1" width="37" height="20" uuid="7342463b-2680-459f-b766-cf91f39d32de"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="1" width="35" height="20" uuid="5e870e4f-b44a-4ed9-acd6-9abf07dae9c1"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="1" width="39" height="20" uuid="77547879-6f49-4086-ac8b-38651a6f404d"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sale_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="527" y="1" width="38" height="20" uuid="14b7240c-bd47-4956-bdd8-8b6347181391"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{value_ex_auction}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="565" y="1" width="48" height="20" uuid="4ec057a0-f6a6-45a8-a620-62f7e3d9cb3f"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brokerage_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="613" y="1" width="48" height="20" uuid="dbc54dbe-f7c6-41f3-8cc8-cdcca98fbaf8"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_prompt_value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="661" y="1" width="58" height="20" uuid="3b57be9c-2072-4968-99ff-3cb03bc533be"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{withholding_tax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="719" y="1" width="47" height="20" uuid="4f59ab8e-b944-4620-9283-e6f429f239a5"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prompt_payable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="766" y="1" width="46" height="20" uuid="b89e1d47-5429-4eff-b4fa-bb1d6ebb72f3"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{add_on}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="847" y="1" width="51" height="20" uuid="41e46694-e319-479c-9c19-775b1cdb882f"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_sale_invoice_value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="811" y="1" width="37" height="20" uuid="24cf0410-5e89-4692-98fe-612dd042dd28"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_sale_invoice_value_per_kg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="897" y="1" width="24" height="20" uuid="1bedc271-701c-4e1e-93fe-b48a004b3736"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="920" y="1" width="42" height="20" backcolor="#33FFFF" uuid="1641dab9-079f-4661-8b37-0bedd76d3511"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{allocated_whse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="962" y="1" width="50" height="20" backcolor="#33FFFF" uuid="25462279-cb90-4289-9fdb-ea059e06ec00"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{si_blend_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="56" y="0" width="50" height="23" uuid="407e1360-51ff-4f68-868b-49fd883fad5d"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalLots}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="0" width="44" height="23" uuid="3f0d45e2-5954-4b3c-9962-21e72088147b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lots]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="89" splitType="Stretch">
+			<textField>
+				<reportElement x="331" y="37" width="95" height="23" uuid="a38421aa-b24e-4b82-92fb-ba4c7fb32de2"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPkgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="37" width="79" height="23" uuid="a5da8aee-33f7-45a6-aa4b-c75a2b79c2cb"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalKgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="581" y="37" width="139" height="23" uuid="594d086e-2b6e-457e-b0f2-90358d346086"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalfinalInvoiceValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="874" y="37" width="121" height="23" uuid="65462535-9c19-4ee3-b6a8-c2b98477ce6f"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalWithHoldingTax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="258" y="37" width="70" height="23" uuid="7d05c835-9e65-4db7-813e-9a813f26cb9b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Pkgs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="37" width="72" height="23" uuid="e59a439c-7034-4e4a-85f6-58510ada1679"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total kgs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="37" width="144" height="23" uuid="4db359ee-e785-4dd1-92c4-21b2537a8c93"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Invoice Value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="725" y="37" width="144" height="23" uuid="bb313615-ddd4-4f6a-9ba8-7f5098c43b59"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Wth. Tax]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -99,10 +99,10 @@
         }
     }
 </style>
-<div style="height:40% !important;">
+<div style="height:20% !important;">
+<div class="container-fluid well">
         <form id="blend_master" method="post">
         <div class="row">
-
             <div class="col-md-3 col-md-3">
                 <div class="form-group"><label class="form-label">Blend No</label><input type="text" class="form-control" id="blend_no" name="blend_no" value=""></div>
                 <div class="form-group"><label class="form-label">Date</label><input type="text" class="form-control" id="date_" name="date_" value=""></div>
@@ -136,7 +136,7 @@
         </div>
         </form>
     
-   
+        </div>
 </div>
 
 <div class="container-fluid">
@@ -145,40 +145,7 @@
 
         </div>
     </div>
-    <div class="row" style="max-height:20%;">
-        <div class="col-md-3 col-sm-6">
-            <div class="counter">
-                <span id="BtotalLots" class="counter-value">0</span>
-                <div class="counter-content">
-                    <h3>Lots</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="counter orange">
-                <span id="BtotalPackages" class="counter-value">10</span>
-                <div class="counter-content">
-                    <h3>KGS</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="counter orange">
-                <span id="BtotalKilos" class="counter-value">0</span>
-                <div class="counter-content">
-                    <h3>Packages</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="counter orange">
-                <span id="BtotalValue" class="counter-value">0</span>
-                <div class="counter-content">
-                    <h3>Amount USD</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="row">
         <div class="col-md-12">
             <div id="blendTable"></div>

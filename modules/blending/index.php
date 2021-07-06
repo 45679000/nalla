@@ -31,6 +31,14 @@ include $path_to_root . 'views/includes/auction_ids.php';
                 }else{
                     include 'grading_table.php'; 
                 }
+            }else{
+                echo '
+                <div>  
+                    <div class="card">
+                        <h3>Select the option from the menu to assign teas to clients for shippment</h3>
+                    </div>
+                
+                </div>';
             }
             ?>
         </div>

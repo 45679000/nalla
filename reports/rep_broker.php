@@ -53,12 +53,6 @@
 
         }
         
-        //$PHPJasperXML->debugsql=true;
-          //page output method I:standard output  D:Download file
-        // $import_date = date_format(date_create($import_date),"l jS  F Y");
-       
-      // $date =date("l jS  F Y");
-
      
     }
 

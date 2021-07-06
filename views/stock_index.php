@@ -115,6 +115,9 @@ $shippingI = $controller->getShippingInstructions();
                     include 'shipping.php'; 
                 }else if(($_GET['view']=='amend-stock')){
                     include 'amend_stock.php'; 
+                }else if(($_GET['view']=='summaries')){
+                    $summary = isset($_GET['summary']) ? $_GET['summary'] : '';
+                    include 'stock_summaries.php'; 
                 }else{
                     include 'grading_table.php'; 
                 }

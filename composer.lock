@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00057de63bd6754a01a301be877ccfa4",
+    "content-hash": "007f8a1d83f78faa8ece038814e51cff",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -59,6 +59,54 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/master"
             },
             "time": "2020-06-29T00:56:53+00:00"
+        },
+        {
+            "name": "koolreport/core",
+            "version": "5.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koolreport/core.git",
+                "reference": "aa7241001ee998a0616277cf532789ec47166f0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koolreport/core/zipball/aa7241001ee998a0616277cf532789ec47166f0a",
+                "reference": "aa7241001ee998a0616277cf532789ec47166f0a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KoolPHP Inc",
+                    "homepage": "https://www.koolphp.net"
+                }
+            ],
+            "description": "An Open Source PHP Reporting Framework for easier and faster report delivery.",
+            "homepage": "https://www.koolreport.com",
+            "keywords": [
+                "PHP Reporting Framework",
+                "PHP Reporting Tools",
+                "charts and graphs",
+                "data processing",
+                "data visualization"
+            ],
+            "support": {
+                "issues": "https://github.com/koolreport/core/issues",
+                "source": "https://github.com/koolreport/core/tree/v5.0.1"
+            },
+            "time": "2021-01-11T08:02:20+00:00"
         },
         {
             "name": "maennchen/zipstream-php",

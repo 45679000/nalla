@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '2fb73c5527fb663f8793b7f377ce73491e92f577',
+    'reference' => '0db66cef84b971a8fe075821ca22c2d4f49ab6ad',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '2fb73c5527fb663f8793b7f377ce73491e92f577',
+      'reference' => '0db66cef84b971a8fe075821ca22c2d4f49ab6ad',
     ),
     'ezyang/htmlpurifier' => 
     array (
@@ -28,6 +28,15 @@
       array (
       ),
       'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
+    ),
+    'koolreport/core' => 
+    array (
+      'pretty_version' => '5.0.1',
+      'version' => '5.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'aa7241001ee998a0616277cf532789ec47166f0a',
     ),
     'maennchen/zipstream-php' => 
     array (

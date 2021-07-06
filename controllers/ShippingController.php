@@ -25,37 +25,65 @@ Class ShippingController extends Model{
         $this->query = "SELECT *FROM closing_stock WHERE pkgs>0";
         return $this->executeQuery();
     }
-    public function allocateForShippment($id){
+    public function allocateForShippment($id, $client_id){
         $this->query = "UPDATE closing_stock SET selected_for_shipment = 1 WHERE stock_id = ".$id;
+        $this->executeQuery();
+        $this->query = "REPLACE INTO stock_allocation(stock_id, client_id, allocated_pkgs) 
+        SELECT stock_id, $client_id, pkgs
+        FROM closing_stock WHERE stock_id= ".$id;
         return $this->executeQuery();
     }
-    public function unAllocateForShippment($id){
+    public function unAllocateForShippment($id, $client_id){
         $this->query = "UPDATE closing_stock SET selected_for_shipment = 0 WHERE stock_id = ".$id;
+        $this->query = "DELETE FROM stock_allocation WHERE stock_id = ".$id. " AND client_id = ".$client_id;
         return $this->executeQuery();
     }
-    public function summaries($siType="straight"){
+    public function shipmentSummaries($client_id){
    
-        $this->query = "SELECT COUNT(lot) AS totalLots FROM closing_stock WHERE selected_for_shipment = 1";
+        $this->query = "SELECT COUNT(lot) AS totalLots FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND client_id = '$client_id'";
         $lots = $this->executeQuery();
-        $this->query = "SELECT SUM(kgs) AS totalkgs FROM closing_stock WHERE selected_for_shipment = 1";
+        $this->query = "SELECT SUM(kgs) AS totalkgs FROM closing_stock
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND client_id = '$client_id'";
         $kgs = $this->executeQuery();
-        $this->query = "SELECT SUM((pkgs)) AS totalpkgs FROM closing_stock WHERE selected_for_shipment = 1";
+        $this->query = "SELECT SUM((pkgs)) AS totalpkgs FROM closing_stock
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND client_id = '$client_id'";
         $pkgs = $this->executeQuery();
-        $this->query = "SELECT SUM((net * sale_price/100)) AS totalAmount FROM closing_stock WHERE selected_for_shipment = 1";
+        $this->query = "SELECT SUM((kgs * (sale_price/100))) AS totalAmount FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND client_id = '$client_id'";
         $totalAmount = $this->executeQuery();
-        if($siType!=="straight"){
-            $this->query = "SELECT SUM((current_allocation)) AS totalpkgs FROM closing_stock WHERE selected_for_shipment = 1";
-            $pkgs = $this->executeQuery();
-        }
-        $this->query = "SELECT contract_no, target_vessel, buyer, consignee FROM shipping_instructions ORDER BY instruction_id DESC LIMIT 1";
-        $shippingDetails = $this->executeQuery();
+        $this->query = "SELECT SUM((allocated_pkgs)) AS totalpkgs FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND client_id = '$client_id'";
+        $this->query = "SELECT SUM((net)) AS totalNet FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND client_id = '$client_id'";
+        $net = $this->executeQuery();
+        
+        $this->query = "SELECT (CASE WHEN (approval_workflow.id IS NULL) THEN 'Unconfirmed' ELSE status END) AS status
+        FROM stock_allocation  
+        LEFT JOIN approval_workflow ON stock_allocation.approval_id = approval_workflow.approval_id
+        WHERE client_id = '$client_id' AND shipped = 0";
+        $status = $this->executeQuery();
 
+        $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$client_id'";
+        $clientName = $this->executeQuery();
         return array(
             "totalLots"=>$lots[0]['totalLots'],
             "totalkgs"=>$kgs[0]['totalkgs'],
+            "totalNet"=>$net[0]['totalNet'],
             "totalpkgs"=>$pkgs[0]['totalpkgs'],
             "totalAmount"=>$totalAmount[0]['totalAmount'],
-            "shippingDetails"=>$shippingDetails[0]
+            "clientName"=>$clientName[0]['name'],
+            "approvalStatus"=>$status[0]['status'],
+            "lotDetailsView"=>"<a href='../../reports/lot_details?action=view&clientid=".$client_id."'>Print</a>",
+            "lotDetailsEdit"=>"<a href='./index?action=edit&clientid=".$client_id."'>view</a>",
+
+
         );
     }
     public function loadSItemplates($id=0){
@@ -122,6 +150,16 @@ Class ShippingController extends Model{
         $this->query = "UPDATE shipping_instructions SET file = '$file' WHERE instruction_id = ".$id;
         return $this->executeQuery();
 
+    }
+    public function fetchErpClients(){
+        $this->query = "SELECT debtor_no, name FROM 0_debtors_master WHERE inactive = 0";
+        return $this->executeQuery();
+    }
+    public function loadAllocated($clientid){
+        $this->query = "SELECT *FROM closing_stock
+        LEFT JOIN stock_allocation ON closing_stock.stock_id = stock_allocation.stock_id
+         WHERE client_id = '$clientid'";
+        return $this->executeQuery();
     }
 }        
 

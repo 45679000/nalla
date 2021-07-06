@@ -245,6 +245,8 @@ function viewStraightSelectionSummary(){
         $('#StotalPackages').text(data.totalkgs);
         $('#StotalKilos').text(data.totalpkgs);
         $('#StotalValue').text(data.totalAmount);
+        $('#client').text(data.name);
+
         $('.counter-value').each(function(){
             $(this).prop('Counter',0).animate({
                 Counter: $(this).text()

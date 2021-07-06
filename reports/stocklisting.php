@@ -13,18 +13,29 @@
                 $PHPJasperXML->load_xml_file("jrxmlFiles/total_purchases.jrxml");
             break;
             case 'totalStock':
-                $PHPJasperXML->load_xml_file("jrxmlFiles/total_purchases.jrxml");
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock.jrxml");
             break;
-            case 'dust':
-              $PHPJasperXML->load_xml_file("jrxmlFiles/brokersCatalogueDust.jrxml");
+            case 'totalStockOriginal':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock_original.jrxml");
             break;
-            case 'leaf':
-              $PHPJasperXML->load_xml_file("jrxmlFiles/brokersCatalogueLeaf.jrxml");
+            case 'totalStockBlended':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock_blended.jrxml");
             break;
-
+            case 'totalStockContractWise':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock_contractwise.jrxml");
+            break;
+            case 'totalStockAwaitingShipment':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock_awaiting_shippment.jrxml");
+            break;
+            case 'totalStockPaidUnallocated':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock_paid_unallocated.jrxml");
+            break;
+            case 'totalStockUnPaidUnallocated':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock_unpaid_unallocated.jrxml");
+            break;
             default:
-              $PHPJasperXML->load_xml_file("jrxmlFiles/brokersCatalogue.jrxml");
-              break;
+                $PHPJasperXML->load_xml_file("jrxmlFiles/total_stock.jrxml");
+            break;
           }
           $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
           $PHPJasperXML->outpage("I");

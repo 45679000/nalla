@@ -7,20 +7,16 @@
     <div class="card">
         <div class="expanel expanel-primary">
             <div class="expanel-heading">
-                <h3 class="expanel-title">Blend Sheets</h3>
+                <h3 class="expanel-title">Allocate Teas For shippment</h3>
             </div>
             <div class="expanel-body">
                 <div class="list-group list-group-transparent mb-0 mail-inbox">
-                    <a href="./index.php?view=straight" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <span class="icon mr-3"><i class="fa fa-exchange"></i></span>Straight Line
-                    </a>
-                    <a href="./index.php?view=blend" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <span class="icon mr-3"><i class="fa fa-cubes"></i></span>Blended
-                    </a>
-            
-                    <a href="./index.php?view=allocation" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <span class="icon mr-3"><i class="fa fa-database"></i></span>Allocated Stock
-                    </a>
+                    <li class="list-group-item list-group-item-action d-flex align-items-center">
+					    <a href="./index.php?view=straight" class=" wave-effect"><i class="fa fa-cubes mr-2"></i>Straight Line</a>
+					</li>
+                    <li class="list-group-item list-group-item-action d-flex align-items-center">
+					    <a href="./index.php?view=blend" class=" wave-effect"><i class="fa fa-cubes mr-2"></i>Blended</a>
+					</li>
 
                 </div>
             </div>

@@ -158,10 +158,10 @@ WHERE mark_country.deleted = 0 AND is_blend_balance = 0]]>
 				</textElement>
 				<text><![CDATA[CHAMU SUPPLIERS LIMITED]]></text>
 			</staticText>
-			<image>
+			<!-- <image>
 				<reportElement x="7" y="1" width="137" height="44" uuid="7576e3d3-45f4-47da-b919-c8dcc80bd6d6"/>
 				<imageExpression><![CDATA["/opt/lampp/htdocs/chamu-tifms/images/logo.png"]]></imageExpression>
-			</image>
+			</image> -->
 		</band>
 	</title>
 	<pageHeader>

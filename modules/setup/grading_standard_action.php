@@ -32,10 +32,12 @@
 			          </tr>
 			        </thead>
 			        <tbody>";
+					$id = 1;
+
 			foreach ($codess as $codes) {
 			$output.="<tr>
-			            <td>".$codes['id']."</td>
-                        <td>".$codes['standard']."</td>
+						<td>".$id."</td>
+						<td>".$codes['standard']."</td>
 			            <td>".$codes['description']."</td>
 			            <td>
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
@@ -44,6 +46,8 @@
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
 			        </tr>";
+					$id++;
+
 				}
 			$output .= "</tbody>
       		</table>";

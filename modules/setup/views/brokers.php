@@ -106,9 +106,7 @@
                 },
                 success: function(response) {
                     $("#tableData").html(response);
-                    $("table").DataTable({
-                        order: [0, 'ASC']
-                    });
+                    $("table").DataTable({});
                 }
 
             });

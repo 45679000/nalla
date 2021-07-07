@@ -101,7 +101,7 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function loadActiveBlend(){
-        $this->query = "SELECT *FROM blend_master LIMIT 1";
+        $this->query = "SELECT *FROM blend_master WHERE approved = 1";
         return $this->executeQuery();
     }
     public function allocateBlend($id, $pkgs){
@@ -238,6 +238,10 @@ Class ShippingController extends Model{
     public function unAllocateForShippmentBlend($id, $blendno){
         $this->query = "UPDATE closing_stock SET selected_for_shipment = 0 WHERE stock_id = ".$id;
         $this->query = "DELETE FROM stock_allocation WHERE stock_id = ".$id. " AND blend_no = ".$blendno;
+        return $this->executeQuery();
+    }
+    public function attachSi($sino, $blendno){
+        $this->query = "UPDATE blend_master SET si_no = '$sino' WHERE blend_no = '$blendno'";
         return $this->executeQuery();
     }
 }        

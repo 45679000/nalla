@@ -63,15 +63,10 @@
                                                 <td>Pkgs</td>
                                                 <td>Kgs</td>
                                                 <td>Net</td>
-                                                <td>Auction Hammer Price per Kg(USD)</td>
-                                                <td>Value Ex Auction</td>
-                                                <td>Brokerage Amount 0.5 % on value(USD)</td>
-                                                <td>Final Prompt Value Including Brokerage 0.5 % on value(USD)</td>
-                                                <td>Witdholding Tax @ 5% Of Brokerage Amount Payable to Domestic Taxes Dept(USD)</td>
-                                                <td>Prompt Payable to EATTA-TCA After Deduction of W.Tax</td>
-                                                <td>Add on(Over Auction Hammer Price+ Brokerage) Per Kg (USD))</td>
-                                                <td>Final Sales Invoice Price Per Kg(USD)</td>
                                                 <td>Final Sales Invoice Value(USD)</td>
+                                                <td>Code</td>
+                                                <td>Warehouse</td>
+                                                <td>Allocation</td>
 
 											</tr>
 										</thead>
@@ -131,15 +126,11 @@
                                             $html.='<td>'.$stock['pkgs'].'</td>'; //pkgs
                                             $html.='<td>'.$stock['kgs'].'</td>'; //net
                                             $html.='<td>'.$stock['net'].'</td>'; //kgs
-                                            $html.='<td>'.$hammerPrice.'</td>'; //auction hammer
-                                            $html.='<td>'.$value.'</td>'; //value ex auction
-                                            $html.='<td>'.$brokerage.'</td>';// brokerage fee
-                                            $html.='<td>'.$totalAmount.'</td>'; //final prompt value
-                                            $html.='<td>'.(5/100)*$brokerage.'</td>';
-                                            $html.='<td>'.$afterTax.'</td>';
-                                            $html.='<td>'.$addon.'</td>';
-                                            $html.='<td>'.$totalPayable.'</td>';
                                             $html.='<td>'.$totalPayable*intVal($stock['net']).'</td>';
+                                            $html.='<td>'.$stock['comment'].'</td>';
+                                            $html.='<td>'.$stock['allocated_whse'].'</td>';
+                                            $html.='<td>'.$stock['standard'].'</td>';
+
                                        $html.='</tr>';
                               
                                         }
@@ -153,20 +144,17 @@
                                 $html.='<td></td>';
                                 $html.='<td></td>';
                                 $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
                                 $html.='<td></td>'; 
-                                $html.='<td><b>'.$totalPkgs.'</b></td>'; //pkgs
-                                $html.='<td><b>'.$totalKgs.'</b></td>'; //net
-                                $html.='<td><b>'.$totalNet.'</b></td>'; //kgs
-                                $html.='<td><b>'.$totalHammer.'</b></td>'; //auction hammer
-                                $html.='<td><b>'.$totalValue.'</b></td>'; //value ex auction
-                                $html.='<td><b>'.$totalBrokerage.'</b></td>';// brokerage fee
-                                $html.='<td><b>'.$totalAmount.'</b></td>'; //final prompt value
-                                $html.='<td><b>'.$totalbrokerage.'</b></td>';
-                                $html.='<td><b>'.$totalAfterTax.'</b></td>';
-                                $html.='<td><b>'.$totalAddon.'</b></td>';
-                                $html.='<td><b>'.$totalpayable.'</b></td>';
+                                $html.='<td></td>'; 
+
                                 $html.='<td><b>'.$totalPayableStock.'</b></td>';
-     
+                                $html.='<td></td>'; 
+                                $html.='<td></td>'; 
+                                $html.='<td></td>'; 
+
                                 $html.='</tr>';
                                 $html.= '</tbody>
                                     </table>

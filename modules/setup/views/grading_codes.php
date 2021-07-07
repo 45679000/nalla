@@ -105,8 +105,7 @@
                 },
                 success: function(response) {
                     $("#tableData").html(response);
-                    $("table").DataTable({
-                    });
+                    $("table").DataTable({});
                 }
 
             });

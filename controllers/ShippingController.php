@@ -22,7 +22,7 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function loadUnallocated(){
-        $this->query = "SELECT *FROM closing_stock WHERE pkgs>0";
+        $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment =0 ";
         return $this->executeQuery();
     }
     public function allocateForShippment($id, $client_id){
@@ -112,11 +112,11 @@ Class ShippingController extends Model{
         $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment = 1";
         return $this->executeQuery();
     }
-    public function saveBlend($post){
-        $this->data = $post;
-        $this->tablename = "blend_master";
-        $id = $this->insertQuery();
-        return $id;
+    public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw){
+        $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`)
+         VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw')";
+        $this->executeQuery();
+
     }
     public function viewPackingMaterials(){
         $this->query = "SELECT *FROM packaging_materials WHERE in_stock>0";
@@ -159,6 +159,85 @@ Class ShippingController extends Model{
         $this->query = "SELECT *FROM closing_stock
         LEFT JOIN stock_allocation ON closing_stock.stock_id = stock_allocation.stock_id
          WHERE client_id = '$clientid'";
+        return $this->executeQuery();
+    }
+    public function fetchStandards(){
+        $this->query = "SELECT standard FROM grading_standard WHERE deleted = 0";
+        return $this->executeQuery();
+    }
+    public function fetchGrades(){
+        $this->query = "SELECT name FROM grades WHERE deleted = 0";
+        return $this->executeQuery();
+    }
+    public function fetchBlends($blendno=''){
+        if($blendno !=''){
+            $this->query = "SELECT * FROM blend_master WHERE blend_no = '$blendno'";
+            return $this->executeQuery();
+        }else{
+            $this->query = "SELECT * FROM blend_master";
+            return $this->executeQuery(); 
+        }
+ 
+    }
+    public function shipmentSummaryBlend($blendno){
+   
+        $this->query = "SELECT COUNT(lot) AS totalLots FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND blend_no = '$blendno'";
+        $lots = $this->executeQuery();
+        $this->query = "SELECT SUM(kgs) AS totalkgs FROM closing_stock
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND blend_no = '$blendno'";
+        $kgs = $this->executeQuery();
+        $this->query = "SELECT SUM((pkgs)) AS totalpkgs FROM closing_stock
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND blend_no = '$blendno'";
+        $pkgs = $this->executeQuery();
+        $this->query = "SELECT SUM((kgs * (sale_price/100))) AS totalAmount FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND blend_no = '$blendno'";
+        $totalAmount = $this->executeQuery();
+        $this->query = "SELECT SUM((allocated_pkgs)) AS totalpkgs FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND blend_no = '$blendno'";
+        $this->query = "SELECT SUM((net)) AS totalNet FROM closing_stock 
+        LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
+        WHERE allocation_id IS NOT NULL AND blend_no = '$blendno'";
+        $net = $this->executeQuery();
+        
+        $this->query = "SELECT (CASE WHEN (approval_workflow.id IS NULL) THEN 'Unconfirmed' ELSE status END) AS status
+        FROM stock_allocation  
+        LEFT JOIN approval_workflow ON stock_allocation.approval_id = approval_workflow.approval_id
+        WHERE blend_no = '$blendno' AND shipped = 0";
+        $status = $this->executeQuery();
+
+        // $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$blendno'";
+        // $clientName = $this->executeQuery();
+        return array(
+            "totalLots"=>$lots[0]['totalLots'],
+            "totalkgs"=>$kgs[0]['totalkgs'],
+            "totalNet"=>$net[0]['totalNet'],
+            "totalpkgs"=>$pkgs[0]['totalpkgs'],
+            "totalAmount"=>$totalAmount[0]['totalAmount'],
+            // "clientName"=>$clientName[0]['name'],
+            "approvalStatus"=>$status[0]['status'],
+            "lotDetailsView"=>"<a href='../../reports/lot_details?action=view&blendno=".$blendno."'>Print</a>",
+            "lotDetailsEdit"=>"<a href='./index?action=edit&blendno=".$blendno."'>view</a>",
+
+
+        );
+    }
+    public function allocateForShippmentBlend($id, $blendno){
+        $this->query = "UPDATE closing_stock SET selected_for_shipment = 1 WHERE stock_id = ".$id;
+        $this->executeQuery();
+        $this->query = "REPLACE INTO stock_allocation(stock_id, blend_no, allocated_pkgs) 
+        SELECT stock_id, '$blendno', pkgs
+        FROM closing_stock WHERE stock_id= ".$id;
+        return $this->executeQuery();
+    }
+    public function unAllocateForShippmentBlend($id, $blendno){
+        $this->query = "UPDATE closing_stock SET selected_for_shipment = 0 WHERE stock_id = ".$id;
+        $this->query = "DELETE FROM stock_allocation WHERE stock_id = ".$id. " AND blend_no = ".$blendno;
         return $this->executeQuery();
     }
 }        

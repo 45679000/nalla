@@ -32,10 +32,11 @@
 			          </tr>
 			        </thead>
 			        <tbody>";
+			$id = 1;
 			foreach ($grades as $grade) {
 			$output.="<tr>
-			            <td>".$grade['id']."</td>
-                        <td>".$grade['name']."</td>
+						<td>".$id."</td>
+						<td>".$grade['name']."</td>
                         <td>".$grade['description']."</td>
 			            <td>
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
@@ -44,7 +45,10 @@
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
 			        </tr>";
+					$id++;
+
 				}
+
 			$output .= "</tbody>
       		</table>";
       		echo $output;	

@@ -32,10 +32,11 @@
 			          </tr>
 			        </thead>
 			        <tbody>";
+			$id = 1;
 			foreach ($brokers as $broker) {
 			$output.="<tr>
-			            <td>".$broker['id']."</td>
-                        <td>".$broker['code']."</td>
+						<td>".$id."</td>
+						<td>".$broker['code']."</td>
 			            <td>".$broker['name']."</td>
 			            <td>
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
@@ -44,6 +45,8 @@
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
 			        </tr>";
+					$id++;
+
 				}
 			$output .= "</tbody>
       		</table>";

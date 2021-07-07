@@ -56,6 +56,10 @@
         </div>
     </div>
 </div>
+<div class="text-center">
+<a href="#" class="previous">&laquo; Previous</a>
+<a id="next" href="#" class="next">Next &raquo;</a>
+</div>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
 
 <script>
@@ -80,24 +84,15 @@
             $('#ishippingInstructions').hide();
             $('#iprofomainvoice').hide();
             $('#display').html('<iframe id="ilotdetails"></iframe>');
-            $("#ilotdetails").attr('src', '../../reports/files/si-lots/lot_details_'+localStorage.getItem("siId")+".pdf");
-            $.ajax({   
-                    type: "POST",
-                    data : {action:"generate", siId:localStorage.getItem("siId")},
-                    dataType: "json", 
-                    url: "../../reports/lot_details.php",   
-                    success: function(data){
-                        $('#ilotdetails').show();
-
-                }   
-            });   
+            $("#ilotdetails").attr('src', '../../reports/lot_details.php');
+            
 
         
     });
-   
+    
     $('#shippingInstructions').click(function(){
         $('#display').html('<iframe id="ishippingInstructions"></iframe>');
-        $("#ishippingInstructions").attr('src', '../../reports/files/si/instruction_'+localStorage.getItem("siId")+".pdf");
+        $("#ishippingInstructions").attr('src', '../../reports/shipping_instructions.php');
 
         $('#ishippingInstructions').show();
         $('#ilotdetails').hide();
@@ -111,4 +106,7 @@
         $('#iprofomainvoice').show();
     });
     
+    $('#next').click(function(){
+    window.location.href = './index.php?view=summary';
+    });
 </script>

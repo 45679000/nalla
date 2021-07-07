@@ -51,15 +51,16 @@ function addSi(){
                 $.ajax({   
                     type: "POST",
                     data : {action:"generate", siId:data.id},
-                    dataType: "json", 
+                    dataType: "html", 
                     url: "../../reports/shipping_instruction.php",   
                     success: function(data){
-                        swal('Success',data.message, 'success');
-                    }   
+                        swal('Success');
+                    }  
                 });   
 
                 localStorage.setItem("siId", data.id);
                 localStorage.setItem("siType", data.shipment_type);
+                window.location.href = './index.php?view=shipment-teas&si='+data.id+'&type='+data.shipment_type;
 
 
             }   

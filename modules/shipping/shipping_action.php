@@ -111,20 +111,6 @@ if($action=='add-si'){
     </table>';
             }
    echo $output;
-}else if(($action=='allocate')){
-    $id = isset($_POST['id']) ? $_POST['id'] : die();
-    $shippingCtrl->allocateForShippment($id);
-
-    echo json_encode(array("status"=>"Lot allocated successfully"));
-    
-}else if(($action=='unallocate')){
-    $id = isset($_POST['id']) ? $_POST['id'] : die();
-    $shippingCtrl->unAllocateForShippment($id);
-
-    echo json_encode(array("status"=>"Lot allocated successfully"));
-
-}else if($action=='shippment-summary'){
-    echo json_encode($shippingCtrl->summaries($_POST['type']));
 }else if($action=='blend'){
     $_SESSION['blend_details'] = $_POST;
     echo json_encode(array("success"=>200, "message"=>"Blend Saved"));
@@ -281,18 +267,6 @@ if($action=='add-si'){
         echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
 
     }       
-}else if($action=='add-blend'){
-    unset($_POST['action']);
-    $resp = $shippingCtrl->saveBlend($_POST);
-    $_SESSION['blend-id'] = $_POST['id'];
-    $_SESSION['blend-id'] = $resp;
-
-    if($resp !=null){
-        echo json_encode(array("success"=>"true", "message"=>"Saved Successfully", "shipment-type"=>$_SESSION['shipment-type']));
-    }else{
-        echo json_encode(array("success"=>"false", "message"=>"There are some errors in the Form record not saved"));
-
-    }
 }else if($_POST['action']=="session-data"){
     echo json_encode($_SESSION);
 
@@ -344,7 +318,7 @@ if($action=='add-si'){
                 echo $output;
     }
 
-else if($action = 'load_blend_summary'){
+else if($action == 'load_blend_summary'){
     $output ="";
     $totalLots=0;
     $totalPkgs=0;
@@ -420,6 +394,12 @@ else if($action = 'load_blend_summary'){
         $output.='</tbody>
     </table>';
     echo $output;
+}else if($action=="attach-blend-si"){
+    echo 'Happy';
+    $sino = isset($_POST['sino']) ? $_POST['sino'] : '';
+    $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
+    $shippingCtrl->attachSi($sino, $blendno);
+    
 }else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }

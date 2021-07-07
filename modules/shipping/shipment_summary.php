@@ -96,7 +96,11 @@
         </div>
     </div>
 </div>
+<div class="text-center">
+<a id="previous"  class="previous">&laquo; Previous</a>
 </div>
+</div>
+
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/plugins/sweet-alert/sweetalert.min.js"></script>
 <script>
@@ -104,7 +108,6 @@
         completeShippment(localStorage.getItem("siType"));
         swal('', 'Shipment Completed Successfully', 'success');
     });
-    $('#tab6').click(function(){
         $.ajax({   
         type: "POST",
         dataType:"json",
@@ -122,6 +125,9 @@
             $('#target_vessel').html(data.shippingDetails.contract_no);
         }   
     }); 
+    
+    $('#previous').click(function(){
+    window.location.href = './index.php?view=documents';
     });
 
 </script>

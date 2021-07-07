@@ -63,8 +63,11 @@
                                                 <td>Pkgs</td>
                                                 <td>Kgs</td>
                                                 <td>Net</td>
-                                                <td>Grade Code</td>
                                                 <td>Final Sales Invoice Value(USD)</td>
+                                                <td>Code</td>
+                                                <td>Warehouse</td>
+                                                <td>Allocation</td>
+
 											</tr>
 										</thead>
                                         <tbody>';
@@ -122,9 +125,12 @@
                                             $html.='<td>'.$stock['invoice'].'</td>'; 
                                             $html.='<td>'.$stock['pkgs'].'</td>'; //pkgs
                                             $html.='<td>'.$stock['kgs'].'</td>'; //net
-                                            $html.='<td>'.$stock['net'].'</td>'; //net
-                                            $html.='<td>'.$stock['comment'].'</td>'; //net
+                                            $html.='<td>'.$stock['net'].'</td>'; //kgs
                                             $html.='<td>'.$totalPayable*intVal($stock['net']).'</td>';
+                                            $html.='<td>'.$stock['comment'].'</td>';
+                                            $html.='<td>'.$stock['allocated_whse'].'</td>';
+                                            $html.='<td>'.$stock['standard'].'</td>';
+
                                        $html.='</tr>';
                               
                                         }
@@ -138,9 +144,17 @@
                                 $html.='<td></td>';
                                 $html.='<td></td>';
                                 $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
+                                $html.='<td></td>';
                                 $html.='<td></td>'; 
+                                $html.='<td></td>'; 
+
                                 $html.='<td><b>'.$totalPayableStock.'</b></td>';
-     
+                                $html.='<td></td>'; 
+                                $html.='<td></td>'; 
+                                $html.='<td></td>'; 
+
                                 $html.='</tr>';
                                 $html.= '</tbody>
                                     </table>

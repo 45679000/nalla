@@ -94,10 +94,19 @@ if($action=='add-si'){
             }
    echo $output;
 }else if(($action=='allocate')){
+   
+    $type = isset($_POST['type']) ? $_POST['type'] : '';
     $id = isset($_POST['id']) ? $_POST['id'] : die();
-    $clientid = isset($_POST['clientId']) ? $_POST['clientId'] : die();
-    $shippingCtrl->allocateForShippment($id, $clientid);
-    echo json_encode(array("status"=>"Lot allocated successfully"));
+    if($type=="blend"){
+        $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : die();
+        $shippingCtrl->allocateForShippmentBlend($id, $blendno);
+        echo json_encode(array("status"=>"Lot allocated successfully"));
+    }else{
+        $clientid = isset($_POST['clientId']) ? $_POST['clientId'] : die();
+        $shippingCtrl->allocateForShippment($id, $clientid);
+        echo json_encode(array("status"=>"Lot allocated successfully"));
+    }
+
     
 }else if(($action=='deallocate')){
     $id = isset($_POST['id']) ? $_POST['id'] : die();
@@ -109,7 +118,11 @@ if($action=='add-si'){
 
 }else if($action=='shippment-summary'){
     echo json_encode($shippingCtrl->shipmentSummaries($_POST['clientId']));
-}else if($action=='blend'){
+}else if($action=='blend-shippment-summary'){
+    echo json_encode($shippingCtrl->shipmentSummaryBlend($_POST['blendno']));
+}
+
+else if($action=='blend'){
     $_SESSION['blend_details'] = $_POST;
     echo json_encode(array("success"=>200, "message"=>"Blend Saved"));
 }else if($action=="si-template"){
@@ -417,6 +430,20 @@ else if($action == 'load_blend_summary'){
     }else{
         echo '<option disabled="" value="..." selected="">select</option>';
     }
+}else if($action=="load-standard"){
+    $output = "";
+    $standard = $shippingCtrl->fetchStandards();
+            $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($standard) > 0) {
+
+         foreach($standard as $standard){
+            $output .= '<option value="'.$standard['standard'].'">'.$standard['standard'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+
 }else if($action=="add-workfow"){
     $approvalId = isset($_POST['id']) ? $_POST['id'] : die('id missing');
     $userid = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : die('user id missing');
@@ -488,6 +515,19 @@ else if($action == 'load_blend_summary'){
             }
    echo $output;
 
+}else if($action=="load-grades"){
+    $output = "";
+    $grades = $shippingCtrl->fetchGrades()();
+            $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($grades) > 0) {
+
+         foreach($grades as $grade){
+            $output .= '<option value="'.$grade['name'].'">'.$grade['name'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
 }else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }

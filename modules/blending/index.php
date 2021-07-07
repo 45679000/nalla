@@ -19,7 +19,7 @@ include $path_to_root . 'views/includes/auction_ids.php';
                 if($_GET['view']=='straight'){
                     include 'direct_blends.php'; 
                 }else if(($_GET['view']=='blend')){
-                    include 'blended.php'; 
+                    include 'views/blends.php'; 
                 }else if(($_GET['view']=='allocate-stock')){
                     include 'allocate_stock.php'; 
                 }else if(($_GET['view']=='stock-master')){
@@ -28,6 +28,8 @@ include $path_to_root . 'views/includes/auction_ids.php';
                     include 'shipping.php'; 
                 }else if(($_GET['view']=='amend-stock')){
                     include 'amend_stock.php'; 
+                }else if(($_GET['view']=='allocateblendteas')){
+                    include 'views/allocate_teas.php'; 
                 }else{
                     include 'grading_table.php'; 
                 }

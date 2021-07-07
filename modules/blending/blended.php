@@ -1,96 +1,44 @@
 <style>
+    .form-group {
+        max-height: 10%;
+    }
+
+    .form-control {
+        border: 1px solid black !important;
+        color: black;
+    }
+
     .counter {
         font-family: 'Poppins', sans-serif;
-        padding: 7.5px 0 0;
+        padding: 0.5px 0 0;
     }
 
-    .counter .counter-value {
-        color: #fff;
-        background: linear-gradient(to top right, #d23283, #771656);
-        font-size: 12px;
-        font-weight: 600;
-        text-align: center;
-        line-height: 50px;
+    .card {
+        max-height: 45%;
+    }
+
+    .table {
+        background-color: white !important;
+    }
+
+    .allocate {
+        background: green;
         width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
-        transform: translateX(-50%);
-        position: absolute;
-        top: 0;
-        left: 50%;
-        z-index: 1;
+        color: white;
     }
 
-    .counter .counter-content {
-        color: #771656;
-        background: #fff;
-        text-align: center;
-        width: 100px;
-        height: 100px;
-        padding: 54px 3.5px 3.5px;
-        margin: 0 auto;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-        border-radius: 50%;
-        overflow: hidden;
-        position: relative;
+    .pdfViewer {
+        background-color: white !important;
     }
 
-    .counter .counter-content:before {
-        content: "";
-        background: linear-gradient(to bottom, #d23283, #771656);
-        width: 100%;
-        height: 90%;
-        border-radius: 50%;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-        transform: translateX(-50%);
-        position: absolute;
-        top: -65px;
-        left: 50%;
+    .deallocate {
+        background: red;
+        width: 50px;
+        color: white;
     }
 
-    .counter h3 {
-        font-size: 17px;
-        font-weight: 500;
-        text-transform: capitalize;
-        line-height: 17px;
-        margin: 0;
-    }
-
-    .counter.orange .counter-content {
-        color: #e84a16;
-    }
-
-    .counter.orange .counter-value {
-        background: linear-gradient(to top right, #f57312, #e84a16);
-    }
-
-    .counter.orange .counter-content:before {
-        background: linear-gradient(to bottom, #f57312, #e84a16);
-    }
-
-    .counter.green .counter-content {
-        color: #2c970d;
-    }
-
-    .counter.green .counter-value {
-        background: linear-gradient(to top right, #80f80d, #2c970d);
-    }
-
-    .counter.green .counter-content:before {
-        background: linear-gradient(to bottom, #80f80d, #2c970d);
-    }
-
-    .counter.blue .counter-content {
-        color: #1c7ac0;
-    }
-
-    .counter.blue .counter-value {
-        background: linear-gradient(to top right, #2ebef3, #1c7ac0);
-    }
-
-    .counter.blue .counter-content:before {
-        background: linear-gradient(to bottom, #2ebef3, #1c7ac0);
+    .frame {
+        background-color: white;
     }
 
     @media screen and (max-width:450) {
@@ -99,61 +47,80 @@
         }
     }
 </style>
-<div style="height:20% !important;">
-<div class="container-fluid well">
-        <form id="blend_master" method="post">
+<div class="col-md-8 col-lg-10">
+    <div class="card">
+        <div class="card-body p-1">
+            <div class="col-md-12">
+                <div class="row justify-content-center" style="max-height:20%;">
+                    <div class="col-md-3 well">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Select Standard</label>
+                            <select id="standard" name="buyer_standard" class="form-control select2-show-search well"><small>(required)</small>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="contentwrapper">
+        <div class="card ">
+            <div class="card-body p-2">
+                <div class="col-md-12">
+                    <div class="row" style="max-height:20%;">
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Blend No</th>
+                                    <th>Grade</th>
+                                    <th>Client</th>
+                                    <th>Output Pkgs</th>
+                                    <th>Output kgs</th>
+                                    <th>Output Net</th>
+                                    <th>Blended Teas</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td id="clients">
+                                <td><input onblur="saveValue(this)"></input></td>
+
+                                    <div class="form-group label-floating">
+                                        <select id="client" name="client" class="form-control select2-show-search well"><small>(required)</small>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td class="counter-value" id="totalLots"></td>
+                                <td class="counter-value" id="totalPkgs"></td>
+                                <td class="counter-value" id="totalkgs"></td>
+                                <td class="counter-value" id="totalNet"></td>
+                                <td class="counter-value" id="totalValue"></td>
+                                <td id="lotView">PRINT</td>
+                                <td id="lotStatus">Unconfirmed</td>
+                                <td>
+                                    <button id="1" style="background-color:green; color:white" onClick="addApproval(this)" class="fa fa-check"></button>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-md-3 col-md-3">
-                <div class="form-group"><label class="form-label">Blend No</label><input type="text" class="form-control" id="blend_no" name="blend_no" value=""></div>
-                <div class="form-group"><label class="form-label">Date</label><input type="text" class="form-control" id="date_" name="date_" value=""></div>
-                <div class="form-group"><label class="form-label">Client Name</label><select name="client_name" id="client_name" class="form-control  select2-show-search" data-placeholder="Select)"> Select2 with search box<option value="BASU">BASU</option>
-                        <option value="KARACHI">KARACHI</option>
-                    </select>
-                </div>
+            <div class="col-md-12">
+                <div id="straightTable"></div>
             </div>
-            <div class="col-md-3 col-md-3">
-                <div class="form-group"><label class="form-label">Std Name</label><input type="text" class="form-control" id="std_name" name="std_name" value=""></div>
-                <div class="form-group"><label class="form-label">Grade</label><select name="grade" id="grade" class="form-control  select2-show-search" data-placeholder="Select)">
-                    </select>
-                </div>
-                <div class="form-group"><label class="form-label">NW</label><input type="text" class="form-control" id="nw" name="nw" value=""></div>
-            </div>
-            <div class="col-md-3 col-md-3">
-                <div class="form-group"><label class="form-label">Auction Week</label><select name="sale_no" id="sale_no" class="form-control  select2-show-search" data-placeholder="Select)"> Select2 with search box<option value="2021-00">2021-00</option>
-
-                    </select>
-                </div>
-                <div class="form-group"><label class="form-label">Output Pkgs</label><input type="text" class="form-control" id="output_pkgs" name="output_pkgs" value=""></div>
-                <div class="form-group"><label class="form-label">Output Kgs</label><input type="text" class="form-control" id="output_kgs" name="output_kgs" value=""></div>
-            </div>
-            <div class="col-md-3 col-md-3">
-                <div class="form-group"><label class="form-label">comments</label><textarea type="text-area" class="form-control" rows="5" cols="5" id="comments" name="comments" value=""></textarea></div>
-            </div>
-            <div style="text-align:center; margin:auto;">
-                <button id="blendIt" class="btn btn-success"><i class="fa fa-hourglass"></i>Create Blend</button>
-
-            </div>
-        </div>
-        </form>
-    
-        </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-12">
-            <div id="blendTable"></div>
         </div>
     </div>
 </div>
 
-<script src="shipping.js"></script>
+
+
+<script src="../../assets/js/blending.js"></script>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
@@ -161,6 +128,7 @@
 <script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
 <script src="../../assets/js/vendors/circle-progress.min.js"></script>
 <script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
 
 <!-- counter  -->
 <script src="../../assets/plugins/counters/counterup.min.js"></script>
@@ -168,8 +136,38 @@
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-
 <script>
-    addBlend();
-    gradeList();
+    $(document).ready(function() {
+        standardOptions();
+        clientOptions();
+        $('#contentwrapper').hide();
+        $('.select2-show-search').select2({
+            placeholder: 'Select an item',
+        });
+        var standard;
+        $('#standard').change(function() {
+            var standard = $('#standard').val();
+            localStorage.setItem("standard", standard);
+            $('#contentwrapper').show();
+            allocationSummary(localStorage.getItem("standard"));
+            loadUnallocated();
+        });
+    });
+
+    function callAction(element) {
+        id = $(element).attr("id");
+        action = $(element).attr("class");
+        AllocationShippment(id, action, "straight", localStorage.getItem("standard"));
+    }
+    $('#lotView').click(function(e) {
+        e.preventDefault();
+        $('#straightTable').html('<iframe class="frame" frameBorder="0" src="../../reports/lot_details.php" width="100%" height="800px"></iframe>');
+    });
+    $('#lotEdit').click(function(e) {
+        e.preventDefault();
+        var standard = localStorage.getItem("standard");
+        showClientAllocation(standard);
+
+    });
+    
 </script>

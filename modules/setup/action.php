@@ -32,9 +32,10 @@
 			          </tr>
 			        </thead>
 			        <tbody>";
+			$id = 1;
 			foreach ($customers as $customer) {
 			$output.="<tr>
-			            <td>".$customer['id']."</td>
+			            <td>".$id."</td>
 			            <td>".$customer['mark']."</td>
 			            <td>".$customer['country']."</td>
 			            <td>
@@ -44,6 +45,7 @@
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
 			        </tr>";
+					$id++;
 				}
 			$output .= "</tbody>
       		</table>";

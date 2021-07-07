@@ -89,7 +89,6 @@
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 </body>
@@ -107,7 +106,6 @@
                 success: function(response) {
                     $("#tableData").html(response);
                     $("table").DataTable({
-                        order: [0, 'ASC']
                     });
                 }
 

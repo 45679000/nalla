@@ -8,9 +8,7 @@
 		// Insert customer data into customer table
 		public function insertRecord($description, $code)
 		{
-			$this->query = "INSERT INTO $this->tableName (name, code) VALUES('$description','$code')";
-			echo $this->query;
-
+			$this->query = "INSERT INTO $this->tableName (description, code) VALUES('$description','$code')";
 			$query = $this->executeQuery();
 
 			if ($query) {

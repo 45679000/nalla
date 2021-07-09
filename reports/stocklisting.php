@@ -1,4 +1,5 @@
 <?php 
+ ob_start();
 
     $path_to_root = "../";
     $path_to_root1 = "../";
@@ -39,6 +40,8 @@
             break;
           }
           $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+          ob_end_clean();
+
           $PHPJasperXML->outpage("I");
         
         

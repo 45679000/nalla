@@ -20,6 +20,13 @@ Class WarehouseController extends Model{
         $this->query = "SELECT *FROM packaging_materials WHERE is_deleted = false";
         return $this->executeQuery();
     }
+    public function getWarehouseLocation(){
+        $this->query = "SELECT warehouse_location.id, location_name, name, code
+        FROM `warehouse_location` 
+        INNER JOIN warehouses ON warehouses.id = warehouse_location.whse_id
+        WHERE active = 1";
+        return $this->executeQuery();
+    }
         
 }
 

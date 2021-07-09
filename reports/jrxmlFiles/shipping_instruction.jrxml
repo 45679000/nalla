@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="shipping_instruction" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e89bf137-4baf-419b-b5ec-d83a9aac67d8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT `instruction_id`, `shippment_type`, `contract_no`, `si_date`, `target_vessel`, `no_containers_type`, `pkgs_shipped`, `packing_materials`, `shipping_marks`, `tea_standard_no`, `grade_type_of_tea`, `consignment_value`, `type_of_loading`, `each_net_per_package`, `each_gross_per_package`, `ware_hse`, `total_net_weight_per_container`, `total_gross_weight_per_container`, `destination_total_place_of_delivery`, `lc_no`, `date_of_issue`, `negotiating_bank`, `marine_insuarance`, `qa_inspection`, `production_date`, `expiry_date`, `buyer`, `consignee`, `note`, `shipper`, `notify_party`, `2nd_notify_party`, `additional_instructions`, `is_current`, `file`, 'PACKMAN' AS ware_hse
+FROM `shipping_instructions`  WHERE instruction_id = 124;]]>
+	</queryString>
+	<field name="instruction_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="shippment_type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contract_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="si_date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="target_vessel" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_containers_type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pkgs_shipped" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="packing_materials" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="shipping_marks" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tea_standard_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="grade_type_of_tea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consignment_value" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="type_of_loading" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="each_net_per_package" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="each_gross_per_package" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ware_hse" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_net_weight_per_container" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_gross_weight_per_container" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="destination_total_place_of_delivery" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lc_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date_of_issue" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="negotiating_bank" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="marine_insuarance" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qa_inspection" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="production_date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="expiry_date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="buyer" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consignee" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="note" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="shipper" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="notify_party" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="2nd_notify_party" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="additional_instructions" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="is_current" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="file" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="135" y="1" width="226" height="20" uuid="f0fa849e-97ae-4af4-8bd4-22acd7116084"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Shipping Instruction]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="22" width="553" height="1" uuid="9c9a2128-6e76-4329-baf3-77caf177d2f3"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="721" splitType="Stretch">
+			<textField>
+				<reportElement x="85" y="0" width="168" height="20" uuid="3dc306c4-39d4-40d5-85ea-5bb10f360ca9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contract_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="19" width="86" height="20" uuid="dd4fd903-6554-4ab8-b69b-9e836a24df3a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[Warehouse]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="19" width="168" height="20" uuid="8a618da3-562b-4c22-911a-e2eb726aad6b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ware_hse}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="253" y="39" width="302" height="20" uuid="0dba3775-0d24-45f5-a799-d85983a44a54"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[Consignee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="254" height="20" uuid="1b9a4e69-e670-4da7-821b-ae56374fca1d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[Buyer]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="61" width="135" height="29" uuid="de2b7c42-3c16-403c-b119-e7a81e936200"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buyer}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="253" y="0" width="150" height="20" uuid="93a3c23b-1cc3-4382-8370-04a33ef03bc9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SI Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="403" y="0" width="152" height="20" uuid="44d1fbe5-1191-4556-b345-75cb26f4c047"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{si_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="253" y="20" width="302" height="20" uuid="956d41a4-d4ee-4ab7-965f-0906ecdf9a49"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="253" y="61" width="138" height="29" uuid="d779c2b0-154a-43f0-a074-451c5aa1e1e9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consignee}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="93" width="190" height="20" uuid="b231f107-382c-4c03-8880-45918537e27b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Contract Nos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="116" width="190" height="20" uuid="013fbe5b-c2c1-4716-aae1-65b4b9945c10"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Target Vessel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="138" width="190" height="20" uuid="b05e909c-8cd0-45be-852b-81e28fedbd83"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[No. of Containers and Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="161" width="190" height="20" uuid="4fbd41be-230b-45bf-95bf-2107af651f4d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Total no. of Packages to ship as per Contract]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="181" width="190" height="23" uuid="d7962a10-f417-4ce6-b35a-270a70c0bd02"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Packing Materials]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="203" width="190" height="23" uuid="4b99e3d3-a08f-4530-bf5a-aa341f921da4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Shipping Marks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="226" width="190" height="20" uuid="27135504-6605-4246-81d1-e92434c6fd92"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Tea Standard No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="262" width="190" height="20" uuid="8984b8e8-db78-43af-9b8a-ae6e06c28745"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Type and Grade Of Tea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="286" width="190" height="20" uuid="2db89817-2202-411c-b067-0010d6b9df6f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Value of Consignment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="310" width="190" height="20" uuid="50139d63-5865-4e40-9f61-10a84f3d483e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Type of Loading]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="332" width="190" height="20" uuid="702a6beb-e0e5-40d1-8a07-951e0bda668c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Each Nett Per Package]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="352" width="190" height="20" uuid="c58c543b-274f-472f-af92-43108f89b6a8"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Each Gross Per Package]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="371" width="190" height="20" uuid="354ec576-716b-4109-9f66-7a27f4bfeba4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Production Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="390" width="190" height="20" uuid="09cc94c3-83d8-4686-bafc-612f72c39e7c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Expiry Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="411" width="190" height="20" uuid="a5269382-8a2f-426b-92e9-d09996d7366b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Total Nett Wt.Per Container]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="431" width="190" height="20" uuid="96c8e3d6-cda0-4b17-ac26-b698f6af1e8a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Total Gross Wt.Per Container]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="451" width="190" height="20" uuid="4d75321b-4af2-4fc5-ad45-cf360eefd653"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Destination and Final Place of Delivery]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="471" width="190" height="20" uuid="8301e334-a98a-45f4-b647-22ed00210a41"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Shipper]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="491" width="190" height="31" uuid="78eff2ca-aa8a-4496-a3dc-059804be4147"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Notify Party]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="523" width="190" height="20" uuid="1f7e50d3-fcc4-4092-8c2c-0f2778a27902"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[2nd Notify Party]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="543" width="190" height="20" uuid="f4de42c7-7dfc-4f64-a37e-a55259bf9ea8"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[LC No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="565" width="190" height="20" uuid="5104d6ab-cfa4-4b45-9230-2e7709f349b0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Date Of Issue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="599" width="190" height="39" uuid="0e91e9b8-199c-4185-8474-111a83c9e325"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Negotiating Bank]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="638" width="190" height="20" uuid="81df00fc-d0f7-4a7c-bba5-499cc0ec0843"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Marine Insuarance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="660" width="190" height="22" uuid="03041fe2-ebc9-47f2-8465-a72d6566374a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[QA & Inspection]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="684" width="190" height="33" uuid="39d0507a-ac37-470c-97bf-23aeb35735fb"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Additional Instructions]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="93" width="365" height="20" uuid="0ba20bec-0d0d-4deb-847e-b832736a09f6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contract_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="116" width="365" height="20" uuid="3fd37abe-9872-43f4-97c3-7814f0f6a6ed"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{target_vessel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="138" width="365" height="20" uuid="796445c6-5498-48ed-982b-887b64c3e7c3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_containers_type}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="161" width="365" height="20" uuid="e9bfbd9a-2643-4ae3-9f50-6dbe8b2e654b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{each_gross_per_package}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="191" y="181" width="365" height="23" uuid="6f91f048-f821-45b2-bf4b-b6d40cf00365"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{packing_materials}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="203" width="365" height="23" uuid="59b66113-08b7-44fd-9186-942b18ee6705"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shipping_marks}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="226" width="365" height="20" uuid="3d6e3c32-c62b-431e-a608-4cf3cf8752bf"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tea_standard_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="262" width="365" height="20" uuid="2a31e67d-c518-43a9-8ae4-c48709ac7080"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade_type_of_tea}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="286" width="365" height="20" uuid="977a1642-99e1-4b54-83d6-46241106a90c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consignment_value}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="310" width="365" height="20" uuid="67adb8ba-83ea-4395-a47d-3983c943df91"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type_of_loading}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="332" width="365" height="20" uuid="a426e034-2e94-4ffb-bb2c-524b880e11e2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{each_net_per_package}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="352" width="365" height="20" uuid="b78c453a-60a2-49fb-b8ad-b60011f4661f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{each_gross_per_package}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="373" width="365" height="20" uuid="11faccd7-35b0-4f45-a72e-355ca85ea6af"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{production_date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="392" width="365" height="20" uuid="fa90c06e-44fb-4e9a-aed5-b68b4e18ddcb"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{expiry_date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="411" width="365" height="20" uuid="37645479-2a41-47c8-a70e-0e7ab7cc25f0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_net_weight_per_container}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="431" width="365" height="20" uuid="0b6559b3-2796-4f95-97a7-9ea37492c768"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_gross_weight_per_container}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="451" width="365" height="20" uuid="2fd42887-884e-4a34-8c3d-ee11bc45ddee"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{destination_total_place_of_delivery}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="471" width="365" height="20" uuid="9386e6e1-7559-495f-a9dc-20862f5976e1"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shipper}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="491" width="365" height="31" uuid="806d3e50-1eae-4fdd-ae51-264a7e5f487f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notify_party}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="523" width="365" height="20" uuid="fda948bb-2def-432c-8752-09895555e26a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{2nd_notify_party}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="543" width="365" height="20" uuid="a922b925-c129-41fd-9325-7d55880c9cea"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lc_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="565" width="365" height="20" uuid="4dc0b965-1894-4c6c-ab8d-ba6941c57e9d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_of_issue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="599" width="365" height="39" uuid="e83d1c8a-67fa-4f48-82c6-7295dad80de5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{negotiating_bank}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="638" width="365" height="20" uuid="2fca2c1b-af9a-4092-b4f5-6294860a65ba"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{marine_insuarance}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="659" width="365" height="22" uuid="2c0ccfc8-5647-4564-b1d6-51def0007532"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qa_inspection}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="685" width="365" height="33" uuid="250eacfd-961f-485f-a46c-1ba46b4df201"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{additional_instructions}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="91" width="553" height="1" uuid="9302c523-47b2-4905-9ef9-86a86c61036e"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="555" y="1" width="1" height="718" uuid="eddbb124-a5bd-45e5-a980-95cad37e1801"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="-1" width="1" height="718" uuid="910e0459-ac84-48f3-8be9-edf81a4c916a"/>
+			</line>
+			<line>
+				<reportElement x="251" y="1" width="1" height="90" uuid="d0aa6640-dcb1-485b-8af0-791c425f6332"/>
+			</line>
+			<line>
+				<reportElement x="0" y="60" width="553" height="1" uuid="ad65f6c9-a415-4af5-ac59-806895dfe2a0"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="2" y="40" width="553" height="1" uuid="16db67cb-3108-4e43-96ad-825dbdb28419"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="2" y="21" width="553" height="1" uuid="6fbf1f8f-1283-4985-8d9a-e04f7e183623"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="2" y="718" width="553" height="1" uuid="689e6d34-07a8-4236-8b32-4fbbfc8aa6b0"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="2" width="86" height="20" uuid="08e3e639-f56e-4655-bd3a-965edf6df2b0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[SI No.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

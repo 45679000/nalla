@@ -16,9 +16,7 @@ include $path_to_root . 'views/includes/auction_ids.php';
             <?php include 'blend_menu.php' ?>
             <?php
             if(isset($_GET['view'])){
-                if($_GET['view']=='straight'){
-                    include 'direct_blends.php'; 
-                }else if(($_GET['view']=='blend')){
+                if(($_GET['view']=='blend')){
                     include 'views/blends.php'; 
                 }else if(($_GET['view']=='allocate-stock')){
                     include 'allocate_stock.php'; 

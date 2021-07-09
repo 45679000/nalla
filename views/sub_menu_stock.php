@@ -74,6 +74,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="expanel expanel-primary">
             <div class="expanel-heading">
                 <h3 class="expanel-title">Stock Management</h3>
@@ -87,7 +88,26 @@
 					    <a href="./stock_index.php?view=amend-stock" class=" wave-effect"><i class="fa fa-exchange mr-2"></i>Amend Stock</a>
 					</li>
                     <li class="list-group-item list-group-item-action d-flex align-items-center">
-					    <a href="../modules/blending/index.php" class=" wave-effect"><i class="fa fa-file mr-2"></i> Shippment Teas</a>
+					    <a href="../modules/blending/index.php" class=" wave-effect"><i class="fa fa-file mr-2"></i>Issue Teas</a>
+					</li>
+
+                </div>
+            </div>
+        </div>
+        <div class="expanel expanel-primary">
+            <div class="expanel-heading">
+                <h3 class="expanel-title">Blending</h3>
+            </div>
+            <div class="expanel-body">
+                <div class="list-group list-group-transparent mb-0 mail-inbox">
+                    <li class="list-group-item list-group-item-action d-flex align-items-center">
+					    <a href="../modules/blending/index.php?view=blend" class=" wave-effect"><i class="fa fa-cubes mr-2"></i> Create Blend</a>
+					</li>
+                    <li class="list-group-item list-group-item-action d-flex align-items-center">
+					    <a href="./stock_index.php?view=amend-stock" class=" wave-effect"><i class="fa fa-exchange mr-2"></i>Swap Teas In Blend</a>
+					</li>
+                    <li class="list-group-item list-group-item-action d-flex align-items-center">
+					    <a href="../modules/blending/index.php" class=" wave-effect"><i class="fa fa-file mr-2"></i>Closed Blends</a>
 					</li>
 
                 </div>

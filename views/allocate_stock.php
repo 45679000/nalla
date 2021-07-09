@@ -1,19 +1,30 @@
 <style>
-    .form-control {
+    .form-control-cstm {
         border: 1px solid !important;
-        padding-bottom: 5px !important;
+        padding-bottom: 1px !important;
         color: black !important;
+        height: 30px !important;
     }
-    table{
+
+    table {
         margin: 0 auto;
         width: 60%;
         clear: both;
         border-collapse: collapse;
-        table-layout: fixed; 
-        word-wrap:break-word;
-}td,th{
-    width:20%;
-}
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+    td,
+    th {
+        width: 20%;
+    }
+
+    .form-control-btn {
+        height: 50px !important;
+        background-color: green;
+        color: white;
+    }
 </style>
 
 <div class="col-md-8 col-lg-10">
@@ -24,7 +35,7 @@
 
                     <div class="expanel-heading">
                         <h3 class="expanel-title">Allocate Stock</h3>
-                        <?php  echo $msg ?>
+                        <?php echo $msg ?>
                     </div>
                     <div class="expanel-body">
                         <form method="post" class="allocate">
@@ -40,34 +51,47 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
-                                    <div class="col-md-3 well">
+                                    <div class="col-md-2 well">
                                         <div class="form-group label-floating">
-                                            <label class="control-label">Client/Standard</label>
-                                            <select id="buyer_standard" name="buyer_standard" class="form-control select2-show-search well"><small>(required)</small>
+                                            <label class="control-label">Client</label>
+                                            <select id="clientwithcode" name="buyer_standard" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 well">
+                                    <div class="col-md-2 well">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Standard</label>
+                                            <input id="std" name="pkgs" class=" standard form-control form-control-cstm well">
+                                            </input>
+                                            <select id="standard" name="standard" class="standard form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 well">
                                         <div class="form-group label-floating">
                                             <label class="control-label">Pkgs To Allocate</label>
-                                            <input id="pkgs" name="pkgs" class="form-control well"></input>
+                                            <input id="pkgs" name="pkgs" class="form-control form-control-cstm well"></input>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 well">
+                                    <div class="col-md-2 well">
                                         <div class="form-group label-floating">
                                             <label class="control-label">MRP value(USD)</label>
-                                            <input id="mrpValue" name="mrpValue" class="form-control well"></input>
+                                            <input id="mrpValue" name="mrpValue" class="form-control form-control-cstm well"></input>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 well">
+                                    <div class="col-md-2 well">
                                         <div class="form-group label-floating">
-                                            <label class="control-label">Offer Price Max(USD)</label>
-                                            <input id="offerPrice" name="offerPrice" class="form-control well"></input>
+                                            <label class="control-label">Ware House</label>
+                                            <select id="warehouseLocation" name="warehouseLocation" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 well">
-                                        <div class="form-group label-floating">
-                                            <button id="allocate" name="allocate" class="btn btn-success">Allocate</button>
+                                    <div class="col-md-2 well align-self-center">
+                                        <div class="form-group label-floating ">
+                                            <button id="allocate" name="allocate" class="form-control-btn">
+                                                <i class="fa fa-plus"></i> allocate
+                                            </button>
                                         </div>
                                     </div>
                                     <input type="hidden" id="pkg_stock" name="pkg_stock" value=""></input>
@@ -77,64 +101,34 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="allocatedStock" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <td>#Id</td>
-                                        <td>Lot</td>
-                                        <td>Sale No</td>
-                                        <td>Broker</td>
-                                        <td>Mark</td>
-                                        <td>Grade</td>
-                                        <td>Invoice</td>
-                                        <td>Allocated Pkgs</td>
-                                        <td>Kgs</td>
-                                        <td>Net</td>
-                                        <td>Hammer.P(USD)</td>
-                                        <td>MRP Value</td>
-                                        <td>Buyer/STD</td>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $html = "";
-                                    foreach ($allocated as $allocated) {
-                                        $html .= '<td>' . $allocated['allocation_id'] . '</td>';
-                                        $html .= '<td>' . $allocated['lot'] . '</td>';
-                                        $html .= '<td><div>' . $allocated['sale_no'] . '</div></td>';
-                                        $html .= '<td>' . $allocated['broker'] . '</td>';
-                                        $html .= '<td>' . $allocated['mark'] . '</td>';
-                                        $html .= '<td>' . $allocated['grade'] . '</td>';
-                                        $html .= '<td>' . $allocated['invoice'] . '</td>';
-                                        $html .= '<td>' . $allocated['allocated_pkgs'] . '</td>'; 
-                                        $html .= '<td>' . $allocated['kgs'] . '</td>'; 
-                                        $html .= '<td>' . $allocated['net_allocation'] . '</td>'; 
-                                        $html .= '<td>' . $allocated['sale_price'] . '</td>'; 
-                                        $html .= '<td>' . $allocated['mrp_value'] . '</td>'; //auction hammer
-                                        $html .= '<td>' . $allocated['buyerstandard'] . '</td>'; //auction hammer
-
-                                        $html .= '</tr>';
-                                    }
-
-                                    $html .= '</tbody>
-                                    </table>
-                                </div>
-                            </div>';
-                                    echo $html;
-
-                                    ?>
+                        <div id ="allocatedStock" class="table-responsive">
+                          
 
                         </div>
                     </div>
                 </div>
 
-
+                <div class="modal fade" id="centralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <!--Content-->
+                        <div class="modal-content">          
+                            <!--Body-->
+                            <div class="modal-body">
+                                <h5>The Selected Lot does not have a selected standard</h5>
+                            </div>
+                            <!--Footer-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                            </div>
+                        </div>
+                        <!--/.Content-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     </body>
+
 
     <!-- Dashboard js -->
     <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
@@ -146,11 +140,14 @@
     <script src="../assets/plugins/jquery-tabledit/jquery.tabledit.js"></script>
     <script src="../assets/js/common.js"></script>
     <script src="../assets/plugins/select2/select2.full.min.js"></script>
-
+    <script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
 
     <script>
         lotList();
         standardList();
+        loadAllocated();
+
+
         $('.select2-show-search').select2({
 
             placeholder: 'Select an item',
@@ -166,12 +163,53 @@
                     id: stock_id
                 },
                 success: function(data) {
+                    var standard = data[0].standard;
+                    if (standard == null) {
+                        $('#centralModal').modal('show');
+                    }else{
+                        $('#std').val(standard);
+                    }
                     $("#pkgs").val(data[0].pkgs);
                     $('#pkg_stock').val(data[0].pkgs);
                 }
 
             });
         })
+        $('#standard').change(function() {
+            $("#std").val($('#standard').val());
+
+        });
+        $('#allocate').click(function(e){
+            e.preventDefault();
+            var standard = $("#std").val();
+            var client = $("#clientwithcode").val();
+            var stock_id = $("#stock_id").val();
+            var pkgs = $("#pkgs").val();
+            var mrp = $("#mrpValue").val();
+            var warehouseLocation = $("#warehouseLocation").val();
+
+            $.ajax({
+                url: "../modules/stock/stock-action.php",
+                type: "POST",
+                dataType: "html",
+                data: {
+                    action: "allocate-stock",
+                    stock_id: stock_id,
+                    pkgs:pkgs,
+                    mrp:mrp,
+                    warehouseLocation:warehouseLocation,
+                    standard:standard,
+                    client:client
+                },
+                success: function(data) {
+                    loadAllocated();
+                    swal('','Allocated', 'success');
+
+                }
+
+            });
+
+        });
     </script>
 
     </html>

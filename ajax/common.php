@@ -5,6 +5,8 @@ header("Content-Type: application/json; charset=UTF-8");
 include '../database/connection.php';
 include '../models/Model.php';
 include '../modules/cataloguing/Catalogue.php';
+include '../controllers/ShippingController.php';
+include '../controllers/WarehouseController.php';
 include '../modules/grading/grading.php';
 
 
@@ -14,6 +16,10 @@ $db = new Database();
 $conn = $db->getConnection();
 $catalogue = new Catalogue($conn);
 $grading = new Grading($conn);
+$shipingCtr = new ShippingController($conn);
+$warehouseCtr = new WarehouseController($conn);
+
+
 if (isset($_POST['action']) && $_POST['action'] == "list-brokers") {
     $output = "";
 
@@ -68,7 +74,7 @@ if (isset($_POST['action']) && $_POST['action'] == "standard-list") {
     $output = '<option disabled="" value="..." selected="">select</option>';
     if (sizeOf($standard) > 0) {
          foreach($standard as $standard){
-            $output .= '<option value="'.$standard['id'].'">'.$standard['standard'].'</option>';
+            $output .= '<option value="'.$standard['standard'].'">'.$standard['standard'].'</option>';
 
          }
           echo $output;	
@@ -202,5 +208,35 @@ if (isset($_POST['action']) && $_POST['action'] == "clear") {
         $grading->grade($_POST['lot'], $_POST['maxPrice'], "max_bp");
     }  
  }
+ if (isset($_POST['action']) && $_POST['action'] == "clients") {
+    $output = "";
+
+    $clients= $shipingCtr->fetchErpClients();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($clients) > 0) {
+         foreach($clients as $clients){
+            $output .= '<option value="'.$clients['debtor_no'].'">'.$clients['debtor_ref'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
+if (isset($_POST['action']) && $_POST['action'] == "warehouseLocation") {
+    $output = "";
+
+    $warehouses= $warehouseCtr->getWarehouseLocation();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($warehouses) > 0) {
+         foreach($warehouses as $warehouse){
+            $output .= '<option value="'.$warehouse['id'].'">'.$warehouse['location_name'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
 
 ?>

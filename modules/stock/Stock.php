@@ -14,7 +14,21 @@
         }
 
         public function readStock($condition="WHERE 1"){
-            $query = "SELECT * FROM `closing_stock` ".$condition;
+            $query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
+            `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
+            (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
+            `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
+            DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
+             stock_allocation.blend_no, stock_allocation.si_id, stock_allocation.shipped,
+            stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
+            blend_teas.packages AS blended_packages, CONCAT(stock_allocation.`standard`,'',0_debtors_master.short_name) AS allocation,
+            mark_country.country
+            FROM `stock_allocation` 
+            LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+            LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
+            LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
+            LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
+            ".$condition;
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();
@@ -107,16 +121,18 @@
             return $inserted;
         
         }
-        public function allocateStock($stock_id, $buyer, $mrpValue, $offerPrice, $pkgs){
+        public function allocateStock($stock_id, $buyer, $standard, $mrpValue, $pkgs, $warehouse){
             try {
-                $query = "INSERT INTO `stock_allocation`( `stock_id`, `buyer_standard`, `allocated_pkgs`,  `max_offered_price`, `mrp_value`)
-                VALUES (?,?,?,?,?)";
+                $query = "INSERT INTO `stock_allocation`( `stock_id`, `client_id`, `standard`,`allocated_pkgs`, `mrp_value`, `warehouse`)
+                VALUES (?,?,?,?,?,?)";
                $stmt = $this->conn->prepare($query);
                $stmt->bindParam(1, $stock_id);
                $stmt->bindParam(2, $buyer);
-               $stmt->bindParam(3, $pkgs);
-               $stmt->bindParam(4, $offerPrice);
+               $stmt->bindParam(3, $standard);
+               $stmt->bindParam(4, $pkgs);
                $stmt->bindParam(5, $mrpValue);
+               $stmt->bindParam(6, $warehouse);
+
                $stmt->execute();
             } catch (Exception $th) {
                 var_dump($th);   
@@ -124,17 +140,19 @@
 
         }
         public function allocatedStock(){
-            $query = "SELECT allocation_id, sale_no, broker, mark, grade, sale_price, lot, allocated_pkgs, kgs, invoice, mrp_value,
-            allocated_pkgs*kgs AS net_allocation, buyer_standard, si_id, shipped, max_offered_price, c.standard as buyerstandard
+            $query = "SELECT allocation_id, sale_no, broker, mark, grade, sale_price, lot, allocated_pkgs, net, invoice, mrp_value,
+            allocated_pkgs*net AS net_allocation,  si_id, shipped, max_offered_price, c.debtor_ref, comment,
+            CONCAT(c.debtor_ref, ' ', a.standard) as buyerstandard
             FROM closing_stock b
             LEFT JOIN stock_allocation a ON a.stock_id = b.stock_id
-            LEFT JOIN grading_standard c ON c.id = a.buyer_standard 
+            LEFT JOIN 0_debtors_master c ON c.debtor_no = a.client_id
             WHERE deallocated = 0";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();
             return $rows;
         }
+   
     }
 
 ?>

@@ -36,7 +36,7 @@ function loadUnallocated() {
             type: "straight"
         },
         cache: true,
-        url: "shipping_action.php",
+        url: "blend_action.php",
         success: function (data) {
             $('#straightTable').html(data);
             $("#direct_lot").DataTable({});
@@ -97,29 +97,29 @@ function allocationSummary(clientId) {
         },
     });
 }
-function AllocationShippment(id, action, type, clientId){
+function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method){
     $.ajax({
         type: "POST",
         data: {
             action: action,
-            type: type,
-            clientId: clientId,            
-            id: id
+            allocationid: allocationid,
+            blendno:blendno,
+            allocatedpackages:allocatedpackages
 
         },
         cache: true,
-        url: "shipping_action.php",
+        url: "blend_action.php",
         success: function (data) {
-            allocationSummary(clientId);
-            if(action=="allocate"){
-                $('#'+id).removeClass('allocate');
-                $('#'+id).addClass('deallocate');
-                $('#'+id).html('<i class="fa fa-minus"></i>');
+            allocationSummary(allocationid, blendno);
+            if(method=="allocate"){
+                $('#'+allocationid).removeClass('allocate');
+                $('#'+allocationid).addClass('deallocate');
+                $('#'+allocationid).html('<i class="fa fa-minus"></i>');
 
             }else{
-                $('#'+id).removeClass('deallocate');
-                $('#'+id).addClass('allocate');
-                $('#'+id).html('<i class="fa fa-plus"></i>');
+                $('#'+allocationid).removeClass('deallocate');
+                $('#'+allocationid).addClass('allocate');
+                $('#'+allocationid).html('<i class="fa fa-plus"></i>');
 
 
 
@@ -194,13 +194,13 @@ function loadGrades(){
     });
     
 }
-function showBlend() {
+function showBlend(blendno) {
     $.ajax({
         url: "blend_action.php",
         type: "POST",
         data: {
             action: "view",
-            blendno: "BTH21906 STD 8230/11-8"
+            blendno: blendno
         },
         success: function(response) {
             $("#tableData").html(response);
@@ -212,7 +212,7 @@ function BlendAllocationSummary(blendno) {
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "shipping_action.php",
+        url: "blend_action.php",
         data: { action: "blend-shippment-summary", blendno: blendno },
         success: function (data) {
             console.log(data.clientName);
@@ -225,6 +225,7 @@ function BlendAllocationSummary(blendno) {
             $('#lotView').html(data.lotDetailsView);
             $('#lotEdit').html(data.lotDetailsEdit);
             $('#lotStatus').html(data.approvalStatus);
+            $('#lotShow').html(data.blendNo);
 
             $('.counter-value').each(function () {
                 $(this).prop('Counter', 0).animate({
@@ -244,6 +245,51 @@ function BlendAllocationSummary(blendno) {
         },
     });
 }
+function standardList(){
+    $.ajax({
+        url: "../../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "standard-list"
+        },
+        success: function(data) {
+            $("#standard").html(data);
 
+        }
+
+    });
+    
+}
+function clientWithcodeList(){
+    $.ajax({
+        url: "../../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "clients"
+        },
+        success: function(data) {
+            $("#clientwithcode").html(data);
+
+        }
+
+    });
+    
+}
+function gradeList() {
+    $.ajax({
+        url: "../../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "grade-list"
+        },
+        success: function(response) {
+            $("#grade").html(response);
+        }
+
+    });
+}
 
 

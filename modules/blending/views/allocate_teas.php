@@ -42,6 +42,10 @@
         }
     }
 </style>
+<?php 
+    $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
+
+?>
 <div class="col-md-8 col-lg-10">
     <div id="contentwrapper">
         <div class="card ">
@@ -79,28 +83,43 @@
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 <script>
-$(document).ready(function(){
-    showBlend();
-    loadUnallocated();
+// $(document).ready(function(){
+ 
+  
+// });
+loadUnallocated();
     // $('.select2-show-search').select2({placeholder: 'Select an item',});
-    var blendno = 'BTH21906 STD 8230/11-8';
-    BlendAllocationSummary(blendno)
+    var blendno = '<?php echo $blendno ?>'
+    showBlend(blendno);
 
-});
+    BlendAllocationSummary(blendno);
+
 
 function callAction(element){
-    id = $(element).attr("id");
-    action = $(element).attr("class");
-    AllocationShippmentBlend(id, action, "blend", "BTH21906 STD 8230/11-8")
-}
-$('#lotView').click(function(e){
-    e.preventDefault();
-    $('#straightTable').html('<iframe class="frame" frameBorder="0" src="../../reports/lot_details.php" width="100%" height="800px"></iframe>');
-});
+    var blendno = '<?php echo $blendno ?>'
+    var allocationid = $(element).attr("id");
+    var allocatedpackages = $('#allocatedpackages').text();
+    var availablepackages = $('#availablepackages').text();
+    method = $(element).attr("class");
+
+    if(allocatedpackages>availablepackages){
+        alert("You cannot allocate more Packages than what is in stock"+allocatedpackages+" "+availablepackages, method);
+    }else{
+        if(method=="allocate"){
+            addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method);
+            BlendAllocationSummary(blendno)
+
+        }
+    }
+    }
+
 $('#lotEdit').click(function(e){
     e.preventDefault();
     var clientid = localStorage.getItem("clientId");
     showClientAllocation(clientid);
     
 });
+function viewAllocations(){
+    $('#straightTable').html('<iframe class="frame" frameBorder="0" src="../../reports/lot_details.php" width="100%" height="800px"></iframe>');
+}
 </script>

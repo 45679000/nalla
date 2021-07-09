@@ -169,5 +169,10 @@
         showClientAllocation(standard);
 
     });
+    $('.deleteBtn').click(function(e) {
+        e.preventDefault();
+        alert('Are you sure you want to delete blend');
+
+    });
     
 </script>

@@ -2,6 +2,8 @@ $(document).ready(function() {
     brokerList();
     gardenList();
     gradeList();
+    clientWithcodeList();
+    wareHouseLocation();
 
     $("#gen-broker-cat").click(function(e) {
         var form = {
@@ -96,7 +98,40 @@ function standardList(){
             action: "standard-list"
         },
         success: function(data) {
-            $("#buyer_standard").html(data);
+            $("#standard").html(data);
+
+        }
+
+    });
+    
+}
+
+function clientWithcodeList(){
+    $.ajax({
+        url: "../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "clients"
+        },
+        success: function(data) {
+            $("#clientwithcode").html(data);
+
+        }
+
+    });
+    
+}
+function wareHouseLocation(){
+    $.ajax({
+        url: "../ajax/common.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "warehouseLocation"
+        },
+        success: function(data) {
+            $("#warehouseLocation").html(data);
 
         }
 
@@ -105,3 +140,20 @@ function standardList(){
 }
 
 
+
+function loadAllocated(){
+    $.ajax({
+        url: "../modules/stock/stock-action.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "stock-allocation"
+        },
+        success: function(data) {
+            $("#allocatedStock").html(data);
+
+        }
+
+    });
+    
+}

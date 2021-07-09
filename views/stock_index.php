@@ -25,11 +25,7 @@ if(isset($_POST['allocate'])){
     $offerPrice = isset($_POST['offerPrice']) ? $_POST['offerPrice'] : '';
     $allocatedPkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : '';
     $InstockPkgs = isset($_POST['pkg_stock']) ? $_POST['pkg_stock'] : '';
-    if($buyer !='' && $stock_id !='' && ($allocatedPkgs !='' || $allocatedPkgs>$InstockPkgs)){
-        $stock->allocateStock($stock_id, $buyer, $mrpValue, $offerPrice, $allocatedPkgs);
-        }else{
-        $msg ="<p class='danger'>Make sure you have filled all required fields and allocated packages is less than the packages in stock</p>";
-    }
+
 
 
 }

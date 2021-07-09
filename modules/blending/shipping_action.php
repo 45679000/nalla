@@ -63,10 +63,10 @@ if($action=='add-si'){
                 $output.='<td>'.$stock["net"].'</td>';
                 $output.='<td>'.$stock["comment"].'</td>';
                 $output.='<td>'.$stock["standard"].'</td>';
-                if($stock["selected_for_shipment"]==0){
+                if($stock["selected_for_shipment"]== NULL){
                     $output.='
                     <td>
-                        <button id="'.$stock["stock_id"].'"  
+                        <button id="'.$stock["allocation_id"].'"  
                             type="button" 
                             class="allocate" 
                             onClick="callAction(this)"
@@ -94,20 +94,13 @@ if($action=='add-si'){
             }
    echo $output;
 }else if(($action=='allocate')){
-   
     $type = isset($_POST['type']) ? $_POST['type'] : '';
     $id = isset($_POST['id']) ? $_POST['id'] : die();
     if($type=="blend"){
         $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : die();
         $shippingCtrl->allocateForShippmentBlend($id, $blendno);
         echo json_encode(array("status"=>"Lot allocated successfully"));
-    }else{
-        $clientid = isset($_POST['clientId']) ? $_POST['clientId'] : die();
-        $shippingCtrl->allocateForShippment($id, $clientid);
-        echo json_encode(array("status"=>"Lot allocated successfully"));
-    }
-
-    
+    } 
 }else if(($action=='deallocate')){
     $id = isset($_POST['id']) ? $_POST['id'] : die();
     $clientid = isset($_POST['clientId']) ? $_POST['clientId'] : die();
@@ -118,8 +111,6 @@ if($action=='add-si'){
 
 }else if($action=='shippment-summary'){
     echo json_encode($shippingCtrl->shipmentSummaries($_POST['clientId']));
-}else if($action=='blend-shippment-summary'){
-    echo json_encode($shippingCtrl->shipmentSummaryBlend($_POST['blendno']));
 }
 
 else if($action=='blend'){

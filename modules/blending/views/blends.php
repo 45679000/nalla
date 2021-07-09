@@ -45,29 +45,35 @@
                 <form id="formData">
                     <div class="row">
                         <div class="col-md-3 form-group">
-                            <label for="blendno">Blend No:</label>
+                            <label class="control-label">Blend No:</label>
                             <input type="text" class="form-control" name="blendno" placeholder="Blend No" required="">
                         </div>
-                        <div class="col-md-3 form-group">
-                            <label for="name">Std Name:</label>
-                            <input type="text" class="form-control" name="stdname" placeholder="Standard" required="">
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Standard</label>
+                                </input>
+                                <select id="standard" name="standard" class="standard form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-3 form-group">
-                            <label for="name">Client Name:</label>
-                            <input type="text" class="form-control" name="clientid" placeholder="Client" required="">
+                            <label class="control-label">Client Name:</label>
+                                <select id="clientwithcode" name="clientid" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                              </select>
                         </div>   
                     </div>
                     <div class="row">
                         <div class="col-md-3 form-group">
-                            <label for="blendno">Grade:</label>
-                            <input type="text" class="form-control" name="grade" placeholder="Grade" required="">
+                            <label class="control-label" for="blendno">Grade:</label>
+                            <select id="grade" name="grade" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                              </select>
                         </div>
                         <div class="col-md-3 form-group">
-                            <label for="name">Output Pkgs:</label>
+                            <label class="control-label" for="name">Output Pkgs:</label>
                             <input type="text" class="form-control" name="pkgs" placeholder="pkgs" required="">
                         </div>
                         <div class="col-md-3 form-group">
-                            <label for="name">Net:</label>
+                            <label class="control-label" for="name">Net:</label>
                             <input type="text" class="form-control" name="nw" placeholder="Client" required="">
                         </div>   
                     </div>
@@ -136,7 +142,10 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
+        standardList();
         showAllBlends();
+        gradeList();
+        clientWithcodeList();
         //View Record
         function showAllBlends() {
             $.ajax({

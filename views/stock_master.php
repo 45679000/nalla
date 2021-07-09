@@ -48,7 +48,7 @@
                                             </div>
                            <div class="card-body">
                                 <div class="table-responsive">
-									<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
+									<table id="closingstocks" class="table table-striped table-bordered" style="width:80%">
 										<thead>
 											<tr>
                                                 <td>Sale No</td>
@@ -61,8 +61,8 @@
                                                 <td>Grade</td>
                                                 <td>Invoice</td>
                                                 <td>Pkgs</td>
-                                                <td>Kgs</td>
                                                 <td>Net</td>
+                                                <td>Kgs</td>
                                                 <td>Final Sales Invoice Value(USD)</td>
                                                 <td>Code</td>
                                                 <td>Warehouse</td>
@@ -91,16 +91,16 @@
                                             $totalLots++; 
                                             $totalPkgs+=$stock['pkgs'];
                                             $totalKgs+=$stock['kgs'];
-                                            $totalNet+=intVal($stock['net']);
+                                            $totalNet+=$stock['net'];
 
                                             $brokerage = round(($stock['value']*$stock['pkgs'])*(0.5/100), 2);
                                             $value = round($stock['value']*$stock['pkgs'],2);
                                             $totalamount = round($brokerage+$value,2);
                                             $afterTax = round(($totalamount)-(5/100)*$brokerage,2);
-                                            $auctionHammer = round(($stock['value']/100),2);
-                                            $addon = round(($auctionHammer+$brokerage)/$stock['pkgs'],2);
+                                            $auctionHammer = round(($stock['sale_price']),2);
+                                            $addon = 0.2;
                                             $totalPayable = round($addon+$auctionHammer, 2);
-                                            $hammerPrice = round($stock['value']/$stock['kgs'],2);
+                                            $hammerPrice = round($stock['sale_price']/$stock['kgs'],2);
 
                                             $totalBrokerage+=$brokerage;
                                             $totalValue+=$value;
@@ -112,51 +112,51 @@
                                             $totalAddon +=$addon;
                                             $totalpayable+=$totalPayable;
 
-                                            $totalPayableStock+=$totalPayable*intVal($stock['net']);
+                                            $totalPayableStock+=$totalPayable*intVal($stock['kgs']);
                                 
                                             $html.='<td>'.$stock['sale_no'].'</td>';
-                                            $html.='<td>'.$catalogue->ExcelToPHP($stock['manf_date']).'</td>';
+                                            $html.='<td>'.$stock['import_date'].'</td>';
                                             $html.='<td>'.$stock['broker'].'</td>';
                                             $html.='<td>'.$stock['ware_hse'].'</td>';
                                             $html.='<td>'.$stock['lot'].'</td>';
-                                            $html.='<td>KENYA</td>';
+                                            $html.='<td>'.$stock['country'].'</td>';
                                             $html.='<td>'.$stock['mark'].'</td>';
                                             $html.='<td>'.$stock['grade'].'</td>';
                                             $html.='<td>'.$stock['invoice'].'</td>'; 
                                             $html.='<td>'.$stock['pkgs'].'</td>'; //pkgs
-                                            $html.='<td>'.$stock['kgs'].'</td>'; //net
-                                            $html.='<td>'.$stock['net'].'</td>'; //kgs
-                                            $html.='<td>'.$totalPayable*intVal($stock['net']).'</td>';
+                                            $html.='<td>'.$stock['net'].'</td>'; //net
+                                            $html.='<td>'.$stock['kgs'].'</td>'; //kgs
+                                            $html.='<td>'.$totalPayable*$stock['kgs'].'</td>';
                                             $html.='<td>'.$stock['comment'].'</td>';
-                                            $html.='<td>'.$stock['allocated_whse'].'</td>';
-                                            $html.='<td>'.$stock['standard'].'</td>';
+                                            $html.='<td>'.$stock['warehouse'].'</td>';
+                                            $html.='<td>'.$stock['allocation'].'</td>';
 
                                        $html.='</tr>';
                               
                                         }
-                                $html.='<tr style="background-color:green; color:white; border:none;">';
-                                
-                                $html.='<td><b>TOTALS</td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>';
-                                $html.='<td><b>'.$totalLots.'</b></td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>';
-                                $html.='<td></td>'; 
-                                $html.='<td></td>'; 
+                               
+                                $html.= '</tbody>';
+                                $html.='<thead>
+											<tr>
+                                                <td>Totals</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>'.$totalLots.'</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>'.$totalPkgs.'</td>
+                                                <td>'.$totalNet.'</td>
+                                                <td>'.$totalKgs.'</td>
+                                                <td>'.$totalPayableStock.'</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
 
-                                $html.='<td><b>'.$totalPayableStock.'</b></td>';
-                                $html.='<td></td>'; 
-                                $html.='<td></td>'; 
-                                $html.='<td></td>'; 
-
-                                $html.='</tr>';
-                                $html.= '</tbody>
+											</tr>
+										</thead>
                                     </table>
                                 </div>
                             </div>';

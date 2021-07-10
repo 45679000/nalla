@@ -70,7 +70,7 @@ body {
 }
 
 .navbar {
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: #333;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -152,7 +152,17 @@ body {
   display: table;
   clear: both;
 }
-
+.header {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background: linear-gradient(to left,green,green);
+	border: 1px solid #ccc;
+}
+.nav {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background:black;
+}
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .column {
@@ -169,14 +179,7 @@ body {
 							<a class="header-brand" href="index.html">
 								<img style="background-color:white;" src="<?=$path_to_root ?>images/logo.png" class="header-brand-img" alt="CHAMU">
 							</a>
-							<div class="container-fluid">
-								<form class="input-icon mt-2 ">
-									<div class="input-icon-addon">
-										<i class="fe fe-search"></i>
-									</div>
-									<input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
-								</form>
-							</div>
+				
 							<div class="d-flex order-lg-2 ml-auto">
 						
 								<div class="dropdown d-none d-md-flex mt-1">
@@ -255,7 +258,9 @@ body {
 				<div class="admin-navbar container-fluid" id="headerMenuCollapse">
 					<div class="container-fluid">
 						<ul class="nav">
-						
+							<a class="header-brand" href="index.html">
+								<img style="background-color:white;" src="<?=$path_to_root ?>images/logo.png" class="header-brand-img" alt="CHAMU">
+							</a>
 							<?php include 'acl_menu.php'?>
 						</ul>
 					</div>

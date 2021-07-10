@@ -161,8 +161,13 @@ if(isset($_POST['action']) && $_POST['action'] == "add-blend-teas"){
   $allocatedPackages = $_POST['allocatedpackages'];
 
   $blendingCtrl->addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages);
-
 }
+if(isset($_POST['action']) && $_POST['action'] == "remove-blend-teas"){
+  $allocationId = $_POST['allocationid'];
+  $blendingCtrl->removeLotAllocationFromBlend($allocationId);
+}
+
+
 if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
   $type = isset($_POST['type']) ? $_POST['type'] : '';
   $blendBalance = 0;
@@ -190,20 +195,20 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
       <tbody>';
       foreach ($stockList as $stock) {
           $output.='<tr>';
-              $packagesToAllocate = $stock["packages"];
+              $packagesToAllocate = $stock["blended_packages"];
               if($stock["selected_for_shipment"]== NULL){
-                $packagesToAllocate = $stock["allocated_pkgs"];
+                $packagesToAllocate = $stock["pkgs"];
               }
               $output.='<td>'.$stock["lot"].'</td>';
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
               $output.='<td>'.$stock["invoice"].'</td>';
-              $output.='<td><div id="availablepackages">'.$stock["allocated_pkgs"].'</td>';
+              $output.='<td><div id="availablepackages">'.$stock["pkgs"].'</td>';
               $output.='<td><div id="allocatedpackages" contenteditable="true">'.$packagesToAllocate.'</div></td>';
               $output.='<td>'.$stock["net"].'</td>';
               $output.='<td>'.$stock["kgs"].'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
-              $output.='<td>'.$stock["standard"].'</td>';
+              $output.='<td>'.$stock["allocation"].'</td>';
               if($stock["selected_for_shipment"]== NULL){
                   $output.='
                   <td>
@@ -237,4 +242,55 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
 }
 if(isset($_POST['action']) && $_POST['action'] =='blend-shippment-summary'){
   echo json_encode($blendingCtrl->shipmentSummaryBlend($_POST['blendno']));
+}
+if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
+  $output = "";
+        $blends = $blendingCtrl->fetchBlends();
+        $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
+        if($blendno ==''){
+        if (count($blends) > 0) {
+			$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
+			        <thead class='thead-dark'>
+			          <tr>
+			            <th>Blend No</th>
+			            <th>Client</th>
+			            <th>STD</th>
+			            <th>Grade</th>
+                        <th>Pkgs</th>
+                        <th>Net</th>
+                        <th>Kgs</th>
+                        <th>Actions</th>
+			          </tr>
+			        </thead>
+			        <tbody>";
+			foreach ($blends as $blend) {
+                $kgs = $blend['nw']*$blend['Pkgs'];
+			$output.="<tr>
+			            <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['blend_no']."</a></td>
+			            <td>".$blend['client_name']."</td>
+			            <td>".$blend['std_name']."</td>
+                        <td>".$blend['Grade']."</td>
+                        <td>".$blend['Pkgs']."</td>
+                        <td>".$blend['nw']."</td>
+                        <td>".$kgs."</td>
+
+
+			            <td>
+                  
+			              <a href='#editModal' style='color:green' data-toggle='modal' 
+			              class='editBtn' id='".$blend['id']."'><i class='fa fa-pencil'></i></a>&nbsp;
+			              <a href='' style='color:red' class='deleteBtn' id='".$blend['id']."'>
+			              <i class='fa fa-trash' ></i></a>
+			            </td>
+			        </tr>";
+				}
+			$output .= "</tbody>
+      		</table>";
+      		echo $output;	
+		}else{
+			echo '<h3 class="text-center mt-5">No records found</h3>';
+
+    }
+
+  }
 }

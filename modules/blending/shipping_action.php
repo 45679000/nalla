@@ -13,6 +13,7 @@ $conn = $db->getConnection();
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 $shippingCtrl = new ShippingController($conn);
 $workflow = new WorkFlow($conn);
+echo $action;
 if($action=='add-si'){
     unset($_POST['action']);
     $resp = $shippingCtrl->saveSI($_POST, 1);
@@ -31,83 +32,97 @@ if($action=='add-si'){
         echo json_encode($shippingCtrl->getAtciveShippingInstructions($_SESSION['current-si-id']));
     }
 }else if($action=='load-unallocated'){
-    $type = isset($_POST['type']) ? $_POST['type'] : '';
-    $blendBalance = 0;
-    $output ="";
-    $stockList = $shippingCtrl->loadUnallocated();
-    if (sizeOf($stockList)> 0) {
-        $output .='
-        <table id="direct_lot" class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th class="wd-15p">Lot</th>
-                <th class="wd-15p">Mark</th>
-                <th class="wd-10p">Grade</th>
-                <th class="wd-25p">Invoice</th>
-                <th class="wd-25p">Kgs</th>
-                <th class="wd-25p">Net</th>
-                <th class="wd-25p">Code</th>
-                <th class="wd-25p">Std/client</th>
-                <th class="wd-25p">Select</th>
+  $type = isset($_POST['type']) ? $_POST['type'] : '';
+  $blendBalance = 0;
+  $output ="";
+  $stockList = $shippingCtrl->loadUnallocated();
+  if (sizeOf($stockList)> 0) {
+      $output .='
+      <table id="direct_lot" class="table table-striped table-bordered">
+      <thead>
+          <tr>
+              <th class="wd-15p">Lot</th>
+              <th class="wd-15p">Mark</th>
+              <th class="wd-10p">Grade</th>
+              <th class="wd-25p">Invoice</th>
+              <th class="wd-25p">Pkgs</th>
+              <th class="wd-25p">Net</th>
+              <th class="wd-25p">Kgs</th>
+              <th class="wd-25p">Code</th>
+              <th class="wd-25p">Allocation</th>
+              <th class="wd-25p">Select</th>
 
-            </tr>
-        </thead>
-        <tbody>';
-        foreach ($stockList as $stock) {
-            $output.='<tr>';
-                $output.='<td>'.$stock["lot"].'</td>';
-                $output.='<td>'.$stock["mark"].'</td>';
-                $output.='<td>'.$stock["grade"].'</td>';
-                $output.='<td>'.$stock["invoice"].'</td>';
-                $output.='<td>'.$stock["kgs"].'</td>';
-                $output.='<td>'.$stock["net"].'</td>';
-                $output.='<td>'.$stock["comment"].'</td>';
-                $output.='<td>'.$stock["standard"].'</td>';
-                if($stock["selected_for_shipment"]== NULL){
-                    $output.='
-                    <td>
-                        <button id="'.$stock["allocation_id"].'"  
-                            type="button" 
-                            class="allocate" 
-                            onClick="callAction(this)"
-                            name="allocated">
-                            <i class="fa fa-plus"></i>                        
-                            </button>
-                    </td>';
-                }else{
-                    $output.='
-                    <td>
-                        <button id="'.$stock["stock_id"].'"
-                            type="button" 
-                            class="deallocate"
-                            onClick="callAction(this)"
-                            name="allocated">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </td>';                
-                }                
-            $output.='</tr>';
-                }
+          </tr>
+      </thead>
+      <tbody>';
+      foreach ($stockList as $stock) {
+          $output.='<tr>';
+              $packagesToAllocate = $stock["shipped_packages"];
+              $allocation = $stock["allocation"];
+              $id=$stock["allocation_id"];
+              if($stock["selected_for_shipment"]!= NULL){
+                $id=$stock["selected_for_shipment"];
+              }
+              if($stock["selected_for_shipment"]== NULL){
+                $packagesToAllocate = $stock["pkgs"];
+              }
+              if($stock["si_no"] !=null){
+                $allocation = $stock["si_no"];
+              }
+              $output.='<td>'.$stock["lot"].'</td>';
+              $output.='<td>'.$stock["mark"].'</td>';
+              $output.='<td>'.$stock["grade"].'</td>';
+              $output.='<td>'.$stock["invoice"].'</td>';
+              $output.='<td id="packages">'.$packagesToAllocate.'</td>';
+              $output.='<td>'.$stock["net"].'</td>';
+              $output.='<td>'.$stock["kgs"].'</td>';
+              $output.='<td>'.$stock["comment"].'</td>';
+              $output.='<td id="'.$id.'allocation">'.$allocation.'</td>';
+              if($stock["selected_for_shipment"]== NULL){
+                  $output.='
+                  <td>
+                      <button id="'.$stock["allocation_id"].'"  
+                          type="button" 
+                          class="allocate" 
+                          onClick="callAction(this)"
+                          name="allocated">
+                          <i class="fa fa-plus"></i>                        
+                          </button>
+                  </td>';
+              }else{
+                  $output.='
+                  <td>
+                      <button id="'.$stock["selected_for_shipment"].'"
+                          type="button" 
+                          class="deallocate"
+                          onClick="callAction(this)"
+                          name="allocated">
+                          <i class="fa fa-minus"></i>
+                      </button>
+                  </td>';                
+              }                
+          $output.='</tr>';
+              }
 
-        $output.='</tbody>
-    </table>';
-            }
-   echo $output;
-}else if(($action=='allocate')){
-    $type = isset($_POST['type']) ? $_POST['type'] : '';
-    $id = isset($_POST['id']) ? $_POST['id'] : die();
-    if($type=="blend"){
-        $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : die();
-        $shippingCtrl->allocateForShippmentBlend($id, $blendno);
-        echo json_encode(array("status"=>"Lot allocated successfully"));
-    } 
-}else if(($action=='deallocate')){
-    $id = isset($_POST['id']) ? $_POST['id'] : die();
-    $clientid = isset($_POST['clientId']) ? $_POST['clientId'] : die();
-    $shippingCtrl->unAllocateForShippment($id, $clientid);
-    echo json_encode(array("status"=>"Lot Unallocated successfully"));
+      $output.='</tbody>
+  </table>';
+          }
+ echo $output;
+}else if($action=='allocate-shipment'){
 
+    $allocationid = isset($_POST['allocationid']) ? $_POST['allocationid'] : die('missing id');
+    $packages = isset($_POST['packages']) ? $_POST['packages'] : die('missing packages');
+    $siNo = isset($_POST['siNo']) ? $_POST['siNo'] : die('missing contract no');
+
+    $shippingCtrl->allocateForShippment($allocationid, $siNo, $packages, "straight");
     echo json_encode(array("status"=>"Lot allocated successfully"));
+
+}else if($action=='remove-shipment'){
+    $id = isset($_POST['id']) ? $_POST['id'] : die();
+  
+    $shippingCtrl->removeFromShipment($id);
+
+    echo json_encode(array("status"=>"Lot Unallocated successfully"));
 
 }else if($action=='shippment-summary'){
     echo json_encode($shippingCtrl->shipmentSummaries($_POST['clientId']));

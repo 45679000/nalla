@@ -4,11 +4,14 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT `stock_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `closing_stock`.`mark`, `mark_country`.`country`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, DATE_FORMAT(`import_date`, "%d/%m/%y") AS import_date, `imported`, `imported_by`, `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`, ROUND((kgs*sale_price),2) AS value_ex_auction, ROUND(((kgs*sale_price)*0.5),2) AS brokerage_amount, ROUND(((kgs*sale_price)+((kgs*sale_price)*0.5)),2) AS final_prompt_value, ROUND((((kgs*sale_price)*0.5)*0.05),2) AS withholding_tax, ROUND((((kgs*sale_price)+((kgs*sale_price)*0.5))-(((kgs*sale_price)*0.5)*0.05)),2) AS prompt_payable,
-ROUND((((kgs*sale_price)*0.5)+sale_price),2) AS add_on, ROUND(((((kgs*sale_price)*0.5)+sale_price) + ((kgs*sale_price)*0.5)),2) AS final_sale_invoice_value_per_kg, ROUND((((((kgs*sale_price)*0.5)+sale_price) + ((kgs*sale_price)*0.5))*kgs),2) AS final_sale_invoice_value, allocated_whse, si_blend_no, DATE_FORMAT(current_date, "%d %M, %Y") AS stck_date
-FROM `closing_stock`
-LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark
-WHERE mark_country.deleted = 0 AND is_blend_balance = 0]]>
+		<![CDATA[SELECT stock_allocation.`stock_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `closing_stock`.`mark`, `mark_country`.`country`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, stock_allocation.`standard`, `buyer_package`, DATE_FORMAT(`import_date`, "%d/%m/%y") AS import_date, `imported`, `imported_by`, `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`, ROUND((kgs*sale_price),2) AS value_ex_auction, ROUND(((kgs*sale_price)*0.5),2) AS brokerage_amount, ROUND(((kgs*sale_price)+((kgs*sale_price)*0.5)),2) AS final_prompt_value, ROUND((((kgs*sale_price)*0.5)*0.05),2) AS withholding_tax, ROUND((((kgs*sale_price)+((kgs*sale_price)*0.5))-(((kgs*sale_price)*0.5)*0.05)),2) AS prompt_payable,
+ROUND((((kgs*sale_price)*0.5)+sale_price),2) AS add_on, ROUND(((((kgs*sale_price)*0.5)+sale_price) + ((kgs*sale_price)*0.5)),2) AS final_sale_invoice_value_per_kg, ROUND((((((kgs*sale_price)*0.5)+sale_price) + ((kgs*sale_price)*0.5))*kgs),2) AS final_sale_invoice_value, allocated_whse, si_blend_no, DATE_FORMAT(current_date, "%d %M, %Y") AS stck_date,  CONCAT(stock_allocation.`standard`,'',0_debtors_master.short_name) AS si_blend_no
+FROM `stock_allocation`
+LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
+LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id
+LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
+WHERE is_blend_balance = false]]>
 	</queryString>
 	<field name="stock_id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -158,10 +161,6 @@ WHERE mark_country.deleted = 0 AND is_blend_balance = 0]]>
 				</textElement>
 				<text><![CDATA[CHAMU SUPPLIERS LIMITED]]></text>
 			</staticText>
-			<!-- <image>
-				<reportElement x="7" y="1" width="137" height="44" uuid="7576e3d3-45f4-47da-b919-c8dcc80bd6d6"/>
-				<imageExpression><![CDATA["/opt/lampp/htdocs/chamu-tifms/images/logo.png"]]></imageExpression>
-			</image> -->
 		</band>
 	</title>
 	<pageHeader>

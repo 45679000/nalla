@@ -14,7 +14,8 @@
         }
 
         public function readStock($condition="WHERE 1"){
-            $query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
+            try {
+                $query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
             `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
             (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
             `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
@@ -24,16 +25,22 @@
             blend_teas.packages AS blended_packages, 
             CONCAT(COALESCE(stock_allocation.`standard`,''),' ',COALESCE(0_debtors_master.short_name,'')) AS allocation,
             mark_country.country
-            FROM `stock_allocation` 
-            LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+            FROM closing_stock 
+            LEFT JOIN stock_allocation ON closing_stock.stock_id = stock_allocation.stock_id
             LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
             LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
             LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
-            ".$condition;
+            ".$condition
+            ." GROUP BY stock_allocation.stock_id";
+
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();
             return $rows;
+            } catch (Exception $th) {
+                var_dump($th);
+            }
+            
         }
 
         public function unconfrimedPurchaseList(){

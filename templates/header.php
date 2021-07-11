@@ -70,7 +70,7 @@ body {
 }
 
 .navbar {
-  /* overflow: hidden; */
+  overflow: hidden;
   background-color: #333;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -152,17 +152,21 @@ body {
   display: table;
   clear: both;
 }
-.header {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    background: linear-gradient(to left,green,green);
-	border: 1px solid #ccc;
+div.img-div{
+    height:70px;
+    width:85px;
+    /* overflow:hidden; */
+    border-radius:50%;
+	background-color: white;
 }
-.nav {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    background:black;
+
+.img-div img{
+    -webkit-transform:translate(-50%);
+    margin-left:34px;
+	height:50px;
+    width:50px;
 }
+
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .column {
@@ -170,16 +174,19 @@ body {
     height: auto;
   }
 }
+
 		</style>
 
     </head>
     <div class="header py-1">
 					<div class="container-fluid">
 						<div class="d-flex">
-							<a class="header-brand" href="index.html">
-								<img style="background-color:white;" src="<?=$path_to_root ?>images/logo.png" class="header-brand-img" alt="CHAMU">
-							</a>
-				
+							<div class="img-div">
+								<img  class="circle-avatar" src="<?=$path_to_root ?>images/logo.png"  alt="CHAMU">
+							</div>
+							<div class="container-fluid">
+							
+							</div>
 							<div class="d-flex order-lg-2 ml-auto">
 						
 								<div class="dropdown d-none d-md-flex mt-1">
@@ -258,9 +265,7 @@ body {
 				<div class="admin-navbar container-fluid" id="headerMenuCollapse">
 					<div class="container-fluid">
 						<ul class="nav">
-							<a class="header-brand" href="index.html">
-								<img style="background-color:white;" src="<?=$path_to_root ?>images/logo.png" class="header-brand-img" alt="CHAMU">
-							</a>
+						
 							<?php include 'acl_menu.php'?>
 						</ul>
 					</div>

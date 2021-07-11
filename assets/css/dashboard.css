@@ -10360,7 +10360,7 @@ button.close {
 .header {
 	padding-top: .75rem;
 	padding-bottom: .75rem;
-	background: linear-gradient(to left,rgb(255, 255, 255),#fdffff);
+	background: linear-gradient(to left,#17B794,#14A485);
 }
 .header-bg {
 	background: #1643A3;
@@ -10390,10 +10390,10 @@ body.fixed-header .header {
 .nav-unread {
 	position: absolute;
 	top: .10rem;
-	right: 0.4rem;
+	right: .4rem;
 	background: #ecd93812748;
-	width: 0.5rem;
-	height: 0.5rem;
+	width: .5rem;
+	height: .5rem;
 	border-radius: 50%;
 }
 .nav-unread.badge{
@@ -10412,8 +10412,8 @@ body.fixed-header .header {
     text-align: center;
     height: 2.5rem;
 	font-size: 24px;
-	background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2) !important;
+	/*background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2) !important;*/
 	position: relative;
 }
 .nav-link.icon i{

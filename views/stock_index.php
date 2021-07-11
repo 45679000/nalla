@@ -88,6 +88,7 @@ $shippingI = $controller->getShippingInstructions();
 
 }
 </style>
+<body>
 <div class="my-3 my-md-5">
     <div class="container-fluid">
         <div class="page-header">

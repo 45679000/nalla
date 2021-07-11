@@ -3,18 +3,19 @@ Class BlendingController extends Model{
 
     public function loadUnallocated(){
         $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
-         `comment`, `ware_hse`,  `value`, `lot`,  `mark`, `grade`, `invoice`, stock_allocation.allocated_pkgs, 
-         `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
-          `import_date`, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
-           warehouses.name AS warehouse, stock_allocation.blend_no, stock_allocation.si_id, stock_allocation.shipped,
-            stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
-            blend_teas.packages
-            FROM `closing_stock`
-            LEFT JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id
-            LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
-            LEFT JOIN warehouse_location ON stock_allocation.warehouse = warehouse_location.whse_id
-            LEFT JOIN warehouses ON warehouse_location.whse_id = warehouses.id
-            LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id";
+        `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
+        (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
+        `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
+        DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
+         stock_allocation.blend_no, stock_allocation.si_id, stock_allocation.shipped,
+        stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
+        blend_teas.packages AS blended_packages, CONCAT(stock_allocation.`standard`,'',0_debtors_master.short_name) AS allocation,
+        mark_country.country, blend_teas.packages AS blended_packages
+        FROM `stock_allocation` 
+        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+        LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
+        LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
+        LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark";
         return $this->executeQuery();
     }
 
@@ -98,6 +99,10 @@ Class BlendingController extends Model{
             return $this->executeQuery(); 
         }
  
+    }
+    public function removeLotAllocationFromBlend($allocationId){
+        $this->query = "DELETE FROM blend_teas WHERE allocation_id = ".$allocationId; 
+        return $this->executeQuery();
     }
    
 }        

@@ -13,7 +13,8 @@ include 'includes/auction_ids.php';
 
 
 $stock = new Stock($conn);
-$stocks = $stock->readStock($condition="WHERE pkgs>0;");
+$stocks = $stock->readStock();
+
 $allocated = $stock->allocatedStock();
 $msg = "";
 if(isset($_POST['allocate'])){

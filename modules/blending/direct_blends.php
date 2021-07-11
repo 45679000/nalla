@@ -69,11 +69,10 @@
                                     <th>Client</th>
                                     <th>Lots</th>
                                     <th>Pkgs</th>
-                                    <th>Net</th>
                                     <th>kgs</th>
-                                    <th>Value(USD)</th>
                                     <th>Print Lot Detail</th>
                                     <th>View Allocations</th>
+                                    <th>Contract No</th>
                                     <th>Status</th>
                                     <th>Action</th>
 
@@ -84,10 +83,10 @@
                                 <td class="counter-value" id="totalLots"></td>
                                 <td class="counter-value" id="totalPkgs"></td>
                                 <td class="counter-value" id="totalkgs"></td>
-                                <td class="counter-value" id="totalNet"></td>
                                 <td class="counter-value" id="totalValue"></td>
                                 <td id="lotView">PRINT</td>
                                 <td id="lotEdit">PRINT</td>
+                                <td><input id="contractno" onBlur="updateContractNo(this)"></input></td>
                                 <td id="lotStatus">Unconfirmed</td>
                                 <td>
                                     <button id="1" style="background-color:green; color:white" onClick="addApproval(this)" class="fa fa-check"></button>
@@ -110,7 +109,7 @@
 
 
 
-<script src="../../assets/js/blending.js"></script>
+<script src="../../assets/js/shipping.js"></script>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
@@ -136,15 +135,21 @@ $(document).ready(function(){
         var clientId = $('#client').val();
         localStorage.setItem("clientId", clientId);
         $('#contentwrapper').show();
-        allocationSummary(localStorage.getItem("clientId")); 
+        allocationSummary(localStorage.getItem("blend_no_contract_no", localStorage.getItem("clientId"))); 
         loadUnallocated(); 
     });
 });
 
 function callAction(element){
-    id = $(element).attr("id");
-    action = $(element).attr("class");
-    AllocationShippment(id, action, "straight", localStorage.getItem("clientId"));
+    var id = $(element).attr("id");
+    var siNo = $('#packages').text();
+    var method = $(element).attr("class");
+
+if(method=="allocate"){
+    AllocationShippment(id, "allocate-shipment", siNo, localStorage.getItem("blend_no_contract_no"), "allocate");
+}else{
+    removeLotFromShippment("remove-shipment", id, "deallocate");
+}
 }
 $('#lotView').click(function(e){
     e.preventDefault();
@@ -156,4 +161,10 @@ $('#lotEdit').click(function(e){
     showClientAllocation(clientid);
     
 });
+function updateContractNo(element){
+    var blend_no_contract_no = $(element).val();
+    localStorage.setItem("blend_no_contract_no", blend_no_contract_no);
+    allocationSummary(localStorage.getItem("blend_no_contract_no", localStorage.getItem("clientId"))); 
+
+}
 </script>

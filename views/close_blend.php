@@ -7,14 +7,7 @@
     }
  
 </style>
-<div class="col-md-8 col-lg-10">
-
-    <div class="row">
-        <button type="button" class="btn btn-success m-1 float-right toolbar-button" data-toggle="modal" data-target="#addModal">
-            <i class="fa fa-plus"></i> Create Blend</button>
-    </div>
-    <br>
-
+<div class="col-md-12 col-lg-12">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -25,80 +18,11 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="straightTable"></div>
+                <div id="unclosedBlends"></div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Add Record  Modal -->
-<div class="modal" id="addModal">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Create Blend</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="formData">
-                    <div class="row">
-                        <div class="col-md-3 form-group">
-                            <label class="control-label">Contract No:</label>
-                            <input type="text" class="form-control" name="blendno" placeholder="Blend No" required="">
-                        </div>
-                        <div class="col-md-3 well">
-                            <div class="form-group label-floating">
-                                <label class="control-label">Standard</label>
-                                </input>
-                                <select id="standard" name="standard" class="standard form-control form-control-cstm select2-show-search well"><small>(required)</small>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3 form-group">
-                            <label class="control-label">Blend No:</label>
-                            <input type="text" class="form-control" name="blendid" placeholder="Blend No" required="">
-                        </div>
-                        <div class="col-md-3 form-group">
-                            <label class="control-label">Client Name:</label>
-                                <select id="clientwithcode" name="clientid" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
-                              </select>
-                        </div>   
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 form-group">
-                            <label class="control-label" for="blendno">Grade:</label>
-                            <select id="grade" name="grade" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
-                              </select>
-                        </div>
-                        <div class="col-md-3 form-group">
-                            <label class="control-label" for="name">Output Pkgs:</label>
-                            <input type="text" class="form-control" name="pkgs" placeholder="pkgs" required="">
-                        </div>
-                        <div class="col-md-3 form-group">
-                            <label class="control-label" for="name">Net:</label>
-                            <input type="text" class="form-control" name="nw" placeholder="Client" required="">
-                        </div>   
-                    </div>
-         
-                    <div class="row">
-                        <div class="col-md-3 form-group float-right">
-                            <button type="submit" class="btn btn-success" id="submit">Submit</button>
-                        </div>
-                        <div class="col-md-3 form-group float-right">
-                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Edit Record  Modal -->
 <div class="modal" id="editModal">
     <div class="modal-dialog">
@@ -113,11 +37,11 @@
                 <form id="EditformData">
                     <input type="hidden" name="id" id="edit-form-id">
                     <div class="form-group">
-                        <label for="code">Code:</label>
+                        <label for="code">Blend No:</label>
                         <input type="text" class="form-control" name="code" id="code" placeholder="Enter code" required="">
                     </div>
                     <div class="form-group">
-                        <label for="name">Blend Name:</label>
+                        <label for="name">Output Pkgs:</label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="Blend Name" required="">
                     </div>
 
@@ -132,24 +56,23 @@
     </div>
 </div>
 
-<script src="../../assets/js/blending.js"></script>
-<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../../assets/js/vendors/circle-progress.min.js"></script>
-<!-- Custom Js-->
-<script src="../../assets/js/custom.js"></script>
 
-<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+<script src="../assets/js/warehousing.js"></script>
+<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../assets/js/vendors/circle-progress.min.js"></script>
+<!-- Custom Js-->
+<script src="../assets/js/custom.js"></script>
+
+<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
-        standardList();
-        showAllBlends();
-        gradeList();
-        clientWithcodeList();
+        loadUnclosedBlends();
         //View Record
         function showAllBlends() {
             $.ajax({

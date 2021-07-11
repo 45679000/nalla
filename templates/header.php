@@ -152,6 +152,20 @@ body {
   display: table;
   clear: both;
 }
+div.img-div{
+    height:70px;
+    width:85px;
+    /* overflow:hidden; */
+    border-radius:50%;
+	background-color: white;
+}
+
+.img-div img{
+    -webkit-transform:translate(-50%);
+    margin-left:34px;
+	height:50px;
+    width:50px;
+}
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
@@ -160,22 +174,18 @@ body {
     height: auto;
   }
 }
+
 		</style>
 
     </head>
     <div class="header py-1">
 					<div class="container-fluid">
 						<div class="d-flex">
-							<a class="header-brand" href="index.html">
-								<img style="background-color:white;" src="<?=$path_to_root ?>images/logo.png" class="header-brand-img" alt="CHAMU">
-							</a>
+							<div class="img-div">
+								<img  class="circle-avatar" src="<?=$path_to_root ?>images/logo.png"  alt="CHAMU">
+							</div>
 							<div class="container-fluid">
-								<form class="input-icon mt-2 ">
-									<div class="input-icon-addon">
-										<i class="fe fe-search"></i>
-									</div>
-									<input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
-								</form>
+							
 							</div>
 							<div class="d-flex order-lg-2 ml-auto">
 						

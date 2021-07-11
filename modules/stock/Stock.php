@@ -14,25 +14,33 @@
         }
 
         public function readStock($condition="WHERE 1"){
-            $query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
+            try {
+                $query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
             `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
             (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
             `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
             DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
-             stock_allocation.blend_no, stock_allocation.si_id, stock_allocation.shipped,
+              stock_allocation.si_id, stock_allocation.shipped,
             stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
-            blend_teas.packages AS blended_packages, CONCAT(stock_allocation.`standard`,'',0_debtors_master.short_name) AS allocation,
+            blend_teas.packages AS blended_packages, 
+            CONCAT(COALESCE(stock_allocation.`standard`,''),' ',COALESCE(0_debtors_master.short_name,'')) AS allocation,
             mark_country.country
-            FROM `stock_allocation` 
-            LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+            FROM closing_stock 
+            LEFT JOIN stock_allocation ON closing_stock.stock_id = stock_allocation.stock_id
             LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
             LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
             LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
-            ".$condition;
+            ".$condition
+            ." GROUP BY stock_allocation.stock_id";
+
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();
             return $rows;
+            } catch (Exception $th) {
+                var_dump($th);
+            }
+            
         }
 
         public function unconfrimedPurchaseList(){
@@ -151,6 +159,20 @@
             $stmt->execute();
             $rows = $stmt->fetchAll();
             return $rows;
+        }
+        public function sumTotal($columnname, $tablename){
+            $this->query = "SELECT SUM($columnname) AS total FROM $tablename";
+            $totals = $this->executeQuery(); 
+            
+            return $totals[0]['total'];
+        }
+        public function totalKgs(){
+            $this->query = "SELECT SUM(kgs) AS total
+             FROM stock_allocation
+             LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id";
+            $totals = $this->executeQuery(); 
+            
+            return $totals[0]['total'];
         }
    
     }

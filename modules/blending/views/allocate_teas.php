@@ -101,13 +101,16 @@ function callAction(element){
     var allocatedpackages = $('#allocatedpackages').text();
     var availablepackages = $('#availablepackages').text();
     method = $(element).attr("class");
-
+alert(allocatedpackages);
     if(allocatedpackages>availablepackages){
         alert("You cannot allocate more Packages than what is in stock"+allocatedpackages+" "+availablepackages, method);
     }else{
         if(method=="allocate"){
             addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method);
             BlendAllocationSummary(blendno)
+        }else if(method=="deallocate"){
+            removeLotFromBlend(allocationid, "remove-blend-teas");
+            BlendAllocationSummary(blendno);
 
         }
     }

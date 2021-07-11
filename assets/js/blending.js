@@ -127,6 +127,37 @@ function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method
         }
     });
 }
+function removeLotFromBlend(allocationid, action,  blendno, allocatedpackages, method){
+    $.ajax({
+        type: "POST",
+        data: {
+            action: action,
+            allocationid: allocationid,
+            blendno:blendno,
+            allocatedpackages:allocatedpackages
+
+        },
+        cache: true,
+        url: "blend_action.php",
+        success: function (data) {
+            allocationSummary(allocationid, blendno);
+            if(method=="allocate"){
+                $('#'+allocationid).removeClass('allocate');
+                $('#'+allocationid).addClass('deallocate');
+                $('#'+allocationid).html('<i class="fa fa-minus"></i>');
+
+            }else{
+                $('#'+allocationid).removeClass('deallocate');
+                $('#'+allocationid).addClass('allocate');
+                $('#'+allocationid).html('<i class="fa fa-plus"></i>');
+
+
+
+            }
+        }
+    });
+}
+
 function AllocationShippmentBlend(id, action, type, blendno){
     $.ajax({
         type: "POST",

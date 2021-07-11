@@ -9,6 +9,8 @@
     if(isset($_GET['filter'])){
         $summary = $_GET['filter'];
         $PHPJasperXML = new PHPJasperXML();
+        $PHPJasperXML->debugsql = true;
+
 
          switch ($summary) {
             case 'pstock':

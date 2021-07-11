@@ -44,6 +44,60 @@ if($type=='Blend Shippment'){
     }
         echo $output;
 
+}else{
+    $contractNo = $shippingCtrl->getContractNo($si);
+    $type = isset($_POST['type']) ? $_POST['type'] : '';
+    $blendBalance = 0;
+    $output ="";
+    $stockList = $shippingCtrl->loadSelectedForshipment($contractNo[0]['contract_no']);
+    if (sizeOf($stockList)> 0) {
+        $output .='
+        <table id="direct_lot" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="wd-15p">Lot</th>
+                <th class="wd-15p">Mark</th>
+                <th class="wd-10p">Grade</th>
+                <th class="wd-25p">Invoice</th>
+                <th class="wd-25p">Pkgs</th>
+                <th class="wd-25p">Net</th>
+                <th class="wd-25p">Kgs</th>
+                <th class="wd-25p">Code</th>
+                <th class="wd-25p">Allocation</th>
+  
+            </tr>
+        </thead>
+        <tbody>';
+        foreach ($stockList as $stock) {
+            $output.='<tr>';
+                $packagesToAllocate = $stock["shipped_packages"];
+                $allocation = $stock["allocation"];
+                $id=$stock["allocation_id"];
+                if($stock["selected_for_shipment"]!= NULL){
+                  $id=$stock["selected_for_shipment"];
+                }
+                if($stock["selected_for_shipment"]== NULL){
+                  $packagesToAllocate = $stock["pkgs"];
+                }
+                if($stock["si_no"] !=null){
+                  $allocation = $stock["si_no"];
+                }
+                $output.='<td>'.$stock["lot"].'</td>';
+                $output.='<td>'.$stock["mark"].'</td>';
+                $output.='<td>'.$stock["grade"].'</td>';
+                $output.='<td>'.$stock["invoice"].'</td>';
+                $output.='<td id="packages">'.$packagesToAllocate.'</td>';
+                $output.='<td>'.$stock["net"].'</td>';
+                $output.='<td>'.$stock["kgs"].'</td>';
+                $output.='<td>'.$stock["comment"].'</td>';
+                $output.='<td id="'.$id.'allocation">'.$allocation.'</td>';                
+            $output.='</tr>';
+                }
+  
+        $output.='</tbody>
+    </table>';
+            }
+   echo $output;
 }
 ?>
 <div class="text-center">
@@ -69,8 +123,7 @@ if($type=='Blend Shippment'){
 $(document).ready(function() {
     $(function() {
         var blendno;
-        var sino = '<?php echo $si; ?>';
-
+        var sino = '<?php echo $si; ?>'
         $('.table tr').click(function(e){
         var cell = $(e.target).get(0); // This is the TD you clicked
         var tr = $(this); // This is the TR you clicked
@@ -81,6 +134,7 @@ $(document).ready(function() {
             }
         });
     });
+
 });
   function appendSi(blendno, sino){
     $.ajax({   
@@ -107,7 +161,8 @@ $('#next').click(function(){
 $('#previous').click(function(){
     window.location.href = './index.php';
 
-})
+});
+$("table").DataTable({order: [0, 'ASC']});
 </script>
 
 

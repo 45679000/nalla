@@ -69,9 +69,7 @@
                                     <th>Client</th>
                                     <th>Lots</th>
                                     <th>Pkgs</th>
-                                    <th>Net</th>
                                     <th>kgs</th>
-                                    <th>Value(USD)</th>
                                     <th>Print Lot Detail</th>
                                     <th>View Allocations</th>
                                     <th>Contract No</th>
@@ -85,7 +83,6 @@
                                 <td class="counter-value" id="totalLots"></td>
                                 <td class="counter-value" id="totalPkgs"></td>
                                 <td class="counter-value" id="totalkgs"></td>
-                                <td class="counter-value" id="totalNet"></td>
                                 <td class="counter-value" id="totalValue"></td>
                                 <td id="lotView">PRINT</td>
                                 <td id="lotEdit">PRINT</td>
@@ -138,7 +135,7 @@ $(document).ready(function(){
         var clientId = $('#client').val();
         localStorage.setItem("clientId", clientId);
         $('#contentwrapper').show();
-        allocationSummary(localStorage.getItem("clientId")); 
+        allocationSummary(localStorage.getItem("blend_no_contract_no", localStorage.getItem("clientId"))); 
         loadUnallocated(); 
     });
 });
@@ -166,6 +163,8 @@ $('#lotEdit').click(function(e){
 });
 function updateContractNo(element){
     var blend_no_contract_no = $(element).val();
-    localStorage.setItem("blend_no_contract_no", blend_no_contract_no)
+    localStorage.setItem("blend_no_contract_no", blend_no_contract_no);
+    allocationSummary(localStorage.getItem("blend_no_contract_no", localStorage.getItem("clientId"))); 
+
 }
 </script>

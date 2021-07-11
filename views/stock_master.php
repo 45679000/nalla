@@ -63,7 +63,6 @@
                                                 <td>Pkgs</td>
                                                 <td>Net</td>
                                                 <td>Kgs</td>
-                                                <td>Final Sales Invoice Value(USD)</td>
                                                 <td>Code</td>
                                                 <td>Warehouse</td>
                                                 <td>Allocation</td>
@@ -72,10 +71,10 @@
 										</thead>
                                         <tbody>';
                                         $html = "";
-                                        $totalPkgs = 0;
+                                        $totalPkgs = $stock->sumTotal("allocated_pkgs","stock_allocation");
                                         $totalLots = 0;
-                                        $totalKgs = 0;
-                                        $totalNet = 0;
+                                        $totalKgs = $stock->sumTotal("kgs", "closing_stock");
+                                        $totalNet = $stock->sumTotal("net", "closing_stock");
                                         $totalHammer = 0;
                                         $totalValue = 0;
                                         $totalBrokerage = 0;
@@ -89,10 +88,7 @@
 
                                         foreach ($stocks as $stock){ 
                                             $totalLots++; 
-                                            $totalPkgs+=$stock['pkgs'];
-                                            $totalKgs+=$stock['kgs'];
-                                            $totalNet+=$stock['net'];
-
+                                      
                                             $brokerage = round(($stock['value']*$stock['pkgs'])*(0.5/100), 2);
                                             $value = round($stock['value']*$stock['pkgs'],2);
                                             $totalamount = round($brokerage+$value,2);
@@ -126,7 +122,6 @@
                                             $html.='<td>'.$stock['pkgs'].'</td>'; //pkgs
                                             $html.='<td>'.$stock['net'].'</td>'; //net
                                             $html.='<td>'.$stock['kgs'].'</td>'; //kgs
-                                            $html.='<td>'.$totalPayable*$stock['kgs'].'</td>';
                                             $html.='<td>'.$stock['comment'].'</td>';
                                             $html.='<td>'.$stock['warehouse'].'</td>';
                                             $html.='<td>'.$stock['allocation'].'</td>';

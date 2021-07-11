@@ -68,30 +68,21 @@ function allocationSummary(siNo, clientId) {
         url: "shipping_action.php",
         data: { action: "shippment-summary", siNo:siNo, clientId: clientId },
         success: function (data) {
-            console.log(data.clientName);
+            console.log(JSON.parse(data));
             $('#totalLots').html(data.totalLots);
             $('#totalkgs').html(data.totalkgs);
             $('#totalPkgs').html(data.totalpkgs);
-            $('#totalValue').html(data.totalAmount);
-            $('#clientName').html(data.clientName);
             $('#lotView').html(data.lotDetailsView);
             $('#lotEdit').html(data.lotDetailsEdit);
             $('#lotStatus').html(data.approvalStatus);
-
-            $('.counter-value').each(function () {
-                $(this).prop('Counter', 0).animate({
-                    Counter: $(this).text()
-                }, {
-                    duration: 20,
-                    easing: 'swing',
-                    step: function (now) {
-                        $(this).text(Math.ceil(now));
-                    }
-                });
-            });
         },
         error: function (data) {
-
+            $('#totalLots').html(data.totalLots);
+            $('#totalkgs').html(data.totalkgs);
+            $('#totalPkgs').html(data.totalpkgs);
+            $('#lotView').html(data.lotDetailsView);
+            $('#lotEdit').html(data.lotDetailsEdit);
+            $('#lotStatus').html(data.approvalStatus);
 
         },
     });

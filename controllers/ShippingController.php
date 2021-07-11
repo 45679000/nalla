@@ -57,8 +57,8 @@ Class ShippingController extends Model{
         $lots = $this->executeQuery();
 
         $this->query = "SELECT SUM(closing_stock.net*shippments.pkgs_shipped) AS totalkgs FROM shippments
-        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
+        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
         WHERE  shippments.si_no = '$siNo'";
         $kgs = $this->executeQuery();
 
@@ -66,18 +66,13 @@ Class ShippingController extends Model{
         WHERE  shippments.si_no = '$siNo'";
         $pkgs = $this->executeQuery();
 
-        $this->query = "SELECT (SUM(closing_stock.net*shippments.pkgs_shipped)*sale_price) AS totalkgs FROM shippments
-        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+        $this->query = "SELECT (SUM(closing_stock.net*shippments.pkgs_shipped)*sale_price) AS totalkgs 
+        FROM shippments
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
+        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
         WHERE  shippments.si_no = '$siNo'";
         $totalAmount = $this->executeQuery();
  
-        $this->query = "SELECT (CASE WHEN (approval_workflow.id IS NULL) THEN 'Unconfirmed' ELSE status END) AS status
-        FROM stock_allocation  
-        LEFT JOIN approval_workflow ON stock_allocation.approval_id = approval_workflow.approval_id
-        WHERE  shippments.si_no = '$siNo' AND shipped = 0";
-        $status = $this->executeQuery();
-
         $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$clientId'";
         $clientName = $this->executeQuery();
 
@@ -85,9 +80,6 @@ Class ShippingController extends Model{
             "totalLots"=>$lots[0]['totalLots'],
             "totalkgs"=>$kgs[0]['totalkgs'],
             "totalpkgs"=>$pkgs[0]['totalpkgs'],
-            "totalAmount"=>$totalAmount[0]['totalAmount'],
-            "clientName"=>$clientName[0]['name'],
-            "approvalStatus"=>$status[0]['status'],
             "lotDetailsView"=>"<a href='../../reports/lot_details?action=view&contact=".$siNo."'>Print</a>",
             "lotDetailsEdit"=>"<a href='./index?action=edit&clientid=".$siNo."'>view</a>",
 
@@ -103,8 +95,24 @@ Class ShippingController extends Model{
         }
       
     }
-    public function loadSelectedForshipment(){
-        $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment = 1";
+    public function loadSelectedForshipment($contactNo){
+        $this->query = "
+        SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`,
+         `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`, `grade`, `invoice`, 
+         stock_allocation.allocated_pkgs AS pkgs, closing_stock.allocated_whse AS warehouse, 
+         `type`, `net`, (stock_allocation.allocated_pkgs * net) AS `kgs`, 
+         `sale_price`, stock_allocation.`standard`, DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
+          `imported`, `allocated`, `selected_for_shipment`, 
+          `current_allocation`, `is_blend_balance`, stock_allocation.blend_no_contract_no, 
+          stock_allocation.si_id, stock_allocation.shipped, stock_allocation.approval_id, shippments.si_no,
+          0_debtors_master.debtor_ref, shippments.id AS selected_for_shipment,  
+          CONCAT(stock_allocation.`standard`,'',0_debtors_master.short_name) AS allocation,
+           mark_country.country, shippments.pkgs_shipped AS shipped_packages
+           FROM shippments 
+           INNER JOIN stock_allocation ON shippments.allocation_id = stock_allocation.allocation_id 
+           INNER JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id 
+           INNER JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no 
+           LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark WHERE si_no = '".$contactNo."'";
         return $this->executeQuery();
     }
     public function loadActiveBlend(){
@@ -195,6 +203,10 @@ Class ShippingController extends Model{
     }
     public function deletBlend($id){
         $this->query = "DELETE FROM blend_master WHERE id= '$id'";
+        return $this->executeQuery();
+    }
+    public function getContractNo($id){
+        $this->query = "SELECT contract_no FROM shipping_instructions WHERE instruction_id= '$id' LIMIT 1";
         return $this->executeQuery();
     }
 }        

@@ -125,7 +125,7 @@ if($action=='add-si'){
     echo json_encode(array("status"=>"Lot Unallocated successfully"));
 
 }else if($action=='shippment-summary'){
-    echo json_encode($shippingCtrl->shipmentSummaries($_POST['clientId']));
+    echo json_encode($shippingCtrl->shipmentSummaries($_POST['siNo']));
 }
 
 else if($action=='blend'){

@@ -4,10 +4,13 @@
         height:1000px;
         border:none;
     }
+    .feature{
+        max-height: 50px;;
+    }
 
 </style>
 
-<div class="my-3 my-md-5">
+<div class="my-2 my-md-2">
     <div class="container-fluid">
         <div class="page-header">
             <h4 class="page-title">Documents</h4>

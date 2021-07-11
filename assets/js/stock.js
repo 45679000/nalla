@@ -10,18 +10,6 @@ $(document).ready(function() {
 
 });
 
-    // ('#purchaseListTable').click(function(){
-    //     alert("table Clicked");
-    // })
-    // var trs = document.querySelectorAll("tr");
-    //     for (var i = 0; i < trs.length; i++)
-    //     (function (e) {
-    //         trs[e].addEventListener("click", function () {
-    //         console.log({
-    //             "lot": this.querySelectorAll("*")[0].innerHTML.trim(),
-    //         });
-    //         }, false);
-    //     })(i);
     function loadPurchaseList() {
         $.ajax({
             url: "../../modules/stock/stock-action.php",
@@ -70,9 +58,22 @@ function postData(formData, PostUrl) {
                 console.log(data);
             },
         });
-
-
 }
 
 });
 
+function loadMasterStock(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "../modules/stock/stock-action.php",
+        data: {action:"master-stock"},
+    success: function (data) {
+        $('#stock-master').html(data);
+    },
+    error: function (data) {
+        console.log('An error occurred.');
+        console.log(data);
+    },
+});
+}

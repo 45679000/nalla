@@ -9,7 +9,7 @@
     if(isset($_GET['filter'])){
         $summary = $_GET['filter'];
         $PHPJasperXML = new PHPJasperXML();
-        $PHPJasperXML->debugsql = true;
+        $PHPJasperXML->debugsql = false;
 
 
          switch ($summary) {

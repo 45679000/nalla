@@ -127,12 +127,7 @@ Class ShippingController extends Model{
         $this->query = "SELECT *FROM closing_stock WHERE selected_for_shipment = 1";
         return $this->executeQuery();
     }
-    public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw){
-        $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`)
-         VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw')";
-        $this->executeQuery();
 
-    }
     public function viewPackingMaterials(){
         $this->query = "SELECT *FROM packaging_materials WHERE in_stock>0";
         return $this->executeQuery();

@@ -38,7 +38,7 @@ function loadUnallocated() {
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            $('#straightTable').html(data);
+            $('#blendTable').html(data);
             $("#direct_lot").DataTable({});
 
         }
@@ -110,7 +110,7 @@ function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            allocationSummary(allocationid, blendno);
+            // showBlend(blendno);
             if(method=="allocate"){
                 $('#'+allocationid).removeClass('allocate');
                 $('#'+allocationid).addClass('deallocate');
@@ -140,7 +140,7 @@ function removeLotFromBlend(allocationid, action,  blendno, allocatedpackages, m
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            allocationSummary(allocationid, blendno);
+            // showBlend(blendno);
             if(method=="allocate"){
                 $('#'+allocationid).removeClass('allocate');
                 $('#'+allocationid).addClass('deallocate');

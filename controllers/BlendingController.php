@@ -151,6 +151,10 @@ Class BlendingController extends Model{
         return $result;
 
     }
+    public function approveBlend($blendno){
+        $this->query = "UPDATE blend_master SET approved =1 WHERE id = ".$blendno;
+        $this->executeQuery();
+    }
     
 }        
 

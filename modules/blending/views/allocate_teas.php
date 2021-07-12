@@ -124,6 +124,25 @@ $('#lotEdit').click(function(e){
     
 });
 function viewAllocations(){
-    $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/lot_details.php" width="100%" height="800px"></iframe>');
+    var blendno = '<?php echo $blendno ?>'
+
+    $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+}
+function approveBlend(){
+    var blendno = '<?php echo $blendno ?>'
+    $.ajax({
+            url: "blend_action.php",
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "approve-blend",
+                blendno: blendno
+            },
+            success: function(response) {
+                showBlend(blendno);
+            }
+
+        });
+
 }
 </script>

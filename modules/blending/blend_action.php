@@ -144,7 +144,7 @@
                                   </div>
                                   <div class='row'>
                                     <div class='col-md-12' style='padding:10px;'>
-                                      <a href='#blendSheet' style='color:green' data-toggle='modal' 
+                                      <a onclick='viewAllocations(this)' style='color:green' data-toggle='modal' 
                                         class='editBtn' id='".$blend['id']."'><i class='fa fa-file'></i>
                                         </a>
                                       Blend Sheet</a>
@@ -152,7 +152,7 @@
                                   <div>
                                   <div class='row'>
                                     <div class='col-md-12' style='padding:10px;'>
-                                      <a href='' style='color:red' class='confirm' id='".$blend['id']."'>
+                                      <a onclick='approveBlend(this)' style='color:red' class='confirm' id='".$blend['id']."'>
                                         <i class='fa fa-check' ></i>
                                       </a>
                                       Confirm Blend</a>
@@ -343,4 +343,10 @@ if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
     }
 
   }
+}
+if(isset($_POST['action']) && $_POST['action'] == 'approve-blend'){
+  $blendno = $_POST['blendno'];
+  $blendingCtrl->approveBlend($blendno);
+  
+
 }

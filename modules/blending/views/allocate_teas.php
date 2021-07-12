@@ -58,7 +58,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="straightTable"></div>
+                <div id="blendTable"></div>
             </div>
         </div>
     </div>
@@ -100,8 +100,9 @@ function callAction(element){
     var allocationid = $(element).attr("id");
     var allocatedpackages = $('#allocatedpackages').text();
     var availablepackages = $('#availablepackages').text();
+    showBlend(blendno);
+
     method = $(element).attr("class");
-alert(allocatedpackages);
     if(allocatedpackages>availablepackages){
         alert("You cannot allocate more Packages than what is in stock"+allocatedpackages+" "+availablepackages, method);
     }else{
@@ -123,6 +124,25 @@ $('#lotEdit').click(function(e){
     
 });
 function viewAllocations(){
-    $('#straightTable').html('<iframe class="frame" frameBorder="0" src="../../reports/lot_details.php" width="100%" height="800px"></iframe>');
+    var blendno = '<?php echo $blendno ?>'
+
+    $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+}
+function approveBlend(){
+    var blendno = '<?php echo $blendno ?>'
+    $.ajax({
+            url: "blend_action.php",
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "approve-blend",
+                blendno: blendno
+            },
+            success: function(response) {
+                showBlend(blendno);
+            }
+
+        });
+
 }
 </script>

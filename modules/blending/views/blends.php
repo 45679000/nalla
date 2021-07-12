@@ -84,7 +84,7 @@
          
                     <div class="row">
                         <div class="col-md-3 form-group float-right">
-                            <button type="submit" class="btn btn-success" id="submit">Submit</button>
+                            <button type="submit" class="btn btn-success" id="submit">Save</button>
                         </div>
                         <div class="col-md-3 form-group float-right">
                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

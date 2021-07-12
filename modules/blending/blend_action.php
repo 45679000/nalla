@@ -10,14 +10,16 @@
 
 	// Insert Record	
 	if (isset($_POST['action']) && $_POST['action'] == "insert") {
-		$blendno = isset($_POST['blendno']) ? $_POST['blendno'] : die('blendno required field');
-		$clientid = isset($_POST['clientid']) ? $_POST['clientid'] : die('clientidrequired field');
+		    $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : die('blendno required field');
+		    $clientid = isset($_POST['clientid']) ? $_POST['clientid'] : die('clientidrequired field');
         $stdname = isset($_POST['standard']) ? $_POST['standard'] : die('standard required field');
         $grade = isset($_POST['grade']) ? $_POST['grade'] : die('grade required field');
         $pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : die('pkgs required field');
         $nw = isset($_POST['nw']) ? $_POST['nw'] : die('nw required field');
+        $blendid = isset($_POST['blendid']) ? $_POST['blendid'] : die('blendid required field');
+
     echo $blendno; 
-        $shippingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw);
+        $blendingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw, $blendid);
 
 	}
 
@@ -31,14 +33,14 @@
 			$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
 			        <thead class='thead-dark'>
 			          <tr>
-			            <th>Blend No</th>
+			            <th>Contract No</th>
 			            <th>Client</th>
 			            <th>STD</th>
 			            <th>Grade</th>
-                        <th>Pkgs</th>
-                        <th>Net</th>
-                        <th>Kgs</th>
-                        <th>Actions</th>
+                  <th>Pkgs</th>
+                  <th>Net</th>
+                  <th>Kgs</th>
+                  <th>Actions</th>
 			          </tr>
 			        </thead>
 			        <tbody>";
@@ -52,8 +54,6 @@
                         <td>".$blend['Pkgs']."</td>
                         <td>".$blend['nw']."</td>
                         <td>".$kgs."</td>
-
-
 			            <td>
                          <a href='./index.php?view=allocateblendteas&blendno=".$blend['id']."' style='color:green' 
                           class='navigate' id='".$blend['id']."'><i class='fa fa-plus'></i></a>&nbsp;
@@ -72,6 +72,9 @@
 		}
     }else{
             $blends = $blendingCtrl->fetchBlends($blendno);
+            $totalKgs = $blendingCtrl->selectedKgs($blendno);
+            $compositions = $blendingCtrl->expectedComposition($blendno);
+            $currentComposition = $blendingCtrl->currentComposition($blendno);
             if (count($blends) > 0) {
                 $output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
                         <thead class='thead-dark'>
@@ -80,13 +83,10 @@
                             <th>Client</th>
                             <th>STD</th>
                             <th>Grade</th>
-                            <th>Out Pkgs</th>
-                            <th>Out Net</th>
-                            <th>Out Kgs</th>
-                            <th>Inpt. Pkgs</th>
-                            <th>Inpt. Net</th>
-                            <th>Inpt. Kgs</th>
+                            <th>Expected Kgs</th>
+                            <th>Input Kgs</th>
                             <th>Status</th>
+                            <th>Blend Composition</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -98,25 +98,75 @@
                       $status = "Confirmed || Not Closed";
                     }
                 $output.="<tr>
-                            <td id='lotShow'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['id']."</a></td>
+                            <td>".$blend['blend_no']."</td>
                             <td>".$blend['client_name']."</td>
                             <td>".$blend['std_name']."</td>
                             <td>".$blend['Grade']."</td>
-                            <td>".$blend['Pkgs']."</td>
-                            <td>".$blend['nw']."</td>
                             <td>".$kgs."</td>
-                            <td id='totalPkgs'></td>
-                            <td id='totalNet'></td>
-                            <td id='totalkgs'></td>
+                            <td>".$totalKgs."</td>
                             <td>".$status."</td>
+                            <td style='height:20px !important;'>
+                            <table style='width:100%;'>
+                              <thead>";
+                              $output.="<tr style='height:20px !important;'>";
+                                foreach($compositions AS $composition){
+                                  $output.="<td>".$composition['name']."</td>";
+                                }
+                              $output.="</tr>";
+                              $output.="<tr style='height:20px !important;'>";
+                                foreach($compositions AS $composition){
+                                  $output.="<td>".$composition['percentage']."</td>";
+                                }
+                              $output.="</tr>";
+                              $output.="<tr style='height:20px !important;'>";
+                                foreach($currentComposition AS $composition){
+                                  $output.="<td>".$composition['grade']."</td>";
+                                }
+                              $output.="</tr>";
+                              $output.="<tr style='height:20px !important;'>";
+                                foreach($currentComposition AS $composition){
+                                  $output.="<td>".$composition['percentage']."</td>";
+                                }
+                            $output.="</tr>";
+                              
+                              $output.="<thead>
+                            </table>
+                          </td>
 
                             <td>
-                             <a onclick='viewAllocations(this)'  style='color:green' 
-                              class='view' id='".$blend['id']."'><i class='fa fa-eye'></i></a>&nbsp;
-                              <a href='#blendSheet' style='color:green' data-toggle='modal' 
-                              class='editBtn' id='".$blend['id']."'><i class='fa fa-file'></i></a>&nbsp;
-                              <a href='' style='color:red' class='confirm' id='".$blend['id']."'>
-                              <i class='fa fa-check' ></i></a>
+                              <div class='container-fluid' style='width:100%;'>
+                                  <div class='row' style='padding:10px;'>
+                                    <div class='col-md-12' style='padding:10px;'>
+                                      <a onclick='viewAllocations(this)'  style='color:green' 
+                                        class='view' id='".$blend['id']."'><i class='fa fa-eye'></i>
+                                      View Teas</a>
+                                    <div>
+                                  </div>
+                                  <div class='row'>
+                                    <div class='col-md-12' style='padding:10px;'>
+                                      <a onclick='viewAllocations(this)' style='color:green' data-toggle='modal' 
+                                        class='editBtn' id='".$blend['id']."'><i class='fa fa-file'></i>
+                                        </a>
+                                      Blend Sheet</a>
+                                    <div>
+                                  <div>
+                                  <div class='row'>
+                                    <div class='col-md-12' style='padding:10px;'>
+                                      <a onclick='approveBlend(this)' style='color:red' class='confirm' id='".$blend['id']."'>
+                                        <i class='fa fa-check' ></i>
+                                      </a>
+                                      Confirm Blend</a>
+                                    <div>
+                                  </div>
+                                  <div class='row'>
+                                    <div class='col-md-12' style='padding:10px;'>
+                                      <a href='' style='color:red' class='confirm' id='".$blend['id']."'>
+                                        <i class='fa fa-pencil' ></i>
+                                      </a>
+                                      Edit Blend</a>
+                                    <div>
+                                  </div>
+                              </div>
                             </td>
                         </tr>";
                     }
@@ -256,10 +306,10 @@ if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
 			            <th>Client</th>
 			            <th>STD</th>
 			            <th>Grade</th>
-                        <th>Pkgs</th>
-                        <th>Net</th>
-                        <th>Kgs</th>
-                        <th>Actions</th>
+                  <th>Pkgs</th>
+                  <th>Net</th>
+                  <th>Kgs</th>
+                  <th>Actions</th>
 			          </tr>
 			        </thead>
 			        <tbody>";
@@ -293,4 +343,10 @@ if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
     }
 
   }
+}
+if(isset($_POST['action']) && $_POST['action'] == 'approve-blend'){
+  $blendno = $_POST['blendno'];
+  $blendingCtrl->approveBlend($blendno);
+  
+
 }

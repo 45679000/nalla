@@ -120,4 +120,17 @@
 <script src="../assets/js/stock.js"></script>
 <script>
 loadMasterStock();
+$('.table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print',
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            
+        ]
+});
+
 </script>

@@ -84,10 +84,7 @@
                                                         <div class="col-md-2 well">
                                                             <div class="form-group label-floating">
                                                                 <label class="control-label">Garden</label>
-                                                                <select id="category" name="category" class="form-control well" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    <option value="Main">Main</option>
-                                                                    <option value="Sec">Sec</option>
+                                                                <select id="mark" name="category" class="form-control well" ><small>(required)</small>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -118,19 +115,20 @@
 
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../assets/js/stock.js"></script>
+<script src="../assets/js/common.js"></script>
+
+<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+
+<script src="../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../assets/plugins/datatable/buttons.print.min.js"></script>
 <script>
 loadMasterStock();
-$('.table').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print',
-            {
-                extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'LEGAL'
-            },
-            
-        ]
-});
+
 
 </script>

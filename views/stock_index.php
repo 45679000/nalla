@@ -152,6 +152,7 @@ $shippingI = $controller->getShippingInstructions();
 
 
 <script type="text/javascript">
+
             $('.dropify').dropify({
                 messages: {
                     'default': 'Drag and drop a file here or click',

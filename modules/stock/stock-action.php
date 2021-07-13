@@ -211,7 +211,7 @@
 		$allocatedStock =  $stock->allocatedStock();
 		$html = "";
 
-		$html .='<table id="allocatedStock" class="table table-striped table-bordered">
+		$html .='<table id="allocatedStockTable" class="table table-striped table-bordered">
 		<thead class="thead-dark">
 			<tr>
 				<td>Lot</td>
@@ -226,12 +226,13 @@
 				<td>Buying Price</td>
 				<td>MRP Value</td>
 				<td>Allocation</td>
-
+				<td>Actions</td>
 			</tr>
 		</thead>
 		<tbody>';
 		
 			foreach ($allocatedStock as $allocated) {
+				$id=$allocated['allocation_id'];
 				$html .= '<td>' . $allocated['lot'] . '</td>';
 				$html .= '<td><div>' . $allocated['sale_no'] . '</div></td>';
 				$html .= '<td>' . $allocated['broker'] . '</td>';
@@ -245,6 +246,10 @@
 				$html .= '<td>' . $allocated['mrp_value'] . '</td>'; //auction hammer
 				$html .= '<td>' . $allocated['buyerstandard'] . '</td>'; //auction hammer
 
+				$html .= '<td>
+                         <a  style="color:green" 
+                          class="navigate" id="'.$id.'"><i class="fa fa-edit"></i></a>&nbsp;
+			            </td>';
 				$html .= '</tr>';
 			}
 

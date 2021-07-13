@@ -395,10 +395,9 @@ else if($action == 'load_blend_summary'){
     </table>';
     echo $output;
 }else if($action=="attach-blend-si"){
-    echo 'Happy';
     $sino = isset($_POST['sino']) ? $_POST['sino'] : '';
     $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
-    $shippingCtrl->attachSi($sino, $blendno);
+    var_dump($shippingCtrl->attachSi($sino, $blendno));
     
 }else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));

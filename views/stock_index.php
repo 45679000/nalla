@@ -167,33 +167,7 @@ $shippingI = $controller->getShippingInstructions();
         <script>
 			$('.counter').countUp();
 		</script>
-        <!-- Data table js -->
-
-        <script>
-			$(function(e) {
-				$('.table').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print',
-                        {
-                            extend: 'pdfHtml5',
-                            orientation: 'landscape',
-                            pageSize: 'LEGAL'
-                        },
-                        
-                    ],
-                    "columnDefs": [
-                        {"width": "10%", "targets": 0},
-
-                    ],
-                    "processing": true,
-                    "language": {
-                     processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
-                    },
- 
-                });
-			} );
-		</script>
+        
 		
        
 </html>

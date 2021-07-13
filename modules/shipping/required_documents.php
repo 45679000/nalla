@@ -51,11 +51,7 @@
             </div>
         </div>
         <div id="display" class="row">
-       
-            <!-- <iframe id="ilotdetails" src="../../reports/lot_details.php" width="100%" height="1000" style="border:none;">
-            </iframe>
-            <iframe id="iprofomainvoice" src="../../reports/shipping_instruction.php" width="100%" height="1000" style="border:none;">
-            </iframe> -->
+
         </div>
     </div>
 </div>
@@ -84,18 +80,22 @@
         $('#iprofomainvoice').hide();
 
         $('#lot-details').click(function(){
+            var sino = '<?php echo $_GET['sino']; ?>'
+
             $('#ishippingInstructions').hide();
             $('#iprofomainvoice').hide();
             $('#display').html('<iframe id="ilotdetails"></iframe>');
-            $("#ilotdetails").attr('src', '../../reports/lot_details.php');
+            $("#ilotdetails").attr('src', '../../reports/lot_details.php?sino='+sino);
             
 
         
     });
     
     $('#shippingInstructions').click(function(){
+        var sino = '<?php echo $_GET['sino']; ?>'
+
         $('#display').html('<iframe id="ishippingInstructions"></iframe>');
-        $("#ishippingInstructions").attr('src', '../../reports/shipping_instructions.php');
+        $("#ishippingInstructions").attr('src', '../../reports/shipping_instructions.php?sino='+sino);
 
         $('#ishippingInstructions').show();
         $('#ilotdetails').hide();

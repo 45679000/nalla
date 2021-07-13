@@ -99,8 +99,8 @@ if (isset($_POST['action']) && $_POST['action'] == "lot-list") {
                 $output .= '<option value="
                  '.$lots['stock_id'].'">'.$lots['lot']. 
                 "<b> ||GARDEN  </b>||".$lots['mark']."  
-                GRADE || ".$lots['grade']. " 
-                || PACKAGES IN STOCK:".$lots['pkgs'].'</option>';
+                GRADE || ".$lots['grade']. " || PACKAGES IN STOCK:".$lots['pkgs']."
+                || INVOICE:".$lots['invoice'].'</option>';
              }
               echo $output;	
         }else{

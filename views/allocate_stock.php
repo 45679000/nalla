@@ -142,6 +142,17 @@
     <script src="../assets/plugins/select2/select2.full.min.js"></script>
     <script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
 
+    <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+
+<script src="../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../assets/plugins/datatable/buttons.print.min.js"></script>
+
     <script>
         lotList();
         standardList();
@@ -209,6 +220,18 @@
 
             });
 
+        });
+        $('#allocatedStockTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print',
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    
+                ]
         });
     </script>
 

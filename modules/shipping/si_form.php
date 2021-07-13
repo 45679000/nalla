@@ -65,8 +65,12 @@ print '
 $form->endForm();
 print '</div>
 ';
+$sino=1;
 ?>
 
+<div id="nextid">
+    <a id="next" href=""  class="next">Next</a>
+</div>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="shipping.js"></script>
 
@@ -75,6 +79,8 @@ print '</div>
         siTemplate();
         editData();
         addSi();
+        $('#nextid').hide();
+        localStorage.getItem("siId");
 
     });
 </script>

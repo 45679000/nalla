@@ -195,6 +195,17 @@ Class ShippingController extends Model{
     public function attachSi($sino, $blendno){
         $this->query = "UPDATE blend_master SET si_no = '$sino' WHERE blend_no = '$blendno'";
         return $this->executeQuery();
+        $this->query = "SELECT id FROM blend_master WHERE blend_no='$blendno'";
+        $row = $this->executeQuery();
+        $blendid =  $row[0]['id'];
+        $this->query = "UPDATE shippments
+        SET si_no = '$sino' 
+        WHERE shippments.blend_no = '$blendid'";
+
+        echo $this->query;
+        $this->executeQuery();
+      
+
     }
     public function deletBlend($id){
         $this->query = "DELETE FROM blend_master WHERE id= '$id'";

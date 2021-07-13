@@ -70,6 +70,7 @@ function loadMasterStock(){
         data: {action:"master-stock"},
     success: function (data) {
         $('#stock-master').html(data);
+        $('#closingstocks').DataTable({});
         
     },
     error: function (data) {

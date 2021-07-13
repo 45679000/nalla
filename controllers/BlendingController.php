@@ -2,19 +2,20 @@
 Class BlendingController extends Model{
 
     public function loadUnallocated(){
-        $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
-        `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
+        $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`, 
+        `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`, 
         (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
         `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
         DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
           stock_allocation.si_id, stock_allocation.shipped,
         stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
-        blend_teas.packages AS blended_packages, CONCAT(stock_allocation.`standard`,'',0_debtors_master.short_name) AS allocation,
-        mark_country.country, blend_teas.packages AS blended_packages
+        blend_teas.packages AS blended_packages,  
+        mark_country.country, blend_teas.packages AS blended_packages, blend_master.blend_no AS allocation
         FROM `stock_allocation` 
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
         LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
         LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
+        LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no 
         LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
         GROUP BY stock_id";
         return $this->executeQuery();
@@ -100,7 +101,8 @@ Class BlendingController extends Model{
             INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_id WHERE id = '$blendno'";
             return $this->executeQuery();
         }else{
-            $this->query = "SELECT `id`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, `si_no`, `closed`, `blendid` 
+            $this->query = "SELECT `id`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, 
+            `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, `si_no`, `closed`, `blendid` 
             FROM `blend_master`
             INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_id";
             return $this->executeQuery(); 
@@ -153,6 +155,17 @@ Class BlendingController extends Model{
     }
     public function approveBlend($blendno){
         $this->query = "UPDATE blend_master SET approved =1 WHERE id = ".$blendno;
+        $this->query = "INSERT INTO `shippments`(`allocation_id`, `si_no`, `pkgs_shipped`, `siType`, `blend_no`) 
+        SELECT allocation_id, blend_no, packages, 'blend', blend_no
+        FROM blend_teas
+        WHERE blend_no = '$blendno'";
+        $this->executeQuery();
+    }
+    public function clearFromShippment($blendno){
+        $this->query = "UPDATE blend_master SET approved =0 WHERE id = ".$blendno;
+        $this->executeQuery();
+
+        $this->query = "DELETE FROM `shippments` WHERE blend_no = '$blendno'";
         $this->executeQuery();
     }
     

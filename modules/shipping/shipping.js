@@ -48,19 +48,22 @@ function addSi(){
             dataType: "json", 
             url: "shipping_action.php",   
             success: function(data){
+                localStorage.setItem("siId", data.id);
+                localStorage.setItem("siType", data.shipment_type);
+                var sino = data.id;
+                var siType = data.shipment_type;
                 $.ajax({   
                     type: "POST",
                     data : {action:"generate", siId:data.id},
                     dataType: "html", 
-                    url: "../../reports/shipping_instruction.php",   
                     success: function(data){
                         swal('Success');
+                        $('#nextid').show();
+                        $("#next").attr("href", "index.php?view=shipment-teas&sino="+sino+"&type="+siType);
                     }  
                 });   
 
-                localStorage.setItem("siId", data.id);
-                localStorage.setItem("siType", data.shipment_type);
-                window.location.href = './index.php?view=shipment-teas&si='+data.id+'&type='+data.shipment_type;
+              
 
 
             }   

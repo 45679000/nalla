@@ -145,4 +145,22 @@ function approveBlend(){
         });
 
 }
+function editBlend(){
+    var blendno = '<?php echo $blendno ?>'
+    $.ajax({
+            url: "blend_action.php",
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "edit-blend",
+                blendno: blendno
+            },
+            success: function(response) {
+                showBlend(blendno);
+            }
+
+        });
+
+}
+
 </script>

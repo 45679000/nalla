@@ -160,7 +160,7 @@
                                   </div>
                                   <div class='row'>
                                     <div class='col-md-12' style='padding:10px;'>
-                                      <a href='' style='color:red' class='confirm' id='".$blend['id']."'>
+                                      <a onclick=editBlend(this)  style='color:red' class='confirm' id='".$blend['id']."'>
                                         <i class='fa fa-pencil' ></i>
                                       </a>
                                       Edit Blend</a>
@@ -347,6 +347,8 @@ if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
 if(isset($_POST['action']) && $_POST['action'] == 'approve-blend'){
   $blendno = $_POST['blendno'];
   $blendingCtrl->approveBlend($blendno);
-  
-
+}
+if(isset($_POST['action']) && $_POST['action'] == 'edit-blend'){
+  $blendno = $_POST['blendno'];
+  $blendingCtrl->clearFromShippment($blendno);
 }

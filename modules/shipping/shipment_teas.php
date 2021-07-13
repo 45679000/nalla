@@ -1,14 +1,13 @@
 <?php
 if($type=='Blend Shippment'){
     $output ="";
-    $blendList = $shippingCtrl->loadActiveBlend();
+    $blendList = $blendingCtrl->fetchBlends();
     if (sizeOf($blendList)> 0) {
             $output .='
         <table id="shippmentTeasBlend" class="table table-striped table-bordered">
         <thead class="thead-dark">
             <tr>
                 <th class="wd-15p">Blend No</th>
-                <th class="wd-15p">Si Id</th>
                 <th class="wd-15p">STD Name</th>
                 <th class="wd-15p">Grade</th>
                 <th class="wd-20p">Client Name</th>
@@ -22,13 +21,12 @@ if($type=='Blend Shippment'){
         foreach ($blendList as $blend) {
             $output.='<tr>';
                 $output.='<td>'.$blend["blend_no"].'</td>';
-                $output.='<td>'.$blend["si_no"].'</td>';
                 $output.='<td>'.$blend["std_name"].'</td>';
                 $output.='<td>'.$blend["Grade"].'</td>';
                 $output.='<td>'.$blend["client_name"].'</td>';
+                $output.='<td>'.$blend["Pkgs"].'</td>';
                 $output.='<td>'.$blend["nw"].'</td>';
-                $output.='<td>'.$blend["output_pkgs"].'</td>';
-                $output.='<td>'.$blend["output_pkgs"].'</td>'; 
+                $output.='<td>'.$blend["Pkgs"]*$blend["nw"].'</td>'; 
                 $output.='<td><a id="list" href="#">List</a></td>';
                 if($blend["si_no"]!=null){
                     $output.='<td><button id="'.$si.'">SI attached</button></td>'; 
@@ -37,10 +35,9 @@ if($type=='Blend Shippment'){
                 } 
      
             $output.='</tr>';
-
-            $output.='</tbody>
-        </table>';
         }
+        $output.='</tbody>
+        </table>';
     }
         echo $output;
 
@@ -123,7 +120,7 @@ if($type=='Blend Shippment'){
 $(document).ready(function() {
     $(function() {
         var blendno;
-        var sino = '<?php echo $si; ?>'
+        var sino = '<?php echo $_GET['sino']; ?>'
         $('.table tr').click(function(e){
         var cell = $(e.target).get(0); // This is the TD you clicked
         var tr = $(this); // This is the TR you clicked
@@ -149,13 +146,14 @@ $(document).ready(function() {
             url: "shipping_action.php",   
             success: function(data){
                 swal('Success',data.message, 'success');
-                location.reload(); 
+                // location.reload(); 
             }   
         });   
   }
 });
 $('#next').click(function(){
-    window.location.href = './index.php?view=documents';
+    var sino = '<?php echo $_GET['sino']; ?>'
+    window.location.href = './index.php?view=documents&sino='+sino;
 
 });
 $('#previous').click(function(){

@@ -151,7 +151,7 @@ function loadAllocated(){
         },
         success: function(data) {
             $("#allocatedStock").html(data);
-
+            
         }
 
     });

@@ -150,11 +150,12 @@
         public function allocatedStock(){
             $query = "SELECT allocation_id, sale_no, broker, mark, grade, sale_price, lot, allocated_pkgs, net, invoice, mrp_value,
             allocated_pkgs*net AS net_allocation,  si_id, shipped, max_offered_price, c.debtor_ref, comment,
-            CONCAT(c.debtor_ref, ' ', a.standard) as buyerstandard
+            CONCAT(COALESCE(c.debtor_ref, ''), ' ', COALESCE(a.standard,'')) AS buyerstandard 
             FROM closing_stock b
             LEFT JOIN stock_allocation a ON a.stock_id = b.stock_id
             LEFT JOIN 0_debtors_master c ON c.debtor_no = a.client_id
-            WHERE deallocated = 0";
+            WHERE deallocated = 0
+            ORDER BY buyerstandard ASC";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();

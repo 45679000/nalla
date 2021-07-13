@@ -3,7 +3,24 @@ $path_to_root = "../../";
 include $path_to_root . 'templates/header.php';
 include $path_to_root . 'views/includes/auction_ids.php';
 ?>
+<style>
 
+.frame {
+        background-color: white;
+    }
+.mainContainer{
+    background-color: white !important;
+
+}
+.pdfViewer {
+    background-color: white;
+}
+    @media screen and (max-width:450) {
+        .counter {
+            margin-bottom: 10px;
+        }
+    }
+</style>
 <div class="my-3 my-md-5">
     <div class="container-fluid">
         <div class="page-header">

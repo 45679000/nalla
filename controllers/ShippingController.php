@@ -38,7 +38,7 @@ Class ShippingController extends Model{
            LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no 
            LEFT JOIN shippments ON shippments.allocation_id = stock_allocation.allocation_id 
            LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark
-           GROUP BY stock_id";
+           GROUP BY stock_id, allocation_id";
         return $this->executeQuery();
     }
  

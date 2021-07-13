@@ -104,7 +104,7 @@ Class BlendingController extends Model{
             $this->query = "SELECT `id`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, 
             `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, `si_no`, `closed`, `blendid` 
             FROM `blend_master`
-            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_id";
+            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name";
             return $this->executeQuery(); 
         }
  

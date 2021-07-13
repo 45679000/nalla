@@ -83,7 +83,6 @@
                                 <td class="counter-value" id="totalLots"></td>
                                 <td class="counter-value" id="totalPkgs"></td>
                                 <td class="counter-value" id="totalkgs"></td>
-                                <td class="counter-value" id="totalValue"></td>
                                 <td id="lotView">PRINT</td>
                                 <td id="lotEdit">PRINT</td>
                                 <td><input id="contractno" onBlur="updateContractNo(this)"></input></td>

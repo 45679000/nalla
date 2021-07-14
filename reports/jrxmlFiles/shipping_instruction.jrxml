@@ -640,7 +640,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="732" width="553" height="1" uuid="689e6d34-07a8-4236-8b32-4fbbfc8aa6b0"/>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="2" width="15" height="15" uuid="08e3e639-f56e-4655-bd3a-965edf6df2b0"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="2" width="66" height="15" uuid="08e3e639-f56e-4655-bd3a-965edf6df2b0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 					<paragraph leftIndent="4"/>

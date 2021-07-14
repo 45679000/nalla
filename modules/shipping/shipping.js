@@ -486,6 +486,21 @@ function loadSelectionLotList(){
     },
 });
 }
+function loadClients(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "shipping_action.php",
+        data: {action:"clients"},
+    success: function (data) {
+        $('#buyerid').html(data);
+    },
+    error: function (data) {
+
+    },
+});
+}
+
 
 
 

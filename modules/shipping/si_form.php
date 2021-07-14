@@ -19,6 +19,7 @@ print ' <div class="row">
         <div class="col-md-3 col-md-3">';
 $form->formField("dropdownlist", "shippment_type", "", "Shippment Type", array("Blend Shippment" => "Blend Shippment", "Straight Line" => "Straight Line"));
 $form->formField("text", "contract_no", "", "Contract No");
+$form->formField("dropdownlist", "buyerid", "", "Select Buyer", '');
 $form->formField("text-area", "buyer", "", "Buyer");
 $form->formField("text", "si_date", "", "Shipping Date");
 $form->formField("text", "target_vessel", "", "Target Vessel");
@@ -79,8 +80,13 @@ $sino=1;
         siTemplate();
         editData();
         addSi();
+        loadClients();
         $('#nextid').hide();
         localStorage.getItem("siId");
+        $('#buyerid').change(function(){
+            $('#buyer').text($('#buyerid').val());
 
+        })
+        
     });
 </script>

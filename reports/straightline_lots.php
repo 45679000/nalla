@@ -2,7 +2,7 @@
  ob_start();
 
     $path_to_root = "../";
-    $path_to_root1 = "../../";
+    $path_to_root1 = "../";
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
     include_once ($path_to_root.'setting.php');
     

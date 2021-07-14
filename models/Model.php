@@ -7,6 +7,7 @@ class Model{
     public $conditions = array();
     public $parameters = array();
     public $limit;
+    public $debugSql = false;
     public function __construct($db){
         $this->conn = $db;
     }
@@ -54,6 +55,9 @@ class Model{
         return $rows;
     }
     public function executeQuery(){
+        if($this->debugSql==true){
+            echo $this->query;
+        }
         $duplicate = 0;
         try{
             $rows = $this->conn->query($this->query)->fetchAll();

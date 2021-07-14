@@ -80,6 +80,9 @@ Class ShippingController extends Model{
         $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$clientId'";
         $clientName = $this->executeQuery();
 
+        $this->query = "SELECT status FROM approval_workflow WHERE approval_id = '$siNo'";
+        $approvalStatus = $this->executeQuery();
+
         
         return array(
             "siNo"=>$siNo,
@@ -87,6 +90,7 @@ Class ShippingController extends Model{
             "totalLots"=>$lots[0]['totalLots'],
             "totalkgs"=>$kgs[0]['totalkgs'],
             "totalpkgs"=>$pkgs[0]['totalpkgs'],
+            "approvalStatus"=>$approvalStatus[0]['status'],
             "lotDetailsView"=>"
             <a onclick='printLotDetails()' id='lotView' href='#'><i class='fa fa-eye' aria-hidden='true'></i>
             </a>",

@@ -141,6 +141,7 @@ function updateContractNo(element){
     var blend_no_contract_no = $(element).val();
     localStorage.setItem("blend_no_contract_no", blend_no_contract_no);
     allocationSummary(localStorage.getItem("blend_no_contract_no", localStorage.getItem("clientId"))); 
+    addApproval(element);
 
 }
 </script>

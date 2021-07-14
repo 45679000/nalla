@@ -117,7 +117,7 @@ function callAction(element){
 if(method=="allocate"){
     AllocationShippment(id, "allocate-shipment", siNo, localStorage.getItem("blend_no_contract_no"), "allocate");
 }else{
-    removeLotFromShippment("remove-shipment", id, "deallocate");
+    removeLotFromShippment("remove-shipment", id, "deallocate", localStorage.getItem("blend_no_contract_no"));
 }
 }
 function viewLotDetails(){

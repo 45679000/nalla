@@ -125,7 +125,51 @@ if($action=='add-si'){
     echo json_encode(array("status"=>"Lot Unallocated successfully"));
 
 }else if($action=='shippment-summary'){
-    echo json_encode($shippingCtrl->shipmentSummaries($_POST['siNo']));
+    $shipment = $shippingCtrl->shipmentSummaries($_POST['siNo']);
+    $output ='';
+
+    if(count($shipment)>0){
+        $siNo =  $shipment['siNo'];
+        $totalLots =  $shipment['totalLots'];
+        $totalPkgs =  $shipment['totalpkgs'];
+        $totalkgs =  $shipment['totalkgs'];
+        $lotDetailsView = $shipment['lotDetailsView'];
+        $lotDetailsEdit = $shipment['lotDetailsEdit'];
+        $clientName = $shipment['clientName'];
+
+        $output .= '
+        <table class="table table-sm table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Lots</th>
+                <th>Pkgs</th>
+                <th>kgs</th>
+                <th>Print Lot Detail</th>
+                <th>View Allocations</th>
+                <th>Contract No</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tr>
+            <td class="counter-value">'.$totalLots.'</td>
+            <td class="counter-value">'.$totalPkgs.'</td>
+            <td class="counter-value">'.$totalkgs.'</td>
+            <td id="lotView">'.$lotDetailsView.'</td>
+            <td id="lotEdit">'.$lotDetailsEdit.'</td>
+            <td><input id="contractno" onBlur="updateContractNo(this)" value="'.$siNo.'"></input></td>
+            <td id="lotStatus">Unconfirmed</td>
+            <td>
+                <button id="1" style="background-color:green; color:white" onClick="addApproval(this)" class="fa fa-check"></button>
+            </td>
+
+        </tr>
+    </table>
+';
+    }
+    echo $output;
+    
 }
 
 else if($action=='blend'){

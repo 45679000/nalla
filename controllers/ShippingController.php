@@ -52,22 +52,25 @@ Class ShippingController extends Model{
     }
     public function shipmentSummaries($siNo, $clientId="1"){
    
-        $this->query = "SELECT COUNT(id) AS totalLots FROM shippments 
+        $this->query = "SELECT (CASE WHEN COUNT(id) IS NULL THEN 0 ELSE COUNT(id) END) AS totalLots FROM shippments 
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
         WHERE  si_no = '$siNo'";
         $lots = $this->executeQuery();
 
-        $this->query = "SELECT SUM(closing_stock.net*shippments.pkgs_shipped) AS totalkgs FROM shippments
+        $this->query = "SELECT (CASE WHEN SUM(closing_stock.net*shippments.pkgs_shipped) IS NULL THEN 0 
+        ELSE SUM(closing_stock.net*shippments.pkgs_shipped) END) AS totalkgs 
+        FROM shippments
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
         WHERE  shippments.si_no = '$siNo'";
         $kgs = $this->executeQuery();
 
-        $this->query = "SELECT SUM((pkgs_shipped)) AS totalpkgs FROM shippments
+        $this->query = "SELECT (CASE WHEN SUM(pkgs_shipped) IS NULL THEN 0 
+        ELSE SUM(pkgs_shipped) END) AS totalpkgs FROM shippments
         WHERE  shippments.si_no = '$siNo'";
         $pkgs = $this->executeQuery();
 
-        $this->query = "SELECT (SUM(closing_stock.net*shippments.pkgs_shipped)*sale_price) AS totalkgs 
+        $this->query = "SELECT (SUM(closing_stock.net*shippments.pkgs_shipped)*sale_price) AS totalAmount 
         FROM shippments
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
@@ -77,7 +80,10 @@ Class ShippingController extends Model{
         $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$clientId'";
         $clientName = $this->executeQuery();
 
+        
         return array(
+            "siNo"=>$siNo,
+            "clientName"=>$clientName[0]['name'],
             "totalLots"=>$lots[0]['totalLots'],
             "totalkgs"=>$kgs[0]['totalkgs'],
             "totalpkgs"=>$pkgs[0]['totalpkgs'],

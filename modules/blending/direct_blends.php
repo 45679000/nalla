@@ -62,38 +62,8 @@
         <div class="card ">
             <div class="card-body p-2">
                 <div class="col-md-12">
-                    <div class="row" style="max-height:20%;">
-                        <table class="table table-sm table-bordered">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Client</th>
-                                    <th>Lots</th>
-                                    <th>Pkgs</th>
-                                    <th>kgs</th>
-                                    <th>Print Lot Detail</th>
-                                    <th>View Allocations</th>
-                                    <th>Contract No</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td  id="clientName"></td>
-                                <td class="counter-value" id="totalLots"></td>
-                                <td class="counter-value" id="totalPkgs"></td>
-                                <td class="counter-value" id="totalkgs"></td>
-                                <td id="lotView">PRINT</td>
-                                <td id="lotEdit">PRINT</td>
-                                <td><input id="contractno" onBlur="updateContractNo(this)"></input></td>
-                                <td id="lotStatus">Unconfirmed</td>
-                                <td>
-                                    <button id="1" style="background-color:green; color:white" onClick="addApproval(this)" class="fa fa-check"></button>
-                                </td>
-
-                            </tr>
-                        </table>
-
+                    <div id="summary" class="row" style="max-height:20%;">
+                        
                     </div>
                 </div>
             </div>

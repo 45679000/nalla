@@ -165,16 +165,14 @@ function addApproval(element){
         type: "POST",
         data: {
             action: "add-workfow",
-            id: localStorage.getItem("clientId"),
-            event: 'stock_allocation',
+            id: localStorage.getItem("blend_no_contract_no"),
             approve_person: '1',
             details: 'Request to approve lot details for shippment',
-            status: 'Confirmed'
         },
         cache: true,
         url: "shipping_action.php",
         success: function (data) {
-            // allocationSummary(localStorage.getItem("blend_no_contract_no"));
+            allocationSummary(localStorage.getItem("blend_no_contract_no", localStorage.getItem("clientId"))); 
             alert('Confirmed');
 
         }

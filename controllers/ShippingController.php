@@ -80,6 +80,9 @@ Class ShippingController extends Model{
         $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$clientId'";
         $clientName = $this->executeQuery();
 
+        $this->query = "SELECT status FROM approval_workflow WHERE approval_id = '$siNo'";
+        $approvalStatus = $this->executeQuery();
+
         
         return array(
             "siNo"=>$siNo,
@@ -87,6 +90,7 @@ Class ShippingController extends Model{
             "totalLots"=>$lots[0]['totalLots'],
             "totalkgs"=>$kgs[0]['totalkgs'],
             "totalpkgs"=>$pkgs[0]['totalpkgs'],
+            "approvalStatus"=>$approvalStatus[0]['status'],
             "lotDetailsView"=>"
             <a onclick='printLotDetails()' id='lotView' href='#'><i class='fa fa-eye' aria-hidden='true'></i>
             </a>",
@@ -206,19 +210,15 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function attachSi($sino, $blendno){
+        $this->debugSql = true;
         $this->query = "UPDATE blend_master SET si_no = '$sino' WHERE blend_no = '$blendno'";
-        return $this->executeQuery();
-        $this->query = "SELECT id FROM blend_master WHERE blend_no='$blendno'";
-        $row = $this->executeQuery();
-        $blendid =  $row[0]['id'];
+        $this->executeQuery();
         $this->query = "UPDATE shippments
         SET si_no = '$sino' 
-        WHERE shippments.blend_no = '$blendid'";
-
-        echo $this->query;
-        $this->executeQuery();
+        WHERE shippments.blend_no = '$blendno'";
+         $this->executeQuery();
+         echo $this->query;
       
-
     }
     public function deletBlend($id){
         $this->query = "DELETE FROM blend_master WHERE id= '$id'";
@@ -227,6 +227,14 @@ Class ShippingController extends Model{
     public function getContractNo($id){
         $this->query = "SELECT contract_no FROM shipping_instructions WHERE instruction_id= '$id' LIMIT 1";
         return $this->executeQuery();
+    }
+    public function blendList(){
+        $this->query = "SELECT blend_no, id FROM blend_master WHERE closed = 0 AND approved = 1";
+        return($this->executeQuery());
+    }
+    public function contractList(){
+        $this->query = "SELECT si_no FROM shippments WHERE `siType` = 'straight' GROUP BY si_no";
+        return($this->executeQuery());
     }
 }        
 

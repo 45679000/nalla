@@ -7,6 +7,7 @@ class Model{
     public $conditions = array();
     public $parameters = array();
     public $limit;
+    public $debugSql = false;
     public function __construct($db){
         $this->conn = $db;
     }
@@ -17,7 +18,7 @@ class Model{
         $columnString = implode(',', array_keys($this->data));
         $valueString = implode(',', array_fill(0, count($this->data), '?'));
         try {
-            $stmt = $this->conn->prepare("INSERT INTO ".$this->tablename." ({$columnString}) VALUES ({$valueString})");
+            $stmt = $this->conn->prepare("REPLACE INTO ".$this->tablename." ({$columnString}) VALUES ({$valueString})");
             $stmt->execute(array_values($this->data));
             return $this->conn->lastInsertId();
         } catch (Exception $ex) {
@@ -54,6 +55,9 @@ class Model{
         return $rows;
     }
     public function executeQuery(){
+        if($this->debugSql==true){
+            echo $this->query;
+        }
         $duplicate = 0;
         try{
             $rows = $this->conn->query($this->query)->fetchAll();

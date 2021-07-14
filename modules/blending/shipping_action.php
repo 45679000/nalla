@@ -136,6 +136,7 @@ if($action=='add-si'){
         $lotDetailsView = $shipment['lotDetailsView'];
         $lotDetailsEdit = $shipment['lotDetailsEdit'];
         $clientName = $shipment['clientName'];
+        $approvalStatus = $shipment['approvalStatus'];
 
         $output .= '
         <table class="table table-sm table-bordered">
@@ -159,7 +160,7 @@ if($action=='add-si'){
             <td >'.$lotDetailsView.'</td>
             <td >'.$lotDetailsEdit.'</td>
             <td><input id="contractno" onBlur="updateContractNo(this)" value="'.$siNo.'"></input></td>
-            <td id="lotStatus">Unconfirmed</td>
+            <td id="lotStatus">'.$approvalStatus.'</td>
             <td>
                 <button id="1" style="background-color:green; color:white" onClick="addApproval(this)" class="fa fa-check"></button>
             </td>
@@ -497,11 +498,9 @@ else if($action == 'load_blend_summary'){
 }else if($action=="add-workfow"){
     $approvalId = isset($_POST['id']) ? $_POST['id'] : die('id missing');
     $userid = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : die('user id missing');
-    $event = isset($_POST['event']) ? $_POST['event'] : die('event missing');
     $approvePerson = isset($_POST['approve_person']) ? $_POST['approve_person'] : die( 'approval person missing');
     $details = isset($_POST['details']) ? $_POST['details'] : die('Detail Missing');
-    $status = isset($_POST['status']) ? $_POST['status'] : die('Status Missing');
-    $workflow->addApproval($approvalId, $userid, $event, $approvePerson, $details, $status);
+    $workflow->addApproval($approvalId, $userid, "", $approvePerson, $details);
 }else if($action=="client-allocation"){
     $clientid = isset($_POST['id']) ? $_POST['id'] :die('client id missing');
     $output ="";

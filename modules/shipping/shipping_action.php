@@ -399,6 +399,35 @@ else if($action == 'load_blend_summary'){
     $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
     var_dump($shippingCtrl->attachSi($sino, $blendno));
     
+}else if($action =="blendlist"){
+    $output = "";
+        $blends= $shippingCtrl->blendList();
+        $output = '<option disabled="" value="..." selected="">select</option>';
+        if (sizeOf($blends) > 0) {
+             foreach($blends as $blend){
+                $output .= '<option value="
+                 '.$blend['id'].'">'.$blend['blend_no'].'</option>';
+             }
+              echo $output;	
+        }else{
+            echo '<option disabled="" value="..." selected="">select</option>';
+        }
+    
+}else if($action =="contractnoList"){
+    $output = "";
+        $contracts= $shippingCtrl->contractList();
+        $output = '<option disabled="" value="..." selected="">select</option>';
+        if (sizeOf($contracts) > 0) {
+             foreach($contracts as $contract){
+                $output .= '<option value="
+                 '.$contract['si_no'].'">'.$contract['si_no'].'</option>';
+             }
+              echo $output;	
+        }else{
+            echo '<option disabled="" value="..." selected="">select</option>';
+        }
+    
+
 }else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }

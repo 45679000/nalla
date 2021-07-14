@@ -64,25 +64,14 @@ function showClientAllocation(clientid){
 function allocationSummary(siNo, clientId) {
     $.ajax({
         type: "POST",
-        dataType: "json",
+        dataType: "html",
         url: "shipping_action.php",
         data: { action: "shippment-summary", siNo:siNo, clientId: clientId },
         success: function (data) {
-            console.log(JSON.parse(data));
-            $('#totalLots').html(data.totalLots);
-            $('#totalkgs').html(data.totalkgs);
-            $('#totalPkgs').html(data.totalpkgs);
-            $('#lotView').html(data.lotDetailsView);
-            $('#lotEdit').html(data.lotDetailsEdit);
-            $('#lotStatus').html(data.approvalStatus);
+            $('#summary').html(data);
         },
         error: function (data) {
-            $('#totalLots').html(data.totalLots);
-            $('#totalkgs').html(data.totalkgs);
-            $('#totalPkgs').html(data.totalpkgs);
-            $('#lotView').html(data.lotDetailsView);
-            $('#lotEdit').html(data.lotDetailsEdit);
-            $('#lotStatus').html(data.approvalStatus);
+            
 
         },
     });

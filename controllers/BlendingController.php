@@ -17,7 +17,7 @@ Class BlendingController extends Model{
         LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
         LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no 
         LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
-        GROUP BY stock_id";
+        GROUP BY stock_id, allocation_id";
         return $this->executeQuery();
     }
 
@@ -98,7 +98,7 @@ Class BlendingController extends Model{
             `std_name`, `Grade`, `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, 
             `si_no`, `closed`, `blendid` 
             FROM `blend_master`
-            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_id WHERE id = '$blendno'";
+            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name WHERE id = '$blendno'";
             return $this->executeQuery();
         }else{
             $this->query = "SELECT `id`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, 
@@ -111,7 +111,8 @@ Class BlendingController extends Model{
     }
     public function removeLotAllocationFromBlend($allocationId){
         $this->query = "DELETE FROM blend_teas WHERE allocation_id = ".$allocationId; 
-        return $this->executeQuery();
+        $this->executeQuery();
+        return $this->query;
     }
     public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid){
         $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`)
@@ -130,9 +131,9 @@ Class BlendingController extends Model{
     }
     public function expectedComposition($blendno){
         $this->query = "
-            SELECT a.id, a.percentage, g.name,  s.standard
+            SELECT a.id, a.percentage, g.code AS name,  s.standard
             FROM blend_composition a
-            INNER JOIN grades g ON g.id = a.id
+            INNER JOIN grading_comments g ON g.id = a.id
             INNER JOIN grading_standard s ON s.id = a.standard_id
             LEFT JOIN blend_master bm ON bm.std_name = s.standard
             WHERE bm.id = '$blendno'";
@@ -142,19 +143,21 @@ Class BlendingController extends Model{
     }
     public function currentComposition($blendno){
         $this->query = "
-        SELECT blend_teas.id, closing_stock.grade, COUNT(*)*100 / (SELECT COUNT(id) AS s FROM blend_teas) AS `percentage` 
+        SELECT blend_teas.id, closing_stock.comment AS grade, COUNT(*)*100 / (SELECT COUNT(id) AS s FROM blend_teas) AS `percentage` 
         FROM `blend_teas` 
         LEFT JOIN stock_allocation ON blend_teas.allocation_id = stock_allocation.allocation_id 
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id 
         LEFT JOIN blend_master bm ON bm.id = blend_teas.blend_no 
         WHERE bm.id = '$blendno'
-        GROUP BY grade,bm.id ";
+        GROUP BY comment , bm.id ";
         $result = $this->executeQuery();
         return $result;
 
     }
     public function approveBlend($blendno){
         $this->query = "UPDATE blend_master SET approved =1 WHERE id = ".$blendno;
+        $this->executeQuery();
+
         $this->query = "INSERT INTO `shippments`(`allocation_id`, `si_no`, `pkgs_shipped`, `siType`, `blend_no`) 
         SELECT allocation_id, blend_no, packages, 'blend', blend_no
         FROM blend_teas
@@ -167,6 +170,26 @@ Class BlendingController extends Model{
 
         $this->query = "DELETE FROM `shippments` WHERE blend_no = '$blendno'";
         $this->executeQuery();
+    }
+    public function showCurrentBlendAllocation($blendno){
+        $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`, 
+        `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`, 
+        (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
+        `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
+        DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
+          stock_allocation.si_id, stock_allocation.shipped,
+        stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
+        blend_teas.packages AS blended_packages,  
+        mark_country.country, blend_teas.packages AS blended_packages, blend_master.blend_no AS allocation
+        FROM `blend_teas`
+        LEFT JOIN stock_allocation ON blend_teas.allocation_id = stock_allocation.allocation_id  
+        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+        LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
+        LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no 
+        LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
+        WHERE blend_teas.blend_no = $blendno
+        GROUP BY stock_id";
+        return $this->executeQuery();
     }
     
 }        

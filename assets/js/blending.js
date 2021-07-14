@@ -110,7 +110,7 @@ function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            // showBlend(blendno);
+            showBlend(blendno);
             if(method=="allocate"){
                 $('#'+allocationid).removeClass('allocate');
                 $('#'+allocationid).addClass('deallocate');
@@ -320,6 +320,23 @@ function gradeList() {
             $("#grade").html(response);
         }
 
+    });
+}
+
+function currentAllocation(blendno){
+    $.ajax({
+        type: "POST",
+        data: {
+            action: "my-current-allocation",
+            blendno:blendno
+
+        },
+        cache: true,
+        url: "blend_action.php",
+        success: function (data) {
+            $("#blendTable").html(data);
+
+        }
     });
 }
 

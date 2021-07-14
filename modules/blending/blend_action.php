@@ -50,10 +50,10 @@
 			            <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['blend_no']."</a></td>
 			            <td>".$blend['client_name']."</td>
 			            <td>".$blend['std_name']."</td>
-                        <td>".$blend['Grade']."</td>
-                        <td>".$blend['Pkgs']."</td>
-                        <td>".$blend['nw']."</td>
-                        <td>".$kgs."</td>
+                  <td>".$blend['Grade']."</td>
+                  <td>".$blend['Pkgs']."</td>
+                  <td>".$blend['nw']."</td>
+                  <td>".$kgs."</td>
 			            <td>
                          <a href='./index.php?view=allocateblendteas&blendno=".$blend['id']."' style='color:green' 
                           class='navigate' id='".$blend['id']."'><i class='fa fa-plus'></i></a>&nbsp;
@@ -214,7 +214,7 @@ if(isset($_POST['action']) && $_POST['action'] == "add-blend-teas"){
 }
 if(isset($_POST['action']) && $_POST['action'] == "remove-blend-teas"){
   $allocationId = $_POST['allocationid'];
-  $blendingCtrl->removeLotAllocationFromBlend($allocationId);
+  echo $blendingCtrl->removeLotAllocationFromBlend($allocationId);
 }
 
 
@@ -351,4 +351,76 @@ if(isset($_POST['action']) && $_POST['action'] == 'approve-blend'){
 if(isset($_POST['action']) && $_POST['action'] == 'edit-blend'){
   $blendno = $_POST['blendno'];
   $blendingCtrl->clearFromShippment($blendno);
+}
+if(isset($_POST['action']) && $_POST['action'] == 'my-current-allocation'){
+  $blendno = $_POST['blendno'];
+  $currentAllocation = $blendingCtrl->showCurrentBlendAllocation($blendno);
+  $output ='';
+
+  if (sizeOf($currentAllocation)> 0) {
+    $output .='
+    <table id="direct_lot" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th class="wd-15p">Lot</th>
+            <th class="wd-15p">Mark</th>
+            <th class="wd-10p">Grade</th>
+            <th class="wd-25p">Invoice</th>
+            <th class="wd-25p">Pkgs IN.Stck</th>
+            <th class="wd-25p">Allocate Pkgs</th>
+            <th class="wd-25p">Net</th>
+            <th class="wd-25p">Kgs</th>
+            <th class="wd-25p">Code</th>
+            <th class="wd-25p">Allocation</th>
+            <th class="wd-25p">Select</th>
+
+        </tr>
+    </thead>
+    <tbody>';
+    foreach ($currentAllocation as $stock) {
+        $output.='<tr>';
+            $packagesToAllocate = $stock["blended_packages"];
+            if($stock["selected_for_shipment"]== NULL){
+              $packagesToAllocate = $stock["pkgs"];
+            }
+            $output.='<td>'.$stock["lot"].'</td>';
+            $output.='<td>'.$stock["mark"].'</td>';
+            $output.='<td>'.$stock["grade"].'</td>';
+            $output.='<td>'.$stock["invoice"].'</td>';
+            $output.='<td><div id="availablepackages">'.$stock["pkgs"].'</td>';
+            $output.='<td><div id="allocatedpackages" contenteditable="true">'.$packagesToAllocate.'</div></td>';
+            $output.='<td>'.$stock["net"].'</td>';
+            $output.='<td>'.$stock["kgs"].'</td>';
+            $output.='<td>'.$stock["comment"].'</td>';
+            $output.='<td>'.$stock["allocation"].'</td>';
+            if($stock["selected_for_shipment"]== NULL){
+                $output.='
+                <td>
+                    <button id="'.$stock["allocation_id"].'"  
+                        type="button" 
+                        class="allocate" 
+                        onClick="callAction(this)"
+                        name="allocated">
+                        <i class="fa fa-plus"></i>                        
+                        </button>
+                </td>';
+            }else{
+                $output.='
+                <td>
+                    <button id="'.$stock["stock_id"].'"
+                        type="button" 
+                        class="deallocate"
+                        onClick="callAction(this)"
+                        name="allocated">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </td>';                
+            }                
+        $output.='</tr>';
+            }
+
+    $output.='</tbody>
+</table>';
+        }
+echo $output;
 }

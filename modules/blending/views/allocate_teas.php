@@ -82,6 +82,8 @@
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
 // $(document).ready(function(){
  
@@ -125,8 +127,8 @@ $('#lotEdit').click(function(e){
 });
 function viewAllocations(){
     var blendno = '<?php echo $blendno ?>'
-
-    $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+    currentAllocation(blendno);
+    // $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
 }
 function approveBlend(){
     var blendno = '<?php echo $blendno ?>'
@@ -140,6 +142,10 @@ function approveBlend(){
             },
             success: function(response) {
                 showBlend(blendno);
+                Swal.fire({
+                            icon: 'success',
+                            title: 'Blend Confirmed Successfully',
+                });
             }
 
         });
@@ -157,6 +163,7 @@ function editBlend(){
             },
             success: function(response) {
                 showBlend(blendno);
+                location.reload()
             }
 
         });

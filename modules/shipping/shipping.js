@@ -458,5 +458,34 @@ function completeShippment(siType){
     },
 });
 }
+function loadSelectionBlendList(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "shipping_action.php",
+        data: {action:"blendlist"},
+    success: function (data) {
+        $('#blendlist').html(data);
+    },
+    error: function (data) {
+
+    },
+});
+}
+function loadSelectionLotList(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "shipping_action.php",
+        data: {action:"contractnoList"},
+    success: function (data) {
+        $('#contactno').html(data);
+    },
+    error: function (data) {
+
+    },
+});
+}
+
 
 

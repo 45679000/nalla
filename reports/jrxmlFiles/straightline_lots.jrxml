@@ -110,7 +110,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="Times New Roman" size="20" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{header}]]></textFieldExpression>
 			</textField>
@@ -125,8 +125,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sale No]]></text>
 			</staticText>
@@ -137,8 +137,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DD/MM/YY]]></text>
 			</staticText>
@@ -149,8 +149,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Broker]]></text>
 			</staticText>
@@ -161,8 +161,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Warehouse]]></text>
 			</staticText>
@@ -173,8 +173,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[lot]]></text>
 			</staticText>
@@ -185,8 +185,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Origin]]></text>
 			</staticText>
@@ -197,8 +197,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mark]]></text>
 			</staticText>
@@ -209,8 +209,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grade]]></text>
 			</staticText>
@@ -221,8 +221,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Invoice]]></text>
 			</staticText>
@@ -233,8 +233,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pkgs]]></text>
 			</staticText>
@@ -245,8 +245,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Net]]></text>
 			</staticText>
@@ -257,8 +257,8 @@ GROUP BY allocation_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kgs]]></text>
 			</staticText>
@@ -314,7 +314,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sale_no}]]></textFieldExpression>
 			</textField>
@@ -327,7 +327,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{import_date}]]></textFieldExpression>
 			</textField>
@@ -340,7 +340,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{broker}]]></textFieldExpression>
 			</textField>
@@ -353,7 +353,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ware_hse}]]></textFieldExpression>
 			</textField>
@@ -366,7 +366,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
 			</textField>
@@ -379,7 +379,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
 			</textField>
@@ -392,7 +392,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>
@@ -405,7 +405,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
@@ -418,7 +418,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
@@ -431,7 +431,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pkgs_shipped}]]></textFieldExpression>
 			</textField>
@@ -444,7 +444,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
 			</textField>
@@ -457,7 +457,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
 			</textField>
@@ -470,7 +470,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{allocation}]]></textFieldExpression>
 			</textField>
@@ -483,19 +483,19 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{warehouse}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="46" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="25" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

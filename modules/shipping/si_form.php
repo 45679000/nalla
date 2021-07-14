@@ -83,10 +83,10 @@ $sino=1;
         loadClients();
         $('#nextid').hide();
         localStorage.getItem("siId");
-        $('#buyerid').change(function(){
-            $('#buyer').text($('#buyerid').val());
-
-        })
         
     });
+    $('#buyerid').change(function(){
+        var address = $('#buyerid').val();
+        $('#buyer').val(address);
+    })
 </script>

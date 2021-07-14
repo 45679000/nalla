@@ -144,8 +144,9 @@ if($action=='add-si'){
                 <th>Lots</th>
                 <th>Pkgs</th>
                 <th>kgs</th>
-                <th>Print Lot Detail</th>
                 <th>View Allocations</th>
+                <th>Print Lot Detail</th>
+
                 <th>Contract No</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -156,8 +157,8 @@ if($action=='add-si'){
             <td class="counter-value">'.$totalLots.'</td>
             <td class="counter-value">'.$totalPkgs.'</td>
             <td class="counter-value">'.$totalkgs.'</td>
-            <td id="lotView">'.$lotDetailsView.'</td>
-            <td id="lotEdit">'.$lotDetailsEdit.'</td>
+            <td >'.$lotDetailsView.'</td>
+            <td >'.$lotDetailsEdit.'</td>
             <td><input id="contractno" onBlur="updateContractNo(this)" value="'.$siNo.'"></input></td>
             <td id="lotStatus">Unconfirmed</td>
             <td>

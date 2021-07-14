@@ -120,10 +120,17 @@ if(method=="allocate"){
     removeLotFromShippment("remove-shipment", id, "deallocate");
 }
 }
-$('#lotView').click(function(e){
-    e.preventDefault();
-    $('#straightTable').html('<iframe class="frame" frameBorder="0" src="../../reports/lot_details.php" width="100%" height="800px"></iframe>');
-});
+function viewLotDetails(){
+    var siNo = localStorage.getItem("blend_no_contract_no");
+    $('#straightTable').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+siNo+'" width="100%" height="800px"></iframe>');
+
+}
+function printLotDetails(){
+    var siNo = localStorage.getItem("blend_no_contract_no");
+    $('#straightTable').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+siNo+'" width="100%" height="800px"></iframe>');
+
+}
+
 $('#lotEdit').click(function(e){
     e.preventDefault();
     var clientid = localStorage.getItem("clientId");

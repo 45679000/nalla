@@ -10,7 +10,7 @@
     $PHPJasperXML->debugsql = false;
     if(isset($_GET['sino'])){
         $PHPJasperXML->arrayParameter=array("sino"=>$_GET['sino']);
-        $PHPJasperXML->load_xml_file("jrxmlFiles/lot_details.jrxml");
+        $PHPJasperXML->load_xml_file("jrxmlFiles/straightline_lots.jrxml");
         $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
         ob_end_clean();
         $PHPJasperXML->outpage("I");

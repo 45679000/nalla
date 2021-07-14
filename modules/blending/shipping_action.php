@@ -146,7 +146,6 @@ if($action=='add-si'){
                 <th>kgs</th>
                 <th>View Allocations</th>
                 <th>Print Lot Detail</th>
-
                 <th>Contract No</th>
                 <th>Status</th>
                 <th>Action</th>

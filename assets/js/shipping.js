@@ -106,7 +106,7 @@ function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method
         }
     });
 }
-function removeLotFromShippment(action, shipmentid, method, pkgId){
+function removeLotFromShippment(action, shipmentid, method, siNo, ){
     $.ajax({
         type: "POST",
         data: {
@@ -117,7 +117,7 @@ function removeLotFromShippment(action, shipmentid, method, pkgId){
         cache: true,
         url: "shipping_action.php",
         success: function (data) {
-            allocationSummary(shipmentid);
+            allocationSummary(siNo);
             if(method=="deallocate"){
                 $('#'+shipmentid).removeClass('deallocate');
                 $('#'+shipmentid).addClass('allocate');
@@ -142,7 +142,7 @@ function AllocationShippment(allocationid, action, packages, siNo, method){
         cache: true,
         url: "shipping_action.php",
         success: function (data) {
-            allocationSummary(allocationid);
+            allocationSummary(siNo);
             if(method=="allocate"){
                 $('#'+allocationid).removeClass('allocate');
                 $('#'+allocationid).addClass('deallocate');
@@ -174,7 +174,7 @@ function addApproval(element){
         cache: true,
         url: "shipping_action.php",
         success: function (data) {
-            allocationSummary(clientId);
+            // allocationSummary(localStorage.getItem("blend_no_contract_no"));
             alert('Confirmed');
 
         }

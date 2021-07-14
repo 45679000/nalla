@@ -45,7 +45,7 @@ $form->formField("text", "total_gross_weight_per_container", "", "Total Gross We
 $form->formField("text", "destination_total_place_of_delivery", "", "Destination/Place of delivery");
 $form->formField("text", "lc_no", "", "Lc No");
 $form->formField("text", "date_of_issue", "", "Date of Issue");
-$form->formField("text", "negotiating_bank", "", "Negotiating Bank");
+$form->formField("text-area", "negotiating_bank", "", "Negotiating Bank");
 $form->formField("text", "marine_insuarance", "", "Marine Insuarance");
 $form->formField("text", "qa_inspection", "", "Qa and Inspection");
 $form->formField("text", "production_date", "", "Production Date");

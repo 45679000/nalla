@@ -87,8 +87,14 @@ Class ShippingController extends Model{
             "totalLots"=>$lots[0]['totalLots'],
             "totalkgs"=>$kgs[0]['totalkgs'],
             "totalpkgs"=>$pkgs[0]['totalpkgs'],
-            "lotDetailsView"=>"<a href='../../reports/lot_details?action=view&contact=".$siNo."'>Print</a>",
-            "lotDetailsEdit"=>"<a href='./index?action=edit&clientid=".$siNo."'>view</a>",
+            "lotDetailsView"=>"
+            <a onclick='printLotDetails()' id='lotView' href='#'><i class='fa fa-eye' aria-hidden='true'></i>
+            </a>",
+            "lotDetailsEdit"=>"
+            <a onclick='printLotDetails()' id='lotView' href='#'><i class='fa fa-print' aria-hidden='true'></i>
+            </a>",
+         
+         
 
         );
     }

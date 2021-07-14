@@ -179,7 +179,7 @@ Class ShippingController extends Model{
 
     }
     public function fetchErpClients(){
-        $this->query = "SELECT debtor_no, name, debtor_ref FROM 0_debtors_master WHERE inactive = 0 AND tea_buyer = 1";
+        $this->query = "SELECT debtor_no, address, name, debtor_ref FROM 0_debtors_master WHERE inactive = 0 AND tea_buyer = 1";
         return $this->executeQuery();
     }
     public function loadAllocated($clientid){

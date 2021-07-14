@@ -428,7 +428,21 @@ else if($action == 'load_blend_summary'){
         }
     
 
-}else{
+}else if ($action == "clients") {
+    $output = "";
+    $clients= $shippingCtrl->fetchErpClients();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($clients) > 0) {
+         foreach($clients as $clients){
+            $output .= '<option value="'.$clients['address'].'">'.$clients['name'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    } 
+}
+
+else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }
 

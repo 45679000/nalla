@@ -196,7 +196,7 @@ GROUP BY allocation_id]]>
 				<text><![CDATA[lot]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="23" width="65" height="19" uuid="23fc31dd-96c9-4142-941f-bfc224d5ea51"/>
+				<reportElement x="230" y="23" width="49" height="19" uuid="23fc31dd-96c9-4142-941f-bfc224d5ea51"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -208,7 +208,7 @@ GROUP BY allocation_id]]>
 				<text><![CDATA[Origin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="23" width="77" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
+				<reportElement x="279" y="23" width="106" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -220,7 +220,7 @@ GROUP BY allocation_id]]>
 				<text><![CDATA[Mark]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="371" y="23" width="57" height="19" uuid="e3d67f61-6fbd-4cb5-a28c-231499422261"/>
+				<reportElement x="385" y="23" width="43" height="19" uuid="e3d67f61-6fbd-4cb5-a28c-231499422261"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -347,7 +347,7 @@ GROUP BY allocation_id]]>
 	<detail>
 		<band height="16" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="42" height="15" isPrintWhenDetailOverflows="true" uuid="c7456b70-9939-4bed-af36-7ddd2fdbbc46"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="42" height="15" isPrintWhenDetailOverflows="true" uuid="c7456b70-9939-4bed-af36-7ddd2fdbbc46"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -360,7 +360,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{sale_no}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="42" y="0" width="57" height="15" isPrintWhenDetailOverflows="true" uuid="3bac2406-fd14-4aa3-b0cc-3d0927b98393"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="42" y="0" width="57" height="15" isPrintWhenDetailOverflows="true" uuid="3bac2406-fd14-4aa3-b0cc-3d0927b98393"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -373,7 +373,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{import_date}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="100" y="0" width="34" height="15" isPrintWhenDetailOverflows="true" uuid="35cbb7b7-790d-4345-9da8-442b86653569"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="100" y="0" width="34" height="15" isPrintWhenDetailOverflows="true" uuid="35cbb7b7-790d-4345-9da8-442b86653569"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -386,7 +386,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{broker}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="135" y="0" width="58" height="15" isPrintWhenDetailOverflows="true" uuid="c23a54e5-e5c2-4164-86d1-acf17cba8c1e"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="135" y="0" width="58" height="15" isPrintWhenDetailOverflows="true" uuid="c23a54e5-e5c2-4164-86d1-acf17cba8c1e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -399,7 +399,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{ware_hse}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="194" y="0" width="36" height="15" isPrintWhenDetailOverflows="true" uuid="f5a7d649-593a-4ed1-a9d6-c90f7a2acf64"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="194" y="0" width="36" height="15" isPrintWhenDetailOverflows="true" uuid="f5a7d649-593a-4ed1-a9d6-c90f7a2acf64"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -412,7 +412,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="230" y="0" width="65" height="15" isPrintWhenDetailOverflows="true" uuid="cb9ddf4a-18f0-49d6-938c-43cd283b3a7e"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="230" y="0" width="49" height="15" isPrintWhenDetailOverflows="true" uuid="cb9ddf4a-18f0-49d6-938c-43cd283b3a7e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -425,7 +425,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="295" y="0" width="77" height="15" isPrintWhenDetailOverflows="true" uuid="c1536d5a-f387-4419-a6be-809e24fd6b62"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="279" y="0" width="106" height="15" isPrintWhenDetailOverflows="true" uuid="c1536d5a-f387-4419-a6be-809e24fd6b62"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -438,7 +438,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="371" y="0" width="55" height="15" isPrintWhenDetailOverflows="true" uuid="34c507db-7255-463e-9930-a22fe61461b8"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="385" y="0" width="41" height="15" isPrintWhenDetailOverflows="true" uuid="34c507db-7255-463e-9930-a22fe61461b8"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -451,7 +451,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="426" y="0" width="52" height="15" isPrintWhenDetailOverflows="true" uuid="71f164ce-0388-4964-984c-0469a9dfd5c5"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="426" y="0" width="52" height="15" isPrintWhenDetailOverflows="true" uuid="71f164ce-0388-4964-984c-0469a9dfd5c5"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -464,7 +464,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="478" y="0" width="38" height="15" isPrintWhenDetailOverflows="true" uuid="4cf5323c-18eb-4524-ac9e-3f45808f426a"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="478" y="0" width="38" height="15" isPrintWhenDetailOverflows="true" uuid="4cf5323c-18eb-4524-ac9e-3f45808f426a"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -477,7 +477,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{pkgs_shipped}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="516" y="0" width="34" height="15" isPrintWhenDetailOverflows="true" uuid="66f6f0a2-000d-4238-b947-ddac4def02e8"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="516" y="0" width="34" height="15" isPrintWhenDetailOverflows="true" uuid="66f6f0a2-000d-4238-b947-ddac4def02e8"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -490,7 +490,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="550" y="0" width="37" height="15" isPrintWhenDetailOverflows="true" uuid="098b05d6-7165-4626-b878-5798dc47770c"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="550" y="0" width="37" height="15" isPrintWhenDetailOverflows="true" uuid="098b05d6-7165-4626-b878-5798dc47770c"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -503,7 +503,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Opaque" x="685" y="0" width="117" height="15" isPrintWhenDetailOverflows="true" backcolor="#FFCCCC" uuid="7019a55f-5b18-4e64-be16-a7feb637fcfc"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="685" y="0" width="117" height="15" isPrintWhenDetailOverflows="true" backcolor="#FFCCCC" uuid="7019a55f-5b18-4e64-be16-a7feb637fcfc"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -516,7 +516,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{allocation}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="625" y="0" width="61" height="15" isPrintWhenDetailOverflows="true" uuid="96191f87-94e1-4e40-beab-26b816cc6d40"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="625" y="0" width="61" height="15" isPrintWhenDetailOverflows="true" uuid="96191f87-94e1-4e40-beab-26b816cc6d40"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -529,7 +529,7 @@ GROUP BY allocation_id]]>
 				<textFieldExpression><![CDATA[$F{warehouse}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="588" y="0" width="37" height="15" isPrintWhenDetailOverflows="true" uuid="53c2f6df-2b1e-4ea4-a8ed-064614c36231"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="588" y="0" width="37" height="15" isPrintWhenDetailOverflows="true" uuid="53c2f6df-2b1e-4ea4-a8ed-064614c36231"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>

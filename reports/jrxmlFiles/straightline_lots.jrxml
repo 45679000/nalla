@@ -19,7 +19,7 @@ DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
 stock_allocation.shipped,
 
 CONCAT('CHAMU SUPPLIES LTD - LOT DETAILS-', '  ',COALESCE(shippments.si_no, ''),
-' - ',COALESCE(shipping_instructions.no_containers_type, '') ,' - ' COALESCE(0_debtors_master.debtor_ref,'')) AS header, stock_allocation.mrp_value,
+' - ',COALESCE(shipping_instructions.no_containers_type, '') ,' - ', COALESCE(0_debtors_master.debtor_ref,'')) AS header, stock_allocation.mrp_value,
 shipping_instructions.shipping_marks, note
 
 FROM shippments

@@ -100,8 +100,8 @@ loadUnallocated();
 function callAction(element){
     var blendno = '<?php echo $blendno ?>'
     var allocationid = $(element).attr("id");
-    var allocatedpackages = $('#allocatedpackages').text();
-    var availablepackages = $('#availablepackages').text();
+    var allocatedpackages = $('#'+allocationid+'allocatedpkgs').text();
+    var availablepackages = $('#'+allocationid+'availablepkgs').text();
     showBlend(blendno);
 
     method = $(element).attr("class");
@@ -112,7 +112,7 @@ function callAction(element){
             addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method);
             BlendAllocationSummary(blendno)
         }else if(method=="deallocate"){
-            removeLotFromBlend(allocationid, "remove-blend-teas");
+            removeLotFromBlend(allocationid, "remove-blend-teas", blendno);
             BlendAllocationSummary(blendno);
 
         }
@@ -128,7 +128,11 @@ $('#lotEdit').click(function(e){
 function viewAllocations(){
     var blendno = '<?php echo $blendno ?>'
     currentAllocation(blendno);
-    // $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+}
+function viewBlendSheet(){
+    var blendno = '<?php echo $blendno ?>'
+
+    $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
 }
 function approveBlend(){
     var blendno = '<?php echo $blendno ?>'

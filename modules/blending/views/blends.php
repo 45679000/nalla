@@ -44,10 +44,6 @@
             <div class="modal-body">
                 <form id="formData">
                     <div class="row">
-                        <div class="col-md-3 form-group">
-                            <label class="control-label">Contract No:</label>
-                            <input type="text" class="form-control" name="blendno" placeholder="Blend No" required="">
-                        </div>
                         <div class="col-md-3 well">
                             <div class="form-group label-floating">
                                 <label class="control-label">Standard</label>
@@ -197,14 +193,34 @@
                     url: "blend_action.php",
                     type: "POST",
                     data: $("#formData").serialize() + "&action=insert",
+                    dataType: "json",
                     success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Record added successfully',
-                        });
-                        $("#addModal").modal('hide');
-                        $("#formData")[0].reset();
-                        showAllBlends();
+                        console.log(response)
+                        if(response.code ==201){
+                                Swal.fire({
+                                icon: 'error',
+                                title: response.error,
+                            });
+                            $("#addModal").modal('hide');
+                            $("#formData")[0].reset();
+                            showAllBlends();
+                        }
+                        if(response.code ==200){
+                                Swal.fire({
+                                icon: 'success',
+                                title: response.success,
+                            });
+                            $("#addModal").modal('hide');
+                            $("#formData")[0].reset();
+                            showAllBlends();
+                        }if(response.code == 500){
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.error,
+                            }); 
+                        }
+                   
+                      
                     }
                 });
             }

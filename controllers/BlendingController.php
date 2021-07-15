@@ -115,10 +115,33 @@ Class BlendingController extends Model{
         return $this->query;
     }
     public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid){
-        $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`)
-         VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw','$blendid')";
-    
-        $this->executeQuery();
+        $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
+        $results = $this->executeQuery();
+        if(count($results)==0){
+            $response = array();
+            $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`)
+            VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw','$blendid')";
+            $this->executeQuery();
+            $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
+            $results = $this->executeQuery();
+
+            if(count($results)==0){
+                $error = "Blend $blendno Failed to save successfully contact support";
+                $response["error"] = $error;
+                $response["code"] = 201;
+
+            }else{
+                $success = "Blend $blendno has been created succesfully, click the + button to add teas to this Blend";
+                $response["success"] = $success;
+                $response["code"] = 200;
+
+            }
+        }else{
+            $error = "Blend $blendno already Exists Do you wish to update?";
+            $response["error"] = $error;
+            $response["code"] = 500;
+        }
+        return $response;
     }
     public function selectedKgs($blendno){
         $this->query = "SELECT SUM(closing_stock.net*blend_teas.packages) AS totalKgs

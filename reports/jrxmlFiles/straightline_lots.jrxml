@@ -27,7 +27,7 @@ INNER JOIN stock_allocation ON stock_allocation.allocation_id = shippments.alloc
 LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
 INNER JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
 INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
-LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.si_no
+LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id
 WHERE si_no = '$P{sino}'
 GROUP BY allocation_id]]>
 	</queryString>

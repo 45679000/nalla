@@ -9,7 +9,7 @@ include(ROOT_PATH . '../controllers/ShippingController.php');
 include(ROOT_PATH . '../controllers/BlendingController.php');
 
 $form = new Form();
-$si = isset($_GET['si']) ?  $_GET['si'] : '';
+$si = isset($_GET['sino']) ?  $_GET['sino'] : '';
 $type = isset($_GET['type']) ?  $_GET['type'] : '';
 $shippingCtrl = new ShippingController($conn);
 $blendingCtrl = new BlendingController($conn);

@@ -270,8 +270,10 @@ if($action=='add-si'){
 }else if($_POST['action']=="session-data"){
     echo json_encode($_SESSION);
 
-}else if($action=="complete"){
-    $shippingCtrl->completeShipment($_POST["type"], 1);
+}else if($action=="send-to-warehouse"){
+    $sino = isset($_POST['sino']) ? $_POST['sino'] :'';
+    $notification = isset($_POST['notification']) ? $_POST['notification'] :'';
+    $shippingCtrl->completeShipment($sino, $notification);
 }else if($action=='load-packing-materials'){
     $output = "";
     $packingMaterials = $shippingCtrl->viewPackingMaterials();
@@ -399,6 +401,11 @@ else if($action == 'load_blend_summary'){
     $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
     var_dump($shippingCtrl->attachSi($sino, $blendno));
     
+}else if($action == "attach-straight-si"){
+    $sino = isset($_POST['sino']) ? $_POST['sino'] : '';
+    $contractNo = isset($_POST['contractNo']) ? $_POST['contractNo'] : '';
+    var_dump($shippingCtrl->attachSiStraight($sino, $contractNo));
+
 }else if($action =="blendlist"){
     $output = "";
         $blends= $shippingCtrl->blendList();

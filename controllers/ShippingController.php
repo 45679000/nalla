@@ -149,23 +149,16 @@ Class ShippingController extends Model{
         $this->query = "SELECT *FROM packaging_materials WHERE in_stock>0";
         return $this->executeQuery();
     }
-    public function completeShipment($siType, $user){
-        $this->query = "INSERT INTO `shippments`(`si_no`, `lot_no`, `pkgs_shipped`, `siType`, `shippedBy`, `shipped_on`, `details`) 
-        SELECT instruction_id, lot, IF(`current_allocation` !=0, `current_allocation`, `pkgs`) AS allocated , '', 1, current_date, 'Shippment completed' 
-        FROM closing_stock, shipping_instructions
-        WHERE selected_for_shipment = 1 AND shipping_instructions.is_current = 1";
-        echo $this->query;
+    public function completeShipment($sino, $notification){
+
+        $this->query = "UPDATE shipping_instructions SET sent_to_warehouse = 1 WHERE instruction_id = $sino";
         return $this->executeQuery();
 
-        if($siType="blend"){
-            $this->query = "UPDATE closing_stock SET pkgs = (pkgs-current_allocation), net=(pkgs-current_allocation)*kgs, gross=(pkgs-current_allocation)*kgs+(gross-net),
-            is_blend_balance = 1, current_allocation=0, selected_for_shipment =0
-             WHERE selected_for_shipment = 1";
-             return $this->executeQuery();        
+        if($notification=="notify"){
+               echo 'email sent';    
         }else{
-            $this->query = "UPDATE closing_stock SET pkgs = 0, net=0, gross=0, is_blend_balance = 0, current_allocation=0, selected_for_shipment =0
-             WHERE selected_for_shipment = 1";
-             return $this->executeQuery();  
+            echo 'SI forwarded';    
+
         }
       
     }
@@ -220,6 +213,16 @@ Class ShippingController extends Model{
          echo $this->query;
       
     }
+    public function attachSiStraight($sino, $contractNo){
+        $this->debugSql = true;
+        $this->query = "UPDATE shippments
+        SET instruction_id = '$sino' 
+        WHERE shippments.si_no = '$contractNo'";
+         $this->executeQuery();
+         echo $this->query;
+      
+    }
+
     public function deletBlend($id){
         $this->query = "DELETE FROM blend_master WHERE id= '$id'";
         return $this->executeQuery();
@@ -234,6 +237,10 @@ Class ShippingController extends Model{
     }
     public function contractList(){
         $this->query = "SELECT si_no FROM shippments WHERE `siType` = 'straight' GROUP BY si_no";
+        return($this->executeQuery());
+    }
+    public function fetchSiDetails($sino){
+        $this->query = "SELECT * FROM shipping_instructions WHERE instruction_id = $sino";
         return($this->executeQuery());
     }
 }        

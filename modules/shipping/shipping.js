@@ -444,14 +444,13 @@ function loadAllocationSummaryForBlends(){
             }   
         }); 
 }
-function completeShippment(siType){
+function completeShippment(sino, notification){
     $.ajax({
         type: "POST",
         dataType: "json",
         url: "shipping_action.php",
-        data: {action:"complete", type:siType},
+        data: {action:"send-to-warehouse", notification:notification, sino:sino},
     success: function (data) {
-        localStorage.setItem("siType") = "";
     },
     error: function (data) {
 

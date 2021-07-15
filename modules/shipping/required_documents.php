@@ -9,11 +9,18 @@
     }
 
 </style>
+<?php 
+$viewid = 0; //straightline;
+$type = isset($_GET['type']) ? $_GET['type']:'';
+if($type == 'Blend Shippment'){
+    $viewid = 1; //blend
+}
 
+?>
 <div class="my-2 my-md-2">
     <div class="container-fluid">
         <div class="page-header">
-            <h4 class="page-title">Documents</h4>
+            <h4 class="page-title">Click The Icons to view and print Documents For this Shippment</h4>
         </div>
         <div class="row">
             <div class="col-md-6 col-lg-4 features">
@@ -62,18 +69,7 @@
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
 
 <script>
-        $('#tab5').click(function(){
-            $.ajax({   
-                    type: "POST",
-                    data : {action:"generate", siId:localStorage.getItem("siId")},
-                    dataType: "json", 
-                    url: "../../reports/lot_details.php",   
-                    success: function(data){
-
-                    }   
-            })
-
-        });
+        
 
         $('#ilotdetails').hide();
         $('#ishippingInstructions').hide();
@@ -81,14 +77,21 @@
 
         $('#lot-details').click(function(){
             var sino = '<?php echo $_GET['sino']; ?>'
+            var viewid = '<?php echo $viewid; ?>'
+            var contractno = localStorage.getItem("contractno");
+            var blendno = localStorage.getItem("blendno");
 
             $('#ishippingInstructions').hide();
-            $('#iprofomainvoice').hide();
-            $('#display').html('<iframe id="ilotdetails"></iframe>');
-            $("#ilotdetails").attr('src', '../../reports/lot_details.php?sino='+sino);
-            
+                $('#iprofomainvoice').hide();
+            if(viewid==0){
+             
+                $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
 
-        
+            }else{
+                $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+
+            }
+
     });
     
     $('#shippingInstructions').click(function(){
@@ -110,6 +113,7 @@
     });
     
     $('#next').click(function(){
-    window.location.href = './index.php?view=summary';
+        var sino = '<?php echo $_GET['sino']; ?>'
+        window.location.href = './index.php?view=summary&sino='+sino;
     });
 </script>

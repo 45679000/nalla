@@ -31,7 +31,7 @@
         </div>
         <div id="attachButton" class="col-md-6 well">
             <div class="form-group label-floating">
-                <button id="attachcontactno" class="btn btn-success btn-xs"><i class="fa fa-plus">Attach Lot Details</i></button>
+                <button id="attachSiStraight" class="btn btn-success btn-xs"><i class="fa fa-plus">Attach Lot Details</i></button>
             </div>
         </div>
     </div>
@@ -104,7 +104,9 @@
     loadSelectionLotList();
     $('#next').click(function() {
         var sino = '<?php echo $_GET['sino']; ?>'
-        window.location.href = './index.php?view=documents&sino=' + sino;
+        var type = '<?php echo $_GET['type']; ?>'
+
+        window.location.href = './index.php?view=documents&sino=' + sino+'&type='+type;
 
     });
     $('#previous').click(function() {
@@ -127,8 +129,27 @@
         $('#attachButton').show();
         $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
 
-
     });
+
+    $('#attachSiStraight').click(function(){
+            var contractNo = localStorage.getItem("contractno");
+            var sino = '<?php echo $_GET['sino']; ?>'
+            $.ajax({
+                type: "POST",
+                data: {
+                    sino: sino,
+                    contractNo: contractNo,
+                    action: "attach-straight-si"
+                },
+                cache: false,
+                url: "shipping_action.php",
+                success: function(data) {
+                    swal('Success', data.message, 'SI Attached');
+                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
+
+                }
+            });
+    })
 
 
 </script>

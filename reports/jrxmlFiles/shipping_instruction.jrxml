@@ -7,7 +7,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT `instruction_id`, `shippment_type`, `contract_no`, `si_date`, `target_vessel`, `no_containers_type`, `pkgs_shipped`, `packing_materials`, `shipping_marks`, `tea_standard_no`, `grade_type_of_tea`, `consignment_value`, `type_of_loading`, `each_net_per_package`, `each_gross_per_package`, `ware_hse`, `total_net_weight_per_container`, `total_gross_weight_per_container`, `destination_total_place_of_delivery`, `lc_no`, `date_of_issue`, `negotiating_bank`, `marine_insuarance`, `qa_inspection`, `production_date`, `expiry_date`, `buyer`, `consignee`, `note`, `shipper`, `notify_party`, `2nd_notify_party`, `additional_instructions`, `is_current`, `file`, 'PACKMAN' AS ware_hse
+		<![CDATA[SELECT `instruction_id`, `shippment_type`, `contract_no`, `si_date`, `target_vessel`, `no_containers_type`, `pkgs_shipped`, `packing_materials`, `shipping_marks`, `tea_standard_no`, `grade_type_of_tea`, `consignment_value`, `type_of_loading`, `each_net_per_package`, `each_gross_per_package`, `ware_hse`, `total_net_weight_per_container`, `total_gross_weight_per_container`, `destination_total_place_of_delivery`, `lc_no`, `date_of_issue`, `negotiating_bank`, `marine_insuarance`, `qa_inspection`, `production_date`, `expiry_date`, `buyer`, `consignee`, `note`, `shipper`, `notify_party`, `2nd_notify_party`, `additional_instructions`, `is_current`, `file`, 'PACKMAC' AS ware_hse
 FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 	</queryString>
 	<field name="instruction_id" class="java.lang.Integer">

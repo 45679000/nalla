@@ -16,10 +16,12 @@
         $grade = isset($_POST['grade']) ? $_POST['grade'] : $error ='You must select a Grade';
         $pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : $error ='You must indicate Output packages';
         $nw = isset($_POST['nw']) ? $_POST['nw'] : $error ='You must indicate Output net';
+        $contractno = isset($_POST['contractno']) ? $_POST['contractno'] : $error ='You must indicate contract No';
+
         $blendid = isset($_POST['blendid']) ? $_POST['blendid'] : $error ='You must indicate the Blend no';
         $blendno = 'STD'.$stdname.'/'.$blendid;
         if($error ==""){
-          $message = $blendingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw, $blendid);
+          $message = $blendingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw, $blendid, $contractno);
           echo json_encode($message);
 
         }else{
@@ -91,7 +93,8 @@
                 $output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
                         <thead class='thead-dark'>
                           <tr>
-                            <th>Blend No</th>
+                            <th>Blend Name</th>
+                            <th>Contract No</th>
                             <th>Client</th>
                             <th>STD</th>
                             <th>Grade</th>
@@ -111,7 +114,8 @@
                       $status = "Confirmed || Not Closed";
                     }
                 $output.="<tr>
-                            <td id='$blendnoid'>".$blend['blend_no']."</td>
+                            <td>".$blend['blend_no']."</td>
+                            <td id='$blendnoid'>".$blend['contractno']."</td>
                             <td>".$blend['client_name']."</td>
                             <td>".$blend['std_name']."</td>
                             <td>".$blend['Grade']."</td>

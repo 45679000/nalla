@@ -5,12 +5,17 @@ Class BlendingController extends Model{
         $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`, 
         `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`, 
         (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
-        `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
+        `type`, `net`,  kgs,  `sale_price`, stock_allocation.`standard`, 
         DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
           stock_allocation.si_id, stock_allocation.shipped,
         stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
         blend_teas.packages AS blended_packages,  
-        mark_country.country, blend_teas.packages AS blended_packages, blend_master.blend_no AS allocation
+        mark_country.country, blend_teas.packages AS blended_packages, 
+            (CASE WHEN blend_teas.id IS NULL THEN
+            ''
+            ELSE 
+                CONCAT(COALESCE(blend_master.contractno, ''),  '- STD', COALESCE(blend_master.std_name, ''),'/',blend_master.blendid)
+            END) AS allocation
         FROM `stock_allocation` 
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
         LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
@@ -94,14 +99,14 @@ Class BlendingController extends Model{
     }
        public function fetchBlends($blendno=''){
         if($blendno !=''){
-            $this->query = "SELECT `id`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, 
+            $this->query = "SELECT `id`,`contractno`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, 
             `std_name`, `Grade`, `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, 
             `si_no`, `closed`, `blendid` 
             FROM `blend_master`
             INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name WHERE id = '$blendno'";
             return $this->executeQuery();
         }else{
-            $this->query = "SELECT `id`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, 
+            $this->query = "SELECT `id`, `blend_no`, `contractno`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, 
             `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, `si_no`, `closed`, `blendid` 
             FROM `blend_master`
             INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name";
@@ -114,13 +119,13 @@ Class BlendingController extends Model{
         $this->executeQuery();
         return $this->query;
     }
-    public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid){
+    public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid,$contractno){
         $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
         $results = $this->executeQuery();
         if(count($results)==0){
             $response = array();
-            $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`)
-            VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw','$blendid')";
+            $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`, `contractno`)
+            VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw','$blendid', '$contractno')";
             $this->executeQuery();
             $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
             $results = $this->executeQuery();

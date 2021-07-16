@@ -19,13 +19,14 @@ DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
 stock_allocation.shipped,  blend_teas.id AS selected_for_shipment,
 blend_teas.packages AS blended_packages,
 mark_country.country, blend_teas.packages AS blended_packages,  CONCAT( 'STD - ' ,COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,'')) AS allocation,
+blend_master.contractno,
 
-CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD ',
+CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
        COALESCE(blend_master.std_name, ''), '/',
        COALESCE(blend_master.blendid,''),
 ' - ', COALESCE(shipping_instructions.no_containers_type,''),
 ' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),
-       COALESCE(blend_master.contractno,'')
+'-', COALESCE(blend_master.contractno,'')
  ) AS header
 
 FROM blend_teas
@@ -103,6 +104,9 @@ GROUP BY closing_stock.stock_id]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="allocation" class="java.lang.String"/>
+	<field name="contractno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="header" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -480,7 +484,7 @@ GROUP BY closing_stock.stock_id]]>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{allocation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{contractno}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="625" y="0" width="61" height="20" uuid="96191f87-94e1-4e40-beab-26b816cc6d40"/>

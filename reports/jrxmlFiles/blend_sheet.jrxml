@@ -14,7 +14,7 @@
 END) AS pkgs,
  closing_stock.allocated_whse AS warehouse,
 `type`, `net`,
-(stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`,
+(closing_stock.kgs) AS `kgs`,  `sale_price`, stock_allocation.`standard`,
 DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
 stock_allocation.shipped,  blend_teas.id AS selected_for_shipment,
 blend_teas.packages AS blended_packages,
@@ -83,7 +83,7 @@ GROUP BY closing_stock.stock_id]]>
 	<field name="net" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="kgs" class="java.lang.Double">
+	<field name="kgs" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="sale_price" class="java.lang.String">
@@ -536,14 +536,17 @@ GROUP BY closing_stock.stock_id]]>
 				<textFieldExpression><![CDATA[$V{totalKgs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="62" y="1" width="456" height="20" uuid="3587d95b-ffbe-4abb-a36b-a7891184840c"/>
+				<reportElement x="138" y="1" width="380" height="20" uuid="3587d95b-ffbe-4abb-a36b-a7891184840c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{contractno}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="1" width="61" height="20" uuid="40de9fbe-319e-4997-9e80-e34052c3c3bd"/>
+				<reportElement x="1" y="1" width="137" height="20" uuid="40de9fbe-319e-4997-9e80-e34052c3c3bd"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>

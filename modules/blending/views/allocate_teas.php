@@ -102,19 +102,33 @@ function callAction(element){
     var allocationid = $(element).attr("id");
     var allocatedpackages = $('#'+allocationid+'allocatedpkgs').text();
     var availablepackages = $('#'+allocationid+'availablepkgs').text();
+    var allocatedKgs = $('#'+allocationid+'allocatedkgs').text();
+    var allocatednet = $('#'+allocationid+'net').text();
+
+    var kgsToAllocate = allocatedpackages*allocatednet;
+    $('#'+allocationid+'allocatedkgs').text(kgsToAllocate);
+
+    // alert(allocatedKgs);
     showBlend(blendno);
 
     method = $(element).attr("class");
     if(allocatedpackages>availablepackages){
-        alert("You cannot allocate more Packages than what is in stock"+allocatedpackages+" "+availablepackages, method);
+        alert("You cannot allocate more Packages than what is in stock"+allocatedpackages+" "+availablepackages, method, allocatedKgs);
     }else{
         if(method=="allocate"){
-            addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method);
+            addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, kgsToAllocate);
             BlendAllocationSummary(blendno)
         }else if(method=="deallocate"){
             removeLotFromBlend(allocationid, "remove-blend-teas", blendno);
             BlendAllocationSummary(blendno);
 
+        }else if(method=="allocateremaining"){
+            $('#'+allocationid+'allocation').text("");
+            $('#'+allocationid+'availablepkgs').text(availablepackages-allocatedpackages);
+            $('#'+allocationid).removeClass('deallocate');
+            $('#'+allocationid).addClass('allocate');
+            $('#'+allocationid).html('<i class="fa fa-plus"></i>');
+            $('#'+allocationid+'allocation').text("");
         }
     }
     }

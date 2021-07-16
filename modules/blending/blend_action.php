@@ -221,8 +221,9 @@ if(isset($_POST['action']) && $_POST['action'] == "add-blend-teas"){
   $allocationId = $_POST['allocationid'];
   $blendNo = $_POST['blendno'];
   $allocatedPackages = $_POST['allocatedpackages'];
+  $allocatedKgs = $_POST['allocatedKgs'];
 
-  $blendingCtrl->addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages);
+  $blendingCtrl->addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs);
 }
 if(isset($_POST['action']) && $_POST['action'] == "remove-blend-teas"){
   $allocationId = $_POST['allocationid'];
@@ -259,20 +260,31 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
           $output.='<tr>';
               $allocatedpackagesId = $stock["allocation_id"]."allocatedpkgs";
               $availablepackagesId = $stock["allocation_id"]."availablepkgs";
+              $allocatedkgsId = $stock['allocation_id']."allocatedkgs";
+              $allocatednetId = $stock['allocation_id']."net";
+
+              
+              $difference = ($stock['net'] * $stock['pkgs']) - $stock['kgs'];
 
               $packagesToAllocate = $stock["blended_packages"];
               $allocationid = $stock["allocation_id"]."allocation";
               if($stock["selected_for_shipment"]== NULL){
                 $packagesToAllocate = $stock["pkgs"];
               }
+              $allocatedKgs = ($stock['net'] * $packagesToAllocate);
+
+              if($difference !=0){
+                $allocatedKgs = ($stock['net']* $packagesToAllocate)- $difference;
+              }
+
               $output.='<td>'.$stock["lot"].'</td>';
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
               $output.='<td>'.$stock["invoice"].'</td>';
               $output.='<td><div id="'.$availablepackagesId.'">'.$stock["pkgs"].'</td>';
               $output.='<td><div id="'.$allocatedpackagesId.'" contenteditable="true">'.$packagesToAllocate.'</div></td>';
-              $output.='<td>'.$stock["net"].'</td>';
-              $output.='<td>'.$stock["kgs"].'</td>';
+              $output.='<td id='.$allocatednetId.'>'.$stock["net"].'</td>';
+              $output.='<td><div id="'.$allocatedkgsId.'">'.$allocatedKgs.'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
               $output.='<td id="'.$allocationid.'">'.$stock["allocation"].'</td>';
               if($stock["selected_for_shipment"]== NULL){
@@ -295,8 +307,18 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
                           onClick="callAction(this)"
                           name="allocated">
                           <i class="fa fa-minus"></i>
-                      </button>
-                  </td>';                
+                      </button>';
+                      if($stock['split']==1){
+                       $output.='
+                       <button id="'.$stock["allocation_id"].'"
+                        type="button" 
+                        class="allocateremaining"
+                        onClick="callAction(this)"
+                        name="allocated">
+                        <i class="fa fa-refresh"></i>
+                      </button>';
+                      }
+                  $output .='</td>';                
               }                
           $output.='</tr>';
               }

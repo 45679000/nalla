@@ -115,7 +115,8 @@ function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method
                 $('#'+allocationid).removeClass('allocate');
                 $('#'+allocationid).addClass('deallocate');
                 $('#'+allocationid).html('<i class="fa fa-minus"></i>');
-
+                $('#'+allocationid+'allocation').text($('#'+blendno+'blend').text());
+                
             }else{
                 $('#'+allocationid).removeClass('deallocate');
                 $('#'+allocationid).addClass('allocate');
@@ -140,7 +141,7 @@ function removeLotFromBlend(allocationid, action,  blendno, allocatedpackages, m
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            // showBlend(blendno);
+            showBlend(blendno);
             if(method=="allocate"){
                 $('#'+allocationid).removeClass('allocate');
                 $('#'+allocationid).addClass('deallocate');
@@ -150,6 +151,8 @@ function removeLotFromBlend(allocationid, action,  blendno, allocatedpackages, m
                 $('#'+allocationid).removeClass('deallocate');
                 $('#'+allocationid).addClass('allocate');
                 $('#'+allocationid).html('<i class="fa fa-plus"></i>');
+                $('#'+allocationid+'allocation').text("");
+
 
 
 
@@ -339,5 +342,13 @@ function currentAllocation(blendno){
         }
     });
 }
+function updateBlend(data){
+    $('#standard').val(data.standard);
+    $('#blendid').val(data.blendid);
+    $('#clientwithcode').val(data.clientwithcode);
+    $('#grade').val(data.grade);
+    $('#pkgs').val(data.pkgs);
+    $('#nw').val(data.nw);
 
+}
 

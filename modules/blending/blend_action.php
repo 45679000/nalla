@@ -10,17 +10,25 @@
 
 	// Insert Record	
 	if (isset($_POST['action']) && $_POST['action'] == "insert") {
-		    $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : die('blendno required field');
-		    $clientid = isset($_POST['clientid']) ? $_POST['clientid'] : die('clientidrequired field');
-        $stdname = isset($_POST['standard']) ? $_POST['standard'] : die('standard required field');
-        $grade = isset($_POST['grade']) ? $_POST['grade'] : die('grade required field');
-        $pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : die('pkgs required field');
-        $nw = isset($_POST['nw']) ? $_POST['nw'] : die('nw required field');
-        $blendid = isset($_POST['blendid']) ? $_POST['blendid'] : die('blendid required field');
+        $error = "";
+		    $clientid = isset($_POST['clientid']) ? $_POST['clientid'] : $error ='You must select a client';
+        $stdname = isset($_POST['standard']) ? $_POST['standard'] : $error ='You must select a standard';
+        $grade = isset($_POST['grade']) ? $_POST['grade'] : $error ='You must select a Grade';
+        $pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : $error ='You must indicate Output packages';
+        $nw = isset($_POST['nw']) ? $_POST['nw'] : $error ='You must indicate Output net';
+        $blendid = isset($_POST['blendid']) ? $_POST['blendid'] : $error ='You must indicate the Blend no';
+        $blendno = 'STD'.$stdname.'/'.$blendid;
+        if($error ==""){
+          $message = $blendingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw, $blendid);
+          echo json_encode($message);
 
-    echo $blendno; 
-        $blendingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw, $blendid);
+        }else{
+          $formError["error"]=$error;
+          $formError["code"] = 201;
 
+          echo json_encode($formError);
+
+        }
 	}
 
 	// View record
@@ -28,6 +36,7 @@
 		$output = "";
         $blends = $blendingCtrl->fetchBlends();
         $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
+
         if($blendno ==''){
         if (count($blends) > 0) {
 			$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
@@ -45,8 +54,10 @@
 			        </thead>
 			        <tbody>";
 			foreach ($blends as $blend) {
-                $kgs = $blend['nw']*$blend['Pkgs'];
-			$output.="<tr>
+        $kgs=$blend['Pkgs']*$blend['nw'];
+        $blendid = $blend['id'];
+
+			    $output.="<tr>
 			            <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['blend_no']."</a></td>
 			            <td>".$blend['client_name']."</td>
 			            <td>".$blend['std_name']."</td>
@@ -55,11 +66,12 @@
                   <td>".$blend['nw']."</td>
                   <td>".$kgs."</td>
 			            <td>
-                         <a href='./index.php?view=allocateblendteas&blendno=".$blend['id']."' style='color:green' 
-                          class='navigate' id='".$blend['id']."'><i class='fa fa-plus'></i></a>&nbsp;
+                  <a href='./index.php?view=allocateblendteas&blendno=$blendid' style='color:green'  
+                  class='navigate' id=".$blendid."><i class='fa fa-plus'></i></a>&nbsp;
+
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
-			              class='editBtn' id='".$blend['id']."'><i class='fa fa-pencil'></i></a>&nbsp;
-			              <a href='' style='color:red' class='deleteBtn' id='".$blend['id']."'>
+			              class='editBtn' id=".$blendid."><i class='fa fa-pencil'></i></a>&nbsp;
+			              <a href='' style='color:red' class='deleteBtn' id=".$blendid.">
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
 			        </tr>";
@@ -94,11 +106,12 @@
                 foreach ($blends as $blend) {
                     $kgs = $blend['nw']*$blend['Pkgs'];
                     $status = "unconfirmed";
+                    $blendnoid = $blend["id"]."blend";
                     if($blend['approved']==1){
                       $status = "Confirmed || Not Closed";
                     }
                 $output.="<tr>
-                            <td>".$blend['blend_no']."</td>
+                            <td id='$blendnoid'>".$blend['blend_no']."</td>
                             <td>".$blend['client_name']."</td>
                             <td>".$blend['std_name']."</td>
                             <td>".$blend['Grade']."</td>
@@ -125,7 +138,7 @@
                               $output.="</tr>";
                               $output.="<tr style='height:20px !important;'>";
                                 foreach($currentComposition AS $composition){
-                                  $output.="<td>".$composition['percentage']."</td>";
+                                  $output.="<td>".round($composition['percentage'],1).'%'."</td>";
                                 }
                             $output.="</tr>";
                               
@@ -144,7 +157,7 @@
                                   </div>
                                   <div class='row'>
                                     <div class='col-md-12' style='padding:10px;'>
-                                      <a onclick='viewAllocations(this)' style='color:green' data-toggle='modal' 
+                                      <a onclick='viewBlendSheet(this)' style='color:green' data-toggle='modal' 
                                         class='editBtn' id='".$blend['id']."'><i class='fa fa-file'></i>
                                         </a>
                                       Blend Sheet</a>
@@ -178,12 +191,7 @@
             }
         }	
 	}
-  if (isset($_POST['action']) && $_POST['action'] == "insert") {
   
-      $shippingCtrl->shipmentSummaryBlend($blendno);
-
-}
-
 if (isset($_POST['editId'])) {
   $editId = $_POST['editId'];
   $row = $shippingctrl->getRecordById($editId);
@@ -245,7 +253,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
       <tbody>';
       foreach ($stockList as $stock) {
           $output.='<tr>';
+              $allocatedpackagesId = $stock["allocation_id"]."allocatedpkgs";
+              $availablepackagesId = $stock["allocation_id"]."availablepkgs";
+
               $packagesToAllocate = $stock["blended_packages"];
+              $allocationid = $stock["allocation_id"]."allocation";
               if($stock["selected_for_shipment"]== NULL){
                 $packagesToAllocate = $stock["pkgs"];
               }
@@ -253,12 +265,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
               $output.='<td>'.$stock["invoice"].'</td>';
-              $output.='<td><div id="availablepackages">'.$stock["pkgs"].'</td>';
-              $output.='<td><div id="allocatedpackages" contenteditable="true">'.$packagesToAllocate.'</div></td>';
+              $output.='<td><div id="'.$availablepackagesId.'">'.$stock["pkgs"].'</td>';
+              $output.='<td><div id="'.$allocatedpackagesId.'" contenteditable="true">'.$packagesToAllocate.'</div></td>';
               $output.='<td>'.$stock["net"].'</td>';
               $output.='<td>'.$stock["kgs"].'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
-              $output.='<td>'.$stock["allocation"].'</td>';
+              $output.='<td id="'.$allocationid.'">'.$stock["allocation"].'</td>';
               if($stock["selected_for_shipment"]== NULL){
                   $output.='
                   <td>
@@ -273,7 +285,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
               }else{
                   $output.='
                   <td>
-                      <button id="'.$stock["stock_id"].'"
+                      <button id="'.$stock["allocation_id"].'"
                           type="button" 
                           class="deallocate"
                           onClick="callAction(this)"
@@ -323,8 +335,6 @@ if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
                         <td>".$blend['Pkgs']."</td>
                         <td>".$blend['nw']."</td>
                         <td>".$kgs."</td>
-
-
 			            <td>
                   
 			              <a href='#editModal' style='color:green' data-toggle='modal' 

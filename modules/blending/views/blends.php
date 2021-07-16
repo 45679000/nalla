@@ -57,6 +57,10 @@
                             <input type="text" class="form-control" name="blendid" placeholder="Blend No" required="">
                         </div>
                         <div class="col-md-3 form-group">
+                            <label class="control-label">Contract No:</label>
+                            <input type="text" class="form-control" name="contractno" placeholder="Contract No" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
                             <label class="control-label">Client Name:</label>
                                 <select id="clientwithcode" name="clientid" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
                               </select>

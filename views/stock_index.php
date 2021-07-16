@@ -2,12 +2,12 @@
 $path_to_root = "../";
 $path_to_root1 = "../";
 
-require_once $path_to_root.'templates/header.php';
-include $path_to_root.'models/Model.php';
-require_once $path_to_root.'modules/stock/Stock.php';
-include $path_to_root1.'widgets/_form.php';
-require_once $path_to_root1.'modules/cataloguing/Catalogue.php';
-include $path_to_root1.'controllers/ShippingController.php';
+require_once $path_to_root . 'templates/header.php';
+include $path_to_root . 'models/Model.php';
+require_once $path_to_root . 'modules/stock/Stock.php';
+include $path_to_root1 . 'widgets/_form.php';
+require_once $path_to_root1 . 'modules/cataloguing/Catalogue.php';
+include $path_to_root1 . 'controllers/ShippingController.php';
 include 'includes/auction_ids.php';
 
 
@@ -17,8 +17,8 @@ $stocks = $stock->readStock();
 
 $allocated = $stock->allocatedStock();
 $msg = "";
-if(isset($_POST['allocate'])){
-    $msg ="<p class='success'>Lot Allocated successfully</p>";
+if (isset($_POST['allocate'])) {
+    $msg = "<p class='success'>Lot Allocated successfully</p>";
 
     $buyer = isset($_POST['buyer_standard']) ? $_POST['buyer_standard'] : '';
     $stock_id = isset($_POST['stock_id']) ? $_POST['stock_id'] : '';
@@ -26,9 +26,6 @@ if(isset($_POST['allocate'])){
     $offerPrice = isset($_POST['offerPrice']) ? $_POST['offerPrice'] : '';
     $allocatedPkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : '';
     $InstockPkgs = isset($_POST['pkg_stock']) ? $_POST['pkg_stock'] : '';
-
-
-
 }
 
 $parking = array();
@@ -36,14 +33,13 @@ $saleNo = isset($_POST['saleno']) ? $_POST['saleno'] : '';
 $broker = isset($_POST['broker']) ? $_POST['broker'] : '';
 $category = isset($_POST['category']) ? $_POST['category'] : '';
 $condition = "";
-if($saleNo != '' && $broker != '' && $category != ''){
-    $condition .=" WHERE sale_no = '".$saleNo. "' AND broker = '$broker' AND category = '$category' AND lot IN(SELECT lot FROM closing_stock)";
+if ($saleNo != '' && $broker != '' && $category != '') {
+    $condition .= " WHERE sale_no = '" . $saleNo . "' AND broker = '$broker' AND category = '$category' AND lot IN(SELECT lot FROM closing_stock)";
     $stocks = $stock->readStock($condition);
-
 }
 $scart = array();;
 
-if($saleNo != null){
+if ($saleNo != null) {
     $stock->saleno = $saleNo;
     $scart = $stock->readPurchaseList();
 }
@@ -59,10 +55,9 @@ $pkgs = $catalogue->summaryTotal("pkgs", "main")['total'];
 $prvt = $catalogue->privatePurchases();
 $formValue = array();
 $controller = new ShippingController($conn);
-if(isset($_POST['step1'])){
+if (isset($_POST['step1'])) {
     unset($_POST['step1']);
     $formValue = $controller->saveSI($_POST, 1);
-
 }
 $shippingI = $controller->getShippingInstructions();
 // if(isset($_POST['packing'])){
@@ -73,57 +68,62 @@ $shippingI = $controller->getShippingInstructions();
 
 ?>
 <style>
-.form-control{
-    color: black !important;
-    border:1px solid black !important;
-}
-.card{
-    max-height: 30% !important;
-    padding-bottom: 0px !important;
-}
-.card-body{
-    background-color: white !important;
-}.clear{
-    height: 100%;
+    .form-control {
+        color: black !important;
+        border: 1px solid black !important;
+    }
 
-}
+    .card {
+        max-height: 30% !important;
+        padding-bottom: 0px !important;
+    }
+
+    .card-body {
+        background-color: white !important;
+    }
+
+    .clear {
+        height: 100%;
+
+    }
 </style>
+
 <body>
-<div class="my-3 my-md-5">
-    <div class="container-fluid">
-        <div class="page-header">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Reports</li>
-            </ol>
-        </div>
-        <div class="row">
-            <?php include 'sub_menu_stock.php' ?>
-            <?php
-            if(isset($_GET['view'])){
-                if($_GET['view']=='purchase-list'){
-                    include 'purchase_list.php'; 
-                }else if(($_GET['view']=='ppurchase-list')){
-                    include 'private_purchases.php'; 
-                }else if(($_GET['view']=='allocate-stock')){
-                    include 'allocate_stock.php'; 
-                }else if(($_GET['view']=='stock-master')){
-                    include 'stock_master.php'; 
-                }else if(($_GET['view']=='shipping')){
-                    include 'shipping.php'; 
-                }else if(($_GET['view']=='amend-stock')){
-                    include 'amend_stock.php'; 
-                }else if(($_GET['view']=='summaries')){
-                    $summary = isset($_GET['summary']) ? $_GET['summary'] : '';
-                    include 'stock_summaries.php'; 
-                }else{
-                    include 'grading_table.php'; 
+    <div class="my-3 my-md-5">
+        <div class="container-fluid">
+            <div class="page-header">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Reports</li>
+                </ol>
+            </div>
+            <div class="row">
+                <?php include 'sub_menu_stock.php' ?>
+                <?php
+                if (isset($_GET['view'])) {
+                    if ($_GET['view'] == 'purchase-list') {
+                        include 'purchase_list.php';
+                    } else if (($_GET['view'] == 'ppurchase-list')) {
+                        include 'private_purchases.php';
+                    } else if (($_GET['view'] == 'allocate-stock')) {
+                        include 'allocate_stock.php';
+                    } else if (($_GET['view'] == 'stock-master')) {
+                        include 'stock_master.php';
+                    } else if (($_GET['view'] == 'shipping')) {
+                        include 'shipping.php';
+                    } else if (($_GET['view'] == 'amend-stock')) {
+                        include 'amend_stock.php';
+                    } else if (($_GET['view'] == 'summaries')) {
+                        $summary = isset($_GET['summary']) ? $_GET['summary'] : '';
+                        include 'stock_summaries.php';
+                    } else {
+                        include 'grading_table.php';
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 
@@ -151,25 +151,23 @@ $shippingI = $controller->getShippingInstructions();
 <script src="../assets/plugins/datatable/buttons.print.min.js"></script>
 
 
+
+
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('.table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>
 
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop a file here or click',
-                    'replace': 'Drag and drop or click to replace',
-                    'remove': 'Remove',
-                    'error': 'Ooops, something wrong appended.'
-                },
-                error: {
-                    'fileSize': 'The file size is too big (2M max).'
-                }
-            });
-        </script>
-        <script>
-			$('.counter').countUp();
-		</script>
-        
-		
-       
+
+
+
 </html>
-

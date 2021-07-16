@@ -27,7 +27,7 @@ CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
 ' - ', COALESCE(shipping_instructions.no_containers_type,''),
 ' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),
 '-', COALESCE(blend_master.contractno,'')
- ) AS header
+ ) AS header, shipping_instructions.shipping_marks, note
 
 FROM blend_teas
 INNER JOIN blend_master ON blend_master.id = blend_teas.blend_no
@@ -108,13 +108,23 @@ GROUP BY closing_stock.stock_id]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="header" class="java.lang.String"/>
+	<field name="shipping_marks" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="note" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalKgs" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$F{kgs}]]></variableExpression>
+	</variable>
+	<variable name="totalPkgs" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="46" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="1" width="802" height="44" backcolor="#00FFFF" uuid="5bfd21e6-73e4-469d-836f-3bc3994d279e"/>
+				<reportElement mode="Opaque" x="0" y="1" width="802" height="22" backcolor="#00FFFF" uuid="5bfd21e6-73e4-469d-836f-3bc3994d279e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -137,7 +147,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sale No]]></text>
@@ -149,7 +159,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DD/MM/YY]]></text>
@@ -161,7 +171,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Broker]]></text>
@@ -173,7 +183,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Warehouse]]></text>
@@ -185,7 +195,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[lot]]></text>
@@ -197,7 +207,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Origin]]></text>
@@ -209,7 +219,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mark]]></text>
@@ -221,7 +231,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grade]]></text>
@@ -233,7 +243,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Invoice]]></text>
@@ -245,7 +255,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pkgs]]></text>
@@ -257,7 +267,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Net]]></text>
@@ -269,7 +279,7 @@ GROUP BY closing_stock.stock_id]]>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kgs]]></text>
@@ -502,12 +512,71 @@ GROUP BY closing_stock.stock_id]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="46" splitType="Stretch"/>
+		<band height="1" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="175" splitType="Stretch">
+			<textField>
+				<reportElement x="518" y="3" width="35" height="20" uuid="1ecc448a-d1ea-4a65-b229-25848a1db8cf"/>
+				<textFieldExpression><![CDATA[$V{totalPkgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="587" y="2" width="38" height="20" uuid="40b332db-36bb-42bb-8444-bf53d9ea7795"/>
+				<textFieldExpression><![CDATA[$V{totalKgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="1" width="324" height="20" uuid="3587d95b-ffbe-4abb-a36b-a7891184840c"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shipping_marks}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="1" width="193" height="20" uuid="40de9fbe-319e-4997-9e80-e34052c3c3bd"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Shipping Marks:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="42" y="22" width="745" height="69" uuid="18c7705f-536b-4a55-8e93-682af0a2b6d5"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="21" width="41" height="20" uuid="be0cf5c8-4622-4393-90df-1a80fbbf9d43"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTE:]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>

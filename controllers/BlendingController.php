@@ -10,7 +10,7 @@ Class BlendingController extends Model{
           stock_allocation.si_id, stock_allocation.shipped,
         stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
         blend_teas.packages AS blended_packages,  
-        mark_country.country, blend_teas.packages AS blended_packages, 
+        mark_country.country, blend_teas.packages AS blended_packages, blend_teas.split,
             (CASE WHEN blend_teas.id IS NULL THEN
             ''
             ELSE 
@@ -22,13 +22,13 @@ Class BlendingController extends Model{
         LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
         LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no 
         LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
-        GROUP BY stock_id, allocation_id";
+        GROUP BY stock_id, allocation_id,blend_teas.id, split";
         return $this->executeQuery();
     }
 
-    public function addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages){
-        $this->query = "INSERT INTO blend_teas(allocation_id, blend_no, packages) 
-        VALUES('$allocationId', '$blendNo','$allocatedPackages')";
+    public function addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs){
+        $this->query = "INSERT INTO blend_teas(allocation_id, blend_no, packages, blend_kgs) 
+        VALUES('$allocationId', '$blendNo','$allocatedPackages', '$allocatedKgs')";
         return $this->executeQuery();
     }
     public function shipmentSummaryBlend($blendno){

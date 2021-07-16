@@ -36,7 +36,6 @@
 		$output = "";
         $blends = $blendingCtrl->fetchBlends();
         $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
-        $kgs=$blendingCtrl->selectedKgs($blendno);
 
         if($blendno ==''){
         if (count($blends) > 0) {
@@ -55,6 +54,9 @@
 			        </thead>
 			        <tbody>";
 			foreach ($blends as $blend) {
+        $kgs=$blend['Pkgs']*$blend['nw'];
+        $blendid = $blend['id'];
+
 			    $output.="<tr>
 			            <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['blend_no']."</a></td>
 			            <td>".$blend['client_name']."</td>
@@ -63,11 +65,13 @@
                   <td>".$blend['Pkgs']."</td>
                   <td>".$blend['nw']."</td>
                   <td>".$kgs."</td>
-			            <td>0&blendno=".$blend['id']."' style='color:green' 
-                          class='navigate' id='".$blend['id']."'><i class='fa fa-plus'></i></a>&nbsp;
+			            <td>
+                  <a href='./index.php?view=allocateblendteas&blendno=$blendid' style='color:green'  
+                  class='navigate' id=".$blendid."><i class='fa fa-plus'></i></a>&nbsp;
+
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
-			              class='editBtn' id='".$blend['id']."'><i class='fa fa-pencil'></i></a>&nbsp;
-			              <a href='' style='color:red' class='deleteBtn' id='".$blend['id']."'>
+			              class='editBtn' id=".$blendid."><i class='fa fa-pencil'></i></a>&nbsp;
+			              <a href='' style='color:red' class='deleteBtn' id=".$blendid.">
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
 			        </tr>";

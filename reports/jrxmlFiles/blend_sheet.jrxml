@@ -117,7 +117,9 @@ GROUP BY closing_stock.stock_id]]>
 	<variable name="totalKgs" class="java.lang.String" calculation="Sum">
 		<variableExpression><![CDATA[$F{kgs}]]></variableExpression>
 	</variable>
-	<variable name="totalPkgs" class="java.lang.String"/>
+	<variable name="totalPkgs" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$F{pkgs}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -520,40 +522,35 @@ GROUP BY closing_stock.stock_id]]>
 	<summary>
 		<band height="175" splitType="Stretch">
 			<textField>
-				<reportElement x="518" y="3" width="35" height="20" uuid="1ecc448a-d1ea-4a65-b229-25848a1db8cf"/>
+				<reportElement x="518" y="3" width="50" height="20" uuid="1ecc448a-d1ea-4a65-b229-25848a1db8cf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPkgs}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="587" y="2" width="38" height="20" uuid="40b332db-36bb-42bb-8444-bf53d9ea7795"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{totalKgs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="194" y="1" width="324" height="20" uuid="3587d95b-ffbe-4abb-a36b-a7891184840c"/>
-				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center">
+				<reportElement x="62" y="1" width="456" height="20" uuid="3587d95b-ffbe-4abb-a36b-a7891184840c"/>
+				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{shipping_marks}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{contractno}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="1" width="193" height="20" uuid="40de9fbe-319e-4997-9e80-e34052c3c3bd"/>
-				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-				</box>
+				<reportElement x="1" y="1" width="61" height="20" uuid="40de9fbe-319e-4997-9e80-e34052c3c3bd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Shipping Marks:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="42" y="22" width="745" height="69" uuid="18c7705f-536b-4a55-8e93-682af0a2b6d5"/>
+				<reportElement x="62" y="21" width="740" height="28" uuid="18c7705f-536b-4a55-8e93-682af0a2b6d5"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -566,7 +563,7 @@ GROUP BY closing_stock.stock_id]]>
 				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="21" width="41" height="20" uuid="be0cf5c8-4622-4393-90df-1a80fbbf9d43"/>
+				<reportElement x="1" y="21" width="61" height="28" uuid="be0cf5c8-4622-4393-90df-1a80fbbf9d43"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -576,6 +573,13 @@ GROUP BY closing_stock.stock_id]]>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="625" y="0" width="177" height="20" uuid="01f3569a-9c16-4284-bf9d-4700a2eee610"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</summary>

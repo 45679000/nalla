@@ -8,7 +8,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`,
-`comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
+`comment`, closing_stock.`ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
 (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs
   ELSE closing_stock.pkgs
 END) AS pkgs,
@@ -18,10 +18,15 @@ END) AS pkgs,
 DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
 stock_allocation.shipped,  blend_teas.id AS selected_for_shipment,
 blend_teas.packages AS blended_packages,
-mark_country.country, blend_teas.packages AS blended_packages,  CONCAT(COALESCE(blend_master.blend_no, '-'), '-' ,COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,'')) AS allocation,
+mark_country.country, blend_teas.packages AS blended_packages,  CONCAT( 'STD - ' ,COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,'')) AS allocation,
 
-CONCAT('CHAMU SUPPLIES LTD','  ',COALESCE(blend_master.blend_no, ''), COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,''),
-' - ', COALESCE(0_debtors_master.debtor_ref,'')) AS header
+CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD ',
+       COALESCE(blend_master.std_name, ''), '/',
+       COALESCE(blend_master.blendid,''),
+' - ', COALESCE(shipping_instructions.no_containers_type,''),
+' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),
+       COALESCE(blend_master.contractno,'')
+ ) AS header
 
 FROM blend_teas
 INNER JOIN blend_master ON blend_master.id = blend_teas.blend_no
@@ -29,6 +34,8 @@ INNER JOIN 0_debtors_master ON blend_master.client_name = 0_debtors_master.debto
 INNER JOIN stock_allocation ON stock_allocation.allocation_id = blend_teas.allocation_id
 INNER JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
 INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
+LEFT JOIN shippments ON shippments.blend_no = blend_master.id
+LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id
 WHERE blend_teas.blend_no = $P{blend_no}
 GROUP BY closing_stock.stock_id]]>
 	</queryString>

@@ -149,7 +149,7 @@ Class BlendingController extends Model{
         return $response;
     }
     public function selectedKgs($blendno){
-        $this->query = "SELECT SUM(closing_stock.net*blend_teas.packages) AS totalKgs
+        $this->query = "SELECT SUM(closing_stock.kgs) AS totalKgs
         FROM blend_teas
         INNER JOIN stock_allocation ON stock_allocation.allocation_id = blend_teas.allocation_id
         INNER JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
@@ -203,7 +203,7 @@ Class BlendingController extends Model{
         $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`, 
         `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`, 
         (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
-        `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
+        `type`, `net`,   closing_stock.`kgs`,  `sale_price`, stock_allocation.`standard`, 
         DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
           stock_allocation.si_id, stock_allocation.shipped,
         stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 

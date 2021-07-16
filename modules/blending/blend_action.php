@@ -44,7 +44,7 @@
 			$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
 			        <thead class='thead-dark'>
 			          <tr>
-			            <th>Contract No</th>
+			            <th>Blend No</th>
 			            <th>Client</th>
 			            <th>STD</th>
 			            <th>Grade</th>

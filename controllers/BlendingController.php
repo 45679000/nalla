@@ -208,7 +208,12 @@ Class BlendingController extends Model{
           stock_allocation.si_id, stock_allocation.shipped,
         stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
         blend_teas.packages AS blended_packages,  
-        mark_country.country, blend_teas.packages AS blended_packages, blend_master.blend_no AS allocation
+        mark_country.country, blend_teas.packages AS blended_packages,
+        (CASE WHEN blend_teas.id IS NULL THEN
+            ''
+            ELSE 
+                CONCAT(COALESCE(blend_master.contractno, ''),  '- STD', COALESCE(blend_master.std_name, ''),'/',blend_master.blendid)
+            END) AS allocation
         FROM `blend_teas`
         LEFT JOIN stock_allocation ON blend_teas.allocation_id = stock_allocation.allocation_id  
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id

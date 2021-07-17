@@ -116,11 +116,14 @@ function callAction(element){
         alert("You cannot allocate more Packages than what is in stock"+allocatedpackages+" "+availablepackages, method, allocatedKgs);
     }else{
         if(method=="allocate"){
-            if(availablepackages != availablepackages){
-                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, kgsToAllocate, 1);
+            if(allocatedpackages != availablepackages){
+                var split = 1;
+                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, kgsToAllocate, split);
                 BlendAllocationSummary(blendno)
             }else{
-                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, kgsToAllocate, 0);
+                var split = 0;
+
+                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, kgsToAllocate, split);
                 BlendAllocationSummary(blendno)
             }
           

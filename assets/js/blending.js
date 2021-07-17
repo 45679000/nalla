@@ -97,7 +97,7 @@ function allocationSummary(clientId) {
         },
     });
 }
-function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method, allocatedKgs){
+function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method, allocatedKgs, split){
     $.ajax({
         type: "POST",
         data: {
@@ -105,7 +105,8 @@ function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method
             allocationid: allocationid,
             blendno:blendno,
             allocatedpackages:allocatedpackages,
-            allocatedKgs:allocatedKgs
+            allocatedKgs:allocatedKgs,
+            split:split
 
         },
         cache: true,

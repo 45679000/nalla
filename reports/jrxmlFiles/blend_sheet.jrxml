@@ -14,7 +14,7 @@
 END) AS pkgs,
  closing_stock.allocated_whse AS warehouse,
 `type`, `net`,
-(closing_stock.kgs) AS `kgs`,  `sale_price`, stock_allocation.`standard`,
+(blend_teas.blend_kgs) AS `kgs`,  `sale_price`, stock_allocation.`standard`,
 DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
 stock_allocation.shipped,  blend_teas.id AS selected_for_shipment,
 blend_teas.packages AS blended_packages,
@@ -83,9 +83,7 @@ GROUP BY closing_stock.stock_id]]>
 	<field name="net" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="kgs" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="kgs" class="java.lang.Double"/>
 	<field name="sale_price" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>

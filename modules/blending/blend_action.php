@@ -222,8 +222,9 @@ if(isset($_POST['action']) && $_POST['action'] == "add-blend-teas"){
   $blendNo = $_POST['blendno'];
   $allocatedPackages = $_POST['allocatedpackages'];
   $allocatedKgs = $_POST['allocatedKgs'];
+  $split = $_POST['split'];
 
-  $blendingCtrl->addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs);
+  $blendingCtrl->addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs, $split);
 }
 if(isset($_POST['action']) && $_POST['action'] == "remove-blend-teas"){
   $allocationId = $_POST['allocationid'];
@@ -284,7 +285,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
               $output.='<td><div id="'.$availablepackagesId.'">'.$stock["pkgs"].'</td>';
               $output.='<td><div id="'.$allocatedpackagesId.'" contenteditable="true">'.$packagesToAllocate.'</div></td>';
               $output.='<td id='.$allocatednetId.'>'.$stock["net"].'</td>';
-              $output.='<td><div id="'.$allocatedkgsId.'">'.$allocatedKgs.'</td>';
+              $output.='<td><div contenteditable="true" id="'.$allocatedkgsId.'">'.$allocatedKgs.'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
               $output.='<td id="'.$allocationid.'">'.$stock["allocation"].'</td>';
               if($stock["selected_for_shipment"]== NULL){

@@ -553,7 +553,7 @@ GROUP BY closing_stock.stock_id]]>
 				<textFieldExpression><![CDATA[$V{totaKgs}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="1" width="87" height="21" uuid="f5413c5b-2588-44b5-8cec-46b6ef423ab6"/>
+				<reportElement x="0" y="1" width="138" height="21" uuid="f5413c5b-2588-44b5-8cec-46b6ef423ab6"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.5"/>
@@ -565,7 +565,7 @@ GROUP BY closing_stock.stock_id]]>
 				<text><![CDATA[SHIPPING MARKS:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="88" y="1" width="427" height="21" isPrintWhenDetailOverflows="true" uuid="d5c0cdc7-66c4-4a74-ac17-d343de296228"/>
+				<reportElement x="138" y="1" width="377" height="21" isPrintWhenDetailOverflows="true" uuid="d5c0cdc7-66c4-4a74-ac17-d343de296228"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>

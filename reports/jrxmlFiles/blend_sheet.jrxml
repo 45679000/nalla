@@ -525,7 +525,7 @@ GROUP BY closing_stock.stock_id]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="125" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
 				<reportElement x="515" y="0" width="38" height="21" isPrintWhenDetailOverflows="true" uuid="cfad2049-fb4d-4ac0-84a3-e7fb96b0ffcf"/>
 				<box>

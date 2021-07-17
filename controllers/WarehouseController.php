@@ -27,6 +27,45 @@ Class WarehouseController extends Model{
         WHERE active = 1";
         return $this->executeQuery();
     }
+    public function getWarehouseSummaries(){
+   
+        $this->query = "
+        SELECT  
+            (CASE WHEN siType = 'blend' 
+            THEN
+                SUM(blend_teas.blend_kgs)
+            ELSE
+                SUM(shippments.pkgs_shipped * closing_stock.net)   
+            END
+            ) AS totalKgs
+        FROM shippments
+        INNER JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
+        INNER JOIN closing_stock ON shippments.allocation_id = stock_allocation.allocation_id
+        LEFT JOIN blend_teas ON blend_teas.allocation_id = shippments.allocation_id";
+        $totalKgs = $this->executeQuery();
+
+
+    }
+
+    private function computeTotals($status){
+        
+        $this->query = "
+        SELECT  
+            (CASE WHEN siType = 'blend' 
+            THEN
+                SUM(blend_teas.blend_kgs)
+            ELSE
+                SUM(shippments.pkgs_shipped * closing_stock.net)   
+            END
+            ) AS totalKgs
+        FROM shippments
+        INNER JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
+        INNER JOIN closing_stock ON shippments.allocation_id = stock_allocation.allocation_id
+        LEFT JOIN blend_teas ON blend_teas.allocation_id = shippments.allocation_id";
+        $totalKgs = $this->executeQuery();
+
+        return $totalKgs;
+    }
         
 }
 

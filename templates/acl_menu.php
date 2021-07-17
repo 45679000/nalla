@@ -159,7 +159,7 @@
 	function menu_ware_housing($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link" href='.$path_to_root.'views/warehousing.php?view=warehouses><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
+			<a class="nav-link" href='.$path_to_root.'modules/warehousing/index.php?view=dashboard><i class="fa fa-wrench"></i><span>Ware Housing</span></a>
 		</li>';
 	}
 	function menu_reports($path_to_root){

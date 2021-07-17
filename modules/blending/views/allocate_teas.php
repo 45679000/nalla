@@ -118,12 +118,12 @@ function callAction(element){
         if(method=="allocate"){
             if(allocatedpackages != availablepackages){
                 var split = 1;
-                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, kgsToAllocate, split);
+                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, allocatedKgs, split);
                 BlendAllocationSummary(blendno)
             }else{
                 var split = 0;
 
-                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, kgsToAllocate, split);
+                addLotToBlend(allocationid, "add-blend-teas",  blendno, allocatedpackages, method, allocatedKgs, split);
                 BlendAllocationSummary(blendno)
             }
           

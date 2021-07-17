@@ -207,7 +207,7 @@ Class ShippingController extends Model{
         $this->query = "UPDATE blend_master SET si_no = '$sino' WHERE blend_no = '$blendno'";
         $this->executeQuery();
         $this->query = "UPDATE shippments
-        SET si_no = '$sino' 
+        SET instruction_id = '$sino' 
         WHERE shippments.blend_no = '$blendno'";
          $this->executeQuery();
          echo $this->query;

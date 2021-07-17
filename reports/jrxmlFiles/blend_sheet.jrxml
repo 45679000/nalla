@@ -204,7 +204,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[lot]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="244" y="26" width="60" height="19" uuid="23fc31dd-96c9-4142-941f-bfc224d5ea51"/>
+				<reportElement stretchType="RelativeToTallestObject" x="244" y="26" width="72" height="19" uuid="23fc31dd-96c9-4142-941f-bfc224d5ea51"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -216,7 +216,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Origin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="304" y="26" width="95" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
+				<reportElement stretchType="RelativeToTallestObject" x="316" y="26" width="83" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -337,7 +337,7 @@ ORDER BY closing_stock.invoice ASC]]>
 			</line>
 			<elementGroup>
 				<line>
-					<reportElement x="302" y="24" width="1" height="20" uuid="2861b699-2d0d-45ff-96af-2698775a52ce"/>
+					<reportElement x="315" y="24" width="1" height="20" uuid="2861b699-2d0d-45ff-96af-2698775a52ce"/>
 					<graphicElement>
 						<pen lineWidth="0.25"/>
 					</graphicElement>
@@ -491,7 +491,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="244" y="0" width="60" height="15" isPrintWhenDetailOverflows="true" uuid="cb9ddf4a-18f0-49d6-938c-43cd283b3a7e"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="244" y="0" width="72" height="15" isPrintWhenDetailOverflows="true" uuid="cb9ddf4a-18f0-49d6-938c-43cd283b3a7e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -504,7 +504,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="304" y="0" width="95" height="15" isPrintWhenDetailOverflows="true" uuid="c1536d5a-f387-4419-a6be-809e24fd6b62"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="316" y="0" width="83" height="15" isPrintWhenDetailOverflows="true" uuid="c1536d5a-f387-4419-a6be-809e24fd6b62"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>

@@ -142,118 +142,118 @@ GROUP BY closing_stock.stock_id]]>
 	<columnHeader>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="26" width="56" height="19" uuid="b9acfe60-5e58-4417-a603-2c65e5425db7"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="26" width="56" height="19" uuid="b9acfe60-5e58-4417-a603-2c65e5425db7"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sale No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="56" y="26" width="57" height="19" uuid="a4361287-f37c-4dc6-b75a-c8684833f147"/>
+				<reportElement stretchType="RelativeToTallestObject" x="56" y="26" width="57" height="19" uuid="a4361287-f37c-4dc6-b75a-c8684833f147"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DD/MM/YY]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="114" y="26" width="34" height="19" uuid="b91ecc26-9ceb-42de-aef6-7bd65f38d6d4"/>
+				<reportElement stretchType="RelativeToTallestObject" x="114" y="26" width="34" height="19" uuid="b91ecc26-9ceb-42de-aef6-7bd65f38d6d4"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Broker]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="149" y="26" width="59" height="19" uuid="be4ddcb7-3bc1-49aa-a727-7c71f71d2076"/>
+				<reportElement stretchType="RelativeToTallestObject" x="149" y="26" width="59" height="19" uuid="be4ddcb7-3bc1-49aa-a727-7c71f71d2076"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Warehouse]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="208" y="26" width="36" height="19" uuid="2361f5cb-ab09-438b-95a9-8cb8d9d2fda2"/>
+				<reportElement stretchType="RelativeToTallestObject" x="208" y="26" width="36" height="19" uuid="2361f5cb-ab09-438b-95a9-8cb8d9d2fda2"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[lot]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="244" y="26" width="49" height="19" uuid="23fc31dd-96c9-4142-941f-bfc224d5ea51"/>
+				<reportElement stretchType="RelativeToTallestObject" x="244" y="26" width="49" height="19" uuid="23fc31dd-96c9-4142-941f-bfc224d5ea51"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Origin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="293" y="26" width="106" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
+				<reportElement stretchType="RelativeToTallestObject" x="293" y="26" width="106" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mark]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="399" y="26" width="42" height="19" uuid="e3d67f61-6fbd-4cb5-a28c-231499422261"/>
+				<reportElement stretchType="RelativeToTallestObject" x="399" y="26" width="42" height="19" uuid="e3d67f61-6fbd-4cb5-a28c-231499422261"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grade]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="441" y="26" width="74" height="19" uuid="b29c91d7-5df6-4c91-b77b-3badf31ed7c6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="441" y="26" width="74" height="19" uuid="b29c91d7-5df6-4c91-b77b-3badf31ed7c6"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Invoice]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="515" y="26" width="38" height="19" uuid="36551ba5-2913-44c8-b3ee-a910be1db4ff"/>
+				<reportElement stretchType="RelativeToTallestObject" x="515" y="26" width="38" height="19" uuid="36551ba5-2913-44c8-b3ee-a910be1db4ff"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
@@ -262,38 +262,32 @@ GROUP BY closing_stock.stock_id]]>
 				<text><![CDATA[Pkgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="552" y="26" width="34" height="19" uuid="4ff2dd6d-a9f3-4996-b4d6-3d2c38da5f69"/>
+				<reportElement stretchType="RelativeToTallestObject" x="552" y="26" width="34" height="19" uuid="4ff2dd6d-a9f3-4996-b4d6-3d2c38da5f69"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Net]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="586" y="26" width="38" height="19" uuid="425795f0-4117-43c9-9451-661e9f8ae942"/>
+				<reportElement stretchType="RelativeToTallestObject" x="586" y="26" width="38" height="19" uuid="425795f0-4117-43c9-9451-661e9f8ae942"/>
 				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="625" y="0" width="177" height="26" uuid="329eb4d9-7e39-413d-9bb6-286aeb6a0ccd"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="620" y="7" width="177" height="12" uuid="329eb4d9-7e39-413d-9bb6-286aeb6a0ccd"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ALLOCATION]]></text>
@@ -312,10 +306,10 @@ GROUP BY closing_stock.stock_id]]>
 				<text><![CDATA[Warehouse]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="685" y="26" width="117" height="18" uuid="96468b42-94cc-43e4-92c2-7ab818788b4e"/>
+				<reportElement x="686" y="26" width="116" height="18" uuid="96468b42-94cc-43e4-92c2-7ab818788b4e"/>
 				<box>
 					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
@@ -324,18 +318,107 @@ GROUP BY closing_stock.stock_id]]>
 				</textElement>
 				<text><![CDATA[SI/BLEND NO.]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="-1" width="42" height="24" uuid="91f18c76-a861-4059-adf1-9057a2b75518"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Times New Roman" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+			<line>
+				<reportElement x="0" y="23" width="802" height="1" uuid="f9a58b8b-834f-4817-8036-59b02c077252"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="44" uuid="b3474fc0-2a22-4b69-9005-06606375c2e4"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="802" y="-2" width="1" height="44" uuid="15900f9f-51ee-4fa3-b17c-8aeba0c34b81"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<elementGroup>
+				<line>
+					<reportElement x="293" y="24" width="1" height="20" uuid="2861b699-2d0d-45ff-96af-2698775a52ce"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="625" y="25" width="1" height="20" uuid="6a2f18e9-e942-4700-bacc-1c34d9afad17"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="441" y="24" width="1" height="20" uuid="ddd68a50-d0ef-4ca8-9008-87cedb3ed0e4"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="586" y="25" width="1" height="20" uuid="feb25600-298b-43f8-a8ab-bdd6a3129fb0"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="149" y="25" width="1" height="20" uuid="f1fa058a-509c-42aa-a21c-33b019713188"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="552" y="25" width="1" height="20" uuid="728ac10a-612d-48b8-a407-41c2177b9561"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="399" y="24" width="1" height="20" uuid="8a938662-1e32-48fc-bc1b-8006bd0cbb95"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="208" y="25" width="1" height="20" uuid="aac3d0a2-4f4d-470c-b7dc-ead4b699ce49"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="244" y="24" width="1" height="20" uuid="026591ba-2479-4d45-a895-46a73e9e2ef3"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="114" y="25" width="1" height="20" uuid="ac0b56a1-e48c-4079-b8d8-198b1939cc0d"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="515" y="24" width="1" height="20" uuid="7fc76c18-59f7-4f7f-a534-37ff31532097"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="56" y="24" width="1" height="20" uuid="e5797fff-7252-4ccb-961f-16176fe2ae96"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="0" y="24" width="1" height="20" uuid="1e0d8b02-a936-4dd2-ad6f-407d93152b85"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</line>
+			</elementGroup>
+			<line>
+				<reportElement x="623" y="1" width="1" height="22" uuid="e6fd7293-3570-4483-b7a9-f717f0039f50"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
@@ -527,7 +610,7 @@ GROUP BY closing_stock.stock_id]]>
 	<summary>
 		<band height="60" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="515" y="0" width="38" height="21" isPrintWhenDetailOverflows="true" uuid="cfad2049-fb4d-4ac0-84a3-e7fb96b0ffcf"/>
+				<reportElement x="515" y="0" width="37" height="21" isPrintWhenDetailOverflows="true" uuid="cfad2049-fb4d-4ac0-84a3-e7fb96b0ffcf"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.25"/>
@@ -553,19 +636,19 @@ GROUP BY closing_stock.stock_id]]>
 				<textFieldExpression><![CDATA[$V{totaKgs}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="1" width="138" height="21" uuid="f5413c5b-2588-44b5-8cec-46b6ef423ab6"/>
+				<reportElement x="0" y="2" width="117" height="21" uuid="f5413c5b-2588-44b5-8cec-46b6ef423ab6"/>
 				<box>
 					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SHIPPING MARKS:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="138" y="1" width="377" height="21" isPrintWhenDetailOverflows="true" uuid="d5c0cdc7-66c4-4a74-ac17-d343de296228"/>
+				<reportElement x="145" y="1" width="367" height="21" isPrintWhenDetailOverflows="true" uuid="d5c0cdc7-66c4-4a74-ac17-d343de296228"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
@@ -578,9 +661,10 @@ GROUP BY closing_stock.stock_id]]>
 			<staticText>
 				<reportElement x="0" y="22" width="88" height="35" uuid="d5d7b5a5-ca55-4b9d-b6b5-3ee83a8f3996"/>
 				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="7" isBold="true"/>
@@ -590,9 +674,10 @@ GROUP BY closing_stock.stock_id]]>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="88" y="22" width="714" height="35" isPrintWhenDetailOverflows="true" uuid="c32cc2de-a67b-44aa-a08b-b87c575c8761"/>
 				<box>
-					<topPen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
@@ -600,7 +685,7 @@ GROUP BY closing_stock.stock_id]]>
 				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="625" y="1" width="177" height="23" uuid="8c95a38a-d0e2-4055-bfbf-5a69edfea086"/>
+				<reportElement x="625" y="1" width="177" height="19" uuid="8c95a38a-d0e2-4055-bfbf-5a69edfea086"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.25"/>
@@ -612,6 +697,15 @@ GROUP BY closing_stock.stock_id]]>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<line>
+				<reportElement x="1" y="21" width="802" height="1" uuid="857134a5-19b8-40c7-b022-4188702ac8de"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="1" height="54" uuid="dd974701-8f7a-49b5-bc87-a81992a73be8"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
 		</band>
 	</summary>
 </jasperReport>

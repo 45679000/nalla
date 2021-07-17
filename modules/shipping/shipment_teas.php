@@ -95,6 +95,8 @@
                 url: "shipping_action.php",
                 success: function(data) {
                     swal('Success', data.message, 'success');
+                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+
                 }
             });
         });

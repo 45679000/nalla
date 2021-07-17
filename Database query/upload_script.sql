@@ -63,3 +63,4 @@ INSERT INTO `stock_allocation`(`stock_id`, `client_id`, `standard`, `allocated_p
 SELECT closing_stock.stock_id, stock_import.client_id, stock_import.standard, stock_import.pkgs, stock_import.aware_hse
 FROM `closing_stock`
 INNER JOIN stock_import ON stock_import.lot = closing_stock.lot
+

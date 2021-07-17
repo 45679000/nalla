@@ -26,9 +26,9 @@ Class BlendingController extends Model{
         return $this->executeQuery();
     }
 
-    public function addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs){
-        $this->query = "INSERT INTO blend_teas(allocation_id, blend_no, packages, blend_kgs) 
-        VALUES('$allocationId', '$blendNo','$allocatedPackages', '$allocatedKgs')";
+    public function addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs, $split){
+        $this->query = "INSERT INTO blend_teas(allocation_id, blend_no, packages, blend_kgs, split) 
+        VALUES('$allocationId', '$blendNo','$allocatedPackages', '$allocatedKgs', '$split')";
         return $this->executeQuery();
     }
     public function shipmentSummaryBlend($blendno){

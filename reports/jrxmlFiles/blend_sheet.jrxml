@@ -216,7 +216,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Origin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="332" y="26" width="94" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
+				<reportElement stretchType="RelativeToTallestObject" x="332" y="26" width="107" height="19" uuid="aaa235c2-76c3-402b-a601-6d27bb00efe4"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -228,7 +228,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Mark]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="425" y="26" width="42" height="19" uuid="e3d67f61-6fbd-4cb5-a28c-231499422261"/>
+				<reportElement stretchType="RelativeToTallestObject" x="438" y="26" width="42" height="19" uuid="e3d67f61-6fbd-4cb5-a28c-231499422261"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -240,7 +240,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Grade]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="466" y="26" width="74" height="19" uuid="b29c91d7-5df6-4c91-b77b-3badf31ed7c6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="479" y="26" width="61" height="19" uuid="b29c91d7-5df6-4c91-b77b-3badf31ed7c6"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -349,7 +349,7 @@ ORDER BY closing_stock.invoice ASC]]>
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement x="466" y="24" width="1" height="20" uuid="ddd68a50-d0ef-4ca8-9008-87cedb3ed0e4"/>
+					<reportElement x="479" y="24" width="1" height="20" uuid="ddd68a50-d0ef-4ca8-9008-87cedb3ed0e4"/>
 					<graphicElement>
 						<pen lineWidth="0.25"/>
 					</graphicElement>
@@ -373,7 +373,7 @@ ORDER BY closing_stock.invoice ASC]]>
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement x="425" y="24" width="1" height="20" uuid="8a938662-1e32-48fc-bc1b-8006bd0cbb95"/>
+					<reportElement x="438" y="24" width="1" height="20" uuid="8a938662-1e32-48fc-bc1b-8006bd0cbb95"/>
 					<graphicElement>
 						<pen lineWidth="0.25"/>
 					</graphicElement>
@@ -504,7 +504,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="332" y="0" width="94" height="15" isPrintWhenDetailOverflows="true" uuid="c1536d5a-f387-4419-a6be-809e24fd6b62"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="332" y="0" width="107" height="15" isPrintWhenDetailOverflows="true" uuid="c1536d5a-f387-4419-a6be-809e24fd6b62"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -517,7 +517,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="425" y="0" width="40" height="15" isPrintWhenDetailOverflows="true" uuid="34c507db-7255-463e-9930-a22fe61461b8"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="438" y="0" width="40" height="15" isPrintWhenDetailOverflows="true" uuid="34c507db-7255-463e-9930-a22fe61461b8"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -530,7 +530,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="466" y="0" width="73" height="15" isPrintWhenDetailOverflows="true" uuid="71f164ce-0388-4964-984c-0469a9dfd5c5"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="479" y="0" width="60" height="15" isPrintWhenDetailOverflows="true" uuid="71f164ce-0388-4964-984c-0469a9dfd5c5"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>

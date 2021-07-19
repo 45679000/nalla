@@ -57,8 +57,8 @@ Class ShippingController extends Model{
         WHERE  si_no = '$siNo'";
         $lots = $this->executeQuery();
 
-        $this->query = "SELECT (CASE WHEN SUM(closing_stock.net*shippments.pkgs_shipped) IS NULL THEN 0 
-        ELSE SUM(closing_stock.net*shippments.pkgs_shipped) END) AS totalkgs 
+        $this->query = "SELECT (CASE WHEN SUM(closing_stock.kgs) IS NULL THEN 0 
+        ELSE SUM(closing_stock.kgs) END) AS totalkgs 
         FROM shippments
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id

@@ -555,7 +555,7 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.0" lineStyle="Double"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPkgs}]]></textFieldExpression>
 			</textField>
@@ -569,31 +569,31 @@ GROUP BY allocation_id]]>
 					<rightPen lineWidth="0.0" lineStyle="Double"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totaKgs}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="23" width="87" height="36" uuid="f5413c5b-2588-44b5-8cec-46b6ef423ab6"/>
+				<reportElement x="0" y="23" width="118" height="36" uuid="f5413c5b-2588-44b5-8cec-46b6ef423ab6"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.0"/>
 				</box>
 				<textElement verticalAlignment="Top">
-					<font fontName="Times New Roman" size="7" isBold="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SHIPPING MARKS:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="88" y="24" width="714" height="34" isPrintWhenDetailOverflows="true" uuid="d5c0cdc7-66c4-4a74-ac17-d343de296228"/>
+				<reportElement x="118" y="24" width="684" height="34" isPrintWhenDetailOverflows="true" uuid="d5c0cdc7-66c4-4a74-ac17-d343de296228"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shipping_marks}]]></textFieldExpression>
 			</textField>
@@ -604,18 +604,18 @@ GROUP BY allocation_id]]>
 					<bottomPen lineWidth="0.25"/>
 				</box>
 				<textElement verticalAlignment="Top">
-					<font fontName="Times New Roman" size="7" isBold="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOTE:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="88" y="58" width="714" height="35" isPrintWhenDetailOverflows="true" uuid="c32cc2de-a67b-44aa-a08b-b87c575c8761"/>
+				<reportElement x="87" y="58" width="715" height="35" isPrintWhenDetailOverflows="true" uuid="c32cc2de-a67b-44aa-a08b-b87c575c8761"/>
 				<box>
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
 			</textField>

@@ -14,7 +14,7 @@
 END) AS pkgs, shippments.pkgs_shipped,
  closing_stock.allocated_whse AS warehouse, country, (CASE WHEN shipping_instructions.contract_no IS NOT NULL THEN  shipping_instructions.contract_no ELSE shippments.si_no END) AS allocation,
 `type`, `net`,
-(stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`,
+closing_stock.kgs AS `kgs`,  `sale_price`, stock_allocation.`standard`,
 DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
 stock_allocation.shipped,
 
@@ -81,7 +81,7 @@ GROUP BY allocation_id]]>
 	<field name="net" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="kgs" class="java.lang.Double">
+	<field name="kgs" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="sale_price" class="java.lang.String">

@@ -78,7 +78,6 @@ Class ShippingController extends Model{
         FROM approval_workflow WHERE approval_id = '$siNo'";
         $approvalStatus = $this->executeQuery();
 
-        var_dump ($approvalStatus);
         return array(
             "siNo"=>$siNo,
             "clientName"=>$clientName[0]['name'],

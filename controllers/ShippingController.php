@@ -25,7 +25,7 @@ Class ShippingController extends Model{
         $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`,
          `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`, `grade`, `invoice`, 
          stock_allocation.allocated_pkgs AS pkgs, closing_stock.allocated_whse AS warehouse, 
-         `type`, `net`, (stock_allocation.allocated_pkgs * net) AS `kgs`, 
+         `type`, `net`, closing_stock.kgs AS `kgs`, 
          `sale_price`, stock_allocation.`standard`, DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
           `imported`, `allocated`, `selected_for_shipment`, 
           `current_allocation`, `is_blend_balance`, stock_allocation.blend_no_contract_no, 
@@ -51,7 +51,7 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function shipmentSummaries($siNo, $clientId="1"){
-   
+        $this->debugSql = false;
         $this->query = "SELECT (CASE WHEN COUNT(id) IS NULL THEN 0 ELSE COUNT(id) END) AS totalLots FROM shippments 
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
         WHERE  si_no = '$siNo'";
@@ -70,20 +70,15 @@ Class ShippingController extends Model{
         WHERE  shippments.si_no = '$siNo'";
         $pkgs = $this->executeQuery();
 
-        $this->query = "SELECT (SUM(closing_stock.net*shippments.pkgs_shipped)*sale_price) AS totalAmount 
-        FROM shippments
-        LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
-        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
-        WHERE  shippments.si_no = '$siNo'";
-        $totalAmount = $this->executeQuery();
  
         $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$clientId'";
         $clientName = $this->executeQuery();
 
-        $this->query = "SELECT status FROM approval_workflow WHERE approval_id = '$siNo'";
+        $this->query = "SELECT (CASE WHEN status IS NULL THEN 'unconfirmed' ELSE status END) AS status
+        FROM approval_workflow WHERE approval_id = '$siNo'";
         $approvalStatus = $this->executeQuery();
 
-        
+        var_dump ($approvalStatus);
         return array(
             "siNo"=>$siNo,
             "clientName"=>$clientName[0]['name'],
@@ -243,6 +238,17 @@ Class ShippingController extends Model{
         $this->query = "SELECT * FROM shipping_instructions WHERE instruction_id = $sino";
         return($this->executeQuery());
     }
+    public function unshippedSi($id=0){
+        if($id==0){
+            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1";
+            return($this->executeQuery());
+        }else{
+            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND instruction_id = $id";
+            return($this->executeQuery());
+        }
+     
+    }
+ 
 }        
 
 

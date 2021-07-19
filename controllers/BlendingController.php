@@ -222,6 +222,29 @@ Class BlendingController extends Model{
         GROUP BY stock_id";
         return $this->executeQuery();
     }
+    public function totalBlendedTeas($status){
+        if($status == "closed"){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+        $this->query="SELECT COUNT(*) AS blended
+        FROM blend_master 
+        WHERE approved = 1 AND closed = $status";  
+        $totalKgs = $this->executeQuery();
+
+        return $totalKgs[0]['blended'];
+
+    }
+    public function totalBlendedPerBlend($blendno){
+        $this->query="SELECT sum(blend_kgs) AS blended
+        FROM blend_teas 
+        WHERE  blend_no = '$blendno'";  
+        $totalKgs = $this->executeQuery();
+
+        return $totalKgs[0]['blended'];
+
+    }
     
 }        
 

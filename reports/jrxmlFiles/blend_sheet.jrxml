@@ -240,7 +240,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Grade]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="479" y="26" width="61" height="19" uuid="b29c91d7-5df6-4c91-b77b-3badf31ed7c6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="479" y="26" width="75" height="19" uuid="b29c91d7-5df6-4c91-b77b-3badf31ed7c6"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -252,7 +252,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Invoice]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="540" y="26" width="38" height="19" uuid="36551ba5-2913-44c8-b3ee-a910be1db4ff"/>
+				<reportElement stretchType="RelativeToTallestObject" x="555" y="26" width="36" height="19" uuid="36551ba5-2913-44c8-b3ee-a910be1db4ff"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -264,7 +264,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Pkgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="577" y="26" width="34" height="19" uuid="4ff2dd6d-a9f3-4996-b4d6-3d2c38da5f69"/>
+				<reportElement stretchType="RelativeToTallestObject" x="593" y="26" width="34" height="19" uuid="4ff2dd6d-a9f3-4996-b4d6-3d2c38da5f69"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -276,7 +276,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Net]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="610" y="26" width="38" height="19" uuid="425795f0-4117-43c9-9451-661e9f8ae942"/>
+				<reportElement stretchType="RelativeToTallestObject" x="627" y="26" width="38" height="19" uuid="425795f0-4117-43c9-9451-661e9f8ae942"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -288,24 +288,24 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[Kgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="648" y="7" width="149" height="12" uuid="329eb4d9-7e39-413d-9bb6-286aeb6a0ccd"/>
+				<reportElement x="677" y="7" width="120" height="12" uuid="329eb4d9-7e39-413d-9bb6-286aeb6a0ccd"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ALLOCATION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="648" y="26" width="49" height="18" uuid="db46758e-6cea-4de0-baaf-126e2a00ec1c"/>
+				<reportElement x="665" y="26" width="33" height="18" uuid="db46758e-6cea-4de0-baaf-126e2a00ec1c"/>
 				<box>
 					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Warehouse]]></text>
+				<text><![CDATA[WHS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="696" y="26" width="106" height="18" uuid="96468b42-94cc-43e4-92c2-7ab818788b4e"/>
@@ -343,7 +343,7 @@ ORDER BY closing_stock.invoice ASC]]>
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement x="648" y="25" width="1" height="20" uuid="6a2f18e9-e942-4700-bacc-1c34d9afad17"/>
+					<reportElement x="665" y="25" width="1" height="20" uuid="6a2f18e9-e942-4700-bacc-1c34d9afad17"/>
 					<graphicElement>
 						<pen lineWidth="0.25"/>
 					</graphicElement>
@@ -355,7 +355,7 @@ ORDER BY closing_stock.invoice ASC]]>
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement x="610" y="25" width="1" height="20" uuid="feb25600-298b-43f8-a8ab-bdd6a3129fb0"/>
+					<reportElement x="627" y="25" width="1" height="20" uuid="feb25600-298b-43f8-a8ab-bdd6a3129fb0"/>
 					<graphicElement>
 						<pen lineWidth="0.25"/>
 					</graphicElement>
@@ -367,7 +367,7 @@ ORDER BY closing_stock.invoice ASC]]>
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement x="577" y="25" width="1" height="20" uuid="728ac10a-612d-48b8-a407-41c2177b9561"/>
+					<reportElement x="592" y="25" width="1" height="20" uuid="728ac10a-612d-48b8-a407-41c2177b9561"/>
 					<graphicElement>
 						<pen lineWidth="0.25"/>
 					</graphicElement>
@@ -397,7 +397,7 @@ ORDER BY closing_stock.invoice ASC]]>
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement x="540" y="24" width="1" height="20" uuid="7fc76c18-59f7-4f7f-a534-37ff31532097"/>
+					<reportElement x="553" y="24" width="1" height="20" uuid="7fc76c18-59f7-4f7f-a534-37ff31532097"/>
 					<graphicElement>
 						<pen lineWidth="0.25"/>
 					</graphicElement>
@@ -416,7 +416,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				</line>
 			</elementGroup>
 			<line>
-				<reportElement x="648" y="1" width="1" height="22" uuid="e6fd7293-3570-4483-b7a9-f717f0039f50"/>
+				<reportElement x="664" y="1" width="1" height="22" uuid="e6fd7293-3570-4483-b7a9-f717f0039f50"/>
 				<graphicElement>
 					<pen lineWidth="0.25"/>
 				</graphicElement>
@@ -530,7 +530,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="479" y="0" width="60" height="15" isPrintWhenDetailOverflows="true" uuid="71f164ce-0388-4964-984c-0469a9dfd5c5"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="479" y="0" width="74" height="15" isPrintWhenDetailOverflows="true" uuid="71f164ce-0388-4964-984c-0469a9dfd5c5"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -543,7 +543,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="540" y="0" width="38" height="15" isPrintWhenDetailOverflows="true" uuid="4cf5323c-18eb-4524-ac9e-3f45808f426a"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="553" y="0" width="38" height="15" isPrintWhenDetailOverflows="true" uuid="4cf5323c-18eb-4524-ac9e-3f45808f426a"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -556,7 +556,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{blended_packages}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="577" y="0" width="34" height="15" isPrintWhenDetailOverflows="true" uuid="66f6f0a2-000d-4238-b947-ddac4def02e8"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="592" y="0" width="34" height="15" isPrintWhenDetailOverflows="true" uuid="66f6f0a2-000d-4238-b947-ddac4def02e8"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -569,7 +569,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="610" y="0" width="37" height="15" isPrintWhenDetailOverflows="true" uuid="098b05d6-7165-4626-b878-5798dc47770c"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="627" y="0" width="37" height="15" isPrintWhenDetailOverflows="true" uuid="098b05d6-7165-4626-b878-5798dc47770c"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -582,7 +582,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="696" y="0" width="106" height="15" isPrintWhenDetailOverflows="true" backcolor="#FFCCCC" uuid="7019a55f-5b18-4e64-be16-a7feb637fcfc"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="698" y="0" width="104" height="15" isPrintWhenDetailOverflows="true" backcolor="#FFCCCC" uuid="7019a55f-5b18-4e64-be16-a7feb637fcfc"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -595,7 +595,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{contractno}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="648" y="0" width="50" height="15" isPrintWhenDetailOverflows="true" uuid="96191f87-94e1-4e40-beab-26b816cc6d40"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="665" y="0" width="34" height="15" isPrintWhenDetailOverflows="true" uuid="96191f87-94e1-4e40-beab-26b816cc6d40"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -612,7 +612,7 @@ ORDER BY closing_stock.invoice ASC]]>
 	<summary>
 		<band height="60" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="540" y="0" width="37" height="21" isPrintWhenDetailOverflows="true" uuid="cfad2049-fb4d-4ac0-84a3-e7fb96b0ffcf"/>
+				<reportElement x="553" y="0" width="40" height="21" isPrintWhenDetailOverflows="true" uuid="cfad2049-fb4d-4ac0-84a3-e7fb96b0ffcf"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.25"/>
@@ -625,7 +625,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$V{totalPkgs}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="610" y="0" width="39" height="20" isPrintWhenDetailOverflows="true" uuid="3ac9106e-4fda-4338-b6bd-c9d69b98987c"/>
+				<reportElement x="627" y="1" width="39" height="20" isPrintWhenDetailOverflows="true" uuid="3ac9106e-4fda-4338-b6bd-c9d69b98987c"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.25"/>
@@ -674,7 +674,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<text><![CDATA[NOTE:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="88" y="22" width="714" height="35" isPrintWhenDetailOverflows="true" uuid="c32cc2de-a67b-44aa-a08b-b87c575c8761"/>
+				<reportElement x="88" y="22" width="637" height="35" isPrintWhenDetailOverflows="true" uuid="c32cc2de-a67b-44aa-a08b-b87c575c8761"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.25"/>
@@ -687,7 +687,7 @@ ORDER BY closing_stock.invoice ASC]]>
 				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="647" y="1" width="155" height="19" uuid="8c95a38a-d0e2-4055-bfbf-5a69edfea086"/>
+				<reportElement x="664" y="1" width="138" height="19" uuid="8c95a38a-d0e2-4055-bfbf-5a69edfea086"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.25"/>

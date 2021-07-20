@@ -303,6 +303,7 @@
 
 		$warehouses->upadeAllocation($materialid, $sino,  $totalAllocation);
 	}
+
 	if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
 		$output = "";
 			  $blends = $blendCtrl->fetchBlends();
@@ -372,5 +373,77 @@
 	  
 		}
 	  }
+
+
+	  if(isset($_POST['action']) && $_POST['action'] == "close_blend"){
+		  $id = $_POST['blendid'];
+		  $output = $_POST['blendOutput'];
+		  $shippment = $_POST['blendShipment'];
+		  $sweeping = $_POST['Sweeping'];
+		  $cyclone = $_POST['Cyclone'];
+		  $dust = $_POST['Dust'];
+		  $fiber = $_POST['Fiber'];
+		  $remnant = $_POST['BlendRemnant'];
+		  $gain_loss = $_POST['GainLoss'];
+
+		$warehouses->closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss);
+
+		$blendDetails = $blendCtrl->fetchBlends($id);
+
+		$remainingPkgs = $blendDetails[0]['blend_remnant']%$blendDetails[0]['nw'];
+		$fullPkgs = ($blendDetails[0]['blend_remnant']/$blendDetails[0]['nw'])-($remainingPkgs);
+		$lot = $blendDetails[0]['std_name']."/".$blendDetails[0]['blendid'];
+		$invoice = $blendDetails[0]['contractno'];
+		$sale_date = $blendDetails[0]['date_'];
+		$grade = $blendDetails[0]['Grade'];
+		$nw = $blendDetails[0]['nw'];
+
+
+		$response = '
+		<table class="table table-bordered" style = "width:inherit;" id="confirm">
+		<thead>
+			<tr>
+				<th>Lot No</th>
+				<th>Grade</th>
+				<th>Invoice</th>
+				<th>Nw</th>
+				<th>Pkgs</th>
+				<th>Kgs</th>
+			</tr>
+		</thead>
+		<tbody>';
+		$response .='<tr>';
+		$response .='<td>'.$lot.'</td>';
+		$response .='<td>'.$grade.'</td>';
+		$response .='<td>'.$invoice.'</td>';
+		$response .='<td>'.$nw.'</td>';
+		$response .='<td>'.$fullPkgs.'</td>';
+		$response .='<td>'.$nw*$fullPkgs.'</td>';
+		$response .='</tr>';
+		if($remainingPkgs !=0){
+			$response .='<tr>';
+			$response .='<td>'.$lot.'</td>';
+			$response .='<td>'.$grade.'</td>';
+			$response .='<td>'.$invoice.'</td>';
+			$response .='<td>'.$nw.'</td>';
+			$response .='<td>'.$fullPkgs.'</td>';
+			$response .='<td>'.$nw*$remainingPkgs.'</td>';
+			$response .='</tr>';
+		}
+
+
+		'</tbody>
+	  
+		</table>';
+
+		echo $response;
+	}
+
+
+
+
+
+
+
 ?>
 

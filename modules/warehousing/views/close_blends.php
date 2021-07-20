@@ -1,10 +1,31 @@
 <style>
    .table {
         background-color: white !important;
+        width:100% !important;
     }
     .toolbar-button{
         padding: 0.5px !important;
     }
+    .modal {
+        text-align: center;
+    width:100% !important;
+    }
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  width:1000%;
+}
  
 </style>
 <div class="col-md-12 col-lg-12">
@@ -19,7 +40,25 @@
     </div>
 </div>
 
-
+<div class="modal" id="blendClose">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Blend Closing...</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+         <!-- Modal body -->
+         <div id="preview" class="modal-body">
+                
+                <div class="form-group float-right">
+                        <button type="submit" class="btn btn-primary" id="update">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="../../assets/js/blending.js"></script>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
@@ -65,11 +104,12 @@
                 var Cyclone = $("#"+id+"cyclone").text();
                 var Dust = $("#"+id+"dust").text();
                 var Fiber = $("#"+id+"fiber").text();
-                
-                $("#"+id+"blendRemnant").text(blendOutput-blendShipment);
-                $("#"+id+"gainLoss").text((blendOutput+pulucon+Sweeping+Cyclone+Dust+Fiber) - blendInput);
+
+                $("#"+id+"blendRemnant").text(Number(blendOutput)-Number(blendShipment));
+                $("#"+id+"gainLoss").text((Number(blendOutput)+Number(pulucon)+Number(Sweeping)+Number(Cyclone)+Number(Dust)+Number(Fiber)) - Number(blendInput));
                 var BlendRemnant = $("#"+id+"blendRemnant").text();
                 var GainLoss = $("#"+id+"gainLoss").text();
+
 
 
             $.ajax({
@@ -92,8 +132,8 @@
             cache: true,
             url: "warehousing_action.php",
             success: function (data) {
-                loadSiAllocation(sino);
-                loadPackingMaterialsToAlloacate();
+                $('#blendClose').show();
+                $('#preview').html(data);
 
             }
         });

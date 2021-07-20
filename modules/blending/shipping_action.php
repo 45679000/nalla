@@ -59,6 +59,8 @@ if($action=='add-si'){
           $output.='<tr>';
               $packagesToAllocate = $stock["shipped_packages"];
               $allocation = $stock["allocation"];
+              $packagesToAllocateId = $stock["allocation_id"]."packages";
+              $kgsToAllocateId = $stock["allocation_id"]."packages";
               $id=$stock["allocation_id"];
               if($stock["selected_for_shipment"]!= NULL){
                 $id=$stock["selected_for_shipment"];
@@ -73,7 +75,7 @@ if($action=='add-si'){
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
               $output.='<td>'.$stock["invoice"].'</td>';
-              $output.='<td id="packages">'.$packagesToAllocate.'</td>';
+              $output.='<td contentEditable = "true" id="'.$packagesToAllocateId.'">'.$packagesToAllocate.'</td>';
               $output.='<td>'.$stock["net"].'</td>';
               $output.='<td>'.$stock["kgs"].'</td>';
               $output.='<td>'.$stock["comment"].'</td>';

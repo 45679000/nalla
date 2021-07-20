@@ -22,10 +22,19 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function loadUnallocated(){
+        // $this->debugSql = true;
         $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`,
          `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`, `grade`, `invoice`, 
          stock_allocation.allocated_pkgs AS pkgs, closing_stock.allocated_whse AS warehouse, 
-         `type`, `net`, closing_stock.kgs AS `kgs`, 
+         `type`, `net`, 
+                (CASE 
+                WHEN stock_allocation.allocated_pkgs != pkgs_shipped THEN
+                pkgs_shipped * net
+                ELSE
+                    closing_stock.kgs 
+                    
+                END ) AS `kgs`, 
+
          `sale_price`, stock_allocation.`standard`, DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
           `imported`, `allocated`, `selected_for_shipment`, 
           `current_allocation`, `is_blend_balance`, stock_allocation.blend_no_contract_no, 

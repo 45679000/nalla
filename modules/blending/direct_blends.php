@@ -110,12 +110,14 @@ $(document).ready(function(){
 });
 
 function callAction(element){
+
     var id = $(element).attr("id");
-    var siNo = $('#packages').text();
     var method = $(element).attr("class");
+    var packageToAllocate =  $("#"+id+"packages").text();
+
 
 if(method=="allocate"){
-    AllocationShippment(id, "allocate-shipment", siNo, localStorage.getItem("blend_no_contract_no"), "allocate");
+    AllocationShippment( id, "allocate-shipment", packageToAllocate, localStorage.getItem("blend_no_contract_no"), "allocate");
 }else{
     removeLotFromShippment("remove-shipment", id, "deallocate", localStorage.getItem("blend_no_contract_no"));
 }

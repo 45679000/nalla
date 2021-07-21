@@ -31,6 +31,7 @@
 		echo menu_user_management($path_to_root);
 		echo menu_setup($path_to_root);
 	}else if($role==5){
+		echo dashboard($path_to_root);
 		echo menu_ware_housing($path_to_root);
 
 	}

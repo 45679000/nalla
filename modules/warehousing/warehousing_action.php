@@ -17,7 +17,7 @@
 		$shipped =  $warehouses->computeTotals("shipped")[0]['totalKgs'];
 		$awaitingShipment =  $warehouses->computeTotals("unshipped")[0]['totalKgs'];
 		$totalStockKgs = $stock->totalKgs();
-		$unclosedBlends = $blends->totalBlendedTeas("unclosed"); 
+		$unclosedBlends = $blendCtrl->totalBlendedTeas("unclosed"); 
 
 		echo json_encode(
 			array(

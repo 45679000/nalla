@@ -21,6 +21,7 @@ class Model{
             $stmt = $this->conn->prepare("REPLACE INTO ".$this->tablename." ({$columnString}) VALUES ({$valueString})");
             $stmt->execute(array_values($this->data));
             return $this->conn->lastInsertId();
+            
         } catch (Exception $ex) {
             echo $ex;
         }

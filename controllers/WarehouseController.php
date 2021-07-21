@@ -10,6 +10,7 @@ Class WarehouseController extends Model{
     public function addPackagingMaterials($post){
         $this->data = $post;
         $this->tablename = "packaging_materials";
+        $this->debugSql=true;
         $id = $this->insertQuery();
         return $this->selectOne($id, "id");
     }
@@ -28,8 +29,8 @@ Class WarehouseController extends Model{
              material_allocation.si_no
                  FROM packaging_materials
                  LEFT JOIN material_allocation ON packaging_materials.id = material_allocation.material
-                WHERE is_deleted = false
-                GROUP BY material_allocation.material";
+                WHERE is_deleted = 0
+                GROUP BY material_allocation.material, category";
         return $this->executeQuery();
     }
     public function getWarehouseLocation(){
@@ -53,7 +54,7 @@ Class WarehouseController extends Model{
         WHERE material_allocation.si_no = $sino";
         return($this->executeQuery());
     }
-    public function upadeAllocation($materialid, $sino,  $totalAllocation){
+    public function upadateAllocation($materialid, $sino,  $totalAllocation){
         $this->query = "INSERT INTO `material_allocation`(`material`, `si_no`, `allocated_total`) 
         VALUES ('$materialid','$sino','$totalAllocation')";
         $this->executeQuery();

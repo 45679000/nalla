@@ -49,6 +49,7 @@ if($action=='add-si'){
               <th class="wd-25p">Net</th>
               <th class="wd-25p">Kgs</th>
               <th class="wd-25p">Code</th>
+              <th class="wd-25p">MRP Value</th>
               <th class="wd-25p">Allocation</th>
               <th class="wd-25p">Select</th>
 
@@ -59,8 +60,10 @@ if($action=='add-si'){
           $output.='<tr>';
               $packagesToAllocate = $stock["shipped_packages"];
               $allocation = $stock["allocation"];
+              $pk = $stock["allocation_id"];
               $packagesToAllocateId = $stock["allocation_id"]."packages";
               $kgsToAllocateId = $stock["allocation_id"]."packages";
+              $mrp = $stock["mrp_value"];
               $id=$stock["allocation_id"];
               if($stock["selected_for_shipment"]!= NULL){
                 $id=$stock["selected_for_shipment"];
@@ -79,6 +82,7 @@ if($action=='add-si'){
               $output.='<td>'.$stock["net"].'</td>';
               $output.='<td>'.$stock["kgs"].'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
+              $output.='<td><input id="'.$pk.'" onblur="updateMrp(this)" value="'.$mrp.'"></input></td>';
               $output.='<td id="'.$id.'allocation">'.$allocation.'</td>';
               if($stock["selected_for_shipment"]== NULL){
                   $output.='
@@ -579,7 +583,14 @@ else if($action == 'load_blend_summary'){
     }else{
         echo '<option disabled="" value="..." selected="">select</option>';
     }
-}else{
+}else if($action=="update-mrp"){
+    $id = $_POST["id"];
+    $mrp = $_POST["mrp"];
+    $shippingCtrl->updateMrp($id, $mrp);
+
+}
+
+else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }
 

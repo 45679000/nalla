@@ -39,7 +39,7 @@ Class ShippingController extends Model{
           `imported`, `allocated`, `selected_for_shipment`, 
           `current_allocation`, `is_blend_balance`, stock_allocation.blend_no_contract_no, 
           stock_allocation.si_id, stock_allocation.shipped, stock_allocation.approval_id, shippments.si_no,
-          0_debtors_master.debtor_ref, shippments.id AS selected_for_shipment,  
+          0_debtors_master.debtor_ref, shippments.id AS selected_for_shipment,  mrp_value, 
           CONCAT(stock_allocation.`standard`,'',0_debtors_master.short_name) AS allocation,
            mark_country.country, shippments.pkgs_shipped AS shipped_packages 
            FROM `stock_allocation` 
@@ -256,7 +256,10 @@ Class ShippingController extends Model{
         }
      
     }
- 
+    public function updateMrp($id, $mrp){
+        $this->query = "UPDATE stock_allocation SET mrp_value = '$mrp' WHERE allocation_id = $id";
+        $this->executeQuery();
+    }
 }        
 
 

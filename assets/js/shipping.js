@@ -291,5 +291,24 @@ function gradeList() {
 
     });
 }
+function updateMrp(element){
+    var id = $(element).attr("id");
+    var mrp = $(element).val();
+    $.ajax({
+        url: "shipping_action.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "update-mrp",
+            id:id,
+            mrp:mrp
+        },
+        success: function(response) {
+            $("#grade").html(response);
+        }
+
+    });
+    alert()
+}
 
 

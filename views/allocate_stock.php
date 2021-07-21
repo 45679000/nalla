@@ -37,91 +37,13 @@
                         <h3 class="expanel-title">Allocate Stock</h3>
                         <?php echo $msg ?>
                     </div>
-                    <div class="expanel-body">
-                        <form method="post" class="allocate">
-                            <div class="form-group">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12 well">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Lot Details</label>
-                                            <select id="stock_id" name="stock_id" class="form-control select2-show-search"><small>(required)</small>
-                                                <option disabled="" value="..." selected="">select</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-md-2 well">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Client</label>
-                                            <select id="clientwithcode" name="buyer_standard" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 well">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Standard</label>
-                                            <input id="std" name="pkgs" class=" standard form-control form-control-cstm well">
-                                            </input>
-                                            <select id="standard" name="standard" class="standard form-control form-control-cstm select2-show-search well"><small>(required)</small>
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 well">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Pkgs To Allocate</label>
-                                            <input id="pkgs" name="pkgs" class="form-control form-control-cstm well"></input>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 well">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">MRP value(USD)</label>
-                                            <input id="mrpValue" name="mrpValue" class="form-control form-control-cstm well"></input>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 well">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Ware House</label>
-                                            <select id="warehouseLocation" name="warehouseLocation" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 well align-self-center">
-                                        <div class="form-group label-floating ">
-                                            <button id="allocate" name="allocate" class="form-control-btn">
-                                                <i class="fa fa-plus"></i> allocate
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" id="pkg_stock" name="pkg_stock" value=""></input>
-                                </div>
-                        </form>
-
-                    </div>
+            
 
                     <div class="card-body">
                         <div id ="allocatedStock" class="table-responsive">
                           
 
                         </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="centralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <!--Content-->
-                        <div class="modal-content">          
-                            <!--Body-->
-                            <div class="modal-body">
-                                <h5>The Selected Lot does not have a selected standard</h5>
-                            </div>
-                            <!--Footer-->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
-                            </div>
-                        </div>
-                        <!--/.Content-->
                     </div>
                 </div>
             </div>
@@ -131,18 +53,18 @@
 
 
     <!-- Dashboard js -->
-    <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-    <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-    <script src="../assets/js/vendors/selectize.min.js"></script>
-    <script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-    <script src="../assets/js/vendors/circle-progress.min.js"></script>
-    <script src="../assets/plugins/jquery-tabledit/jquery.tabledit.js"></script>
-    <script src="../assets/js/common.js"></script>
-    <script src="../assets/plugins/select2/select2.full.min.js"></script>
-    <script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../assets/js/vendors/selectize.min.js"></script>
+<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../assets/plugins/jquery-tabledit/jquery.tabledit.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
 
-    <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
 
@@ -152,7 +74,190 @@
 <script src="../assets/plugins/datatable/vfs_fonts.js"></script>
 <script src="../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../assets/plugins/datatable/buttons.print.min.js"></script>
+<script>
+   $(document).ready(function(){
+        var dataList = document.getElementById("remarks");
+        loadRemarkOptions(dataList);
+   });
+function toggleClass(element){
+    $(element).removeClass('noedit');
+    $(element).addClass('edit');
 
+}
+function addRemark(element){
+    if(($(element).val() !== null) && ($(element).val() !== "")){
+      
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: '../modules/stock/stock-action.php',
+                data: {
+                    action:'add-remark',
+                    lot:$(element).attr('id'),
+                    remark:$(element).val()
+                },
+            success: function (data) {
+                $(element).removeClass('edit');
+                $(element).addClass('noedit');
+                return data;
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+        });
+    }
+}
+function loadRemarkOptions(element){
+            $.ajax({  
+                type: "POST",
+                dataType: "json",
+                url: '../ajax/common.php',
+                data: {
+                    action:'remark-opt'
+                },
+            success: function (data) {
+              for($i = 0; $i<data.length; $i++){
+                $(element).append('<option>'+data[$i].remark+'</option>');
+
+              }
+
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+         });
+        }
+
+
+</script>
+
+<script>
+var SubmitData = new Object();
+var Client = [""],
+    Standard = [""],
+    table = $('#allocatedStockTable').DataTable({
+        columnDefs: [{
+            targets: [0],
+            "className": "pk",
+            visible: true
+        }, {
+            targets: [11],
+            "className": "client"
+        }, {
+            targets: [12],
+            "className": "standard"
+        }],
+        initComplete: function() {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: ".../modules/stock/stock-action.php",
+                data: {action: 'allocation'},
+            success: function (data) {
+                for(var i=0; i<data.length; i++){
+                    Client.push(data[i].code);
+                    }
+                },
+            });
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "../ajax/grading.php",
+                data: {action: 'grading-standards'},
+            success: function (data) {
+                for(var i=0; i<data.length; i++){
+                    Standard.push(data[i].standard);
+                    }
+                },
+            });
+            
+
+        }
+    });
+
+
+$('#allocatedStockTable tbody').on('click', '.client', function() {
+    if (!$('#allocatedStockTable').hasClass("editing")) {
+        $('#allocatedStockTable').addClass("editing");
+        var thisCell = table.cell(this);
+
+        SubmitData.pkey = $(this).parents('tr').find("td:eq(0)").text();
+
+        thisCell.data($("<select></select>", {
+            "class": "changePosition"
+        }).append(Client.map(v => $("<option></option>", {
+            "text": v,
+            "value": v,
+            "selected": (v === thisCell.data())
+        }))).prop("outerHTML"));
+
+        $('select').on('change', function() {
+            SubmitData.fieldValue = this.value;
+            SubmitData.fieldName = 'client';
+            postData(SubmitData, "");
+            console.log(SubmitData);
+
+        });
+    }
+});
+$('#allocatedStockTable tbody').on('click', '.standard', function() {
+    if (!$('#allocatedStockTable').hasClass("editing")) {
+        $('#allocatedStockTable').addClass("editing");
+        var thisCell = table.cell(this);
+        thisCell.data($("<select></select>", {
+            "class": "changeLocation"
+        }).append(Standard.map(v => $("<option></option>", {
+            "text": v,
+            "value": v,
+            "selected": (v === thisCell.data())
+        }))).prop("outerHTML"));
+    }
+    $('select').on('change', function() {
+            SubmitData.pkey = $(this).parents('tr').find("td:eq(0)").text();
+            SubmitData.fieldName = 'standard';
+            SubmitData.fieldValue = this.value;
+            postData(SubmitData, "");
+            console.log(SubmitData);
+
+    });
+
+});
+$('#closingimport tbody').on("change", ".changePosition", () => {
+    table.cell($(".changePosition").parents('td')).data($(".changePosition").val());
+    $('#closingimport').removeClass("editing");
+});
+$('#closingimport tbody').on("change", ".changeLocation", () => {
+    table.cell($(".changeLocation").parents('td')).data($(".changeLocation").val());
+    $('#closingimport').removeClass("editing");
+});
+
+function postData(formData, PostUrl) {
+          $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: PostUrl,
+                data: formData,
+            success: function (data) {
+                console.log('Submission was successful.');
+                // location.reload();
+                console.log(data);
+                return data;
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+        });
+
+
+}
+
+
+
+</script>
     <script>
         lotList();
         standardList();

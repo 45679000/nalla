@@ -209,6 +209,8 @@
 	}
 	if (isset($_POST['action']) && $_POST['action'] == "stock-allocation") {
 		$allocatedStock =  $stock->allocatedStock();
+		$clients =  $stock->clients();
+
 		$html = "";
 
 		$html .='<table id="allocatedStockTable" class="table table-striped table-bordered">
@@ -225,7 +227,8 @@
 				<td>Net</td>
 				<td>Buying Price</td>
 				<td>MRP Value</td>
-				<td>Allocation</td>
+				<td>Client</td>
+				<td>Standard</td>
 				<td>Actions</td>
 			</tr>
 		</thead>
@@ -233,6 +236,8 @@
 		
 			foreach ($allocatedStock as $allocated) {
 				$id=$allocated['allocation_id'];
+				$allocations = $allocated['buyerstandard'];
+
 				$html .= '<td>' . $allocated['lot'] . '</td>';
 				$html .= '<td><div>' . $allocated['sale_no'] . '</div></td>';
 				$html .= '<td>' . $allocated['broker'] . '</td>';
@@ -240,15 +245,15 @@
 				$html .= '<td>' . $allocated['comment'] . '</td>';
 				$html .= '<td>' . $allocated['grade'] . '</td>';
 				$html .= '<td>' . $allocated['invoice'] . '</td>';
-				$html .= '<td>' . $allocated['allocated_pkgs'] . '</td>';
+				$html .= '<td contentEditable="true">' . $allocated['allocated_pkgs'] . '</td>';
 				$html .= '<td>' . $allocated['net'] . '</td>';
 				$html .= '<td>' . $allocated['sale_price'] . '</td>';
-				$html .= '<td>' . $allocated['mrp_value'] . '</td>'; //auction hammer
-				$html .= '<td>' . $allocated['buyerstandard'] . '</td>'; //auction hammer
-
+				$html .= '<td contentEditable="true">' . $allocated['mrp_value'] . '</td>'; //auction hammer
+				$html .= '<td>'. $allocated['debtor_ref'] .'</td>';
+				$html .= '<td>'. $allocated['standard'] .'</td>';
 				$html .= '<td>
-                         <a  style="color:green" 
-                          class="navigate" id="'.$id.'"><i class="fa fa-edit"></i></a>&nbsp;
+                         <button  style="color:green" 
+                          class="navigate" id="'.$id.'"><i class="fa fa-plus">Allocate</i> </button>&nbsp;
 			            </td>';
 				$html .= '</tr>';
 			}

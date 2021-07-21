@@ -309,7 +309,6 @@ function updateMrp(element){
         }
 
     });
-    alert()
 }
 
 

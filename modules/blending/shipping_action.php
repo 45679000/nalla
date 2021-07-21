@@ -63,6 +63,7 @@ if($action=='add-si'){
               $allocation = $stock["allocation"];
               $pk = $stock["allocation_id"];
               $packagesToAllocateId = $stock["allocation_id"]."packages";
+              $packagesInStockId = $stock["allocation_id"]."pkgsAvailable";
               $kgsToAllocateId = $stock["allocation_id"]."kgs";
               $netToAllocateId = $stock["allocation_id"]."net";
 
@@ -81,7 +82,7 @@ if($action=='add-si'){
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
               $output.='<td>'.$stock["invoice"].'</td>';
-              $output.='<td >'.$stock["pkgs"].'</td>';
+              $output.='<td id="'.$packagesInStockId.'">'.$stock["pkgs"].'</td>';
               $output.='<td onblur="updateKgs(this)" contentEditable = "true" class="'.$pk.'">'.$packagesToAllocate.'</td>';
               $output.='<td id="'.$netToAllocateId.'">'.$stock["net"].'</td>';
               $output.='<td contentEditable = "true" id="'.$kgsToAllocateId.'">'.$stock["kgs"].'</td>';

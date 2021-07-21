@@ -151,7 +151,11 @@ function updateContractNo(element){
 function updateKgs(element){
     var id = $(element).attr("class");
     var net =  $("#"+id+"net").text();
+    var pkgsInstock =  $("#"+id+"pkgsAvailable").text();
     var pkgs =  $(element).text();
+    if(pkgs>pkgsInstock){
+        alert("You cannot allocate More packages than what you have in stock");
+    }
     var kgs = Number(pkgs)*Number(net);
     $("#"+id+"kgs").text(Number(pkgs)*Number(net));
 }

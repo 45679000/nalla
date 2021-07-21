@@ -32,7 +32,7 @@
 	if(isset($_POST['action']) && $_POST['action'] == "shipments"){
 		$shippments= $shippingCtr->unshippedSi();
 		$output = "";
-		if(count($shippments)>1){
+		if(count($shippments)>0){
 			$output .= '
 			<table id="dashboard" class="table">
 			<thead>

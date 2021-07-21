@@ -114,10 +114,12 @@ function callAction(element){
     var id = $(element).attr("id");
     var method = $(element).attr("class");
     var packageToAllocate =  $("#"+id+"packages").text();
+    var kgsToAllocate =  $("#"+id+"kgs").text();
+
 
 
 if(method=="allocate"){
-    AllocationShippment( id, "allocate-shipment", packageToAllocate, localStorage.getItem("blend_no_contract_no"), "allocate");
+    AllocationShippment( id, "allocate-shipment", packageToAllocate, localStorage.getItem("blend_no_contract_no"), "allocate", kgsToAllocate);
 }else{
     removeLotFromShippment("remove-shipment", id, "deallocate", localStorage.getItem("blend_no_contract_no"));
 }
@@ -145,5 +147,12 @@ function updateContractNo(element){
     allocationSummary(localStorage.getItem("blend_no_contract_no", localStorage.getItem("clientId"))); 
     addApproval(element);
 
+}
+function updateKgs(element){
+    var id = $(element).attr("class");
+    var net =  $("#"+id+"net").text();
+    var pkgs =  $(element).text();
+    var kgs = Number(pkgs)*Number(net);
+    $("#"+id+"kgs").text(Number(pkgs)*Number(net));
 }
 </script>

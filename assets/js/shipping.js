@@ -129,14 +129,15 @@ function removeLotFromShippment(action, shipmentid, method, siNo, ){
     });
 }
 
-function AllocationShippment(allocationid, action, packages, siNo, method){
+function AllocationShippment(allocationid, action, packages, siNo, method, shippedKgs){
     $.ajax({
         type: "POST",
         data: {
             action: action,
             allocationid: allocationid,
             packages: packages,            
-            siNo: siNo
+            siNo: siNo,
+            shippedKgs, shippedKgs
 
         },
         cache: true,
@@ -292,7 +293,7 @@ function gradeList() {
     });
 }
 function updateMrp(element){
-    var id = $(element).attr("id");
+    var id = $(element).attr("class");
     var mrp = $(element).val();
     $.ajax({
         url: "shipping_action.php",

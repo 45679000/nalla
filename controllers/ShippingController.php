@@ -66,8 +66,14 @@ Class ShippingController extends Model{
         WHERE  si_no = '$siNo'";
         $lots = $this->executeQuery();
 
-        $this->query = "SELECT (CASE WHEN SUM(closing_stock.kgs) IS NULL THEN 0 
-        ELSE SUM(closing_stock.kgs) END) AS totalkgs 
+        $this->query = "SELECT 
+            (CASE 
+                WHEN stock_allocation.allocated_pkgs != pkgs_shipped THEN
+                pkgs_shipped * net
+                 ELSE
+                closing_stock.kgs 
+                
+                END )  AS totalkgs 
         FROM shippments
         LEFT JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
@@ -82,16 +88,23 @@ Class ShippingController extends Model{
  
         $this->query = "SELECT name FROM 0_debtors_master WHERE debtor_no = '$clientId'";
         $clientName = $this->executeQuery();
-
+        
         $this->query = "SELECT (CASE WHEN status IS NULL THEN 'unconfirmed' ELSE status END) AS status
         FROM approval_workflow WHERE approval_id = '$siNo'";
         $approvalStatus = $this->executeQuery();
+
+
+        $totalKgs = 0;
+        if(count($kgs)>0){
+            $totalKgs = $kgs[0]['totalkgs'];
+
+        }
 
         return array(
             "siNo"=>$siNo,
             "clientName"=>$clientName[0]['name'],
             "totalLots"=>$lots[0]['totalLots'],
-            "totalkgs"=>$kgs[0]['totalkgs'],
+            "totalkgs"=>$totalKgs,
             "totalpkgs"=>$pkgs[0]['totalpkgs'],
             "approvalStatus"=>$approvalStatus[0]['status'],
             "lotDetailsView"=>"
@@ -194,9 +207,9 @@ Class ShippingController extends Model{
     }
  
     
-    public function allocateForShippment($allocationid, $siNo, $packages, $type){
-        $this->query = "REPLACE INTO shippments(allocation_id, si_no, pkgs_shipped, siType)
-        VALUES ('$allocationid', '$siNo', $packages, 'straight')"; 
+    public function allocateForShippment($allocationid, $siNo, $packages, $type, $shipKgs){
+        $this->query = "REPLACE INTO shippments(allocation_id, si_no, pkgs_shipped, siType, shipped_kgs)
+        VALUES ('$allocationid', '$siNo', $packages, 'straight', $shipKgs)"; 
     
         return $this->executeQuery();
     }

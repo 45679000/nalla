@@ -45,10 +45,12 @@ if($action=='add-si'){
               <th class="wd-15p">Mark</th>
               <th class="wd-10p">Grade</th>
               <th class="wd-25p">Invoice</th>
-              <th class="wd-25p">Pkgs</th>
+              <th class="wd-25p">Pkgs Available</th>
+              <th class="wd-25p">This Allocation</th>
               <th class="wd-25p">Net</th>
               <th class="wd-25p">Kgs</th>
               <th class="wd-25p">Code</th>
+              <th class="wd-25p">MRP Value</th>
               <th class="wd-25p">Allocation</th>
               <th class="wd-25p">Select</th>
 
@@ -59,8 +61,12 @@ if($action=='add-si'){
           $output.='<tr>';
               $packagesToAllocate = $stock["shipped_packages"];
               $allocation = $stock["allocation"];
+              $pk = $stock["allocation_id"];
               $packagesToAllocateId = $stock["allocation_id"]."packages";
-              $kgsToAllocateId = $stock["allocation_id"]."packages";
+              $kgsToAllocateId = $stock["allocation_id"]."kgs";
+              $netToAllocateId = $stock["allocation_id"]."net";
+
+              $mrp = $stock["mrp_value"];
               $id=$stock["allocation_id"];
               if($stock["selected_for_shipment"]!= NULL){
                 $id=$stock["selected_for_shipment"];
@@ -75,10 +81,12 @@ if($action=='add-si'){
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
               $output.='<td>'.$stock["invoice"].'</td>';
-              $output.='<td contentEditable = "true" id="'.$packagesToAllocateId.'">'.$packagesToAllocate.'</td>';
-              $output.='<td>'.$stock["net"].'</td>';
-              $output.='<td>'.$stock["kgs"].'</td>';
+              $output.='<td >'.$stock["pkgs"].'</td>';
+              $output.='<td onblur="updateKgs(this)" contentEditable = "true" class="'.$pk.'">'.$packagesToAllocate.'</td>';
+              $output.='<td id="'.$netToAllocateId.'">'.$stock["net"].'</td>';
+              $output.='<td contentEditable = "true" id="'.$kgsToAllocateId.'">'.$stock["kgs"].'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
+              $output.='<td><input class="'.$pk.'" onblur="updateMrp(this)" value="'.$mrp.'"></input></td>';
               $output.='<td id="'.$id.'allocation">'.$allocation.'</td>';
               if($stock["selected_for_shipment"]== NULL){
                   $output.='
@@ -114,9 +122,11 @@ if($action=='add-si'){
 
     $allocationid = isset($_POST['allocationid']) ? $_POST['allocationid'] : die('missing id');
     $packages = isset($_POST['packages']) ? $_POST['packages'] : die('missing packages');
+    $kgsToShip = isset($_POST['shippedKgs']) ? $_POST['shippedKgs'] : die('missing packages');
+
     $siNo = isset($_POST['siNo']) ? $_POST['siNo'] : die('missing contract no');
 
-    $shippingCtrl->allocateForShippment($allocationid, $siNo, $packages, "straight");
+    $shippingCtrl->allocateForShippment($allocationid, $siNo, $packages, "straight", $kgsToShip);
     echo json_encode(array("status"=>"Lot allocated successfully"));
 
 }else if($action=='remove-shipment'){
@@ -579,7 +589,14 @@ else if($action == 'load_blend_summary'){
     }else{
         echo '<option disabled="" value="..." selected="">select</option>';
     }
-}else{
+}else if($action=="update-mrp"){
+    $id = $_POST["id"];
+    $mrp = $_POST["mrp"];
+    $shippingCtrl->updateMrp($id, $mrp);
+
+}
+
+else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }
 

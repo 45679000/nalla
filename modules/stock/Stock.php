@@ -151,8 +151,8 @@
 
         }
         public function allocatedStock(){
-            $query = "SELECT allocation_id, sale_no, broker, mark, grade, sale_price, lot, allocated_pkgs, net, invoice, mrp_value,
-            allocated_pkgs*net AS net_allocation,  si_id, shipped, max_offered_price, c.debtor_ref, comment,
+            $query = "SELECT allocation_id, sale_no, debtor_ref, broker, mark, grade, sale_price, lot, allocated_pkgs, net, invoice, mrp_value,
+            allocated_pkgs*net AS net_allocation,  si_id, shipped, max_offered_price, c.debtor_ref, comment, a.standard,
             CONCAT(COALESCE(c.debtor_ref, ''), ' ', COALESCE(a.standard,'')) AS buyerstandard 
             FROM closing_stock b
             LEFT JOIN stock_allocation a ON a.stock_id = b.stock_id
@@ -177,6 +177,13 @@
             $totals = $this->executeQuery(); 
             
             return $totals[0]['total'];
+        }
+        public function clients(){
+            $this->query = "SELECT debtor_no, debtor_ref
+            FROM 0_debtors_master
+            WHERE tea_buyer = 1";
+            return $this->executeQuery(); 
+            
         }
    
     }

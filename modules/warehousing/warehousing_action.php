@@ -167,8 +167,9 @@
 
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "shipment"){
-		if($_POST['sino'] !=null){
-			$shippments= $shippingCtr->unshippedSi($_POST['sino']);
+		$sino = isset($_POST['sino']) ? $_POST['sino'] : '';
+		if($sino !=null){
+			$shippments= $shippingCtr->unshippedSi($sino);
 
 		}else{
 			$shippments= $shippingCtr->unshippedSi();

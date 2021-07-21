@@ -5,7 +5,7 @@ session_start();
     include $path_to_root.'modules/mailer/sendEmail.php';
     include $path_to_root.'database/connection.php';
     // Turn off error reporting
-    error_reporting(0);
+    // error_reporting(0);
 
     //check login request
     $db = new Database();

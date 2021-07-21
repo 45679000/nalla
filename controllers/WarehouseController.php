@@ -18,12 +18,17 @@ Class WarehouseController extends Model{
         return $this->executeQuery();
     }
     public function getPackingMaterials(){
-        $this->query = "  SELECT material_allocation.id, `category`,  material_allocation.details, 
-         material_allocation.si_no, (in_stock - sum(allocated_total)) as in_stock
-         FROM packaging_materials
-         LEFT JOIN material_allocation ON packaging_materials.id = material_allocation.material
-        WHERE is_deleted = false
-        GROUP BY material_allocation.material";
+        $this->query = "SELECT packaging_materials.id,  material_allocation.id AS material_id, `category`,  material_allocation.details, 
+        (CASE WHEN material_allocation.id IS NULL THEN 
+            in_stock
+            ELSE
+             (in_stock - sum(allocated_total))
+             END) AS in_stock,
+             material_allocation.si_no
+                 FROM packaging_materials
+                 LEFT JOIN material_allocation ON packaging_materials.id = material_allocation.material
+                WHERE is_deleted = false
+                GROUP BY material_allocation.material";
         return $this->executeQuery();
     }
     public function getWarehouseLocation(){

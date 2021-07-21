@@ -208,6 +208,8 @@ Class ShippingController extends Model{
  
     
     public function allocateForShippment($allocationid, $siNo, $packages, $type, $shipKgs){
+        $this->debugSql = true;
+
         $this->query = "REPLACE INTO shippments(allocation_id, si_no, pkgs_shipped, siType, shipped_kgs)
         VALUES ('$allocationid', '$siNo', $packages, 'straight', $shipKgs)"; 
     

@@ -125,7 +125,6 @@ if($action=='add-si'){
     $kgsToShip = isset($_POST['shippedKgs']) ? $_POST['shippedKgs'] : die('missing packages');
 
     $siNo = isset($_POST['siNo']) ? $_POST['siNo'] : die('missing contract no');
-
     $shippingCtrl->allocateForShippment($allocationid, $siNo, $packages, "straight", $kgsToShip);
     echo json_encode(array("status"=>"Lot allocated successfully"));
 

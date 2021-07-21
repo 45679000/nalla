@@ -113,7 +113,7 @@ function callAction(element){
 
     var id = $(element).attr("id");
     var method = $(element).attr("class");
-    var packageToAllocate =  $("#"+id+"packages").text();
+    var packageToAllocate =  $("."+id).text();
     var kgsToAllocate =  $("#"+id+"kgs").text();
 
 

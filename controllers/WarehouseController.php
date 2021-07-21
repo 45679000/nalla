@@ -18,7 +18,8 @@ Class WarehouseController extends Model{
         return $this->executeQuery();
     }
     public function getPackingMaterials(){
-        $this->query = "SELECT packaging_materials.id,  material_allocation.id AS material_id, `category`,  material_allocation.details, 
+        $this->query = "SELECT packaging_materials.id,  material_allocation.id AS material_id, 
+        `category`,  material_allocation.details, packaging_materials.description,
         (CASE WHEN material_allocation.id IS NULL THEN 
             in_stock
             ELSE

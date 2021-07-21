@@ -301,7 +301,7 @@
 		$sino = $_POST['sino'];
 		$totalAllocation = $_POST['totalAllocation'];
 
-		$warehouses->upadeAllocation($materialid, $sino,  $totalAllocation);
+		$warehouses->upadateAllocation($materialid, $sino,  $totalAllocation);
 	}
 
 	if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
@@ -438,10 +438,10 @@
 
 		echo $response;
 	}
-
-
-
-
+	if(isset($_POST['action']) && $_POST['action'] == "add-packing materials"){
+		unset($_POST['action']);
+		$warehouses->addPackagingMaterials($_POST);
+	}
 
 
 

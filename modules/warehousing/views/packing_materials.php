@@ -28,10 +28,12 @@
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select name="category" id="category">
-                            <option value="Gunny Bags">Gunny Bags</option>
+                            <option value="Gunny Bags">Gunny Bags(New)</option>
+                            <option value="Gunny Bags">Gunny Bags (Used)</option>
                             <option value="poly Bags">Poly Bags</option>
-                            <option value="Paper Sacks 3ply small size">Paper Sacks 3ply small size</option>
-                            <option value="Paper Sacks 4ply big size">Paper Sacks 4ply big size</option>
+                            <option value="Paper Sacks 3ply small size">Paper Sacks 3ply</option>
+                            <option value="Paper Sacks 4ply big size">Paper Sacks 4ply</option>
+                            <option value="Paper Sacks small size (25 Kgs)">Paper Sacks small size (25 Kgs)</option>
 
                         </select>
                     </div>
@@ -41,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label for="details">Details:</label>
-                        <textarea type="text" class="form-control" name="details" placeholder="Enter details" required="">
+                        <textarea type="text" class="form-control" name="description" placeholder="Enter details" required="">
                         </textarea>
                     </div>
                     

@@ -71,8 +71,8 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                                 break;
 
                             case 'shipments':
-                                if(($_GET['action']=='allocatematerials') && ($_GET['id'] !=null)){
-                                    $sino = $_GET["id"];
+                                $sino = isset($_GET['id']) ? $_GET['id'] : '';
+                                if(($action=='allocatematerials') && ($sino !=null)){
 
                                     include('views/allocate_shippment_materials.php');
 

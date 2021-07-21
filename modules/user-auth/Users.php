@@ -17,7 +17,6 @@ class Users{
                                             'user_id',
                                              $user_id
                                         );
-            echo("User ID= ".$user_id);
             if($userDetails['user_id'] != null){
                 $_SESSION["user_id"] =     $userDetails['user_id'];
                 $_SESSION["user_name"] =   $userDetails['user_name'];
@@ -102,6 +101,9 @@ class Users{
 
             case '4':
                 header("location:dashboard.php");
+                exit();
+            case '5':
+                header("location:../modules/warehousing/index.php?view=dashboard");
                 exit();
 
             default:

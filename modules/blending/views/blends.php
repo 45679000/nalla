@@ -100,33 +100,68 @@
 </div>
 
 <!-- Edit Record  Modal -->
-<div class="modal" id="editModal">
-    <div class="modal-dialog">
+<div class="modal" id="addModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Edit Blend</h4>
+                <h4 class="modal-title">Create Blend</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="EditformData">
-                    <input type="hidden" name="id" id="edit-form-id">
-                    <div class="form-group">
-                        <label for="code">Code:</label>
-                        <input type="text" class="form-control" name="code" id="code" placeholder="Enter code" required="">
+                <form id="formData">
+                    <div class="row">
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Standard</label>
+                                </input>
+                                <select id="standard" name="standard" class="standard form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Blend No:</label>
+                            <input type="text" class="form-control" name="blendid" placeholder="Blend No" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Contract No:</label>
+                            <input type="text" class="form-control" name="contractno" placeholder="Contract No" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Client Name:</label>
+                                <select id="clientwithcode" name="clientid" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                              </select>
+                        </div>   
                     </div>
-                    <div class="form-group">
-                        <label for="name">Blend Name:</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Blend Name" required="">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label class="control-label" for="blendno">Grade:</label>
+                            <select id="grade" name="grade" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                              </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label" for="name">Output Pkgs:</label>
+                            <input type="text" class="form-control" name="pkgs" placeholder="pkgs" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label" for="name">Net:</label>
+                            <input type="text" class="form-control" name="nw" placeholder="Client" required="">
+                        </div>   
                     </div>
+         
+                    <div class="row">
+                        <div class="col-md-3 form-group float-right">
+                            <button type="submit" class="btn btn-success" id="submit">Save</button>
+                        </div>
+                        <div class="col-md-3 form-group float-right">
+                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
 
-                    <hr>
-                    <div class="form-group float-right">
-                        <button type="submit" class="btn btn-primary" id="update">Update</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </form>
+            </div>
+
             </div>
         </div>
     </div>

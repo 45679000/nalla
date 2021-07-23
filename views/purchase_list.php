@@ -133,32 +133,34 @@
                                $html.='</tr>';
                       
                                 }
-                        $html.='<tr style="background-color:green; color:white; border:none;">';
                         
-                        $html.='<td><b>TOTALS</td>';
-                        $html.='<td></td>';
-                        $html.='<td></td>';
-                        $html.='<td></td>';
-                        $html.='<td><b>'.$totalLots.'</b></td>';
-                        $html.='<td></td>';
-                        $html.='<td></td>';
-                        $html.='<td></td>';
-                        $html.='<td></td>'; 
-                        $html.='<td><b>'.$totalPkgs.'</b></td>'; //pkgs
-                        $html.='<td><b>'.$totalKgs.'</b></td>'; //net
-                        $html.='<td><b>'.$totalNet.'</b></td>'; //kgs
-                        $html.='<td><b>'.$totalHammer.'</b></td>'; //auction hammer
-                        $html.='<td><b>'.$totalValue.'</b></td>'; //value ex auction
-                        $html.='<td><b>'.$totalBrokerage.'</b></td>';// brokerage fee
-                        $html.='<td><b>'.$totalAmount.'</b></td>'; //final prompt value
-                        $html.='<td><b>'.$totalbrokerage.'</b></td>';
-                        $html.='<td><b>'.$totalAfterTax.'</b></td>';
-                        $html.='<td><b>'.$totalAddon.'</b></td>';
-                        $html.='<td><b>'.$totalpayable.'</b></td>';
-                        $html.='<td><b>'.$totalPayableStock.'</b></td>';
+                        $html.= '</tbody>';
+                        $html.= ' <tfooter style="outline: thin solid black;">
+							<tr>';
+                            $html.='<td><b>TOTALS</td>';
+                            $html.='<td></td>';
+                            $html.='<td></td>';
+                            $html.='<td></td>';
+                            $html.='<td><b>'.$totalLots.'</b></td>';
+                            $html.='<td></td>';
+                            $html.='<td></td>';
+                            $html.='<td></td>';
+                            $html.='<td></td>'; 
+                            $html.='<td><b>'.$totalPkgs.'</b></td>'; //pkgs
+                            $html.='<td><b>'.$totalKgs.'</b></td>'; //net
+                            $html.='<td><b>'.$totalNet.'</b></td>'; //kgs
+                            $html.='<td><b>'.$totalHammer.'</b></td>'; //auction hammer
+                            $html.='<td><b>'.$totalValue.'</b></td>'; //value ex auction
+                            $html.='<td><b>'.$totalBrokerage.'</b></td>';// brokerage fee
+                            $html.='<td><b>'.$totalAmount.'</b></td>'; //final prompt value
+                            $html.='<td><b>'.$totalbrokerage.'</b></td>';
+                            $html.='<td><b>'.$totalAfterTax.'</b></td>';
+                            $html.='<td><b>'.$totalAddon.'</b></td>';
+                            $html.='<td><b>'.$totalpayable.'</b></td>';
+                            $html.='<td><b>'.$totalPayableStock.'</b></td>';
 
-                        $html.='</tr>';
-                        $html.= '</tbody>
+							$html.='</tr>
+						</tfooter>
                             </table>
                         </div>
                     </div>';

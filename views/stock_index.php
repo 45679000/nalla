@@ -156,6 +156,7 @@ $shippingI = $controller->getShippingInstructions();
 <script type="text/javascript">
     $(document).ready(function() {
         $('.table').DataTable({
+            "pageLength": 100,
             dom: 'Bfrtip',
             buttons: [
                 'copyHtml5',

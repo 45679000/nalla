@@ -10,7 +10,6 @@
             `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`
             FROM `closing_cat` 
             WHERE  buyer_package='CSS' AND sale_no = '".$this->saleno."'";
-echo $query;
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();

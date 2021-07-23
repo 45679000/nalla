@@ -5,7 +5,7 @@
 	include ($path_to_root.'controllers/WarehouseController.php');
 	include ($path_to_root.'controllers/BlendingController.php');
 	include ($path_to_root.'controllers/ShippingController.php');
-	include ($path_to_root.'modules/stock/Stock.php');
+	include ($path_to_root.'controllers/StockController.php');
 
 	$stock = new Stock($conn);
 	$blendCtrl = new BlendingController($conn);

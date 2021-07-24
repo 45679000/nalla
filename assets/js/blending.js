@@ -290,7 +290,7 @@ function standardList(){
             action: "standard-list"
         },
         success: function(data) {
-            $("#standard").html(data);
+            $(".standard").html(data);
 
         }
 
@@ -306,7 +306,7 @@ function clientWithcodeList(){
             action: "clients"
         },
         success: function(data) {
-            $("#clientwithcode").html(data);
+            $(".clientwithcode").html(data);
 
         }
 
@@ -322,7 +322,7 @@ function gradeList() {
             action: "grade-list"
         },
         success: function(response) {
-            $("#grade").html(response);
+            $(".grade").html(response);
         }
 
     });

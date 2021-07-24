@@ -66,11 +66,10 @@ function loadMasterStock(){
     $.ajax({
         type: "POST",
         dataType: "html",
-        url: "../modules/stock/stock-action.php",
+        url: "stock-action.php",
         data: {action:"master-stock"},
     success: function (data) {
         $('#stock-master').html(data);
-        $('#closingstocks').DataTable({});
         
     },
     error: function (data) {

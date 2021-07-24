@@ -198,16 +198,21 @@
   
 if (isset($_POST['editId'])) {
   $editId = $_POST['editId'];
-  $row = $shippingctrl->getRecordById($editId);
+  $row = $blendingCtrl->fetchBlends($editId);
   echo json_encode($row);
 }
 
 if (isset($_POST['action']) && $_POST['action'] == "update") {
 
-		$name = $_POST['name'];
-		$country = $_POST['country'];
-        $id = $_POST['id'];
-		$shippingctrl->updateRecord($id, $name,  $country);
+		$standard = $_POST['standard'];
+    $blendid = $_POST['blendid'];
+    $contractno = $_POST['contractno'];
+    $grade = $_POST['grade'];
+    $pkgs = $_POST['pkgs'];
+    $nw = $_POST['nw'];
+    $id = $_POST['edit-form-id'];
+
+		$blendingCtrl->updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw);
 }
 
     	// Delete Record	

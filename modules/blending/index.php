@@ -1,7 +1,7 @@
 <?php
 $path_to_root = "../../";
 include $path_to_root . 'templates/header.php';
-include $path_to_root . 'views/includes/auction_ids.php';
+include $path_to_root . 'includes/auction_ids.php';
 ?>
 <style>
 

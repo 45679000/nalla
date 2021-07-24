@@ -245,6 +245,20 @@ Class BlendingController extends Model{
         return $totalKgs[0]['blended'];
 
     }
+    public function updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw){
+        $this->query = "UPDATE blend_master SET  std_name = '$standard', 
+        blendid = '$blendid',
+        contractno = '$contractno',
+        grade = '$grade',
+        pkgs = '$pkgs',
+        nw = '$nw',
+        blend_no = CONCAT('STD ',$standard,'/',$blendid)
+
+        WHERE id = $id
+        ";
+        $this->debugSql = true;            
+        $this->executeQuery();
+    }
     
 }        
 

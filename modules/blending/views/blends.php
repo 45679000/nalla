@@ -64,6 +64,7 @@
                             <label class="control-label">Contract No:</label>
                             <input type="text" class="form-control" name="contractno" placeholder="Contract No" required="">
                         </div>
+                   
                         <div class="col-md-3 form-group">
                             <label class="control-label">Client Name:</label>
                                 <select id="clientwithcode" name="clientid" class="clientwithcode form-control form-control-cstm select2-show-search well"><small>(required)</small>
@@ -83,6 +84,10 @@
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="name">Net:</label>
                             <input type="text" class="form-control" name="nw" placeholder="Client" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Sale No:</label>
+                            <input type="text" class="form-control" name="sale_no" placeholder="sale_no" required="">
                         </div>   
                     </div>
          
@@ -151,7 +156,11 @@
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="name">Net:</label>
                             <input id="nw" type="text" class="form-control" name="nw" placeholder="Client" required="">
-                        </div>  
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Sale No:</label>
+                            <input id="sale_no" type="text" class="form-control" name="sale_no" placeholder="sale_no" required="">
+                        </div>   
                         <input type="hidden" id="edit-form-id" name="edit-form-id" value=""> 
  
                     </div>
@@ -315,8 +324,7 @@
                     $("#updateGrade").val(data[0].Grade);
                     $("#pkgs").val(data[0].Pkgs);
                     $("#nw").val(data[0].nw);
-
-
+                    $("#sale_no").val(data[0].sale_no);
 
                 }
             });

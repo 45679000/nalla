@@ -393,13 +393,15 @@
 
 		$fullPkgs = intdiv($blendDetails[0]['blend_remnant'], $blendDetails[0]['nw']);
 		$remainder = $blendDetails[0]['blend_remnant']%$blendDetails[0]['nw'];
-		
+		$standard = $blendDetails[0]['std_name'];
 		$lot = $blendDetails[0]['std_name']."/".$blendDetails[0]['blendid'];
 		$invoice = $blendDetails[0]['contractno'];
 		$sale_date = $blendDetails[0]['date_'];
 		$grade = $blendDetails[0]['Grade'];
 		$nw = $blendDetails[0]['nw'];
+		$sale_no = $blendDetails[0]['sale_no'];
 
+		$warehouses->addClosedBlendToStock($sale_no, $lot, $grade, $fullPkgs, $nw, $nw*$fullPkgs, $standard);
 
 		$response = '
 		<table class="table table-bordered" style = "width:inherit;" id="confirm">
@@ -424,6 +426,7 @@
 		$response .='</tr>';
 		if($remainder !=0){
 			$nw = 1;
+			$warehouses->addClosedBlendToStock($sale_no, $lot, $grade, $remainder, $nw, $nw*$remainder, $standard);
 			$response .='<tr>';
 			$response .='<td>'.$lot.'</td>';
 			$response .='<td>'.$grade.'</td>';

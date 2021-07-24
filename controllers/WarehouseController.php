@@ -86,7 +86,7 @@ Class WarehouseController extends Model{
     }
     
     public function closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss){
-        $this->debugSql = true;
+        $this->debugSql = false;
         $this->query = "UPDATE `blend_master` SET
         `output_kgs`='$output',
         `sweeping`='$sweeping',

@@ -391,8 +391,9 @@
 
 		$blendDetails = $blendCtrl->fetchBlends($id);
 
-		$remainingPkgs = $blendDetails[0]['blend_remnant']%$blendDetails[0]['nw'];
-		$fullPkgs = ($blendDetails[0]['blend_remnant']/$blendDetails[0]['nw'])-($remainingPkgs);
+		$fullPkgs = intdiv($blendDetails[0]['blend_remnant'], $blendDetails[0]['nw']);
+		$remainder = $blendDetails[0]['blend_remnant']%$blendDetails[0]['nw'];
+		
 		$lot = $blendDetails[0]['std_name']."/".$blendDetails[0]['blendid'];
 		$invoice = $blendDetails[0]['contractno'];
 		$sale_date = $blendDetails[0]['date_'];
@@ -421,14 +422,15 @@
 		$response .='<td>'.$fullPkgs.'</td>';
 		$response .='<td>'.$nw*$fullPkgs.'</td>';
 		$response .='</tr>';
-		if($remainingPkgs !=0){
+		if($remainder !=0){
+			$nw = 1;
 			$response .='<tr>';
 			$response .='<td>'.$lot.'</td>';
 			$response .='<td>'.$grade.'</td>';
 			$response .='<td>'.$invoice.'</td>';
 			$response .='<td>'.$nw.'</td>';
-			$response .='<td>'.$fullPkgs.'</td>';
-			$response .='<td>'.$nw*$remainingPkgs.'</td>';
+			$response .='<td>'.$remainder.'</td>';
+			$response .='<td>'.$nw*$remainder.'</td>';
 			$response .='</tr>';
 		}
 

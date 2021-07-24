@@ -45,16 +45,13 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Blend Closing...</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="form-group float-right">
+                        <button type="submit" class="btn btn-primary" id="confirm">Confirm</button>
+                        <button type="button" class="btn btn-danger" id="cancel" >Cancel</button>
+                </div>
             </div>
          <!-- Modal body -->
          <div id="preview" class="modal-body">
-                
-                <div class="form-group float-right">
-                        <button type="submit" class="btn btn-primary" id="update">Update</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
             </div>
         </div>
     </div>
@@ -110,8 +107,6 @@
                 var BlendRemnant = $("#"+id+"blendRemnant").text();
                 var GainLoss = $("#"+id+"gainLoss").text();
 
-
-
             $.ajax({
             type: "POST",
             dataType: "html",
@@ -139,6 +134,18 @@
         });
         }
 
+$('#confirm').click(function(e){
+    Swal.fire({
+                icon: 'success',
+                title: 'Confirmed to stock',
+            });
+    $('#blendClose').hide();
+
+});
+$('#cancel').click(function(e){
+    $('#blendClose').hide();
+
+})
 
 
     

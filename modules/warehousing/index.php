@@ -4,7 +4,7 @@ include ($path_to_root.'templates/header.php');
 include ($path_to_root.'models/Model.php');
 include ($path_to_root.'controllers/WarehouseController.php');
 include ($path_to_root.'controllers/BlendingController.php');
-include ($path_to_root.'modules/stock/Stock.php');
+include ($path_to_root.'controllers/StockController.php');
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 

@@ -119,13 +119,13 @@ Class BlendingController extends Model{
         $this->executeQuery();
         return $this->query;
     }
-    public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid,$contractno){
+    public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid,$contractno, $sale_no){
         $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
         $results = $this->executeQuery();
         if(count($results)==0){
             $response = array();
-            $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`, `contractno`)
-            VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw','$blendid', '$contractno')";
+            $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`, `contractno`, `sale_no`)
+            VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw','$blendid', '$contractno', '$sale_no')";
             $this->executeQuery();
             $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
             $results = $this->executeQuery();
@@ -244,6 +244,21 @@ Class BlendingController extends Model{
 
         return $totalKgs[0]['blended'];
 
+    }
+    public function updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw, $saleno){
+        $this->query = "UPDATE blend_master SET  std_name = '$standard', 
+        blendid = '$blendid',
+        contractno = '$contractno',
+        grade = '$grade',
+        pkgs = '$pkgs',
+        nw = '$nw',
+        sale_no = '$saleno',
+        blend_no = CONCAT('STD ',$standard,'/',$blendid)
+
+        WHERE id = $id
+        ";
+        $this->debugSql = true;            
+        $this->executeQuery();
     }
     
 }        

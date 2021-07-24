@@ -5322,7 +5322,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg>select.form-
 }
 .form-inline {
 	display: -ms-flexbox;
-	display: flex;
+	/* display: flex; */
 	-ms-flex-flow: row wrap;
 	flex-flow: row wrap;
 	-ms-flex-align: center;
@@ -5334,7 +5334,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg>select.form-
 @media (min-width: 576px) {
 	.form-inline label {
 		display: -ms-flexbox;
-		display: flex;
+		/* display: flex; */
 		-ms-flex-align: center;
 		align-items: center;
 		-ms-flex-pack: center;

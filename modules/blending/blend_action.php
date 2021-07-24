@@ -17,11 +17,11 @@
         $pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : $error ='You must indicate Output packages';
         $nw = isset($_POST['nw']) ? $_POST['nw'] : $error ='You must indicate Output net';
         $contractno = isset($_POST['contractno']) ? $_POST['contractno'] : $error ='You must indicate contract No';
-
+        $sale_no = isset($_POST['sale_no']) ? $_POST['sale_no'] : $error = 'You must enter sale no';
         $blendid = isset($_POST['blendid']) ? $_POST['blendid'] : $error ='You must indicate the Blend no';
         $blendno = 'STD'.$stdname.'/'.$blendid;
         if($error ==""){
-          $message = $blendingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw, $blendid, $contractno);
+          $message = $blendingCtrl->saveBlend($blendno, $clientid, $stdname, $grade, $pkgs, $nw, $blendid, $contractno, $sale_no);
           echo json_encode($message);
 
         }else{
@@ -44,9 +44,10 @@
 			$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
 			        <thead class='thead-dark'>
 			          <tr>
-			            <th>Blend No</th>
+			            <th>Blend Name</th>
 			            <th>Client</th>
 			            <th>STD</th>
+                  <th>Sale No</th>
 			            <th>Grade</th>
                   <th>Pkgs</th>
                   <th>Net</th>
@@ -60,9 +61,10 @@
         $blendid = $blend['id'];
 
 			    $output.="<tr>
-			            <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['blend_no']."</a></td>
+			            <td><a href='./index.php?view=allocateblendteas&blendno=$blendid'>".$blend['blend_no']."</a></td>
 			            <td>".$blend['client_name']."</td>
 			            <td>".$blend['std_name']."</td>
+                  <td>".$blend['sale_no']."</td>
                   <td>".$blend['Grade']."</td>
                   <td>".$blend['Pkgs']."</td>
                   <td>".$blend['nw']."</td>
@@ -198,16 +200,22 @@
   
 if (isset($_POST['editId'])) {
   $editId = $_POST['editId'];
-  $row = $shippingctrl->getRecordById($editId);
+  $row = $blendingCtrl->fetchBlends($editId);
   echo json_encode($row);
 }
 
 if (isset($_POST['action']) && $_POST['action'] == "update") {
 
-		$name = $_POST['name'];
-		$country = $_POST['country'];
-        $id = $_POST['id'];
-		$shippingctrl->updateRecord($id, $name,  $country);
+		$standard = $_POST['standard'];
+    $blendid = $_POST['blendid'];
+    $contractno = $_POST['contractno'];
+    $grade = $_POST['grade'];
+    $pkgs = $_POST['pkgs'];
+    $nw = $_POST['nw'];
+    $id = $_POST['edit-form-id'];
+    $saleno = $_POST['sale_no'];
+
+		$blendingCtrl->updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw, $saleno);
 }
 
     	// Delete Record	

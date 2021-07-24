@@ -4,7 +4,7 @@
 	include ('../grading/grading.php');
 	require "../../vendor/autoload.php";
     include_once('../../database/page_init.php');
-    include 'Stock.php';
+    include '../../controllers/StockController.php';
     
     $db = new Database();
     $conn = $db->getConnection();

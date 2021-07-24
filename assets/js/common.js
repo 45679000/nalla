@@ -47,7 +47,7 @@ $(document).ready(function() {
 
         });
     }
-    function gradeList() {
+    function gradeList(columnid="grade") {
         $.ajax({
             url: "../ajax/common.php",
             type: "POST",
@@ -57,6 +57,24 @@ $(document).ready(function() {
             },
             success: function(response) {
                 $("#grade").html(response);
+                // $("#grade2").html(response);
+
+            }
+
+        });
+    }
+    function gradeList2() {
+        $.ajax({
+            url: "../ajax/common.php",
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "grade-list"
+            },
+            success: function(response) {
+                $("#updateGrade").html(response);
+                // $("#grade2").html(response);
+
             }
 
         });
@@ -99,7 +117,9 @@ function standardList(){
         },
         success: function(data) {
             $("#standard").html(data);
+            $("#standard2").html(data);
 
+            
         }
 
     });

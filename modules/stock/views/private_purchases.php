@@ -6,7 +6,7 @@
     }
 
 </style>
-<div class="col-md-8 col-lg-10">
+<div class="col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-body p-6">
                         <div class="col-md-12">

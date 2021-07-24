@@ -145,7 +145,7 @@
 	function menu_stock($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link" href='.$path_to_root.'views/stock_index.php?view=purchase-list><i class="fa fa-database"></i> <span>Stocks</span></a>
+			<a class="nav-link" href='.$path_to_root.'modules/stock/index.php?view=dashboard><i class="fa fa-database"></i> <span>Stocks</span></a>
 		</li>';
 	}
 	function menu_shipping($path_to_root){

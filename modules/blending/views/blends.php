@@ -8,26 +8,30 @@
  
 </style>
 <div class="col-md-8 col-lg-10">
-
-    <div class="row">
-        <button type="button" class="btn btn-success m-1 float-right toolbar-button" data-toggle="modal" data-target="#addModal">
-            <i class="fa fa-plus"></i> Create Blend</button>
-    </div>
-    <br>
-
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+		    <div class="card">
+                <div class="card-header">
+                    <div class="card-options">
+                    <button type="button" class="btn btn-success m-1 float-left toolbar-button" data-toggle="modal" data-target="#addModal">
+                    <i class="fa fa-plus"></i> Create Blend</button>
+                    </div>
+                </div>
+                <div class="card-body">
                 <div class="table-responsive" id="tableData">
                     <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <div id="straightTable"></div>
+
+                </div>
+                </div>
             </div>
-        </div>
+            </div>
+
+
+
     </div>
 </div>
 
@@ -60,16 +64,17 @@
                             <label class="control-label">Contract No:</label>
                             <input type="text" class="form-control" name="contractno" placeholder="Contract No" required="">
                         </div>
+                   
                         <div class="col-md-3 form-group">
                             <label class="control-label">Client Name:</label>
-                                <select id="clientwithcode" name="clientid" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                                <select id="clientwithcode" name="clientid" class="clientwithcode form-control form-control-cstm select2-show-search well"><small>(required)</small>
                               </select>
                         </div>   
                     </div>
                     <div class="row">
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="blendno">Grade:</label>
-                            <select id="grade" name="grade" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                            <select id="grade" name="grade" class="grade form-control form-control-cstm select2-show-search well"><small>(required)</small>
                               </select>
                         </div>
                         <div class="col-md-3 form-group">
@@ -79,6 +84,10 @@
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="name">Net:</label>
                             <input type="text" class="form-control" name="nw" placeholder="Client" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Sale No:</label>
+                            <input type="text" class="form-control" name="sale_no" placeholder="sale_no" required="">
                         </div>   
                     </div>
          
@@ -100,59 +109,65 @@
 </div>
 
 <!-- Edit Record  Modal -->
-<div class="modal" id="addModal">
+<div class="modal" id="editModal">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Create Blend</h4>
+                <h4 class="modal-title">Update Blend</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="formData">
+                <form id="EditformData">
                     <div class="row">
                         <div class="col-md-3 well">
                             <div class="form-group label-floating">
                                 <label class="control-label">Standard</label>
                                 </input>
-                                <select id="standard" name="standard" class="standard form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                                <select id="standardUpdate" name="standard" class="standard form-control form-control-cstm select2-show-search well"><small>(required)</small>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label">Blend No:</label>
-                            <input type="text" class="form-control" name="blendid" placeholder="Blend No" required="">
+                            <input id="blendid" type="text" class="form-control" name="blendid" placeholder="Blend No" required="">
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label">Contract No:</label>
-                            <input type="text" class="form-control" name="contractno" placeholder="Contract No" required="">
+                            <input id="contractno" type="text" class="form-control" name="contractno" placeholder="Contract No" required="">
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label">Client Name:</label>
-                                <select id="clientwithcode" name="clientid" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                                <select id="clientwithcodeUpdate" name="clientid" class="clientwithcode form-control form-control-cstm select2-show-search well"><small>(required)</small>
                               </select>
                         </div>   
                     </div>
                     <div class="row">
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="blendno">Grade:</label>
-                            <select id="grade" name="grade" class="form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                            <select id="updateGrade" name="grade" class="grade form-control form-control-cstm select2-show-search well"><small>(required)</small>
                               </select>
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="name">Output Pkgs:</label>
-                            <input type="text" class="form-control" name="pkgs" placeholder="pkgs" required="">
+                            <input id="pkgs" type="text" class="form-control" name="pkgs" placeholder="pkgs" required="">
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="name">Net:</label>
-                            <input type="text" class="form-control" name="nw" placeholder="Client" required="">
+                            <input id="nw" type="text" class="form-control" name="nw" placeholder="Client" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Sale No:</label>
+                            <input id="sale_no" type="text" class="form-control" name="sale_no" placeholder="sale_no" required="">
                         </div>   
+                        <input type="hidden" id="edit-form-id" name="edit-form-id" value=""> 
+ 
                     </div>
          
                     <div class="row">
                         <div class="col-md-3 form-group float-right">
-                            <button type="submit" class="btn btn-success" id="submit">Save</button>
+                            <button type="submit" class="btn btn-success" id="submitUpdate">Update</button>
                         </div>
                         <div class="col-md-3 form-group float-right">
                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -265,21 +280,52 @@
             }
         });
 
+        $("#submitUpdate").click(function(e) {
+            if ($("#EditformData")[0].checkValidity()) {
+                e.preventDefault();
+                $.ajax({
+                    url: "blend_action.php",
+                    type: "POST",
+                    data: $("#EditformData").serialize() + "&action=update",
+                    dataType: "html",
+                    success: function(response) {
+                                Swal.fire({
+                                icon: 'success',
+                                title: 'Record Updated',
+                            });
+                            $("#editModal").modal('hide');
+                            $("#EditformData")[0].reset();
+                            showAllBlends();
+                        }
+                   
+                      
+                    
+                });
+            }
+        });
         //Edit Record
         $("body").on("click", ".editBtn", function(e) {
             e.preventDefault();
+
             var editId = $(this).attr('id');
             $.ajax({
                 url: "blend_action.php",
                 type: "POST",
+                dataType:"json",
                 data: {
                     editId: editId
                 },
-                success: function(response) {
-                    var data = JSON.parse(response);
-                    $("#edit-form-id").val(data.id);
-                    $("#name").val(data.mark);
-                    $("#code").val(data.code);
+                success: function(data) {
+                    $("#edit-form-id").val(data[0].id);
+                    $("#standardUpdate").val(data[0].std_name);
+                    $("#blendid").val(data[0].blendid);
+                    $("#contractno").val(data[0].contractno);
+                    $("#clientwithcodeUpdate").val(data[0].client_name);
+                    $("#updateGrade").val(data[0].Grade);
+                    $("#pkgs").val(data[0].Pkgs);
+                    $("#nw").val(data[0].nw);
+                    $("#sale_no").val(data[0].sale_no);
+
                 }
             });
         });

@@ -1,10 +1,8 @@
-<div class="col-md-8 col-lg-10">
+<div class="col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-body p-6">
                         <div class="col-md-12">
                             <div class="expanel expanel-secondary">
-                            <?php 
-                           $html= '
                            <div class="row">
 							<div class="col-md-12 col-lg-12">
 								<div class="card">
@@ -12,14 +10,15 @@
                                     <form method="post">
                                     <div class="row justify-content-center">
                                         <div class="col-md-3 well">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">AUCTION</label>
-                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
-                                                    <option disabled="" value="..." selected="">select</option>';
+                                            <div class="form-group form-inline">
+                                                <label class="control-label">Select Action from the list</label>
+                                                <select id="saleno" name="saleno" class="form-control select2" ><small>(required)</small>
+                                                    <option disabled="" value="..." selected="">select</option>
+                                                    <?php
                                                         foreach(loadAuctionArray() as $auction_id){
-                                                            $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
+                                                            echo '<option value="'.$auction_id.'">'.$auction_id.'</option>';
                                                         }
-                                                   $html.= '
+                                                   ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -66,7 +65,9 @@
 
                                     </tr>
                                 </thead>
-                                <tbody>';
+                                <tbody>
+                                <?php
+                                $html='';
                                 $totalPkgs = 0;
                                 $totalLots = 0;
                                 $totalKgs = 0;
@@ -114,7 +115,7 @@
                                     $html.='<td>'.$stock['broker'].'</td>';
                                     $html.='<td>'.$stock['ware_hse'].'</td>';
                                     $html.='<td>'.$stock['lot'].'</td>';
-                                    $html.='<td>KENYA</td>';
+                                    $html.='<td>'.$stock['origin'].'</td>';
                                     $html.='<td>'.$stock['mark'].'</td>';
                                     $html.='<td>'.$stock['grade'].'</td>';
                                     $html.='<td>'.$stock['invoice'].'</td>'; 

@@ -7,7 +7,7 @@
     require $path_to_root."vendor/autoload.php";
     include $path_to_root.'modules/cataloguing/Catalogue.php';
     include $path_to_root1.'modules/grading/grading.php';
-    include 'includes/auction_ids.php';
+    include '../includes/auction_ids.php';
 
 
     $catalogue = new Catalogue($conn);

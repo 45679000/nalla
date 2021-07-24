@@ -99,7 +99,12 @@ Class WarehouseController extends Model{
 
         $this->executeQuery();
 
-    }   
+    } 
+    public function addClosedBlendToStock($sale_no, $lot, $grade, $pkgs, $net, $kgs, $standard){
+        $this->query = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `lot`,  `mark`, `grade`,  `pkgs`,  `net`, `kgs`, `standard`, `is_blend_balance`, `invoice`) 
+        SELECT '$sale_no','x', '$lot','BLENDED TEA', '$grade', '$pkgs', '$net', '$kgs', '$standard', true, '$lot'";
+        $this->executeQuery();
+    }  
 }
 
 

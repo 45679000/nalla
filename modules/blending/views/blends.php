@@ -8,26 +8,30 @@
  
 </style>
 <div class="col-md-8 col-lg-10">
-
-    <div class="row">
-        <button type="button" class="btn btn-success m-1 float-right toolbar-button" data-toggle="modal" data-target="#addModal">
-            <i class="fa fa-plus"></i> Create Blend</button>
-    </div>
-    <br>
-
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+		    <div class="card">
+                <div class="card-header">
+                    <div class="card-options">
+                    <button type="button" class="btn btn-success m-1 float-left toolbar-button" data-toggle="modal" data-target="#addModal">
+                    <i class="fa fa-plus"></i> Create Blend</button>
+                    </div>
+                </div>
+                <div class="card-body">
                 <div class="table-responsive" id="tableData">
                     <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <div id="straightTable"></div>
+
+                </div>
+                </div>
             </div>
-        </div>
+            </div>
+
+
+
     </div>
 </div>
 

@@ -297,7 +297,7 @@
 		if($type =="purchases"){
 			if(count($stocks)>0){
 
-				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:80%">
+				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Sale No</th>

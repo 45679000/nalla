@@ -1,4 +1,5 @@
 <?php 
+   ob_start();
 
     $path_to_root = "../";
     $path_to_root1 = "../";
@@ -9,9 +10,6 @@
     $category = "";
     $auction = "";
     
-
-  
-
     $import_date ="";
     
     if(isset($_GET['filter'])){
@@ -42,6 +40,8 @@
               break;
           }
           $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+          ob_end_clean();
+
           $PHPJasperXML->outpage("I");
         }else{
           $PHPJasperXML->arrayParameter=array("sale_no"=>$auction, "broker"=>$broker);
@@ -49,6 +49,8 @@
           $PHPJasperXML->load_xml_file("jrxmlFiles/brokersCatalogue.jrxml");
 
           $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+          ob_end_clean();
+
           $PHPJasperXML->outpage("I");  
 
         }

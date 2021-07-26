@@ -319,9 +319,9 @@
 								</tr>
 							</thead>
 								<tbody>';
-									$totalPkgs = $stock->sumTotal("allocated_pkgs","stock_allocation");
-									$totalKgs = $stock->sumTotal("kgs", "closing_stock");
-									$totalNet = $stock->sumTotal("net", "closing_stock");
+									$totalPkgs = $stock->sumTotal("pkgs","closing_cat");
+									$totalKgs = $stock->sumTotal("kgs", "closing_cat");
+									$totalNet = $stock->sumTotal("net", "closing_cat");
 									foreach ($stocks as $stock){ 
 										$output.='<td>'.$stock['sale_no'].'</td>';
 										$output.='<td>'.$stock['import_date'].'</td>';

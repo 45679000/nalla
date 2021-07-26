@@ -32,9 +32,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                         </div>
                         <div class="expanel-body">
                             <div class="list-group  mb-0 mail-inbox">
-                                <a href="./index.php?view=warehouse" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-list"></i></span>Manage Warehouses
-                                </a>
+                       
                                 <a href="./index.php?view=packing-materials" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Add Packing materials
                                 </a>

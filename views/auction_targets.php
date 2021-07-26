@@ -68,7 +68,7 @@
                                                             <th class="wd-25p">Value</th>
                                                             <th class="wd-25p">Code</th>
                                                             <th class="wd-25p">Standard</th>
-                                                            <th class="wd-25p">Max.Price</th>
+                                                            <th class="wd-25p">Bid</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>';

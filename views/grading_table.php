@@ -141,6 +141,7 @@
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/plugins/select2/select2.full.min.js"></script>
 
 
 
@@ -303,6 +304,7 @@ $('#closingimport tbody').on("change", ".changeLocation", () => {
     table.cell($(".changeLocation").parents('td')).data($(".changeLocation").val());
     $('#closingimport').removeClass("editing");
 });
+$('.changePosition').select2({});
 
 function postData(formData, PostUrl) {
           $.ajax({
@@ -324,6 +326,7 @@ function postData(formData, PostUrl) {
 
 
 }
+
 
 
 

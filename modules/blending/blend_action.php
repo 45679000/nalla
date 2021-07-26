@@ -44,10 +44,10 @@
 			$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
 			        <thead class='thead-dark'>
 			          <tr>
+                  <th>Sale No</th>
 			            <th>Blend Name</th>
 			            <th>Client</th>
 			            <th>STD</th>
-                  <th>Sale No</th>
 			            <th>Grade</th>
                   <th>Pkgs</th>
                   <th>Net</th>
@@ -61,10 +61,10 @@
         $blendid = $blend['id'];
 
 			    $output.="<tr>
+                  <td>".$blend['sale_no']."</td>
 			            <td><a href='./index.php?view=allocateblendteas&blendno=$blendid'>".$blend['blend_no']."</a></td>
 			            <td>".$blend['client_name']."</td>
 			            <td>".$blend['std_name']."</td>
-                  <td>".$blend['sale_no']."</td>
                   <td>".$blend['Grade']."</td>
                   <td>".$blend['Pkgs']."</td>
                   <td>".$blend['nw']."</td>

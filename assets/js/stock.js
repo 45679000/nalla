@@ -62,12 +62,15 @@ function postData(formData, PostUrl) {
 
 });
 
-function loadMasterStock(){
+function loadMasterStock(type){
     $.ajax({
         type: "POST",
         dataType: "html",
         url: "stock-action.php",
-        data: {action:"master-stock"},
+        data: {
+            action:"master-stock",
+            type:type
+        },
     success: function (data) {
         $('#stock-master').html(data);
         

@@ -20,6 +20,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 $("#purchaseList").html(response);
+
             }
 
         });

@@ -2,7 +2,7 @@
 $path_to_root = "../";
 $path_to_root1 = "../";
 include $path_to_root . 'templates/header.php';
-include '../views/includes/auction_ids.php';
+include $path_to_root1.'includes/auction_ids.php';
 include 'rep_broker.php';
 
 ?>

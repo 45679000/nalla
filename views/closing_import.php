@@ -6,7 +6,7 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
-include 'includes/auction_ids.php';
+include $path_to_root1.'includes/auction_ids.php';
 $imported = false;
 
 $catalogue = new Catalogue($conn);
@@ -59,7 +59,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                     <li class="breadcrumb-item active" aria-current="page">Catalogue Import</li>
                 </ol>
             </div>
-            <div id="global-loader" ></div>
+            <!-- <div id="global-loader" ></div> -->
 
             <div class="row">
                 <div class="col-md-12">

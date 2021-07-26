@@ -39,20 +39,18 @@
 						<th class="wd-20p">Company</th>
 						<th class="wd-15p">Mark</th>
 						<th class="wd-10p">Grade</th>
-						<th class="wd-25p">Invoice</th>
+						<th class="wd-25p">Garden Invoice</th>
+						<th class="wd-25p">BrokerInvoice</th>
 						<th class="wd-25p">Pkgs</th>
-						<th class="wd-25p">Type</th>
 						<th class="wd-25p">Net</th>
-						<th class="wd-25p">Gross</th>
 						<th class="wd-25p">Kgs</th>
-						<th class="wd-25p">Value</th>
-						<th class="wd-25p">Comment</th>
-						<th class="wd-25p">Standard</th>
+					
 					</tr>
 			        </thead>
 			        <tbody>';
 					foreach ($purchaseList as $purchase){
 						$output.='<tr>';
+							$id = $purchase["lot"];
 							$output.='<td>'.$purchase["sale_no"].'</td>';
 							$output.='<td>'.$purchase["broker"].'</td>';
 							$output.='<td>'.$purchase["lot"].'</td>';
@@ -61,14 +59,10 @@
 							$output.='<td>'.$purchase["mark"].'</td>';
 							$output.='<td>'.$purchase["grade"].'</td>';
 							$output.='<td>'.$purchase["invoice"].'</td>';
-							$output.='<td>'.$purchase["pkgs"].'</td>';
-							$output.='<td>'.$purchase["type"].'</td>';
-							$output.='<td>'.$purchase["net"].'</td>';
-							$output.='<td>'.$purchase["gross"].'</td>';
-							$output.='<td>'.$purchase["kgs"].'</td>';
-							$output.='<td>'.$purchase["value"].'</td>';
-							$output.='<td>'.$purchase["comment"].'</td>';
-							$output.='<td>'.$purchase["standard"].'</td>';
+							$output.='<td contentEditable = "true"></td>';
+							$output.='<td id="'.$id.'pkgs" contentEditable = "true">'.$purchase["pkgs"].'</td>';
+							$output.='<td id="'.$id.'net" contentEditable = "true">'.$purchase["net"].'</td>';
+							$output.='<td id="'.$id.'kgs" contentEditable = "true">'.$purchase["kgs"].'</td>';
 							if($purchase["added_to_stock"]==0){
 								$output.='
 								<td>

@@ -63,11 +63,9 @@
         }
 
         public function unconfrimedPurchaseList(){
-            $query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS' AND lot NOT IN (SELECT lot FROM closing_stock)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            $rows = $stmt->fetchAll();
-            return $rows;
+            $this->query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS' AND closing_cat.added_to_stock = 0;
+            ORDER BY sale_no, lot DESC";
+            return $this->executeQuery();
         }
 
         public function readAllPurchaseList(){

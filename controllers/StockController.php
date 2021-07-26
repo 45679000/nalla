@@ -20,32 +20,44 @@
             return $rows;
         }
 
-        public function readStock($condition="WHERE 1"){
-            try {
-                $query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
-            `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
-            (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
-            `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
-            DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
-              stock_allocation.si_id, stock_allocation.shipped,
-            stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
-            blend_teas.packages AS blended_packages, 
-            CONCAT(COALESCE(stock_allocation.`standard`,''),' ',COALESCE(0_debtors_master.short_name,'')) AS allocation,
-            mark_country.country
-            FROM closing_stock 
-            LEFT JOIN stock_allocation ON closing_stock.stock_id = stock_allocation.stock_id
-            LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
-            LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
-            LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
-            ".$condition
-            ." GROUP BY stock_allocation.stock_id";
+        public function readStock($type="", $condition="WHERE 1"){
+            if($type=="purchases"){
+                try {
+                    $this->query = "SELECT * FROM closing_cat 
+                    LEFT JOIN mark_country ON  mark_country.mark = closing_cat.mark
+                    WHERE added_to_stock = 1";
+                    return $this->executeQuery();
+                    } catch (Exception $th) {
+                    var_dump($th);
+                }
+                
+            }else{
+                try {
+                $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
+                `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
+                (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
+                `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
+                DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
+                  stock_allocation.si_id, stock_allocation.shipped,
+                stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
+                blend_teas.packages AS blended_packages, 
+                CONCAT(COALESCE(stock_allocation.`standard`,''),' ',COALESCE(0_debtors_master.short_name,'')) AS allocation,
+                mark_country.country
+                FROM closing_stock 
+                LEFT JOIN stock_allocation ON closing_stock.stock_id = stock_allocation.stock_id
+                LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
+                LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
+                LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
+                ".$condition
+                ." GROUP BY stock_allocation.stock_id";
+                $this->debugSql = false;
+                return $this->executeQuery();
+                
+                } catch (Exception $th) {
+                    var_dump($th);
+                }
+                
 
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            $rows = $stmt->fetchAll();
-            return $rows;
-            } catch (Exception $th) {
-                var_dump($th);
             }
             
         }

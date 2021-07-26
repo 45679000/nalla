@@ -35,7 +35,7 @@ $category = isset($_POST['category']) ? $_POST['category'] : '';
 $condition = "";
 if ($saleNo != '' && $broker != '' && $category != '') {
     $condition .= " WHERE sale_no = '" . $saleNo . "' AND broker = '$broker' AND category = '$category' AND lot IN(SELECT lot FROM closing_stock)";
-    $stocks = $stock->readStock($condition);
+    $stocks = $stock->readStock("stock", $condition);
 }
 $scart = array();;
 

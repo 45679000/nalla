@@ -7,7 +7,7 @@ require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 include $path_to_root.'widgets/_form.php';
 require_once $path_to_root.'modules/cataloguing/Catalogue.php';
-include 'includes/auction_ids.php';
+include $path_to_root1.'includes/auction_ids.php';
 
 
 $form = new Form();

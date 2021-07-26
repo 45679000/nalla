@@ -271,81 +271,185 @@
 	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "master-stock"){
-		$stocks = $stock->readStock();
-		$output = "";
-		if(count($stocks)>1){
-			$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:80%">
-						<thead class="thead-dark">
-							<tr>
-								<th>Sale No</th>
-								<th>DD/MM/YY</th>
-								<th>Broker</th>
-								<th>Warehouse</th>
-								<th>Lot</th>
-								<th>Origin</th>
-								<th>Mark</th>
-								<th>Grade</th>
-								<th>Invoice</th>
-								<th>Pkgs</th>
-								<th>Net</th>
-								<th>Kgs</th>
-								<th>Code</th>
-								<th>WHSE</th>
-								<th>Allocation</th>
-
-							</tr>
-						</thead>
-                            <tbody>';
-								$totalPkgs = $stock->sumTotal("allocated_pkgs","stock_allocation");
-								$totalKgs = $stock->sumTotal("kgs", "closing_stock");
-								$totalNet = $stock->sumTotal("net", "closing_stock");
-								foreach ($stocks as $stock){ 
-									$output.='<td>'.$stock['sale_no'].'</td>';
-									$output.='<td>'.$stock['import_date'].'</td>';
-									$output.='<td>'.$stock['broker'].'</td>';
-									$output.='<td>'.$stock['ware_hse'].'</td>';
-									$output.='<td>'.$stock['lot'].'</td>';
-									$output.='<td>'.$stock['country'].'</td>';
-									$output.='<td>'.$stock['mark'].'</td>';
-									$output.='<td>'.$stock['grade'].'</td>';
-									$output.='<td>'.$stock['invoice'].'</td>'; 
-									$output.='<td>'.$stock['pkgs'].'</td>'; //pkgs
-									$output.='<td>'.$stock['net'].'</td>'; //net
-									$output.='<td>'.$stock['kgs'].'</td>'; //kgs
-									$output.='<td>'.$stock['comment'].'</td>';
-									$output.='<td>'.$stock['warehouse'].'</td>';
-									$output.='<td>'.$stock['allocation'].'</td>';
-
-                                    $output.='</tr>';
-                              
-                                }           
-				$output.= '</tbody>';
-				$output.='<tfooter style="outline: thin solid black;">
-							<tr>
-								<td>Totals</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>'.$totalPkgs.'</td>
-								<td>'.$totalNet.'</td>
-								<td>'.$totalKgs.'</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-
-							</tr>
-						</tfooter>
-                    </table>';
-		}else{
-			$output = "No records Found";
-
+		$type = $_POST['type'];
+		$condition = "WHERE 1";
+		switch ($type) {
+			case 'purchases':
+				$stocks = $stock->readStock($type, $condition);
+				break;
+			case 'stock':
+				$stocks = $stock->readStock($type, $condition);
+				break;
+			case 'stocka':
+				$stocks = $stock->readStock($type, $condition);
+				break;
+			case 'stocko':
+				$stocks = $stock->readStock($type, $condition);
+				break;
+			case 'stockb':
+				$stocks = $stock->readStock($type, $condition);
+				break;
+			case 'stockup':
+				$stocks = $stock->readStock($type, $condition);
+				break;
+			case 'stockuu':
+				$stocks = $stock->readStock($type, $condition);
+				break;
+			default:
+				# code...
+				break;
 		}
-		echo $output;
-		
+		$output = "";
+		if($type =="purchases"){
+			if(count($stocks)>0){
+
+				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:80%">
+							<thead class="thead-dark">
+								<tr>
+									<th>Sale No</th>
+									<th>DD/MM/YY</th>
+									<th>Broker</th>
+									<th>Warehouse</th>
+									<th>Lot</th>
+									<th>Origin</th>
+									<th>Mark</th>
+									<th>Grade</th>
+									<th>Invoice</th>
+									<th>Pkgs</th>
+									<th>Net</th>
+									<th>Kgs</th>
+									<th>Code</th>
+									<th>WHSE</th>
+									<th>Allocation</th>
+
+								</tr>
+							</thead>
+								<tbody>';
+									$totalPkgs = $stock->sumTotal("allocated_pkgs","stock_allocation");
+									$totalKgs = $stock->sumTotal("kgs", "closing_stock");
+									$totalNet = $stock->sumTotal("net", "closing_stock");
+									foreach ($stocks as $stock){ 
+										$output.='<td>'.$stock['sale_no'].'</td>';
+										$output.='<td>'.$stock['import_date'].'</td>';
+										$output.='<td>'.$stock['broker'].'</td>';
+										$output.='<td>'.$stock['ware_hse'].'</td>';
+										$output.='<td>'.$stock['lot'].'</td>';
+										$output.='<td>'.$stock['country'].'</td>';
+										$output.='<td>'.$stock['mark'].'</td>';
+										$output.='<td>'.$stock['grade'].'</td>';
+										$output.='<td>'.$stock['invoice'].'</td>'; 
+										$output.='<td>'.$stock['pkgs'].'</td>'; //pkgs
+										$output.='<td>'.$stock['net'].'</td>'; //net
+										$output.='<td>'.$stock['kgs'].'</td>'; //kgs
+										$output.='<td>'.$stock['comment'].'</td>';
+										$output.='<td>'.$stock['warehouse'].'</td>';
+										$output.='<td>'.$stock['allocation'].'</td>';
+
+										$output.='</tr>';
+								
+									}           
+					$output.= '</tbody>';
+					$output.='<tfooter style="outline: thin solid black;">
+								<tr>
+									<td>Totals</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>'.$totalPkgs.'</td>
+									<td>'.$totalNet.'</td>
+									<td>'.$totalKgs.'</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+
+								</tr>
+							</tfooter>
+						</table>';
+			}else{
+				$output = "No records Found";
+
+			}
+			echo $output;
+		}else{
+			if(count($stocks)>0){
+				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:80%">
+							<thead class="thead-dark">
+								<tr>
+									<th>Sale No</th>
+									<th>DD/MM/YY</th>
+									<th>Broker</th>
+									<th>Warehouse</th>
+									<th>Lot</th>
+									<th>Origin</th>
+									<th>Mark</th>
+									<th>Grade</th>
+									<th>Invoice</th>
+									<th>Pkgs</th>
+									<th>Net</th>
+									<th>Kgs</th>
+									<th>Code</th>
+									<th>WHSE</th>
+									<th>Allocation</th>
+
+								</tr>
+							</thead>
+								<tbody>';
+									$totalPkgs = $stock->sumTotal("allocated_pkgs","stock_allocation");
+									$totalKgs = $stock->sumTotal("kgs", "closing_stock");
+									$totalNet = $stock->sumTotal("net", "closing_stock");
+									foreach ($stocks as $stock){ 
+										$output.='<td>'.$stock['sale_no'].'</td>';
+										$output.='<td>'.$stock['import_date'].'</td>';
+										$output.='<td>'.$stock['broker'].'</td>';
+										$output.='<td>'.$stock['ware_hse'].'</td>';
+										$output.='<td>'.$stock['lot'].'</td>';
+										$output.='<td>'.$stock['country'].'</td>';
+										$output.='<td>'.$stock['mark'].'</td>';
+										$output.='<td>'.$stock['grade'].'</td>';
+										$output.='<td>'.$stock['invoice'].'</td>'; 
+										$output.='<td>'.$stock['pkgs'].'</td>'; //pkgs
+										$output.='<td>'.$stock['net'].'</td>'; //net
+										$output.='<td>'.$stock['kgs'].'</td>'; //kgs
+										$output.='<td>'.$stock['comment'].'</td>';
+										$output.='<td>'.$stock['warehouse'].'</td>';
+										$output.='<td>'.$stock['allocation'].'</td>';
+
+										$output.='</tr>';
+								
+									}           
+					$output.= '</tbody>';
+					$output.='<tfooter style="outline: thin solid black;">
+								<tr>
+									<td>Totals</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>'.$totalPkgs.'</td>
+									<td>'.$totalNet.'</td>
+									<td>'.$totalKgs.'</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+
+								</tr>
+							</tfooter>
+						</table>';
+			}else{
+				$output = "No records Found";
+
+			}
+			echo $output;
+		}
 	}

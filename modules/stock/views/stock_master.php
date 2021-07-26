@@ -124,14 +124,14 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-options">
-                                    <a href="#" class="btn btn-primary btn-sm">Total Purchases</a>
-                                    <a href="#" class="btn btn-secondary btn-sm ml-2">Total Stock</a>
-                                    <a href="#" class="btn btn-secondary btn-sm ml-2">Total Stock(Original Teas)</a>
-                                    <a href="#" class="btn btn-secondary btn-sm ml-2">Total Stock(Blended Teas)</a>
-                                    <a href="#" class="btn btn-secondary btn-sm ml-2">Total Stock(Contract Wise)</a>
-                                    <a href="#" class="btn btn-secondary btn-sm ml-2">Total Stock(Awaiting Shipment)</a>
-                                    <a href="#" class="btn btn-secondary btn-sm ml-2">Paid Unallocated</a>
-                                    <a href="#" class="btn btn-secondary btn-sm ml-2">UnPaid Unallocated</a>
+                                    <button id="purchases" class="btn btn-primary btn-sm">Total Purchases</button>
+                                    <button id="stock" class="btn btn-secondary btn-sm ml-2">Total Stock</button>
+                                    <button id="stocko" class="btn btn-secondary btn-sm ml-2">Total Stock(Original Teas)</button>
+                                    <button id="stockb" class="btn btn-secondary btn-sm ml-2">Total Stock(Blended Teas)</button>
+                                    <button id="stockc" class="btn btn-secondary btn-sm ml-2">Total Stock(Contract Wise)</button>
+                                    <button id="stocka" class="btn btn-secondary btn-sm ml-2">Total Stock(Awaiting Shipment)</button>
+                                    <button id="stockpu" class="btn btn-secondary btn-sm ml-2">Paid Unallocated</button>
+                                    <button id="stockuu" class="btn btn-secondary btn-sm ml-2">UnPaid Unallocated</button>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -171,5 +171,28 @@
 <script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script>
-    loadMasterStock();
+$('#purchases').click(function(){
+    loadMasterStock("purchases");
+});
+$('#stock').click(function(){
+    loadMasterStock("stock");
+});
+$('#stocko').click(function(){
+    loadMasterStock("stocko");
+});
+$('#stockb').click(function(){
+    loadMasterStock("stockb");
+});
+$('#stockc').click(function(){
+    loadMasterStock("stockc");
+});
+$('#stocka').click(function(){
+    loadMasterStock("stocka");
+});
+$('#stockpu').click(function(){
+    loadMasterStock("stockpu");
+});
+$('#stockuu').click(function(){
+    loadMasterStock("stockuu");
+});
 </script>

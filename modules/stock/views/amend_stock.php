@@ -49,7 +49,7 @@
                                 <div class="col-md-3 well">
                                     <div class="form-group label-floating">
 
-                                        <button type="submit" id="search" value="filter" name="filter" class="btn btn-success btn-sm">Search Catalogue</button>
+                                        <button type="submit" id="search" value="filter" name="filter" class="btn btn-success btn-sm">Search Stock</button>
 
                                     </div>
                                 </div>

@@ -27,7 +27,7 @@
     }
 </style>
 
-<div class="col-md-8 col-lg-10">
+<div class="col-md-12 col-lg-12">
     <div class="card">
         <div class="card-body p-6">
             <div class="col-md-12">
@@ -42,7 +42,6 @@
                     <div class="card-body">
                         <div id ="allocatedStock" class="table-responsive">
                           
-
                         </div>
                     </div>
                 </div>
@@ -53,27 +52,27 @@
 
 
     <!-- Dashboard js -->
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
-<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../assets/plugins/jquery-tabledit/jquery.tabledit.js"></script>
-<script src="../assets/js/common.js"></script>
-<script src="../assets/plugins/select2/select2.full.min.js"></script>
-<script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../../assets/js/vendors/selectize.min.js"></script>
+<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../assets/plugins/jquery-tabledit/jquery.tabledit.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../../assets/plugins/sweet-alert/sweetalert.min.js"></script>
 
-<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
 
-<script src="../assets/plugins/datatable/dataTables.buttons.min.js"></script>
-<script src="../assets/plugins/datatable/jszip.min.js"></script>
-<script src="../assets/plugins/datatable/pdfmake.min.js"></script>
-<script src="../assets/plugins/datatable/vfs_fonts.js"></script>
-<script src="../assets/plugins/datatable/buttons.html5.min.js"></script>
-<script src="../assets/plugins/datatable/buttons.print.min.js"></script>
+<script src="../../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script>
    $(document).ready(function(){
         var dataList = document.getElementById("remarks");

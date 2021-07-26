@@ -39,6 +39,9 @@ include $path_to_root . 'templates/header.php';
                                 <a href="./index.php?view=grades" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-sidebar"></i></span>Tea Grades
                                 </a>
+                                <a href="./index.php?view=warehouse" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-list"></i></span>Manage Warehouses
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -69,6 +72,10 @@ include $path_to_root . 'templates/header.php';
                             case 'grades':
                                 include('views/grades.php');
                                 break;
+                            case 'warehouse':
+                                include('views/manage_warehouses.php');
+                                break;
+
                             
                             default:
                             include('views/gardens.php');

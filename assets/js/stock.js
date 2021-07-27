@@ -82,3 +82,23 @@ function loadMasterStock(type){
     },
 });
 }
+
+function loadStockAllocation(type){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "stock-action.php",
+        data: {
+            action:"stock-allocation",
+            type:type
+        },
+    success: function (data) {
+        $('#stockAllocation').html(data);
+        
+    },
+    error: function (data) {
+        console.log('An error occurred.');
+        console.log(data);
+    },
+});
+}

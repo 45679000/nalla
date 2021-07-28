@@ -43,23 +43,23 @@
 					<div class="sub-item">
 						<ul>
 							<li>
-								<a href='.$path_to_root.'views/closing_import.php>Import Closing Catalogue</a>
+								<a href='.$path_to_root.'views/closing_import.php>Import Closing Catalogs</a>
 							</li>
 
 							<li>
 								<a href='.$path_to_root.'views/valuation.php>Import Valuations</a>
 							</li>
 							<li>
-								<a href='.$path_to_root.'views/post_import.php>Post Catalogue Import</a>
+								<a href='.$path_to_root.'views/post_import.php>Import Post Catalogs</a>
 							</li>
 							<li>
-								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php>ITTS Import</a>
+								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php>Import ITTS Catalogs </a>
 							</li>
 							<li>
-								<a href='.$path_to_root.'views/view_valuations.php>View Valuations</a>
+								<a href='.$path_to_root.'views/view_valuations.php>View Catalogs</a>
 							</li>
 							<li>
-								<a href='.$path_to_root.'reports/broker_catalogue.php>Print Broker Catalogue</a>
+								<a href='.$path_to_root.'reports/broker_catalogue.php>Print Catalogs</a>
 							</li>
 							
 						</ul>

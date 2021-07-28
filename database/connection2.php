@@ -4,7 +4,7 @@ class Database2{
     // specify your own database credentials
     private $host = "localhost";
     private $db_name = "chamu";
-    private $username = "root";
+    private $username = "chamutifms";
     private $password = "";
     public $conn;
     public $validToken = false;

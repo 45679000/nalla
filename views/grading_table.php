@@ -96,8 +96,7 @@
                                                                 value="'.$comment.'"
                                                                 />
                                                                 <datalist id="remarks">
-                                                                    <option>opt 1</option>
-                                                                    <option>opt 2</option>
+                                                                 
                                                                 </datalist>';
                                                             $html.='<td>'.$import["standard"].'</td>';
                                                         $html.='</tr>';

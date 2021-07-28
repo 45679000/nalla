@@ -17,7 +17,7 @@ type, net, pkgs, kgs, sale_price, buyer_package, b.maxval, b.minval, brokers.nam
 DATE('1899-12-30') + INTERVAL a.manf_date DAY AS manf_date
 FROM closing_cat a
 LEFT JOIN brokers ON brokers.code = a.broker
-LEFT JOIN (SELECT min(value) AS minval, max(value) AS maxval, mark, grade
+LEFT JOIN (SELECT min(sale_price) AS minval, max(sale_price) AS maxval, mark, grade
 FROM `closing_cat`
 WHERE sale_no ='$P{sale_no}'
 GROUP BY grade, mark) AS b

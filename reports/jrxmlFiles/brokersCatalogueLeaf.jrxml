@@ -19,7 +19,7 @@ FROM closing_cat a
 LEFT JOIN brokers ON brokers.code = a.broker
 LEFT JOIN (SELECT min(sale_price) AS minval, max(sale_price) AS maxval, mark, grade
 FROM `closing_cat`
-WHERE sale_no ='$P{sale_no}'
+WHERE sale_no = CONCAT(SUBSTRING_INDEX('$P{sale_no}', '-', 1),'-', SUBSTRING_INDEX('$P{sale_no}', '-', -1)-1)
 GROUP BY grade, mark) AS b
 ON b.grade = a.grade AND b.mark = a.mark
 WHERE sale_no = '$P{sale_no}' AND broker = '$P{broker}' AND a.grade IN ('BP1','PF1')]]>

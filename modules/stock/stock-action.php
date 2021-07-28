@@ -207,7 +207,7 @@
 
 		$html = "";
 
-		$html .='<table id="allocatedStockTable" class="table table-striped table-bordered">
+		$html .='<table id="allocatedStockTable" class="table table-striped table-bordered table-responsive">
 		<thead class="thead-dark">
 			<tr>
 				<td>Lot</td>
@@ -217,10 +217,9 @@
 				<td>Code</td>
 				<td>Grade</td>
 				<td>Invoice</td>
-				<td>Allocated Pkgs</td>
+				<td>Pkgs</td>
 				<td>Net</td>
-				<td>Buying Price</td>
-				<td>MRP Value</td>
+				<td>Hammer.P</td>
 				<td>Client</td>
 				<td>Standard</td>
 				<td>Actions</td>
@@ -229,7 +228,7 @@
 		<tbody>';
 		
 			foreach ($allocatedStock as $allocated) {
-				$id=$allocated['allocation_id'];
+				$id=$allocated['stock_id'];
 				$allocations = $allocated['buyerstandard'];
 
 				$html .= '<td>' . $allocated['lot'] . '</td>';
@@ -242,12 +241,14 @@
 				$html .= '<td contentEditable="true">' . $allocated['allocated_pkgs'] . '</td>';
 				$html .= '<td>' . $allocated['net'] . '</td>';
 				$html .= '<td>' . $allocated['sale_price'] . '</td>';
-				$html .= '<td contentEditable="true">' . $allocated['mrp_value'] . '</td>'; //auction hammer
 				$html .= '<td>'. $allocated['debtor_ref'] .'</td>';
 				$html .= '<td>'. $allocated['standard'] .'</td>';
 				$html .= '<td>
                          <button  style="color:green" 
-                          class="navigate" id="'.$id.'"><i class="fa fa-plus">Allocate</i> </button>&nbsp;
+                          class="navigate " id="'.$id.'"><i class="fa fa-plus">Allocate</i> </button>&nbsp
+						  
+						  <button  style="color:green" 
+                          class="navigate" onclick="splitLot(this)" id="'.$id.'split"><i class="fa fa-plus">Split</i> </button>&nbsp
 			            </td>';
 				$html .= '</tr>';
 			}
@@ -446,4 +447,10 @@
 			}
 			echo $output;
 		}
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "getlot"){
+		$id = $_POST["id"];
+		$lots = $stock->getLot($id);
+		echo json_encode($lots);
+		
 	}

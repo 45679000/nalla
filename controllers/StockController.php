@@ -199,6 +199,10 @@
             return $this->executeQuery(); 
             
         }
+        public function getLot($id){
+            $this->query = "SELECT * FROM closing_stock WHERE stock_id = ".$id;
+            return $this->executeQuery();
+        }
    
     }
 

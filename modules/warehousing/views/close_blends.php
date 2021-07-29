@@ -30,8 +30,15 @@
 </style>
 <div class="col-md-12 col-lg-12">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-options">
+                    <button id="stock" class="btn btn-secondary btn-sm ml-2">Unclosed</button>
+                    <button id="stock" class="btn btn-secondary btn-sm ml-2">Closed</button>
+                </div>
+            </div>
+
+            <div class=" card-body col-lg-12 col-md-12 col-sm-12">
                 <div class="table-responsive" id="tableData">
                     <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
                 </div>

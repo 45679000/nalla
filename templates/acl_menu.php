@@ -45,7 +45,7 @@
 							<li>
 								<a href='.$path_to_root.'views/closing_import.php>Import Closing Catalogs</a>
 							</li>
-							5087
+							
 							<li>
 								<a href='.$path_to_root.'views/valuation.php>Import Valuations</a>
 							</li>

@@ -112,7 +112,7 @@
                 $("#"+id+"blendRemnant").text(Number(blendOutput)-Number(blendShipment));
                 $("#"+id+"gainLoss").text((Number(blendOutput)+Number(pulucon)+Number(Sweeping)+Number(Cyclone)+Number(Dust)+Number(Fiber)) - Number(blendInput));
                 var BlendRemnant = $("#"+id+"blendRemnant").text();
-                var GainLoss = $("#"+id+"gainLoss").text();
+                var GainLoss = $("#"+id+"gain_loss").text();
 
             $.ajax({
             type: "POST",
@@ -128,7 +128,8 @@
                 Dust:Dust,
                 Fiber:Fiber,
                 BlendRemnant:BlendRemnant,
-                GainLoss:GainLoss
+                GainLoss:GainLoss,
+                pulucon:pulucon
 
             },
             cache: true,

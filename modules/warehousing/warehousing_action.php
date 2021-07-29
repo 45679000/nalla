@@ -341,8 +341,7 @@
 					$columnDust = $blend['id'].'dust';
 					$columnFiber = $blend['id'].'fiber';
 					$columnBlendRemnant = $blend['id'].'blendRemnant';
-					$columnGainLoss = $blend['id'].'gainLoss';
-
+					$columnGainLoss = $blend['id'].'gain_loss';
 					  $kgs = $blend['nw']*$blend['Pkgs'];
 				  $output.="<tr>
 							  <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['contractno']."</a></td>
@@ -356,7 +355,7 @@
 							  <td contentEditable='true' id='$columnFiber'>".$blend['fiber']."</td>
 							  <td contentEditable='true' id='$columnPolucun'>".$blend['pulucon']."</td>
 							  <td  id='$columnBlendRemnant'>".$blend['blend_remnant']."</td>
-							  <td  id='$columnGainLoss'>".$blend['gain_loss']."</td>
+							  <td  id='$columnGainLoss'>".round($blend['gain_loss'],2)."</td>
 							  <td>
 								<button onclick=closeBlend(this) style='color:green'  
 								class='close' id='".$blend['id']."'><i class='fa fa-cog'></i>
@@ -377,6 +376,7 @@
 
 
 	  if(isset($_POST['action']) && $_POST['action'] == "close_blend"){
+		  echo json_encode("here");
 		  $id = $_POST['blendid'];
 		  $output = $_POST['blendOutput'];
 		  $shippment = $_POST['blendShipment'];
@@ -386,8 +386,8 @@
 		  $fiber = $_POST['Fiber'];
 		  $remnant = $_POST['BlendRemnant'];
 		  $gain_loss = $_POST['GainLoss'];
-
-		$warehouses->closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss);
+		  $pulucon = $_POST['pulucon'];;
+			$warehouses->closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $pulucon);
 
 		$blendDetails = $blendCtrl->fetchBlends($id);
 

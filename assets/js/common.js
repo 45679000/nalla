@@ -177,3 +177,17 @@ function loadAllocated(){
     });
     
 }
+function brokerList($path) {
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "list-brokers"
+        },
+        success: function(response) {
+            $("#broker").html(response);
+        }
+
+    });
+}

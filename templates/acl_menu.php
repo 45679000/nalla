@@ -39,13 +39,13 @@
 	function menu_catalogue($path_to_root){
 		return '
 		<li class="nav-item with-sub">
-					<a class="nav-link" href="#"><i class="fa fa-snowflake-o"></i> <span>Catalogues</span></a>
+					<a class="nav-link" href='.$path_to_root.'modules/cataloguing/index.php?view=dashboard><i class="fa fa-snowflake-o"></i> <span>Catalogues</span></a>
 					<div class="sub-item">
 						<ul>
 							<li>
 								<a href='.$path_to_root.'views/closing_import.php>Import Closing Catalogs</a>
 							</li>
-
+							5087
 							<li>
 								<a href='.$path_to_root.'views/valuation.php>Import Valuations</a>
 							</li>

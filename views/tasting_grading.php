@@ -82,12 +82,7 @@ list-group:hover{
                 if($_GET['view']=='grading'){
                     include 'grading_table.php'; 
                 }else if(($_GET['view']=='comment')){
-                    include 'grading_comments.php'; 
-    
-                }elseif(($_GET['view']=='offered-teas')){
-                    include 'offered_teas.php'; 
-                }elseif(($_GET['view']=='labels')){
-                    include 'labels.php'; 
+                    include 'grading_comments.php';  
                 }else if(($_GET['view']=='targets')){
                     include 'auction_targets.php'; 
                 }else if(($_GET['view']=='print_out')){

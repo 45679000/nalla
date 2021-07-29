@@ -1,4 +1,4 @@
-<div class="col-md-8 col-lg-10">
+<div class="col-md-12 col-lg-12">
                 <div class="card">
                 <?php 
                            $html= '
@@ -33,6 +33,7 @@
                                                 <label class="control-label">CATEGORY</label>
                                                 <select id="category" name="category" class="form-control well" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
+                                                    <option value="All">All</option>
                                                     <option value="Main">Main</option>
                                                     <option value="Sec">Sec</option>
                                                 </select>
@@ -62,15 +63,14 @@
                                                             <th class="wd-15p">Mark</th>
                                                             <th class="wd-10p">Grade</th>
                                                             <th class="wd-25p">Invoice</th>
-                                                            <th class="wd-25p">Pkgs</th>
-                                                            <th class="wd-25p">Type</th>
-                                                            <th class="wd-25p">Net</th>
-                                                            <th class="wd-25p">Gross</th>
-                                                            <th class="wd-25p">Kgs</th>
                                                             <th class="wd-25p">Value</th>
-                                                            <th class="wd-25p">Offer</th>
                                                             <th class="wd-25p">Code</th>
                                                             <th class="wd-25p">Standard</th>
+                                                            <th class="wd-25p">Pkgs</th>
+                                                            <th class="wd-25p">Kgs</th>
+                                                            <th class="wd-25p">Net</th>
+                                                            <th class="wd-25p">Offer</th>
+                                                           
             
                                                         </tr>
                                                     </thead>
@@ -84,19 +84,18 @@
                                                             $html.='<td>'.$import["mark"].'</td>';
                                                             $html.='<td>'.$import["grade"].'</td>';
                                                             $html.='<td>'.$import["invoice"].'</td>';
-                                                            $html.='<td>'.$import["pkgs"].'</td>';
-                                                            $html.='<td>'.$import["type"].'</td>';
-                                                            $html.='<td>'.$import["net"].'</td>';
-                                                            $html.='<td>'.$import["gross"].'</td>';
-                                                            $html.='<td>'.$import["tare"].'</td>';
                                                             $html.='<td>'.$import["value"].'</td>';
+                                                            $html.='<td>'.$import["comment"].'</td>';
+                                                            $html.='<td>'.$import["standard"].'</td>';
+                                                            $html.='<td>'.$import["pkgs"].'</td>';
+                                                            $html.='<td>'.$import["kgs"].'</td>';
+                                                            $html.='<td>'.$import["net"].'</td>';
                                                             if($import["allocated"]==0){
                                                                 $html.='<td><input type="checkbox" id="unallocated" name="allocated" value="0"></td>';
                                                             }else{
                                                                 $html.='<td><input type="checkbox" id="allocated" name="allocated" value="1" checked></td>';
                                                             }
-                                                            $html.='<td>'.$import["comment"].'</td>';
-                                                            $html.='<td>'.$import["standard"].'</td>';
+                                                           
                                                         $html.='</tr>';
                                                     }
                                             $html.= '</tbody>
@@ -113,36 +112,39 @@
             </div>
 
             <!-- Dashboard js -->
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
-<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../../assets/js/vendors/selectize.min.js"></script>
+<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
 
 
 <!-- Custom scroll bar Js-->
-<script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src=../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
 
 <!-- Custom Js-->
-<script src="../assets/js/custom.js"></script>
-<script src="../assets/js/common.js"></script>
+<script src="../../assets/js/custom.js"></script>
+<script src="../../assets/js/common.js"></script>
 
-<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
-<script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
-<script src="../assets/js/sweet-alert.js"></script>
+<script src="../../assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="../../assets/js/sweet-alert.js"></script>
 
 
 
 <script>
+brokerList("../../ajax/common.php");
+
 var SubmitData = new Object();
 var Comment = [],
     Standard = [],
     table = $('#tasting').DataTable({
+        "pageLength": 100,
         columnDefs: [{
             targets: [0],
             "className": "pk",
@@ -194,9 +196,9 @@ function postData(formData, PostUrl) {
 
 </script>
 <script>
-    $(function(e) {
-        $('#tasting').DataTable();
-    });
+    // $(function(e) {
+    //     $('#tasting').DataTable();
+    // });
 
     $(document).ready( function () {
     $('.pagination').prepend('<li><button id="clear" class="fa fa-success clear">Clear Selected</button></li>');
@@ -206,7 +208,7 @@ function postData(formData, PostUrl) {
         $.ajax({
                 type: "POST",
                 dataType: "html",
-                url: "../ajax/common.php",
+                url: "../../ajax/common.php",
                 data: {action:"clear"},
             success: function (data) {
                 swal('','Offers Cleared', 'success');

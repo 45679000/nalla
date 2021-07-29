@@ -349,14 +349,14 @@
 							  <td>".$blend['Grade']."</td>
 							  <td id='$columnShipment'>".$kgs."</td>
 							  <td id='$columnInput'>".$inputKgs."</td>
-							  <td contentEditable='true' id='$columnOutput'></td>
-							  <td contentEditable='true' id='$columnSweeping'></td>
-							  <td contentEditable='true' id='$columnCyclone'></td>
-							  <td contentEditable='true' id='$columnDust'></td>
-							  <td contentEditable='true' id='$columnFiber'></td>
-							  <td contentEditable='true' id='$columnPolucun'></td>
-							  <td id='$columnBlendRemnant'></td>
-							  <td id='$columnGainLoss'></td>
+							  <td contentEditable='true' id='$columnOutput'>".$blend['output_kgs']."</td>
+							  <td contentEditable='true' id='$columnSweeping'>".$blend['sweeping']."</td>
+							  <td contentEditable='true' id='$columnCyclone'>".$blend['cyclone']."</td>
+							  <td contentEditable='true' id='$columnDust'>".$blend['dust']."</td>
+							  <td contentEditable='true' id='$columnFiber'>".$blend['fiber']."</td>
+							  <td contentEditable='true' id='$columnPolucun'>".$blend['pulucon']."</td>
+							  <td  id='$columnBlendRemnant'>".$blend['blend_remnant']."</td>
+							  <td  id='$columnGainLoss'>".$blend['gain_loss']."</td>
 							  <td>
 								<button onclick=closeBlend(this) style='color:green'  
 								class='close' id='".$blend['id']."'><i class='fa fa-cog'></i>

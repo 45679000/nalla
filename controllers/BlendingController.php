@@ -101,13 +101,14 @@ Class BlendingController extends Model{
         if($blendno !=''){
             $this->query = "SELECT `id`,`contractno`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, 
             `std_name`, `Grade`, `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, 
-            `si_no`, `closed`, `blendid`, blend_remnant
+            `si_no`, `closed`, `blendid`, blend_remnant,  `sweeping`, `cyclone`, `dust`, `fiber`,  `gain_loss`
             FROM `blend_master`
             INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name WHERE id = '$blendno'";
             return $this->executeQuery();
         }else{
             $this->query = "SELECT `id`, `blend_no`, `contractno`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, 
-            `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, `si_no`, `closed`, `blendid` 
+            `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, `si_no`, `closed`, `blendid`,  `sweeping`, `cyclone`, 
+            `dust`, `fiber`,  `gain_loss`
             FROM `blend_master`
             INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name";
             return $this->executeQuery(); 

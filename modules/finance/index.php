@@ -8,31 +8,15 @@
     include $path_to_root.'modules/cataloguing/Catalogue.php';
     include $path_to_root1.'modules/grading/grading.php';
     include $path_to_root1.'/includes/auction_ids.php';
+    require_once $path_to_root1 . 'controllers/StockController.php';
 
 
-    $catalogue = new Catalogue($conn);
-    $grading = new Grading($conn);
-    $imports = array();
-    $saleNo = isset($_POST['saleno']) ? $_POST['saleno'] : '';
-    $broker = isset($_POST['broker']) ? $_POST['broker'] : '';
-    $category = isset($_POST['category']) ? $_POST['category'] : 'All';
+    $scart = array();;
 
-    if($saleNo!==''){
-        $imports = $catalogue->closingCatalogue($saleNo, $broker, $category);
-    }
-    if(isset($_POST['pkey'])){
-        $grading->grade($_POST['pkey'], $_POST['fieldValue'], $_POST['fieldName']);
-    }
-    if(isset($_POST['addcomment'])){
-        $grading->addComment($_POST['comment'], $_POST['description']);
-    }
-    $comments = $grading->readComments();
-
-    if(isset($_POST['lot'])){
-        $grading->grade($_POST['lot'], $_POST['check'], "allocated");
-
-    }
-    $offered = $grading->readOffers();
+if ($saleNo != null) {
+    $stock->saleno = $saleNo;
+    $scart = $stock->readPurchaseList();
+}
 
 
 ?>
@@ -70,8 +54,8 @@
                         </div>
                         <div class="expanel-body">
                             <div class="list-group  mb-0 mail-inbox">
-                                <a href="./index.php?view=confirm-stock" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Confirm To stock
+                                <a href="./index.php?view=confirmpplist" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-send"></i></span>Confirm Purchase List
                                 </a>
                             
                                 <a href="./index.php?view=confirmedpplist" class="list-group-item list-group-item-action d-flex align-items-center">
@@ -107,8 +91,8 @@
                             case 'dashboard':
                                 include('views/dashboard.php');
                                 break;
-                            case 'offered-teas':
-                                include 'views/offered_teas.php';
+                            case 'confirmpplist':
+                                include 'views/confirm_purchase_list.php';
                                 break;
                             case 'labels':
                                 include 'views/labels.php';

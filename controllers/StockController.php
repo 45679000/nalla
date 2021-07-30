@@ -13,7 +13,8 @@
              mark_country.country AS origin
             FROM `closing_cat` 
             LEFT JOIN mark_country ON mark_country.mark = closing_cat.mark
-            WHERE  buyer_package='CSS' AND sale_no = '".$this->saleno."'";
+            WHERE  buyer_package='CSS' AND sale_no = '".$this->saleno."'
+            GROUP BY lot";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $rows = $stmt->fetchAll();

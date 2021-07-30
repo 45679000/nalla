@@ -86,7 +86,6 @@ Class WarehouseController extends Model{
     }
     
     public function closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $polucon){
-        $this->debugSql = true;
         $this->query = "UPDATE `blend_master` SET
         `output_kgs`='$output',
         `sweeping`='$sweeping',
@@ -103,10 +102,15 @@ Class WarehouseController extends Model{
     } 
     public function addClosedBlendToStock($sale_no, $lot, $grade, $pkgs, $net, $kgs, $standard){
         $this->query = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `lot`,  `mark`, `grade`,  `pkgs`,  `net`, `kgs`, `standard`, `is_blend_balance`, `invoice`) 
-        SELECT '$sale_no','x', '$lot','BLENDED TEA', '$grade', '$pkgs', '$net', '$kgs', '$standard', true, '$lot'";
-                $this->debugSql = true;
-
+        SELECT '$sale_no','x', '$lot','BLENDED TEA', '$grade', '$pkgs', '$net', '$kgs', '$standard', true, '$lot' ";
         $this->executeQuery();
+
+        $this->debugSql = false;
+        $this->query = "INSERT INTO `stock_allocation`(`stock_id`,  `standard`, `allocated_pkgs`, `warehouse`)
+        SELECT max(stock_id), standard, $pkgs, 1 FROM closing_stock
+        WHERE lot = '$lot'";
+        $this->executeQuery();
+
     }  
 }
 

@@ -33,8 +33,8 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-options">
-                    <button id="stock" class="btn btn-secondary btn-sm ml-2">Unclosed</button>
-                    <button id="stock" class="btn btn-secondary btn-sm ml-2">Closed</button>
+                    <button id="unclosed" class="btn btn-secondary btn-sm ml-2">Unclosed</button>
+                    <button id="closed" class="btn btn-secondary btn-sm ml-2">Closed</button>
                 </div>
             </div>
 
@@ -78,14 +78,23 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
-        showAllBlends();
+
+        $("#unclosed").click(function(){
+            showAllBlends("show-unclosed");
+
+        });
+        $("#closed").click(function(){
+            showAllBlends("closed");
+
+        });
         //View Record
-        function showAllBlends() {
+        function showAllBlends(type) {
             $.ajax({
                 url: "warehousing_action.php",
                 type: "POST",
                 data: {
-                    action: "show-unclosed"
+                    action: "blend-status",
+                    type:type
                 },
                 success: function(response) {
                     $("#tableData").html(response);

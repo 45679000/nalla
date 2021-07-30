@@ -305,7 +305,8 @@
 		$warehouses->upadateAllocation($materialid, $sino,  $totalAllocation);
 	}
 
-	if(isset($_POST['action']) && $_POST['action'] =='show-unclosed'){
+	if(isset($_POST['action']) && $_POST['action'] =='blend-status'){
+				$type = isset($_POST['type']) ? $_POST['type'] : '';
 		$output = "";
 			  $blends = $blendCtrl->fetchBlends();
 			  $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
@@ -376,7 +377,6 @@
 
 
 	  if(isset($_POST['action']) && $_POST['action'] == "close_blend"){
-		  echo json_encode("here");
 		  $id = $_POST['blendid'];
 		  $output = $_POST['blendOutput'];
 		  $shippment = $_POST['blendShipment'];
@@ -400,7 +400,9 @@
 		$grade = $blendDetails[0]['Grade'];
 		$nw = $blendDetails[0]['nw'];
 		$sale_no = $blendDetails[0]['sale_no'];
+		$destination = $blendDetails[0]['destination'];
 
+		
 		$warehouses->addClosedBlendToStock($sale_no, $lot, $grade, $fullPkgs, $nw, $nw*$fullPkgs, $standard);
 
 		$response = '
@@ -410,6 +412,7 @@
 				<th>Lot No</th>
 				<th>Grade</th>
 				<th>Invoice</th>
+				<th>Origin</th>
 				<th>Nw</th>
 				<th>Pkgs</th>
 				<th>Kgs</th>
@@ -420,6 +423,7 @@
 		$response .='<td>'.$lot.'</td>';
 		$response .='<td>'.$grade.'</td>';
 		$response .='<td>'.$invoice.'</td>';
+		$response .='<td>'.$destination.'</td>';
 		$response .='<td>'.$nw.'</td>';
 		$response .='<td>'.$fullPkgs.'</td>';
 		$response .='<td>'.$nw*$fullPkgs.'</td>';
@@ -431,6 +435,7 @@
 			$response .='<td>'.$lot.'</td>';
 			$response .='<td>'.$grade.'</td>';
 			$response .='<td>'.$invoice.'</td>';
+			$response .='<td>'.$destination.'</td>';
 			$response .='<td>'.$nw.'</td>';
 			$response .='<td>'.$remainder.'</td>';
 			$response .='<td>'.$nw*$remainder.'</td>';

@@ -89,7 +89,7 @@
 	function menu_finance($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link" href='.$path_to_root.'views/finance.php><i class="fa fa-money"></i><span>Finance</span></a>
+			<a class="nav-link" href='.$path_to_root.'modules/finance/index.php?view=dashboard><i class="fa fa-money"></i><span>Finance</span></a>
 		</li>';
 	}
 	function menu_ware_housing($path_to_root){

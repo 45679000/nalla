@@ -3,7 +3,7 @@ define('ROOT_PATH', dirname(__DIR__) . '/');
 $path_to_root = "../../";
 include(ROOT_PATH . '../templates/header.php');
 include(ROOT_PATH . '../widgets/_form.php');
-include(ROOT_PATH . '../views/includes/auction_ids.php');
+include(ROOT_PATH . '/includes/auction_ids.php');
 include(ROOT_PATH . '../models/Model.php');
 include(ROOT_PATH . '../controllers/ShippingController.php');
 include(ROOT_PATH . '../controllers/BlendingController.php');

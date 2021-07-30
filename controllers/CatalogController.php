@@ -478,4 +478,3 @@
 
   
 }
-SELECT vs_registrations.OOSG_CODE, vs_registrations.GirlName, vs_session_attendance.SessionId, vs_session_attendance.Comments, vs_sessions.StartTime AS sessionStarted, vs_session_attendance.PresentTime AS LearnerSignon, vs_session_attendance.EndTime AS sesionEnded, vs_session_attendance.AttendanceDate FROM `vs_session_attendance` INNER JOIN vs_registrations ON vs_registrations.OOSG_CODE = vs_session_attendance.OOSG_CODE INNER JOIN vs_sessions ON vs_sessions.SessionId = vs_session_attendance.SessionId ORDER BY OOSG_CODE DESC 

@@ -98,12 +98,18 @@ Class BlendingController extends Model{
         );
     }
        public function fetchBlends($blendno=''){
+        $this->debugSql = false;
+
         if($blendno !=''){
             $this->query = "SELECT `id`,`contractno`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, 
             `std_name`, `Grade`, `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, 
-            `si_no`, `closed`, `blendid`, blend_remnant,  `sweeping`, `cyclone`, `dust`, `fiber`,  `gain_loss`
+            `si_no`, `closed`, `blendid`, blend_remnant,  `sweeping`, `cyclone`, `dust`, `fiber`,  `gain_loss`, 
+            `shipping_instructions`.`destination_total_place_of_delivery` AS destination 
+            
             FROM `blend_master`
-            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name WHERE id = '$blendno'";
+            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name 
+            LEFT JOIN shipping_instructions ON shipping_instructions.contract_no = blend_master.contractno            
+            WHERE id = '$blendno'";
             return $this->executeQuery();
         }else{
             $this->query = "SELECT `id`, `blend_no`, `contractno`, `date_`, 0_debtors_master.short_name AS client_name, `std_name`, `Grade`, 
@@ -121,6 +127,7 @@ Class BlendingController extends Model{
         return $this->query;
     }
     public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid,$contractno, $sale_no){
+        $this->debugSql = false;
         $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
         $results = $this->executeQuery();
         if(count($results)==0){
@@ -258,7 +265,7 @@ Class BlendingController extends Model{
 
         WHERE id = $id
         ";
-        $this->debugSql = true;            
+        $this->debugSql = false;            
         $this->executeQuery();
     }
     

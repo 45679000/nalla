@@ -52,3 +52,9 @@
 
 </html>
 
+<script>
+    $('#saleno').onchange(function(){
+        $('#saleno').val();
+    })
+
+</script>

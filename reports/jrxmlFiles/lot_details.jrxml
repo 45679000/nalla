@@ -4,7 +4,12 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT closing_stock.`stock_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, closing_stock.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, stock_allocation.`standard`,country,  `buyer_package`, DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`, `imported_by`, `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`, `allocated_whse`, `si_blend_no`, notes, 'PHL' AS ware_hse, (CONCAT("CHAMU SUPPLIES LIMITED - LOT DETAILS -"," ",notes)) AS header
+		<![CDATA[SELECT closing_stock.`stock_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`,
+		 `value`, `lot`, `company`, closing_stock.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`,
+		  `net`, `gross`, `kgs`, `tare`, `sale_price`, stock_allocation.`standard`,country,  `buyer_package`, 
+		  DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`, `imported_by`, `allocated`, `selected_for_shipment`, 
+		  `current_allocation`, `is_blend_balance`, `allocated_whse`, `si_blend_no`, notes, 'PHL' AS ware_hse, 
+		  (CONCAT("CHAMU SUPPLIES LIMITED - LOT DETAILS -"," ",notes)) AS header
  FROM shippments
            INNER JOIN stock_allocation ON shippments.allocation_id = stock_allocation.allocation_id
            INNER JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id

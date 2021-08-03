@@ -34,6 +34,9 @@
 		echo menu_ware_housing($path_to_root);
 
 
+	}else if($role==6){
+		echo menu_catalogue($path_to_root);
+		echo menu_tasting_grading($path_to_root);
 	}
 
 	function menu_catalogue($path_to_root){

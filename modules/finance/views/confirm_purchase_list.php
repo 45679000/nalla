@@ -51,10 +51,42 @@
 
 
 </html>
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
 
 <script>
-    $('#saleno').onchange(function(){
-        $('#saleno').val();
-    })
+$(function() {
+
+    $('select').on('change', function() {
+         var saleno = $('#saleno').find(":selected").text();
+
+            var formData = {
+                saleno: saleno
+            };
+
+          $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "",
+                data: formData,
+            success: function (data) {
+                console.log('Submission was successful.');
+                location.reload();
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+        });
+
+    
+
+    });
+
+    
+});
+    
+</script>
+    
 
 </script>

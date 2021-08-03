@@ -105,7 +105,9 @@ class Users{
             case '5':
                 header("location:../modules/warehousing/index.php?view=dashboard");
                 exit();
-
+            case '6':
+                header("location:../modules/cataloguing/index.php?view=dashboard");
+                exit();
             default:
                 echo "Wrong Username or Password";
         }

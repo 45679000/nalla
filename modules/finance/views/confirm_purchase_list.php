@@ -26,8 +26,6 @@
                                         <div class="col-md-3 well">
                                         <div class="form-group label-floating">
 
-                                            <button type="submit" id="search" value="filter" name="filter" class="btn btn-success btn-sm">Search Purchase List</button>
-
                                         </div>
                                     </div>
                                     </div>
@@ -36,7 +34,7 @@
 								</div>
 							</div>
 						</div>
-                           <div class="card-body">
+                           <div id="purchaseList" class="card-body">
                                 
                            </div>
                     </div>
@@ -58,35 +56,185 @@ $(function() {
 
     $('select').on('change', function() {
          var saleno = $('#saleno').find(":selected").text();
-
+         localStorage.setItem("saleno", saleno);
             var formData = {
-                saleno: saleno
+                saleno: saleno,
+                action: "unconfirmed-purchase-list"
             };
 
           $.ajax({
                 type: "POST",
                 dataType: "html",
-                url: "",
+                url: "finance_action.php",
                 data: formData,
             success: function (data) {
                 console.log('Submission was successful.');
-                location.reload();
-                console.log(data);
+                $('#purchaseList').html(data);
             },
             error: function (data) {
                 console.log('An error occurred.');
                 console.log(data);
             },
         });
-
-    
-
+    });
+    $('.table').DataTable({
+        "pageLength": 100,
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
     });
 
+  
     
 });
+
+function addLot(element){
+    var lot = $(element).attr("id");
+    $(element).html("Remove");
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"add-lot",
+                lot:lot
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
     
-</script>
+    });
+}
+function removeLot(element){
+    var lot = $(element).attr("id");
+    $(element).html("Add");
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"remove-lot",
+                lot:lot
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
     
+    });
+}
+function updateInvoice(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"broker_invoice",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+function updatePkgs(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"pkgs",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+function updateKgs(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"kgs",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+
+function updateNet(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"net",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+
+function confirmPurchaseList(element){     
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"confirm-purchaselist",
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+
 
 </script>
+    

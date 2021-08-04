@@ -64,3 +64,7 @@ SELECT closing_stock.stock_id, stock_import.client_id, stock_import.standard, st
 FROM `closing_stock`
 INNER JOIN stock_import ON stock_import.lot = closing_stock.lot
 
+
+INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, 
+`company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`,
+ `sale_price`, `standard`, `buyer_package`

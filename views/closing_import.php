@@ -11,7 +11,7 @@ $imported = false;
 
 $catalogue = new Catalogue($conn);
 if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
-   
+
     $catalogue->inputFileName = $_FILES['excel']['tmp_name'];
     $catalogue->saleno = $_POST['saleno'];
     $catalogue->broker = $_POST['broker'];
@@ -25,6 +25,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     }
 
     $imported = $catalogue->importClosingCatalogue();
+
 }
     $imports = $catalogue->readImportSummaries();
 
@@ -59,7 +60,6 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                     <li class="breadcrumb-item active" aria-current="page">Catalogue Import</li>
                 </ol>
             </div>
-            <!-- <div id="global-loader" ></div> -->
 
             <div class="row">
                 <div class="col-md-12">

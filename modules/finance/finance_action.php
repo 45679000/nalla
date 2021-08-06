@@ -161,6 +161,13 @@
 		$finance->postToStock($saleno);
 	}
 
+	if(isset($_POST['action']) && $_POST['action'] == "save-invoice"){
+		
+		$finance->saveInvoice($_POST);
+		
+	}
+	
+
 	
 
 	

@@ -50,6 +50,7 @@
 
 </html>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
 $(function() {
@@ -228,6 +229,11 @@ function confirmPurchaseList(element){
                 saleno: localStorage.getItem("saleno")
             },
         success: function (data) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Confirmed',
+            });
+            location.reload(); 
             console.log('Submission was successful.');
         }
     

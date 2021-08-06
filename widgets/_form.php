@@ -11,9 +11,9 @@ class Form{
 
      public function beginForm($id=""){
         if($id == ""){
-         print '<form method="post" id="'.time().'" class="card">';
+         print '<form method="post" id="'.time().'" class="card-body">';
         }else{
-         print '<form method="post" id="'.$id.'" class="card">';
+         print '<form method="post" id="'.$id.'" class="card-body">';
         }
      }
      public function endForm(){

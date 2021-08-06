@@ -129,6 +129,12 @@
             $this->executeQuery();
 
         }
+        public function saveInvoice($post){
+        $this->data = $post;
+        $this->tablename = "tea_invoices";
+        $id = $this->insertQuery();
+        return $id;
+        }
    
     }
 

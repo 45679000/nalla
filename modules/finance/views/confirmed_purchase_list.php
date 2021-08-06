@@ -51,7 +51,17 @@
 </html>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
+
+<script src="../../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
 
 <script>
 $(function() {
@@ -79,7 +89,7 @@ $(function() {
             },
         });
     });
-    $('.table').DataTable({
+    $('#purchaseListTable').DataTable({
         "pageLength": 100,
         dom: 'Bfrtip',
         buttons: [
@@ -115,4 +125,6 @@ function postToStock(element){
 }
 
 </script>
+
+
     

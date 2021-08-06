@@ -103,8 +103,10 @@
                             <th>Expected Kgs</th>
                             <th>Input Kgs</th>
                             <th>Status</th>
-                            <th>Blend Composition</th>
-                            <th>Actions</th>
+                            <th>View Added Teas</th>
+                            <th>Add Teas</th>
+                            <th>Blend Sheet</th>
+                            <th>Confirm Blendsheet</th>
                           </tr>
                         </thead>
                         <tbody>";
@@ -124,69 +126,30 @@
                             <td>".$kgs."</td>
                             <td>".$totalKgs."</td>
                             <td>".$status."</td>
-                            <td style='height:20px !important;'>
-                            <table style='width:100%;'>
-                              <thead>";
-                              $output.="<tr style='height:20px !important;'>";
-                                foreach($compositions AS $composition){
-                                  $output.="<td>".$composition['name']."</td>";
-                                }
-                              $output.="</tr>";
-                              $output.="<tr style='height:20px !important;'>";
-                                foreach($compositions AS $composition){
-                                  $output.="<td>".$composition['percentage']."</td>";
-                                }
-                              $output.="</tr>";
-                              $output.="<tr style='height:20px !important;'>";
-                                foreach($currentComposition AS $composition){
-                                  $output.="<td>".$composition['grade']."</td>";
-                                }
-                              $output.="</tr>";
-                              $output.="<tr style='height:20px !important;'>";
-                                foreach($currentComposition AS $composition){
-                                  $output.="<td>".round($composition['percentage'],1).'%'."</td>";
-                                }
-                            $output.="</tr>";
-                              
-                              $output.="<thead>
-                            </table>
-                          </td>
-
                             <td>
-                              <div class='container-fluid' style='width:100%;'>
-                                  <div class='row' style='padding:10px;'>
-                                    <div class='col-md-12' style='padding:10px;'>
-                                      <a onclick='viewAllocations(this)'  style='color:green' 
-                                        class='view' id='".$blend['id']."'><i class='fa fa-eye'></i>
-                                      View Teas</a>
-                                    <div>
-                                  </div>
-                                  <div class='row'>
-                                    <div class='col-md-12' style='padding:10px;'>
-                                      <a onclick='viewBlendSheet(this)' style='color:green' data-toggle='modal' 
-                                        class='editBtn' id='".$blend['id']."'><i class='fa fa-file'></i>
-                                        </a>
-                                      Blend Sheet</a>
-                                    <div>
-                                  <div>
-                                  <div class='row'>
-                                    <div class='col-md-12' style='padding:10px;'>
-                                      <a onclick='approveBlend(this)' style='color:red' class='confirm' id='".$blend['id']."'>
-                                        <i class='fa fa-check' ></i>
-                                      </a>
-                                      Confirm Blend</a>
-                                    <div>
-                                  </div>
-                                  <div class='row'>
-                                    <div class='col-md-12' style='padding:10px;'>
-                                      <a onclick=editBlend(this)  style='color:red' class='confirm' id='".$blend['id']."'>
-                                        <i class='fa fa-pencil' ></i>
-                                      </a>
-                                      Edit Blend</a>
-                                    <div>
-                                  </div>
-                              </div>
+                            <a onclick=editBlend(this)  style='color:red' class='confirm' id='".$blend['id']."'>
+                            <i class='fa fa-pencil' ></i>
+                          </a>
+                          Edit Blend</a>
                             </td>
+                            <td>
+                              <a onclick='viewAllocations(this)'  style='color:green' 
+                                class='view' id='".$blend['id']."'><i class='fa fa-eye'></i>
+                              View Teas</a>
+                            </td>
+                            <td>
+                              <a onclick='viewBlendSheet(this)' style='color:green' data-toggle='modal' 
+                              class='editBtn' id='".$blend['id']."'><i class='fa fa-file'></i>
+                              </a>
+                            Blend Sheet</a>
+                            </td>
+                            <td>
+                                <a onclick='approveBlend(this)' style='color:red' class='confirm' id='".$blend['id']."'>
+                                <i class='fa fa-check' ></i>
+                              </a>
+                              Confirm Blend</a>
+                            </td>
+                                  
                         </tr>";
                     }
                 $output .= "</tbody>
@@ -259,7 +222,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
               <th class="wd-25p">Net</th>
               <th class="wd-25p">Kgs</th>
               <th class="wd-25p">Code</th>
-              <th class="wd-25p">Allocation</th>
               <th class="wd-25p">Select</th>
 
           </tr>
@@ -295,7 +257,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
               $output.='<td id='.$allocatednetId.'>'.$stock["net"].'</td>';
               $output.='<td><div contenteditable="true" id="'.$allocatedkgsId.'">'.$allocatedKgs.'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
-              $output.='<td id="'.$allocationid.'">'.$stock["allocation"].'</td>';
               if($stock["selected_for_shipment"]== NULL){
                   $output.='
                   <td>
@@ -469,3 +430,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'my-current-allocation'){
         }
 echo $output;
 }
+
+
+
+

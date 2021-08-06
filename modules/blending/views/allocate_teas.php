@@ -1,4 +1,9 @@
 <style>
+    .table td.fit, 
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
     .form-group {
         max-height: 10%;
     }
@@ -57,8 +62,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <div id="blendTable"></div>
+            <div class="card">
+                <div class="col-md-3">
+                    <div id="blendTable"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="col-md-3">
+                    <div id="selected"></div>
+                </div>
             </div>
         </div>
     </div>

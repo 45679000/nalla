@@ -3,12 +3,19 @@
     $path_to_root1 = "../../";
 
     include $path_to_root.'templates/header.php';
+    include $path_to_root. 'widgets/_form.php';
     include $path_to_root.'models/Model.php';
     require $path_to_root."vendor/autoload.php";
     include $path_to_root.'modules/cataloguing/Catalogue.php';
     include $path_to_root1.'modules/grading/grading.php';
     include $path_to_root1.'/includes/auction_ids.php';
     require_once $path_to_root1 . 'controllers/StockController.php';
+
+
+    
+    
+    $form = new Form();
+
 
 
     $scart = array();;
@@ -97,8 +104,8 @@ if ($saleNo != null) {
                             case 'confirmedpplist':
                                 include 'views/confirmed_purchase_list.php';
                                 break;
-                            case 'labels':
-                                include 'views/labels.php';
+                            case 'profoma':
+                                include 'views/address_form.php';
                                 break;
                                 default:
                             include('views/dashboard.php');

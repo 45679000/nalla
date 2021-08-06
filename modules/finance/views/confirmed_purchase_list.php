@@ -34,7 +34,7 @@
 								</div>
 							</div>
 						</div>
-                           <div id="purchaseList" class="card-body">
+                           <div id="purchaseList" class="card">
                                 
                            </div>
                     </div>
@@ -64,6 +64,8 @@
 <script src="../../assets/plugins/select2/select2.full.min.js"></script>
 
 <script>
+
+
 $(function() {
 
     $('select').on('change', function() {
@@ -90,14 +92,6 @@ $(function() {
         });
     });
     $('#purchaseListTable').DataTable({
-        "pageLength": 100,
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
     });
 
 

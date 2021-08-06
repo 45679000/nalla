@@ -104,11 +104,15 @@
 		$saleno = $_POST['saleno'];
 		$finance->saleno=$saleno;
 		$purchases = $finance->confirmedPurchaseList();
+		$totalPkgs = 0;
+		$totalKgs = 0;
+		$totalLots = 0;
 
 		if (sizeOf($purchases) > 0) {
-			$output .='<table id="purchaseListTable" class="table table-striped table-hover">
+			
+
+			$output .='<table  id="purchaseListTable" class="table table-striped table-hover">
 			        <thead>
-					<tr>
 						<th class="wd-15p">Sale No</th>
 						<th class="wd-15p">Broker</th>
 						<th class="wd-15p">Lot No</th>
@@ -121,13 +125,13 @@
 						<th class="wd-25p">Pkgs</th>
 						<th class="wd-25p">Net</th>
 						<th class="wd-25p">Kgs</th>
-
-					</tr>
 			        </thead>
 			        <tbody>';
 					foreach ($purchases as $purchase){
 						$output.='<tr>';
 							$id = $purchase["lot"];
+							$totalPkgs+=$purchase["pkgs"];
+							$totalKgs+=$purchase["net"];
 							$output.='<td>'.$purchase["sale_no"].'</td>';
 							$output.='<td>'.$purchase["broker"].'</td>';
 							$output.='<td>'.$purchase["lot"].'</td>';
@@ -146,6 +150,22 @@
 					
 			$output.= '
 			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>'.$totalPkgs.'</td>
+					<td></td>
+					<td>'.$totalKgs.'</td>
+				</tr>
+			</tfoot>
 				</table>
 				<div style="text-align:center;">
 						<button onClick="postToStock(this)" style="" type="submit" id="confirm" name="confirm" value="1">Post to Departments</button>

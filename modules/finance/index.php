@@ -147,13 +147,25 @@ if ($saleNo != null) {
 <script src="../../assets/plugins/datatable/vfs_fonts.js"></script>
 <script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
-<script src="../../assets/plugins/select2/select2.full.min.js"></script> --> 
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
 
 
 <script type="text/javascript">
 
     $(document).ready(function() {
         $('.select2').select2();
+      
+        $('.table').DataTable({
+                "pageLength": 10,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
+
     });
 </script>
 

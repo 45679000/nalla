@@ -89,14 +89,14 @@
                                     $totalKgs+=$stock['kgs'];
                                     $totalNet+=$stock['net'];
 
-                                    $brokerage = round(($stock['value']*$stock['pkgs'])*(0.5/100), 2);
-                                    $value = round($stock['value']*$stock['pkgs'],2);
+                                    $brokerage = round(($stock['sale_price']*$stock['pkgs'])*(0.5/100), 2);
+                                    $value = round($stock['sale_price']*$stock['pkgs'],2);
                                     $totalamount = round($brokerage+$value,2);
                                     $afterTax = round(($totalamount)-(5/100)*$brokerage,2);
-                                    $auctionHammer = round(($stock['value']/$stock['kgs']),2);
+                                    $auctionHammer = round(($stock['sale_price']/$stock['kgs']),2);
                                     $addon = round(($auctionHammer+$brokerage)/$stock['pkgs'],2);
                                     $totalPayable = round($addon+$auctionHammer, 2);
-                                    $hammerPrice = round($stock['value']/$stock['kgs'],2);
+                                    $hammerPrice = round($stock['sale_price']/$stock['kgs'],2);
 
                                     $totalBrokerage+=$brokerage;
                                     $totalValue+=$value;

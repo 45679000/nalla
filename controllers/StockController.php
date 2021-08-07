@@ -24,7 +24,7 @@
         public function readStock($type="", $condition="WHERE 1"){
             if($type=="purchases"){
                 try {
-                    $this->debugSql = true;
+                    $this->debugSql = false;
                     $this->query = "SELECT `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`,
                      `grade`, `invoice`, warehouse, `type`, `sale_price`, `standard`, 
                      DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `allocated`,  mark_country.country, allocation, 

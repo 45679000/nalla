@@ -310,7 +310,7 @@
 		if($type =="purchases"){
 			if(count($stocks)>0){
 
-				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
+				$output .= '<table id="closingstocks" class="table table-striped table-bordered table-condensed table-responsive" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Sale No</th>
@@ -334,7 +334,6 @@
 								<tbody>';
 									$totalPkgs = $stock->sumTotal("pkgs","closing_cat");
 									$totalKgs = $stock->sumTotal("kgs", "closing_cat");
-									$totalNet = $stock->sumTotal("net", "closing_cat");
 									foreach ($stocks as $stock){ 
 										$output.='<td>'.$stock['sale_no'].'</td>';
 										$output.='<td>'.$stock['import_date'].'</td>';
@@ -368,7 +367,7 @@
 									<td></td>
 									<td></td>
 									<td>'.$totalPkgs.'</td>
-									<td>'.$totalNet.'</td>
+									<td></td>
 									<td>'.$totalKgs.'</td>
 									<td></td>
 									<td></td>

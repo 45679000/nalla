@@ -310,13 +310,12 @@
 		if($type =="purchases"){
 			if(count($stocks)>0){
 
-				$output .= '<table id="closingstocks" class="table table-striped table-bordered table-condensed table-responsive" style="width:100%">
+				$output .= '<table id="closingstocks" class="table table-striped table-bordered table-condensed table-responsive" style="width:80%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Sale No</th>
 									<th>DD/MM/YY</th>
 									<th>Broker</th>
-									<th>Warehouse</th>
 									<th>Lot</th>
 									<th>Origin</th>
 									<th>Mark</th>
@@ -338,7 +337,6 @@
 										$output.='<td>'.$stock['sale_no'].'</td>';
 										$output.='<td>'.$stock['import_date'].'</td>';
 										$output.='<td>'.$stock['broker'].'</td>';
-										$output.='<td>'.$stock['ware_hse'].'</td>';
 										$output.='<td>'.$stock['lot'].'</td>';
 										$output.='<td>'.$stock['country'].'</td>';
 										$output.='<td>'.$stock['mark'].'</td>';
@@ -358,7 +356,6 @@
 					$output.='<tfooter style="outline: thin solid black;">
 								<tr>
 									<td>Totals</td>
-									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -390,7 +387,6 @@
 									<th>Sale No</th>
 									<th>DD/MM/YY</th>
 									<th>Broker</th>
-									<th>Warehouse</th>
 									<th>Lot</th>
 									<th>Origin</th>
 									<th>Mark</th>
@@ -413,7 +409,6 @@
 										$output.='<td>'.$stock['sale_no'].'</td>';
 										$output.='<td>'.$stock['import_date'].'</td>';
 										$output.='<td>'.$stock['broker'].'</td>';
-										$output.='<td>'.$stock['ware_hse'].'</td>';
 										$output.='<td>'.$stock['lot'].'</td>';
 										$output.='<td>'.$stock['country'].'</td>';
 										$output.='<td>'.$stock['mark'].'</td>';
@@ -433,7 +428,6 @@
 					$output.='<tfooter style="outline: thin solid black;">
 								<tr>
 									<td>Totals</td>
-									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>

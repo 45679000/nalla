@@ -171,8 +171,26 @@
 <script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script>
+$(document).ready(function() {
+$('.select2').select2();
+loadMasterStock("stock");
+$('.table').DataTable({
+            "pageLength": 100,
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+
+});
+
+
 $('#purchases').click(function(){
     loadMasterStock("purchases");
+    
 });
 $('#stock').click(function(){
     loadMasterStock("stock");

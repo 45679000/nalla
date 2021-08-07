@@ -74,6 +74,16 @@ function loadMasterStock(type){
         },
     success: function (data) {
         $('#stock-master').html(data);
+        $('.table').DataTable({
+            "pageLength": 100,
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
         
     },
     error: function (data) {

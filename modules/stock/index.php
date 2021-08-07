@@ -209,17 +209,7 @@ $shippingI = $controller->getShippingInstructions();
 
     $(document).ready(function() {
         $('.select2').select2();
-
-        $('.table').DataTable({
-            "pageLength": 100,
-            dom: 'Bfrtip',
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-            ]
-        });
+        
     });
 </script>
 

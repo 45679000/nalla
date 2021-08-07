@@ -26,9 +26,9 @@ require_once $path_to_root . 'templates/header.php';
 											<i class="mdi mdi-calendar-clock text-warning icon-size"></i>
 										</div>
 										<div class="float-left">
-											<p class="mb-0 text-left">Awaiting Shipments</p>
+											<p class="mb-0 text-left">Total Purchases</p>
 											<div class="">
-												<h3 id="awaitingShipment" class="font-weight-semibold text-left mb-0">
+												<h3 id="purchases" class="font-weight-semibold text-left mb-0">
 													0 Kgs
 												</h3>
 											</div>
@@ -36,7 +36,7 @@ require_once $path_to_root . 'templates/header.php';
 									</div>
 									<p class="text-muted mb-0">
 										<i class="mdi mdi-arrow-up-drop-circle text-success mr-1" aria-hidden="true"></i>
-										Kgs allocated to be shipped
+										Kgs Purchased
 									</p>
 								</div>
 							</div>
@@ -49,16 +49,16 @@ require_once $path_to_root . 'templates/header.php';
 											<i class="mdi mdi-ferry text-secondary icon-size"></i>
 										</div>
 										<div class="float-left">
-											<p class="mb-0 text-left">Shipped</p>
+											<p class="mb-0 text-left">Total Stock Available</p>
 											<div class="">
-												<h3 id="shipped" class="font-weight-semibold text-left mb-0">
+												<h3 id="stock" class="font-weight-semibold text-left mb-0">
 													0Kgs
 												</h3>
 											</div>
 										</div>
 									</div>
 									<p class="text-muted mb-0">
-										<i class="mdi mdi-arrow-down-drop-circle mr-1 text-danger" aria-hidden="true"></i> Total Kgs Shipped
+										<i class="mdi mdi-arrow-down-drop-circle mr-1 text-danger" aria-hidden="true"></i> Total Kgs Stock
 									</p>
 								</div>
 							</div>
@@ -71,16 +71,16 @@ require_once $path_to_root . 'templates/header.php';
 											<i class="mdi mdi-scale-balance text-danger icon-size"></i>
 										</div>
 										<div class="float-left">
-											<p class="mb-0 text-left">Total Stock</p>
+											<p class="mb-0 text-left">Total Shipped</p>
 											<div class="">
-												<h3 id="availableStock" class="font-weight-semibold text-left mb-0">
+												<h3 id="shipped" class="font-weight-semibold text-left mb-0">
 												0kgs
 												</h3>
 											</div>
 										</div>
 									</div>
 									<p class="text-muted mb-0">
-										<i class="mdi mdi-arrow-up-drop-circle mr-1 text-success" aria-hidden="true"></i>Total Kgs In stock
+										<i class="mdi mdi-arrow-up-drop-circle mr-1 text-success" aria-hidden="true"></i>Total Kgs In Shipped
 									</p>
 								</div>
 							</div>
@@ -93,14 +93,104 @@ require_once $path_to_root . 'templates/header.php';
 											<i class="mdi mdi-link-variant-off text-success icon-size"></i>
 										</div>
 										<div class="float-left">
-											<p class="mb-0 text-left">Unclosed Blends</p>
+											<p class="mb-0 text-left">Total Stock Original Teas</p>
 											<div class="">
-												<h3 id="unclosedBlend" class="font-weight-semibold text-left mb-0">0Kgs</h3>
+												<h3 id="original" class="font-weight-semibold text-left mb-0">0Kgs</h3>
 											</div>
 										</div>
 									</div>
 									<p class="text-muted  mb-0">
-										<i class="mdi mdi-arrow-down-drop-circle mr-1 text-danger" aria-hidden="true"></i>Blends Waiting to be closed
+										<i class="mdi mdi-arrow-down-drop-circle mr-1 text-danger" aria-hidden="true"></i>Total Stock Original Teas
+									</p>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="row row-cards">
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="clearfix">
+										<div class="float-right">
+											<i class="mdi mdi-calendar-clock text-warning icon-size"></i>
+										</div>
+										<div class="float-left">
+											<p class="mb-0 text-left">Total Blended Teas</p>
+											<div class="">
+												<h3 id="blended" class="font-weight-semibold text-left mb-0">
+													0 Kgs
+												</h3>
+											</div>
+										</div>
+									</div>
+									<p class="text-muted mb-0">
+										<i class="mdi mdi-arrow-up-drop-circle text-success mr-1" aria-hidden="true"></i>
+										Kgs Blended
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="clearfix">
+										<div class="float-right">
+											<i class="mdi mdi-ferry text-secondary icon-size"></i>
+										</div>
+										<div class="float-left">
+											<p class="mb-0 text-left">Total Stock Allocated</p>
+											<div class="">
+												<h3 id="stock" class="font-weight-semibold text-left mb-0">
+													0Kgs
+												</h3>
+											</div>
+										</div>
+									</div>
+									<p class="text-muted mb-0">
+										<i class="mdi mdi-arrow-down-drop-circle mr-1 text-danger" aria-hidden="true"></i> Total Kgs Allocated
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="clearfix">
+										<div class="float-right">
+											<i class="mdi mdi-scale-balance text-danger icon-size"></i>
+										</div>
+										<div class="float-left">
+											<p class="mb-0 text-left">Total Stock Unallocated</p>
+											<div class="">
+												<h3 id="unallocated" class="font-weight-semibold text-left mb-0">
+												0kgs
+												</h3>
+											</div>
+										</div>
+									</div>
+									<p class="text-muted mb-0">
+										<i class="mdi mdi-arrow-up-drop-circle mr-1 text-success" aria-hidden="true"></i>Total Stock Unallocated
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="clearfix">
+										<div class="float-right">
+											<i class="mdi mdi-link-variant-off text-success icon-size"></i>
+										</div>
+										<div class="float-left">
+											<p class="mb-0 text-left">Total Stock Paid and Allocated</p>
+											<div class="">
+												<h3 id="paidallocated" class="font-weight-semibold text-left mb-0">0Kgs</h3>
+											</div>
+										</div>
+									</div>
+									<p class="text-muted  mb-0">
+										<i class="mdi mdi-arrow-down-drop-circle mr-1 text-danger" aria-hidden="true"></i>Total Stock Paid and Allocated
 									</p>
 								</div>
 							</div>
@@ -127,28 +217,7 @@ require_once $path_to_root . 'templates/header.php';
 
 <script>
 	dashboardSummaryTotals();
-	shipmentStatus();
-	$("#submit").click(function(e) {
-            if ($("#formData")[0].checkValidity()) {
-                e.preventDefault();
-				var sino = localStorage.getItem("si_no");
-                $.ajax({
-                    url: "warehousing_action.php",
-                    type: "POST",
-                    data: $("#formData").serialize() + "&action=update-status&sino="+sino,
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Record added successfully',
-                        });
-                        $("#updateStatus").modal('hide');
-                        $("#formData")[0].reset();
-						shipmentStatus();
-
-                    }
-                });
-            }
-        });
+	
 
 </script>
 </html>

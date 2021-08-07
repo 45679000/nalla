@@ -266,8 +266,15 @@
 	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "master-stock"){
+		$condition = "WHERE pkgs !=0 ";
 		$type = $_POST['type'];
-		$condition = "WHERE 1";
+		if($_POST['sale_no'] !=''){
+			$condition .= " AND sale_no = ".$_POST['sale_no'];
+		}if($_POST['broker'] !=''){
+			$condition .= " AND  broker = ".$_POST['broker'];
+		}if($_POST['broker'] !=''){
+			$condition .= " AND  garden = ".$_POST['garden'];
+		}
 		switch ($type) {
 			case 'purchases':
 				$stocks = $stock->readStock($type, $condition);
@@ -276,18 +283,23 @@
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			case 'stocka':
+				$condition .=" AND client_id != 0";
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			case 'stocko':
+				$condition .=" AND is_blend_balance = 0";
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			case 'stockb':
+				$condition .=" AND is_blend_balance = 1";
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			case 'stockup':
+				$condition .=" AND paid = 1 AND client_id = 0";
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			case 'stockuu':
+				$condition .=" AND paid = 0 AND client_id = 0";
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			default:

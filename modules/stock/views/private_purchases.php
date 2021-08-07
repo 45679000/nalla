@@ -44,7 +44,7 @@
                                                                 </div>
                                                                 <div class="col-md-3 col-md-3">
                                                                     <?= $form->formField("text", "value", "", "Valuations") ?>
-                                                                    <?= $form->formField("dropdownlist", "type", "", "Pkg Type", array("BPP"=>"BPP", "TPP"=>"TPP")) ?>
+                                                                    <?= $form->formField("dropdownlist", "type", "", "Pkg Type", array("BPP"=>"BPP", "TPP"=>"TPP", "PD"=>"PD")) ?>
                                                                     <?= $form->formField("text", "ware_hse", "", "Ware House") ?>
                                                                     <?= $form->formField("text", "sale_price", "", "Sale Price") ?>
 
@@ -118,6 +118,25 @@
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
 <script src="../assets/js/sweet-alert.js"></script>
+<script>
+function gradeList(columnid="grade") {
+        $.ajax({
+            url: "../ajax/common.php",
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "grade-list"
+            },
+            success: function(response) {
+                $("#grade").html(response);
+                // $("#grade2").html(response);
+
+            }
+
+        });
+    }
+
+</script>
 
 
 <script>

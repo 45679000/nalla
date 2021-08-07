@@ -34,23 +34,15 @@
                 
             }else{
                 try {
-                $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, `sale_no`, `broker`, 
-                `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, `grade`, `invoice`, 
-                (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
-                `type`, `net`,  (stock_allocation.allocated_pkgs * net) AS `kgs`,  `sale_price`, stock_allocation.`standard`, 
-                DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
-                  stock_allocation.si_id, stock_allocation.shipped,
-                stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
-                blend_teas.packages AS blended_packages, 
-                CONCAT(COALESCE(stock_allocation.`standard`,''),' ',COALESCE(0_debtors_master.short_name,'')) AS allocation,
-                mark_country.country
-                FROM closing_stock 
-                LEFT JOIN stock_allocation ON closing_stock.stock_id = stock_allocation.stock_id
-                LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
-                LEFT JOIN blend_teas ON blend_teas.allocation_id = stock_allocation.allocation_id 
-                LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
+                $this->query = "SELECT closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`, `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, mark_country.country, allocation, client_id, 
+                (CASE WHEN shippments.id IS NULL THEN pkgs ELSE (pkgs-(sum(pkgs_shipped))) END) 
+                 AS pkgs, (CASE WHEN shippments.id IS NULL THEN kgs ELSE (kgs-(sum(shipped_kgs))) END) AS kgs, net
+                 FROM closing_stock 
+                 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no 
+                 LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark 
+                 LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id  
                 ".$condition
-                ." GROUP BY stock_allocation.stock_id";
+                ." GROUP BY stock_id";
                 $this->debugSql = false;
                 return $this->executeQuery();
                 

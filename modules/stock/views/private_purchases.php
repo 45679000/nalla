@@ -44,7 +44,7 @@
                                                                 </div>
                                                                 <div class="col-md-3 col-md-3">
                                                                     <?= $form->formField("text", "value", "", "Valuations") ?>
-                                                                    <?= $form->formField("dropdownlist", "type", "", "Pkg Type", array("BPP"=>"BPP", "TPP"=>"TPP", "PD"=>"PD")) ?>
+                                                                    <?= $form->formField("dropdownlist", "type", "", "Pkg Type", array("BPP"=>"BPP", "TPP"=>"TPP", "PB"=>"PB")) ?>
                                                                     <?= $form->formField("text", "ware_hse", "", "Ware House") ?>
                                                                     <?= $form->formField("text", "sale_price", "", "Sale Price") ?>
 

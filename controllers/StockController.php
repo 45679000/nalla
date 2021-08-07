@@ -24,9 +24,16 @@
         public function readStock($type="", $condition="WHERE 1"){
             if($type=="purchases"){
                 try {
-                    $this->query = "SELECT * FROM closing_cat 
+                    $this->debugSql = true;
+                    $this->query = "SELECT `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`,
+                     `grade`, `invoice`, warehouse, `type`, `sale_price`, `standard`, 
+                     DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `allocated`,  mark_country.country, allocation, 
+                     pkgs, net AS kgs, kgs AS net, comment
+                     FROM closing_cat 
                     LEFT JOIN mark_country ON  mark_country.mark = closing_cat.mark
-                    WHERE added_to_stock = 1 AND confirmed= 1 ORDER BY sale_no, lot ASC";
+                    WHERE added_to_stock = 1 AND confirmed= 1 
+                    GROUP BY lot 
+                    ORDER BY sale_no, lot ASC";
                     return $this->executeQuery();
                     } catch (Exception $th) {
                     var_dump($th);

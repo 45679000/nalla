@@ -26,7 +26,7 @@
                 try {
                     $this->query = "SELECT * FROM closing_cat 
                     LEFT JOIN mark_country ON  mark_country.mark = closing_cat.mark
-                    WHERE added_to_stock = 1 ORDER BY sale_no, lot ASC";
+                    WHERE added_to_stock = 1 AND confirmed= 1 ORDER BY sale_no, lot ASC";
                     return $this->executeQuery();
                     } catch (Exception $th) {
                     var_dump($th);

@@ -61,6 +61,7 @@
 									<table id="privatePurchase" class="table table-striped table-bordered" style="width:100%">
 										<thead>
 											<tr>
+                                                <th class="wd-15p">Sale No</th>
 												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Ware Hse.</th>
 												<th class="wd-20p">Company</th>
@@ -70,10 +71,8 @@
                                                 <th class="wd-25p">Pkgs</th>
 												<th class="wd-25p">Type</th>
 												<th class="wd-25p">Net</th>
-                                                <th class="wd-25p">Gross</th>
                                                 <th class="wd-25p">Kgs</th>
-                                                <th class="wd-25p">Tare</th>
-                                                <th class="wd-25p">Value</th>
+                                                <th class="wd-25p">Sale Price</th>
 
 											</tr>
 										</thead>
@@ -81,6 +80,7 @@
                                         <?php
                                         foreach ($prvt as $stock){
                                             $html='<tr>';
+                                                $html.='<td>'.$stock["sale_no"].'</td>';
                                                 $html.='<td>'.$stock["lot"].'</td>';
                                                 $html.='<td>'.$stock["ware_hse"].'</td>';
                                                 $html.='<td>'.$stock["company"].'</td>';
@@ -90,10 +90,8 @@
                                                 $html.='<td>'.$stock["pkgs"].'</td>';
                                                 $html.='<td>'.$stock["type"].'</td>';
                                                 $html.='<td>'.$stock["net"].'</td>';
-                                                $html.='<td>'.$stock["gross"].'</td>';
                                                 $html.='<td>'.$stock["kgs"].'</td>';
-                                                $html.='<td>'.$stock["tare"].'</td>';
-                                                $html.='<td>'.$stock["value"].'</td>';
+                                                $html.='<td>'.$stock["sale_price"].'</td>';
 
 											$html.='</tr>';
 

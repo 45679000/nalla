@@ -115,26 +115,49 @@
 </body>
 
 <!-- Dashboard js -->
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
-<script src="../assets/js/sweet-alert.js"></script>
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="../../assets/js/sweet-alert.js"></script>
 <script>
-function gradeList(columnid="grade") {
-        $.ajax({
-            url: "../ajax/common.php",
-            type: "POST",
-            dataType: "html",
-            data: {
-                action: "grade-list"
-            },
-            success: function(response) {
-                $("#grade").html(response);
-                // $("#grade2").html(response);
 
-            }
+$.ajax({
+    url: "../../ajax/common.php",
+    type: "POST",
+    dataType: "html",
+    data: {
+        action: "grade-list"
+    },
+    success: function(response) {
+        $("#grade").html(response);
 
-        });
     }
+
+});
+$.ajax({
+    url: "../../ajax/common.php",
+    type: "POST",
+    dataType: "html",
+    data: {
+        action: "garden-list"
+    },
+    success: function(response) {
+        $("#mark").html(response);
+    }
+});
+
+$.ajax({
+    url: "../../ajax/common.php",
+    type: "POST",
+    dataType: "html",
+    data: {
+        action: "list-brokers"
+    },
+    success: function(response) {
+        $("#broker").html(response);
+    }
+
+});
+    
 
 </script>
 
@@ -144,7 +167,7 @@ function gradeList(columnid="grade") {
         $("#savePrivate").click(function(e) {
             e.preventDefault();
             $.ajax({
-                    url: "../modules/stock/stock-action.php",
+                    url: "stock-action.php",
                     type: "POST",
                     dataType: "json",
                     data: $("#prvt_purchase").serialize() + "&action=insert",

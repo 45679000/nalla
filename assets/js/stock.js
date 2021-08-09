@@ -70,7 +70,10 @@ function loadMasterStock(type){
         url: "stock-action.php",
         data: {
             action:"master-stock",
-            type:type
+            type:type,
+            saleno:localStorage.getItem("sale_no"),
+            broker:localStorage.getItem("broker"),
+            mark:localStorage.getItem("mark")
         },
     success: function (data) {
         $('#stock-master').html(data);

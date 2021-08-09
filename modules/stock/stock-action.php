@@ -269,11 +269,11 @@
 		$condition = "WHERE pkgs !=0 ";
 		$type = $_POST['type'];
 		if($_POST['sale_no'] !=''){
-			$condition .= " AND sale_no = ".$_POST['sale_no'];
+			$condition .= " AND sale_no = '".$_POST['sale_no']."'";
 		}if($_POST['broker'] !=''){
-			$condition .= " AND  broker = ".$_POST['broker'];
-		}if($_POST['broker'] !=''){
-			$condition .= " AND  garden = ".$_POST['garden'];
+			$condition .= " AND  broker = TRIM('".$_POST['broker']."')";
+		}if($_POST['mark'] !=''){
+			$condition .= " AND  closing_stock.mark = '".$_POST['mark']."'";
 		}
 		switch ($type) {
 			case 'purchases':
@@ -310,7 +310,7 @@
 		if($type =="purchases"){
 			if(count($stocks)>0){
 
-				$output .= '<table id="closingstocks" class="table table-striped table-bordered table-condensed table-responsive" style="width:80%">
+				$output .= '<table id="closingstocks" class="table table-striped table-bordered table-condensed table-responsive" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Sale No</th>
@@ -381,7 +381,7 @@
 			echo $output;
 		}else{
 			if(count($stocks)>0){
-				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:80%">
+				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Sale No</th>
@@ -436,7 +436,7 @@
 									<td></td>
 									<td></td>
 									<td>'.$totalPkgs.'</td>
-									<td>'.$totalNet.'</td>
+									<td></td>
 									<td>'.$totalKgs.'</td>
 									<td></td>
 									<td></td>

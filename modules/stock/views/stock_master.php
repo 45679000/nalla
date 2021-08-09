@@ -86,10 +86,10 @@
                     <div class="expanel-body">
                         <form method="post" class="filter">
                             <div class="row justify-content-center">
-                                <div class="col-md-2 well">
+                                <div class="col-md-2 well text-center">
                                     <div class="form-group label-floating">
                                         <label class="control-label">AUCTION</label>
-                                        <select id="saleno" name="saleno" class="form-control"><small>(required)</small>
+                                        <select id="saleno" name="saleno" class="form-control select2"><small>(required)</small>
                                             <option disabled="" value="..." selected="">select</option>
                                             <?php
                                             loadAuction();
@@ -97,23 +97,25 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2 well">
+                                <div class="col-md-2 well text-center">
                                     <div class="form-group label-floating">
                                         <label class="control-label">BROKER</label>
-                                        <select id="broker" name="broker" class="form-control well"><small>(required)</small>
+                                        <select id="broker" name="broker" class="form-control well select2"><small>(required)</small>
 
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2 well">
+                                <div class="col-md-2 well text-center">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Garden</label>
-                                        <select id="mark" name="category" class="form-control well"><small>(required)</small>
+                                        <select id="mark" name="category" class="form-control well select2"><small>(required)</small>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2 well">
-                                    <button type="submit" class="btn btn-primary">View</button>
+                                <div class="col-md-2 well text-center">
+                                    <div class="align-middle">
+                                        <button id="filter" type="button" class="btn btn-warning btn-sm">Filter</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -122,23 +124,25 @@
 
                     <div class="col-md-12  col-xl-12">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header" style="width:50%;">
                                 <div class="card-options">
-                                    <button id="purchases" class="btn btn-primary btn-sm">Total Purchases</button>
-                                    <button id="stock" class="btn btn-secondary btn-sm ml-2">Total Stock</button>
-                                    <button id="stocko" class="btn btn-secondary btn-sm ml-2">Total Stock(Original Teas)</button>
-                                    <button id="stockb" class="btn btn-secondary btn-sm ml-2">Total Stock(Blended Teas)</button>
-                                    <button id="stockc" class="btn btn-secondary btn-sm ml-2">Total Stock(Contract Wise)</button>
-                                    <button id="stocka" class="btn btn-secondary btn-sm ml-2">Total Stock(Awaiting Shipment)</button>
-                                    <button id="stockpu" class="btn btn-secondary btn-sm ml-2">Paid Unallocated</button>
-                                    <button id="stockuu" class="btn btn-secondary btn-sm ml-2">UnPaid Unallocated</button>
+                                    <button id="purchases" class="btn btn-info btn-sm">Purchases</button>
+                                    <button id="stock" class="btn btn-info btn-sm ml-2">Stock</button>
+                                    <button id="stocko" class="btn btn-info btn-sm ml-2">Stock(Original Teas)</button>
+                                    <button id="stockb" class="btn btn-info btn-sm ml-2">Stock(Blended Teas)</button>
+                                    <button id="stockc" class="btn btn-info btn-sm ml-2">Stock(Contract Wise)</button>
+                                    <button id="stocka" class="btn btn-info btn-sm ml-2">Stock(Awaiting Shipment)</button>
+                                    <button id="stockpu" class="btn btn-info btn-sm ml-2">Paid Unallocated</button>
+                                    <button id="stockuu" class="btn btn-info btn-sm ml-2">UnPaid Unallocated</button>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div id="stock-master" class="table-responsive">
-                                    <div id="loader"></div>
+                                <div class="container-fluid">
+                                    <div id="stock-master" class="table-responsive">
+                                        <div id="loader"></div>
 
-                                </div>
+                                    </div>
+                                <div>
                             </div>
                         </div>
                     </div>
@@ -172,7 +176,38 @@
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script>
 $(document).ready(function() {
+
 $('.select2').select2();
+
+$('#filter').click(function(e){
+    e.preventDefault();
+    if(localStorage.getItem("filter") =="filtered"){
+        localStorage.setItem("sale_no", "");
+        localStorage.setItem("broker", "");
+        localStorage.setItem("mark", "");
+        localStorage.setItem("filter", "");
+        $('#filter').text("Filter");
+
+    }else{
+        var sale_no = $('#saleno').val();
+        var broker = $('#broker').val();
+        var mark = $('#mark').val();
+
+        localStorage.setItem("sale_no", sale_no);
+        localStorage.setItem("broker", broker);
+        localStorage.setItem("mark", mark);
+        localStorage.setItem("filter", "filtered");
+        $('#filter').text("clear Filter");
+    }
+    
+
+});
+
+if(localStorage.getItem("filter") =="filtered"){
+    $('#filter').text("clear Filter");
+
+}
+
 loadMasterStock("stock");
 $('.table').DataTable({
             "pageLength": 100,
@@ -186,7 +221,6 @@ $('.table').DataTable({
         });
 
 });
-
 
 $('#purchases').click(function(){
     loadMasterStock("purchases");
@@ -212,5 +246,42 @@ $('#stockpu').click(function(){
 });
 $('#stockuu').click(function(){
     loadMasterStock("stockuu");
+});
+$.ajax({
+    url: "../../ajax/common.php",
+    type: "POST",
+    dataType: "html",
+    data: {
+        action: "grade-list"
+    },
+    success: function(response) {
+        $("#grade").html(response);
+
+    }
+
+});
+$.ajax({
+    url: "../../ajax/common.php",
+    type: "POST",
+    dataType: "html",
+    data: {
+        action: "garden-list"
+    },
+    success: function(response) {
+        $("#mark").html(response);
+    }
+});
+
+$.ajax({
+    url: "../../ajax/common.php",
+    type: "POST",
+    dataType: "html",
+    data: {
+        action: "list-brokers"
+    },
+    success: function(response) {
+        $("#broker").html(response);
+    }
+
 });
 </script>

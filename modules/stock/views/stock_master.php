@@ -186,6 +186,9 @@ $('#filter').click(function(e){
         localStorage.setItem("broker", "");
         localStorage.setItem("mark", "");
         localStorage.setItem("filter", "");
+        $('#saleno').val("")
+        $('#broker').val("");
+        $('#mark').val("");
         $('#filter').text("Filter");
 
     }else{

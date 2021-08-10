@@ -10,7 +10,7 @@
 		<![CDATA[SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`,
 `comment`, closing_stock.`ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
 (CASE WHEN stock_allocation.allocated_pkgs != shippments.pkgs_shipped
-   THEN shippments.pkgs_shipped * net
+   THEN shippments.shipped_kgs
   ELSE closing_stock.kgs
 END) AS kgs, shippments.pkgs_shipped,
  closing_stock.allocated_whse AS warehouse, country, (CASE WHEN shipping_instructions.contract_no IS NOT NULL THEN  shipping_instructions.contract_no ELSE shippments.si_no END) AS allocation,

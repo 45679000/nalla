@@ -69,39 +69,83 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="splitLot">
-                    <div class="row">
-                            <div class="col-md-3 well">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Lot</label>
-                                    <input id="lot"></input>
+                            <div class="row">
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Lot</label>
+                                        <input disabled id="lot"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Mark</label>
+                                        <input disabled id="mark"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Invoice</label>
+                                        <input disabled id="invoice"></input>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 well">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Pkgs</label>
-                                    <input id="pkgs"></input>
+                            <div class="row">
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Current Allocation==></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Pkgs</label>
+                                        <input id="pkgs"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Net</label>
+                                        <input id="net" disabled></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Kgs</label>
+                                        <input id="kgs" ></input>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 well">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Net</label>
-                                    <input id="net"></input>
+                            <div class="row">
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Enter Packages to split==></label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 well">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Pkgs</label>
-                                    <input id="kgs"></input>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Pkgs</label>
+                                        <input id="newpkgs"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Net</label>
+                                        <input id="newnet" disabled></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Kgs</label>
+                                        <input id="newkgs" ></input>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-3 form-group float-right">
-                            <button type="submit" class="btn btn-success" id="submitUpdate">Save</button>
+                            <button type="submit" class="btn btn-success btn-sm" id="saveSplit">Save</button>
                         </div>
                         <div class="col-md-3 form-group float-right">
-                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                             <button type="button" class="btn btn-danger btn-sm" id="closeModal">Close</button>
                         </div>
 
                     </div>
@@ -135,6 +179,15 @@
 <script>
 $(document).ready(function(){
     loadStockAllocation("unallocated");
+    $('#closeModal').click(function(e){
+        $('#splitModal').hide();
+    });
+    $('#newpkgs').change(function(e){
+        var newPkgs = $('#newpkgs').val();
+        var previousPkgs = $('#pkgs').val();
+        $('#pkgs').val(previousPkgs-newPkgs);
+        
+    })
 });
 $('#waitingtoAllocate').click(function(e){
     loadStockAllocation("unallocated");
@@ -157,10 +210,15 @@ function splitLot(element){
             id:id
         },
     success: function (data) {
-        $('#pkgs').html(data.pkgs);
-        $('#kgs').html(data.kgs);
-        $('#lot').html(data.lot);
-        $('#net').html(data.net);
+        var lots = data[0]; 
+        $('#pkgs').val(lots.pkgs);
+        $('#kgs').val(lots.kgs);
+        $('#lot').val(lots.lot);
+        $('#net').val(lots.net);
+        $('#mark').val(lots.mark);
+        $('#invoice').val(lots.invoice);
+        $('#newnet').val(lots.net);
+
 
         
     },
@@ -221,7 +279,20 @@ function updateStock(stockId, fieldName, fieldValue){
     });
 }
 
-
+(30131,34490,1818,5285,16284,16336,16407, 16407)
 </script>
 
     </html>
+
+DELETE FROM `closing_stock` WHERE `closing_stock`.`stock_id` = 1187;
+DELETE FROM `closing_stock` WHERE `closing_stock`.`stock_id` = 1442;
+DELETE FROM `closing_stock` WHERE `closing_stock`.`stock_id` = 1697;
+INSERT INTO `stock_allocation`(`stock_id`, `standard`, `allocated_pkgs`, `warehouse`)
+SELECT stock_id, standard, pkgs, 1
+FROM closing_stock
+WHERE lot ='30131'  AND sale_no = '2021-28';
+
+INSERT INTO `stock_allocation`(`stock_id`, `standard`, `allocated_pkgs`, `warehouse`)
+SELECT stock_id, standard, pkgs, 1
+FROM closing_stock
+WHERE lot ='34490';

@@ -190,10 +190,11 @@
 	}
     	// Delete Record	
 	if (isset($_POST['action']) && $_POST['action'] == "allocate-stock") {
-		$stock_id = isset($_POST['stock_id']) ? $_POST['stock_id'] : '';
-		$buyer = isset($_POST['client']) ? $_POST['client'] : '';
-		$standard = isset($_POST['standard']) ? $_POST['standard'] : '';
+		$stock_id = isset($_POST['stockId']) ? $_POST['stockId'] : '';
+		$fieldValue = isset($_POST['fieldValue']) ? $_POST['fieldValue'] : '';
+		$fieldName = isset($_POST['fieldName']) ? $_POST['fieldName'] : '';
 		$stock->allocateStock($stock_id, $fieldName, $fieldValue);
+
 	}
 	if (isset($_POST['action']) && $_POST['action'] == "stock-allocation") {
 		$type = $_POST['type'];
@@ -236,7 +237,15 @@
 				$html .= '<td>' . $allocated['net'] . '</td>';
 				$html .= '<td>' . $allocated['kgs'] . '</td>';
 				$html .= '<td contentEditable="true">' . $allocated['sale_price'] . '</td>';
-				$html .= '<td onclick="appendSelectOptions(this)" id="'.$id.'">' . $allocated['debtor_ref'] . '</td>';
+				$html .= '
+				<td 
+					onclick="appendSelectOptions(this)" 
+					id="'.$id.'"
+					class="debtor_ref">
+
+					'.$allocated['short_name']. 
+					
+				'</td>';
 				$html .= '<td>'. $allocated['standard'] .'</td>';
 				$html .= '<td>
 							<button  

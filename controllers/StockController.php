@@ -120,16 +120,11 @@
         
         }
         public function allocateStock($stock_id, $fieldName, $fieldValue){
-            try {
                 $this->debugSql = true;
                 $this->query = "UPDATE `closing_stock` SET $fieldName = '$fieldValue'
                 WHERE `stock_id` = '$stock_id'";
                 $this->executeQuery();
               
-            } catch (Exception $th) {
-                var_dump($th);   
-             }
-
         }
         public function allocatedStock($type){
             $this->debugSql = false;
@@ -141,7 +136,7 @@
                 $condition.=" AND  client_id != 0 ";
             }
             $this->query = "SELECT stock_id, sale_no, debtor_ref, broker, mark, grade, sale_price, lot, net, invoice,
-            comment, standard, pkgs, kgs
+            comment, standard, pkgs, kgs, 0_debtors_master.short_name
             FROM closing_stock b
             LEFT JOIN 0_debtors_master  ON 0_debtors_master.debtor_no = b.client_id "
             .$condition. "

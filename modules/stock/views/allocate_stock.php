@@ -70,22 +70,29 @@
             <div class="modal-body">
                 <form id="splitLot">
                     <div class="row">
-                        <div class="col-md-3 well">
-                            <div class="form-group label-floating">
-                                <label class="control-label">Lot</label>
-                                <input id="lot"></input>
+                            <div class="col-md-3 well">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Lot</label>
+                                    <input id="lot"></input>
+                                </div>
                             </div>
-                            <div class="form-group label-floating">
-                                <label class="control-label">Pkgs</label>
-                                <input id="pkgs"></input>
+                            <div class="col-md-3 well">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Pkgs</label>
+                                    <input id="pkgs"></input>
+                                </div>
                             </div>
-                            <div class="form-group label-floating">
-                                <label class="control-label">Net</label>
-                                <input id="net"></input>
+                            <div class="col-md-3 well">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Net</label>
+                                    <input id="net"></input>
+                                </div>
                             </div>
-                            <div class="form-group label-floating">
-                                <label class="control-label">Pkgs</label>
-                                <input id="kgs"></input>
+                            <div class="col-md-3 well">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Pkgs</label>
+                                    <input id="kgs"></input>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,7 +133,17 @@
 
 
 <script>
-loadStockAllocation("unallocated");
+$(document).ready(function(){
+    loadStockAllocation("unallocated");
+});
+$('#waitingtoAllocate').click(function(e){
+    loadStockAllocation("unallocated");
+
+})
+$('#allocated').click(function(e){
+    loadStockAllocation("allocated");
+
+})
 function splitLot(element){
     var id = $(element).attr("id");
     $('#splitModal').show(); 
@@ -140,10 +157,10 @@ function splitLot(element){
             id:id
         },
     success: function (data) {
-        $('#pkgs').html(data[0].pkgs);
-        $('#kgs').html(data[0].kgs);
-        $('#lot').html(data[0].lot);
-        $('#net').html(data[0].net);
+        $('#pkgs').html(data.pkgs);
+        $('#kgs').html(data.kgs);
+        $('#lot').html(data.lot);
+        $('#net').html(data.net);
 
         
     },
@@ -153,9 +170,7 @@ function splitLot(element){
     },
     });
 }
-$(document).ready(function(){
-  
-});
+
 function appendSelectOptions(element){
     var id= $(element).attr("id");
     if($("#"+id+" select").length==0){
@@ -167,7 +182,6 @@ function appendSelectOptions(element){
                     action:'client-opt'
                 },
                 success: function (data) {
-                    console.log(data[0])
                     myrecord = data;
                     const options = [];
                     for(let i = 0; i<myrecord.length; i++){
@@ -176,9 +190,13 @@ function appendSelectOptions(element){
                     }
                     console.log(options);
                     $('<select />',{
-                    name   : 'test',
+                    name   : 'debtor_ref',
+                    id     : id+'stock',
                     on     : {
-                        change : function() { alert("allocated")}
+                        change : function(element){
+                            var fieldValue  = $('#'+id+'stock').val();
+                            updateStock(id, "client_id", fieldValue);                             
+                            }
                         },
                         append : options
                     }).appendTo('#'+id);
@@ -186,23 +204,23 @@ function appendSelectOptions(element){
         });
     }
 }
-function loadRemarkOptions(element){
-            $.ajax({  
-                type: "POST",
-                dataType: "json",
-                url: '../ajax/common.php',
-                data: {
-                    action:'clients'
-                },
-            success: function (data) {
-              for($i = 0; $i<data.length; $i++){
-                $(element).append('<option>'+data[$i].remark+'</option>');
-
-              }
-
-            }
-         });
+function updateStock(stockId, fieldName, fieldValue){
+    $.ajax({  
+            type: "POST",
+            dataType: "json",
+            url: '../stock/stock-action.php',
+            data: {
+                action:'allocate-stock',
+                stockId:stockId,
+                fieldName:fieldName,
+                fieldValue:fieldValue
+            },
+        success: function (data) {
+        
         }
+    });
+}
+
 
 </script>
 

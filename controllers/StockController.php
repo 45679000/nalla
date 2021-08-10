@@ -119,37 +119,34 @@
             return $id;
         
         }
-        public function allocateStock($stock_id, $buyer, $standard, $mrpValue, $pkgs, $warehouse){
+        public function allocateStock($stock_id, $fieldName, $fieldValue){
             try {
-                $query = "INSERT INTO `stock_allocation`( `stock_id`, `client_id`, `standard`,`allocated_pkgs`, `mrp_value`, `warehouse`)
-                VALUES (?,?,?,?,?,?)";
-               $stmt = $this->conn->prepare($query);
-               $stmt->bindParam(1, $stock_id);
-               $stmt->bindParam(2, $buyer);
-               $stmt->bindParam(3, $standard);
-               $stmt->bindParam(4, $pkgs);
-               $stmt->bindParam(5, $mrpValue);
-               $stmt->bindParam(6, $warehouse);
-
-               $stmt->execute();
+                $this->debugSql = true;
+                $this->query = "UPDATE `closing_stock` SET $fieldName = '$fieldValue'
+                WHERE `stock_id` = '$stock_id'";
+                $this->executeQuery();
+              
             } catch (Exception $th) {
                 var_dump($th);   
              }
 
         }
-        public function allocatedStock(){
-            $query = "SELECT allocation_id, sale_no, debtor_ref, broker, mark, grade, sale_price, lot, allocated_pkgs, net, invoice, mrp_value,
-            allocated_pkgs*net AS net_allocation,  si_id, shipped, max_offered_price, c.debtor_ref, comment, a.standard,
-            CONCAT(COALESCE(c.debtor_ref, ''), ' ', COALESCE(a.standard,'')) AS buyerstandard 
+        public function allocatedStock($type){
+            $this->debugSql = false;
+
+            $condition = "WHERE 1";
+            if($type=="unallocated"){
+                $condition.=" AND client_id IS NULL OR client_id = 0 ";
+            }else{
+                $condition.=" AND  client_id != 0 ";
+            }
+            $this->query = "SELECT stock_id, sale_no, debtor_ref, broker, mark, grade, sale_price, lot, net, invoice,
+            comment, standard, pkgs, kgs
             FROM closing_stock b
-            LEFT JOIN stock_allocation a ON a.stock_id = b.stock_id
-            LEFT JOIN 0_debtors_master c ON c.debtor_no = a.client_id
-            WHERE deallocated = 0
-            ORDER BY buyerstandard ASC";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            $rows = $stmt->fetchAll();
-            return $rows;
+            LEFT JOIN 0_debtors_master  ON 0_debtors_master.debtor_no = b.client_id "
+            .$condition. "
+            ORDER BY client_id ASC";
+            return $this->executeQuery();
         }
         public function sumTotal($columnname, $tablename){
             $this->query = "SELECT SUM($columnname) AS total FROM $tablename";

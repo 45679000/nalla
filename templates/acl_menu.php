@@ -16,7 +16,9 @@
 		echo dashboard($path_to_root);
 		echo menu_catalogue($path_to_root);
 		echo menu_tasting_grading($path_to_root);
+		echo menu_finance($path_to_root);
 		echo menu_stock($path_to_root);
+		echo menu_ware_housing($path_to_root);
 		echo menu_setup($path_to_root);
 
 	}else if($role==3){

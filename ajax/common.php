@@ -223,6 +223,11 @@ if (isset($_POST['action']) && $_POST['action'] == "clear") {
     }
     
 }
+if (isset($_POST['action']) && $_POST['action'] == "client-opt") {
+    $clients= $shipingCtr->fetchErpClients();
+    echo json_encode($clients);
+    
+}
 if (isset($_POST['action']) && $_POST['action'] == "warehouseLocation") {
     $output = "";
 

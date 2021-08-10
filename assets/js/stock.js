@@ -107,11 +107,14 @@ function loadStockAllocation(type){
         },
     success: function (data) {
         $('#stockAllocation').html(data);
-        
+        $('#allocatedStockTable').DataTable({
+            "pageLength": 100,
+            dom: 'Bfrtip'
+        });
     },
     error: function (data) {
-        console.log('An error occurred.');
-        console.log(data);
+        $('#stockAllocation').html(data);
+        console.log("failed");
     },
 });
 }

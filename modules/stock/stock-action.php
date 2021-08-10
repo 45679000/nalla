@@ -101,9 +101,7 @@
 
 	// Edit Record	
 	if ((isset($_POST['action'])) && $_POST['action'] =="stock-list") {
-
-
-	$stocks = $stock->readStock($condition="WHERE lot IN(SELECT lot FROM closing_stock)");
+		$stocks = $stock->readStock($condition="WHERE lot IN(SELECT lot FROM closing_stock)");
 		$purchaseList = $stock->unconfrimedPurchaseList();
 		if (sizeOf($purchaseList) > 0) {
 			$output .='<table id="purchaseListTable" class="table table-striped table-hover">
@@ -190,21 +188,18 @@
         $id = $_POST['id'];
 		$garden->updateRecord($id, $name,  $country);
 	}
-
     	// Delete Record	
 	if (isset($_POST['action']) && $_POST['action'] == "allocate-stock") {
 		$stock_id = isset($_POST['stock_id']) ? $_POST['stock_id'] : '';
 		$buyer = isset($_POST['client']) ? $_POST['client'] : '';
 		$standard = isset($_POST['standard']) ? $_POST['standard'] : '';
-		$pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : '';
-		$mrpValue = isset($_POST['mrp']) ? $_POST['mrp'] : '';
-		$warehouse = isset($_POST['warehouseLocation']) ? $_POST['warehouseLocation'] : '';
-		$stock->allocateStock($stock_id, $buyer, $standard, $mrpValue,  $pkgs, $warehouse);
+		$stock->allocateStock($stock_id, $fieldName, $fieldValue);
 	}
 	if (isset($_POST['action']) && $_POST['action'] == "stock-allocation") {
-		$allocatedStock =  $stock->allocatedStock();
+		$type = $_POST['type'];
+		$allocatedStock =  $stock->allocatedStock($type);
 		$clients =  $stock->clients();
-
+		if (sizeOf($allocatedStock) > 0) {
 		$html = "";
 
 		$html .='<table id="allocatedStockTable" class="table table-striped table-bordered table-responsive">
@@ -219,6 +214,7 @@
 				<td>Invoice</td>
 				<td>Pkgs</td>
 				<td>Net</td>
+				<td>Kgs</td>
 				<td>Hammer.P</td>
 				<td>Client</td>
 				<td>Standard</td>
@@ -229,26 +225,26 @@
 		
 			foreach ($allocatedStock as $allocated) {
 				$id=$allocated['stock_id'];
-				$allocations = $allocated['buyerstandard'];
-
 				$html .= '<td>' . $allocated['lot'] . '</td>';
-				$html .= '<td><div>' . $allocated['sale_no'] . '</div></td>';
+				$html .= '<td>'.  $allocated['sale_no'] . '</td>';
 				$html .= '<td>' . $allocated['broker'] . '</td>';
 				$html .= '<td>' . $allocated['mark'] . '</td>';
 				$html .= '<td>' . $allocated['comment'] . '</td>';
 				$html .= '<td>' . $allocated['grade'] . '</td>';
 				$html .= '<td>' . $allocated['invoice'] . '</td>';
-				$html .= '<td contentEditable="true">' . $allocated['allocated_pkgs'] . '</td>';
+				$html .= '<td contentEditable="true">' . $allocated['pkgs'] . '</td>';
 				$html .= '<td>' . $allocated['net'] . '</td>';
-				$html .= '<td>' . $allocated['sale_price'] . '</td>';
-				$html .= '<td>'. $allocated['debtor_ref'] .'</td>';
+				$html .= '<td>' . $allocated['kgs'] . '</td>';
+				$html .= '<td contentEditable="true">' . $allocated['sale_price'] . '</td>';
+				$html .= '<td onclick="appendSelectOptions(this)" id="'.$id.'">' . $allocated['debtor_ref'] . '</td>';
 				$html .= '<td>'. $allocated['standard'] .'</td>';
 				$html .= '<td>
-                         <button  style="color:green" 
-                          class="navigate " id="'.$id.'"><i class="fa fa-plus">Allocate</i> </button>&nbsp
-						  
-						  <button  style="color:green" 
-                          class="navigate" onclick="splitLot(this)" id="'.$id.'split"><i class="fa fa-plus">Split</i> </button>&nbsp
+							<button  
+								style="color:green" 
+								class="split" 
+								onclick="splitLot(this)"
+								id="'.$id.'"><i class="fa fa-scissors">Split</i> 
+							</button>
 			            </td>';
 				$html .= '</tr>';
 			}
@@ -258,6 +254,10 @@
 		</div>
 	</div>';
 			echo $html;
+		}else{
+			echo '<h3 class="text-center mt-5">There are no unallocated lots</h3>';
+
+		}
 
 	}
 	function ExcelToPHP($dateValue = 0) {
@@ -459,3 +459,4 @@
 		echo json_encode($lots);
 		
 	}
+

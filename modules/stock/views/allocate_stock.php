@@ -25,6 +25,9 @@
         background-color: green;
         color: white;
     }
+    .split{
+        height: 20%;
+    }
 </style>
 
 <div class="col-md-12 col-lg-12">
@@ -35,7 +38,6 @@
 
                     <div class="expanel-heading">
                         <h3 class="expanel-title">Allocate Stock</h3>
-                        <?php echo $msg ?>
                     </div>
                     <div class="card">
                             <div class="card-header">
@@ -109,17 +111,6 @@
 
     <!-- Dashboard js -->
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../../assets/js/vendors/selectize.min.js"></script>
-<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../../assets/plugins/jquery-tabledit/jquery.tabledit.js"></script>
-<script src="../../assets/js/common.js"></script>
-<script src="../../assets/js/stock.js"></script>
-
-<script src="../../assets/plugins/select2/select2.full.min.js"></script>
-<script src="../../assets/plugins/sweet-alert/sweetalert.min.js"></script>
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
@@ -131,6 +122,8 @@
 <script src="../../assets/plugins/datatable/vfs_fonts.js"></script>
 <script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
+<script src="../../assets/js/stock.js"></script>
+
 
 <script>
 loadStockAllocation("unallocated");
@@ -158,8 +151,58 @@ function splitLot(element){
         console.log('An error occurred.');
         console.log(data);
     },
-});
+    });
 }
+$(document).ready(function(){
+  
+});
+function appendSelectOptions(element){
+    var id= $(element).attr("id");
+    if($("#"+id+" select").length==0){
+        $.ajax({  
+                type: "POST",
+                dataType: "json",
+                url: '../../ajax/common.php',
+                data: {
+                    action:'client-opt'
+                },
+                success: function (data) {
+                    console.log(data[0])
+                    myrecord = data;
+                    const options = [];
+                    for(let i = 0; i<myrecord.length; i++){
+                        options[i] =  $('<option />', {value : myrecord[i].debtor_no, text : myrecord[i].short_name});
+                    
+                    }
+                    console.log(options);
+                    $('<select />',{
+                    name   : 'test',
+                    on     : {
+                        change : function() { alert("allocated")}
+                        },
+                        append : options
+                    }).appendTo('#'+id);
+                }
+        });
+    }
+}
+function loadRemarkOptions(element){
+            $.ajax({  
+                type: "POST",
+                dataType: "json",
+                url: '../ajax/common.php',
+                data: {
+                    action:'clients'
+                },
+            success: function (data) {
+              for($i = 0; $i<data.length; $i++){
+                $(element).append('<option>'+data[$i].remark+'</option>');
+
+              }
+
+            }
+         });
+        }
 
 </script>
 

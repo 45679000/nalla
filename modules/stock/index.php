@@ -1,6 +1,6 @@
 <?php
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 $path_to_root = "../../";
 $path_to_root1 = "../../";
 
@@ -17,7 +17,7 @@ include $path_to_root1 .'includes/auction_ids.php';
 $stock = new Stock($conn);
 $stocks = $stock->readStock();
 
-$allocated = $stock->allocatedStock();
+$allocated = $stock->allocatedStock("unallocated");
 $msg = "";
 if (isset($_POST['allocate'])) {
     $msg = "<p class='success'>Lot Allocated successfully</p>";

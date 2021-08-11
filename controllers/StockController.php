@@ -48,7 +48,7 @@
                  AS pkgs, 
                  (CASE WHEN shippments.id IS NULL THEN kgs ELSE (kgs-(sum(shipped_kgs))) END) AS kgs,
                  (CASE WHEN allocation IS NULL THEN 
-                    CONCANT(COALESCE(0_debtors_master.short_name, ' ', standard))
+                    CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
                  ELSE 
                     allocation
                  END) AS allocation, kgs,  net

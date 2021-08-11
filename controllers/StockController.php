@@ -168,6 +168,16 @@
             $this->query = "SELECT * FROM closing_stock WHERE stock_id = ".$id;
             return $this->executeQuery();
         }
+        public function insertSplit($stockId, $Pkgs, $Kgs, $NewKgs, $NewPkgs){
+            $this->debugSql = false;
+            $this->query = "UPDATE closing_stock SET pkgs = $Pkgs, kgs = $Kgs WHERE stock_id = $stockId";
+            $this->executeQuery();
+            $this->debugSql = false;
+            $this->query = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`,  `is_blend_balance`, `allocated_whse`, `paid`) 
+            SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, $NewPkgs, `type`, `net`, `gross`, $NewKgs, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`,  `is_blend_balance`, `allocated_whse`, `paid`
+            FROM closing_stock WHERE stock_id = $stockId";
+            $this->executeQuery();
+        }
    
     }
 

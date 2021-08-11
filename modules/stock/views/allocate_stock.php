@@ -147,6 +147,7 @@
                         <div class="col-md-3 form-group float-right">
                              <button type="button" class="btn btn-danger btn-sm" id="closeModal">Close</button>
                         </div>
+                        <input hidden id="stock_id"></input>
 
                     </div>
                 </form>
@@ -174,27 +175,48 @@
 <script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script src="../../assets/js/stock.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 
 <script>
 $(document).ready(function(){
     loadStockAllocation("unallocated");
+    localStorage.setItem("tab", "unallocated");
     $('#closeModal').click(function(e){
         $('#splitModal').hide();
     });
     $('#newpkgs').change(function(e){
         var newPkgs = $('#newpkgs').val();
         var previousPkgs = $('#pkgs').val();
+        var previousKgs = $('#kgs').val();
+        var net = $('#net').val();
         $('#pkgs').val(previousPkgs-newPkgs);
-        
+        $('#kgs').val((previousPkgs-newPkgs) * net);
+        $('#newkgs').val(previousKgs-((previousPkgs-newPkgs) * net));  
+    })
+
+    $('#saveSplit').click(function(e){
+        e.preventDefault();
+        var stockId = $('#stock_id').val();
+        var Pkgs = $('#pkgs').val();
+        var Kgs = $('#kgs').val();
+        var NewKgs = $('#newkgs').val();
+        var NewPkgs = $('#newpkgs').val();
+        if((stockId !=null) && (Pkgs !=null) && (Kgs !=null) && (NewKgs !=null) && (NewPkgs !=null)){
+            insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs);
+        }else{
+            alert("You Must Enter packages to split");
+        }
     })
 });
 $('#waitingtoAllocate').click(function(e){
     loadStockAllocation("unallocated");
-
+    localStorage.setItem("tab", "unallocated");
 })
 $('#allocated').click(function(e){
     loadStockAllocation("allocated");
+    localStorage.setItem("tab", "allocated");
 
 })
 function splitLot(element){
@@ -218,6 +240,7 @@ function splitLot(element){
         $('#mark').val(lots.mark);
         $('#invoice').val(lots.invoice);
         $('#newnet').val(lots.net);
+        $('#stock_id').val(lots.stock_id);
 
 
         
@@ -278,21 +301,35 @@ function updateStock(stockId, fieldName, fieldValue){
         }
     });
 }
+function insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs){
+    $.ajax({  
+            type: "POST",
+            dataType: "html",
+            url: '../stock/stock-action.php',
+            data: {
+                action:'split',
+                stockId:stockId,
+                Pkgs:Pkgs,
+                Kgs:Kgs,
+                NewKgs:NewKgs,
+                NewPkgs:NewPkgs
+            },
+        success: function (data) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Lot Splitted Successfully',
+            });
+            $("#splitModal").hide();
+            if(localStorage.getItem("tab")=="allocated"){
+                loadStockAllocation("allocated");
+            }else{
+                loadStockAllocation("unallocated");
+            }
+        }
+    });
+}
 
-(30131,34490,1818,5285,16284,16336,16407, 16407)
 </script>
 
     </html>
 
-DELETE FROM `closing_stock` WHERE `closing_stock`.`stock_id` = 1187;
-DELETE FROM `closing_stock` WHERE `closing_stock`.`stock_id` = 1442;
-DELETE FROM `closing_stock` WHERE `closing_stock`.`stock_id` = 1697;
-INSERT INTO `stock_allocation`(`stock_id`, `standard`, `allocated_pkgs`, `warehouse`)
-SELECT stock_id, standard, pkgs, 1
-FROM closing_stock
-WHERE lot ='30131'  AND sale_no = '2021-28';
-
-INSERT INTO `stock_allocation`(`stock_id`, `standard`, `allocated_pkgs`, `warehouse`)
-SELECT stock_id, standard, pkgs, 1
-FROM closing_stock
-WHERE lot ='34490';

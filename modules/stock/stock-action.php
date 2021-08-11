@@ -468,4 +468,17 @@
 		echo json_encode($lots);
 		
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "split"){
+		$stockId = isset($_POST['stockId']) ? $_POST['stockId'] : '';
+		$Pkgs = isset($_POST['Pkgs']) ? $_POST['Pkgs'] : '';
+		$Kgs = isset($_POST['Kgs']) ? $_POST['Kgs'] : '';
+		$NewKgs = isset($_POST['NewKgs']) ? $_POST['NewKgs'] : '';
+		$NewPkgs = isset($_POST['NewPkgs']) ? $_POST['NewPkgs'] : '';
+		$stock->insertSplit($stockId, $Pkgs, $Kgs, $NewKgs, $NewPkgs);
+
+	}
+
+
+
+
 

@@ -17,7 +17,7 @@ INSERT INTO `stock_allocation`(`stock_id`, `client_id`, `standard`, `allocated_p
 SELECT stock_id, value, standard, pkgs, 1
 FROM closing_stock_import;
 
-
+34490,1818,5285,16284,16336,16407)
 
 DELETE FROM closing_stock;
 ALTER TABLE closing_stock AUTO_INCREMENT = 1;
@@ -73,3 +73,30 @@ INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hs
 `sale_price`, `standard`, `buyer_package`
 FROM `closing_cat`
 WHERE confirmed = 1 AND lot NOT IN (SELECT lot FROM closing_stock WHERE sale_no = )
+
+
+SELECT * FROM closing_stock WHERE stock_id NOT IN (SELECT stock_id FROM stock_allocation) AND sale_no !='2021-27'
+
+
+SELECT 
+    lot, sale_no, COUNT(lot)
+FROM
+    closing_stock
+GROUP BY 
+    lot, sale_no
+HAVING 
+    COUNT(lot) > 1;
+
+
+    DELETE t1 FROM closing_stock t1
+INNER JOIN closing_stock t2 
+WHERE 
+    t1.lot < t2.lot AND 
+    t1.sale_no = t2.sale_no
+    AND t1.stock_id NOT IN (SELECT stock_id FROM stock_allocation) AND t2.sale_no !='2021-27'
+
+
+INSERT INTO `closing_stock_temp` 
+SELECT * FROM closing_stock
+WHERE sale_no>'2021-27' AND lot NOT IN(SELECT lot FROM closing_stock INNER JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id AND sale_no>'2021-27')
+GROUP BY sale_no, lot;

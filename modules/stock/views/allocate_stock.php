@@ -42,8 +42,8 @@
                     <div class="card">
                             <div class="card-header">
                                 <div class="card-options">
-                                    <button id="waitingtoAllocate" class="btn btn-primary btn-sm">Waiting to allocate</button>
-                                    <button id="allocated" class="btn btn-secondary btn-sm ml-2">Allocated</button>
+                                    <button id="waitingtoAllocate" class="btn btn-info btn-sm">Waiting to allocate </button>
+                                    <button id="allocated" class="btn btn-sm btn-info ml-2">Allocated </button>
                                    
                                 </div>
                             </div>

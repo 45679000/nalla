@@ -319,7 +319,7 @@
 		if($type =="purchases"){
 			if(count($stocks)>0){
 
-				$output .= '<table id="closingstocks" class="table table-striped table-bordered table-condensed table-responsive" style="width:100%">
+				$output .= '<table id="closingstocks2" class="table table-striped table-bordered table-condensed table-responsive" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Sale No</th>
@@ -372,9 +372,9 @@
 									<td></td>
 									<td></td>
 									<td></td>
-									<td>'.$totalPkgs.'</td>
+									<td id="totalPkgs">'.$totalPkgs.'</td>
 									<td></td>
-									<td>'.$totalKgs.'</td>
+									<td id="totalKgs">'.$totalKgs.'</td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -390,7 +390,7 @@
 			echo $output;
 		}else{
 			if(count($stocks)>0){
-				$output .= '<table id="closingstocks" class="table table-striped table-bordered" style="width:100%">
+				$output .= '<table id="closingstocks" class="display table table-striped table-bordered" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Sale No</th>
@@ -434,31 +434,24 @@
 								
 									}           
 					$output.= '</tbody>';
-					$output.='<tfooter style="outline: thin solid black;">
+					$output.='<tfoot style="outline: thin solid black;">
 								<tr>
-									<td>Totals</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td>'.$totalPkgs.'</td>
-									<td></td>
-									<td>'.$totalKgs.'</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+									<th colspan="4">Sub Total <br> Grand Total</th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th style="text-align:right" colspan="2"></th>
+									<th style="text-align:right" colspan="2"></th>
+									<th></th>
 
 								</tr>
-							</tfooter>
+							</tfoot>
 						</table>';
 			}else{
 				$output = "No records Found";
 
 			}
+  
 			echo $output;
 		}
 	}

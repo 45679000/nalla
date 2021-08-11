@@ -470,6 +470,77 @@
 		$stock->insertSplit($stockId, $Pkgs, $Kgs, $NewKgs, $NewPkgs);
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "contract-wise"){
+		$type = $_POST['type'];
+		$allocatedStock =  $stock->contractWiseAllocation();
+		$clients =  $stock->clients();
+		if (sizeOf($allocatedStock) > 0) {
+		$html = "";
+
+		$html .='<table id="allocatedStockTable" class="table table-striped table-bordered table-responsive">
+		<thead class="thead-dark">
+			<tr>
+				<td>Lot</td>
+				<td>Sale No</td>
+				<td>Broker</td>
+				<td>Mark</td>
+				<td>Code</td>
+				<td>Grade</td>
+				<td>Invoice</td>
+				<td>Pkgs</td>
+				<td>Net</td>
+				<td>Kgs</td>
+				<td>Hammer.P</td>
+				<td>Standard</td>
+				<td>Contract No.</td>
+			</tr>
+		</thead>
+		<tbody>';
+			$client = "";
+
+			foreach ($allocatedStock as $allocated) {
+				$id=$allocated['stock_id'];
+				if($client != $allocated['allocation']){
+					$client=$allocated['allocation'];
+					$html .= '<tr style="background-color:black; border-top:1px black; border-bottom:1px black;">';
+					$html .= '<td style="text-align:center; color:white;" colspan="13">'.$client.'</td>';
+					$html .= '</tr>';
+				}else{
+					$html .= '<tr>';
+					$html .= '<td>' . $allocated['lot'] . '</td>';
+					$html .= '<td>'.  $allocated['sale_no'] . '</td>';
+					$html .= '<td>' . $allocated['broker'] . '</td>';
+					$html .= '<td>' . $allocated['mark'] . '</td>';
+					$html .= '<td>' . $allocated['comment'] . '</td>';
+					$html .= '<td>' . $allocated['grade'] . '</td>';
+					$html .= '<td>' . $allocated['invoice'] . '</td>';
+					$html .= '<td contentEditable="true">' . $allocated['pkgs'] . '</td>';
+					$html .= '<td>' . $allocated['net'] . '</td>';
+					$html .= '<td>' . $allocated['kgs'] . '</td>';
+					$html .= '<td contentEditable="true">' . $allocated['sale_price'] . '</td>';
+					$html .= '<td>'. $allocated['standard'] .'</td>';
+					$html .= '<td>'.$allocated['allocation'].'</td>';
+					$html .= '</tr>';
+					$client=$allocated['allocation'];
+
+				}
+				
+			}
+
+			$html .= '</tbody>
+			</table>
+		</div>
+	</div>';
+			echo $html;
+		}else{
+			echo '<h3 class="text-center mt-5">There are no lots  allocated to any contract</h3>';
+
+		}
+
+
+	}
+
+	
 
 
 

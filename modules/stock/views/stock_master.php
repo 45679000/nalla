@@ -238,7 +238,7 @@ $('#stockb').click(function(){
     loadMasterStock("stockb");
 });
 $('#stockc').click(function(){
-    loadMasterStock("stockc");
+    loadContractWise("stock-action.php", "allocated");
 });
 $('#stocka').click(function(){
     loadMasterStock("stocka");

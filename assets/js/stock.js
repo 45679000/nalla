@@ -10,55 +10,33 @@ $(document).ready(function() {
 
 });
 
-    function loadPurchaseList() {
-        $.ajax({
-            url: "../../modules/stock/stock-action.php",
-            type: "POST",
-            dataType: "html",
-            data: {
-                action: "purchase-list"
-            },
-            success: function(response) {
-                $("#purchaseList").html(response);
+function loadPurchaseList() {
+    $.ajax({
+        url: "../../modules/stock/stock-action.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "purchase-list"
+        },
+        success: function(response) {
+            $("#purchaseList").html(response);
 
-            }
+        }
 
+    });
+}
+function checkedRow(){
+    var trs = document.querySelectorAll("tr");
+    for (var i = 0; i < trs.length; i++)
+    (function (e) {
+        trs[e].addEventListener("click", function () {
+            alert("cliked");
+        console.log({
+            "lot": this.querySelectorAll("*")[0].innerHTML.trim(),
         });
-    }
-    function checkedRow(){
-        var trs = document.querySelectorAll("tr");
-        for (var i = 0; i < trs.length; i++)
-        (function (e) {
-            trs[e].addEventListener("click", function () {
-                alert("cliked");
-            console.log({
-                "lot": this.querySelectorAll("*")[0].innerHTML.trim(),
-            });
-            }, false);
-        })(i);
+        }, false);
+    })(i);
 
-    }
-
-
-
-
-function postData(formData, PostUrl) {
-          $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: PostUrl,
-                data: formData,
-            success: function (data) {
-                console.log('Submission was successful.');
-                // location.reload();
-                console.log(data);
-                return data;
-            },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-        });
 }
 
 });
@@ -125,7 +103,7 @@ function loadMasterStock(type){
             
                         // Update footer
                         $( api.column( 10 ).footer() ).html(
-                            ''+pageTotalkgs +' kgs \n'+totalkgs+' kgs'
+                            ''+pageTotalkgs +' kgs <br>'+totalkgs+' kgs'
                         );
                         $( api.column( 8 ).footer() ).html(
                             ''+pageTotalpkgs +' pkgs <br>'+totalpkgs+' pkgs'
@@ -167,4 +145,19 @@ function loadStockAllocation(type){
         console.log("failed");
     },
 });
+}
+function loadContractWise(PostUrl, type) {
+    $.ajax({
+          type: "POST",
+          dataType: "html",
+          url: PostUrl,
+          data: {
+              action:"contract-wise",
+              type:type
+          },
+      success: function (data) {
+          $('#stock-master').html(data);
+      }
+    });
+
 }

@@ -137,7 +137,7 @@
         public function allocatedStock($type){
             $this->debugSql = false;
 
-            $condition = "WHERE 1";
+            $condition = " WHERE 1";
             if($type=="unallocated"){
                 $condition.=" AND client_id IS NULL OR client_id = 0 ";
             }else{
@@ -146,9 +146,9 @@
             $this->query = "SELECT stock_id, sale_no, debtor_ref, broker, mark, grade, sale_price, lot, net, invoice,
             comment, standard, pkgs, kgs, 0_debtors_master.short_name
             FROM closing_stock b
-            LEFT JOIN 0_debtors_master  ON 0_debtors_master.debtor_no = b.client_id "
+            LEFT JOIN 0_debtors_master  ON 0_debtors_master.debtor_no = b.client_id"
             .$condition. "
-            ORDER BY client_id ASC";
+            ORDER BY client_id  ASC";
             return $this->executeQuery();
         }
         public function sumTotal($columnname, $tablename){
@@ -185,6 +185,17 @@
             SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, $NewPkgs, `type`, `net`, `gross`, $NewKgs, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`,  `is_blend_balance`, `allocated_whse`, `paid`
             FROM closing_stock WHERE stock_id = $stockId";
             $this->executeQuery();
+        }
+        public function contractWiseAllocation(){
+            $this->debugSql = false;
+            $condition = " WHERE allocation IS NOT NULL ";
+            $this->query = "SELECT stock_id, sale_no, debtor_ref, short_name, broker, mark, grade, sale_price, lot, net, invoice,
+            comment, standard, pkgs, kgs, 0_debtors_master.short_name, allocation
+            FROM closing_stock b
+            LEFT JOIN 0_debtors_master  ON 0_debtors_master.debtor_no = b.client_id"
+            .$condition. "
+            ORDER BY allocation ASC";
+            return $this->executeQuery();
         }
    
     }

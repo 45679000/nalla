@@ -148,3 +148,9 @@ SELECT *FROM closing_stock WHERE lot NOT IN(
 UPDATE `closing_stock` SET client_id = 82 WHERE standard like 'TXP';
 
 UPDATE `closing_stock` SET client_id = 82 WHERE standard like '%TXP%';
+
+SELECT *FROM `closing_stock`;
+
+UPDATE `closing_stock` SET client_id = 39 WHERE standard like '%TMK%'; 
+
+UPDATE `closing_stock` SET allocation = standard WHERE CHAR_LENGTH(standard)>3 AND  REGEXP '([[:digit:]].*){7}';;

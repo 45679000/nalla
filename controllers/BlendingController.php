@@ -164,9 +164,11 @@ Class BlendingController extends Model{
         return $result[0]['totalKgs'];
     }
     public function expectedComposition($blendno){
+        $this->debugSql=false;
+
         $this->query = "
             SELECT a.id, a.percentage, g.code AS name,  s.standard
-            FROM blend_composition a
+            FROM standard_composition a
             INNER JOIN grading_comments g ON g.id = a.id
             INNER JOIN grading_standard s ON s.id = a.standard_id
             LEFT JOIN blend_master bm ON bm.std_name = s.standard

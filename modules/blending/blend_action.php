@@ -4,9 +4,11 @@
     include_once('../../database/page_init.php');
     include_once('../../controllers/ShippingController.php');
     include_once('../../controllers/BlendingController.php');
+    include_once('../../controllers/StockController.php');
 
     $shippingCtrl = new ShippingController($conn);
     $blendingCtrl = new BlendingController($conn);
+    $stockCtrl = new Stock($conn);
 
 	// Insert Record	
 	if (isset($_POST['action']) && $_POST['action'] == "insert") {
@@ -207,98 +209,73 @@ if(isset($_POST['action']) && $_POST['action'] == "remove-blend-teas"){
 
 if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
   $type = isset($_POST['type']) ? $_POST['type'] : '';
+  $mark = isset($_POST['mark']) ? $_POST['mark'] : '';
+  $lot = isset($_POST['lot']) ? $_POST['lot'] : '';
+  $grade = isset($_POST['grade']) ? $_POST['grade'] : '';
+  $saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+
+  
+  $condition=" WHERE pkgs>0 ";
+  if($mark=='' && $grade == '' && $lot == '' && $saleno == ''){
+    $condition = $condition;
+  }else{
+    if($saleno !=null){
+      $condition.=" AND closing_stock.sale_no = '".$saleno."'";
+    }if($mark !=null){
+      $condition.=" AND closing_stock.mark = '".$mark."'";
+    }if($grade !=null){
+      $condition.=" AND closing_stock.grade = '".$grade."'";
+    }if($lot !=null){
+      $condition.=" AND closing_stock.lot = '".$lot."'";
+    }
+  }
   $blendBalance = 0;
   $output ="";
-  $stockList = $blendingCtrl->loadUnallocated();
+  $stockList = $stockCtrl->readStock("", $condition);
   if (sizeOf($stockList)> 0) {
       $output .='
       <table id="direct_lot" class="table table-striped table-bordered">
       <thead>
           <tr>
+              <th class="wd-15p">Sale No</th>
               <th class="wd-15p">Lot</th>
               <th class="wd-15p">Mark</th>
               <th class="wd-10p">Grade</th>
               <th class="wd-25p">Invoice</th>
-              <th class="wd-25p">Pkgs IN.Stck</th>
-              <th class="wd-25p">Allocate Pkgs</th>
+              <th class="wd-25p">Code</th>
+              <th class="wd-25p">Pkgs</th>
               <th class="wd-25p">Net</th>
               <th class="wd-25p">Kgs</th>
-              <th class="wd-25p">Code</th>
-              <th class="wd-25p">Select</th>
+              <th class="wd-25p">Actions</th>
 
           </tr>
       </thead>
       <tbody>';
       foreach ($stockList as $stock) {
           $output.='<tr>';
-              $allocatedpackagesId = $stock["allocation_id"]."allocatedpkgs";
-              $availablepackagesId = $stock["allocation_id"]."availablepkgs";
-              $allocatedkgsId = $stock['allocation_id']."allocatedkgs";
-              $allocatednetId = $stock['allocation_id']."net";
-
-              
-              $difference = ($stock['net'] * $stock['pkgs']) - $stock['kgs'];
-
-              $packagesToAllocate = $stock["blended_packages"];
-              $allocationid = $stock["allocation_id"]."allocation";
-              if($stock["selected_for_shipment"]== NULL){
-                $packagesToAllocate = $stock["pkgs"];
-              }
-              $allocatedKgs = ($stock['net'] * $packagesToAllocate);
-
-              if($difference !=0){
-                $allocatedKgs = ($stock['net']* $packagesToAllocate)- $difference;
-              }
-
+              $output.='<td>'.$stock["sale_no"].'</td>';
               $output.='<td>'.$stock["lot"].'</td>';
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
               $output.='<td>'.$stock["invoice"].'</td>';
-              $output.='<td><div id="'.$availablepackagesId.'">'.$stock["pkgs"].'</td>';
-              $output.='<td><div id="'.$allocatedpackagesId.'" contenteditable="true">'.$packagesToAllocate.'</div></td>';
-              $output.='<td id='.$allocatednetId.'>'.$stock["net"].'</td>';
-              $output.='<td><div contenteditable="true" id="'.$allocatedkgsId.'">'.$allocatedKgs.'</td>';
               $output.='<td>'.$stock["comment"].'</td>';
-              if($stock["selected_for_shipment"]== NULL){
-                  $output.='
-                  <td>
-                      <button id="'.$stock["allocation_id"].'"  
-                          type="button" 
-                          class="allocate" 
-                          onClick="callAction(this)"
-                          name="allocated">
-                          <i class="fa fa-plus"></i>                        
-                          </button>
-                  </td>';
-              }else{
-                  $output.='
-                  <td>
-                      <button id="'.$stock["allocation_id"].'"
-                          type="button" 
-                          class="deallocate"
-                          onClick="callAction(this)"
-                          name="allocated">
-                          <i class="fa fa-minus"></i>
-                      </button>';
-                      if($stock['split']==1){
-                       $output.='
-                       <button id="'.$stock["allocation_id"].'"
-                        type="button" 
-                        class="allocateremaining"
-                        onClick="callAction(this)"
-                        name="allocated">
-                        <i class="fa fa-refresh"></i>
-                      </button>';
-                      }
-                  $output .='</td>';                
-              }                
+              $output.='<td>'.$stock["pkgs"].'</td>';
+              $output.='<td>'.$stock["net"].'</td>';
+              $output.='<td>'.$stock["kgs"].'</td>';
+              $output.='<td>
+						        <a style="color:green" data-toggle="tooltip" data-placement="bottom" title="Use Tea" >
+			              <i class="fa fa-arrow-right" ></i></a>&nbsp&nbsp&nbsp;
+                    <a style="color:red" data-toggle="tooltip" data-placement="bottom" title="Split Lot">
+			              <i class="fa fa-scissors"></i></a>&nbsp&nbsp&nbsp;
+			            </td>';          
           $output.='</tr>';
-              }
-
+              
+      }
       $output.='</tbody>
   </table>';
-          }
+  }    
  echo $output;
+}else{
 }
 if(isset($_POST['action']) && $_POST['action'] =='blend-shippment-summary'){
   echo json_encode($blendingCtrl->shipmentSummaryBlend($_POST['blendno']));
@@ -360,7 +337,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'edit-blend'){
   $blendno = $_POST['blendno'];
   $blendingCtrl->clearFromShippment($blendno);
 }
-if(isset($_POST['action']) && $_POST['action'] == 'my-current-allocation'){
+if(isset($_POST['action']) && $_POST['action'] == 'current-allocation'){
   $blendno = $_POST['blendno'];
   $currentAllocation = $blendingCtrl->showCurrentBlendAllocation($blendno);
   $output ='';
@@ -371,59 +348,25 @@ if(isset($_POST['action']) && $_POST['action'] == 'my-current-allocation'){
     <thead>
         <tr>
             <th class="wd-15p">Lot</th>
-            <th class="wd-15p">Mark</th>
-            <th class="wd-10p">Grade</th>
-            <th class="wd-25p">Invoice</th>
-            <th class="wd-25p">Pkgs IN.Stck</th>
-            <th class="wd-25p">Allocate Pkgs</th>
             <th class="wd-25p">Net</th>
+            <th class="wd-25p">Pkgs</th>
             <th class="wd-25p">Kgs</th>
-            <th class="wd-25p">Code</th>
             <th class="wd-25p">Allocation</th>
-            <th class="wd-25p">Select</th>
+            <th class="wd-25p">Actions</th>
 
         </tr>
     </thead>
     <tbody>';
     foreach ($currentAllocation as $stock) {
         $output.='<tr>';
-            $packagesToAllocate = $stock["blended_packages"];
-            if($stock["selected_for_shipment"]== NULL){
-              $packagesToAllocate = $stock["pkgs"];
-            }
+         
             $output.='<td>'.$stock["lot"].'</td>';
-            $output.='<td>'.$stock["mark"].'</td>';
-            $output.='<td>'.$stock["grade"].'</td>';
-            $output.='<td>'.$stock["invoice"].'</td>';
-            $output.='<td><div id="availablepackages">'.$stock["pkgs"].'</td>';
-            $output.='<td><div id="allocatedpackages" contenteditable="true">'.$packagesToAllocate.'</div></td>';
             $output.='<td>'.$stock["net"].'</td>';
+            $output.='<td>'.$stock["pkgs"].'</td>';
             $output.='<td>'.$stock["kgs"].'</td>';
-            $output.='<td>'.$stock["comment"].'</td>';
-            $output.='<td>'.$stock["allocation"].'</td>';
-            if($stock["selected_for_shipment"]== NULL){
-                $output.='
-                <td>
-                    <button id="'.$stock["allocation_id"].'"  
-                        type="button" 
-                        class="allocate" 
-                        onClick="callAction(this)"
-                        name="allocated">
-                        <i class="fa fa-plus"></i>                        
-                        </button>
-                </td>';
-            }else{
-                $output.='
-                <td>
-                    <button id="'.$stock["stock_id"].'"
-                        type="button" 
-                        class="deallocate"
-                        onClick="callAction(this)"
-                        name="allocated">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </td>';                
-            }                
+            $output.='<td>'.$stock["allocation"].'</td>';  
+            $output.='<td></td>';               
+             
         $output.='</tr>';
             }
 
@@ -431,6 +374,57 @@ if(isset($_POST['action']) && $_POST['action'] == 'my-current-allocation'){
 </table>';
         }
 echo $output;
+}
+if(isset($_POST['action']) && $_POST['action'] == 'composition'){
+  $blendno = $_POST['blendno'];
+  $expected = $blendingCtrl->expectedComposition($blendno);
+  $current = $blendingCtrl->currentComposition($blendno);
+
+    $output .='
+    <table style="height:200px;" id="compositionTable" class="table table-striped table-sm table-condensed table-bordered">
+    <tbody style="height:20vH";>';
+    if (sizeOf($expected)> 0) {
+      $output.='
+        <tr style="padding:0px !important">
+            <td style="padding:0px !important">Code</td>
+            ';
+            foreach ($expected as $code) {
+              $output.='<td style="padding:0px !important">'.$code['name'].'</td>';
+            }
+        '</tr>';
+        $output.='
+        <tr style="width:1%">
+            <td>Percentage</td>
+            ';
+            foreach ($expected as $code) {
+              $output.='<td>'.$code['percentage'].'%</td>';
+            }
+        '</tr>';
+    }
+    if (sizeOf($current)> 0) {
+      $output.='
+        <tr style="width:1%">
+            <td>Current</td>
+            ';
+            foreach ($current as $code) {
+              $output.='<td>'.$code['grade'].'</td>';
+            }
+        '</tr>';
+        $output.='
+        <tr style="width:1%">
+            <td>Expected</td>
+            ';
+            foreach ($current as $code) {
+              $output.='<td>'.$code['percentage'].'%</td>';
+            }
+        '</tr>';
+    }
+    $output.='</tbody>
+</table>';
+        
+echo $output;
+
+
 }
 
 

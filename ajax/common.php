@@ -259,5 +259,20 @@ if (isset($_POST['action']) && $_POST['action'] == "warehouseLocation") {
     }
     
 }
+if (isset($_POST['action']) && $_POST['action'] == "sale_no") {
+    $output = "";
+    $auctions= $catalogue->auctionList();
+    var_dump($auctions);
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($auctions) > 0) {
+         foreach($auctions as $auction){
+            $output .= '<option value="'.$auction.'">'.$auction.'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
 
 ?>

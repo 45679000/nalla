@@ -57,7 +57,7 @@
                  LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark 
                  LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id  
                 ".$condition
-                ." GROUP BY stock_id";
+                ." GROUP BY stock_id LIMIT 25";
                 $this->debugSql = false;
                 return $this->executeQuery();
                 

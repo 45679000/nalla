@@ -1,9 +1,41 @@
 $(document).ready(function() {
-    brokerList();
-    gardenList();
-    gradeList();
-    clientWithcodeList();
-    wareHouseLocation();
+    var url = document.getElementById("url").getAttribute("data-name");
+    if(url ==undefined){
+        url="../ajax/common.php";
+    }
+    var mark = document.getElementById("mark");
+    var broker = document.getElementById("broker");
+    var grade = document.getElementById("grade");
+    var clientwithcode = document.getElementById("clientwithcode");
+    var warehouseLocation = document.getElementById("warehouseLocation");
+    var standard = document.getElementById("standard");
+    var standard2 = document.getElementById("standard2");
+    var saleno = document.getElementById("saleno");
+
+    if(mark !=undefined){
+        gardenList(url);
+    }
+    if(broker !=undefined){
+        brokerList(url);
+    }
+    if(grade !=undefined){
+        gradeList(url);
+    }
+    if(clientwithcode !=undefined){
+        clientWithcodeList(url);
+    }
+    if(warehouseLocation !=undefined){
+        wareHouseLocation(url);
+    }
+    if(standard !=undefined){
+        standardList(url);
+    }
+    if(standard2 !=undefined){
+        standardList(url);
+    }
+    if(saleno !=undefined){
+        saleNo(url);
+    }
 
     $("#gen-broker-cat").click(function(e) {
         var form = {
@@ -20,7 +52,7 @@ $(document).ready(function() {
     //View Record
     function brokerList() {
         $.ajax({
-            url: "../ajax/common.php",
+            url: url,
             type: "POST",
             dataType: "html",
             data: {
@@ -33,9 +65,9 @@ $(document).ready(function() {
         });
     }
     
-    function gardenList() {
+    function gardenList(url) {
         $.ajax({
-            url: "../ajax/common.php",
+            url: url,
             type: "POST",
             dataType: "html",
             data: {
@@ -49,7 +81,7 @@ $(document).ready(function() {
     }
     function gradeList(columnid="grade") {
         $.ajax({
-            url: "../ajax/common.php",
+            url: url,
             type: "POST",
             dataType: "html",
             data: {
@@ -63,22 +95,7 @@ $(document).ready(function() {
 
         });
     }
-    function gradeList2() {
-        $.ajax({
-            url: "../ajax/common.php",
-            type: "POST",
-            dataType: "html",
-            data: {
-                action: "grade-list"
-            },
-            success: function(response) {
-                $("#updateGrade").html(response);
-                // $("#grade2").html(response);
 
-            }
-
-        });
-    }
     function postData(form){
         $.ajax({
             type: "POST",
@@ -94,7 +111,7 @@ $(document).ready(function() {
 });
 function lotList(){
     $.ajax({
-        url: "../ajax/common.php",
+        url: url,
         type: "POST",
         dataType: "html",
         data: {
@@ -109,7 +126,7 @@ function lotList(){
 }
 function standardList(){
     $.ajax({
-        url: "../ajax/common.php",
+        url: url,
         type: "POST",
         dataType: "html",
         data: {
@@ -128,7 +145,7 @@ function standardList(){
 
 function clientWithcodeList(){
     $.ajax({
-        url: "../ajax/common.php",
+        url: url,
         type: "POST",
         dataType: "html",
         data: {
@@ -144,7 +161,7 @@ function clientWithcodeList(){
 }
 function wareHouseLocation(){
     $.ajax({
-        url: "../ajax/common.php",
+        url: url,
         type: "POST",
         dataType: "html",
         data: {
@@ -187,6 +204,20 @@ function brokerList($path) {
         },
         success: function(response) {
             $("#broker").html(response);
+        }
+
+    });
+}
+function saleNo($path) {
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "sale_no"
+        },
+        success: function(response) {
+            $("#saleno").html(response);
         }
 
     });

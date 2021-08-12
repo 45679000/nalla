@@ -28,18 +28,22 @@ function standardOptions() {
         }
     });
 }
-function loadUnallocated() {
+
+function loadUnallocated(mark, lot, grade, saleno) {
     $.ajax({
         type: "POST",
         data: {
             action: "load-unallocated",
-            type: "straight"
+            type: "straight",
+            mark:mark,
+            lot:lot,
+            grade:grade,
+            saleno:saleno
         },
         cache: true,
         url: "blend_action.php",
         success: function (data) {
             $('#blendTable').html(data);
-            $("#direct_lot").DataTable({});
 
         }
     });
@@ -332,14 +336,14 @@ function currentAllocation(blendno){
     $.ajax({
         type: "POST",
         data: {
-            action: "my-current-allocation",
+            action: "current-allocation",
             blendno:blendno
 
         },
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            $("#blendTable").html(data);
+            $("#selected").html(data);
 
         }
     });
@@ -352,5 +356,21 @@ function updateBlend(data){
     $('#pkgs').val(data.pkgs);
     $('#nw').val(data.nw);
 
+}
+function loadComposition(blendno){
+    $.ajax({
+        type: "POST",
+        data: {
+            action: "composition",
+            blendno:blendno
+
+        },
+        cache: true,
+        url: "blend_action.php",
+        success: function (data) {
+            $("#composition").html(data);
+
+        }
+    });
 }
 

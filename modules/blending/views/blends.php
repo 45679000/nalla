@@ -14,6 +14,12 @@
 
 		    <div class="card">
                 <div class="card-header">
+                   <i id="helpBlend" style="float:left; font-size:large" class="fa fa-question-circle">help</i>
+                    <div id="help" style="display:none; margin-left:30px; text-align:center">
+                    <span class="label label-info">Click Create Blend Button to add new blend,  
+                        <i class="fa fa-plus btn-success"></i>  to add lots to blend <i class="fa fa-pencil btn-success"></i> 
+                         to edit a blend and <i class="fa fa-trash btn-danger"></i>  to delete a blend</span>
+                    </div>
                     <div class="card-options">
                     <button type="button" class="btn btn-success m-1 float-left toolbar-button" data-toggle="modal" data-target="#addModal">
                     <i class="fa fa-plus"></i> Create Blend</button>
@@ -320,7 +326,7 @@
                     $("#standardUpdate").val(data[0].std_name);
                     $("#blendid").val(data[0].blendid);
                     $("#contractno").val(data[0].contractno);
-                    $("#clientwithcodeUpdate").val(data[0].client_name);
+                    $("#clientwithcodeUpdate").val(data[0].client_id);
                     $("#updateGrade").val(data[0].Grade);
                     $("#pkgs").val(data[0].Pkgs);
                     $("#nw").val(data[0].nw);
@@ -352,14 +358,12 @@
 
     });
  
-    // $('#lotEdit').click(function(e){
-    // e.preventDefault();
-    // alert('clicked');
-    // var clientid = localStorage.getItem("clientId");
-    // showClientAllocation(clientid);
-    // });
     function loadAllocationSummaryForBlends(){
         loadUnallocated();
     }
     
+    $('#helpBlend').click(function(e){
+        $("#help").toggle();
+    })
 </script>
+

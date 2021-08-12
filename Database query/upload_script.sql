@@ -100,3 +100,18 @@ INSERT INTO `closing_stock_temp`
 SELECT * FROM closing_stock
 WHERE sale_no>'2021-27' AND lot NOT IN(SELECT lot FROM closing_stock INNER JOIN stock_allocation ON stock_allocation.stock_id = closing_stock.stock_id AND sale_no>'2021-27')
 GROUP BY sale_no, lot;
+
+UPDATE `closing_stock` SET allocation = NULL
+WHERE allocation REGEXP '^[0-9]{4}$';
+
+UPDATE `closing_stock` SET standard = NULL
+WHERE standard  ! REGEXP '^[0-9]{4}$';
+
+SELECT DISTINCT standard FROM `closing_stock` 
+WHERE standard REGEXP '^[0-9]{4}$' = 0 AND ((standard NOT LIKE '%8146%') OR (standard NOT LIKE '%8117%') OR (standard NOT LIKE '%8226%')
+OR (standard NOT LIKE '%2016%') OR (standard NOT LIKE '%8193%')
+); 
+
+UPDATE closing_stock SET standard = NULL WHERE standard IN(SELECT DISTINCT standard FROM `closing_stock` 
+WHERE standard REGEXP '^[0-9]{4}$' = 0 AND ((standard NOT LIKE '%8146%') AND (standard NOT LIKE '%8117%') AND (standard NOT LIKE '%8226%')
+AND (standard NOT LIKE '%2016%') AND (standard NOT LIKE '%8193%')));

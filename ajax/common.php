@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include '../database/connection.php';
 include '../models/Model.php';
-include '../modules/cataloguing/Catalogue.php';
+include '../controllers/CatalogController.php';
 include '../controllers/ShippingController.php';
 include '../controllers/WarehouseController.php';
 include '../modules/grading/grading.php';
@@ -75,6 +75,22 @@ if (isset($_POST['action']) && $_POST['action'] == "standard-list") {
     if (sizeOf($standard) > 0) {
          foreach($standard as $standard){
             $output .= '<option value="'.$standard['standard'].'">'.$standard['standard'].'</option>';
+
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
+if (isset($_POST['action']) && $_POST['action'] == "codes") {
+    $output = "";
+
+    $codes= $catalogue->PrintGradingCodes();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($codes) > 0) {
+         foreach($codes as $code){
+            $output .= '<option value="'.$code['id'].'">'.$code['code'].'</option>';
 
          }
           echo $output;	

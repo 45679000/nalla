@@ -394,6 +394,14 @@
                 var_dump($ex);
             }
         }
+        public function PrintGradingCodes(){
+            try {
+                $this->query = "SELECT * FROM `grading_comments` WHERE deleted = 0";
+                return $this->executeQuery();
+            } catch (EXCEPTION $ex) {
+                var_dump($ex);
+            }
+        }
         public function PrintLots($id){
             if($id>0){
                 try {

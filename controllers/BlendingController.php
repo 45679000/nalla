@@ -103,11 +103,11 @@ Class BlendingController extends Model{
         if($blendno !=''){
             $this->query = "SELECT `id`,`contractno`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, 
             `std_name`, `Grade`, `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, 
-            `si_no`, `closed`, `blendid`, blend_remnant,  `sweeping`, `cyclone`, `dust`, `fiber`,  `gain_loss`, 
+            `si_no`, `closed`, `blendid`, blend_remnant,  `sweeping`, `cyclone`, `dust`, `fiber`,  `gain_loss`,  client_id, 
             `shipping_instructions`.`destination_total_place_of_delivery` AS destination 
             
             FROM `blend_master`
-            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name 
+            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_id 
             LEFT JOIN shipping_instructions ON shipping_instructions.contract_no = blend_master.contractno            
             WHERE id = '$blendno'";
             return $this->executeQuery();
@@ -116,7 +116,7 @@ Class BlendingController extends Model{
             `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, `si_no`, `closed`, `blendid`,  `sweeping`, `cyclone`, 
             `dust`, `fiber`,  `gain_loss`
             FROM `blend_master`
-            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_name";
+            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_id";
             return $this->executeQuery(); 
         }
  
@@ -132,7 +132,7 @@ Class BlendingController extends Model{
         $results = $this->executeQuery();
         if(count($results)==0){
             $response = array();
-            $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_name`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`, `contractno`, `sale_no`)
+            $this->query = "INSERT INTO `blend_master`(`blend_no`,  `client_id`, `std_name`, `Grade`, `Pkgs`, `nw`, `blendid`, `contractno`, `sale_no`)
             VALUES ('$blendno', '$clientid', '$stdname', '$grade', '$pkgs', '$nw','$blendid', '$contractno', '$sale_no')";
             $this->executeQuery();
             $this->query = "SELECT blend_no FROM blend_master WHERE blend_no = '$blendno'";
@@ -253,7 +253,7 @@ Class BlendingController extends Model{
         return $totalKgs[0]['blended'];
 
     }
-    public function updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw, $saleno){
+    public function updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw, $saleno, $clientid){
         $this->query = "UPDATE blend_master SET  std_name = '$standard', 
         blendid = '$blendid',
         contractno = '$contractno',
@@ -261,7 +261,8 @@ Class BlendingController extends Model{
         pkgs = '$pkgs',
         nw = '$nw',
         sale_no = '$saleno',
-        blend_no = CONCAT('STD ',$standard,'/',$blendid)
+        blend_no = CONCAT('STD ',$standard,'/',$blendid),
+        client_id = '$clientid'
 
         WHERE id = $id
         ";

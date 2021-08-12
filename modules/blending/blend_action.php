@@ -177,8 +177,10 @@ if (isset($_POST['action']) && $_POST['action'] == "update") {
     $nw = $_POST['nw'];
     $id = $_POST['edit-form-id'];
     $saleno = $_POST['sale_no'];
+    $clientid = $_POST['clientid'];
 
-		$blendingCtrl->updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw, $saleno);
+
+		$blendingCtrl->updateBlendMaster($id, $standard,  $blendid, $contractno, $grade, $pkgs, $nw, $saleno, $clientid);
 }
 
     	// Delete Record	

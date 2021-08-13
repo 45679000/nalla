@@ -57,7 +57,7 @@
         </div>
     </div>
 </div>
-<!-- Edit Record  Modal -->
+<!-- split Record  Modal -->
 <div class="modal" id="splitModal">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -241,6 +241,8 @@ function splitLot(element){
         $('#invoice').val(lots.invoice);
         $('#newnet').val(lots.net);
         $('#stock_id').val(lots.stock_id);
+        $('#newpkgs').val(0);
+        $('#newkgs').val(0);
 
 
         

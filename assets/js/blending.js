@@ -101,68 +101,35 @@ function allocationSummary(clientId) {
         },
     });
 }
-function addLotToBlend(allocationid, action,  blendno, allocatedpackages, method, allocatedKgs, split){
+function addLotToBlend(stockid, action,  blendno){
     $.ajax({
         type: "POST",
         data: {
             action: action,
-            allocationid: allocationid,
-            blendno:blendno,
-            allocatedpackages:allocatedpackages,
-            allocatedKgs:allocatedKgs,
-            split:split
-
+            stockid: stockid,
+            blendno:blendno
         },
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            showBlend(blendno);
-            if(method=="allocate"){
-                $('#'+allocationid).removeClass('allocate');
-                $('#'+allocationid).addClass('deallocate');
-                $('#'+allocationid).html('<i class="fa fa-minus"></i>');
-                $('#'+allocationid+'allocation').text($('#'+blendno+'blend').text());
-                
-            }else{
-                $('#'+allocationid).removeClass('deallocate');
-                $('#'+allocationid).addClass('allocate');
-                $('#'+allocationid).html('<i class="fa fa-plus"></i>');
-
-
-
-            }
+            currentAllocation(blendno);
         }
     });
 }
-function removeLotFromBlend(allocationid, action,  blendno, allocatedpackages, method){
+function removeLotFromBlend(id, blendno, action){
     $.ajax({
         type: "POST",
         data: {
             action: action,
-            allocationid: allocationid,
-            blendno:blendno,
-            allocatedpackages:allocatedpackages
+            id: id,
+            blendno:blendno
 
         },
         cache: true,
         url: "blend_action.php",
         success: function (data) {
             showBlend(blendno);
-            if(method=="allocate"){
-                $('#'+allocationid).removeClass('allocate');
-                $('#'+allocationid).addClass('deallocate');
-                $('#'+allocationid).html('<i class="fa fa-minus"></i>');
-
-            }else{
-                $('#'+allocationid).removeClass('deallocate');
-                $('#'+allocationid).addClass('allocate');
-                $('#'+allocationid).html('<i class="fa fa-plus"></i>');
-                $('#'+allocationid+'allocation').text("");
-
-
-
-
-            }
+            loadUnallocated("", "", "", "");
         }
     });
 }

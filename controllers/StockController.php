@@ -51,13 +51,13 @@
                     CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
                  ELSE 
                     allocation
-                 END) AS allocation, kgs,  net
+                 END) AS allocation, kgs,  net, allocation AS allocated_contract
                  FROM closing_stock 
                  LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no 
                  LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark 
                  LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id  
                 ".$condition
-                ." GROUP BY stock_id LIMIT 25";
+                ." GROUP BY stock_id ORDER BY sale_no, lot  ASC";
                 $this->debugSql = false;
                 return $this->executeQuery();
                 
@@ -177,13 +177,13 @@
             return $this->executeQuery();
         }
         public function insertSplit($stockId, $Pkgs, $Kgs, $NewKgs, $NewPkgs){
-            $this->debugSql = false;
-            $this->query = "UPDATE closing_stock SET pkgs = $Pkgs, kgs = $Kgs WHERE stock_id = $stockId";
-            $this->executeQuery();
+        
             $this->debugSql = false;
             $this->query = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`,  `is_blend_balance`, `allocated_whse`, `paid`) 
             SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, $NewPkgs, `type`, `net`, `gross`, $NewKgs, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`,  `is_blend_balance`, `allocated_whse`, `paid`
             FROM closing_stock WHERE stock_id = $stockId";
+            $result = $this->executeQuery();
+            $this->query = "UPDATE closing_stock SET pkgs = $Pkgs, kgs = $Kgs WHERE stock_id = $stockId";
             $this->executeQuery();
         }
         public function contractWiseAllocation(){

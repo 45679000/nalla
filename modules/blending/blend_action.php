@@ -105,10 +105,9 @@
                             <th>Expected Kgs</th>
                             <th>Input Kgs</th>
                             <th>Status</th>
-                            <th>View Added Teas</th>
-                            <th>Add Teas</th>
+                            <th>Edit</th>
                             <th>Blend Sheet</th>
-                            <th>Confirm Blendsheet</th>
+                            <th>Confirm</th>
                           </tr>
                         </thead>
                         <tbody>";
@@ -129,28 +128,34 @@
                             <td>".$totalKgs."</td>
                             <td>".$status."</td>
                             <td>
-                            <a onclick=editBlend(this)  style='color:red' class='confirm' id='".$blend['id']."'>
-                            <i class='fa fa-pencil' ></i>
-                          </a>
-                          Edit Blend</a>
-                            </td>
-                            <td>
-                              <a onclick='viewAllocations(this)'  style='color:green' 
-                                class='view' id='".$blend['id']."'><i class='fa fa-eye'></i>
-                              View Teas</a>
-                            </td>
-                            <td>
-                              <a onclick='viewBlendSheet(this)' style='color:green' data-toggle='modal' 
-                              class='editBtn' id='".$blend['id']."'><i class='fa fa-file'></i>
+                              <a style='color:red' class='editWindow' id='".$blend['id']."'>
+                                <i class='fa fa-pencil' ></i>
+                                Edit Blend
                               </a>
-                            Blend Sheet</a>
                             </td>
                             <td>
-                                <a onclick='approveBlend(this)' style='color:red' class='confirm' id='".$blend['id']."'>
-                                <i class='fa fa-check' ></i>
+                              <a style='color:green' data-toggle='modal' 
+                                class='blendSheet' id='".$blend['id']."'><i class='fa fa-file'></i>
+                                Blend Sheet
                               </a>
-                              Confirm Blend</a>
                             </td>
+                            <td>";
+                            if($blend['approved']==0){
+                              $output .= "
+                              <a onclick='approveBlend(this)' style='color:red' class='confirm' id='".$blend['id']."'>
+                                  <i class='fa fa-check' ></i>
+                                  Confirm Blend
+                                </a>
+                              ";
+                            }else{
+                              $output .= "
+                              <a  style='color:green'><i class='fa fa-check' ></i>
+                                  Confirmed
+                                </a>
+                              ";
+                            }
+                                
+                            $output.="</td>
                                   
                         </tr>";
                     }
@@ -193,20 +198,15 @@ if (isset($_POST['deleteId'])) {
 }
 //add teas to a blend
 if(isset($_POST['action']) && $_POST['action'] == "add-blend-teas"){
-  $allocationId = $_POST['allocationid'];
+  $stock_id = $_POST['stockid'];
   $blendNo = $_POST['blendno'];
-  $allocatedPackages = $_POST['allocatedpackages'];
-  $allocatedKgs = $_POST['allocatedKgs'];
-  $split = $_POST['split'];
-
-  $blendingCtrl->addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs, $split);
+  $blendingCtrl->addLotAllocationToBlend($stock_id, $blendNo);
 }
 if(isset($_POST['action']) && $_POST['action'] == "remove-blend-teas"){
-  $allocationId = $_POST['allocationid'];
-  echo $blendingCtrl->removeLotAllocationFromBlend($allocationId);
+  $id = $_POST['id'];
+  $blendno = $_POST['blendno'];
+  echo $blendingCtrl->removeLotAllocationFromBlend($id, $blendno);
 }
-
-
 if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
   $type = isset($_POST['type']) ? $_POST['type'] : '';
   $mark = isset($_POST['mark']) ? $_POST['mark'] : '';
@@ -237,7 +237,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
       <table id="direct_lot" class="table table-striped table-bordered">
       <thead>
           <tr>
-              <th class="wd-15p">Sale No</th>
+              <th class="col-sm-2">Sale No</th>
               <th class="wd-15p">Lot</th>
               <th class="wd-15p">Mark</th>
               <th class="wd-10p">Grade</th>
@@ -262,12 +262,17 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
               $output.='<td>'.$stock["pkgs"].'</td>';
               $output.='<td>'.$stock["net"].'</td>';
               $output.='<td>'.$stock["kgs"].'</td>';
-              $output.='<td>
-						        <a style="color:green" data-toggle="tooltip" data-placement="bottom" title="Use Tea" >
-			              <i class="fa fa-arrow-right" ></i></a>&nbsp&nbsp&nbsp;
-                    <a style="color:red" data-toggle="tooltip" data-placement="bottom" title="Split Lot">
-			              <i class="fa fa-scissors"></i></a>&nbsp&nbsp&nbsp;
-			            </td>';          
+              if($stock["allocated_contract"] != null){
+                $output.='<td><a style="font-size:8px;">'.$stock["allocated_contract"].'<a/></td>';
+              }else{
+                $output.='<td>
+                <a class="addTea" id="'.$stock["stock_id"].'" style="color:green" data-toggle="tooltip" data-placement="bottom" title="Use Tea" >
+                <i class="fa fa-arrow-right" ></i></a>&nbsp&nbsp&nbsp;
+                <a class="splitLot" id="'.$stock["stock_id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Split Lot">
+                <i class="fa fa-scissors"></i></a>&nbsp&nbsp&nbsp;
+              </td>'; 
+              }
+                       
           $output.='</tr>';
               
       }
@@ -348,11 +353,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'current-allocation'){
     <thead>
         <tr>
             <th class="wd-15p">Lot</th>
+            <th class="wd-15p">Mark</th>
             <th class="wd-25p">Net</th>
             <th class="wd-25p">Pkgs</th>
             <th class="wd-25p">Kgs</th>
-            <th class="wd-25p">Allocation</th>
-            <th class="wd-25p">Actions</th>
+            <th class="wd-25p">Alloc</th>
+            <th class="wd-25p"></th>
 
         </tr>
     </thead>
@@ -361,11 +367,23 @@ if(isset($_POST['action']) && $_POST['action'] == 'current-allocation'){
         $output.='<tr>';
          
             $output.='<td>'.$stock["lot"].'</td>';
+            $output.='<td>'.$stock["mark"].'</td>';
             $output.='<td>'.$stock["net"].'</td>';
             $output.='<td>'.$stock["pkgs"].'</td>';
             $output.='<td>'.$stock["kgs"].'</td>';
-            $output.='<td>'.$stock["allocation"].'</td>';  
-            $output.='<td></td>';               
+            $output.='<td>'.$stock["allocation"].'</td>'; 
+            if($stock["confirmed"]==0){
+              $output.='<td> 
+              <a class="removeAlloc" id="'.$stock["id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" 
+              title="Remove" >
+              <i class="fa fa-close" ></i></a>
+              </td>'; 
+            }else{
+              $output.='<td> 
+              <a style="color:green">Confirmed</a>
+              </td>'; 
+            } 
+                       
              
         $output.='</tr>';
             }

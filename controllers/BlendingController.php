@@ -26,10 +26,22 @@ Class BlendingController extends Model{
         return $this->executeQuery();
     }
 
-    public function addLotAllocationToBlend($allocationId, $blendNo, $allocatedPackages, $allocatedKgs, $split){
-        $this->query = "INSERT INTO blend_teas(allocation_id, blend_no, packages, blend_kgs, split) 
-        VALUES('$allocationId', '$blendNo','$allocatedPackages', '$allocatedKgs', '$split')";
-        return $this->executeQuery();
+    public function addLotAllocationToBlend($stock_id, $id){
+        $this->debugSql = true;
+
+        $this->query = "UPDATE closing_stock SET allocation = 
+        (
+            SELECT contractno FROM blend_master WHERE id = $id
+        )
+        WHERE stock_id = $stock_id ";
+        $this->executeQuery();
+
+        $this->query = "INSERT INTO blend_teas(stock_id, blend_no, packages, blend_kgs) 
+        SELECT stock_id, '$id', pkgs, kgs
+        FROM closing_stock
+        WHERE stock_id = $stock_id ";
+        $this->executeQuery();
+        
     }
     public function shipmentSummaryBlend($blendno){
    
@@ -121,10 +133,16 @@ Class BlendingController extends Model{
         }
  
     }
-    public function removeLotAllocationFromBlend($allocationId){
-        $this->query = "DELETE FROM blend_teas WHERE allocation_id = ".$allocationId; 
+    public function removeLotAllocationFromBlend($id, $blendno){
+        $this->query = "UPDATE closing_stock 
+        INNER JOIN blend_teas ON blend_teas.stock_id = closing_stock.stock_id
+        SET allocation = NULL
+        WHERE blend_teas.id = ".$id. " AND blend_teas.confirmed = 0"; 
         $this->executeQuery();
-        return $this->query;
+
+        $this->debugSql = true;
+        $this->query = "DELETE FROM blend_teas WHERE id = ".$id. " AND confirmed = 0"; 
+        $this->executeQuery();  
     }
     public function saveBlend($blendno, $clientid, $stdname,$grade, $pkgs,$nw, $blendid,$contractno, $sale_no){
         $this->debugSql = false;
@@ -191,12 +209,19 @@ Class BlendingController extends Model{
 
     }
     public function approveBlend($blendno){
+        $this->debugSql = true;
         $this->query = "UPDATE blend_master SET approved =1 WHERE id = ".$blendno;
         $this->executeQuery();
+        $this->debugSql = true;
 
-        $this->query = "INSERT INTO `shippments`(`allocation_id`, `si_no`, `pkgs_shipped`, `siType`, `blend_no`) 
-        SELECT allocation_id, blend_no, packages, 'blend', blend_no
+        $this->query = "UPDATE blend_teas SET confirmed =1 WHERE blend_no = ".$blendno;
+        $this->executeQuery();
+        $this->debugSql = true;
+
+        $this->query = "INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `blend_no`, stock_id) 
+        SELECT  allocation, packages, kgs, 'blend', blend_no, blend_teas.stock_id
         FROM blend_teas
+        INNER JOIN closing_stock ON blend_teas.stock_id = closing_stock.stock_id
         WHERE blend_no = '$blendno'";
         $this->executeQuery();
     }
@@ -208,28 +233,17 @@ Class BlendingController extends Model{
         $this->executeQuery();
     }
     public function showCurrentBlendAllocation($blendno){
-        $this->query = "SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`, 
-        `comment`, `ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`, 
-        (CASE WHEN stock_allocation.allocated_pkgs IS NULL THEN stock_allocation.allocated_pkgs ELSE closing_stock.pkgs END) AS pkgs, closing_stock.allocated_whse AS warehouse,
-        `type`, `net`,   blend_teas.`blend_kgs` AS kgs,  `sale_price`, stock_allocation.`standard`, 
-        DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `imported`,  `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`,
-          stock_allocation.si_id, stock_allocation.shipped,
-        stock_allocation.approval_id, 0_debtors_master.debtor_ref, blend_teas.id AS selected_for_shipment, 
-        blend_teas.packages AS blended_packages,  
-        mark_country.country, blend_teas.packages AS blended_packages,
-        (CASE WHEN blend_teas.id IS NULL THEN
-            ''
-            ELSE 
-                CONCAT(COALESCE(blend_master.contractno, ''),  '- STD', COALESCE(blend_master.std_name, ''),'/',blend_master.blendid)
-            END) AS allocation
-        FROM `blend_teas`
-        LEFT JOIN stock_allocation ON blend_teas.allocation_id = stock_allocation.allocation_id  
-        LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
-        LEFT JOIN 0_debtors_master ON stock_allocation.client_id = 0_debtors_master.debtor_no
-        LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no 
-        LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
-        WHERE blend_teas.blend_no = $blendno
-        GROUP BY stock_id";
+        $this->debugSql=false;
+        $this->query = "SELECT blend_teas.`id` , closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`, `comment`,
+        `ware_hse`, `value`, `lot`, mark_country.`mark`, closing_stock.`grade`, `invoice`, `allocated_whse` AS warehouse,
+        `net`, blend_teas.`blend_kgs` AS kgs, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date,
+        `imported`, `allocated`, `selected_for_shipment`, `current_allocation`, `is_blend_balance`, 0_debtors_master.debtor_ref,
+         blend_teas.packages AS pkgs, COALESCE(blend_master.contractno, '') AS allocation, blend_teas.confirmed FROM `blend_teas` 
+         LEFT JOIN closing_stock ON closing_stock.stock_id = blend_teas.stock_id 
+         LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no 
+         LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no 
+         LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark 
+         WHERE blend_teas.blend_no = $blendno GROUP BY stock_id";
         return $this->executeQuery();
     }
     public function totalBlendedTeas($status){

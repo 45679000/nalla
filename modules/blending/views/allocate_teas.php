@@ -39,6 +39,15 @@
     display: block;
     }
 
+    .horizontal-scrollable > .row {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+          
+    .horizontal-scrollable > .row > .col-xs-4 {
+        display: inline-block;
+        float: none;
+    }
     @media screen and (max-width:450) {
         .counter {
             margin-bottom: 10px;
@@ -59,8 +68,8 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-7">
+        <div id="blendEditForm" class="row">
+            <div class="col-md-8">
                 <div class="card">
                     <div style="width:100% !important;">
                         <div style="width:100% !important;" class="card-header">
@@ -89,8 +98,8 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <div class="card">
+            <div class="col-md-4">
+                <div class="card  horizontal-scrollable" >
                     <div style="width:100% !important; height:200px;" class="card-header">
                         <div class="row">
                             <div style="width:60vH; height:150px !important;" id="composition" class="col-md-12">
@@ -101,6 +110,110 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                         <div id="selected"></div>
                         </div>
                     </div>
+            </div>
+        </div>
+        <div id="blendSheetWrapper">
+
+        </div>
+    </div>
+  
+</div>
+<!-- split Record  Modal -->
+<div class="modal" id="splitModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Split Lot</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="splitLot">
+                            <div class="row">
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Lot</label>
+                                        <input disabled id="elot"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Mark</label>
+                                        <input disabled id="emark"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Invoice</label>
+                                        <input disabled id="invoice"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Current Allocation==></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Pkgs</label>
+                                        <input id="pkgs"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Net</label>
+                                        <input id="net" disabled></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Kgs</label>
+                                        <input id="kgs" ></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Enter Packages to split==></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Pkgs</label>
+                                        <input id="newpkgs"></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Net</label>
+                                        <input id="newnet" disabled></input>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 well">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Kgs</label>
+                                        <input id="newkgs" ></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group float-right">
+                            <button type="submit" class="btn btn-success btn-sm" id="saveSplit">Save</button>
+                        </div>
+                        <div class="col-md-3 form-group float-right">
+                             <button type="button" class="btn btn-danger btn-sm" id="closeModal">Close</button>
+                        </div>
+                        <input hidden id="stock_id"></input>
+
+                    </div>
+                </form>
+            </div>
+
             </div>
         </div>
     </div>
@@ -159,79 +272,91 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
             var saleno = $('#saleno').val();
             loadUnallocated(mark, lot, grade, saleno);
         });
+        $('#closeModal').click(function(e){
+        $('#splitModal').hide();
+        });
+        $('#newpkgs').change(function(e){
+            var newPkgs = $('#newpkgs').val();
+            var previousPkgs = $('#pkgs').val();
+            var previousKgs = $('#kgs').val();
+            var net = $('#net').val();
+            $('#pkgs').val(previousPkgs-newPkgs);
+            $('#kgs').val((previousPkgs-newPkgs) * net);
+            $('#newkgs').val(previousKgs-((previousPkgs-newPkgs) * net));  
+        })
+        $('#saveSplit').click(function(e){
+            e.preventDefault();
+            var stockId = $('#stock_id').val();
+            var Pkgs = $('#pkgs').val();
+            var Kgs = $('#kgs').val();
+            var NewKgs = $('#newkgs').val();
+            var NewPkgs = $('#newpkgs').val();
+            if((stockId !=null) && (Pkgs !=null) && (Kgs !=null) && (NewKgs !=null) && (NewPkgs !=null)){
+                insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs);
+            }else{
+                alert("You Must Enter packages to split");
+            }
+        });
         loadUnallocated("", "", "", "");
         viewAllocations();
         loadComposition(blendno)
         showBlend(blendno);
         BlendAllocationSummary(blendno);
 
+
     });
+    $("body").on("click", ".splitLot", function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            splitLot(id);
+    });
+    $("body").on("click", ".addTea", function(e) {
+            e.preventDefault();
+            var blendno = '<?php echo $blendno ?>'
+
+            var id = $(this).attr('id');
+            addLotToBlend(id, "add-blend-teas", blendno);
+            BlendAllocationSummary(blendno);
+            viewAllocations();
+            loadUnallocated("", "", "", "");
+            loadComposition(blendno)
+    });
+    $("body").on("click", ".removeAlloc", function(e) {
+            e.preventDefault();
+            var blendno = '<?php echo $blendno ?>'
+
+            var id = $(this).attr('id');
+            removeLotFromBlend(id, blendno, "remove-blend-teas");
+            BlendAllocationSummary(blendno);
+            viewAllocations();
+            loadUnallocated("", "", "", "");
+            loadComposition(blendno)
 
 
-
-    function callAction(element) {
-        var blendno = '<?php echo $blendno ?>'
-        var allocationid = $(element).attr("id");
-        var allocatedpackages = $('#' + allocationid + 'allocatedpkgs').text();
-        var availablepackages = $('#' + allocationid + 'availablepkgs').text();
-        var allocatedKgs = $('#' + allocationid + 'allocatedkgs').text();
-        var allocatednet = $('#' + allocationid + 'net').text();
-
-        var kgsToAllocate = allocatedpackages * allocatednet;
-        $('#' + allocationid + 'allocatedkgs').text(kgsToAllocate);
-
-        // alert(allocatedKgs);
-        showBlend(blendno);
-
-        method = $(element).attr("class");
-        if (allocatedpackages > availablepackages) {
-            alert("You cannot allocate more Packages than what is in stock" + allocatedpackages + " " + availablepackages, method, allocatedKgs);
-        } else {
-            if (method == "allocate") {
-                if (allocatedpackages != availablepackages) {
-                    var split = 1;
-                    addLotToBlend(allocationid, "add-blend-teas", blendno, allocatedpackages, method, allocatedKgs, split);
-                    BlendAllocationSummary(blendno)
-                } else {
-                    var split = 0;
-
-                    addLotToBlend(allocationid, "add-blend-teas", blendno, allocatedpackages, method, allocatedKgs, split);
-                    BlendAllocationSummary(blendno)
-                }
-
-            } else if (method == "deallocate") {
-                removeLotFromBlend(allocationid, "remove-blend-teas", blendno);
-                BlendAllocationSummary(blendno);
-
-            } else if (method == "allocateremaining") {
-                $('#' + allocationid + 'allocation').text("");
-                $('#' + allocationid + 'availablepkgs').text(availablepackages - allocatedpackages);
-                $('#' + allocationid).removeClass('deallocate');
-                $('#' + allocationid).addClass('allocate');
-                $('#' + allocationid).html('<i class="fa fa-plus"></i>');
-                $('#' + allocationid + 'allocation').text("");
-            }
-        }
-    }
-
-    $('#lotEdit').click(function(e) {
+    });
+    $("body").on("click", ".editWindow", function(e) {
         e.preventDefault();
-        var clientid = localStorage.getItem("clientId");
-        showClientAllocation(clientid);
+        $('#blendEditForm').show();
+        $('#blendSheetWrapper').hide();
+    });
+    $("body").on("click", ".blendSheet", function(e) {
+        e.preventDefault();
+        var blendno = '<?php echo $blendno ?>'
+        $('#blendEditForm').hide();
+        $('#blendSheetWrapper').show();
+        $('#blendSheetWrapper').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno=' + blendno + '" width="100%" height="800px"></iframe>');
 
     });
+    $("body").on("click", ".confirm", function(e) {
+        e.preventDefault();
+        approveBlend();
+    });
 
+    
     function viewAllocations() {
         var blendno = '<?php echo $blendno ?>'
         currentAllocation(blendno);
     }
-
-    function viewBlendSheet() {
-        var blendno = '<?php echo $blendno ?>'
-
-        $('#blendTable').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno=' + blendno + '" width="100%" height="800px"></iframe>');
-    }
-
     function approveBlend() {
         var blendno = '<?php echo $blendno ?>'
         $.ajax({
@@ -244,6 +369,7 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
             },
             success: function(response) {
                 showBlend(blendno);
+                viewAllocations();
                 Swal.fire({
                     icon: 'success',
                     title: 'Blend Confirmed Successfully',
@@ -272,4 +398,59 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
         });
 
     }
+    function splitLot(id){
+        $('#splitModal').show(); 
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "../stock/stock-action.php",
+            data: {
+                action:"getlot",
+                id:id
+            },
+        success: function (data) {
+            var lots = data[0]; 
+            $('#pkgs').val(lots.pkgs);
+            $('#kgs').val(lots.kgs);
+            $('#elot').val(lots.lot);
+            $('#net').val(lots.net);
+            $('#emark').val(lots.mark);
+            $('#invoice').val(lots.invoice);
+            $('#newnet').val(lots.net);
+            $('#stock_id').val(lots.stock_id);
+
+
+            
+        },
+        error: function (data) {
+            console.log('An error occurred.');
+            console.log(data);
+        },
+        });
+    }
+    function insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs){
+        $.ajax({  
+                type: "POST",
+                dataType: "html",
+                url: '../stock/stock-action.php',
+                data: {
+                    action:'split',
+                    stockId:stockId,
+                    Pkgs:Pkgs,
+                    Kgs:Kgs,
+                    NewKgs:NewKgs,
+                    NewPkgs:NewPkgs
+                },
+            success: function (data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Lot Splitted Successfully',
+                });
+                $("#splitModal").hide();
+                loadUnallocated("", "", "", "");
+
+            }
+        });
+}
 </script>

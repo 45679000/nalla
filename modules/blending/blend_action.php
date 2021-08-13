@@ -399,41 +399,41 @@ if(isset($_POST['action']) && $_POST['action'] == 'composition'){
   $current = $blendingCtrl->currentComposition($blendno);
 
     $output .='
-    <table style="height:200px;" id="compositionTable" class="table table-striped table-sm table-condensed table-bordered">
-    <tbody style="height:20vH";>';
+    <table style="table-layout:fixed; width:100%;" id="compositionTable" class="table table-striped table-sm table-condensed table-bordered">
+    <tbody>';
     if (sizeOf($expected)> 0) {
       $output.='
-        <tr style="padding:0px !important">
-            <td style="padding:0px !important">Code</td>
+        <tr style="padding:2px !important">
+            <td style="padding:2px !important; color:red;">Expected Composition</td>
             ';
             foreach ($expected as $code) {
-              $output.='<td style="padding:0px !important">'.$code['name'].'</td>';
+              $output.='<td style="padding:2px !important; color:red;">'.$code['name'].'</td>';
             }
         '</tr>';
         $output.='
-        <tr style="width:1%">
-            <td>Percentage</td>
+        <tr>
+            <td></td>
             ';
             foreach ($expected as $code) {
-              $output.='<td>'.$code['percentage'].'%</td>';
+              $output.='<td style="padding:2px !important; color:red;">'.$code['percentage'].'%</td>';
             }
         '</tr>';
     }
     if (sizeOf($current)> 0) {
       $output.='
-        <tr style="width:1%">
-            <td>Current</td>
+        <tr>
+            <td style="padding:2px !important; color:green;">This Composition</td>
             ';
             foreach ($current as $code) {
-              $output.='<td>'.$code['grade'].'</td>';
+              $output.='<td style="padding:2px !important; color:green;">'.$code['grade'].'</td>';
             }
         '</tr>';
         $output.='
-        <tr style="width:1%">
-            <td>Expected</td>
+        <tr>
+            <td style="padding:2px !important; color:green;"></td>
             ';
             foreach ($current as $code) {
-              $output.='<td>'.$code['percentage'].'%</td>';
+              $output.='<td style="padding:2px !important; color:green;>'.$code['percentage'].'%</td>';
             }
         '</tr>';
     }

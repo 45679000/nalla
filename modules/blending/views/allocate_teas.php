@@ -7,7 +7,9 @@
     overflow-x: auto;
     white-space: nowrap;
     background-color: white !important;
+    
     }   
+   
     #compositionTable tbody tr td{
         padding-bottom: 0px !important;
     }
@@ -32,7 +34,7 @@
     }
     .my-custom-scrollbar {
     position: relative;
-    height: 600px;
+    height: 60vH;
     overflow: auto;
     }
     .table-wrapper-scroll-y {
@@ -58,18 +60,18 @@
 $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
 
 ?>
-<div class="col-md-8 col-lg-10">
+<div class="col-md-12 col-lg-12">
     <div id="contentwrapper">
         <div class="card ">
             <div class="card-body p-2">
-                <div class="col-md-12" >
-                    <div class="row" id="tableData" style="max-height:20%;">
+                <div class="col-md-12 ">
+                    <div class="row mx-auto bg-warning" id="tableData" style="max-height:20%;">
                     </div>
                 </div>
             </div>
         </div>
         <div id="blendEditForm" class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="card">
                     <div style="width:100% !important;">
                         <div style="width:100% !important;" class="card-header">
@@ -93,16 +95,19 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                             </div>
                         </div>
                         <div class="card-body table-wrapper-scroll-y my-custom-scrollbar">
-                            <div style="width:100%" id="blendTable"></div>
+                            <div style="width:100%; height:30vH" id="blendTable"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="card  horizontal-scrollable" >
-                    <div style="width:100% !important; height:200px;" class="card-header">
-                        <div class="row">
-                            <div style="width:50vH; height:150px !important;" id="composition" class="col-md-12">
+                    <div style="width:100% !important; height:150px;padding-bottom:0px;margin-bottom:0px;" class="card-header">
+                        <div class="row" style="padding-top:30px;">
+                            <div>
+                                <label>Grade code composition</label>
+                            </div>
+                            <div style="width:75vH; height:150px !important;padding-bottom:0px;" id="composition" class="col-md-12">
                             </div>
                         </div>
                     </div>
@@ -351,7 +356,7 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
         e.preventDefault();
         approveBlend();
     });
-
+    $("#issueTeaMenu").hide();
     
     function viewAllocations() {
         var blendno = '<?php echo $blendno ?>'

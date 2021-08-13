@@ -3,7 +3,7 @@
   color: red;
 };
 </style>
-<div class="col-md-3 col-lg-2">
+<div class="col-md-2" id="issueTeaMenu">
     <div class="card">
         <div class="expanel expanel-primary">
             <div class="expanel-heading">

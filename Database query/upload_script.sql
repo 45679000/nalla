@@ -121,3 +121,8 @@ UPDATE blend_teas
 INNER JOIN stock_allocation ON stock_allocation.allocation_id = blend_teas.allocation_id
 INNER JOIN closing_stock ON stock_allocation.stock_id = closing_stock.stock_id
 SET blend_teas.stock_id = closing_stock.stock_id;
+
+
+UPDATE blend_teas
+INNER JOIN blend_master ON blend_teas.blend_no = blend_master.id
+SET blend_teas.confirmed = 1;

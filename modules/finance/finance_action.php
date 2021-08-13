@@ -26,6 +26,7 @@
 						<th class="wd-20p">Company</th>
 						<th class="wd-15p">Mark</th>
 						<th class="wd-10p">Grade</th>
+						<th class="wd-10p">Hammer.P</th>
 						<th class="wd-25p">Garden Invoice</th>
 						<th class="wd-25p">BrokerInvoice</th>
 						<th class="wd-25p">Pkgs</th>
@@ -39,6 +40,8 @@
 					foreach ($purchases as $purchase){
 						$output.='<tr>';
 							$id = $purchase["lot"];
+							$totalPkgs+=$purchase["pkgs"];
+							$totalKgs+=$purchase["net"];
 							$output.='<td>'.$purchase["sale_no"].'</td>';
 							$output.='<td>'.$purchase["broker"].'</td>';
 							$output.='<td>'.$purchase["lot"].'</td>';
@@ -46,6 +49,7 @@
 							$output.='<td>'.$purchase["company"].'</td>';
 							$output.='<td>'.$purchase["mark"].'</td>';
 							$output.='<td>'.$purchase["grade"].'</td>';
+							$output.='<td onBlur=updateHammer(this) class="'.$id.'" contentEditable = "true">'.$purchase["sale_price"].'</td>';
 							$output.='<td>'.$purchase["invoice"].'</td>';
 							$output.='<td onBlur=updateInvoice(this) class="'.$id.'" contentEditable = "true">'.$purchase["broker_invoice"].'</td>';
 							$output.='<td onBlur=updatePkgs(this) class="'.$id.'" contentEditable = "true">'.$purchase["pkgs"].'</td>';
@@ -68,10 +72,32 @@
 					}
 					
 			$output.= '
-			</tbody>
+			</tbody>';
+			$output.='<tfooter style="outline: thin solid black;">
+			<tr>
+				<td>Totals</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td id="totalPkgs">'.$totalPkgs.'</td>
+				<td></td>
+				<td id="totalKgs">'.$totalKgs.'</td>
+
+				<td></td>
+				<td></td>
+				<td></td>
+
+			</tr>
+		</tfooter>;
+
 				</table>
 				<div style="text-align:center;">
-						<button onClick="confirmPurchaseList(this)" style="" type="submit" id="confirm" name="confirm" value="1">Confirm This Changes</button>
 				</div>';
       		echo $output;	
 		}else{

@@ -122,7 +122,7 @@
 
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
-<script src="../assets/js/common.js"></script>
+<script id="url" data-name="../ajax/common.php" src="../assets/js/common.js"></script>
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>

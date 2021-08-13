@@ -87,7 +87,7 @@ include 'rep_broker.php';
             </div>
         </div>
         <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-        <script src="../assets/js/common.js"></script>
+        <script id="url" data-name="../ajax/common.php" src="../assets/js/common.js"></script>
 
         <script>
             $(document).ready(function() {

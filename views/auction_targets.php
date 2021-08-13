@@ -11,7 +11,7 @@
                                         <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">AUCTION</label>
-                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
+                                                <select id="saleno" name="saleno" class="select2 form-control" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>';
                                                         foreach(loadAuctionArray() as $auction_id){
                                                             $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
@@ -23,7 +23,7 @@
                                         <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BROKER</label>
-                                                <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
+                                                <select id="broker" name="broker" class="select2 form-control well" ><small>(required)</small>
                                                    
                                                 </select>
                                             </div>
@@ -31,7 +31,7 @@
                                         <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">CATEGORY</label>
-                                                <select id="category" name="category" class="form-control well" ><small>(required)</small>
+                                                <select id="category" name="category" class="select2 form-control well" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
                                                     <option value="Main">Main</option>
                                                     <option value="Sec">Sec</option>
@@ -140,6 +140,7 @@
 
 <script src="../assets/plugins/sweet-alert/sweetalert.min.js"></script>
 <script src="../assets/js/sweet-alert.js"></script>
+<script src="../assets/plugins/select2/select2.full.min.js"></script>
 
 
 

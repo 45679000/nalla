@@ -88,7 +88,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                     <div class="col-sm-6">
                                                             <div class="form-group label-floating">
                                                                 <label class="control-label">SALE NO</label>
-                                                                <select name="saleno" class="form-control" ><small>(required)</small>
+                                                                <select name="saleno" class="select2 form-control" ><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
                                                                     ';
                                                                         loadAuction();
@@ -98,12 +98,11 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-sm-6">
-                                                              <div class="form-group label-floating">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group label-floating">
                                                                 <label class="control-label">BROKER</label>
-                                                                <select id="broker" class="broker" name="broker" class="form-control"><small>(required)</small>
-                                                                   
-                                                              </select>
+                                                                <select id="broker" name="broker" class="select2 form-control"><small>(required)</small>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -311,6 +310,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/plugins/select2/select2.full.min.js"></script>
 
 
 <script type="text/javascript">

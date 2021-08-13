@@ -14,7 +14,7 @@
                                 <div class="col-md-3 well">
                                     <div class="form-group label-floating">
                                         <label class="control-label">AUCTION</label>
-                                        <select id="saleno" name="saleno" class="form-control"><small>(required)</small>
+                                        <select id="saleno" name="saleno" class="select2 form-control"><small>(required)</small>
                                             <option disabled="" value="..." selected="">select</option>
                                             <?php
                                             foreach (loadAuctionArray() as $auction_id) {
@@ -44,6 +44,7 @@
         </div>
 
         <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+        <script src="../assets/plugins/select2/select2.full.min.js"></script>
 
         <script>
             $(document).ready(function() {
@@ -56,6 +57,7 @@
                     $('.dimmer').hide();
 
                 });
+                $('.select2').select2();
             });
 
             $('.frame').ready(function() {

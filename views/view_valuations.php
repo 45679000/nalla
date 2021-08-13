@@ -22,7 +22,7 @@ if(isset($_POST['filter'])){
     <div class="my-3 my-md-5">
         <div class="container-fluid">
             <div class="page-header">
-                <h4 class="page-title">View Valuations</h4>
+                <h4 class="page-title">View Catalog</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">View Valuations</li>
@@ -45,7 +45,7 @@ if(isset($_POST['filter'])){
                                         <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">AUCTION</label>
-                                                <select id="saleno" name="saleno" class="form-control" ><small>(required)</small>
+                                                <select id="saleno" name="saleno" class="select2 form-control" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>';
                                                         foreach(loadAuctionArray() as $auction_id){
                                                             $html.= '<option value="'.$auction_id.'">'.$auction_id.'</option>';
@@ -57,7 +57,7 @@ if(isset($_POST['filter'])){
                                         <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BROKER</label>
-                                                <select id="broker" name="broker" class="form-control well" ><small>(required)</small>
+                                                <select id="broker" name="broker" class="select2 form-control well" ><small>(required)</small>
                                                    
                                                 </select>
                                             </div>
@@ -65,7 +65,7 @@ if(isset($_POST['filter'])){
                                         <div class="col-md-3 well">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">CATEGORY</label>
-                                                <select id="category" name="category" class="form-control well" ><small>(required)</small>
+                                                <select id="category" name="category" class="select2 form-control well" ><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
                                                     <option value="Main">Main</option>
                                                     <option value="Sec">Sec</option>
@@ -174,6 +174,8 @@ if(isset($_POST['filter'])){
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/plugins/select2/select2.full.min.js"></script>
+
 
 <!-- <script>
 $(function() {

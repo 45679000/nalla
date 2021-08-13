@@ -36,6 +36,7 @@ $(document).ready(function() {
     if(saleno !=undefined){
         saleNo(url);
     }
+    $('.select2').select2();
 
     $("#gen-broker-cat").click(function(e) {
         var form = {

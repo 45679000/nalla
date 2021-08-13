@@ -197,7 +197,7 @@ Class BlendingController extends Model{
     }
     public function currentComposition($blendno){
         $this->query = "
-        SELECT blend_teas.id, closing_stock.comment AS grade, COUNT(*)*100 / (SELECT COUNT(id) AS s FROM blend_teas) AS `percentage` 
+        SELECT blend_teas.id, closing_stock.comment AS grade, ROUND(COUNT(*)*100 / (SELECT COUNT(id) AS s FROM blend_teas), 1) AS `percentage` 
         FROM `blend_teas` 
         LEFT JOIN stock_allocation ON blend_teas.allocation_id = stock_allocation.allocation_id 
         LEFT JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id 

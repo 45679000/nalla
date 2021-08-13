@@ -115,3 +115,9 @@ OR (standard NOT LIKE '%2016%') OR (standard NOT LIKE '%8193%')
 UPDATE closing_stock SET standard = NULL WHERE standard IN(SELECT DISTINCT standard FROM `closing_stock` 
 WHERE standard REGEXP '^[0-9]{4}$' = 0 AND ((standard NOT LIKE '%8146%') AND (standard NOT LIKE '%8117%') AND (standard NOT LIKE '%8226%')
 AND (standard NOT LIKE '%2016%') AND (standard NOT LIKE '%8193%')));
+
+
+UPDATE blend_teas
+INNER JOIN stock_allocation ON stock_allocation.allocation_id = blend_teas.allocation_id
+INNER JOIN closing_stock ON stock_allocation.stock_id = closing_stock.stock_id
+SET blend_teas.stock_id = closing_stock.stock_id;

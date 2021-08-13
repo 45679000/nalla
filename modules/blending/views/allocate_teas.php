@@ -102,7 +102,7 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                 <div class="card  horizontal-scrollable" >
                     <div style="width:100% !important; height:200px;" class="card-header">
                         <div class="row">
-                            <div style="width:60vH; height:150px !important;" id="composition" class="col-md-12">
+                            <div style="width:50vH; height:150px !important;" id="composition" class="col-md-12">
                             </div>
                         </div>
                     </div>

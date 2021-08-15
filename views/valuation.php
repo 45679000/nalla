@@ -92,12 +92,11 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-sm-6">
-                                                              <div class="form-group label-floating">
-                                                                <label class="control-label">BROKER</label>
-                                                                <select id="broker" name="broker" class="select2 form-control"><small>(required)</small>
-                                                                    
-                                                              </select>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group label-floating">
+                                                            <label class="control-label">BROKER</label>
+                                                            <select id="broker" name="broker" class="select2 form-control"><small>(required)</small>
+                                                            </select>
                                                             </div>
                                                         </div>
                                                     </div>

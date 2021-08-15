@@ -8,13 +8,15 @@
 	$CatalogController = new Catalogue($conn);
 
 	if(isset($_POST['action']) && $_POST['action'] == "list-buying"){
+		$sale_no = isset($_POST['saleno']) ? $_POST['saleno'] : '';
 		$catalogs= $CatalogController->buyingSummary($sale_no);
-		$output = "";
+		$output = '';
 		if(count($catalogs)>0){
 			$output .= '
-			<table id="dashboard" class="table">
-			<thead>
+			<table id="buyingListTable" class="table table-bordered table-striped table-hover table-sm">
+			<thead class="table-primary">
 				<tr>
+					<th>Auction</th>
 					<th>Broker</th>
                     <th>Lots</th>
 					<th>Kgs</th>
@@ -24,6 +26,7 @@
 			<tbody>';
 			foreach($catalogs as $catalog){
 				$output .= '<tr>';
+					$output .= '<td>'.$catalog['sale_no'].'</td>';
 					$output .= '<td>'.$catalog['broker'].'</td>';
 					$output .= '<td>'.$catalog['totalLots'].'</td>';
 					$output .= '<td>'.$catalog['totalKgs'].'</td>';
@@ -39,5 +42,13 @@
 		echo $output;
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "get-max-saleno"){
+		$saleno= $CatalogController->getMaxSaleNo();
+		echo json_encode(array("sale_no"=>$saleno));
+
+	}
+
+
+	
 ?>
 

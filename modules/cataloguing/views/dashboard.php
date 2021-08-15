@@ -2,14 +2,6 @@
 $path_to_root = "../../";
 require_once $path_to_root . 'templates/header.php';
 ?>
-<style>
-	table, th, td {
-  		border: 1px solid black;
-	}
-	th{
-		background-color: burlywood;
-	}
-</style>
 <body class="container-fluid">
 	<div id="global-loader"></div>
 	<div class="page">
@@ -17,11 +9,28 @@ require_once $path_to_root . 'templates/header.php';
 
 			<div class="my-3 my-md-5">
 				<div class="container-fluid">
-					<div class="row row-cards">
+					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-lg-12">
 							<div class="card">
 								<div class="card-header">
-									<h3 class="card-title">Buying List Sale 29</h3>
+									<h3 class="card-title">Buying List</h3>
+									<form method="post">
+										<div class="row justify-content-center">
+											<div class="col-md-6 well">
+												<div class="form-group form-inline">
+													<label class="control-label">Select Action from the list</label>
+													<select id="saleno" name="saleno"
+														class="form-control select2"><small>(required)</small>
+														<option disabled="" value="..." selected=""></option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</form>
+									<div>
+									<button id="" class="btn btn-info btn-sm" type="submit" id="confirm"
+                                    name="confirm" value="1">Send Buying List TO Finance
+									</div>
 								</div>
 								<div class="text-center">
 									<div class="card-body">
@@ -73,6 +82,8 @@ require_once $path_to_root . 'templates/header.php';
 <script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
 <script src="../../assets/js/vendors/circle-progress.min.js"></script>
 <!-- Custom Js-->
+<script id="url" data-name="../../ajax/common.php" src="../../assets/js/common.js"></script>
+
 <script src="../../assets/js/custom.js"></script>
 <script src="../../assets/js/catalogs.js"></script>
 
@@ -81,7 +92,64 @@ require_once $path_to_root . 'templates/header.php';
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-	buyingSummary("2021-29");
-	
+$(function() {
+	maxSaleNo();
+	$("#saleno").change(function(){
+		var sale_no = $('#saleno option:selected').text();
+		buyingSummary(sale_no);
+		localStorage.setItem("saleno",sale_no);
+	})
+	checkActivityStatus(4, localStorage.getItem("saleno"));
+
+	buyingSummary('');
+
+});
+function checkActivityStatus(id, saleno){
+    var activity;
+    var message;
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "finance_action.php",
+        data: {
+            action: "activity",
+            id:id,
+            saleno:saleno      
+        },
+        success: function(data) {
+            console.log(data[0]);
+            message = data[0].details;
+            status = data[0].completed;
+            activity = data[0].activity_id;
+            emailed = data[0].emailed;
+
+            if((activity=="5") && (status=="1")){
+                $("#confirmPList").html("confirmed");
+                $('#confirmPList').prop('disabled', true);
+                $("#editPList").hide();
+            }
+            if((activity=="5") && (emailed=="1")){
+                $("#emailPList").html("Notification Sent");
+                $('#emailPList').prop('disabled', true);
+            }
+
+        }
+
+    });
+}
+function maxSaleNo(){
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        data: {
+            action: "get-max-saleno"
+	        },
+        cache: true,
+        url: "catalog_action.php",
+        success: function (data) {
+			localStorage.setItem("saleno",data.sale_no);
+		}
+	});
+}
 </script>
 </html>

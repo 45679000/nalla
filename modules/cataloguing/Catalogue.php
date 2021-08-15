@@ -59,21 +59,15 @@
                     $rows = $this->conn->query("SELECT * FROM `itts_import`")->fetchAll();
                     return $rows;
                 }else if($action=="confirm"){
-                            $sql = "UPDATE
-                            `closing_cat` AS `dest`,
-                            (
-                                SELECT
-                                    *
-                                FROM
-                                    `itts_import`
-                            ) AS `src`
-                        SET
-                            `dest`.`pkgs` = `src`.`current_packages`,
-                            `dest`.`net` = `src`.`net`,
-                            `dest`.`gross` = `src`.`gross`,
-                            `dest`.`sale_price` = `src`.`sale_price`
-                        WHERE
-                            `dest`.`lot` = src.lot_no";
+                            $sql = "UPDATE closing_cat 
+                            INNER JOIN itts_import ON itts_import.lot = closing_cat.lot
+                            AND closing_cat.sale_no = itts_import.sale_no AND closing_cat.broker = itts_import.broker
+                            SET closing_cat.pkgs = itts_import.current_packages
+                            SET closing_cat.net = itts_import.net
+                            SET closing_cat.gross = itts_import.gross
+                            SET closing_cat.sale_price = itts_import.sale_price*100
+                            SET closing_cat.buyer_package = itts_import.buyer
+                            WHERE closing_cat.sale_no = itts_import.auction_number";
                         
                         $stmt = $this->conn->prepare($sql);
                         $stmt->execute();

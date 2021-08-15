@@ -126,3 +126,16 @@ SET blend_teas.stock_id = closing_stock.stock_id;
 UPDATE blend_teas
 INNER JOIN blend_master ON blend_teas.blend_no = blend_master.id
 SET blend_teas.confirmed = 1;
+
+UPDATE `closing_cat` 
+INNER JOIN closing_stock ON closing_stock.lot = closing_cat.lot
+AND closing_stock.sale_no = closing_cat.sale_no AND closing_cat.broker = closing_stock.broker
+SET closing_cat.auction_date = closing_stock.import_date;
+
+UPDATE closing_cat SET confirmed = 0 
+WHERE sale_no = '2021-32';
+
+DELETE FROM closing_stock WHERE sale_no = '2021-32';
+DELETE FROM auction_activities;
+
+

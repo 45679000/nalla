@@ -1,6 +1,10 @@
 <?php
 
 Class WorkFlow extends Model{
+    public $activityId;
+    public $saleno;
+
+
     public function addApproval($approvalId, $userid, $event, $approvePerson, $details){
         try {
             $this->debugSql = true;
@@ -16,14 +20,22 @@ Class WorkFlow extends Model{
                 VALUES ('$approvalId','$event','$userid','$approvePerson','$details','unapproved')";
                 $this->executeQuery();
             }
-
-          
-     
         } catch (Exception $ex) {
             var_dump($ex);
         }
    
         
     }
+    public function getActivity($activityid, $saleno){
+        $this->debugSql = false;
+        $this->query = "SELECT * FROM auction_activities WHERE activity_id = $activityid AND auction_no = '$saleno'";
+        $activity = $this->executeQuery();
+        if(sizeOf($activity)>0){
+            return $activity;
+        }else{
+            return false;
+        }
+    }
+  
 }
 

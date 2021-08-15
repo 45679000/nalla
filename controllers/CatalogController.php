@@ -469,11 +469,16 @@
             }
 
         }
-        public function buyingSummary(){
+        public function buyingSummary($saleno){
+        
             try{
-                $this->query = "SELECT broker, count(lot) AS totalLots, SUM(pkgs) AS totalPkgs, SUM(kgs) AS totalKgs
-                 FROM closing_cat WHERE sale_no = '2021-29'
-                  GROUP BY broker;";
+                $maxSale = $this->getMaxSaleNo();
+                if($saleno !=''){
+                    $maxSale = $saleno;
+                }
+                $this->query = "SELECT broker, '$maxSale' AS sale_no, count(lot) AS totalLots, SUM(pkgs) AS totalPkgs, SUM(kgs) AS totalKgs
+                FROM closing_cat WHERE sale_no = '$maxSale'
+                GROUP BY broker;";
                 return $this->executeQuery();
                 
             }catch(Exception $ex){
@@ -487,6 +492,13 @@
                 $auctions[$auction_id] = $auction_id;
             }
             return $auctions;
+        }
+        public function getMaxSaleNo(){
+            $this->query = "SELECT MAX(sale_no) AS max_sale
+            FROM closing_cat WHERE confirmed = 0 AND buyer_package = 'CSS'";
+            $this->debugSql = false;
+            $sales = $this->executeQuery();
+            return $sales[0]["max_sale"];
         }
         
 

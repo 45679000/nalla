@@ -5,3 +5,6 @@ setting.php
 /unit-test/*
 /unit-testfiles/*
 /reportsfiles/*
+autoload.php
+autoload2.php
+config_db.php

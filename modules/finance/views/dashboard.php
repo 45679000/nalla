@@ -214,16 +214,16 @@ $("#missingLots").click(function(e) {
 
 });
 $("#banking_gl").click(function(e) {
-    window.location.href = "/chamu/views/view_valuations.php";
+    window.location.href = "/chamu/modules/finance/glRP/index.php?application=GL";
 });
 $("#purchasesOthers").click(function(e) {
-    window.location.href = "/chamu/views/view_valuations.php";
+    window.location.href = "/chamu/modules/finance/glRP/index.php?application=AP";
 });
 $("#customers").click(function(e) {
-    window.location.href = "/chamu/views/view_valuations.php";
+    window.location.href = "/chamu/modules/finance/glRP/sales/manage/customers.php";
 });
 $("#suppliers").click(function(e) {
-    window.location.href = "/chamu/views/view_valuations.php";
+    window.location.href = "/chamu/modules/finance/glRP/purchasing/manage/suppliers.php";
 });
 $("#paymentSchedule").click(function(e) {
     Swal.fire({

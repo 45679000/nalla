@@ -77,10 +77,15 @@
                             case 'profoma':
                                 include 'views/address_form.php';
                                 break;
+                            
+                            case 'commercial':
+                                include 'views/address_form.php';
+                                break;
                                 default:
                             include('views/dashboard.php');    
 
                         }
+                        
                             
                     }
                 

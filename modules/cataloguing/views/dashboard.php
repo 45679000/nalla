@@ -28,7 +28,7 @@ require_once $path_to_root . 'templates/header.php';
 										</div>
 									</form>
 									<div>
-									<button id="" class="btn btn-info btn-sm" type="submit" id="confirm"
+									<button id="postBuyingList" class="btn btn-info btn-sm" type="submit" id="confirm"
                                     name="confirm" value="1">Send Buying List TO Finance
 									</div>
 								</div>
@@ -102,6 +102,24 @@ $(function() {
 	checkActivityStatus(4, localStorage.getItem("saleno"));
 
 	buyingSummary('');
+	$("#postBuyingList").click(function(e){
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			data: {
+				action: "post-buyinglist",
+				saleno: localStorage.getItem("saleno")
+				},
+			cache: true,
+			url: "catalog_action.php",
+			success: function (data) {
+				Swal.fire({
+                icon: 'success',
+                title: data.status,
+            });
+			}
+		});
+	})
 
 });
 function checkActivityStatus(id, saleno){

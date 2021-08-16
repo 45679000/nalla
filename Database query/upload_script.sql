@@ -138,4 +138,10 @@ WHERE sale_no = '2021-32';
 DELETE FROM closing_stock WHERE sale_no = '2021-32';
 DELETE FROM auction_activities;
 
+SELECT a.broker, count(a.lot) AS totalLots, SUM(a.pkgs) AS totalPkgs, SUM(a.kgs) AS totalKgs
+FROM closing_cat a 
+INNER JOIN closing_cat b ON a.closing_cat_import_id = b.closing_cat_import_id
+AND a.sale_no = max(b.sale_no)
+GROUP BY broker;
+
 

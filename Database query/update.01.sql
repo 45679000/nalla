@@ -154,3 +154,35 @@ SELECT *FROM `closing_stock`;
 UPDATE `closing_stock` SET client_id = 39 WHERE standard like '%TMK%'; 
 
 UPDATE `closing_stock` SET allocation = standard WHERE CHAR_LENGTH(standard)>3 AND  REGEXP '([[:digit:]].*){7}';;
+
+
+DELETE FROM closing_cat WHERE sale_no = '2021-34';
+SELECT *
+FROM closing_cat a
+WHERE sale_no = '2021-34' AND a.broker = 'VENS' ORDER BY `auction_date`  ASC 
+
+UPDATE closing_cat a
+INNER JOIN closing_cat_import b ON a.lot = b.lot AND a.sale_no = b.sale_no AND a.broker = b.broker
+SET a.value = b.value
+WHERE b.value IS NOT NULL;
+
+ALTER TABLE `closing_cat` ADD `line_id` VARCHAR(120) NOT NULL AFTER `confirmed`; 
+
+UPDATE closing_cat a 
+INNER JOIN closing_cat_import b ON (md5(CONCAT(trim(b.broker), trim(b.sale_no), trim(b.lot)))) COLLATE utf8mb4_unicode_ci = a.line_id 
+SET a.value = b.value WHERE b.value IS NOT NULL
+
+sudo apt install php php7.3-ldap php7.3-pdo php7.3-mbstring php7.3-tokenizer php7.3-curl php7.3-mysql php7.3-ldap php7.3-zip php7.3-fileinfo php7.3-gd php7.3-dom php7.3-mcrypt php7.3-bcmath php7.3-gd
+
+UPDATE closing_cat a
+INNER JOIN  (
+              SELECT md5(CONCAT(trim(broker), trim(sale_no), trim(lot))) AS line_id, value, sale_price
+                    FROM closing_cat_import
+			) b ON  a.line_id = b.line_id          
+SET a.sale_price = b.sale_price, 
+    a.buyer_package = b.buyer_package 
+WHERE b.sale_price IS NOT NULL
+
+
+alter table closing_cat_import convert to character set utf8mb4 collate utf8mb4_unicode_ci;
+alter table closing_cat convert to character set utf8mb4 collate utf8mb4_unicode_ci;

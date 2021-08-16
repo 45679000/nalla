@@ -5,7 +5,7 @@ $path_to_root1 = "../";
 require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
-require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+require_once $path_to_root.'controllers/CatalogController.php';
 include $path_to_root1.'includes/auction_ids.php';
 $imported = false;
 
@@ -16,6 +16,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     $catalogue->saleno = $_POST['saleno'];
     $catalogue->broker = $_POST['broker'];
     $catalogue->user_id = $_SESSION["user_id"];
+    $_SESSION["sale_no"] = $_POST['saleno'];
+
     if(isset($_POST["split"])){
         $catalogue->is_split = $_POST["split"];
 
@@ -38,6 +40,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     $secpkgs = $catalogue->summaryTotal("pkgs", "sec")['total'];
 
     if(isset($_POST['confirm'])){
+        $catalogue->saleno = $_SESSION["sale_no"];
+        $catalogue->user_id = $_SESSION["user_id"];
         $confirmed = $catalogue->confirmCatalogue();
         if($confirmed == true){
             echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';

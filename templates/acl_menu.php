@@ -52,10 +52,10 @@
 							</li>
 							
 							<li>
-								<a href='.$path_to_root.'views/valuation.php>Import Valuations</a>
+								<a href='.$path_to_root.'modules/cataloguing/imports/valuation.php>Import Valuations</a>
 							</li>
 							<li>
-								<a href='.$path_to_root.'views/post_import.php>Import Post Catalogs</a>
+								<a href='.$path_to_root.'modules/cataloguing/imports/post_import.php>Import Post Catalogs</a>
 							</li>
 							<li>
 								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php>Import ITTS Catalogs </a>

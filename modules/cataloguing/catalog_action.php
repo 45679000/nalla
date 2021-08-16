@@ -47,8 +47,28 @@
 		echo json_encode(array("sale_no"=>$saleno));
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "post-buyinglist"){
+		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+		$approved = $CatalogController->postBuyingList($saleno);
+		echo json_encode(array("status"=>"Buying list sent"));
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "confirm-valuation"){
+		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+		$userid = isset($_POST['userid']) ? $_POST['userid'] : '';
 
+		$CatalogController->importValuationCatalogue($saleno, $userid);
+		echo json_encode(array("status"=>"Confirmed"));
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "confirm-post"){
+		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+		$userid = isset($_POST['userid']) ? $_POST['userid'] : '';
 
+		$CatalogController->postCatalogueProcess($saleno, $userid);
+		echo json_encode(array("status"=>"Confirmed"));
+	}
+	
+	
+	
 	
 ?>
 

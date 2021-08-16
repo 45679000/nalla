@@ -10,6 +10,7 @@
         public $user_id;
 
         public function importClosingCatalogue(){
+            
             // $inputFileName = 'ANJL_SPLIT_CLOSING_SALE_12.2021.xls';
             //  Read your Excel workbook
             try {
@@ -32,6 +33,7 @@
             } catch(Exception $e) {
                 die('Error loading file "'.pathinfo($this->inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
             }
+            
         }
         public function ittsCatalogueImport($action="display"){
             try {
@@ -193,15 +195,16 @@
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             try {
-                $stmt = $this->conn->prepare("REPLACE INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`)
-                                          SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`
+                $stmt = $this->conn->prepare("REPLACE INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
+                                          SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`, md5(CONCAT(trim(broker), trim(sale_no), trim(lot)))
                                           FROM closing_cat_import
                                           WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL"
                                         );
-                $stmt->execute();
+             $stmt->execute();
              $stmt2 = $this->conn->prepare("DELETE FROM closing_cat_import WHERE 1");
              $stmt2->execute();
              $confirmed = true;
+             $this->addActivity(1, $this->saleno, $this->user_id);
              return $confirmed;
             } catch (Exception $ex) {
                 var_dump($ex);
@@ -271,24 +274,54 @@
                     return $this->executeQuery();
                 }
         }
-        public function postCatalogueProcess(){
+        public function postCatalogueProcess($saleno, $user_id){
             $processed = false;
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             try {
-                $stmt = $this->conn->prepare("UPDATE closing_cat a
-                                                INNER JOIN closing_cat_import b ON a.lot = b.lot
-                                                SET a.value = b.value, 
-                                                    a.buyer_package = b.buyer_package
-                                                WHERE b.value is not null AND b.value is not null;
-                                                "
-                                             );
-                $stmt->execute();
-             $stmt2 = $this->conn->prepare("DELETE FROM closing_cat_import WHERE 1");
+                $this->query = "UPDATE closing_cat a
+                INNER JOIN  (
+                    SELECT md5(CONCAT(trim(b.broker), trim(b.sale_no), trim(b.lot))), AS line_id, value, buyer_package
+                    FROM closing_cat_import) b ON  a.line_id = b.line_id          
+                SET a.sale_price = b.sale_price, 
+                    a.buyer_package = b.buyer_package
+                WHERE b.sale_price IS NOT NULL";
+                $this->executeQuery();  
 
-             $stmt2->execute();
+                $this->query = "DELETE FROM closing_cat_import WHERE 1";
 
-             $processed = true;
+                $this->executeQuery();
+
+                $processed = true;
+                if($saleno == NULL){
+                    $saleno = $this->getMaxSaleNo();
+                }
+                $this->addActivity(3, $saleno, $user_id);
+                $this->addActivity(4, $saleno, $user_id);
+
+             return $processed;
+            } catch (Exception $ex) {
+                var_dump($ex);
+            }
+            
+        }
+        public function importValuationCatalogue($saleno, $user_id){
+            $processed = false;
+            try {
+                $this->debugSql = true;
+                $this->query = "UPDATE closing_cat a
+                INNER JOIN closing_cat_import b ON md5(CONCAT(trim(b.broker), trim(b.sale_no), trim(b.lot))) = a.line_id               
+                SET a.value = b.value
+                WHERE b.value IS NOT NULL";
+                $this->executeQuery();
+               
+                $this->query = "DELETE FROM closing_cat_import WHERE 1";
+                $this->executeQuery();
+
+                $processed = true;
+                if($saleno == NULL){
+                    $saleno = $this->getMaxSaleNo();
+                }
+                $this->addActivity(2, $saleno, $user_id);
+
              return $processed;
             } catch (Exception $ex) {
                 var_dump($ex);
@@ -298,7 +331,7 @@
         public function removeCatalogue($auction = ""){
             $this->query = "DELETE FROM closing_cat WHERE sale_no = "."'".$auction. "'";
             return $this->executeQuery();
-    }
+        }
         public function maxLow($garden, $grade, $auction){
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -500,7 +533,29 @@
             $sales = $this->executeQuery();
             return $sales[0]["max_sale"];
         }
-        
+        public function postBuyingList($saleno){
+            $this->query = "INSERT INTO `auction_activities`(`activity_id`, `auction_no`,  `details`) 
+            SELECT 4, '$saleno', details
+            FROM activities WHERE id = 4";
+            $this->executeQuery();
+        }
+        public function addActivity($activity, $saleno, $userid){
+            if($saleno==""){
+                $saleno = $this->saleno;
+            }
+            $this->query = "SELECT id 
+            FROM `auction_activities` 
+            WHERE activity_id = $activity AND `auction_no` = '$saleno'";
+            $result = $this->executeQuery();
+
+            if(sizeOf($result)==0){
+                $this->query = "INSERT INTO `auction_activities`(`activity_id`, `auction_no`,  `details`, `user_id`, completed, emailed) 
+                SELECT $activity, '$saleno', details, $userid, 1, 1
+                FROM activities WHERE id = $activity";
+                $this->executeQuery();
+            }
+        }
+
 
 
   

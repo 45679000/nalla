@@ -1,11 +1,11 @@
 <?php
-$path_to_root = "../";
-$path_to_root1 = "../";
+$path_to_root = "../../../";
+$path_to_root1 = "../../../";
 
 require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
-require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+require_once $path_to_root.'controllers/CatalogController.php';
 include $path_to_root1.'includes/auction_ids.php';
 
 $catalogue = new Catalogue($conn);
@@ -16,6 +16,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     $catalogue->broker = $_POST['broker'];
     $catalogue->user_id = $_SESSION["user_id"];
     $catalogue->is_split = $_POST["split"];
+    $_SESSION["sale_no"] = $_POST['saleno'];
 
     $imported = $catalogue->importClosingCatalogue();
 }
@@ -30,6 +31,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     $secpkgs = $catalogue->summaryTotal("pkgs", "sec")['total'];
 
     if(isset($_POST['confirm'])){
+        $catalogue->saleno = $_SESSION["sale_no"];
+        $catalogue->user_id = $_SESSION["user_id"];
         $confirmed = $catalogue->postCatalogueProcess();
         if($confirmed == true){
             echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
@@ -58,7 +61,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Valuation Catalogue Upload</div>
+                            <div class="card-title">Post Sale Catalogue Upload</div>
                         </div>
 
                         <?php if(empty($imports)) {
@@ -92,11 +95,12 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group label-floating">
-                                                            <label class="control-label">BROKER</label>
-                                                            <select id="broker" name="broker" class="select2 form-control"><small>(required)</small>
-                                                            </select>
+                                                    <div class="col-sm-6">
+                                                              <div class="form-group label-floating">
+                                                                <label class="control-label">BROKER</label>
+                                                                <select id="broker" name="broker" class="select2 form-control"><small>(required)</small>
+                                                                    
+                                                              </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -284,32 +288,33 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 </body>
 
 <!-- Dashboard js -->
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
-<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
+<script src="../../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../../../assets/js/vendors/selectize.min.js"></script>
+<script src="../../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../../assets/plugins/rating/jquery.rating-stars.js"></script>
 <!-- forn-wizard js-->
-<script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
 <!-- file import -->
-<script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
+<script src="../../../assets/plugins/fileuploads/js/dropify.min.js"></script>
 <!-- Custom scroll bar Js-->
-<script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src=../../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <!-- counter  -->
-<script src="../assets/plugins/counters/counterup.min.js"></script>
-<script src="../assets/plugins/counters/waypoints.min.js"></script>
+<script src="../../../assets/plugins/counters/counterup.min.js"></script>
+<script src="../../../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
-<script src="../assets/js/custom.js"></script>
-<script id="url" data-name="../ajax/common.php" src="../assets/js/common.js"></script>
+<script src="../../../assets/js/custom.js"></script>
+<script id="url" data-name="../../../ajax/common.php" src="../../../assets/js/common.js"></script>
 
-<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-<script src="../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../../../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../../../assets/js/sweet_alert2.js"></script>
 
 
 <script type="text/javascript">
@@ -331,8 +336,46 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
         <!-- Data table js -->
 		<script>
 			$(function(e) {
+                var saleno = '<?php echo $_SESSION["sale_no"] ?>';
+                var userid = '<?php echo $_SESSION["user_id"] ?>';
+                
 				$('#closingimports').DataTable();
-			} );
+                $('#confirm').click(function(e){
+                    e.preventDefault();
+
+                        $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "../catalog_action.php",
+                        data: {
+                            action:"confirm-post",
+                            saleno: saleno,
+                            userid: userid
+                        },
+                    success: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Confirmed',
+                            });
+                            $(".swal2-confirm").click(function(e){
+                                window.location = window.location.href.split("?")[0];
+                            });
+                        },
+                    error: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Confirmed',
+                            });
+                            $(".swal2-confirm").click(function(e){
+                                window.location = window.location.href.split("?")[0];
+                            });
+                        }
+                    
+                    
+                    });
+
+                });
+			});
 		</script>
        
 </html>

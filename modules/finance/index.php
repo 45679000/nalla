@@ -75,11 +75,13 @@
                                 include 'views/confirmed_purchase_list.php';
                                 break;
                             case 'profoma':
-                                include 'views/address_form.php';
+                                include 'views/invoices.php';
                                 break;
-                            
                             case 'commercial':
-                                include 'views/address_form.php';
+                                include 'views/generate_straightline_profoma.php';
+                                break;
+                            case 'selectTeas':
+                                include 'views/generate_straightline_profoma.php';
                                 break;
                                 default:
                             include('views/dashboard.php');    
@@ -127,16 +129,16 @@
         $(document).ready(function() {
             $('.select2').select2();
 
-            $('.table').DataTable({
-                "pageLength": 10,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
-                ]
-            });
+            // $('.table').DataTable({
+            //     "pageLength": 10,
+            //     dom: 'Bfrtip',
+            //     buttons: [
+            //         'copyHtml5',
+            //         'excelHtml5',
+            //         'csvHtml5',
+            //         'pdfHtml5'
+            //     ]
+            // });
 
         });
         </script>

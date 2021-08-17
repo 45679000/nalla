@@ -5,6 +5,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include '../database/connection.php';
 include '../models/Model.php';
 include '../controllers/CatalogController.php';
+include '../controllers/FinanceController.php';
 include '../controllers/ShippingController.php';
 include '../controllers/WarehouseController.php';
 include '../modules/grading/grading.php';
@@ -18,6 +19,7 @@ $catalogue = new Catalogue($conn);
 $grading = new Grading($conn);
 $shipingCtr = new ShippingController($conn);
 $warehouseCtr = new WarehouseController($conn);
+$financeCtlr = new Finance($conn);
 
 
 if (isset($_POST['action']) && $_POST['action'] == "list-brokers") {
@@ -267,6 +269,35 @@ if (isset($_POST['action']) && $_POST['action'] == "sale_no") {
     if (sizeOf($auctions) > 0) {
          foreach($auctions as $auction){
             $output .= '<option value="'.$auction.'">'.$auction.'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
+if (isset($_POST['action']) && $_POST['action'] == "payment-terms") {
+    $output = "";
+    $paymentterms= $financeCtlr->paymentTerms();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($paymentterms) > 0) {
+         foreach($paymentterms as $terms){
+            $output .= '<option value="'.$terms['terms'].'">'.$terms['terms'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
+if (isset($_POST['action']) && $_POST['action'] == "buyers") {
+    $output = "";
+
+    $buyers= $financeCtlr->fetchErpClients();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($buyers) > 0) {
+         foreach($buyers as $buyer){
+            $output .= '<option value="'.$buyer['debtor_no'].'">'.$buyer['debtor_ref'].'</option>';
          }
           echo $output;	
     }else{

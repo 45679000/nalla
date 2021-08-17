@@ -4,7 +4,7 @@ require_once $path_to_root . 'templates/header.php';
 ?>
 
 
-<div class="row row-cards">
+<div class="row row-cards" id="dashboardWrapper">
 
     <div class="col-sm-12 col-lg-2">
         <div id="cpurchaseList" class="card dashboardlink">
@@ -214,16 +214,16 @@ $("#missingLots").click(function(e) {
 
 });
 $("#banking_gl").click(function(e) {
-    window.location.href = "/chamu/modules/finance/glRP/index.php?application=GL";
+    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/index.php?application=GL" width="100%" height="1000" style="border:none;">');
 });
 $("#purchasesOthers").click(function(e) {
-    window.location.href = "/chamu/modules/finance/glRP/index.php?application=AP";
+    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/index.php?application=AP" width="100%" height="1000" style="border:none;">');
 });
 $("#customers").click(function(e) {
-    window.location.href = "/chamu/modules/finance/glRP/sales/manage/customers.php";
+    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/sales/manage/customers.php" width="100%" height="1000" style="border:none;">');
 });
 $("#suppliers").click(function(e) {
-    window.location.href = "/chamu/modules/finance/glRP/purchasing/manage/suppliers.php";
+    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/purchasing/manage/suppliers.php" width="100%" height="1000" style="border:none;">');
 });
 $("#paymentSchedule").click(function(e) {
     Swal.fire({
@@ -243,3 +243,4 @@ $("#paidLots").click(function(e) {
 </script>
 
 </html>
+

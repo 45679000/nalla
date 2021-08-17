@@ -135,11 +135,36 @@
 
 
         }
-        public function saveInvoice($post){
-            $this->data = $post;
-            $this->tablename = "tea_invoices";
-            $id = $this->insertQuery();
-            return $id;
+        public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details){
+            $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
+            $results = $this->executeQuery();
+            if(count($results)==0){
+                $response = array();
+                $this->debugSql = false;
+                $this->query = "INSERT INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_delivery`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`) 
+                VALUES ('$buyer','$consignee','$invoice_no','$invoice_type','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate())";
+                $this->executeQuery();
+                $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
+                $results = $this->executeQuery();
+    
+                if(count($results)==0){
+                    $error = "invoice no $invoice_no Failed to save successfully contact support";
+                    $response["error"] = $error;
+                    $response["code"] = 201;
+    
+                }else{
+                    $success = "Invoice no $invoice_no has been created succesfully, click the + button to add teas to this Invoice no";
+                    $response["success"] = $success;
+                    $response["code"] = 200;
+    
+                }
+            }else{
+                $error = "Invoice no $invoice_no already Exists Do you wish to update?";
+                $response["error"] = $error;
+                $response["code"] = 500;
+            }
+            return $response;
+    
         }
         public function unconfirmedSales(){
             $this->debugSql = false;
@@ -150,8 +175,52 @@
             GROUP BY sale_no";
             return $this->executeQuery();
         }
+        public function fetchInvoices($type, $invoiceno){
+            if($invoiceno ==''){
+                $this->debugSql = false;
+                $this->query = "SELECT *
+                FROM tea_invoices 
+                LEFT JOIN 0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no 
+                WHERE invoice_type = '$type'";
+                return $this->executeQuery();
+            }else{
+                $this->debugSql = false;
+
+                $this->query = "SELECT *
+                FROM tea_invoices 
+                LEFT JOIN 0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no 
+                WHERE id = $invoiceno";
+                return $this->executeQuery();
+            }
+            // $this->debugSql = "true";
+       
+        }
+        public function paymentTerms(){
+            $this->query = "SELECT * FROM `0_payment_terms`";
+            return $this->executeQuery();
+        }
+        public function fetchErpClients(){
+            $this->query = "SELECT * FROM `0_debtors_master` WHERE tea_buyer=1";
+            return $this->executeQuery();
+        }
+        public function getInvoiceNo($id){
+            $this->debugSql = false;
+            $this->query = "SELECT `invoice_no` FROM `tea_invoices` WHERE id = $id";
+            $results = $this->executeQuery();
+            return $results[0]['invoice_no'];
+        }
+        public function invoiceTea($stockid, $invoiceno){
+            $this->query = "UPDATE closing_stock SET profoma_invoice_no = '$invoiceno' WHERE stock_id = $stockid";
+            $this->executeQuery();
+        }
+        public function removeInvoiceTea($stockid){
+            $this->query = "UPDATE closing_stock SET profoma_invoice_no = NULL WHERE stock_id = $stockid";
+            $this->executeQuery();
+        }
    
     }
+    
+    
 
 ?>
 

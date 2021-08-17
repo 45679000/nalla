@@ -11,6 +11,8 @@ $(document).ready(function() {
     var standard = document.getElementById("standard");
     var standard2 = document.getElementById("standard2");
     var saleno = document.getElementById("saleno");
+    var payment_terms = document.getElementById("payment_terms");
+    var buyer = document.getElementById("buyer");
 
     if(mark !=undefined){
         gardenList(url);
@@ -36,6 +38,13 @@ $(document).ready(function() {
     if(saleno !=undefined){
         saleNo(url);
     }
+    if(payment_terms !=undefined){
+        paymentTerms(url);
+    }
+    if(buyer !=undefined){
+        buyerList(url);
+    }
+
     $('.select2').select2();
 
     $("#gen-broker-cat").click(function(e) {
@@ -222,4 +231,36 @@ function saleNo($path) {
         }
 
     });
+}
+function paymentTerms($path){
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "payment-terms"
+        },
+        success: function(data) {
+            $("#payment_terms").html(data);
+
+        }
+
+    });
+    
+}
+function buyerList($path){
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "buyers"
+        },
+        success: function(data) {
+            $("#buyer").html(data);
+
+        }
+
+    });
+    
 }

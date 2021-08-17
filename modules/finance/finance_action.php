@@ -5,12 +5,42 @@
     include_once('../../database/page_init.php');
     include '../../controllers/FinanceController.php';
 	include '../../controllers/WorkFlow.php';
+	include_once('../../controllers/StockController.php');
+
 
     $db = new Database();
     $conn = $db->getConnection();
     $finance = new Finance($conn);
 	$workFlow = new WorkFlow($conn);
-	// Insert Record	
+	$stockCtrl = new Stock($conn);
+
+	// Insert Record
+	if (isset($_POST['action']) && $_POST['action'] == "save-invoice") {
+        $error = "";
+		$buyer = isset($_POST['buyer']) ? $_POST['buyer'] : $error ='You must select a client';
+        $consignee = isset($_POST['consignee']) ? $_POST['consignee'] : $error ='You must select a consignee';
+        $invoice_no = isset($_POST['invoice_no']) ? $_POST['invoice_no'] : $error ='You must select a invoice_no';
+        $invoice_type = isset($_POST['invoice_type']) ? $_POST['invoice_type'] : $error ='Type missing';
+        $invoice_category = isset($_POST['invoice_category']) ? $_POST['invoice_category'] : $error ='You must indicate Invoice Category';
+        $port_of_delivery = isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : $error ='You must indicate contract No';
+        $buyer_bank = isset($_POST['buyer_bank']) ? $_POST['buyer_bank'] : $error = 'You must enter sale no';
+        $payment_terms = isset($_POST['payment_terms']) ? $_POST['payment_terms'] : $error ='You must indicate the payment_terms';
+		$pay_bank = isset($_POST['pay_bank']) ? $_POST['pay_bank'] : $error ='You must indicate the Pay Bank';
+		$pay_details = isset($_POST['pay_details']) ? $_POST['pay_details'] : $error ='You must indicate the pay_details';
+
+        
+        if($error ==""){
+          $message = $finance->saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details);
+          echo json_encode($message);
+
+        }else{
+          $formError["error"]=$error;
+          $formError["code"] = 201;
+
+          echo json_encode($formError);
+
+        }
+	}	
 	if (isset($_POST['action']) && $_POST['action'] == "unconfirmed-purchase-list") {
 		$saleno = $_POST['saleno'];
 		$finance->saleno=$saleno;
@@ -263,9 +293,6 @@
 		$saleno = $_POST['saleno'];
 		$finance->postToStock($saleno);
 	}
-	if(isset($_POST['action']) && $_POST['action'] == "save-invoice"){	
-		$finance->saveInvoice($_POST);	
-	}
 	if(isset($_POST['action']) && $_POST['action'] == "activity"){	
 		$activityid = isset($_POST['id']) ? $_POST['id'] : 0;
 		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : 0;
@@ -278,9 +305,254 @@
 		echo json_encode($auctions);
 
 	}
+	// View record
+	if (isset($_POST['action']) && $_POST['action'] == "view-invoices") {
+		$output = "";
+		$invoice_no = isset($_POST['invoiceno']) ? $_POST['invoiceno'] : '';
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
+		$invoices = $finance->fetchInvoices($type, $invoice_no);
+		if($invoice_no ==''){
+			if (count($invoices) > 0) {
+				$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
+						<thead class='thead-dark'>
+							<tr>
+							<th>Invoice No</th>
+							<th>Buyer</th>
+							<th>Consignee</th>
+							<th>Category</th>
+							<th>Port Of Delivery</th>
+							<th>Buyer Bank</th>
+							<th>Pay Bank</th>
+							<th>Payment Details</th>
+							<th>Date Entered</th>
+							<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>";
+				foreach ($invoices as $invoice) {
+			$kgs=$invoice['Pkgs']*$invoice['nw'];
+			$invoiceid = $invoice['id'];
+			$cat = $invoice['invoice_category'];
+			$kind = $invoice['invoice_type'];
+
+					$output.="<tr>
+						<td><a href='./index.php?view=selectTeas&cat=$cat&kind=$kind&invoice_no=$invoiceid'>".$invoice['invoice_no']."</a></td>
+						<td>".$invoice['debtor_ref']."</td>
+						<td>".$invoice['consignee']."</td>
+						<td>".$invoice['invoice_category']."</td>
+						<td>".$invoice['port_of_delivery']."</td>
+						<td>".$invoice['buyer_bank']."</td>
+						<td>".$invoice['pay_bank']."</td>
+						<td>".$invoice['pay_details']."</td>
+						<td>".$invoice['date_captured']."</td>
+						<td>
+						<a href='./index.php?view=allocateblendteas&invoice_no=$blendid' style='color:green'  
+						class='navigate' id=".$blendid."><i class='fa fa-plus'></i></a>&nbsp;
+
+								<a href='#editModal' style='color:green' data-toggle='modal' 
+								class='editBtn' id=".$blendid."><i class='fa fa-pencil'></i></a>&nbsp;
+								<a href='' style='color:red' class='deleteBtn' id=".$blendid.">
+								<i class='fa fa-trash' ></i></a>
+							</td>
+						</tr>";
+					}
+				$output .= "</tbody>
+					</table>";
+					echo $output;	
+			}else{
+				echo '<h3 class="text-center mt-5">No records found</h3>';
+			}
+		}else{
+			if (count($invoices) > 0) {
+				$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark' style='width:100%;'>
+						<thead class='thead-dark'>
+							<tr>
+							<th>Invoice No</th>
+							<th>Buyer</th>
+							<th>Consignee</th>
+							<th>Category</th>
+							<th>Port Of Delivery</th>
+							<th>Buyer Bank</th>
+							<th>Pay Bank</th>
+							<th>Payment Details</th>
+							<th>Date Entered</th>
+							<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>";
+				foreach ($invoices as $invoice) {
+			$kgs=$invoice['Pkgs']*$invoice['nw'];
+			$invoiceid = $invoice['id'];
+			$cat = $invoice['invoice_category'];
+			$kind = $invoice['invoice_type'];
+
+					$output.="<tr>
+						<td><a href='./index.php?view=selectTeas&cat=$cat&kind=$kind&invoice_no=$invoiceid'>".$invoice['invoice_no']."</a></td>
+						<td>".$invoice['debtor_ref']."</td>
+						<td>".$invoice['consignee']."</td>
+						<td>".$invoice['invoice_category']."</td>
+						<td>".$invoice['port_of_delivery']."</td>
+						<td>".$invoice['buyer_bank']."</td>
+						<td>".$invoice['pay_bank']."</td>
+						<td>".$invoice['pay_details']."</td>
+						<td>".$invoice['date_captured']."</td>
+						<td>
+						<a href='./index.php?view=allocateblendteas&invoice_no=$blendid' style='color:green'  
+						class='navigate' id=".$blendid."><i class='fa fa-plus'></i></a>&nbsp;
+
+								<a href='#editModal' style='color:green' data-toggle='modal' 
+								class='editBtn' id=".$blendid."><i class='fa fa-pencil'></i></a>&nbsp;
+								<a href='' style='color:red' class='deleteBtn' id=".$blendid.">
+								<i class='fa fa-trash' ></i></a>
+							</td>
+						</tr>";
+					}
+				$output .= "</tbody>
+					</table>";
+					echo $output;	
+			}else{
+				echo '<h3 class="text-center mt-5">No records found</h3>';
+			}
+
+		}
+	}
+	if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
+
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
+		$mark = isset($_POST['mark']) ? $_POST['mark'] : '';
+		$lot = isset($_POST['lot']) ? $_POST['lot'] : '';
+		$grade = isset($_POST['grade']) ? $_POST['grade'] : '';
+		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+	  
+		
+		$condition=" WHERE pkgs>0 ";
+		if($mark=='' && $grade == '' && $lot == '' && $saleno == ''){
+		  $condition = $condition;
+		}else{
+		  if($saleno !=null){
+			$condition.=" AND closing_stock.sale_no = '".$saleno."'";
+		  }if($mark !=null){
+			$condition.=" AND closing_stock.mark = '".$mark."'";
+		  }if($grade !=null){
+			$condition.=" AND closing_stock.grade = '".$grade."'";
+		  }if($lot !=null){
+			$condition.=" AND closing_stock.lot = '".$lot."'";
+		  }
+		}
+		$blendBalance = 0;
+		$output ="";
+		$stockList = $stockCtrl->readStock("", $condition);
+		if (sizeOf($stockList)> 0) {
+			$output .='
+			<table id="direct_lot" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-sm-2">Sale No</th>
+					<th class="wd-15p">Lot</th>
+					<th class="wd-15p">Mark</th>
+					<th class="wd-10p">Grade</th>
+					<th class="wd-25p">Invoice</th>
+					<th class="wd-25p">Code</th>
+					<th class="wd-25p">Pkgs</th>
+					<th class="wd-25p">Net</th>
+					<th class="wd-25p">Kgs</th>
+					<th class="wd-25p">Actions</th>
+	  
+				</tr>
+			</thead>
+			<tbody>';
+			foreach ($stockList as $stock) {
+				$output.='<tr>';
+					$output.='<td>'.$stock["sale_no"].'</td>';
+					$output.='<td>'.$stock["lot"].'</td>';
+					$output.='<td>'.$stock["mark"].'</td>';
+					$output.='<td>'.$stock["grade"].'</td>';
+					$output.='<td>'.$stock["invoice"].'</td>';
+					$output.='<td>'.$stock["comment"].'</td>';
+					$output.='<td>'.$stock["pkgs"].'</td>';
+					$output.='<td>'.$stock["net"].'</td>';
+					$output.='<td>'.$stock["kgs"].'</td>';
+					if($stock["profoma_invoice_no"] != null){
+					  $output.='<td><a style="font-size:8px;">'.$stock["profoma_invoice_no"].'<a/></td>';
+					}else{
+					  $output.='<td>
+					  <a class="addTea" id="'.$stock["stock_id"].'" style="color:green" data-toggle="tooltip" data-placement="bottom" title="Use Tea" >
+					  <i class="fa fa-check" ></i></a>&nbsp&nbsp&nbsp;
+					  <a class="splitLot" id="'.$stock["stock_id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Split Lot">
+					  <i class="fa fa-scissors"></i></a>&nbsp&nbsp&nbsp;
+					</td>'; 
+					}
+							 
+				$output.='</tr>';
+					
+			}
+			$output.='</tbody>
+		</table>';
+		}    
+	   echo $output;
+	  }else{
+	  }
 	
+	  if(isset($_POST['action']) && $_POST['action'] == "load-allocated"){	
+		$id = isset($_POST['invoiceid']) ? $_POST['invoiceid'] : '';
+		$invoiceno = $finance->getInvoiceNo($id);
+		$condition = " WHERE closing_stock.profoma_invoice_no = '$invoiceno'";
+		$stockList = $stockCtrl->readStock("", $condition);
+		if (sizeOf($stockList)> 0) {
+			$output .='
+			<table id="direct_lot" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-sm-2">Sale No</th>
+					<th class="wd-15p">Lot</th>
+					<th class="wd-15p">Mark</th>
+					<th class="wd-10p">Grade</th>
+					<th class="wd-25p">Invoice</th>
+					<th class="wd-25p">Code</th>
+					<th class="wd-25p">Pkgs</th>
+					<th class="wd-25p">Net</th>
+					<th class="wd-25p">Kgs</th>
+					<th class="wd-25p">Actions</th>
+	  
+				</tr>
+			</thead>
+			<tbody>';
+			foreach ($stockList as $stock) {
+				$output.='<tr>';
+					$output.='<td>'.$stock["sale_no"].'</td>';
+					$output.='<td>'.$stock["lot"].'</td>';
+					$output.='<td>'.$stock["mark"].'</td>';
+					$output.='<td>'.$stock["grade"].'</td>';
+					$output.='<td>'.$stock["invoice"].'</td>';
+					$output.='<td>'.$stock["comment"].'</td>';
+					$output.='<td>'.$stock["pkgs"].'</td>';
+					$output.='<td>'.$stock["net"].'</td>';
+					$output.='<td>'.$stock["kgs"].'</td>';
+					if($stock["profoma_invoice_no"] != null){
+					  $output.='<td>
+					  <a class="removeTea" id="'.$stock["stock_id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Remove Tea" >
+					  <i class="fa fa-close" ></i></a>&nbsp&nbsp&nbsp;
+					  </td>';
+					}
+							 
+				$output.='</tr>';
+					
+			}
+			$output.='</tbody>
+		</table>';
+		}    
+	   echo $output;
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "select-invoice"){	
+		$stockid = isset($_POST['stockid']) ? $_POST['stockid'] : '';
+		$invoiceid = isset($_POST['invoiceid']) ? $_POST['invoiceid'] : '';
+		$invoiceno = $finance->getInvoiceNo($invoiceid);
+		$finance->invoiceTea($stockid, $invoiceno);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "remove-invoice"){	
+		$stockid = isset($_POST['stockid']) ? $_POST['stockid'] : '';
+		$finance->removeInvoiceTea($stockid);
+	}
 
 	
-
-	
-

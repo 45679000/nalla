@@ -43,7 +43,7 @@
                 try {
                 $this->query = "SELECT closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`, 
                  `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
-                 `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, mark_country.country,  client_id, 
+                 `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, mark_country.country,  client_id, profoma_invoice_no,
                  (CASE WHEN shippments.id IS NULL THEN pkgs ELSE (pkgs-(sum(pkgs_shipped))) END) 
                  AS pkgs, 
                  (CASE WHEN shippments.id IS NULL THEN kgs ELSE (kgs-(sum(shipped_kgs))) END) AS kgs,

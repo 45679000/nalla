@@ -1,111 +1,69 @@
-<?php
-include '../database/connection.php';
-include '../models/Model.php';
-include '../controllers/GradingController.php';
-include '../modules/grading/grading.php';
-require '../vendor/autoload.php';
+echo '
 
+<div style="text-align:center;";>
+    <form method="post">
+        <div class="form-group label-floating">
+            <label class="control-label">LOAD FROM A TEMPLATE</label>
+            <select id="si-templates" class="template" name="template" class="form-control"><small>(required)</small>
+            </select>
+        </div>
+    </form>
+</div>';
 
-$db = new Database();
-$conn = $db->getConnection();
+print '
+<div  class="card-body" style="height:100% !important;">';
+$form->beginForm("invoice");
 
-$grading = new Grading($conn);
-$offered = $grading->readOffers();
-$html =  print_labels($offered);
-
-$mpdf = new \Mpdf\Mpdf(['orientation' => 'P', 'tempDir' => __DIR__ . '/files', 	'default_font' => 'dejavusans']);
-$mpdf->WriteHTML($html);
-$mpdf->Output();
-
-function print_labels($offered){
-$total = sizeof($offered);
-$html="
-    <style>
-
-
-    </style>
-
-";
-$html.="<table>";
-$printed = 0;
-
-    foreach($offered as $offer){
-        if($printed==0){
-            $html.='<tr>';
-            $html.='<td style="padding-left:30px; padding-bottom:30px; padding-top:10px;">
-                        <table>
-                            <tr>
-                                <td><b>SALE:'.$offer['sale_no']. '</b></td>
-                                <td>DATE:'.$offer['manf_date']. '</td> 
-                            </tr>
-                            <tr>
-                                <td>'.$offer['mark'].'</td>
-                                <td>'.$offer['grade'].'</td>  
-                            </tr> 
-                            <tr>
-                                <td>PKGS:'.$offer['pkgs'].'</td>
-                                <td><b>LOT#:'.$offer['lot'].'</b></td>
-                            </tr>
-                            <tr>
-                                <td>WGHT:<b>'.$offer['net'].'</b></td>
-                                <td>Invoice:<b>'.$offer['invoice'].'</b></td>
-                            </tr>
-                        </table>
-                    </td>';
-        $printed++;
-
-        }else if($printed==1){
-            $html.='<td style="padding-left:30px; padding-bottom:30px; padding-top:10px;">
-                        <table>
-                            <tr>
-                                <td><b>SALE:'.$offer['sale_no']. '</b></td>
-                                <td>DATE:'.$offer['manf_date']. '</td> 
-                            </tr>
-                            <tr>
-                                <td>'.$offer['mark'].'</td>
-                                <td>'.$offer['grade'].'</td>  
-                            </tr> 
-                            <tr>
-                                <td>PKGS:'.$offer['pkgs'].'</td>
-                                <td><b>LOT#:'.$offer['lot'].'</b></td>
-                            </tr>
-                            <tr>
-                                <td>WGHT:<b>'.$offer['net'].'</b></td>
-                                <td>Invoice:<b>'.$offer['invoice'].'</b></td>
-                            </tr>
-                        </table>
-                    </td>';
-                $printed++;
-        }else if($printed==2){
-            $html.='<td style="padding-left:30px; padding-bottom:30px; padding-top:10px;">
-                        <table>
-                            <tr>
-                                <td><b>SALE:'.$offer['sale_no']. '</b></td>
-                                <td>DATE:'.$offer['manf_date']. '</td> 
-                            </tr>
-                            <tr>
-                                <td>'.$offer['mark'].'</td>
-                                <td>'.$offer['grade'].'</td>  
-                            </tr> 
-                            <tr>
-                                <td>PKGS:'.$offer['pkgs'].'</td>
-                                <td><b>LOT#:'.$offer['lot'].'</b></td>
-                            </tr>
-                            <tr>
-                                <td>WGHT:<b>'.$offer['net'].'</b></td>
-                                <td>Invoice:<b>'.$offer['invoice'].'</b></td>
-                            </tr>
-                        </table>
-                     </td>';
-            $html.='</tr>';
-        $printed=0;
-        }
-
-    }
-$html.="</table>";
-return $html;
-}
+print ' <div class="row">
+        <div class="col-md-6 col-md-6">';
+$form->formField("dropdownlist", "invoice_category", "", "Category", array("Blend" => "Blend", "straight" => "Straight Line"));
+$form->formField("text", "invoice_no", "", "Invoice No");
+$form->formField("dropdownlist", "buyerid", "", "Select Buyer", '');
+$form->formField("text-area", "buyer", "", "Buyer");
 
 
 
+print '</div>
+        <div class="col-md-6 col-md-6">';
+        $form->formField("text", "payment_terms", "", "Pay Terms");
+        $form->formField("text", "port_of_delivery", "", "Port of Delivery");
+        $form->formField("text", "pay_bank", "", "Bank Details");
+        $form->formField("text-area", "consignee", "", "Consignee");
+
+
+$form->addButtons('add');
+print '
+    </div>';
+$form->endForm();
+print '</div>
+';
+$sino=1;
 ?>
+
+<div id="nextid">
+    <a id="next" href=""  class="next">Next</a>
+</div>
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="shipping.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#invoice').submit(function(e){
+            e.preventDefault();
+            $("<input/>").attr("type", "hidden")
+                .attr("name", "action")
+                .attr("value", "save-invoice")
+                .appendTo("#invoice");
+            $.ajax({   
+                type: "POST",
+                data : $(this).serialize(),
+                dataType: "json", 
+                url: "finance_action.php",   
+                success: function(data){
+                    
+                
+                }   
+            });   
+        });
+    });
+</script>

@@ -369,7 +369,6 @@
 							<th>Category</th>
 							<th>Port Of Delivery</th>
 							<th>Date Entered</th>
-							<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>";
@@ -386,10 +385,6 @@
 						<td>".$invoice['invoice_category']."</td>
 						<td>".$invoice['port_of_delivery']."</td>
 						<td>".$invoice['date_captured']."</td>
-						<td>
-								<a class='printInvoice' onlick='printReport(this)' style='color:red' data-toggle='tooltip' data-placement='bottom' title='Remove Tea' >
-								<i class='fa fa-file' ></i></a>&nbsp&nbsp&nbsp;
-							</td>
 						</tr>";
 					}
 				$output .= "</tbody>
@@ -429,7 +424,7 @@
 		$stockList = $stockCtrl->readStock("", $condition);
 		if (sizeOf($stockList)> 0) {
 			$output .='
-			<table id="direct_lot" class="table table-striped table-bordered">
+			<table id="direct_lot" class="table table-striped table-bordered table-sm">
 			<thead>
 				<tr>
 					<th class="col-sm-2">Sale No</th>
@@ -485,7 +480,7 @@
 		$stockList = $stockCtrl->readStock("", $condition);
 		if (sizeOf($stockList)> 0) {
 			$output .='
-			<table id="direct_lot" class="table table-striped table-bordered">
+			<table id="direct_lot" class="table table-striped table-bordered table-sm">
 			<thead>
 				<tr>
 					<th class="col-sm-2">Sale No</th>

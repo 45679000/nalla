@@ -313,7 +313,7 @@
 		$invoices = $finance->fetchInvoices($type, $invoice_no);
 		if($invoice_no ==''){
 			if (count($invoices) > 0) {
-				$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
+				$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark table-sm'>
 						<thead class='thead-dark'>
 							<tr>
 							<th>Invoice No</th>
@@ -324,7 +324,7 @@
 							<th>Buyer Bank</th>
 							<th>Pay Bank</th>
 							<th>Payment Details</th>
-							<th>Date Entered</th>
+							<th>Date</th>
 							<th>Actions</th>
 							</tr>
 						</thead>
@@ -346,13 +346,9 @@
 						<td>".$invoice['pay_details']."</td>
 						<td>".$invoice['date_captured']."</td>
 						<td>
-						<a href='./index.php?view=allocateblendteas&invoice_no=$blendid' style='color:green'  
-						class='navigate' id=".$blendid."><i class='fa fa-plus'></i></a>&nbsp;
 
-								<a href='#editModal' style='color:green' data-toggle='modal' 
-								class='editBtn' id=".$blendid."><i class='fa fa-pencil'></i></a>&nbsp;
-								<a href='' style='color:red' class='deleteBtn' id=".$blendid.">
-								<i class='fa fa-trash' ></i></a>
+							<a class='printInvoice' onlick='printReport(this)' style='color:red' data-toggle='tooltip' data-placement='bottom' title='Remove Tea' >
+					  		<i class='fa fa-file' ></i></a>&nbsp&nbsp&nbsp;
 							</td>
 						</tr>";
 					}
@@ -364,7 +360,7 @@
 			}
 		}else{
 			if (count($invoices) > 0) {
-				$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark' style='width:100%;'>
+				$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark table-sm' style='width:100%;'>
 						<thead class='thead-dark'>
 							<tr>
 							<th>Invoice No</th>
@@ -372,9 +368,6 @@
 							<th>Consignee</th>
 							<th>Category</th>
 							<th>Port Of Delivery</th>
-							<th>Buyer Bank</th>
-							<th>Pay Bank</th>
-							<th>Payment Details</th>
 							<th>Date Entered</th>
 							<th>Actions</th>
 							</tr>
@@ -392,18 +385,10 @@
 						<td>".$invoice['consignee']."</td>
 						<td>".$invoice['invoice_category']."</td>
 						<td>".$invoice['port_of_delivery']."</td>
-						<td>".$invoice['buyer_bank']."</td>
-						<td>".$invoice['pay_bank']."</td>
-						<td>".$invoice['pay_details']."</td>
 						<td>".$invoice['date_captured']."</td>
 						<td>
-						<a href='./index.php?view=allocateblendteas&invoice_no=$blendid' style='color:green'  
-						class='navigate' id=".$blendid."><i class='fa fa-plus'></i></a>&nbsp;
-
-								<a href='#editModal' style='color:green' data-toggle='modal' 
-								class='editBtn' id=".$blendid."><i class='fa fa-pencil'></i></a>&nbsp;
-								<a href='' style='color:red' class='deleteBtn' id=".$blendid.">
-								<i class='fa fa-trash' ></i></a>
+								<a class='printInvoice' onlick='printReport(this)' style='color:red' data-toggle='tooltip' data-placement='bottom' title='Remove Tea' >
+								<i class='fa fa-file' ></i></a>&nbsp&nbsp&nbsp;
 							</td>
 						</tr>";
 					}

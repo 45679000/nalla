@@ -328,13 +328,14 @@ $("body").on("click", ".editWindow", function(e) {
     $('#blendEditForm').show();
     $('#blendSheetWrapper').hide();
 });
-$("body").on("click", ".blendSheet", function(e) {
+
+$("body").on("click", ".printInvoice", function(e) {
     e.preventDefault();
-    var blendno = '<?php echo $blendno ?>'
+    var invoiceno = '<?php echo $invoiceno ?>';
     $('#blendEditForm').hide();
     $('#blendSheetWrapper').show();
     $('#blendSheetWrapper').html(
-        '<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno=' + blendno +
+        '<iframe class="frame" frameBorder="0" src="../../reports/invoice_profoma_straight.php?invoiceno=' + invoiceno +
         '" width="100%" height="800px"></iframe>');
 
 });
@@ -480,5 +481,8 @@ function removeInvoiceTea(stockid, invoiceid){
             loadInvoiced(invoiceid);
         }
     });
+}
+function printReport(element){
+    alert("clicked");
 }
 </script>

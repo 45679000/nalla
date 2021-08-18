@@ -109,7 +109,7 @@ Class BlendingController extends Model{
 
         );
     }
-       public function fetchBlends($blendno=''){
+    public function fetchBlends($blendno=''){
         $this->debugSql = false;
 
         if($blendno !=''){
@@ -133,6 +133,26 @@ Class BlendingController extends Model{
         }
  
     }
+    public function fetchBlendByStatus($status){
+        $this->debugSql = false;
+        $condition = " WHERE closed = 0 ";
+
+        if($status == 1){
+            $condition = " WHERE closed = 1 ";
+        }
+            $this->query = "SELECT `id`,`contractno`, `blend_no`, `date_`, 0_debtors_master.short_name AS client_name, 
+            `std_name`, `Grade`, `Pkgs`, `nw`, `sale_no`, `output_pkgs`, `output_kgs`, `comments`, `approved`, 
+            `si_no`, `closed`, `blendid`, blend_remnant,  `sweeping`, `cyclone`, `dust`, `fiber`,  `gain_loss`,  client_id, 
+            `shipping_instructions`.`destination_total_place_of_delivery` AS destination 
+            FROM `blend_master`
+            INNER JOIN 0_debtors_master ON 0_debtors_master.debtor_no = blend_master.client_id 
+            LEFT JOIN shipping_instructions ON shipping_instructions.contract_no = blend_master.contractno            
+             ". $condition;
+            return $this->executeQuery();
+       
+ 
+    }
+
     public function removeLotAllocationFromBlend($id, $blendno){
         $this->query = "UPDATE closing_stock 
         INNER JOIN blend_teas ON blend_teas.stock_id = closing_stock.stock_id

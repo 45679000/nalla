@@ -307,8 +307,13 @@
 
 	if(isset($_POST['action']) && $_POST['action'] =='blend-status'){
 				$type = isset($_POST['type']) ? $_POST['type'] : '';
+				$status = 0;
+				if($type == "closed"){
+					$status = 1;
+				}
+				$blends = $blendCtrl->fetchBlendByStatus($status);
+
 		$output = "";
-			  $blends = $blendCtrl->fetchBlends();
 			  $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
 			  if($blendno ==''){
 			  if (count($blends) > 0) {
@@ -357,11 +362,17 @@
 							  <td contentEditable='true' id='$columnPolucun'>".$blend['pulucon']."</td>
 							  <td  id='$columnBlendRemnant'>".$blend['blend_remnant']."</td>
 							  <td  id='$columnGainLoss'>".round($blend['gain_loss'],2)."</td>
-							  <td>
-								<button onclick=closeBlend(this) style='color:green'  
-								class='close' id='".$blend['id']."'><i class='fa fa-cog'></i>
-								close</button>
-							  </td>
+							  <td>";
+								if($status == 1){
+									$output.="<span><i class='fa fa-check'></i>
+									closed</span>";
+								}else{
+									$output.="<button onclick=closeBlend(this) style='color:green'  
+									class='close' id='".$blend['id']."'><i class='fa fa-cog'></i>
+									close</button>";
+								}
+								
+								$output.="</td>
 						  </tr>";
 					  }
 				  $output .= "</tbody>

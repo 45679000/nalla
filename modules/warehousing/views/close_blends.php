@@ -33,8 +33,8 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-options">
-                    <button id="unclosed" class="btn btn-secondary btn-sm ml-2">Unclosed</button>
-                    <button id="closed" class="btn btn-secondary btn-sm ml-2">Closed</button>
+                    <button id="unclosed" class="btn btn-info btn-sm ml-2">Unclosed</button>
+                    <button id="closed" class="btn btn-info btn-sm ml-2">Closed</button>
                 </div>
             </div>
 
@@ -78,6 +78,7 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
+        showAllBlends("closed");
 
         $("#unclosed").click(function(){
             showAllBlends("show-unclosed");

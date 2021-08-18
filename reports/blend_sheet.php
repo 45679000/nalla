@@ -8,7 +8,7 @@
 
     
     $PHPJasperXML = new PHPJasperXML();
-    $PHPJasperXML->debugsql = true;
+    $PHPJasperXML->debugsql = false;
     if(isset($_GET['blendno'])){
         $PHPJasperXML->arrayParameter=array("blend_no"=>$_GET['blendno']);
         $PHPJasperXML->load_xml_file("jrxmlFiles/blend_sheet.jrxml");

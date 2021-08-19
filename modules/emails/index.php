@@ -3,21 +3,20 @@ $path_to_root = "../../";
 include $path_to_root . 'templates/header.php';
 ?>
 				<div class="my-3 my-md-5">
-					<div class="container">
+					<div class="container-fluid">
 						<div class="page-header">
 							<h4 class="page-title">Email</h4>
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="#">Pages</a></li>
+								<li class="breadcrumb-item"><a href="#">home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Email</li>
 							</ol>
-							<button type="button" class="btn btn-outline-primary"><i class="fa fa-pencil mr-2"></i>Edit Page</button>
 						</div>
 						<div class="row">
 							<div class="col-lg-3 col-md-12 col-sm-12">
 								<div class="card">
 									<div class="list-group list-group-transparent mb-0 mail-inbox">
-										<div class="mt-4 mb-4 ml-4 mr-4 text-center">
-											<a href="#" class="btn btn-primary btn-lg btn-block">Compose</a>
+										<div class="mt-3 mb-3 ml-3 mr-3 text-center">
+											<a href="#" class="btn btn-success btn-lg btn-block">Compose</a>
 										</div>
 										<a href="emailservices.html" class="list-group-item list-group-item-action d-flex align-items-center active">
 											<span class="icon mr-3"><i class="fe fe-inbox"></i></span>Inbox <span class="ml-auto badge badge-success">14</span>
@@ -47,49 +46,7 @@ include $path_to_root . 'templates/header.php';
 										<h5 class="chat">Chats</h5>
 										<div class="status offline online"> <h6 class="online text-right">online</h6></div>
 									</div>
-                                    <ul class="mail-chats">
-                                        <li class="chat-persons">
-                                            <a href="#">
-                                                <span class="pro-pic"><img src="assets/images/faces/male/41.jpg" alt=""></span>
-                                                <div class="user">
-                                                    <p class="u-name">David</p>
-                                                    <p class="u-designation">Python Developer</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <!-- list person -->
-                                        <li class="chat-persons">
-                                            <a href="#">
-                                                <span class="pro-pic"><img src="assets/images/faces/female/1.jpg" alt=""></span>
-                                                <div class="user">
-                                                    <p class="u-name">Stella Johnson</p>
-                                                    <p class="u-designation">SEO Expert</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <!-- list person -->
-                                        <li class="chat-persons">
-                                            <a href="#">
-                                                <span class="pro-pic"><img src="assets/images/faces/male/35.jpg" alt=""></span>
-                                                <div class="user">
-                                                    <p class="u-name">Marina Michel</p>
-                                                    <p class="u-designation">Business Development</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <!-- list person -->
-                                        <li class="chat-persons">
-                                            <a href="#">
-                                                <span class="pro-pic"><img src="assets/images/faces/female/2.jpg" alt=""></span>
-                                                <div class="user">
-                                                    <p class="u-name">Edward Fletcher</p>
-                                                    <p class="u-designation">UI/UX Designer</p>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <!-- list person -->
-                                    </ul>
+                                    
                                     <!-- CHAT -->
 								</div>
 							</div>

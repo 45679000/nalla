@@ -28,7 +28,7 @@ CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
 
 FROM blend_teas
 INNER JOIN blend_master ON blend_master.id = blend_teas.blend_no
-INNER JOIN 0_debtors_master ON blend_master.client_name = 0_debtors_master.debtor_no
+INNER JOIN 0_debtors_master ON blend_master.client_id = 0_debtors_master.debtor_no
 INNER JOIN closing_stock ON closing_stock.stock_id = blend_teas.stock_id
 INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
 LEFT JOIN shippments ON shippments.blend_no = blend_master.id

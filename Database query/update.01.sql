@@ -186,3 +186,10 @@ WHERE b.sale_price IS NOT NULL
 
 alter table closing_cat_import convert to character set utf8mb4 collate utf8mb4_unicode_ci;
 alter table closing_cat convert to character set utf8mb4 collate utf8mb4_unicode_ci;
+
+
+SELECT count(*) AS countLot, lot, sale_no
+FROM `closing_stock` 
+WHERE is_blend_balance = 0
+GROUP BY lot, sale_no
+HAVING countLot>1;

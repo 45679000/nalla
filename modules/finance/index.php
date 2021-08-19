@@ -1,6 +1,7 @@
 <?php
     $path_to_root = "../../";
     $path_to_root1 = "../../";
+	session_start();
 
     include $path_to_root.'templates/header.php';
     include $path_to_root. 'widgets/_form.php';

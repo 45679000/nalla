@@ -10360,14 +10360,14 @@ button.close {
 .header {
 	padding-top: .75rem;
 	padding-bottom: .75rem;
-	background: linear-gradient(to left,#17B794,#14A485);
+	background: linear-gradient(to left,#15604F,#14A485);
 }
 .header-bg {
 	background: #1643A3;
 	/* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #1643A3, #17B794);
+	background: -webkit-linear-gradient(to left,#15604F,#14A485);
 	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to right, #1643A3, #17B794);
+	background: linear-gradient(to left,#15604F,#14A485);
 }
 body.fixed-header .header {
 	position: fixed;

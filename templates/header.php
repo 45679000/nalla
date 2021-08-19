@@ -2,9 +2,9 @@
 	session_start();
 	include $path_to_root.'database/page_init.php';
 
-	include 'validate_login.php';
+	include $path_to_root.'templates/validate_login.php';
 	// Turn off error reporting
-	// error_reporting(0);
+	error_reporting(1);
 	$user_full_name = $_SESSION["full_name"];
 	$user_department = $_SESSION["user_department"];
 ?>
@@ -187,9 +187,9 @@
             <div class="img-div">
                 <img class="circle-avatar" src="<?=$path_to_root ?>images/logo.png" alt="CHAMU">
             </div>
-            <div class="container-fluid" style="padding-top:10px;">
+            <div class="container-fluid" style="padding-top:18px;">
                 <div class="text-center" id="sys_notification"
-                    style="padding-top:10px; background-color:honeydew;border-radius: 15px 50px 30px 15px;">
+                    style="padding-top:18px; width:150vH;background-color:honeydew;border-radius: 15px 50px 30px 15px;">
                 </div>
             </div>
            	<div class="d-flex order-lg-2 ml-auto">
@@ -315,8 +315,8 @@
     </div>
 </div>
 
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/moment.js"></script>
+<script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/js/moment.js"></script>
 <script>
 
 $(function () {
@@ -327,13 +327,13 @@ $(function () {
 
 	var ndate = new Date();
     var hours = ndate.getHours();
-    var greetings = hours < 12 ? 'Good Morning' : hours < 18 ? 'Good Afternoon' : 'Good Evening';
+    var greetings = hours < 12 ? ' Good Morning ' : hours < 18 ? ' Good Afternoon ' : ' Good Evening ';
 
     var section = $('#sys_notification');
     var texts = [
-      '<h4>'+greetings+'  '+user_full_name+ ' Department: '+ user_department+'</h4>', 
+      '<h4>'+greetings+  '  <i class="fa fa-user"></i>'  +user_full_name+ ' <i class="fa fa-home"></i> Department  '+ user_department+'</h4>', 
       '<h4>CHAMU TIFMS</h4>', 
-      '<h4>'+now+'</h4>', ];
+      '<h4><i class="fa fa-calendar"></i> '+now+'</h4>', ];
     var current = 0;
 
     function nextNotification() {

@@ -235,7 +235,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                            <div class="card-body">
                                 <div class="table-responsive">
 									<table id="closingimports" class="table table-striped table-bordered table-sm" style="width:100%">
-										<thead class="thead-info">
+										<thead class="thead-light">
 											<tr>
 												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Ware Hse.</th>

@@ -90,8 +90,11 @@ $shippingI = $controller->getShippingInstructions();
     }
 </style>
 <body>
-    <div class="page-header">
-       
+<div class="page-header">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/chamu/modules/stock/index.php?view=dashboard">home</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Stocks</li>
+		</ol>
     </div>
     <div class="container-fluid">
         <div class="row">

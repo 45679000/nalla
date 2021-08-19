@@ -6,7 +6,6 @@ require_once $path_to_root . 'templates/header.php';
 	<div id="global-loader"></div>
 	<div class="page">
 		<div class="page-main">
-
 			<div class="my-3 my-md-5">
 				<div class="container-fluid">
 					<div class="row">
@@ -128,7 +127,7 @@ function checkActivityStatus(id, saleno){
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "finance_action.php",
+        url: "../../modules/finance/finance_action.php",
         data: {
             action: "activity",
             id:id,

@@ -40,6 +40,23 @@ class Model{
         $data = $stmt->fetchAll();
         return $data;
     }
+    public function getTotal($tablename, $field, $condition){
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $sql = "SELECT SUM($field) AS $field FROM ".$tablename. " ".$condition;
+
+        try{
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            if($num>0){      
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);   
+                return $row;      
+            } 
+        }catch(Exception $ex){
+            var_dump($ex);
+        }
+    }
     public function selectOne($id, $id_name){
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);

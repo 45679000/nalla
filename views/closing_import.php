@@ -246,7 +246,6 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                 <th class="wd-25p">Pkgs</th>
                                                 <th class="wd-25p">Net</th>
 												<th class="wd-25p">Kgs</th>
-												<th class="wd-25p">Net</th>
                                                 <th class="wd-25p">Buyer</th>
                                                 <th class="wd-25p">Hammer</th>
 

@@ -74,6 +74,7 @@ INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hs
 FROM `closing_cat`
 WHERE confirmed = 1 AND lot NOT IN (SELECT lot FROM closing_stock WHERE sale_no = )
 
+SELECT * FROM `closing_stock` WHERE sale_no LIKE '%PRVT%'; 
 
 SELECT * FROM closing_stock WHERE stock_id NOT IN (SELECT stock_id FROM stock_allocation) AND sale_no !='2021-27'
 

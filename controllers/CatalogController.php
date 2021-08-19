@@ -167,8 +167,8 @@
           
         }
         public function readImportSummaries(){
-            $rows = $this->conn->query("SELECT * FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'")->fetchAll();
-            return $rows;
+            $this->query = "SELECT * FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$' AND imported_by = $this->user_id" ;
+            return $this->executeQuery();
         }
         public function summaryTotal($column, $type){
             $query = "SELECT SUM(".$column.") AS total FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'";
@@ -192,19 +192,40 @@
         }
         public function confirmCatalogue(){
             $confirmed = false;
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             try {
-                $stmt = $this->conn->prepare("REPLACE INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
-                                          SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`, md5(CONCAT(trim(broker), trim(sale_no), trim(lot)))
-                                          FROM closing_cat_import
-                                          WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL"
-                                        );
-             $stmt->execute();
-             $stmt2 = $this->conn->prepare("DELETE FROM closing_cat_import WHERE 1");
-             $stmt2->execute();
-             $confirmed = true;
+                $this->debugSql = true;
+                $this->query = "SELECT COUNT(closing_cat_import_id) AS total_rows FROM closing_cat WHERE sale_no =  '$this->saleno' AND broker = '$this->broker'";
+                $results = $this->executeQuery();
+                if($results[0]['total_rows'] > 0){
+                    $this->debugSql = true;
+                    $this->query = "DELETE FROM closing_cat WHERE sale_no = '$this->saleno' AND broker = '$this->broker'";
+                    $this->executeQuery();
+
+                    $this->query = "INSERT INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
+                    SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`, md5(CONCAT(trim(broker), trim(sale_no), trim(lot)))
+                    FROM closing_cat_import
+                    WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL AND imported_by = $this->user_id";
+                    $this->executeQuery();
+
+                    $this->query = "DELETE FROM closing_cat_import WHERE imported_by = $this->user_id";
+                    $this->executeQuery();
+                    $confirmed = true;
+
+                }else{
+                    $this->debugSql = true;
+
+                    $this->query = "INSERT INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
+                    SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`, md5(CONCAT(trim(broker), trim(sale_no), trim(lot)))
+                    FROM closing_cat_import
+                    WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL";
+                    $this->executeQuery();
+                    $confirmed = true;
+
+                }
              $this->addActivity(1, $this->saleno, $this->user_id);
+             $this->addActivity(2, $this->saleno, $this->user_id);
+             $this->addActivity(3, $this->saleno, $this->user_id);
+
              return $confirmed;
             } catch (Exception $ex) {
                 var_dump($ex);

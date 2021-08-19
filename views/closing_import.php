@@ -17,6 +17,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     $catalogue->broker = $_POST['broker'];
     $catalogue->user_id = $_SESSION["user_id"];
     $_SESSION["sale_no"] = $_POST['saleno'];
+    $_SESSION["broker"] = $_POST['broker'];
 
     if(isset($_POST["split"])){
         $catalogue->is_split = $_POST["split"];
@@ -25,10 +26,10 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
         $catalogue->is_split = "No";
 
     }
-
     $imported = $catalogue->importClosingCatalogue();
 
 }
+    $catalogue->user_id = $_SESSION["user_id"];
     $imports = $catalogue->readImportSummaries();
 
     $mainlots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];
@@ -42,6 +43,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     if(isset($_POST['confirm'])){
         $catalogue->saleno = $_SESSION["sale_no"];
         $catalogue->user_id = $_SESSION["user_id"];
+        $catalogue->broker = $_SESSION["broker"];
         $confirmed = $catalogue->confirmCatalogue();
         if($confirmed == true){
             echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
@@ -55,7 +57,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     }
 
 ?>
-    <div class="my-3 my-md-5">
+    <div class="my-12 my-md-12">
         <div class="container">
             <div class="page-header">
                 <h4 class="page-title">Catalogue Import</h4>
@@ -64,8 +66,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                     <li class="breadcrumb-item active" aria-current="page">Catalogue Import</li>
                 </ol>
             </div>
-
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -73,7 +74,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                         </div>
 
                         <?php if(empty($imports)){  
-                        echo '<div class="card-body p-6">
+                        echo '<div class="card-body p-12">
                             <div class="wizard-container">
                                 <div class="wizard-card m-0" id="wizardProfile">
                                     <form action="" method="post" enctype="multipart/form-data">
@@ -167,7 +168,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                            $html= '
                            <div class="row">
 							<div class="col-md-12 col-lg-12">
-								<div class="card">
+								<div class="card ">
 									<div class="card-body text-center">
 										<div class="row mt-0 well">
 											<div class="col-md-6">
@@ -233,7 +234,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 						</div>
                            <div class="card-body">
                                 <div class="table-responsive">
-									<table id="closingimports" class="table table-striped table-bordered" style="width:100%">
+									<table id="closingimports" class="table table-striped table-bordered table-sm" style="width:100%">
 										<thead>
 											<tr>
 												<th class="wd-15p">Lot No</th>
@@ -243,11 +244,11 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 												<th class="wd-10p">Grade</th>
                                                 <th class="wd-25p">Invoice</th>
                                                 <th class="wd-25p">Pkgs</th>
-												<th class="wd-25p">Type</th>
+                                                <th class="wd-25p">Net</th>
+												<th class="wd-25p">Kgs</th>
 												<th class="wd-25p">Net</th>
-                                                <th class="wd-25p">Gross</th>
-                                                <th class="wd-25p">Kgs</th>
-                                                <th class="wd-25p">Tare</th>
+                                                <th class="wd-25p">Buyer</th>
+                                                <th class="wd-25p">Hammer</th>
 
 											</tr>
 										</thead>
@@ -264,9 +265,9 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                 $html.='<td>'.$import["pkgs"].'</td>';
                                                 $html.='<td>'.$import["type"].'</td>';
                                                 $html.='<td>'.$import["net"].'</td>';
-                                                $html.='<td>'.$import["gross"].'</td>';
+                                                $html.='<td>'.$import["buyer_package"].'</td>';
                                                 $html.='<td>'.$import["kgs"].'</td>';
-                                                $html.='<td>'.$import["tare"].'</td>';
+                                                $html.='<td>'.$import["sale_price"].'</td>';
 
 											$html.='</tr>';
                                         }

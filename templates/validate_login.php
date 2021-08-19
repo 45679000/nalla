@@ -1,6 +1,5 @@
 <?php
-    if(!isset($_SESSION['role_id'])){ //if login in session is not set
-        header("location:../views/login.php");
-    
-    }
+if(!isset($_SESSION["user_id"])){
+    echo '<script type="text/javascript">window.location = "/chamu/views/login.php?sessionExpired=true";</script>';
+}
 ?>

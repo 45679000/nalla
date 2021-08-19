@@ -17,12 +17,19 @@ class Users{
                                             'user_id',
                                              $user_id
                                         );
+            $userDept = $this->readOne( 'departments',
+                                        'department_id',
+                                        $userDetails['department_id']
+                                        );
+            
             if($userDetails['user_id'] != null){
                 $_SESSION["user_id"] =     $userDetails['user_id'];
                 $_SESSION["user_name"] =   $userDetails['user_name'];
                 $_SESSION["full_name"] =   $userDetails['full_name'];
                 $_SESSION["email"] =       $userDetails['email'];
                 $_SESSION["role_id"] =     $userDetails['role_id'];
+                $_SESSION["user_department"] = $userDept['department_name'];
+
                 $userLevels = $this->readOne('access_levels',
                                             'role_id',
                                             $userDetails['role_id']

@@ -12,7 +12,7 @@
     $conn = $db->getConnection();
     $stock = new Stock($conn);
     $tag = isset($_POST['tag']) ? $_POST['tag'] : '';
-    
+
     switch ($tag) {
         case 'totalP':
             $total = $stock->getTotal("closing_cat", "kgs", "WHERE confirmed = 1")["kgs"];
@@ -89,18 +89,21 @@
             $totalKgs = $stock->executeQuery();
             $description = "Total Unallocated Teas";
             $unit="kgs"; 
-            $icon = "mdi mdi-basket-fill";
+            $icon = "mdi mdi-basket-unfill";
             $mdiText = "Total Unallocated Kgs";
            echo get_card($totalKgs[0]['kgs'], $description, $unit, $icon, $mdiText);
             break;
       
         case 'totalStckPAllc':
-            break;
+        break;
+        case 'pvsvs':
+            echo get_pie_chart();
+        break;
         default:
             # code...
         break;
     }
-
+    
 
     function get_card($total, $description, $unit, $icon, $mdiText){
        $output = '
@@ -128,6 +131,19 @@
     </div>';
     return $output;
     }
+    function get_pie_chart(){
+        $output = '
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">3D Pie Chart</h3>
+            </div>
+            <div class="card-body">
+                <div id="highchart3"></div>
+            </div>
+        </div>
+    ';
+     return $output;
+     }
 
 
 

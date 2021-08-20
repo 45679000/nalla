@@ -37,26 +37,21 @@ error_reporting(1);
 						<div id="totalStckUnAllc" class="col-lg-3 col-md-6 col-sm-12">
 						</div>
 					</div>
+				
 				</div>
 			</div>
 		</div>
+
+		
 		<!-- Add Record  Modal -->
 		
 
-<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../../assets/js/vendors/circle-progress.min.js"></script>
-<!-- Custom Js-->
-<script src="../../assets/js/custom.js"></script>
-<script src="../../assets/js/warehousing.js"></script>
 
-<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
+		appendCard("pvsvs", "../../modules/dashboard/dashboard_action.php");
+
 		appendCard("totalP", "../../modules/dashboard/dashboard_action.php");
 		appendCard("totalStck", "../../modules/dashboard/dashboard_action.php");
 		appendCard("totalShpd", "../../modules/dashboard/dashboard_action.php");
@@ -65,8 +60,7 @@ error_reporting(1);
 		appendCard("totalStckAllc", "../../modules/dashboard/dashboard_action.php");
 		appendCard("totalStckUnAllc", "../../modules/dashboard/dashboard_action.php");
 
-		
-		
+
 		
 		function appendCard(id, url){
 			$.ajax({

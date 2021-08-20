@@ -215,10 +215,10 @@
 						$value = round($purchase['sale_price'] * $purchase['pkgs'], 2);
 						$totalamount = round($brokerage + $value, 2);
 						$afterTax = round(($totalamount) - (5 / 100) * $brokerage, 2);
-						$auctionHammer = round(($purchase['sale_price'] / $purchase['kgs']), 2);
+						$auctionHammer = round(($purchase['sale_price']), 2);
 						$addon = 0;
 						$totalPayable = round($addon + $auctionHammer, 2);
-						$hammerPrice = round(floatval($purchase['sale_price']) / $purchase['kgs'], 2);
+						$hammerPrice = round(floatval($purchase['sale_price']), 2);
 
 						$totalBrokerage += $brokerage;
 						$totalValue += $value;

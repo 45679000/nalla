@@ -17,9 +17,9 @@ class Mailer{
         //create an instance of PHPMailer
         //create an instance of PHPMailer
 
-        echo $this->body;
-        echo $this->emailAddress;
-        echo $this->subject;
+        // echo $this->body;
+        // echo $this->emailAddress;
+        // echo $this->subject;
 
         $mail = new PHPMailer();
 

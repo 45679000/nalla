@@ -20,6 +20,7 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 
     $imported = $catalogue->importClosingCatalogue();
 }
+    $catalogue->user_id = $_SESSION["user_id"];
     $imports = $catalogue->readImportSummaries();
 
     $mainlots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];
@@ -49,9 +50,9 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     <div class="my-3 my-md-5">
         <div class="container">
             <div class="page-header">
-                <h4 class="page-title">Catalogue Upload</h4>
+                <h4 class="page-title">Post Catalogue Upload</h4>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
+                    <li class="breadcrumb-item"><a href="/chamu/modules/cataloguing/index.php?view=dashboard">home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Catalogue Upload</li>
                 </ol>
             </div>

@@ -53,9 +53,9 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     <div class="my-3 my-md-5">
         <div class="container">
             <div class="page-header">
-                <h4 class="page-title">Catalogue Upload</h4>
+                <h4 class="page-title">Valuation Catalog Upload</h4>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
+                    <li class="breadcrumb-item"><a href="/chamu/modules/cataloguing/index.php?view=dashboard">home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Catalogue Upload</li>
                 </ol>
             </div>

@@ -134,7 +134,16 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                             </div>
                         </div>
                         <div class="card-body table-wrapper-scroll-y my-custom-scrollbar">
-                            <div style="width:100%; height:30vH" id="blendTable"></div>
+                            <div style="width:100%; height:40vH" id="blendTable">
+                                <div class="dimmer active text-center">
+                                    <div class="spinner2">
+                                        <div class="cube1"></div>
+                                        <div class="cube2"></div>
+                                    </div>
+                                    <span>Loading....</span>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,7 +239,7 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                         <div class="col-md-3 well">
                             <div class="form-group label-floating">
                                 <label class="control-label">Pkgs</label>
-                                <input id="newpkgs"></input>
+                                <input type="number" step="5" min="5" id="newpkgs"></input>
                             </div>
                         </div>
                         <div class="col-md-3 well">
@@ -242,7 +251,7 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                         <div class="col-md-3 well">
                             <div class="form-group label-floating">
                                 <label class="control-label">Kgs</label>
-                                <input id="newkgs"></input>
+                                <input type="number" min="5" id="newkgs"></input>
                             </div>
                         </div>
                     </div>
@@ -321,14 +330,20 @@ $(document).ready(function() {
     $('#closeModal').click(function(e) {
         $('#splitModal').hide();
     });
+        
     $('#newpkgs').change(function(e) {
+        var lotPkgs = localStorage.getItem("lotPkgs");
         var newPkgs = $('#newpkgs').val();
-        var previousPkgs = $('#pkgs').val();
+        var previousPkgs = lotPkgs;
         var previousKgs = $('#kgs').val();
         var net = $('#net').val();
-        $('#pkgs').val(previousPkgs - newPkgs);
-        $('#kgs').val((previousPkgs - newPkgs) * net);
-        $('#newkgs').val(previousKgs - ((previousPkgs - newPkgs) * net));
+        if(previousPkgs>=0){
+            $('#pkgs').val(previousPkgs - newPkgs);
+            $('#kgs').val((previousPkgs - newPkgs) * net);
+            $('#newkgs').val(previousKgs - ((previousPkgs - newPkgs) * net));
+        }else{
+            alert("Lot cannot be splitted to zero");
+        }     
     })
     $('#saveSplit').click(function(e) {
         e.preventDefault();
@@ -451,6 +466,8 @@ function editBlend() {
 
 function splitLot(id) {
     $('#splitModal').show();
+    $('#newpkgs').val(0);
+    $('#newkgs').val(0);
 
     $.ajax({
         type: "POST",
@@ -470,6 +487,9 @@ function splitLot(id) {
             $('#invoice').val(lots.invoice);
             $('#newnet').val(lots.net);
             $('#stock_id').val(lots.stock_id);
+            $("#newpkgs").attr({"max" : lots.pkgs});
+            localStorage.setItem("lotPkgs", lots.pkgs);
+
         },
         error: function(data) {
             console.log('An error occurred.');
@@ -496,6 +516,7 @@ function insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs) {
                 icon: 'success',
                 title: 'Lot Splitted Successfully',
             });
+            $('#splitModal').trigger("reset");
             $("#splitModal").hide();
             loadUnallocated("", "", "", "");
 

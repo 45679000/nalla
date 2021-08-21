@@ -2,10 +2,10 @@
 $path_to_root = "../../../";
 $path_to_root1 = "../../../";
 
-require_once $path_to_root.'templates/header.php';
+include $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
-require $path_to_root."vendor/autoload.php";
-require_once $path_to_root.'controllers/CatalogController.php';
+include $path_to_root."vendor/autoload.php";
+include $path_to_root.'controllers/CatalogController.php';
 include $path_to_root1.'includes/auction_ids.php';
 
 $catalogue = new Catalogue($conn);
@@ -22,6 +22,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 
     $imported = $catalogue->importClosingCatalogue();
 }
+
+    $catalogue->user_id = $_SESSION["user_id"];
     $imports = $catalogue->readImportSummaries();
 
     $mainlots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];

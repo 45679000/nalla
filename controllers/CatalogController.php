@@ -173,9 +173,9 @@
         public function summaryTotal($column, $type){
             $query = "SELECT SUM(".$column.") AS total FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'";
             if($type=='main'){
-                $query.= "AND category = 'Main'";
+                $query.= "AND category = 'Main' AND imported_by = $this->user_id";
             }else{
-                $query.= "AND category = 'Sec'";
+                $query.= "AND category = 'Sec' AND imported_by = $this->user_id";
             }
             $row=$this->conn->query($query)->fetch();
             return $row;
@@ -183,9 +183,9 @@
         public function summaryCount($column, $type){
             $query = "SELECT COUNT(".$column.") AS count FROM `closing_cat_import` WHERE lot REGEXP '^[0-9]+$'";
             if($type=='main'){
-                $query.= "AND category = 'Main'";
+                $query.= "AND category = 'Main' AND imported_by = $this->user_id";
             }else{
-                $query.= "AND category = 'Sec'";
+                $query.= "AND category = 'Sec' AND imported_by = $this->user_id";
             }
             $row=$this->conn->query($query)->fetch();
             return $row;

@@ -44,6 +44,7 @@ function loadUnallocated(mark, lot, grade, saleno) {
         url: "blend_action.php",
         success: function (data) {
             $('#blendTable').html(data);
+            $('#direct_lot').DataTable({});
 
         }
     });
@@ -113,6 +114,8 @@ function addLotToBlend(stockid, action,  blendno){
         url: "blend_action.php",
         success: function (data) {
             currentAllocation(blendno);
+            BlendAllocationSummary(blendno);
+
         }
     });
 }
@@ -128,8 +131,8 @@ function removeLotFromBlend(id, blendno, action){
         cache: true,
         url: "blend_action.php",
         success: function (data) {
-            showBlend(blendno);
             loadUnallocated("", "", "", "");
+            BlendAllocationSummary(blendno);
         }
     });
 }
@@ -220,36 +223,12 @@ function BlendAllocationSummary(blendno) {
         type: "POST",
         dataType: "json",
         url: "blend_action.php",
-        data: { action: "blend-shippment-summary", blendno: blendno },
+        data: { action: "blend-input-summary", blendno: blendno },
         success: function (data) {
-            console.log(data.clientName);
-            $('#totalLots').html(data.totalLots);
-            $('#totalkgs').html(data.totalkgs);
-            $('#totalPkgs').html(data.totalpkgs);
-            $('#totalValue').html(data.totalAmount);
-            $('#totalNet').html(data.totalNet);
-            $('#clientName').html(data.clientName);
-            $('#lotView').html(data.lotDetailsView);
-            $('#lotEdit').html(data.lotDetailsEdit);
-            $('#lotStatus').html(data.approvalStatus);
-            $('#lotShow').html(data.blendNo);
-
-            $('.counter-value').each(function () {
-                $(this).prop('Counter', 0).animate({
-                    Counter: $(this).text()
-                }, {
-                    duration: 20,
-                    easing: 'swing',
-                    step: function (now) {
-                        $(this).text(Math.ceil(now));
-                    }
-                });
-            });
-        },
-        error: function (data) {
-
-
-        },
+            $('#totalkgs').html(data.kgsIn);
+            $('#totalPkgs').html(data.pkgsIn);
+            
+        }
     });
 }
 function standardList(){

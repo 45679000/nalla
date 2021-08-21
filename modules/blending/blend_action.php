@@ -94,16 +94,16 @@
             $compositions = $blendingCtrl->expectedComposition($blendno);
             $currentComposition = $blendingCtrl->currentComposition($blendno);
             if (count($blends) > 0) {
-                $output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
-                        <thead class='thead-dark'>
+                $output .="<table id='grid' style='width:100%;' class='table table-striped table-bordered table-hover'>
+                        <thead class='thead-light'>
                           <tr>
                             <th>Blend Name</th>
                             <th>Contract No</th>
                             <th>Client</th>
                             <th>STD</th>
                             <th>Grade</th>
+                            <th>Expected PKgs</th>
                             <th>Expected Kgs</th>
-                            <th>Input Kgs</th>
                             <th>Status</th>
                             <th>Edit</th>
                             <th>Blend Sheet</th>
@@ -112,7 +112,6 @@
                         </thead>
                         <tbody>";
                 foreach ($blends as $blend) {
-                    $kgs = $blend['nw']*$blend['Pkgs'];
                     $status = "unconfirmed";
                     $blendnoid = $blend["id"]."blend";
                     if($blend['approved']==1){
@@ -124,7 +123,7 @@
                             <td>".$blend['client_name']."</td>
                             <td>".$blend['std_name']."</td>
                             <td>".$blend['Grade']."</td>
-                            <td>".$kgs."</td>
+                            <td>".$blend['Pkgs']."</td>
                             <td>".$totalKgs."</td>
                             <td>".$status."</td>
                             <td>
@@ -156,6 +155,8 @@
                             }
                                 
                             $output.="</td>
+                            <td></td>
+
                                   
                         </tr>";
                     }
@@ -281,6 +282,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
   }    
  echo $output;
 }else{
+  
 }
 if(isset($_POST['action']) && $_POST['action'] =='blend-shippment-summary'){
   echo json_encode($blendingCtrl->shipmentSummaryBlend($_POST['blendno']));
@@ -441,10 +443,17 @@ if(isset($_POST['action']) && $_POST['action'] == 'composition'){
 </table>';
         
 echo $output;
+}
+if(isset($_POST['action']) && $_POST['action'] == 'blend-input-summary'){
+  $blendno = $_POST['blendno'];
+  $totalPkgsBlended = $blendingCtrl->getTotal("blend_teas", "packages", "WHERE blend_no = $blendno");
+  $totalKgsBlended = $blendingCtrl->getTotal("blend_teas", "blend_kgs", "WHERE blend_no = $blendno");
+  echo json_encode(
+    array(
+      "kgsIn" => $totalKgsBlended['blend_kgs'],
+      "pkgsIn" => $totalPkgsBlended['packages']
 
+    )
+  );
 
 }
-
-
-
-

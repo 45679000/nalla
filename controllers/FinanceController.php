@@ -121,7 +121,7 @@
             sale_price/100, `standard`, `buyer_package`
             FROM `closing_cat`
             WHERE confirmed = 1 AND lot NOT IN (SELECT lot FROM closing_stock WHERE sale_no = '$saleno') AND sale_no = '$saleno'
-            AND buyer_package = 'CSS'";
+            AND buyer_package = 'CSS' GROUP BY lot";
 
             $this->executeQuery();
             $this->debugSql = false;

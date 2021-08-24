@@ -25,8 +25,8 @@ shipping_instructions.shipping_marks, note
 
 FROM shippments
 INNER JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
-LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
 INNER JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
 INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
 LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id
 WHERE si_no = '$P{sino}'

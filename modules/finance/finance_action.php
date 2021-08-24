@@ -199,6 +199,7 @@
 								<th>Final Prompt Value Including Brokerage 0.5 % on value(USD)</th>
 								<th>Withholding Tax @ 5% Of Brokerage Amount Payable to Domestic Taxes Dept(USD)</th>
 								<th>Prompt Payable to EATTA-TCA After Deduction of W.Tax</th>
+								<th>Add On [Over Auction Hammer Price + Brokerage] Per Kg (USD)</th>
 								<th>Final Sales Invoice Price Per Kg(USD)</th>
 								<th>Final Sales Invoice Value(USD)</th>
 					
@@ -211,24 +212,32 @@
 						$totalKgs += $purchase['net'];
 						$totalNet += $purchase['kgs'];
 
-						$brokerage = round(($purchase['sale_price'] * $purchase['pkgs']) * (0.5 / 100), 2);
-						$value = round($purchase['sale_price'] * $purchase['pkgs'], 2);
-						$totalamount = round($brokerage + $value, 2);
+
 						$afterTax = round(($totalamount) - (5 / 100) * $brokerage, 2);
-						$auctionHammer = round(($purchase['sale_price']/100), 2);
 						$addon = 0;
-						$totalPayable = round($addon + $auctionHammer, 2);
+
+						$net = $purchase['net'];
 						$hammerPrice = round(floatval($purchase['sale_price']/100), 2);
+						$brokerage = round(($hammerPrice) * (0.05), 2);
+						$valueExAuct = round($net * $hammerPrice, 2);
+						$finalPrompt = round($brokerage + $valueExAuct, 2);
+						$withholdingTax = round((0.05*$brokerage),2);
+						$finalPromptEata = round($withholdingTax + $finalPrompt, 2);
+						$totalPayable = round($addon + $hammerPrice, 2);
+
 
 						$totalBrokerage += $brokerage;
-						$totalValue += $value;
+						$totalValue += $valueExAuct;
 						$totalHammer += $hammerPrice;
-						$totalAmount += $totalamount;
-						$totalbrokerage += (5 / 100) * $brokerage;
+						$totalAmount += $finalPrompt;
+						$totalbrokerage += round((0.05 * $brokerage), 2);
+						$withholdingTaxTotal += $withholdingTax;
+						$totalPromptEata += $finalPromptEata;
 
 						$totalAfterTax += $afterTax;
 						$totalAddon += $addon;
 						$totalpayable += $totalPayable;
+
 
 						$totalPayableStock += $totalPayable * $purchase['net'];
 						$output.='<tr>';
@@ -243,15 +252,16 @@
 							$output .= '<td>' . $purchase['invoice'] . '</td>';
 							$output .= '<td>' . $purchase['pkgs'] . '</td>'; //pkgs
 							$output .= '<td>' . $purchase['kgs'] . '</td>'; //net
-							$output .= '<td>' . $purchase['net'] . '</td>'; //kgs
+							$output .= '<td>' . number_format((float)$net, 2, '.', '') . '</td>'; //kgs
 							$output .= '<td>' . $hammerPrice . '</td>'; //auction hammer
-							$output .= '<td>' . $value . '</td>'; //value ex auction
+							$output .= '<td>' . number_format((float)$valueExAuct, 2, '.', '') . '</td>'; //value ex auction
 							$output .= '<td>' . $brokerage . '</td>'; // brokerage fee
-							$output .= '<td>' . $totalAmount . '</td>'; //final prompt value
-							$output .= '<td>' . (5 / 100) * $brokerage . '</td>';
-							$output .= '<td>' . $afterTax . '</td>';
-							$output .= '<td>' . $totalPayable . '</td>';
-							$output .= '<td>' . $totalPayable * $purchase['net'] . '</td>';
+							$output .= '<td>' . number_format((float)$finalPrompt, 2, '.', '') . '</td>'; //final prompt value
+							$output .= '<td>' . number_format((float)$withholdingTax, 2, '.', '') . '</td>';
+							$output .= '<td>' . number_format((float)$finalPromptEata, 2, '.', '') . '</td>';
+							$output .= '<td>' . number_format((float)$addon, 2, '.', '') . '</td>';
+							$output .= '<td>' . number_format((float)$totalPayable, 2, '.', '') . '</td>';
+							$output .= '<td>' . number_format((float)$totalPayable * $purchase['net'], 2, '.', '') . '</td>';
 							$output .= '</tr>';
 						$output.='</tr>';
 					}
@@ -269,16 +279,17 @@
 							$output .= '<td></td>';
 							$output .= '<td></td>';
 							$output .= '<td><b>' . $totalPkgs . '</b></td>'; //pkgs
-							$output .= '<td><b>' . round($totalNet / $totalLots) . '</b></td>'; //kgs
-							$output .= '<td><b>' . $totalKgs . '</b></td>'; //net
-							$output .= '<td><b>' . $totalHammer . '</b></td>'; //auction hammer
-							$output .= '<td><b>' . $totalValue . '</b></td>'; //value ex auction
-							$output .= '<td><b>' . $totalBrokerage . '</b></td>'; // brokerage fee
+							$output .= '<td><b>' . round(($totalNet / $totalLots),2) . '</b></td>'; //kgs
+							$output .= '<td><b>' . number_format((float)$totalKgs, 2, '.', '') . '</b></td>'; //net
+							$output .= '<td><b>' . round(($totalHammer/$totalLots),2) . '</b></td>'; //auction hammer
+							$output .= '<td><b>' . number_format((float)$totalValue, 2, '.', '') . '</b></td>'; //value ex auction
+							$output .= '<td><b>' . round(($totalBrokerage/$totalLots),2) . '</b></td>'; // brokerage fee
 							$output .= '<td><b>' . $totalAmount . '</b></td>'; //final prompt value
-							$output .= '<td><b>' . $totalbrokerage . '</b></td>';
-							$output .= '<td><b>' . $totalAfterTax . '</b></td>';
-							$output .= '<td><b>' . $totalpayable . '</b></td>';
-							$output .= '<td><b>' . $totalPayableStock . '</b></td>';
+							$output .= '<td><b>' . number_format((float)$withholdingTaxTotal, 2, '.', '') . '</b></td>';
+							$output .= '<td><b>' . number_format((float)$totalPromptEata, 2, '.', '') . '</b></td>';
+							$output .= '<td><b>' . $totalAddon . '</b></td>';
+							$output .= '<td><b>' . number_format((float)$totalpayable, 2, '.', '') . '</b></td>';
+							$output .= '<td><b>' . number_format((float)$totalPayableStock, 2, '.', '') . '</b></td>';
 
 			$output .= '</tr>
 						</tfooter>

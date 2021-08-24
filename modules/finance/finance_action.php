@@ -222,7 +222,7 @@
 						$brokerage = round(($valueExAuct) * (0.005), 2);
 						$finalPrompt = round($brokerage + $valueExAuct, 2);
 						$withholdingTax = round((0.05*$brokerage),2);
-						$finalPromptEata = round($withholdingTax + $finalPrompt, 2);
+						$finalPromptEata = round($finalPrompt-$withholdingTax, 2);
 						$totalPayable = round($addon + $hammerPrice, 2);
 
 
@@ -288,7 +288,7 @@
 							$output .= '<td><b>' . number_format((float)$withholdingTaxTotal, 2, '.', '') . '</b></td>';
 							$output .= '<td><b>' . number_format((float)$totalPromptEata, 2, '.', '') . '</b></td>';
 							$output .= '<td><b>' . $totalAddon . '</b></td>';
-							$output .= '<td><b>' . number_format((float)$totalpayable, 2, '.', '') . '</b></td>';
+							$output .= '<td><b>' . number_format((float)(round(($totalpayable/$totalLots),2)), 2, '.', '') . '</b></td>';
 							$output .= '<td><b>' . number_format((float)$totalPayableStock, 2, '.', '') . '</b></td>';
 
 			$output .= '</tr>

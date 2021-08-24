@@ -154,6 +154,7 @@ function postToStock() {
                 icon: 'success',
                 title: 'Posted To Stock',
             });
+            window.location.reload();
             checkActivityStatus(5, localStorage.getItem("saleno"));
         }
 
@@ -178,7 +179,6 @@ function checkActivityStatus(id, saleno){
             status = data[0].completed;
             activity = data[0].activity_id;
             emailed = data[0].emailed;
-
             if((activity=="5") && (status=="1")){
                 $("#confirmPList").html("confirmed");
                 $('#confirmPList').prop('disabled', true);

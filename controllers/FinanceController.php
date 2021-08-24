@@ -120,7 +120,7 @@
             `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `kgs`, `net`, 
             'sale_price/100', `standard`, `buyer_package`
             FROM `closing_cat`
-            WHERE confirmed = 1 AND lot NOT IN (SELECT lot FROM closing_stock WHERE sale_no = '$saleno')";
+            WHERE confirmed = 1 AND lot NOT IN (SELECT lot FROM closing_stock WHERE sale_no = '$saleno') AND sale_no = '$saleno'";
 
             $this->executeQuery();
             $this->debugSql = false;
@@ -128,12 +128,14 @@
             $this->query = "UPDATE auction_activities SET completed = 1 WHERE activity_id = 5 AND auction_no = '$saleno'";
             $this->executeQuery();
 
+            $this->debugSql = false;
+
             $this->query = "INSERT INTO `auction_activities`(`activity_id`, `auction_no`,  `details`) 
-            SELECT 6, '$saleno', details
-            FROM activities WHERE id = 6";
+            SELECT 6, '$saleno', activities.details
+            FROM activities 
+            LEFT JOIN auction_activities ON auction_activities.activity_id = activities.id
+            WHERE activities.id = 6  AND activity_id != 6";
             $this->executeQuery();
-
-
         }
         public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details){
             $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";

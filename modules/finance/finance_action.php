@@ -219,7 +219,7 @@
 						$net = $purchase['net'];
 						$hammerPrice = round(floatval($purchase['sale_price']/100), 2);
 						$valueExAuct = round($net * $hammerPrice, 2);
-						$brokerage = round(($valueExAuct) * (0.05), 2);
+						$brokerage = round(($valueExAuct) * (0.005), 2);
 						$finalPrompt = round($brokerage + $valueExAuct, 2);
 						$withholdingTax = round((0.05*$brokerage),2);
 						$finalPromptEata = round($withholdingTax + $finalPrompt, 2);
@@ -255,7 +255,7 @@
 							$output .= '<td>' . number_format((float)$net, 2, '.', '') . '</td>'; //kgs
 							$output .= '<td>' . $hammerPrice . '</td>'; //auction hammer
 							$output .= '<td>' . number_format((float)$valueExAuct, 2, '.', '') . '</td>'; //value ex auction
-							$output .= '<td>' . $brokerage . '</td>'; // brokerage fee
+							$output .= '<td>' . number_format((float)$brokerage, 2, '.', '') . '</td>'; // brokerage fee
 							$output .= '<td>' . number_format((float)$finalPrompt, 2, '.', '') . '</td>'; //final prompt value
 							$output .= '<td>' . number_format((float)$withholdingTax, 2, '.', '') . '</td>';
 							$output .= '<td>' . number_format((float)$finalPromptEata, 2, '.', '') . '</td>';

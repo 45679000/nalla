@@ -218,8 +218,8 @@
 
 						$net = $purchase['net'];
 						$hammerPrice = round(floatval($purchase['sale_price']/100), 2);
-						$brokerage = round(($hammerPrice) * (0.05), 2);
 						$valueExAuct = round($net * $hammerPrice, 2);
+						$brokerage = round(($valueExAuct) * (0.05), 2);
 						$finalPrompt = round($brokerage + $valueExAuct, 2);
 						$withholdingTax = round((0.05*$brokerage),2);
 						$finalPromptEata = round($withholdingTax + $finalPrompt, 2);

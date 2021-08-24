@@ -115,10 +115,10 @@
             $this->debugSql = false;
             $this->query = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, 
             `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`,  `kgs`,
-             `sale_price`, `standard`, `buyer_package`)
+             `sale_price`, `standard`, `buyer_package`, `import_date`)
              SELECT  `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`,
             `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `kgs`, `net`, 
-            sale_price/100, `standard`, `buyer_package`
+            sale_price/100, `standard`, `buyer_package`, closing_cat.auction_date
             FROM `closing_cat`
             WHERE confirmed = 1 AND lot NOT IN (SELECT lot FROM closing_stock WHERE sale_no = '$saleno') AND sale_no = '$saleno'
             AND buyer_package = 'CSS' GROUP BY lot";

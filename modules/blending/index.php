@@ -25,7 +25,8 @@ include $path_to_root . 'includes/auction_ids.php';
     <div class="container-fluid">
         <div class="page-header">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="chamu/modules/stock/index.php?view=dashboard">Home</a></li>
+                <li class="breadcrumb-item"><a href="/chamu/modules/blending/index.php">Issue Teas</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Stocks</li>
             </ol>
         </div>

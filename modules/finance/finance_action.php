@@ -283,7 +283,7 @@
 							$output .= '<td><b>' . number_format((float)$totalKgs, 2, '.', '') . '</b></td>'; //net
 							$output .= '<td><b>' . round(($totalHammer/$totalLots),2) . '</b></td>'; //auction hammer
 							$output .= '<td><b>' . number_format((float)$totalValue, 2, '.', '') . '</b></td>'; //value ex auction
-							$output .= '<td><b>' . round(($totalBrokerage/$totalLots),2) . '</b></td>'; // brokerage fee
+							$output .= '<td><b>' . round(($totalBrokerage),2) . '</b></td>'; // brokerage fee
 							$output .= '<td><b>' . $totalAmount . '</b></td>'; //final prompt value
 							$output .= '<td><b>' . number_format((float)$withholdingTaxTotal, 2, '.', '') . '</b></td>';
 							$output .= '<td><b>' . number_format((float)$totalPromptEata, 2, '.', '') . '</b></td>';

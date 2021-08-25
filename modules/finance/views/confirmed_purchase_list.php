@@ -26,22 +26,12 @@
                         <div class="card-header">
                             <div id="purchaseListactions" class="card-options">
                             </div>
-                            <div id="purchaseListCustomOpt" class="custom-options">
-                                <button id="confirmPList" class="btn btn-info btn-sm" type="submit" id="confirm"
-                                    name="confirm" value="1">
-                                    <i class="fa fa-check"></i> Confirm</button>
-                                <button id="editPList" class="btn btn-danger btn-sm" type="submit" id="confirm"
-                                    name="confirm" value="1">
-                                    <i class="fa fa-pencil"></i> Edit</button>
-                                <button id="emailPList" class="btn btn-warning btn-sm" type="submit" id="confirm"
-                                    name="confirm" value="1">
-                                    <i class="fa fa-envelope"></i> Notify Departments</button>
-
-                            </div>
                         </div>
                         <div style="height:60vH" class="card-body table-responsive">
                             <div id="purchaseList">
-
+                                    <div>
+                                        Select The Auction from The List above to load Buyin List
+                                    </div>
                             </div>
                         </div>
                     </div>

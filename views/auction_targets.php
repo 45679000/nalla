@@ -1,6 +1,6 @@
 <div class="col-md-8 col-lg-10">
-                <div class="card">
-                <?php 
+    <div class="card">
+        <?php 
                            $html= '
                            <div class="row">
 							<div class="col-md-12 col-lg-12">
@@ -40,9 +40,7 @@
                                         </div>
                                         <div class="col-md-3 well">
                                         <div class="form-group label-floating">
-
                                             <button type="submit" id="search" value="filter" name="filter" class="btn btn-success btn-sm">Search Catalogue</button>
-
                                         </div>
                                     </div>
                                     </div>
@@ -51,12 +49,14 @@
 								</div>
 							</div>
 						</div>
+                      
                                             <div class="card-body">
                                             <div class="table-responsive">
                                                 <table id="tasting" class="table table-striped table-bordered" style="width:100%">
                                                     <thead>
                                                         <tr>
                                                            <th class="wd-25p">Select</th>
+                                                           <th class="wd-15p">#ID</th>
                                                             <th class="wd-15p">Lot No</th>
                                                             <th class="wd-15p">Mark</th>
                                                             <th class="wd-10p">Grade</th>
@@ -83,6 +83,7 @@
                                                             }else{
                                                                 $html.='<td><input type="checkbox" id="allocated" name="allocated" value="1" checked></td>';
                                                             }
+                                                            $html.='<td>'.$import["closing_cat_import_id"].'</td>';
                                                             $html.='<td>'.$import["lot"].'</td>';
                                                             $html.='<td>'.$import["mark"].'</td>';
                                                             $html.='<td>'.$import["grade"].'</td>';
@@ -110,14 +111,14 @@
                                         </div>';
                                         echo $html;
                                 ?>
-                            </div>
-                        </div>
+    </div>
+</div>
 
-                    </div>
-                </div>
-            </div>
+</div>
+</div>
+</div>
 
-            <!-- Dashboard js -->
+<!-- Dashboard js -->
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
@@ -145,6 +146,7 @@
 
 
 <script>
+
 var SubmitData = new Object();
 var Comment = [],
     Standard = [],
@@ -153,35 +155,34 @@ var Comment = [],
             targets: [1],
             "className": "pk",
             visible: true
-        },
-    ],
-    
+        }, ],
+
     });
 $('#tasting tbody').on('click', '#unallocated', function() {
-        var thisCell = table.cell(this);
-        SubmitData.lot = $(this).parents('tr').find("td:eq(1)").text();
-        SubmitData.check = 1;
-        SubmitData.action = "add-target";
+    var thisCell = table.cell(this);
+    SubmitData.lot = $(this).parents('tr').find("td:eq(1)").text();
+    SubmitData.check = 1;
+    SubmitData.action = "add-target";
 
-        console.log(SubmitData);
-        postData(SubmitData, "../ajax/common.php");
+    console.log(SubmitData);
+    postData(SubmitData, "../ajax/common.php");
 
 });
 $('#tasting tbody').on('click', '#allocated', function() {
-        var id =  $(this).parents('tr').find("td:eq(1)").text();
-        var thisCell = table.cell(this);
-        SubmitData.lot = $(this).parents('tr').find("td:eq(1)").text();
-        SubmitData.check = 0;
-        SubmitData.action = "add-target";
+    var id = $(this).parents('tr').find("td:eq(1)").text();
+    var thisCell = table.cell(this);
+    SubmitData.lot = $(this).parents('tr').find("td:eq(1)").text();
+    SubmitData.check = 0;
+    SubmitData.action = "add-target";
 
-        console.log(SubmitData);
-        postData(SubmitData, "../ajax/common.php");
-        $('#'+id).removeClass('noedit');
+    console.log(SubmitData);
+    postData(SubmitData, "../ajax/common.php");
+    $('#' + id).removeClass('noedit');
 
 });
 
-function addMaxPrice(element){
-    lot =  $(element).attr('id');
+function addMaxPrice(element) {
+    lot = $(element).attr('id');
     SubmitData.lot = lot;
     SubmitData.maxPrice = $(element).val();
     SubmitData.action = "add-price";
@@ -190,24 +191,25 @@ function addMaxPrice(element){
 
 
 function postData(formData, PostUrl) {
-          $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: PostUrl,
-                data: formData,
-            success: function (data) {
-                console.log('Submission was successful.');
-                // location.reload();
-                console.log(data);
-                return data;
-            },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-        });
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: PostUrl,
+        data: formData,
+        success: function(data) {
+            console.log('Submission was successful.');
+            // location.reload();
+            console.log(data);
+            return data;
+        },
+        error: function(data) {
+            console.log('An error occurred.');
+            console.log(data);
+        },
+    });
 
 
 }
-</script>
 
+
+</script>

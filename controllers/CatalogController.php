@@ -530,9 +530,8 @@
                 if($saleno !=''){
                     $maxSale = $saleno;
                 }
-                $this->query = "SELECT broker, '$maxSale' AS sale_no, count(lot) AS totalLots, SUM(pkgs) AS totalPkgs, SUM(kgs) AS totalKgs
-                FROM closing_cat WHERE sale_no = '$maxSale'
-                GROUP BY broker;";
+                $this->query = "SELECT broker, sale_no, sale_price, pkgs, kgs, net, lot, mark, confirmed, added_to_plist, confirmed
+                FROM buying_list WHERE sale_no = '$maxSale'";
                 return $this->executeQuery();
                 
             }catch(Exception $ex){
@@ -549,15 +548,21 @@
         }
         public function getMaxSaleNo(){
             $this->query = "SELECT MAX(sale_no) AS max_sale
-            FROM closing_cat WHERE confirmed = 0 AND buyer_package = 'CSS'";
+            FROM buying_list WHERE confirmed = 0 AND buyer_package = 'CSS'";
             $this->debugSql = false;
             $sales = $this->executeQuery();
             return $sales[0]["max_sale"];
         }
         public function postBuyingList($saleno){
-            $this->query = "INSERT INTO `auction_activities`(`activity_id`, `auction_no`,  `details`) 
+            $this->debugSql = false;
+
+            $this->query = "REPLACE INTO `auction_activities`(`activity_id`, `auction_no`,  `details`) 
             SELECT 4, '$saleno', details
             FROM activities WHERE id = 4";
+            $this->executeQuery();
+            
+            $this->debugSql = false;
+            $this->query = "UPDATE buying_list SET confirmed = 1 WHERE added_to_plist = 1 AND sale_no = '$saleno'";
             $this->executeQuery();
         }
         public function addActivity($activity, $saleno, $userid){
@@ -576,8 +581,19 @@
                 $this->executeQuery();
             }
         }
-
-
+        public function confirmToPurchaseList($lotId, $add=0, $confirmed =0){
+            if($add == 1){
+                $query = "UPDATE buying_list SET added_to_plist = 1 WHERE lot = '$lotId'";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+            }
+            if($add == 0){
+                $query = "UPDATE buying_list SET added_to_plist = 0 WHERE lot = '$lotId'";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+            }
+     
+        }
 
   
 }

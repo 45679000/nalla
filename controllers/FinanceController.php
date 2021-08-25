@@ -99,34 +99,42 @@
         }
         public function confirmedPurchaseList(){
             $this->debugSql = false;
-            $this->query = "SELECT `closing_cat_import_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
-            `entry_no`, `value`, `lot`, `company`, closing_cat.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
+            $this->query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
+            `entry_no`, `value`, `lot`, `company`, buying_list.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
              `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, 
-             `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, 
-             mark_country.country AS origin, `broker_invoice`, DATE_FORMAT(`auction_date`, '%d/%m/%Y') AS auction_date
-            FROM `closing_cat` 
-            LEFT JOIN mark_country ON mark_country.mark = closing_cat.mark
+             `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, 
+             mark_country.country AS origin, `broker_invoice`, DATE_FORMAT(`auction_date`, '%d/%m/%Y') AS auction_date, added_to_stock
+            FROM `buying_list` 
+            LEFT JOIN mark_country ON mark_country.mark = buying_list.mark
             WHERE  buyer_package='CSS' AND sale_no = '".$this->saleno."' AND confirmed = 1
-            GROUP BY lot, broker, pkgs";
+            GROUP BY lot, broker, pkgs
+            ORDER BY line_no DESC";
             
             return $this->executeQuery();
         }
-        public function postToStock($saleno){
+        public function postToStock($saleno, $buying_list_id){
             $this->debugSql = false;
-            $this->query = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, 
+            
+            $lineno = $this->genLineNo($buying_list_id);
+            $this->query = "UPDATE buying_list SET line_no = '$lineno' WHERE buying_list_id = $buying_list_id";
+            $this->executeQuery();
+
+            $this->query = "INSERT INTO `closing_stock`(`line_no`,`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, 
             `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`,  `kgs`,
              `sale_price`, `standard`, `buyer_package`, `import_date`)
-             SELECT  `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`,
+             SELECT `line_no`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`,
             `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `kgs`, `net`, 
-            sale_price/100, `standard`, `buyer_package`, closing_cat.auction_date
-            FROM `closing_cat`
-            WHERE confirmed = 1 AND lot NOT IN (SELECT lot FROM closing_stock WHERE sale_no = '$saleno') AND sale_no = '$saleno'
-            AND buyer_package = 'CSS' GROUP BY lot";
+            sale_price/100, `standard`, `buyer_package`, buying_list.auction_date
+            FROM `buying_list`
+            WHERE buying_list_id = $buying_list_id";
 
             $this->executeQuery();
             $this->debugSql = false;
 
             $this->query = "UPDATE auction_activities SET completed = 1 WHERE activity_id = 5 AND auction_no = '$saleno'";
+            $this->executeQuery();
+
+            $this->query = "UPDATE buying_list SET added_to_stock = 1 WHERE buying_list_id = $buying_list_id";
             $this->executeQuery();
 
             $this->debugSql = false;
@@ -219,6 +227,22 @@
         public function removeInvoiceTea($stockid){
             $this->query = "UPDATE closing_stock SET profoma_invoice_no = NULL WHERE stock_id = $stockid";
             $this->executeQuery();
+        }
+        public function genLineNo($buying_list_id){
+            $this->debugSql = true;
+            $this->query = "SELECT DATE_FORMAT(CURRENT_DATE, '%y') AS date_part, SUBSTRING(sale_no, 6, 2) AS week_part, source, LPAD(buying_list_id, 10, '0') AS id_part
+            FROM buying_list WHERE buying_list_id = $buying_list_id";
+            $row = $this->executeQuery();
+            if(sizeOf($row)>0){
+                if(($row[0]['date_part'] != null) && ($row[0]['week_part'] != null) && ($row[0]['source'] != null) && ($row[0]['id_part'] != null)){
+                    $lineno = $row[0]['date_part'].$row[0]['week_part'].$row[0]['source'].$row[0]['id_part']; 
+                }
+            }else{
+                $lineno = -1;
+            }
+
+            return $lineno;
+
         }
    
     }

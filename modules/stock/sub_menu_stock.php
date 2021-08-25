@@ -11,9 +11,7 @@
             </div>
             <div class="expanel-body">
                 <div class="list-group list-group-transparent mb-0 mail-inbox">
-                    <li class="list-group-item list-group-item-action d-flex align-items-center">
-                        <a href="./stock_index.php?view=ppurchase-list" class="wave-effect"><i class="fa fa-window-restore mr-2"></i> Private Purchases</a>
-                    </li>
+              
                     <li class="list-group-item list-group-item-action d-flex align-items-center">
 					    <a href="./stock_index.php?view=purchase-list" class=" wave-effect"><i class="fa fa-window-restore mr-2"></i> Purchase List</a>
 					</li>

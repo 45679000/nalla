@@ -181,9 +181,11 @@
 			$output .='<table id="purchaseListTable" class="table table-bordered table-striped table-hover table-sm">
 			<thead class="table-primary">
 							<tr>
+								<th>Line No</th>
 								<th>Sale No</th>
 								<th>DD/MM/YY</th>
 								<th>Broker</th>
+								<th>Broker Invoice</th>
 								<th>Warehouse</th>
 								<th>Lot</th>
 								<th>Origin</th>
@@ -199,10 +201,7 @@
 								<th>Final Prompt Value Including Brokerage 0.5 % on value(USD)</th>
 								<th>Withholding Tax @ 5% Of Brokerage Amount Payable to Domestic Taxes Dept(USD)</th>
 								<th>Prompt Payable to EATTA-TCA After Deduction of W.Tax</th>
-								<th>Add On [Over Auction Hammer Price + Brokerage] Per Kg (USD)</th>
-								<th>Final Sales Invoice Price Per Kg(USD)</th>
-								<th>Final Sales Invoice Value(USD)</th>
-					
+								<th>Actions</th>
 							</tr>
 					</thead>
 			        <tbody>';
@@ -241,27 +240,39 @@
 
 						$totalPayableStock += $totalPayable * $purchase['net'];
 						$output.='<tr>';
+							$output .= '<td>' . $purchase['line_no'] . '</td>';
 							$output .= '<td>' . $purchase['sale_no'] . '</td>';
 							$output .= '<td>' . $purchase['auction_date'] . '</td>';
 							$output .= '<td>' . $purchase['broker'] . '</td>';
+							$output.='<td onBlur=updateInvoice(this) class="'.$id.'" contentEditable = "true">'.$purchase["broker_invoice"].'</td>';
 							$output .= '<td>' . $purchase['ware_hse'] . '</td>';
 							$output .= '<td>' . $purchase['lot'] . '</td>';
 							$output .= '<td>' . $purchase['origin'] . '</td>';
 							$output .= '<td>' . $purchase['mark'] . '</td>';
 							$output .= '<td>' . $purchase['grade'] . '</td>';
 							$output .= '<td>' . $purchase['invoice'] . '</td>';
-							$output .= '<td>' . $purchase['pkgs'] . '</td>'; //pkgs
-							$output .= '<td>' . $purchase['kgs'] . '</td>'; //net
-							$output .= '<td>' . number_format((float)$net, 2, '.', '') . '</td>'; //kgs
-							$output .= '<td>' . $hammerPrice . '</td>'; //auction hammer
+							$output.='<td onBlur=updatePkgs(this) class="'.$id.'" contentEditable = "true">'.$purchase["pkgs"].'</td>';
+							$output.='<td onBlur=updateKgs(this) class="'.$id.'" contentEditable = "true">'.$purchase["kgs"].'</td>';
+							$output.='<td onBlur=updateNet(this) class="'.$id.'" contentEditable = "true">'.$purchase["net"].'</td>';
+							$output.='<td onBlur=updateHammer(this) class="'.$id.'" contentEditable = "true">'.$hammerPrice.'</td>';
 							$output .= '<td>' . number_format((float)$valueExAuct, 2, '.', '') . '</td>'; //value ex auction
 							$output .= '<td>' . number_format((float)$brokerage, 2, '.', '') . '</td>'; // brokerage fee
 							$output .= '<td>' . number_format((float)$finalPrompt, 2, '.', '') . '</td>'; //final prompt value
 							$output .= '<td>' . number_format((float)$withholdingTax, 2, '.', '') . '</td>';
 							$output .= '<td>' . number_format((float)$finalPromptEata, 2, '.', '') . '</td>';
-							$output .= '<td>' . number_format((float)$addon, 2, '.', '') . '</td>';
-							$output .= '<td>' . number_format((float)$totalPayable, 2, '.', '') . '</td>';
-							$output .= '<td>' . number_format((float)$totalPayable * $purchase['net'], 2, '.', '') . '</td>';
+							if($purchase["added_to_stock"]==0){
+								$output.='
+								<td>
+									<a class="confirmLot" id="'.$purchase["buying_list_id"].'" style="color:green" data-toggle="tooltip" data-placement="bottom" title="Confirm Lot" >
+									<i class="fa fa-check-circle-o" ></i></a>
+								</td>';
+							}else{
+								$output.='
+								<td>
+									<a style="color:green" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+									<i class="fa fa-check">Added to stock</i></a>
+								</td>';
+							}
 							$output .= '</tr>';
 						$output.='</tr>';
 					}
@@ -270,6 +281,8 @@
 			$output .= '<tfooter>
 						<tr>';
 							$output .= '<td><b>TOTALS</td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
 							$output .= '<td></td>';
 							$output .= '<td></td>';
 							$output .= '<td></td>';
@@ -287,9 +300,8 @@
 							$output .= '<td><b>' . $totalAmount . '</b></td>'; //final prompt value
 							$output .= '<td><b>' . number_format((float)$withholdingTaxTotal, 2, '.', '') . '</b></td>';
 							$output .= '<td><b>' . number_format((float)$totalPromptEata, 2, '.', '') . '</b></td>';
-							$output .= '<td><b>' . $totalAddon . '</b></td>';
-							$output .= '<td><b>' . number_format((float)(round(($totalpayable/$totalLots),2)), 2, '.', '') . '</b></td>';
-							$output .= '<td><b>' . number_format((float)$totalPayableStock, 2, '.', '') . '</b></td>';
+							$output .= '<td></td>';
+
 
 			$output .= '</tr>
 						</tfooter>
@@ -300,9 +312,11 @@
 		}
 
 	}
-	if(isset($_POST['action']) && $_POST['action'] == "approve-purchaselist"){
+	if(isset($_POST['action']) && $_POST['action'] == "add_to_stock"){
 		$saleno = $_POST['saleno'];
-		$finance->postToStock($saleno);
+		$id = $_POST['id'];
+
+		$finance->postToStock($saleno, $id);
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "activity"){	
 		$activityid = isset($_POST['id']) ? $_POST['id'] : 0;

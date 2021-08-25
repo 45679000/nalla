@@ -82,71 +82,35 @@ $(function() {
         $('#purchaseListCustomOpt').show();
         var saleno = $('#saleno').find(":selected").text();
         localStorage.setItem("saleno", saleno);
-        var formData = {
-            saleno: saleno,
-            action: "confirmed-purchase-list"
-        };
+        loadPurchaseList();
         checkActivityStatus(5, localStorage.getItem("saleno"));
-
-
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "finance_action.php",
-            data: formData,
-            success: function(data) {
-                $('#purchaseList').html(data);
-                $(document).ready(function() {
-                    var table = $('#purchaseListTable').DataTable({
-                        lengthChange: false,
-                        select: true,
-                        "pageLength": 100,
-                        dom: 'Bfrtip',
-                        buttons: [{
-                                extend: 'copyHtml5',
-                                text: 'COPY<i class="fa fa-clipboard"></i>',
-                                titleAttr: 'Copy Paste'
-                            },
-                            {
-                                extend: 'excelHtml5',
-                                text: 'EXCEL <i class="fa fa-file-excel-o"></i>',
-                                titleAttr: 'Excel'
-                            },
-                            {
-                                extend: 'csvHtml5',
-                                text: 'CSV <i class="fa fa-file-text"></i>',
-                                titleAttr: 'CSV'
-                            },
-                            {
-                                extend: 'pdfHtml5',
-                                text: 'PDF <i class="fa fa-file-pdf-o"></i>',
-                                titleAttr: 'PDF'
-                            }
-                        ],
-                        // "scrollCollapse": true,
-                    });
-                    table.buttons().containers().appendTo('#purchaseListactions');
-
-                });
-            },
-
-        });
     });
 
-    $('#confirmPList').click(function(e){
-        postToStock();
-    })
+
+    $("body").on("click", ".confirmLot", function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            postToStock(id);
+            loadPurchaseList();
+    });
+    $("body").on("click", ".unconfirmLot", function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            postToStock(id);
+            loadPurchaseList();
+    });
 
 
 });
 
-function postToStock() {
+function postToStock(id) {
     $.ajax({
         type: "POST",
         dataType: "html",
         url: "finance_action.php",
         data: {
-            action: "approve-purchaselist",
+            action: "add_to_stock",
+            id:id,
             saleno: localStorage.getItem("saleno")
         },
         success: function(data) {
@@ -154,7 +118,7 @@ function postToStock() {
                 icon: 'success',
                 title: 'Posted To Stock',
             });
-            window.location.reload();
+            loadPurchaseList();
             checkActivityStatus(5, localStorage.getItem("saleno"));
         }
 
@@ -192,5 +156,57 @@ function checkActivityStatus(id, saleno){
         }
 
     });
+}
+function loadPurchaseList(){
+    var click = localStorage.getItem("click");
+
+    var formData = {
+            saleno: localStorage.getItem("saleno"),
+            action: "confirmed-purchase-list"
+        };
+
+    $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: formData,
+            success: function(data) {
+                $('#purchaseList').html(data);
+                $(document).ready(function() {
+                    var table = $('#purchaseListTable').DataTable({
+                        lengthChange: false,
+                        select: true,
+                        "pageLength": 100,
+                        dom: 'Bfrtip',
+                        buttons: [{
+                                extend: 'copyHtml5',
+                                text: 'COPY<i class="fa fa-clipboard"></i>',
+                                titleAttr: 'Copy Paste'
+                            },
+                            {
+                                extend: 'excelHtml5',
+                                text: 'EXCEL <i class="fa fa-file-excel-o"></i>',
+                                titleAttr: 'Excel'
+                            },
+                            {
+                                extend: 'csvHtml5',
+                                text: 'CSV <i class="fa fa-file-text"></i>',
+                                titleAttr: 'CSV'
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                text: 'PDF <i class="fa fa-file-pdf-o"></i>',
+                                titleAttr: 'PDF'
+                            }
+                        ],
+                        // "scrollCollapse": true,
+                    });
+                    if(click> 0){
+                    table.buttons().containers().appendTo('#purchaseListactions');
+                    }
+                });
+            },
+
+        });
 }
 </script>

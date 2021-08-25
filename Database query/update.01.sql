@@ -193,3 +193,10 @@ FROM `closing_stock`
 WHERE is_blend_balance = 0
 GROUP BY lot, sale_no
 HAVING countLot>1;
+
+
+DELETE FROM closing_stock WHERE stock_id IN (SELECT stock_id FROM closing_stock
+LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id
+WHERE sale_no = '2021-32' AND shippments.id IS NULL);
+
+UPDATE `closing_stock` SET `import_date` = '2021-07-27' WHERE sale_no = '2021-32';

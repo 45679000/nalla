@@ -5,18 +5,6 @@ require_once $path_to_root . 'templates/header.php';
 
 
 <div class="row row-cards" id="dashboardWrapper">
-
-    <div class="col-sm-12 col-lg-2">
-        <div id="cpurchaseList" class="card dashboardlink">
-            <div class="card-body">
-                <div class="card-box tilebox-one">
-                    <i class="icon-layers float-left text-muted"><i class="fa fa-list text-primary"
-                            aria-hidden="true"></i></i>
-                    <h6 class="text-drak text-uppercase mt-0">Confirm Purchase List</h6>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-sm-12 col-lg-2">
         <div id="cmdpurchaseList" class="card dashboardlink">
             <div class="card-body">
@@ -46,28 +34,6 @@ require_once $path_to_root . 'templates/header.php';
                     <i class="icon-layers float-left text-muted"><i class="fa fa-file text-info"
                             aria-hidden="true"></i></i>
                     <h6 class="text-drak text-uppercase mt-0">Commercial Invoices</h6>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-lg-2">
-        <div id="missingLots" class="card dashboardlink">
-            <div class="card-body">
-                <div class="card-box tilebox-one">
-                    <i class="icon-layers float-left text-muted"><i class="fa fa-search text-info"
-                            aria-hidden="true"></i></i>
-                    <h6 class="text-drak text-uppercase mt-0">Find Missing Lots</h6>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-lg-2">
-        <div id="prvtPurchases" class="card dashboardlink">
-            <div class="card-body">
-                <div class="card-box tilebox-one">
-                    <i class="icon-layers float-left text-muted"><i class="fa fa-balance-scale text-warning"
-                            aria-hidden="true"></i></i>
-                    <h6 class="text-drak text-uppercase mt-0">Private Purchases</h6>
                 </div>
             </div>
         </div>

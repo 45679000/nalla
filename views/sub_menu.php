@@ -6,8 +6,12 @@
                                     </div>
                                     <div class="expanel-body">
                                     <div class="list-group">
+                                   
                                             <a href="./tasting_grading.php?view=comment" class="list-group-item list-group-item-action d-flex align-items-center">
                                                 <span class="icon mr-3"><i class="fe fe-send"></i></span>Grading Codes
+                                            </a>
+                                            <a href="./stock_index.php?view=ppurchase-list" class="list-group-item list-group-item-action d-flex align-items-center">
+                                                <span class="icon mr-3"><i class="fe fe-send"></i></span>Private Purchases
                                             </a>
                                             <a href="./tasting_grading.php?view=grading" class="list-group-item list-group-item-active d-flex align-items-center">
                                                 <span class="icon mr-3"><i class="fe fe-send"></i></span>Add grading details

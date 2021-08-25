@@ -18,9 +18,13 @@
 				<tr>
 					<th>Auction</th>
 					<th>Broker</th>
-                    <th>Lots</th>
+					<th>Lot</th>
+                    <th>Sale Price</th>
+					<th>Mark</th>
+					<th>Net</th>
 					<th>Kgs</th>
 					<th>Pkgs</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>';
@@ -28,9 +32,31 @@
 				$output .= '<tr>';
 					$output .= '<td>'.$catalog['sale_no'].'</td>';
 					$output .= '<td>'.$catalog['broker'].'</td>';
-					$output .= '<td>'.$catalog['totalLots'].'</td>';
-					$output .= '<td>'.$catalog['totalKgs'].'</td>';
-					$output .= '<td>'.$catalog['totalPkgs'].'</td>';
+					$output .= '<td>'.$catalog['lot'].'</td>';
+					$output .= '<td>'.$catalog['sale_price'].'</td>';
+					$output .= '<td>'.$catalog['mark'].'</td>';
+					$output .= '<td>'.$catalog['net'].'</td>';
+					$output .= '<td>'.$catalog['pkgs'].'</td>';
+					$output .= '<td>'.$catalog['kgs'].'</td>';
+					if(($catalog["added_to_plist"]==0) && ($catalog["confirmed"]==0)){
+						$output.='
+						<td>
+							<a class="confirmLot" id="'.$catalog["lot"].'" style="color:green" data-toggle="tooltip" data-placement="bottom" title="Confirm Lot" >
+							<i class="fa fa-check-circle-o" >Confirm</i></a>
+						</td>';
+					}else if(($catalog["added_to_plist"]==1) && ($catalog["confirmed"]==0)){
+						$output.='
+						<td>
+							<a class="unconfirmLot" id="'.$catalog["lot"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+							<i class="fa fa-times-circle-o" >Remove</i></a>
+						</td>';
+					}else{
+						$output.='
+						<td>
+							<a style="color:green" data-toggle="tooltip" data-placement="bottom" title="Confirmed" >
+							<i class="fa fa-check" ></i>Confirmed</a>
+						</td>';
+					}
 					'</tr>';
 			}
 			$output .= '</tbody>
@@ -50,7 +76,7 @@
 	if(isset($_POST['action']) && $_POST['action'] == "post-buyinglist"){
 		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
 		$approved = $CatalogController->postBuyingList($saleno);
-		echo json_encode(array("status"=>"Buying list sent"));
+		echo json_encode(array("status"=>"Purchases In the List Have Been Confirmed And forwarded to Finance"));
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "confirm-valuation"){
 		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
@@ -65,6 +91,15 @@
 
 		$CatalogController->postCatalogueProcess($saleno, $userid);
 		echo json_encode(array("status"=>"Confirmed"));
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "add-lot"){
+		$lot = $_POST['lot'];
+		$CatalogController->confirmToPurchaseList($lot, 1, 0);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "remove-lot"){
+		$lot = $_POST['lot'];
+
+		$CatalogController->confirmToPurchaseList($lot, 0, 0);
 	}
 	
 	

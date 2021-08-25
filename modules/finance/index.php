@@ -49,13 +49,22 @@
         padding: 10px;
         box-shadow: 5px 10px #888888;
     }
-
+    .breadcrumb-item{
+        margin-top: 20px;
+    }
+    .page-header{
+    padding: 0px;
+    margin: 1.5rem !important;
+}
 </style>
+
+
+
 <div class="col-md-12">
     <div class="container-fluid">
         <div class="page-header">
             <ol id="breadcrumbList" class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./index.php?view=dashboard">home</a></li>
+                <li class="breadcrumb-item"><a style="font-size:20px;" class="fa fa-dashboard" href="./index.php?view=dashboard">home</a></li>
             </ol>
         </div>
         <div id="global-loader"></div>

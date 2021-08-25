@@ -218,7 +218,7 @@ if (isset($_POST['action']) && $_POST['action'] == "clear") {
  }
  if (isset($_POST['action']) && $_POST['action'] == "add-target") {
     if(isset($_POST['lot'])){
-        $grading->grade($_POST['lot'], $_POST['check'], "target");
+        $grading->addToBuyingList($_POST['lot'], $_POST['check'], "target");
     }  
  }
  if (isset($_POST['action']) && $_POST['action'] == "add-price") {

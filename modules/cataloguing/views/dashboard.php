@@ -28,7 +28,7 @@ require_once $path_to_root . 'templates/header.php';
 									</form>
 									<div>
 									<button id="postBuyingList" class="btn btn-info btn-sm" type="submit" id="confirm"
-                                    name="confirm" value="1">Send Buying List TO Finance
+                                    name="confirm" value="1">Confirm Buying List
 									</div>
 								</div>
 								<div class="text-center">
@@ -92,15 +92,25 @@ require_once $path_to_root . 'templates/header.php';
 
 <script>
 $(function() {
-	maxSaleNo();
+	buyingSummary('');
+    $("body").on("click", ".confirmLot", function(e) {
+            e.preventDefault();
+            var lot = $(this).attr('id');
+            addLot(lot);
+    });
+    $("body").on("click", ".unconfirmLot", function(e) {
+            e.preventDefault();
+            var lot = $(this).attr('id');
+            removeLot(lot);
+    });
+	var sale_no = maxSaleNo();
 	$("#saleno").change(function(){
 		var sale_no = $('#saleno option:selected').text();
 		buyingSummary(sale_no);
 		localStorage.setItem("saleno",sale_no);
 	})
-	checkActivityStatus(4, localStorage.getItem("saleno"));
+	// checkActivityStatus(4, localStorage.getItem("saleno"));
 
-	buyingSummary('');
 	$("#postBuyingList").click(function(e){
 		$.ajax({
 			type: "POST",
@@ -112,15 +122,52 @@ $(function() {
 			cache: true,
 			url: "catalog_action.php",
 			success: function (data) {
+				buyingSummary(localStorage.getItem("saleno"));
 				Swal.fire({
                 icon: 'success',
                 title: data.status,
             });
 			}
 		});
-	})
+	});
+
 
 });
+function addLot(lot){
+    localStorage.setItem("click", "0");
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "catalog_action.php",
+            data: {
+                action:"add-lot",
+                lot:lot
+            },
+        success: function (data) {
+			buyingSummary(localStorage.getItem("saleno"));
+            console.log('Submission was successful.');
+        }
+    
+    });
+}
+function removeLot(lot){
+    localStorage.setItem("click", "0");
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "catalog_action.php",
+            data: {
+                action:"remove-lot",
+                lot:lot
+            },
+        success: function (data) {
+			buyingSummary(localStorage.getItem("saleno"));
+            console.log('Submission was successful.');
+        }
+    
+    });
+}
 function checkActivityStatus(id, saleno){
     var activity;
     var message;

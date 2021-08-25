@@ -29,7 +29,7 @@
     $comments = $grading->readComments();
 
     if(isset($_POST['lot'])){
-        $grading->grade($_POST['lot'], $_POST['check'], "allocated");
+        $grading->addToBuyingList($_POST['lot'], $_POST['check'], "allocated");
 
     }
     $offered = $grading->readOffers();
@@ -37,42 +37,42 @@
 
 ?>
 <style>
-.noedit{
-    outline: none;
-    border: 0px;
-    background-color: inherit;
-}
-.edit{
-    border: 0.5px;
-    background-color: white;
-    width:30%;
-}
-.form-control{
-    color: black !important;
-    border:1px solid black !important;
-}
-.card{
-    max-height: 30% !important;
-    padding-bottom: 0px !important;
-}
-.card-body{
-    background-color: white !important;
-}.clear{
-    height: 100%;
-}
-list-group:hover{
-  background-color: brown !important;
-}
-.pdfViewer{
-    background-color: white !important;
-}
+    .noedit{
+        outline: none;
+        border: 0px;
+        background-color: inherit;
+    }
+    .edit{
+        border: 0.5px;
+        background-color: white;
+        width:30%;
+    }
+    .form-control{
+        color: black !important;
+        border:1px solid black !important;
+    }
+    .card{
+        max-height: 30% !important;
+        padding-bottom: 0px !important;
+    }
+    .card-body{
+        background-color: white !important;
+    }.clear{
+        height: 100%;
+    }
+    list-group:hover{
+    background-color: brown !important;
+    }
+    .pdfViewer{
+        background-color: white !important;
+    }
 </style>
 <div class="my-3 my-md-5">
     <div class="container-fluid">
         <div class="page-header">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Reports</li>
+                <li class="breadcrumb-item active" aria-current="page">Tasting</li>
             </ol>
         </div>
         <div class="row">

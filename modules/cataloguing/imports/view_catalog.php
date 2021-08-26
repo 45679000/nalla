@@ -21,7 +21,7 @@ if(isset($_POST['filter'])){
     <div class="my-3 my-md-5">
         <div class="container-fluid">
             <div class="page-header">
-                <h4 class="page-title">Generate Lables</h4>
+                <h4 class="page-title">View Catalog</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
                     <li class="breadcrumb-item active" aria-current="page"></li>

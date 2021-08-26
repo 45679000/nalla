@@ -117,8 +117,8 @@
 			$html='<table id="closingimports" class="table table-striped table-bordered" style="width:100%">
 										<thead>
 											<tr>
-												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Sale No</th>
+												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Broker</th>
 												<th class="wd-15p">Ware Hse.</th>
 												<th class="wd-20p">Company</th>
@@ -140,8 +140,8 @@
                                         foreach ($imports as $import){
 											$maxlow = $CatalogController->maxLow(trim($import['mark']), trim($import['grade']), trim($import['sale_no']));
                                             $html.='<tr>';
-                                                $html.='<td>'.$import["lot"].'</td>';
 												$html.='<td>'.$import["sale_no"].'</td>';
+                                                $html.='<td>'.$import["lot"].'</td>';
 												$html.='<td>'.$import["broker"].'</td>';
                                                 $html.='<td>'.$import["ware_hse"].'</td>';
                                                 $html.='<td>'.$import["company"].'</td>';

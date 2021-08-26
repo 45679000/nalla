@@ -62,8 +62,8 @@ include 'rep_broker.php';
                                                     <option disabled="" value="..." selected="">select</option>
                                                     <option value="main">Main</option>
                                                     <option value="dust">DUST</option>
-                                                    <option value="leaf">LEAFY</option>
-                                                    <option value="sec">Sec</option>
+                                                    <option value="leaf">LEAF</option>
+                                                    <option value="sec">SEC</option>
                                                 </select>
                                             </div>
                                         </div>

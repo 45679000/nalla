@@ -75,6 +75,9 @@ if(isset($_POST['filter'])){
                             </div>
                         </div>
                     </div>
+                    <div class="card-header">
+                    <button class="btn btn-sm btn-info" id="print_labels"><i class="fa fa-pdf-o" >Print Lables</i></button>
+                    </div>
                     <div class="card-body">
                         <div id="lableView" class="table-responsive">
                         </div>
@@ -130,50 +133,54 @@ $('select').on('change', function() {
     var broker = $.trim($('#broker').find(":selected").val());
     var category = $('#category').find(":selected").val();
     console.log("ready " + saleno + " broker " + broker + " category " + category);
-
-    if (saleno !== 'select' && broker !== 'select' && category !== 'select') {
-        loadLabels();
+    localStorage.setItem("saleno", saleno);
+    if ((saleno !== 'select' && saleno !== '') && broker !== 'select' && category !== 'select') {
+        loadLabels(saleno, broker, category);   
     }
 
 });
 
-$("body").on("click", ".unallocated", function(e) {
-    var id = $(e).attr(id);
-
+$("body").on("click", ".unallocated", function(element) {
+    var id = $(this).attr('id');
     $.ajax({
         type: "POST",
         dataType: "html",
-        url: PostUrl,
+        url: "../catalog_action.php",
         data: {
             action: "offer",
             id: id,
             columnValue: 1
         },
         success: function(data) {
-            loadLabels();
+            // loadLabels();
         }
     });
 });
 
-$("body").on("click", ".allocated", function(e) {
-    var id = $(e).attr(id);
-
+$("body").on("click", ".allocated", function(element) {
+    var id = $(this).attr('id');
     $.ajax({
         type: "POST",
         dataType: "html",
-        url: PostUrl,
+        url: "../catalog_action.php",
         data: {
             action: "offer",
             id: id,
             columnValue: 0
         },
         success: function(data) {
-            loadLabels();        }
+            // loadLabels();       
+         }
     });
 });
+$("#print_labels").click(function(element){
+    
+    $('#lableView').html('<iframe width="100%" height="800px" class="frame" frameBorder="0" src="../../../reports/packing_labels.php"></iframe>');
+
+})
 
 
-function loadLabels(){
+function loadLabels(saleno, broker, category){
     $.ajax({
             type: "POST",
             dataType: "html",
@@ -190,32 +197,4 @@ function loadLabels(){
             }
         });
 }
-</script>
-<script>
-
-
-            
-//     $(document).ready( function () {
-//     $('.pagination').prepend('<li><button id="clear" class="fa fa-success clear">Clear Selected</button></li>');
-
-//     var ele = document.getElementById("clear");
-//     ele.addEventListener("click", function(){
-//         $.ajax({
-//                 type: "POST",
-//                 dataType: "html",
-//                 url: "../../ajax/common.php",
-//                 data: {action:"clear"},
-//             success: function (data) {
-//                 swal('','Offers Cleared', 'success');
-//                 location.reload();
-
-//             },
-//             error: function (data) {
-
-//             },
-//         });
-
-//     })
-
-// } );
 </script>

@@ -65,15 +65,15 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                 <div class="card">
                     <div class="card-header">
                         <i id="helpBlend" style="float:left; font-size:large" class="fa fa-question-circle">help</i>
-                                <div id="help" style="display:none; margin-left:30px; text-align:center">
-                                <span class="label">
-                                    <pre>Import Both closing and valuation catalogs. 
+                        <div id="help" style="display:none; margin-left:30px; text-align:center">
+                            <span class="label">
+                                <pre>Import Both closing and valuation catalogs. 
                                     Step1. Select sale no and broker then click next
                                     Step2. Select Whether the catalog is Split(With three sheets) Or Not Split(Four Sheets)
                                     Step3. Select the broker catalog from the file system and Click finish
                                     </pre>
-                                
-                                </span>
+
+                            </span>
                         </div>
                     </div>
 
@@ -256,23 +256,23 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 											</tr>
 										</thead>
                                         <tbody>';
-                        // var_dump($imports);
-                        foreach ($imports as $import) {
-                            $html .= '<tr>';
-                            $html .= '<td>' . $import["lot"] . '</td>';
-                            $html .= '<td>' . $import["ware_hse"] . '</td>';
-                            $html .= '<td>' . $import["company"] . '</td>';
-                            $html .= '<td>' . $import["mark"] . '</td>';
-                            $html .= '<td>' . $import["grade"] . '</td>';
-                            $html .= '<td>' . $import["invoice"] . '</td>';
-                            $html .= '<td>' . $import["pkgs"] . '</td>';
-                            $html .= '<td>' . $import["kgs"] . '</td>';
-                            $html .= '<td>' . $import["net"] . '</td>';
-                            $html .= '<td>' . $import["buyer_package"] . '</td>';
-                            $html .= '<td>' . $import["sale_price"] . '</td>';
+                                            // var_dump($imports);
+                                            foreach ($imports as $import) {
+                                                $html .= '<tr>';
+                                                $html .= '<td>' . $import["lot"] . '</td>';
+                                                $html .= '<td>' . $import["ware_hse"] . '</td>';
+                                                $html .= '<td>' . $import["company"] . '</td>';
+                                                $html .= '<td>' . $import["mark"] . '</td>';
+                                                $html .= '<td>' . $import["grade"] . '</td>';
+                                                $html .= '<td>' . $import["invoice"] . '</td>';
+                                                $html .= '<td>' . $import["pkgs"] . '</td>';
+                                                $html .= '<td>' . $import["kgs"] . '</td>';
+                                                $html .= '<td>' . $import["net"] . '</td>';
+                                                $html .= '<td>' . $import["buyer_package"] . '</td>';
+                                                $html .= '<td>' . $import["sale_price"] . '</td>';
 
-                            $html .= '</tr>';
-                        }
+                                                $html .= '</tr>';
+                                            }
                         $html .= '</tbody>
                                     </table>
                                 </div>
@@ -322,79 +322,79 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 
 
 <script type="text/javascript">
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop a file here or click',
-                    'replace': 'Drag and drop or click to replace',
-                    'remove': 'Remove',
-                    'error': 'Ooops, something wrong appended.'
-                },
-                error: {
-                    'fileSize': 'The file size is too big (2M max).'
-                }
-            });
-        </script>
-        <script>
-			$('.counter').countUp();
-		</script>
-        <!-- Data table js -->
-		<script>
-			$(function(e) {
-				$('#closingimports').DataTable();
-                var saleno = '<?php echo $_SESSION["sale_no"] ?>';
-                var userid = '<?php echo $_SESSION["user_id"] ?>';
-                var broker = '<?php echo $_SESSION["broker"] ?>';
-                $('#confirm').click(function(e){
-                    e.preventDefault();
-                        $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: "../catalog_action.php",
-                        data: {
-                            action:"confirm-preauction",
-                            saleno: saleno,
-                            userid: userid,
-                            broker: broker
-
-                        },
-                    success: function (data) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Confirmed',
-                            });
-                            $(".swal2-confirm").click(function(e){
-                                window.location = window.location.href.split("?")[0];
-                            });
-                        },
-                    error: function (data) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Confirmed',
-                            });
-                            $(".swal2-confirm").click(function(e){
-                                window.location = window.location.href.split("?")[0];
-                            });
-                        }
-                    
-                    
-                    });
-
-                });
-			});
-            $('#helpBlend').click(function(e){
-                 $("#help").toggle();
-             });
-		</script>
-
+$('.dropify').dropify({
+    messages: {
+        'default': 'Drag and drop a file here or click',
+        'replace': 'Drag and drop or click to replace',
+        'remove': 'Remove',
+        'error': 'Ooops, something wrong appended.'
+    },
+    error: {
+        'fileSize': 'The file size is too big (2M max).'
+    }
+});
 </script>
 <script>
-    $('.counter').countUp();
+$('.counter').countUp();
 </script>
 <!-- Data table js -->
 <script>
-    $(function(e) {
-        $('#closingimports').DataTable();
+$(function(e) {
+    $('#closingimports').DataTable();
+    var saleno = '<?php echo $_SESSION["sale_no"] ?>';
+    var userid = '<?php echo $_SESSION["user_id"] ?>';
+    var broker = '<?php echo $_SESSION["broker"] ?>';
+    $('#confirm').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "../catalog_action.php",
+            data: {
+                action: "confirm-preauction",
+                saleno: saleno,
+                userid: userid,
+                broker: broker
+
+            },
+            success: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Confirmed',
+                });
+                $(".swal2-confirm").click(function(e) {
+                    window.location = window.location.href.split("?")[0];
+                });
+            },
+            error: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Confirmed',
+                });
+                $(".swal2-confirm").click(function(e) {
+                    window.location = window.location.href.split("?")[0];
+                });
+            }
+
+
+        });
+
     });
+});
+$('#helpBlend').click(function(e) {
+    $("#help").toggle();
+});
+</script>
+
+</script>
+<script>
+$('.counter').countUp();
+</script>
+<!-- Data table js -->
+<script>
+$(function(e) {
+    $('#closingimports').DataTable();
+});
 </script>
 
 </html>

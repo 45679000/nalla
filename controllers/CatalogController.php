@@ -381,12 +381,12 @@
             $year=explode('-',$auction,2)[0];
             $previousAuction = $year."-".$month_id;
                 try {
-                    $this->query = "SELECT  max(value) AS max FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  '".$previousAuction."'";
+                    $this->query = "SELECT  max(sale_price) AS max FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  '".$previousAuction."'";
                     $max = $this->executeQuery();
-                    $this->query = "SELECT  min(value) AS min FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  '".$previousAuction."'";
+                    $this->query = "SELECT  min(sale_price) AS min FROM closing_cat WHERE mark = "."'".$garden. "'". " AND grade = "."'".$grade. "'"." AND sale_no =  '".$previousAuction."'";
                     $min = $this->executeQuery();
                     
-                    return array_merge(array_merge($min, $max));
+                    return array("min"=>$min[0]['min'], "max"=>$max[0]['max']);
                 } catch (Exception $ex) {
                     var_dump($ex);       
                  }
@@ -537,6 +537,16 @@
         public function clearOffers(){
             try{
                 $this->query = "UPDATE closing_cat SET allocated = 0 WHERE allocated = 1";
+                $this->executeQuery();
+                
+            }catch(Exception $ex){
+                return $ex;
+            }
+
+        }
+        public function Offers($columnValue, $id){
+            try{
+                $this->query = "UPDATE closing_cat SET allocated = $columnValue WHERE closing_cat_import_id = $id";
                 $this->executeQuery();
                 
             }catch(Exception $ex){

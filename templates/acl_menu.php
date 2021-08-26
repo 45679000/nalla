@@ -54,10 +54,13 @@
 								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php>Import Post-Auction Catalog</a>
 							</li>
 							<li>
-								<a href='.$path_to_root.'views/view_valuations.php>View Catalogs</a>
+								<a href='.$path_to_root.'modules/cataloguing/imports/view_catalog.php>View Catalogs</a>
 							</li>
 							<li>
 								<a href='.$path_to_root.'reports/broker_catalogue.php>Print Catalogs</a>
+							</li>
+							<li>
+								<a href='.$path_to_root.'modules/cataloguing/views/generate_labels.php>Generate Lables</a>
 							</li>
 							
 						</ul>

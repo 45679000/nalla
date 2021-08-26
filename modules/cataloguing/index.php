@@ -59,29 +59,7 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
-                <div class="card">
-                    <div class="expanel expanel-primary">
-                        <div class="expanel-heading">
-                            <h3 class="expanel-title">Labels</h3>
-                        </div>
-                        <div class="expanel-body">
-                            <div class="list-group  mb-0 mail-inbox">
-                                            <a href="./index.php?view=offered-teas" class="list-group-item list-group-item-action d-flex align-items-center">
-                                                <span class="icon mr-3"><i class="fa fa-spinner"></i></span>Generate Labels
-                                            </a>
-                                        
-                                            <a href="./index.php?view=labels" class="list-group-item list-group-item-action d-flex align-items-center">
-                                                <span class="icon mr-3"><i class="fa fa-th"></i></span>Print Labels
-                                            </a>
-                            
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <?php 
                     if(isset($_GET['view'])){
                         $view=$_GET['view'];
@@ -103,7 +81,7 @@
                             
                     }
                 
-                ?>
+                ?> -->
             </div>
         </div>
     </div>

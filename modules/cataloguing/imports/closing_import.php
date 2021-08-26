@@ -1,50 +1,44 @@
 <?php
-$path_to_root = "../";
-$path_to_root1 = "../";
+$path_to_root = "../../../";
+$path_to_root1 = "../../../";
 
-require_once $path_to_root.'templates/header.php';
+include $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
-require $path_to_root."vendor/autoload.php";
-require_once $path_to_root.'controllers/CatalogController.php';
+include $path_to_root."vendor/autoload.php";
+include $path_to_root.'controllers/CatalogController.php';
 include $path_to_root1.'includes/auction_ids.php';
-$imported = false;
 
 $catalogue = new Catalogue($conn);
 if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
-
+   
     $catalogue->inputFileName = $_FILES['excel']['tmp_name'];
     $catalogue->saleno = $_POST['saleno'];
     $catalogue->broker = $_POST['broker'];
-    $catalogue->user_id = $_SESSION["user_id"];
-    $_SESSION["sale_no"] = $_POST['saleno'];
     $_SESSION["broker"] = $_POST['broker'];
 
-    if(isset($_POST["split"])){
-        $catalogue->is_split = $_POST["split"];
+    $catalogue->user_id = $_SESSION["user_id"];
+    $_SESSION["sale_no"] = $_POST['saleno'];
 
-    }else{
-        $catalogue->is_split = "No";
+    $catalogue->is_split = $_POST["split"];
 
-    }
     $imported = $catalogue->importClosingCatalogue();
-
 }
+
     $catalogue->user_id = $_SESSION["user_id"];
     $imports = $catalogue->readImportSummaries();
 
     $mainlots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];
-    $mainkgs = $catalogue->summaryTotal("net", "main")['total'];
+    $mainkgs = $catalogue->summaryTotal("kgs", "main")['total'];
     $mainpkgs = $catalogue->summaryTotal("pkgs", "main")['total'];
 
     $seclots = $catalogue->summaryCount("closing_cat_import_id", "sec")['count'];
-    $seckgs = $catalogue->summaryTotal("net", "sec")['total'];
+    $seckgs = $catalogue->summaryTotal("kgs", "sec")['total'];
     $secpkgs = $catalogue->summaryTotal("pkgs", "sec")['total'];
 
     if(isset($_POST['confirm'])){
         $catalogue->saleno = $_SESSION["sale_no"];
         $catalogue->user_id = $_SESSION["user_id"];
-        $catalogue->broker = $_SESSION["broker"];
-        $confirmed = $catalogue->confirmCatalogue();
+        $confirmed = $catalogue->importValuationCatalogue($_SESSION["sale_no"], $_SESSION["user_id"]);
         if($confirmed == true){
             echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
         }
@@ -57,23 +51,33 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
     }
 
 ?>
-    <div class="my-12 my-md-12">
-        <div class="container">
-            <div class="page-header">
-                <h4 class="page-title">Catalogue Import</h4>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Catalogue Import</li>
-                </ol>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Closing Catalogue Import</div>
+<div class="my-12 my-md-12">
+    <div class="container">
+        <div class="page-header">
+            <h4 class="page-title">Pre-Auction Catalog Import</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Catalogue Import</li>
+            </ol>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i id="helpBlend" style="float:left; font-size:large" class="fa fa-question-circle">help</i>
+                                <div id="help" style="display:none; margin-left:30px; text-align:center">
+                                <span class="label">
+                                    <pre>Import Both closing and valuation catalogs. 
+                                    Step1. Select sale no and broker then click next
+                                    Step2. Select Whether the catalog is Split(With three sheets) Or Not Split(Four Sheets)
+                                    Step3. Select the broker catalog from the file system and Click finish
+                                    </pre>
+                                
+                                </span>
                         </div>
+                    </div>
 
-                        <?php if(empty($imports)){  
+                    <?php if (empty($imports)) {
                         echo '<div class="card-body p-12">
                             <div class="wizard-container">
                                 <div class="wizard-card m-0" id="wizardProfile">
@@ -96,8 +100,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                 <select name="saleno" class="select2 form-control" ><small>(required)</small>
                                                                     <option disabled="" value="..." selected="">select</option>
                                                                     ';
-                                                                        loadAuction();
-                                                                    echo '
+                        loadAuction();
+                        echo '
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -163,9 +167,9 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                     </form>
                                 </div>
                             </div> <!-- wizard container -->
-                        </div>'; 
-                        }else{
-                           $html= '
+                        </div>';
+                    } else {
+                        $html = '
                            <div class="row">
 							<div class="col-md-12 col-lg-12">
 								<div class="card ">
@@ -180,15 +184,15 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                     <tbody>
                                                                         <tr>
                                                                             <td>Lots</td>
-                                                                            <td class="counter">'.$mainlots.'</td>
+                                                                            <td class="counter">' . $mainlots . '</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Kgs</td>
-                                                                            <td class="counter">'.$mainkgs.'</td>
+                                                                            <td class="counter">' . $mainkgs . '</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>PKgs</td>
-                                                                            <td class="counter">'.$mainpkgs.'</td>
+                                                                            <td class="counter">' . $mainpkgs . '</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -207,15 +211,15 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>Lots</td>
-                                                                        <td class="counter">'.$seclots.'</td>
+                                                                        <td class="counter">' . $seclots . '</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Kgs</td>
-                                                                        <td class="counter">'.$seckgs.'</td>
+                                                                        <td class="counter">' . $seckgs . '</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>PKgs</td>
-                                                                        <td class="counter">'.$secpkgs.'</td>
+                                                                        <td class="counter">' . $secpkgs . '</td>
                                                                     </tr>
                                                                  </tbody>
                                                             </table>
@@ -252,68 +256,69 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 											</tr>
 										</thead>
                                         <tbody>';
-                                        // var_dump($imports);
-                                        foreach ($imports as $import){
-                                            $html.='<tr>';
-                                                $html.='<td>'.$import["lot"].'</td>';
-                                                $html.='<td>'.$import["ware_hse"].'</td>';
-                                                $html.='<td>'.$import["company"].'</td>';
-                                                $html.='<td>'.$import["mark"].'</td>';
-                                                $html.='<td>'.$import["grade"].'</td>';
-                                                $html.='<td>'.$import["invoice"].'</td>';
-                                                $html.='<td>'.$import["pkgs"].'</td>';
-                                                $html.='<td>'.$import["kgs"].'</td>';
-                                                $html.='<td>'.$import["net"].'</td>';
-                                                $html.='<td>'.$import["buyer_package"].'</td>';
-                                                $html.='<td>'.$import["sale_price"].'</td>';
+                        // var_dump($imports);
+                        foreach ($imports as $import) {
+                            $html .= '<tr>';
+                            $html .= '<td>' . $import["lot"] . '</td>';
+                            $html .= '<td>' . $import["ware_hse"] . '</td>';
+                            $html .= '<td>' . $import["company"] . '</td>';
+                            $html .= '<td>' . $import["mark"] . '</td>';
+                            $html .= '<td>' . $import["grade"] . '</td>';
+                            $html .= '<td>' . $import["invoice"] . '</td>';
+                            $html .= '<td>' . $import["pkgs"] . '</td>';
+                            $html .= '<td>' . $import["kgs"] . '</td>';
+                            $html .= '<td>' . $import["net"] . '</td>';
+                            $html .= '<td>' . $import["buyer_package"] . '</td>';
+                            $html .= '<td>' . $import["sale_price"] . '</td>';
 
-											$html.='</tr>';
-                                        }
-                                $html.= '</tbody>
+                            $html .= '</tr>';
+                        }
+                        $html .= '</tbody>
                                     </table>
                                 </div>
                             </div>';
-                            echo $html;
-                        }
-                        ?>
-                        
-                    </div>
+                        echo $html;
+                    }
+                    ?>
+
                 </div>
             </div>
-
-
         </div>
+
+
     </div>
+</div>
 </div>
 </body>
 
 <!-- Dashboard js -->
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
-<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
+<script src="../../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../../../assets/js/vendors/selectize.min.js"></script>
+<script src="../../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../../assets/plugins/rating/jquery.rating-stars.js"></script>
 <!-- forn-wizard js-->
-<script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
 <!-- file import -->
-<script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
+<script src="../../../assets/plugins/fileuploads/js/dropify.min.js"></script>
 <!-- Custom scroll bar Js-->
-<script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src=../../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <!-- counter  -->
-<script src="../assets/plugins/counters/counterup.min.js"></script>
-<script src="../assets/plugins/counters/waypoints.min.js"></script>
+<script src="../../../assets/plugins/counters/counterup.min.js"></script>
+<script src="../../../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
-<script src="../assets/js/custom.js"></script>
-<script id="url" data-name="../ajax/common.php" src="../assets/js/common.js"></script>
+<script src="../../../assets/js/custom.js"></script>
+<script id="url" data-name="../../../ajax/common.php" src="../../../assets/js/common.js"></script>
 
-<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-<script src="../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../../../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../../../assets/js/sweet_alert2.js"></script>
 
 
 <script type="text/javascript">
@@ -336,7 +341,60 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
 		<script>
 			$(function(e) {
 				$('#closingimports').DataTable();
-			} );
+                var saleno = '<?php echo $_SESSION["sale_no"] ?>';
+                var userid = '<?php echo $_SESSION["user_id"] ?>';
+                var broker = '<?php echo $_SESSION["broker"] ?>';
+                $('#confirm').click(function(e){
+                    e.preventDefault();
+                        $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "../catalog_action.php",
+                        data: {
+                            action:"confirm-preauction",
+                            saleno: saleno,
+                            userid: userid,
+                            broker: broker
+
+                        },
+                    success: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Confirmed',
+                            });
+                            $(".swal2-confirm").click(function(e){
+                                window.location = window.location.href.split("?")[0];
+                            });
+                        },
+                    error: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Confirmed',
+                            });
+                            $(".swal2-confirm").click(function(e){
+                                window.location = window.location.href.split("?")[0];
+                            });
+                        }
+                    
+                    
+                    });
+
+                });
+			});
+            $('#helpBlend').click(function(e){
+                 $("#help").toggle();
+             });
 		</script>
-       
+
+</script>
+<script>
+    $('.counter').countUp();
+</script>
+<!-- Data table js -->
+<script>
+    $(function(e) {
+        $('#closingimports').DataTable();
+    });
+</script>
+
 </html>

@@ -48,17 +48,10 @@
 					<div class="sub-item">
 						<ul>
 							<li>
-								<a href='.$path_to_root.'views/closing_import.php>Import Closing Catalogs</a>
-							</li>
-							
-							<li>
-								<a href='.$path_to_root.'modules/cataloguing/imports/valuation.php>Import Valuations</a>
+								<a href='.$path_to_root.'modules/cataloguing/imports/closing_import.php>Import Pre-Auction Catalogs</a>
 							</li>
 							<li>
-								<a href='.$path_to_root.'modules/cataloguing/imports/post_import.php>Import Post Catalogs</a>
-							</li>
-							<li>
-								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php>Import ITTS Catalogs </a>
+								<a href='.$path_to_root.'modules/cataloguing/imports/itts_import.php>Import Post-Auction Catalog</a>
 							</li>
 							<li>
 								<a href='.$path_to_root.'views/view_valuations.php>View Catalogs</a>

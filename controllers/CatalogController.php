@@ -191,33 +191,54 @@
             return $row;
         }
         public function confirmCatalogue(){
-            $confirmed = false;
+            $confirmed = true;
             try {
-                $this->debugSql = false;
+                $this->debugSql = true;
                 $this->query = "SELECT COUNT(closing_cat_import_id) AS total_rows FROM closing_cat WHERE sale_no =  '$this->saleno' AND broker = '$this->broker'";
                 $results = $this->executeQuery();
                 if($results[0]['total_rows'] > 0){
-                    $this->debugSql = false;
-                    $this->query = "DELETE FROM closing_cat WHERE sale_no = '$this->saleno' AND broker = '$this->broker'";
-                    $this->executeQuery();
-
+                    $this->debugSql = true;
                     $this->query = "INSERT INTO `closing_cat`(`sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
-                    SELECT  `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`, md5(CONCAT(trim(broker), trim(sale_no), trim(lot)))
-                    FROM closing_cat_import
-                    WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL AND imported_by = $this->user_id";
+                    SELECT  c.`sale_no`, c.`broker`, c.`comment`, c.`ware_hse`, c.`entry_no`, c.`value`, c.`lot`, c.`company`, c.`mark`, c.`grade`, c.`manf_date`, c.`ra`, c.`rp`, c.`invoice`, c.`pkgs`, c.`type`, c.`net`, c.`gross`, c.`kgs`, c.`tare`, c.`sale_price`, c.`buyer_package`, c.`category`,c.`import_date`, c.`imported`, c.`imported_by`, md5(CONCAT(trim(c.broker), trim(c.sale_no), trim(c.lot)))
+                    FROM closing_cat_import c
+                    WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL AND imported_by = $this->user_id 
+                    ON DUPLICATE KEY UPDATE closing_cat.value = c.value, 
+                                            closing_cat.value = c.value, 
+                                            closing_cat.mark = c.mark,
+                                            closing_cat.grade = c.grade,
+                                            closing_cat.invoice = c.invoice, 
+                                            closing_cat.pkgs = c.pkgs,
+                                            closing_cat.net = c.net, 
+                                            closing_cat.kgs = c.kgs, 
+                                            closing_cat.mark = c.mark, 
+                                            closing_cat.ware_hse = c.ware_hse, 
+                                            closing_cat.imported_by = c.imported_by";
                     $this->executeQuery();
 
-                    $this->query = "DELETE FROM closing_cat_import WHERE imported_by = $this->user_id";
+                    $this->query = "DELETE FROM closing_cat_import WHERE sale_no = '$this->saleno' AND broker = '$this->broker' AND imported_by = $this->user_id";
                     $this->executeQuery();
                     $confirmed = true;
 
                 }else{
-                    $this->debugSql = false;
+                    $this->debugSql = true;
+                    $this->query = "INSERT INTO `closing_cat`(`sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
+                    SELECT  c.`sale_no`, c.`broker`, c.`comment`, c.`ware_hse`, c.`entry_no`, c.`value`, c.`lot`, c.`company`, c.`mark`, c.`grade`, c.`manf_date`, c.`ra`, c.`rp`, c.`invoice`, c.`pkgs`, c.`type`, c.`net`, c.`gross`, c.`kgs`, c.`tare`, c.`sale_price`, c.`buyer_package`, c.`category`,c.`import_date`, c.`imported`, c.`imported_by`, md5(CONCAT(trim(c.broker), trim(c.sale_no), trim(c.lot)))
+                    FROM closing_cat_import c
+                    WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL AND imported_by = $this->user_id 
+                    ON DUPLICATE KEY UPDATE closing_cat.value = c.value, 
+                                            closing_cat.value = c.value, 
+                                            closing_cat.mark = c.mark,
+                                            closing_cat.grade = c.grade,
+                                            closing_cat.invoice = c.invoice, 
+                                            closing_cat.pkgs = c.pkgs,
+                                            closing_cat.net = c.net, 
+                                            closing_cat.kgs = c.kgs, 
+                                            closing_cat.mark = c.mark, 
+                                            closing_cat.ware_hse = c.ware_hse, 
+                                            closing_cat.imported_by = c.imported_by";
+                    $this->executeQuery();
 
-                    $this->query = "INSERT INTO `closing_cat`(`closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
-                    SELECT `closing_cat_import_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`,`import_date`, `imported`, `imported_by`, md5(CONCAT(trim(broker), trim(sale_no), trim(lot)))
-                    FROM closing_cat_import
-                    WHERE lot REGEXP '^[0-9]+$' AND lot IS NOT NULL";
+                    $this->query = "DELETE FROM closing_cat_import WHERE sale_no = '$this->saleno' AND broker = '$this->broker' AND imported_by = $this->user_id";
                     $this->executeQuery();
                     $confirmed = true;
 

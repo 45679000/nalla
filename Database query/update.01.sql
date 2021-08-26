@@ -200,3 +200,8 @@ LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id
 WHERE sale_no = '2021-32' AND shippments.id IS NULL);
 
 UPDATE `closing_stock` SET `import_date` = '2021-07-27' WHERE sale_no = '2021-32';
+
+
+INSERT INTO `buying_list`( `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`)
+SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`
+ FROM `closing_cat` confirmed = 1 AND sale_no ='2021-32' GROUP BY lot;

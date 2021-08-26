@@ -78,11 +78,16 @@
 		$approved = $CatalogController->postBuyingList($saleno);
 		echo json_encode(array("status"=>"Purchases In the List Have Been Confirmed And forwarded to Finance"));
 	}
-	if(isset($_POST['action']) && $_POST['action'] == "confirm-valuation"){
+	if(isset($_POST['action']) && $_POST['action'] == "confirm-preauction"){
 		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
 		$userid = isset($_POST['userid']) ? $_POST['userid'] : '';
+		$broker = isset($_POST['broker']) ? $_POST['broker'] : '';
 
-		$CatalogController->importValuationCatalogue($saleno, $userid);
+		$CatalogController->saleno = $saleno;
+		$CatalogController->user_id = $userid;
+		$CatalogController->broker = $broker;
+
+		$CatalogController->confirmCatalogue();
 		echo json_encode(array("status"=>"Confirmed"));
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "confirm-post"){
@@ -101,7 +106,6 @@
 
 		$CatalogController->confirmToPurchaseList($lot, 0, 0);
 	}
-	
 	
 	
 	

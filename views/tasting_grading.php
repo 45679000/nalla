@@ -32,7 +32,6 @@
         $grading->addToBuyingList($_POST['lot'], $_POST['check'], "allocated");
 
     }
-    $offered = $grading->readOffers();
 
 
 ?>

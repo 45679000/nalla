@@ -76,7 +76,12 @@ if(isset($_POST['filter'])){
                         </div>
                     </div>
                     <div class="card-header">
-                    <button class="btn btn-sm btn-info" id="print_labels"><i class="fa fa-pdf-o" >Print Lables</i></button>
+                        <button class="btn btn-info btn-sm" id="print_labels"><i class="fa fa-file-o">Print Lables</i></button>
+                        <button class="btn btn-danger btn-sm" id="clear"><i class="fa fa-times">Clear Selection</i></button>
+
+                        <div class="card-options">
+                            <button class="btn btn-info btn-sm" id="go_back"><i class="fa fa-reply">Go Back</i></button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id="lableView" class="table-responsive">
@@ -128,12 +133,20 @@ if(isset($_POST['filter'])){
 
 
 <script>
+
+$("#clear").hide();
+$("#go_back").hide();
+
+
 $('select').on('change', function() {
     var saleno = $('#saleno').find(":selected").text();
     var broker = $.trim($('#broker').find(":selected").val());
     var category = $('#category').find(":selected").val();
     console.log("ready " + saleno + " broker " + broker + " category " + category);
     localStorage.setItem("saleno", saleno);
+    localStorage.setItem("broker", broker);
+    localStorage.setItem("category", category);
+
     if ((saleno !== 'select' && saleno !== '') && broker !== 'select' && category !== 'select') {
         loadLabels(saleno, broker, category);   
     }
@@ -173,11 +186,49 @@ $("body").on("click", ".allocated", function(element) {
          }
     });
 });
-$("#print_labels").click(function(element){
-    
-    $('#lableView').html('<iframe width="100%" height="800px" class="frame" frameBorder="0" src="../../../reports/packing_labels.php"></iframe>');
+
+
+$("#go_back").click(function(element){
+    var saleno = localStorage.getItem("saleno");
+    var broker = localStorage.getItem("broker");
+    var category = localStorage.getItem("category");
+    $("#clear").hide();
+    $("#go_back").hide();
+
+    $("#print_labels").show();
+    loadLabels(saleno, broker, category);   
+
 
 })
+$("#print_labels").click(function(element){
+    var saleno = localStorage.getItem("saleno");
+    $("#clear").show();
+    $("#print_labels").hide();
+    $("#go_back").show();
+
+    $('#lableView').html('<iframe width="100%" height="800px" class="frame" frameBorder="0" src="../../../reports/packing_labels.php?saleno='+saleno+'"></iframe>');
+});
+
+$("#clear").click(function(element){
+    var saleno = localStorage.getItem("saleno");
+    $("#clear").hide();
+    $("#print_labels").show();
+    $("#go_back").show();
+    $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "../catalog_action.php",
+            data: {
+                saleno: saleno,
+                action: "clear-selected"
+            },
+            success: function(data) {
+                $('#lableView').html('<iframe width="100%" height="800px" class="frame" frameBorder="0" src="../../../reports/packing_labels.php?saleno='+saleno+'"></iframe>');
+
+            }
+        });
+
+});
 
 
 function loadLabels(saleno, broker, category){

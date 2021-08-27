@@ -534,9 +534,9 @@
             }
 
         }
-        public function clearOffers(){
+        public function clearOffers($saleno){
             try{
-                $this->query = "UPDATE closing_cat SET allocated = 0 WHERE allocated = 1";
+                $this->query = "UPDATE closing_cat SET allocated = 0 WHERE allocated = 1 AND sale_no = '$saleno'";
                 $this->executeQuery();
                 
             }catch(Exception $ex){

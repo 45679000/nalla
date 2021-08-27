@@ -8,9 +8,9 @@ require '../vendor/autoload.php';
 
 $db = new Database();
 $conn = $db->getConnection();
-
+$saleno = isset($_GET['saleno']) ? $_GET['saleno'] : '';
 $grading = new Grading($conn);
-$offered = $grading->readOffers();
+$offered = $grading->readOffers($saleno);
 $html =  print_labels($offered);
 
 $mpdf = new \Mpdf\Mpdf(['orientation' => 'P', 'tempDir' => __DIR__ . '/files', 	'default_font' => 'dejavusans']);

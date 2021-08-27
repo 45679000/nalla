@@ -62,8 +62,8 @@
             return($this->executeQuery());
 
         }
-        public function readOffers(){
-            $this->query="SELECT *FROM closing_cat WHERE allocated = true";
+        public function readOffers($saleno){
+            $this->query="SELECT *FROM closing_cat WHERE allocated = true AND sale_no = '$saleno'";
             return($this->executeQuery());
 
         }

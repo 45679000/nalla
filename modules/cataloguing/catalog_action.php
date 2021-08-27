@@ -237,6 +237,15 @@
 		$CatalogController->Offers($columnValue, $id);
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "clear-selected"){
+		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+		
+		$CatalogController->ClearOffers($saleno);
+
+	}
+
+
+	
 	
 ?>
 

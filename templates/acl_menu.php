@@ -6,8 +6,8 @@
 	  echo menu_tasting_grading($path_to_root);
 	  echo menu_stock($path_to_root);
 	  echo menu_shipping($path_to_root);
-	  echo menu_finance($path_to_root);
 	  echo menu_ware_housing($path_to_root);
+	  echo menu_finance($path_to_root);
 	  echo menu_reports($path_to_root);
 	  echo menu_user_management($path_to_root);
 	  echo menu_setup($path_to_root);
@@ -16,9 +16,9 @@
 		echo dashboard($path_to_root);
 		echo menu_catalogue($path_to_root);
 		echo menu_tasting_grading($path_to_root);
-		echo menu_finance($path_to_root);
 		echo menu_stock($path_to_root);
 		echo menu_ware_housing($path_to_root);
+		echo menu_finance($path_to_root);
 		echo menu_setup($path_to_root);
 
 	}else if($role==3){
@@ -72,7 +72,7 @@
 	function menu_tasting_grading($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link" href='.$path_to_root.'views/tasting_grading.php?view=grading><i class="fa fa-bar-chart text-primary font-weight-bold"></i> <span class="font-weight-bold">Tasting Grading</span></a>
+			<a class="nav-link" href='.$path_to_root.'views/tasting_grading.php?view=grading><i class="fa fa-bar-chart text-primary font-weight-bold"></i> <span class="font-weight-bold">Tea Buying</span></a>
 		</li>';
 	}
 	function menu_stock($path_to_root){

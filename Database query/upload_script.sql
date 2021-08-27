@@ -145,4 +145,57 @@ INNER JOIN closing_cat b ON a.closing_cat_import_id = b.closing_cat_import_id
 AND a.sale_no = max(b.sale_no)
 GROUP BY broker;
 
+INSERT INTO `closing_cat_import_template`(`closing_cat_import_id`, `sale_no`, `broker`, `category`,  `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`)
+SELECT DISTINCT `closing_cat_import_id`,`sale_no`, `broker`, `category`,  `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse` 
+FROM `closing_cat` WHERE sale_no >='2021-28'
 
+
+
+UPDATE closing_cat_import_template 
+INNER JOIN  closing_cat ON closing_cat_import_template.lot = closing_cat.lot AND closing_cat.sale_no = closing_cat_import_template.sale_no
+AND closing_cat_import_template.broker = closing_cat.broker
+SET closing_cat_import_template.grading_comment = closing_cat.grading_comment
+WHERE closing_cat.grading_comment IS NOT NULL;
+
+
+UPDATE closing_cat_import_template 
+INNER JOIN ( SELECT DISTINCT sale_no, lot, broker, grading_comment, comment 
+            FROM closing_cat
+           WHERE grading_comment IS NOT NULL LIMIT 10) AS a
+ON a.lot = closing_cat_import_template.lot 
+AND a.sale_no = closing_cat_import_template.sale_no
+AND a.broker = closing_cat_import_template.broker
+SET closing_cat_import_template.grading_comment = a.grading_comment
+WHERE a.grading_comment IS NOT NULL;
+
+
+UPDATE closing_cat_import_template 
+INNER JOIN grading_comment ON 
+grading_comment.sale_no = closing_cat_import_template.sale_no
+AND grading_comment.broker = closing_cat_import_template.broker
+AND grading_comment.lot = closing_cat_import_template.lot
+AND grading_comment.grading_comment = closing_cat_import_template.grading_comment
+SET closing_cat_import_template.grading_comment = grading_comment.grading_comment;
+
+
+UPDATE closing_cat_import_template 
+INNER JOIN grading_code ON 
+grading_code.sale_no = closing_cat_import_template.sale_no
+AND grading_code.broker = closing_cat_import_template.broker
+AND grading_code.lot = closing_cat_import_template.lot
+AND grading_code.grading_comment = closing_cat_import_template.grading_comment
+SET closing_cat_import_template.comment = grading_code.comment;
+
+
+UPDATE closing_cat_import_template 
+SET closing_cat_import_template.sale_price = ROUND(closing_cat_import_template.sale_price,1)
+WHERE sale_price LIKE '%.%'
+
+
+INSERT INTO `closing_cat`(`closing_cat_import_id`, comment, `sale_no`, `broker`, `category`,  `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`)
+SELECT  `closing_cat_import_id`,comment, `sale_no`, `broker`, `category`,  `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse` 
+FROM  closing_cat_import_template
+GROUP BY sale_no, broker, lot
+
+
+UPDATE closing_cat SET sale_price = sale_price*100 WHERE LENGTH(sale_price) =1 AND  sale_price != 0

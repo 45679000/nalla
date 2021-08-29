@@ -7,6 +7,7 @@
 
     $auction = "";
     $broker = "";
+    $category = "";
 
     $PHPJasperXML = new PHPJasperXML();
     if(isset($_GET['filter'])){
@@ -16,14 +17,27 @@
 
           $PHPJasperXML = new PHPJasperXML();
 
-          $PHPJasperXML->arrayParameter=array("sale_no"=>$auction, "broker"=>$broker);
-
-          $PHPJasperXML->load_xml_file("jrxmlFiles/auction_targets.jrxml");
-          $PHPJasperXML->debugsql = false;
-
-          $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-          ob_end_clean();
-          $PHPJasperXML->outpage("I");
+          if(isset($_GET['category'])){
+            $category = trim($_GET['category']);
+            $PHPJasperXML->arrayParameter=array("sale_no"=>$auction, "broker"=>$broker);
+            switch ($category) {
+              case 'Sec':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/auction_targets_sec.jrxml");
+              break;
+              case 'dust':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/auction_targets_dust.jrxml");
+              break;
+              case 'leaf':
+                $PHPJasperXML->load_xml_file("jrxmlFiles/auction_targets_leaf.jrxml");
+                break;
+              default:
+                break;
+            }
+            $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+            ob_end_clean();
+  
+            $PHPJasperXML->outpage("I");
+          }
         
     }
 

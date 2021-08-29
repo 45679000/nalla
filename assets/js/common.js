@@ -11,7 +11,7 @@ $(document).ready(function() {
     var standard = document.getElementById("standard");
     var standard2 = document.getElementById("standard2");
     var saleno = document.getElementById("saleno");
-    var salenoPRVT = document.getElementById("sale_no_prvt");
+    var salenoPRVT = document.getElementById("salenoPRVT");
     var payment_terms = document.getElementById("payment_terms");
     var buyer = document.getElementById("buyer");
 
@@ -247,7 +247,7 @@ function saleNoPrvt($path) {
             action: "sale_no_prvt"
         },
         success: function(response) {
-            $("#sale_no_prvt").html(response);
+            $("#salenoPRVT").html(response);
         }
 
     });

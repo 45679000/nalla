@@ -25,7 +25,7 @@
                         <div class="col-md-3 col-md-3">
                             <!-- names should match the database columns -->
                             <div class="form-group"><label class="form-label">Auction</label>
-                                <select name="sale_no" id="salenoPRVT" class="form-control  select2;" data-placeholder="Select)">
+                                <select name="sale_no" id="salenoPRVT" class="form-control select2" data-placeholder="Select)">
                                     
                                 </select>
                             </div>
@@ -174,6 +174,7 @@ $(document).ready(function() {
     $("body").on("click", ".editBtn", function(e) {
             e.preventDefault();
             var id = $(this).attr('id');
+            $("#savePrivate").hide();
             $.ajax({
                 url: "tea_buying_action.php",
                 type: "POST",
@@ -190,7 +191,6 @@ $(document).ready(function() {
                     $("#kgs").val(data[0].kgs);
                     $("#net").val(data[0].net);
                     $("#lot").val(data[0].lot);
-                    $("#sale_no").val(data[0].sale_no);
                     $("#broker").val(data[0].broker);
                     $("#value").val(data[0].value);
                     $("#category").val(data[0].category);
@@ -201,11 +201,6 @@ $(document).ready(function() {
                     $("#sale_price").val(data[0].sale_price);
                     $("#ware_hse").val(data[0].ware_hse);
 
-                    // console.log(data);
-                    // Swal.fire({
-                    //     icon: 'success',
-                    //     title: 'Record deleted successfully',
-                    // });
                 }
             });
         });
@@ -231,6 +226,61 @@ function loadPrivatePurchases(saleno,broker,category){
         }
     });
 }
+$("#updatePrivate").click(function(e) {
+        e.preventDefault();
+        if($("#invoice").val() == ''){
+            alert("invoice number Cannot be empty");
+        }
+        else if($("#pkgs").val() == ''){
+            alert("PKgs number Cannot be empty");
+            $("#pkgs").addClass("text-danger");
+        }else if($("#kgs").val() == ''){
+            alert("Kgs  Cannot be empty");
+        }else if($("#net").val() == ''){
+            alert("net Cannot be empty");
+        }else if($("#sale_price").val() == ''){
+            alert("Sale Price Cannot be empty");
+        }else if($("#lot").val() == ''){
+            alert("Lot Number Cannot be empty");
+        }else if($("#company").val() == ''){
+            alert("Company Cannot be empty");
+        }else{
+            $.ajax({
+            url: "tea_buying_action.php",
+            type: "POST",
+            dataType: "json",
+            data: $("#prvt_purchase").serialize() + "&action=update",
+            success: function(data) {
+                loadPrivatePurchases(saleno,broker,category);
+                swal('', 'Saved Successfully', 'success');
+
+
+            }
+        });
+        }
+        
+    });
+    $("body").on("click", ".deleteBtn", function(e) {
+        var id = $(this).attr('id');
+
+        e.preventDefault();
+            $.ajax({
+            url: "tea_buying_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "delete",
+                id:id
+            },
+            success: function(data) {
+                loadPrivatePurchases(saleno,broker,category);
+                swal('', 'Saved Successfully', 'success');
+
+
+            }
+        });
+    });
+
 </script>
 
 

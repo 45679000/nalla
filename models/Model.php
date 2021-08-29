@@ -7,6 +7,7 @@ class Model{
     public $conditions = array();
     public $parameters = array();
     public $limit;
+    public $tableFieldName;
     public $debugSql = false;
     public function __construct($db){
         $this->conn = $db;
@@ -92,6 +93,10 @@ class Model{
     public function softDelete($pk, $tablename){
         $this->conn->query("UPDATE  ".$tablename." SET is_deleted = true WHERE id = ".$pk);
         return "Record Deleted";
+    }
+    public function deleteRow(){
+        $this->query = "DELETE FROM  $this->tablename WHERE $this->tableFieldName = $this->id";
+        return $this->executeQuery();
     }
     public function execute(){
         $rows = $this->conn->query($this->query);

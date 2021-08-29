@@ -72,7 +72,6 @@
 
 		$CatalogController->confirmToPurchaseList($lot, 0, 0);
 	}
-    	
     if (isset($_POST['action']) && $_POST['action'] == "editPrivate") {
         $id = isset($_POST['editId']) ? $_POST['editId'] : '';
 		$row = $gradingController->getPrivatePurchase($id);
@@ -220,7 +219,6 @@
 		$CatalogController->ClearOffers($saleno);
 
 	}
-
 	if(isset($_POST['action']) && $_POST['action'] == "list-buying"){
 		$sale_no = isset($_POST['saleno']) ? $_POST['saleno'] : '';
 		$catalogs= $CatalogController->buyingSummary($sale_no);
@@ -506,7 +504,17 @@
 		echo $html;
 
 	}
+	if (isset($_POST['action']) && $_POST['action'] == "update") {
+		$insertRecord = $gradingController->updatePrivatePurchase($_POST);
+		echo json_encode(array("message"=>"Saved Successfully"));
+	}
+	if (isset($_POST['action']) && $_POST['action'] == "delete") {
+		$id = $_POST['id'];
+		$insertRecord = $gradingController->deletePrivatePurchase($id);
+		echo json_encode(array("message"=>"Delete Successfully"));
+	}
 
+	
 	
 	
 ?>

@@ -27,6 +27,24 @@ Class GradingController extends Model{
         return $id;
     
     }
+    public function updatePrivatePurchase($post){
+        unset($post['action']);
+        $this->debugSql = true;
+        $this->data = $post;
+        $this->tablename = "closing_cat";
+        $id = $this->insertQuery();
+        return $id;
+    
+    }
+    public function deletePrivatePurchase($id){
+        $this->debugSql = true;
+        $this->tablename = "closing_cat";
+        $this->tableFieldName = "closing_cat_import_id";
+        $this->id = $id;
+        return $this->deleteRow();
+    
+    }
+    
     public function getPrivatePurchase($id){
         $this->query = "SELECT *FROM closing_cat WHERE closing_cat_import_id = $id";
         return $this->executeQuery();

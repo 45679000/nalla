@@ -110,7 +110,6 @@
 <script>
 $(".dimmer").hide();
 $("#go_back").hide();
-loadGradingTable('2021-32', 'TBEA', 'leaf');
 
 $("#buying_list").click(function(){
     var saleno = localStorage.getItem("saleno");

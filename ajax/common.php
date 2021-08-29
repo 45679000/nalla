@@ -305,5 +305,18 @@ if (isset($_POST['action']) && $_POST['action'] == "buyers") {
     }
     
 }
-
+if (isset($_POST['action']) && $_POST['action'] == "sale_no_prvt") {
+    $output = "";
+    $auctions= $catalogue->auctionList();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($auctions) > 0) {
+         foreach($auctions as $auction){
+            $output .= '<option value="PRVT-'.$auction.'">'.'PRVT-'.$auction.'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
 ?>

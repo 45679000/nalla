@@ -9,20 +9,6 @@
     $db = new Database();
     $conn = $db->getConnection();
     $stock = new Stock($conn);
-
-	// Insert Record	
-	if (isset($_POST['action']) && $_POST['action'] == "insert") {
-		$insertRecord = $stock->addPrivatePurchase($_POST);
-		echo json_encode(array("message"=>"Saved Successfully"));
-	}
-
-	if(isset($_POST['action']) && $_POST['action'] == "generate-lables"){
-		$grading = new Grading($conn);
-		$offered = $grading->readOffers();
-		print_labels($offered);
-		echo json_encode(array("message"=>"Saved Successfully"));
-
-	}
 	// View record
 	if (isset($_POST['action']) && $_POST['action'] == "purchase-list") {
 		$output = "";

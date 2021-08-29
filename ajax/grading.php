@@ -22,16 +22,7 @@ if($action=='grading-standards'){
     $standards = $gradingContr->loadStandards();
     echo json_encode($standards);
 }
-if($action=='generate-lables'){
-    $grading = new Grading($conn);
-    $offered = $grading->readOffers();
 
-    print_labels($offered);
-
-   $labls= '<iframe src="../reports/files/labels.pdf" width="100%" height="800px">
-         </iframe>';
-    json_encode(array("response"=>$labls));
-}
 function ExcelToPHP($dateValue = 0) {
     $UNIX_DATE = ($dateValue - 25569) * 86400;
     return gmdate("d-m-Y", $UNIX_DATE);  

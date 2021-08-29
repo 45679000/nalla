@@ -6,11 +6,12 @@
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="182"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="807"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="sale_no" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="broker" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT mark, grade, pkgs, kgs, broker, lot,
 (CASE WHEN (comment IS NULL) THEN '' ELSE comment END) AS comment,
@@ -18,8 +19,7 @@
 max_bp, name, sale_no, standard, net
 FROM closing_cat
 INNER JOIN brokers ON brokers.code = closing_cat.broker
-WHERE sale_no = '$P{sale_no}' AND target = 1
-]]>
+WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}') AND closing_cat.grade IN ('PD','DUST1')]]>
 	</queryString>
 	<field name="mark" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="mark"/>

@@ -8,6 +8,42 @@ Class GradingController extends Model{
         $this->query = "SELECT *FROM grading_standard WHERE deleted = 0";
         return $this->executeQuery();
     }
+    public function loadPrivatePurchases($saleno, $broker, $category){
+        if($saleno != ''&& $broker!=''&& $category !=''){
+            $this->query = "SELECT *FROM closing_cat WHERE sale_no LIKE '%PRVT%' AND sale_no = '$saleno' AND broker = '$broker' AND category = '$category'";
+            return $this->executeQuery();
+        }else{
+            $this->query = "SELECT *FROM closing_cat WHERE sale_no LIKE '%PRVT%'";
+            return $this->executeQuery();
+        }
+      
+    }
+    public function addPrivatePurchase($post){
+        unset($post['action']);
+        $this->debugSql = true;
+        $this->data = $post;
+        $this->tablename = "closing_cat";
+        $id = $this->insertQuery();
+        return $id;
+    
+    }
+    public function getPrivatePurchase($id){
+        $this->query = "SELECT *FROM closing_cat WHERE closing_cat_import_id = $id";
+        return $this->executeQuery();
+        
+    
+    }
+    public function loadRemarks(){
+        try{
+            $this->query = "SELECT DISTINCT remark FROM grading_remarks";
+            $remarks = $this->executeQuery();
+            return $remarks;
+            
+        }catch(Exception $ex){
+            return $ex;
+        }
+
+    }
 }
 
 

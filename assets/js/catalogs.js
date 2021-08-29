@@ -8,7 +8,7 @@ function buyingSummary(saleno){
             saleno: saleno
         },
         cache: true,
-        url: "catalog_action.php",
+        url: "tea_buying_action.php",
         success: function (data) {
          $('#listBuying').html(data);
          $(document).ready(function() {

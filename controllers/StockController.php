@@ -118,15 +118,6 @@
      
         }
 
-        public function addPrivatePurchase($post){
-            unset($post['action']);
-            $this->debugSql = true;
-            $this->data = $post;
-            $this->tablename = "closing_cat";
-            $id = $this->insertQuery();
-            return $id;
-        
-        }
         public function allocateStock($stock_id, $fieldName, $fieldValue){
                 $this->debugSql = true;
                 $this->query = "UPDATE `closing_stock` SET $fieldName = '$fieldValue'

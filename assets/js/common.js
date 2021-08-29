@@ -11,6 +11,7 @@ $(document).ready(function() {
     var standard = document.getElementById("standard");
     var standard2 = document.getElementById("standard2");
     var saleno = document.getElementById("saleno");
+    var salenoPRVT = document.getElementById("sale_no_prvt");
     var payment_terms = document.getElementById("payment_terms");
     var buyer = document.getElementById("buyer");
 
@@ -44,6 +45,11 @@ $(document).ready(function() {
     if(buyer !=undefined){
         buyerList(url);
     }
+    if(salenoPRVT !=undefined){
+        saleNoPrvt(url);
+    }
+
+    
 
     $('.select2').select2();
 
@@ -228,6 +234,20 @@ function saleNo($path) {
         },
         success: function(response) {
             $("#saleno").html(response);
+        }
+
+    });
+}
+function saleNoPrvt($path) {
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "sale_no_prvt"
+        },
+        success: function(response) {
+            $("#sale_no_prvt").html(response);
         }
 
     });

@@ -37,6 +37,8 @@
     <!-- Dashboard Css -->
     <link href="<?=$path_to_root ?>assets/css/dashboard.css" rel="stylesheet" />
 
+    <link href="<?=$path_to_root ?>assets/plugins/notify/css/jquery.growl.css" rel="stylesheet" />
+
 
     <!-- c3.js Charts Plugin -->
     <link href="<?=$path_to_root ?>assets/plugins/charts-c3/c3-chart.css" rel="stylesheet" />
@@ -62,6 +64,10 @@
     <!-- Tabs Style -->
     <link href="<?=$path_to_root ?>assets/plugins/tabs/style.css" rel="stylesheet" />
     <link href="<?=$path_to_root ?>assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet" />
+
+    <link href="<?=$path_to_root ?>assets/plugins/accordion/accordion.css" rel="stylesheet" />
+
+
     <style>
     * {
         box-sizing: border-box;

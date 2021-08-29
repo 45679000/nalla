@@ -306,7 +306,7 @@
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "'";
                     return $this->executeQuery();
                 }else if($category =="leaf"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('BP1','PF1')";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('BP1','PF1') LIMIT 2";
                     return $this->executeQuery();
                 }else if($category=="dust"){
                         $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE  sale_no = "."'".$auction. "'". " AND broker = "."'".$broker. "' AND grade IN ('PD','D1')";
@@ -625,6 +625,17 @@
             }
      
         }
+        public function updateClosingCat($value, $id, $columnName){
+            $updated = 0;
+            try{
+                $this->query = "UPDATE closing_cat  SET $columnName = '$value' WHERE `closing_cat_import_id` = $id"; 
+                $this->executeQuery();
+                    $updated = 1;
+            }catch(Exception $ex){
+                return $ex;
+            }
+            return $updated;
 
+        }
   
 }

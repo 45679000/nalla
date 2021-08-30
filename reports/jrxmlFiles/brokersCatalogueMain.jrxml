@@ -23,8 +23,7 @@ WHERE sale_no = CONCAT(SUBSTRING_INDEX('$P{sale_no}', '-', 1),'-', SUBSTRING_IND
 GROUP BY grade, mark) AS b
 ON b.grade = a.grade AND b.mark = a.mark
 WHERE sale_no = '$P{sale_no}' AND broker = '$P{broker}' AND category = 'Main'
-GROUP BY lot
-ORDER BY lot ASC]]>
+GROUP BY lot]]>
 	</queryString>
 	<field name="sale_no" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

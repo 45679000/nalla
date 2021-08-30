@@ -303,16 +303,16 @@
         }
         public function closingCatalogue($auction = "", $broker = "", $category = ""){
                 if($category =="All"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker'";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' GROUP BY lot";
                     return $this->executeQuery();
                 }else if($category =="leaf"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('BP1','PF1')";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('BP1','PF1') GROUP BY lot";
                     return $this->executeQuery();
                 }else if($category=="dust"){
-                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('PD','D1', 'DUST1')";
+                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('PD','D1', 'DUST1') GROUP BY lot";
                         return $this->executeQuery(); 
                 }else{
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND category LIKE  '$category'";
+                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND category LIKE  '$category' GROUP BY lot";
                     return $this->executeQuery();
                 }
         }

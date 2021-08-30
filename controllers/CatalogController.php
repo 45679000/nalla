@@ -309,7 +309,7 @@
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('BP1','PF1')";
                     return $this->executeQuery();
                 }else if($category=="dust"){
-                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('PD','D1')";
+                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('PD','D1', 'DUST1')";
                         return $this->executeQuery(); 
                 }else{
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND category LIKE  '$category'";

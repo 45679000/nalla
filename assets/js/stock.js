@@ -51,9 +51,9 @@ function loadMasterStock(type){
             data: {
                 action:"master-stock",
                 type:type,
-                saleno:localStorage.getItem("sale_no"),
-                broker:localStorage.getItem("broker"),
-                mark:localStorage.getItem("mark")
+                saleno:localStorage.getItem("fsale_no"),
+                broker:localStorage.getItem("xbroker"),
+                mark:localStorage.getItem("fmark")
             },
             success: function (data) {
                 $('#stock-master').html(data);

@@ -199,3 +199,13 @@ GROUP BY sale_no, broker, lot
 
 
 UPDATE closing_cat SET sale_price = sale_price*100 WHERE LENGTH(sale_price) =1 AND  sale_price != 0
+
+
+
+CREATE TABLE garden_grade_cluster(
+	cluster_id							integer AUTO_INCREMENT PRIMARY KEY,
+    garden                              varchar(120),
+    grade_id                            integer,
+    code_id                             integer,
+    description                         text
+);

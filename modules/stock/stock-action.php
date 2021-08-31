@@ -261,7 +261,7 @@
 	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "master-stock"){
-		$condition = "WHERE pkgs !=0 ";
+		$condition = "WHERE shippments.id IS NULL ";
 		$type = $_POST['type'];
 		if($_POST['sale_no'] !=''){
 			$condition .= " AND sale_no = '".$_POST['sale_no']."'";
@@ -286,7 +286,8 @@
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			case 'stockb':
-				$condition .=" AND is_blend_balance = 1";
+				
+				$condition .=" AND is_blend_balance = 1 ";
 				$stocks = $stock->readStock($type, $condition);
 				break;
 			case 'stockup':

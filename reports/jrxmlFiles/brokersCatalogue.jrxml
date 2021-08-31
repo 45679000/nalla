@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="brokersCatalogue" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="f88c2213-fe68-4a10-ad23-1a56ca3016e5">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
@@ -23,7 +24,8 @@ WHERE sale_no = CONCAT(SUBSTRING_INDEX('$P{sale_no}', '-', 1),'-', SUBSTRING_IND
 GROUP BY grade, mark) AS b
 ON b.grade = a.grade AND b.mark = a.mark
 WHERE sale_no = '$P{sale_no}' AND broker = '$P{broker}'
-GROUP BY lot]]>
+GROUP BY lot
+ORDER BY closing_cat_import_id DESC]]>
 	</queryString>
 	<field name="sale_no" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -126,7 +128,7 @@ GROUP BY lot]]>
 			</textField>
 		</band>
 	</title>
-		<pageHeader>
+	<pageHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
 				<reportElement x="121" y="2" width="64" height="14" uuid="3dba6bf3-cc9b-400e-b1cf-8ed613aedd00"/>
@@ -323,7 +325,7 @@ GROUP BY lot]]>
 				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="95" y="0" width="70" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
+				<reportElement x="95" y="0" width="25" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
@@ -334,7 +336,7 @@ GROUP BY lot]]>
 				<textFieldExpression><![CDATA[$F{manf_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="183" y="0" width="20" height="15" uuid="b448e9f5-8054-4cf3-8389-70e897603c06"/>
+				<reportElement x="121" y="0" width="80" height="15" uuid="b448e9f5-8054-4cf3-8389-70e897603c06"/>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField>

@@ -40,7 +40,7 @@
 		// Fetch customer records for show listing
 		public function displayRecord()
 		{
-			$this->query = "SELECT * FROM $this->tableName WHERE deleted = 0";
+			$this->query = "SELECT * FROM $this->tableName WHERE deleted = 0 GROUP BY mark";
 			$query = $this->execute();
 
 			$this->query= "SELECT * FROM $this->tableName"; 

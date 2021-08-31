@@ -312,8 +312,15 @@
                         $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('PD','D1', 'DUST1') GROUP BY lot";
                         return $this->executeQuery(); 
                 }else{
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND category LIKE  '$category' GROUP BY lot";
-                    return $this->executeQuery();
+                    if($category=="Main"){
+                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND grade IN ('PD','D1', 'DUST1', 'BP1','PF1') 
+                        AND category = 'Main' GROUP BY lot";
+                        return $this->executeQuery();
+                    }else{
+                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND category = '$category' GROUP BY lot";
+                        return $this->executeQuery();
+                    }
+                   
                 }
         }
         public function postCatalogueProcess($saleno, $user_id){

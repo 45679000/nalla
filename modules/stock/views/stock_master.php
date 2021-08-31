@@ -181,9 +181,9 @@ $('.select2').select2();
 $('#filter').click(function(e){
     e.preventDefault();
     if(localStorage.getItem("filter") =="filtered"){
-        localStorage.setItem("sale_no", "");
-        localStorage.setItem("broker", "");
-        localStorage.setItem("mark", "");
+        localStorage.setItem("fsale_no", "");
+        localStorage.setItem("fbroker", "");
+        localStorage.setItem("fmark", "");
         localStorage.setItem("filter", "");
         $('#saleno').val("")
         $('#broker').val("");
@@ -191,13 +191,18 @@ $('#filter').click(function(e){
         $('#filter').text("Filter");
 
     }else{
+        $('#saleno').val("")
+        $('#broker').val("");
+        $('#mark').val("");
+        $('#filter').text("Filter");
+        
         var sale_no = $('#saleno').val();
         var broker = $('#broker').val();
         var mark = $('#mark').val();
 
-        localStorage.setItem("sale_no", sale_no);
-        localStorage.setItem("broker", broker);
-        localStorage.setItem("mark", mark);
+        localStorage.setItem("fsale_no", sale_no);
+        localStorage.setItem("fbroker", broker);
+        localStorage.setItem("fmark", mark);
         localStorage.setItem("filter", "filtered");
         $('#filter').text("clear Filter");
     }

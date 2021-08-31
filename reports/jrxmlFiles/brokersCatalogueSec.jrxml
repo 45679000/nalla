@@ -300,7 +300,7 @@ GROUP BY lot]]>
 	<detail>
 		<band height="33" splitType="Stretch">
 			<textField>
-				<reportElement x="54" y="0" width="26" height="15" uuid="1f4bca60-ea93-4d58-8ab6-ab80c0cb71cf"/>
+				<reportElement x="54" y="0" width="41" height="15" uuid="1f4bca60-ea93-4d58-8ab6-ab80c0cb71cf"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
@@ -324,18 +324,18 @@ GROUP BY lot]]>
 				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="83" y="0" width="80" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
+				<reportElement x="95" y="0" width="75" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
 				<textElement>
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="165" y="15" width="38" height="15" uuid="d8a06532-d32b-4881-917f-bc6b7a4991c3"/>
+				<reportElement x="167" y="15" width="38" height="15" uuid="d8a06532-d32b-4881-917f-bc6b7a4991c3"/>
 				<textFieldExpression><![CDATA[$F{manf_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="165" y="0" width="38" height="15" uuid="b448e9f5-8054-4cf3-8389-70e897603c06"/>
+				<reportElement x="167" y="0" width="38" height="15" uuid="b448e9f5-8054-4cf3-8389-70e897603c06"/>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField>

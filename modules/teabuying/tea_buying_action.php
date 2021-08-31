@@ -340,7 +340,6 @@
 												<th class="wd-15p">Mark</th>
 												<th class="wd-10p">Grade</th>
                                                 <th class="wd-25p">Invoice</th>
-                                                <th class="wd-25p">Type</th>
                                                 <th class="wd-25p">Pkgs</th>
                                                 <th class="wd-25p">Net</th>
                                                 <th class="wd-25p">Kgs</th>
@@ -365,7 +364,6 @@
                                                 $html.='<td>'.$import["mark"].'</td>';
                                                 $html.='<td>'.$import["grade"].'</td>';
                                                 $html.='<td>'.$import["invoice"].'</td>';
-                                                $html.='<td>'.$import["type"].'</td>';
                                                 $html.='<td>'.$import["pkgs"].'</td>';
                                                 $html.='<td>'.$import["kgs"].'</td>';
                                                 $html.='<td>'.$import["net"].'</td>';

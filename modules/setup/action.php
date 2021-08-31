@@ -83,16 +83,16 @@
 	}
 	if (isset($_POST['action']) && $_POST['action'] == "garden-cluster") {
 		$output = "";
-
-		$clusters = $cluster->displayRecord();
+		$id = $_POST["id"];
+		$clusters = $cluster->displayRecord($id);
 
 		if ($cluster->totalRowCount() > 0) {
 			$output .="<table class='table table-striped table-bordered table-hover'>
 			        <thead>
 			          <tr>
 			            <th>Id</th>
-			            <th>Garden Name</th>
-			            <th>Country</th>
+			            <th>code</th>
+			            <th>Grade</th>
 			            <th>Action</th>
 			          </tr>
 			        </thead>
@@ -101,15 +101,12 @@
 			foreach ($clusters as $cluster) {
 			$output.="<tr>
 			            <td>".$id."</td>
-			            <td>".$cluster['garden']."</td>
-			            <td>".$cluster['grade_id']."</td>
+			            <td>".$cluster['code']."</td>
+			            <td>".$cluster['name']."</td>
 			            <td>
-						<a data-toggle='tooltip' data-placement='bottom' title='Set Grade Clusters'  class='databaseBtn text-warning' id='".$cluster['cluster_id']."'>
-			              <i class='fa fa-database' ></i></a>&nbsp&nbsp&nbsp;
-
-			              <a href='#editModal' style='color:green' data-toggle='modal' 
-			              class='editBtn' id='".$cluster['cluster_id']."'><i class='fa fa-pencil'></i></a>&nbsp;
-			              <a href='' style='color:red' class='deleteBtn' id='".$cluster['cluster_id']."'>
+			              <a href='#editCModal' style='color:green' data-toggle='modal' 
+			              class='editCBtn' id='".$cluster['cluster_id']."'><i class='fa fa-pencil'></i></a>&nbsp;
+			              <a href='' style='color:red' class='deleteCBtn' id='".$cluster['cluster_id']."'>
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
 			        </tr>";
@@ -122,6 +119,36 @@
 			echo '<h3 class="text-center mt-5">No records found</h3>';
 		}
 	}
+		// Edit Record	
+	if (isset($_POST['action']) && $_POST['action'] == "update-cluster") {
+		$editId = $_POST['id'];
+		$row = $cluster->getRecordById($editId);
+		echo json_encode($row);
+	}
     
+	if (isset($_POST['action']) && $_POST['action'] == "save-composition") {
 
+		$gardenId = $_POST['gardenId'];
+		$code = $_POST['code'];
+		$grade = $_POST['grade'];
+		$formid = $_POST['formid'];
+
+		if($formid>0){
+			echo "Updating";
+			$cluster->updateCluster($formid,$gardenId,$code, $grade);
+		}else{
+			echo "Inserting";
+
+			$cluster->insertRecord($gardenId,$code, $grade);
+		}
+
+
+	}
+	if (isset($_POST['action']) && $_POST['action'] == "delete-cluster") {
+		$id = $_POST['id'];
+		echo $cluster->deleteCluster($id);
+	}
+
+	
+	
 ?>

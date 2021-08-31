@@ -14,6 +14,8 @@ $(document).ready(function() {
     var salenoPRVT = document.getElementById("salenoPRVT");
     var payment_terms = document.getElementById("payment_terms");
     var buyer = document.getElementById("buyer");
+    var code = document.getElementById("code");
+
 
     if(mark !=undefined){
         gardenList(url);
@@ -48,7 +50,9 @@ $(document).ready(function() {
     if(salenoPRVT !=undefined){
         saleNoPrvt(url);
     }
-
+    if(code !=undefined){
+        codeList(url);
+    }
     
 
     $('.select2').select2();
@@ -278,6 +282,23 @@ function buyerList($path){
         },
         success: function(data) {
             $("#buyer").html(data);
+
+        }
+
+    });
+    
+}
+
+function codeList($path){
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "codes"
+        },
+        success: function(data) {
+            $("#code").html(data);
 
         }
 

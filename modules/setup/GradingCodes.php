@@ -6,9 +6,9 @@
 		public $tableName = "grading_comments";
 
 		// Insert customer data into customer table
-		public function insertRecord($description, $code)
+		public function insertRecord($description, $code, $order_id)
 		{
-			$this->query = "INSERT INTO $this->tableName (description, code) VALUES('$description','$code')";
+			$this->query = "INSERT INTO $this->tableName (description, code, order_id) VALUES('$description','$code', '$order_id')";
 			$query = $this->executeQuery();
 
 			if ($query) {
@@ -19,11 +19,12 @@
 		}
 
 		// Update customer data into customer table
-		public function updateRecord($id, $description, $code)
+		public function updateRecord($id, $description, $code, $order_id)
 		{
 			$this->query = "UPDATE $this->tableName SET 
 			 description = '$description',
-			 code = '$code' 
+			 code = '$code',
+			 order_id = '$order_id' 
 			 WHERE id = $id";
 			echo $this->query;
 
@@ -38,7 +39,7 @@
 		// Fetch customer records for show listing
 		public function displayRecord()
 		{
-			$this->query = "SELECT * FROM $this->tableName WHERE deleted = 0";
+			$this->query = "SELECT * FROM $this->tableName WHERE deleted = 0 ORDER BY order_id ASC";
 			$query = $this->execute();
 
 			$this->query= "SELECT * FROM $this->tableName"; 

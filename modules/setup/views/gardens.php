@@ -1,13 +1,28 @@
-<div class="row">
-    <button type="button" class="btn btn-success m-1 float-right" data-toggle="modal" data-target="#addModal">
-        <i class="fa fa-plus"></i> Add New Garden</button>
-</div><br>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="table-responsive" id="tableData">
-                <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
+            <div class="card">
+                    <div class="card-header">
+                    <i id="helpBlend" style="float:left; font-size:large" class="fa fa-question-circle">help</i>
+                        <div id="help" style="display:none; margin-left:30px; text-align:center">
+                        <span class="label label-info">Click Add Garden Button to add new standard,  
+                            <i class="fa fa-database btn-success"></i>  to add set standard composition <i class="fa fa-pencil btn-success"></i> 
+                            to edit a standard and <i class="fa fa-trash btn-danger"></i>  to delete a standard</span>
+                        </div>
+                        <div class="card-options">
+                        <button style="display: none;" id="refresh" type="button" class="btn btn-success m-1 float-right btn-sm">
+                         <i class="fa fa-reply"></i>
+                        </button>
+
+                        <button id="create" type="button" class="btn btn-success m-1 float-right btn-sm" data-toggle="modal" data-target="#addModal">
+                        <i class="fa fa-plus"></i> Add Garden</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    <div class="table-responsive" id="tableData">
+                        <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -83,24 +98,25 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Set Composition</h4>
+                <h4 class="modal-title">Set Cluster</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="composition">
+                    <input type="hidden" name="id" id="cluster-form-id">
+
                     <div class="form-group">
                         <label for="code">Code:</label>
-                        <select id="gradeCode" name="code"
-                            class="code form-control form-control-cstm select2-show-search well"><small>(required)</small>
+                        <select id="code" name="code" class="code form-control form-control-cstm select2 well"><small>(required)</small>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="percentage">Percentage:</label>
-                        <input type="number" min="0" type="text" class="form-control" name="percentage"
-                            placeholder="Percentage" required="">
+                        <label for="grade">Grade:</label>
+                        <select id="grade" name="code" class="code form-control form-control-cstm select2 well"><small>(required)</small>
+                        </select>
                     </div>
-
+       
                     <hr>
                     <div class="form-group float-right">
                         <button type="submit" class="btn btn-success" id="SaveComposition">Save</button>
@@ -111,47 +127,18 @@
         </div>
     </div>
 </div>
-<div class="modal" id="editCompositionModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Update Composition</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="editCompositionForm">
-                    <div class="form-group">
-                        <label for="code">Code:</label>
-                        <select id="code" name="code"
-                            class="code form-control form-control-cstm select2-show-search well"><small>(required)</small>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="percentage">Percentage:</label>
-                        <input id="percentageUpdate" type="number" min="0" type="text" class="form-control"
-                            name="percentage" placeholder="Percentage" required="">
-                    </div>
-                    <input id="EditId" type="hidden" type="text">
-                    <hr>
-                    <div class="form-group float-right">
-                        <button type="submit" class="btn btn-success" id="UpdateComposition">update</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
 <script src="../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
+
 <!-- Custom Js-->
 <script src="../../assets/js/custom.js"></script>
+<script id="url" data-name="../../ajax/common.php" src="../../assets/js/common.js"></script>
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
@@ -263,36 +250,93 @@ $(document).ready(function() {
 
     $("body").on("click", ".editCBtn", function(e) {
         e.preventDefault();
+        $("#addComposition").modal('show');
         var editId = $(this).attr('id');
-        $.ajax({
-            url: "grading_standard_action.php",
-            type: "POST",
-            dataType: "json",
-            data: {
-                id: editId,
-                action: "update-composition"
-            },
-            success: function(response) {
-                $('#editCompositionModal').modal('show');
-                gradeCodes("code");
-                var data = response[0];
-                $("#EditId").val(data.id);
-                $("#percentageUpdate").val(data.percentage);
-                $("#code").val(data.grade);
-            }
-        });
+        $('#cluster-form-id').val(editId);
+        // $.ajax({
+        //     url: "action.php",
+        //     type: "POST",
+        //     dataType: "json",
+        //     data: {
+        //         id: editId,
+        //         action: "update-cluster"
+        //     },
+        //     success: function(response) {
+        //         $('#editClusterModal').modal('show');
+        //         var data = response[0];
+        //         $("#EditId").val(data.id);
+        //         $("#percentageUpdate").val(data.percentage);
+        //         $("#code").val(data.grade);
+        //     }
+        // });
     });
+
+    $('#helpBlend').click(function(e){
+        $("#help").toggle();
+    });
+    $('#create').click(function(e){
+        gradeCodes("gradeCode");
+    });
+
+    $('#SaveComposition').click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                url: "action.php",
+                type: "POST",
+                data: {
+                    action : "save-composition",
+                    gardenId: localStorage.getItem("gardenId"),
+                    code: $("#code").val(),
+                    grade: $("#grade").val(),
+                    formid: $("#cluster-form-id").val(),
+
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Record added successfully',
+                    });
+                    $("#addComposition").modal('hide');
+                    displayCluster(localStorage.getItem("gardenId"));
+                }
+            });
+            
+    });
+    $("body").on("click", ".deleteCBtn", function(e) {
+            e.preventDefault();
+            var deleteId = $(this).attr('id');
+            $.ajax({
+                url: "action.php",
+                type: "POST",
+                data: {
+                    action:"delete-cluster",
+                    id: deleteId
+                },
+                success: function(response) {
+                    displayCluster(localStorage.getItem("gardenId"));
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Record deleted successfully',
+                    });
+                }
+            });
+    });
+
+    $("#refresh").click(function(e){
+        location.reload();
+    })
 
 });
 
 $("body").on("click", ".databaseBtn", function(e) {
     e.preventDefault();
-    var standardId = $(this).attr('id');
-    $('#create').html("Add Composition");
+    var gardenId = $(this).attr('id');
+    $('#create').html("Add Cluster");
     $('#create').attr('data-target', '#addComposition');
     $('#refresh').css("display", "block")
-    localStorage.setItem("standardId", standardId);
-    displayCluster(standardId);
+    localStorage.setItem("gardenId", gardenId);
+    displayCluster(gardenId);
 });
 
 function displayCluster(id) {
@@ -311,30 +355,8 @@ function displayCluster(id) {
 }
 </script>
 
-
-<!-- $('#helpBlend').click(function(e){
-        $("#help").toggle();
-    });
-    $('#create').click(function(e){
-        gradeCodes("gradeCode");
-    });
-    $('#SaveComposition').click(function(e){
-            e.preventDefault();
-            $.ajax({
-                url: "grading_standard_action.php",
-                type: "POST",
-                data: $("#composition").serialize() + "&action=save-composition&standardId="+localStorage.getItem("standardId"),
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Record added successfully',
-                    });
-                    $("#addComposition").modal('hide');
-                    displayComposition(localStorage.getItem("standardId"));
-                }
-            });
-            
-    });
+<!-- 
+  
     $('#UpdateComposition').click(function(e){
             var id= $("#EditId").val();
             e.preventDefault();
@@ -347,8 +369,8 @@ function displayCluster(id) {
                         icon: 'success',
                         title: 'Record Updated successfully',
                     });
-                    $("#editCompositionModal").modal('hide');
-                    displayComposition(localStorage.getItem("standardId"));
+                    $("#editClusterModal").modal('hide');
+                    displayComposition(localStorage.getItem("gardenId"));
                 }
             });
             
@@ -364,7 +386,7 @@ function displayCluster(id) {
                     id: deleteId
                 },
                 success: function(response) {
-                    displayComposition(localStorage.getItem("standardId"));
+                    displayComposition(localStorage.getItem("gardenId"));
                     Swal.fire({
                         icon: 'success',
                         title: 'Record deleted successfully',

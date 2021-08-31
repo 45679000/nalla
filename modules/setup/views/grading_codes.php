@@ -26,9 +26,14 @@
             <div class="modal-body">
                 <form id="formData">
                     <div class="form-group">
+                        <label for="code">ID:</label>
+                        <input type="text" class="form-control" name="order_id" placeholder="Enter ID" required="">
+                    </div>
+                    <div class="form-group">
                         <label for="code">Code:</label>
                         <input type="text" class="form-control" name="code" placeholder="Enter code" required="">
                     </div>
+
                     <div class="form-group">
                         <label for="description">Description:</label>
                         <input type="text" class="form-control" name="description" placeholder="Description" required="">
@@ -58,6 +63,10 @@
             <div class="modal-body">
                 <form id="EditformData">
                     <input type="hidden" name="id" id="edit-form-id">
+                    <div class="form-group">
+                        <label for="order_id">ID:</label>
+                        <input type="text" class="form-control" name="order_id" id="order_id" placeholder="Enter ID" required="">
+                    </div>
                     <div class="form-group">
                         <label for="code">Code:</label>
                         <input type="text" class="form-control" name="code" id="code" placeholder="Enter code" required="">

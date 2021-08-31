@@ -12,7 +12,8 @@
 
 		$description = $_POST['description'];
 		$code = $_POST['code'];
-		$codes->insertRecord($description,$code);
+		$order_id = $_POST['order_id'];
+		$codes->insertRecord($description,$code, $order_id);
 	}
 
 	// View record
@@ -34,7 +35,7 @@
 			        <tbody>";
 			foreach ($codess as $codes) {
 			$output.="<tr>
-			            <td>".$codes['id']."</td>
+			            <td>".$codes['order_id']."</td>
                         <td>".$codes['code']."</td>
 			            <td>".$codes['description']."</td>
 			            <td>
@@ -65,7 +66,8 @@
 		$description = $_POST['description'];
 		$code = $_POST['code'];
         $id = $_POST['id'];
-		$codes->updateRecord($id, $description,  $code);
+		$order_id = $_POST['order_id'];
+		$codes->updateRecord($id, $description,  $code, $order_id);
 	}
 
     	// Delete Record	

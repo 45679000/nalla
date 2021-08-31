@@ -10,18 +10,6 @@
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <span class="icon mr-3"><i class="fe fe-command text-info"></i></span>Grading Codes
                     </a>
-                    <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                        <li>
-                            <div>
-                                <h3>Purchases</h3>
-                            </div>
-                            <div>
-                              
-                            </div>
-                         
-                        </li>
-
-                    </ul>
 
                     <a href="./index.php?view=tgrading"
                         class="list-group-item list-group-item-active d-flex align-items-center">
@@ -35,6 +23,18 @@
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <span class="icon mr-3"><i class="fe fe-server text-red"></i></span>Print Auction Catalogs
                     </a>
+                    <ul class="demo-accordion accordionjs m-0" data-active-index="false">
+                        <li>
+                            <div>
+                                <h3>Purchases</h3>
+                            </div>
+                            <div>
+                              
+                            </div>
+                         
+                        </li>
+
+                    </ul>
                 </div>
             </div>
         </div>

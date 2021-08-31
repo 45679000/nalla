@@ -92,9 +92,9 @@ GROUP BY lot]]>
 	<group name="mark">
 		<groupExpression><![CDATA[$F{mark}]]></groupExpression>
 		<groupHeader>
-			<band height="18">
+			<band height="22">
 				<textField>
-					<reportElement x="250" y="0" width="92" height="14" uuid="2dc30557-69e4-4aba-b597-41b2f6f84027"/>
+					<reportElement x="250" y="0" width="92" height="22" uuid="2dc30557-69e4-4aba-b597-41b2f6f84027"/>
 					<textElement textAlignment="Center">
 						<font fontName="Times New Roman" size="12" isBold="true"/>
 					</textElement>
@@ -302,7 +302,7 @@ GROUP BY lot]]>
 			<textField>
 				<reportElement x="104" y="15" width="75" height="15" uuid="fad712e0-23d3-4220-8e1a-ff452b9422c8"/>
 				<textElement>
-					<font fontName="Times New Roman" size="6" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
@@ -319,7 +319,7 @@ GROUP BY lot]]>
 			<textField>
 				<reportElement x="104" y="0" width="75" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
 				<textElement>
-					<font fontName="Times New Roman" size="6" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>

@@ -430,14 +430,13 @@
 										<thead>
 											<tr>
 												<th class="wd-15p">Sale No</th>
-												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Broker</th>
+												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Ware Hse.</th>
 												<th class="wd-20p">Company</th>
 												<th class="wd-15p">Mark</th>
 												<th class="wd-10p">Grade</th>
                                                 <th class="wd-25p">Invoice</th>
-                                                <th class="wd-25p">Type</th>
                                                 <th class="wd-25p">Pkgs</th>
                                                 <th class="wd-25p">Net</th>
                                                 <th class="wd-25p">Kgs</th>
@@ -459,14 +458,13 @@
 											$maxlow = $CatalogController->maxLow(trim($import['mark']), trim($import['grade']), trim($import['sale_no']));
                                             $html.='<tr>';
 												$html.='<td>'.$import["sale_no"].'</td>';
-                                                $html.='<td>'.$import["lot"].'</td>';
 												$html.='<td>'.$import["broker"].'</td>';
+                                                $html.='<td>'.$import["lot"].'</td>';
                                                 $html.='<td>'.$import["ware_hse"].'</td>';
                                                 $html.='<td>'.$import["company"].'</td>';
                                                 $html.='<td>'.$import["mark"].'</td>';
                                                 $html.='<td>'.$import["grade"].'</td>';
                                                 $html.='<td>'.$import["invoice"].'</td>';
-                                                $html.='<td>'.$import["type"].'</td>';
                                                 $html.='<td>'.$import["pkgs"].'</td>';
                                                 $html.='<td>'.$import["kgs"].'</td>';
                                                 $html.='<td>'.$import["net"].'</td>';

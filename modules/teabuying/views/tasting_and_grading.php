@@ -8,6 +8,9 @@
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
                                 <div class="card">
+                                    <div class="card-header">
+                                        <span>Add Grading Details</span>
+                                    </div>
                                     <div class="card-body text-center">
                                         <form method="post">
                                             <div class="row justify-content-center">

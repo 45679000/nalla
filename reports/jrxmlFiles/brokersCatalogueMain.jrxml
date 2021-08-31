@@ -300,7 +300,9 @@ GROUP BY lot ORDER BY closing_cat_import_id ASC]]>
 	<detail>
 		<band height="33" splitType="Stretch">
 			<textField>
-				<reportElement x="54" y="0" width="43" height="15" uuid="1f4bca60-ea93-4d58-8ab6-ab80c0cb71cf"/>
+				<reportElement x="54" y="0" width="38" height="15" uuid="1f4bca60-ea93-4d58-8ab6-ab80c0cb71cf">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
@@ -324,7 +326,7 @@ GROUP BY lot ORDER BY closing_cat_import_id ASC]]>
 				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="95" y="0" width="67" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
+				<reportElement x="92" y="0" width="73" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
 				<textElement>
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>

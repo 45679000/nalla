@@ -24,8 +24,8 @@
                     $this->readRecords($this->conn,$spreadsheet, 3, 5);
                     $this->readRecords($this->conn,$spreadsheet, 4, 5);
                 }else{
-                    $this->readRecords($this->conn,$spreadsheet, 3, 5);
-                    $this->readRecords($this->conn,$spreadsheet, 4, 5);
+                    $this->readRecords($this->conn,$spreadsheet, 2, 5);
+                    // $this->readRecords($this->conn,$spreadsheet, 4, 5);
                     $this->readRecords($this->conn,$spreadsheet, 5, 5);
 
                 }
@@ -97,13 +97,20 @@
             $spreadsheet->setActiveSheetIndex($activesheet);
             $sheet = $spreadsheet->getActiveSheet(); 
 
-            $sheetType = 'Sec';
+            if($this->is_split == "true"){
 
-            if(($activesheet==2 || $activesheet ==3) && $this->is_split == "true"){
-                $sheetType = 'Main';
-            }
-            if(($activesheet==3 || $activesheet ==4) && $this->is_split == "false"){
-                $sheetType = 'Main';
+                if(($activesheet==2 || $activesheet ==3)){
+                    $sheetType = 'Main';
+                }else{
+                    $sheetType = 'Sec';
+                }
+            }else{
+                if(($activesheet==2)){
+                    $sheetType = 'Main';
+                }else{
+                    $sheetType = 'Sec';
+
+                }
             }
         
             $highestRow = $sheet->getHighestRow(); 

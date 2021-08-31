@@ -3,7 +3,7 @@
     include_once('../../models/Model.php');
     include_once('../../database/page_init.php');
 
-	include_once('Brokers.php');
+	include_once('Broker.php');
 
 	$broker = new Broker($conn);
 

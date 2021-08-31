@@ -62,7 +62,7 @@ if(isset($_POST['filter'])){
                                                         <option disabled="" value="..." selected="">select</option>
                                                         <option value="dust">DUST</option>
                                                         <option value="leaf">LEAF</option>
-                                                        <option value="Sec">Sec</option>
+                                                        <option value="Sec">SEC</option>
                                                     </select>
                                                 </div>
                                             </div>

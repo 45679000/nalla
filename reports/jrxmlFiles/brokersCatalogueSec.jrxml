@@ -92,11 +92,11 @@ GROUP BY lot]]>
 	<group name="mark">
 		<groupExpression><![CDATA[$F{mark}]]></groupExpression>
 		<groupHeader>
-			<band height="15">
+			<band height="18">
 				<textField>
 					<reportElement x="250" y="0" width="92" height="14" uuid="2dc30557-69e4-4aba-b597-41b2f6f84027"/>
 					<textElement textAlignment="Center">
-						<font fontName="Times New Roman" isBold="true"/>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 				</textField>
@@ -227,25 +227,25 @@ GROUP BY lot]]>
 				<text><![CDATA[Inv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="240" y="4" width="31" height="29" uuid="ffb5685c-2c9c-46aa-96a2-49d6519243c9"/>
+				<reportElement x="237" y="4" width="31" height="29" uuid="ffb5685c-2c9c-46aa-96a2-49d6519243c9"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pkgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="272" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
+				<reportElement x="269" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kilos]]></text>
+				<text><![CDATA[Each Net]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="304" y="4" width="20" height="29" uuid="50fa5406-0247-4000-89af-3e5479f1b20c"/>
+				<reportElement x="297" y="4" width="27" height="29" uuid="50fa5406-0247-4000-89af-3e5479f1b20c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NW]]></text>
+				<text><![CDATA[Total Net]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="324" y="4" width="17" height="29" uuid="9f393bd3-123a-4bfb-87a9-cb5e827130d5"/>
@@ -302,7 +302,7 @@ GROUP BY lot]]>
 			<textField>
 				<reportElement x="104" y="15" width="75" height="15" uuid="fad712e0-23d3-4220-8e1a-ff452b9422c8"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
@@ -319,7 +319,7 @@ GROUP BY lot]]>
 			<textField>
 				<reportElement x="104" y="0" width="75" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>
@@ -332,21 +332,21 @@ GROUP BY lot]]>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="237" y="0" width="31" height="33" uuid="a79703c4-e3a7-448c-98e3-50dbeedf4c75"/>
+				<reportElement x="234" y="0" width="31" height="33" uuid="a79703c4-e3a7-448c-98e3-50dbeedf4c75"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pkgs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="269" y="0" width="31" height="33" uuid="788df640-fa0b-467f-b91a-29203e0e68ac"/>
+				<reportElement x="266" y="0" width="31" height="33" uuid="788df640-fa0b-467f-b91a-29203e0e68ac"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="302" y="0" width="23" height="33" uuid="0e169ef2-ba71-437c-941d-7b1e407e89b9"/>
+				<reportElement x="297" y="0" width="28" height="33" uuid="0e169ef2-ba71-437c-941d-7b1e407e89b9"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
@@ -416,7 +416,7 @@ GROUP BY lot]]>
 			<textField>
 				<reportElement x="55" y="15" width="47" height="15" uuid="c8d24c81-082e-4f71-bfc0-9f60956e5edc"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ra}]]></textFieldExpression>
 			</textField>

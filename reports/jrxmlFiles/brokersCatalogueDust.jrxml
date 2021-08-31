@@ -227,25 +227,25 @@ GROUP BY lot]]>
 				<text><![CDATA[Inv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="238" y="4" width="31" height="29" uuid="ffb5685c-2c9c-46aa-96a2-49d6519243c9"/>
+				<reportElement x="234" y="4" width="31" height="29" uuid="ffb5685c-2c9c-46aa-96a2-49d6519243c9"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pkgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="272" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
+				<reportElement x="265" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kilos]]></text>
+				<text><![CDATA[Each Net]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="304" y="4" width="20" height="29" uuid="50fa5406-0247-4000-89af-3e5479f1b20c"/>
+				<reportElement x="296" y="4" width="28" height="29" uuid="50fa5406-0247-4000-89af-3e5479f1b20c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NW]]></text>
+				<text><![CDATA[Total Net]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="324" y="4" width="17" height="29" uuid="9f393bd3-123a-4bfb-87a9-cb5e827130d5"/>

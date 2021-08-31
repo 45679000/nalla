@@ -96,7 +96,7 @@ GROUP BY lot]]>
 				<textField>
 					<reportElement x="250" y="0" width="92" height="14" uuid="2dc30557-69e4-4aba-b597-41b2f6f84027"/>
 					<textElement textAlignment="Center">
-						<font fontName="Times New Roman" isBold="true"/>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 				</textField>
@@ -234,18 +234,18 @@ GROUP BY lot]]>
 				<text><![CDATA[Pkgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="273" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
+				<reportElement x="269" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kilos]]></text>
+				<text><![CDATA[Each Net]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="305" y="4" width="20" height="29" uuid="50fa5406-0247-4000-89af-3e5479f1b20c"/>
+				<reportElement x="301" y="4" width="24" height="29" uuid="50fa5406-0247-4000-89af-3e5479f1b20c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NW]]></text>
+				<text><![CDATA[Total Net]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="325" y="4" width="17" height="29" uuid="9f393bd3-123a-4bfb-87a9-cb5e827130d5"/>
@@ -302,7 +302,7 @@ GROUP BY lot]]>
 			<textField>
 				<reportElement x="94" y="15" width="70" height="15" uuid="fad712e0-23d3-4220-8e1a-ff452b9422c8"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
@@ -319,7 +319,7 @@ GROUP BY lot]]>
 			<textField>
 				<reportElement x="91" y="0" width="74" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>

@@ -127,10 +127,10 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[AUCTION BUYING LIST SALE:]]></text>
+				<text><![CDATA[AUCTION SELECTION LIST SALE:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="331" y="5" width="100" height="20" uuid="5b6c8737-4e3d-48be-8597-2338997a0c3d"/>
+				<reportElement x="331" y="5" width="79" height="20" uuid="5b6c8737-4e3d-48be-8597-2338997a0c3d"/>
 				<textElement>
 					<font fontName="Times New Roman" size="16" isBold="true"/>
 				</textElement>

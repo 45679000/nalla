@@ -6,7 +6,7 @@ require_once $path_to_root . 'templates/header.php';
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Buying List</h3>
+            <h3 class="card-title">Confirm Provisional Purchase List</h3>
             <form method="post">
                 <div class="row justify-content-center">
                     <div class="col-md-6 well">
@@ -21,7 +21,7 @@ require_once $path_to_root . 'templates/header.php';
             </form>
             <div>
                 <button id="postBuyingList" class="btn btn-info btn-sm" type="submit" id="confirm" name="confirm"
-                    value="1">Confirm Buying List
+                    value="1">Confirm Provisional Purchase List
             </div>
         </div>
         <div class="text-center">

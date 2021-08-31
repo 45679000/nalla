@@ -442,8 +442,6 @@
                                                 <th class="wd-25p">Kgs</th>
                                                 <th class="wd-25p">Value</th>
 												<th>Max/low</th>
-                                                <th class="wd-25p">Sale Price</th>
-                                                <th class="wd-25p">Buyer Package</th>
                                                 <th class="wd-25p">Code</th>
                                                 <th class="wd-25p">Standard</th>
                                                 <th class="wd-25p">Bid</th>
@@ -472,8 +470,6 @@
 												$html.='<td><span style = "color:red">'.$maxlow['max'].' / </span>'
 												.'<span style = "color:green">'.$maxlow['low'].'</span>'
 												.$maxlow['max'].'</td>';
-                                                $html.='<td>'.$import["sale_price"].'</td>';
-                                                $html.='<td>'.$import["buyer_package"].'</td>';
                                                 $html.='<td style="width:40vH">'.$import["comment"].'</td>';
                                                 $html.='<td style="width:40vH">'.$import['standard'].'</div>';
                                                 $html.='<td><input style="width:50px" name="max_bp" id="'.$id.'" onchange="updateValue(this)"  value="'.$import['max_bp'].'"></td>';

@@ -333,8 +333,8 @@
 										<thead>
 											<tr>
 												<th class="wd-15p">Sale No</th>
-												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Broker</th>
+												<th class="wd-15p">Lot No</th>
 												<th class="wd-15p">Ware Hse.</th>
 												<th class="wd-20p">Company</th>
 												<th class="wd-15p">Mark</th>
@@ -358,8 +358,8 @@
 											$maxlow = $CatalogController->maxLow(trim($import['mark']), trim($import['grade']), trim($import['sale_no']));
                                             $html.='<tr>';
 												$html.='<td>'.$import["sale_no"].'</td>';
-                                                $html.='<td>'.$import["lot"].'</td>';
 												$html.='<td>'.$import["broker"].'</td>';
+												$html.='<td>'.$import["lot"].'</td>';
                                                 $html.='<td>'.$import["ware_hse"].'</td>';
                                                 $html.='<td>'.$import["company"].'</td>';
                                                 $html.='<td>'.$import["mark"].'</td>';

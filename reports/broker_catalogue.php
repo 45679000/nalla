@@ -60,7 +60,6 @@ include 'rep_broker.php';
                                                 <label class="control-label">CATEGORY</label>
                                                 <select id="category" name="category" class="select2 form-control well"><small>(required)</small>
                                                     <option disabled="" value="..." selected="">select</option>
-                                                    <option value="main">Main</option>
                                                     <option value="dust">DUST</option>
                                                     <option value="leaf">LEAF</option>
                                                     <option value="sec">SEC</option>

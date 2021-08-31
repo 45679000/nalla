@@ -220,25 +220,18 @@ GROUP BY lot]]>
 				<text><![CDATA[Garden]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="175" y="4" width="28" height="29" uuid="6b92a8f0-bc3b-465b-94e3-fc5a71d6e92b"/>
+				<reportElement x="176" y="4" width="53" height="29" uuid="6b92a8f0-bc3b-465b-94e3-fc5a71d6e92b"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Inv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="203" y="4" width="31" height="29" uuid="ffb5685c-2c9c-46aa-96a2-49d6519243c9"/>
+				<reportElement x="231" y="4" width="31" height="29" uuid="ffb5685c-2c9c-46aa-96a2-49d6519243c9"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pkgs]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="234" y="4" width="29" height="29" uuid="1ae42854-04b8-4aff-8a05-c4725202f264"/>
-				<textElement>
-					<font fontName="Times New Roman" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TP]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="263" y="4" width="31" height="29" uuid="686a1b69-6976-4e01-9aad-91da90961fab"/>
@@ -307,7 +300,7 @@ GROUP BY lot]]>
 				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="96" y="15" width="66" height="15" uuid="fad712e0-23d3-4220-8e1a-ff452b9422c8"/>
+				<reportElement x="97" y="15" width="66" height="15" uuid="fad712e0-23d3-4220-8e1a-ff452b9422c8"/>
 				<textElement>
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
@@ -324,7 +317,7 @@ GROUP BY lot]]>
 				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="95" y="0" width="75" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
+				<reportElement x="96" y="0" width="75" height="15" uuid="9b42701a-ef7d-4965-80da-524f948e14c7"/>
 				<textElement>
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
@@ -335,22 +328,15 @@ GROUP BY lot]]>
 				<textFieldExpression><![CDATA[$F{manf_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="167" y="0" width="38" height="15" uuid="b448e9f5-8054-4cf3-8389-70e897603c06"/>
+				<reportElement x="168" y="0" width="63" height="15" uuid="b448e9f5-8054-4cf3-8389-70e897603c06"/>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="203" y="0" width="31" height="33" uuid="a79703c4-e3a7-448c-98e3-50dbeedf4c75"/>
+				<reportElement x="228" y="0" width="31" height="33" uuid="a79703c4-e3a7-448c-98e3-50dbeedf4c75"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pkgs}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="236" y="0" width="23" height="33" uuid="a57f167f-c10d-493e-bae1-77da39a2f28e"/>
-				<textElement>
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="260" y="0" width="31" height="33" uuid="788df640-fa0b-467f-b91a-29203e0e68ac"/>

@@ -23,7 +23,7 @@ if(isset($_POST['filter'])){
             <div class="page-header">
                 <h4 class="page-title">View Catalog</h4>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="dashboard.php">home</a></li>
+                    <li class="breadcrumb-item"><a href="/chamu/views/dashboard.php">home</a></li>
                     <li class="breadcrumb-item active" aria-current="page"></li>
                 </ol>
             </div>

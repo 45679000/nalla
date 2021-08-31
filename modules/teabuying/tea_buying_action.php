@@ -105,7 +105,6 @@
                                                 <th class="wd-25p">Kgs</th>
                                                 <th class="wd-25p">Value</th>
                                                 <th class="wd-25p">Sale Price</th>
-                                                <th class="wd-25p">Buyer Package</th>
                                                 <th class="wd-25p">Actions</th>
 
 											</tr>
@@ -128,13 +127,16 @@
                                                 $output.='<td>'.$purchase["net"].'</td>';
                                                 $output.='<td>'.$purchase["value"].'</td>';
                                                 $output.='<td>'.$purchase["sale_price"].'</td>';
-                                                $output.='<td>'.$purchase["buyer_package"].'</td>';
                                                 $output.='<td>';
                                                     if($purchase["confirmed"]==0){
-                                                        $output.="<i id='$id' class='editBtn fa fa-edit text-success'>Edit</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+														$output.="<i id='$id' class='confirmBtn fa fa-check text-success'>Confirm Lot</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                                                        $output.="<i id='$id' class='editBtn fa fa-edit text-warning'>Edit</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                                                         $output.="<i id='$id' class='deleteBtn fa fa-trash text-danger'>Delete</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ;
 
-                                                    }  
+                                                    }else{
+														$output.="<i class='fa fa-check text-success'>Confirmed</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+													}  
                                                 
                                                 $output.='</td>';
 
@@ -475,9 +477,9 @@
                                                 $html.='<td><input style="width:50px" name="max_bp" id="'.$id.'" onchange="updateValue(this)"  value="'.$import['max_bp'].'"></td>';
                                                 $html.='<td>';
 													if($target==0){
-														$html.='<button onclick="bid(this)" id="'.$id.'" name="target" value="1" class="btn btn-success btn-sm">add bid</button>';
+														$html.='<button onclick="bid(this)" id="'.$id.'" name="target" value="1" class="btn btn-success btn-sm">Add to selection list</button>';
 													}else{
-														$html.='<button onclick="bid(this)" id="'.$id.'" name="target" value="0" class="btn btn-danger btn-sm">remove bid</button>';
+														$html.='<button onclick="bid(this)" id="'.$id.'" name="target" value="0" class="btn btn-danger btn-sm">Remove to selection list</button>';
 
 													}
 												$html.='</td>';
@@ -501,6 +503,14 @@
 		$insertRecord = $gradingController->deletePrivatePurchase($id);
 		echo json_encode(array("message"=>"Delete Successfully"));
 	}
+	if (isset($_POST['action']) && $_POST['action'] == "confirm-private") {
+		$id = $_POST['id'];
+		$insertRecord = $CatalogController->confirmPrivate($id);
+		echo json_encode(array("message"=>"Confirmed Successfully"));
+	}
+
+
+	
 
 	
 	

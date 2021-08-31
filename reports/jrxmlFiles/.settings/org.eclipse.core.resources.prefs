@@ -1,7 +1,10 @@
 eclipse.preferences.version=1
 encoding/auction_targets_dust.jrxml=UTF-8
+encoding/auction_targets_leaf.jrxml=UTF-8
+encoding/auction_targets_sec.jrxml=UTF-8
 encoding/brokersCatalogue.jrxml=UTF-8
 encoding/brokersCatalogueDust.jrxml=UTF-8
 encoding/brokersCatalogueLeaf.jrxml=UTF-8
 encoding/brokersCatalogueMain.jrxml=UTF-8
 encoding/brokersCatalogueSec.jrxml=UTF-8
+encoding/provisional_plist.jrxml=UTF-8

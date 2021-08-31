@@ -18,6 +18,9 @@
 </style>
 <div class="col-md-10 col-lg-10">
     <div class="card">
+        <div class="card-header">
+            Add Private Purchases 
+        </div>
         <form method="post" id="prvt_purchase" class="card-body">
             <div class="row">
                 <div class="card-body">
@@ -61,9 +64,9 @@
                         <div class="col-md-3 col-md-3">
                             <div class="form-group"><label class="form-label">Pkgs</label><input type="text"
                                     class="form-control" id="pkgs" name="pkgs" value="" required></div>
-                            <div class="form-group"><label class="form-label">Net Weight</label><input type="text"
+                            <div class="form-group"><label class="form-label">Kgs</label><input type="text"
                                     class="form-control" id="net" name="net" value="" required></div>
-                            <div class="form-group"><label class="form-label">Kilos</label><input type="text"
+                            <div class="form-group"><label class="form-label">Net</label><input type="text"
                                     class="form-control" id="kgs" name="kgs" value="" required></div>
                             <div class="form-group"><label class="form-label">company</label><input type="text"
                                     class="form-control" id="company" name="company" value="" required></div>
@@ -83,6 +86,8 @@
                             <div class="form-group"><label class="form-label">Sale Price</label><input type="text"
                                     class="form-control" id="sale_price" name="sale_price" value="" required></div>
                             <input id="closing_cat_import_id" name="closing_cat_import_id" type="hidden">
+                            <input id="buyer_package" name="buyer_package" value="CSS" type="hidden">
+
                         </div>
                         <button type="submit" id="savePrivate" class="btn btn-success">Save</button>
                         <button type="submit" id="updatePrivate" class="btn btn-success">Update</button>
@@ -92,8 +97,11 @@
 
             </div>
         </form>
+        <div class="card-footer">
+        </div>
         <div class="card-body">
             <div class="card-header">
+                <button id="plist" class="btn btn-info btn-sm"><i class="fa fa-file"></i>Print Provisional Purchase List</button>
                 <div class="card-options">
                     <button id="addnewPrvt" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Add Private Purchase</button>
                 </div>
@@ -121,7 +129,7 @@
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="../../assets/js/sweet_alert2.js"></script>
 
 <script>
 $('#prvt_purchase').hide();
@@ -161,7 +169,10 @@ $(document).ready(function() {
             dataType: "json",
             data: $("#prvt_purchase").serialize() + "&action=insert",
             success: function(response) {
-                swal('', 'Saved Successfully', 'success');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Saved Successfully',
+                });
                 $('#prvt_purchase').trigger("reset");
                 loadPrivatePurchases(saleno,broker,category);
 
@@ -251,9 +262,10 @@ $("#updatePrivate").click(function(e) {
             dataType: "json",
             data: $("#prvt_purchase").serialize() + "&action=update",
             success: function(data) {
-                loadPrivatePurchases(saleno,broker,category);
-                swal('', 'Saved Successfully', 'success');
-
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated Successfully',
+                });
 
             }
         });
@@ -274,12 +286,52 @@ $("#updatePrivate").click(function(e) {
             },
             success: function(data) {
                 loadPrivatePurchases(saleno,broker,category);
-                swal('', 'Saved Successfully', 'success');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Deleted Successfully',
+                });
 
 
             }
         });
     });
+    $("body").on("click", ".confirmBtn", function(e) {
+        var id = $(this).attr('id');
+        
+        e.preventDefault();
+            $.ajax({
+            url: "tea_buying_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "confirm-private",
+                id:id
+            },
+            success: function(data) {
+                loadPrivatePurchases(saleno,broker,category);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Confirmed Successfully',
+                });
+
+
+            }
+        });
+    });
+
+    $("#plist").click(function(){
+        $("#privatePurchasesGrid").html('<iframe class="frame" frameBorder="0" src="../../reports/purchase_list.php?type=private&filter=true" width="100%" height="800px"></iframe>');
+                 
+    });
+$("#go_back").click(function(){
+    var saleno = localStorage.getItem("saleno");
+    var broker = localStorage.getItem("broker");
+    var category = localStorage.getItem("category");
+    $("#go_back").hide();
+    $("#buying_list").show();
+    loadGradingTable(saleno, broker, category);
+                 
+});
 
 </script>
 

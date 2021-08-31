@@ -16,6 +16,7 @@
           $broker = trim($_GET['broker']);
 
           $PHPJasperXML = new PHPJasperXML();
+          $PHPJasperXML->debugsql = false;
 
           if(isset($_GET['category'])){
             $category = trim($_GET['category']);

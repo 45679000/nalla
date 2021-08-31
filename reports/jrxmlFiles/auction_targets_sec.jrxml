@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="auction_targets" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f127b8bd-9fde-4866-94b5-f3278a1633fc">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="auction_targets" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f127b8bd-9fde-4866-94b5-f3278a1633fc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,18 +8,27 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="807"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="sale_no" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="broker" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT mark, grade, pkgs, kgs, broker, lot,
+		<![CDATA[SELECT mark, grade, pkgs, kgs, broker, lot, invoice, 
 (CASE WHEN (comment IS NULL) THEN '' ELSE comment END) AS comment,
 (CASE WHEN (grading_comment IS NULL) THEN '' ELSE grading_comment END) AS grading_comment,
 max_bp, name, sale_no, standard, net
 FROM closing_cat
 INNER JOIN brokers ON brokers.code = closing_cat.broker
-WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}') AND category = 'Sec']]>
+WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}') AND category ='Sec']]>
 	</queryString>
 	<field name="mark" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="mark"/>
@@ -54,6 +63,12 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 	<field name="lot" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="lot"/>
 		<property name="com.jaspersoft.studio.field.label" value="lot"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_cat"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invoice" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="invoice"/>
+		<property name="com.jaspersoft.studio.field.label" value="invoice"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="closing_cat"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -102,10 +117,10 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 		<groupHeader>
 			<band height="22">
 				<line>
-					<reportElement x="2" y="0" width="553" height="1" uuid="97fa9245-4b72-41a0-81ed-d09e12da8fbd"/>
+					<reportElement x="-380" y="-5" width="1182" height="6" uuid="97fa9245-4b72-41a0-81ed-d09e12da8fbd"/>
 				</line>
 				<textField>
-					<reportElement x="0" y="0" width="555" height="20" uuid="6faa0543-f9c8-4238-9066-7ef4b0154bc4"/>
+					<reportElement x="10" y="0" width="792" height="20" uuid="6faa0543-f9c8-4238-9066-7ef4b0154bc4"/>
 					<textElement textAlignment="Center">
 						<font fontName="Times New Roman" size="12" isBold="true"/>
 					</textElement>
@@ -121,107 +136,139 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="28" splitType="Stretch">
-			<staticText>
-				<reportElement x="136" y="8" width="195" height="20" uuid="4d754594-3a52-49c1-a36a-721ca4bb694f"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[AUCTION BUYING LIST SALE:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="331" y="5" width="100" height="20" uuid="5b6c8737-4e3d-48be-8597-2338997a0c3d"/>
-				<textElement>
-					<font fontName="Times New Roman" size="16" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{sale_no}]]></textFieldExpression>
-			</textField>
+		<band height="1" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="24" splitType="Stretch"/>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="266" y="30" width="130" height="22" uuid="5b6c8737-4e3d-48be-8597-2338997a0c3d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sale_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="5" width="280" height="20" uuid="313edd84-7193-42a2-a6a4-0011c32e5393"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUCTION SELECTION LIST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="31" width="110" height="20" uuid="3613d97b-9a9e-4a43-8587-c5a552193223"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[(Secondary)]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="28" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<staticText>
-				<reportElement x="39" y="6" width="96" height="20" uuid="4d6e88c0-c483-4155-b4ee-4f7fd143e31f"/>
+				<reportElement x="190" y="6" width="81" height="20" uuid="4d6e88c0-c483-4155-b4ee-4f7fd143e31f"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mark]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="136" y="6" width="56" height="20" uuid="5d8aff5c-13a2-475a-87ad-ab869c16592d"/>
+				<reportElement x="336" y="6" width="56" height="20" uuid="5d8aff5c-13a2-475a-87ad-ab869c16592d"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grade]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="251" y="6" width="38" height="20" uuid="c3c33628-6635-4942-b35d-743d0789b92a"/>
+				<reportElement x="463" y="6" width="38" height="20" uuid="c3c33628-6635-4942-b35d-743d0789b92a"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pkgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="461" y="6" width="42" height="20" uuid="98df99d4-734f-4e46-9d0a-0dde77331264"/>
+				<reportElement x="713" y="6" width="42" height="20" uuid="98df99d4-734f-4e46-9d0a-0dde77331264"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bid]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="6" width="31" height="20" uuid="4289edbb-c65f-4957-92ab-ca3d30f62233"/>
+				<reportElement x="537" y="6" width="42" height="20" uuid="4289edbb-c65f-4957-92ab-ca3d30f62233"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="322" y="6" width="40" height="20" uuid="897267b9-67b6-44c4-8f22-c1e469c293b2"/>
+				<reportElement x="578" y="6" width="40" height="20" uuid="897267b9-67b6-44c4-8f22-c1e469c293b2"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="362" y="6" width="99" height="20" uuid="fce7d533-4534-4949-bd81-f43ceff260fe"/>
+				<reportElement x="617" y="6" width="99" height="20" uuid="fce7d533-4534-4949-bd81-f43ceff260fe"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comment]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="503" y="6" width="44" height="20" uuid="ab345008-1b92-4288-a150-17b7e3ec0aa6"/>
+				<reportElement x="754" y="6" width="44" height="20" uuid="ab345008-1b92-4288-a150-17b7e3ec0aa6"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bought]]></text>
 			</staticText>
 			<line>
-				<reportElement x="2" y="2" width="553" height="1" uuid="8dc1bffe-66fd-4d81-9834-b1218fa08aaf"/>
+				<reportElement x="-470" y="0" width="1530" height="6" uuid="8dc1bffe-66fd-4d81-9834-b1218fa08aaf"/>
 			</line>
 			<staticText>
-				<reportElement x="3" y="6" width="37" height="20" uuid="2f4656e0-079e-49a4-aba2-33471b794776"/>
+				<reportElement x="60" y="6" width="66" height="20" uuid="2f4656e0-079e-49a4-aba2-33471b794776"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lot]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="193" y="6" width="56" height="20" uuid="18d7b255-99a9-49d9-9012-aee736f4a8e2"/>
+				<reportElement x="393" y="6" width="71" height="20" uuid="18d7b255-99a9-49d9-9012-aee736f4a8e2"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Standard]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="499" y="6" width="38" height="20" uuid="ca7fe953-51ce-4d42-9e5d-1d8cfb371d9c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="6" width="67" height="20" uuid="39cdc9d8-6b7e-4a99-9992-b0c3e1458961"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="6" width="59" height="20" uuid="540a4ba5-f580-4629-8459-839da459e5fb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Broker]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<textField>
-				<reportElement x="38" y="1" width="96" height="20" uuid="2ecbf591-9fea-4cba-9d6c-ec1e5f071b78"/>
+				<reportElement x="189" y="1" width="81" height="20" uuid="2ecbf591-9fea-4cba-9d6c-ec1e5f071b78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -234,7 +281,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="135" y="1" width="56" height="20" uuid="98a531b1-7a3a-4f79-8e5d-9b8d042c332e"/>
+				<reportElement x="335" y="1" width="56" height="20" uuid="98a531b1-7a3a-4f79-8e5d-9b8d042c332e"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -247,7 +294,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="249" y="1" width="38" height="20" uuid="1154126c-e435-4e2d-af2e-917ccd91becb"/>
+				<reportElement x="461" y="1" width="38" height="20" uuid="1154126c-e435-4e2d-af2e-917ccd91becb"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -260,7 +307,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{pkgs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="461" y="1" width="42" height="20" uuid="fe2b537a-09ef-452c-b63a-627ee1b95ee4"/>
+				<reportElement x="713" y="1" width="42" height="20" uuid="fe2b537a-09ef-452c-b63a-627ee1b95ee4"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -273,7 +320,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{max_bp}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="1" width="30" height="20" uuid="d3bde604-f6fc-4197-adef-fc7446de6a1d"/>
+				<reportElement x="537" y="1" width="42" height="20" uuid="d3bde604-f6fc-4197-adef-fc7446de6a1d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -286,7 +333,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="319" y="1" width="40" height="20" uuid="7611081e-9c8c-4d04-a356-855ea5949ea9"/>
+				<reportElement x="575" y="1" width="40" height="20" uuid="7611081e-9c8c-4d04-a356-855ea5949ea9"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -299,7 +346,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="359" y="1" width="102" height="20" uuid="6e428926-052e-4f01-a167-671f204b13f4"/>
+				<reportElement x="614" y="1" width="102" height="20" uuid="6e428926-052e-4f01-a167-671f204b13f4"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -312,7 +359,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{grading_comment}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="503" y="1" width="44" height="20" uuid="0b6eaf5a-0da4-4a88-a459-2b28f8bfd030"/>
+				<reportElement x="754" y="1" width="44" height="20" uuid="0b6eaf5a-0da4-4a88-a459-2b28f8bfd030"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -325,7 +372,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="3" y="1" width="37" height="20" uuid="2dd89254-bab7-405d-bfe1-7729d9a8d5b9"/>
+				<reportElement x="60" y="1" width="66" height="20" uuid="2dd89254-bab7-405d-bfe1-7729d9a8d5b9"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -338,7 +385,7 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="1" width="56" height="20" uuid="efe98562-bfd2-4c94-b9c2-5f1cfb884872"/>
+				<reportElement x="392" y="1" width="71" height="20" uuid="efe98562-bfd2-4c94-b9c2-5f1cfb884872"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.0"/>
@@ -349,6 +396,45 @@ WHERE sale_no = '$P{sale_no}' AND target = 1 AND trim(broker) = trim('$P{broker}
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{standard}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="1" width="38" height="20" uuid="9fb15672-858b-4a4a-b325-aca2a8aa2fca"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="1" width="67" height="20" uuid="0bc22334-7060-4333-9e22-366fa60141ea"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="1" width="61" height="20" uuid="8dc7294c-0f33-42a6-9181-80ab5175a761"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{broker}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

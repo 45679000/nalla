@@ -5,6 +5,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
+                    <div class="card-header p-6">
+                        <span> Add Auction Bids </span>
+                        </div>
                         <div class="row">
                             <div class="col-md-12 col-lg-12">
                                 <div class="card">

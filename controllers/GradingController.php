@@ -20,6 +20,7 @@ Class GradingController extends Model{
     }
     public function addPrivatePurchase($post){
         unset($post['action']);
+        unset($post['closing_cat_import_id']);
         $this->debugSql = true;
         $this->data = $post;
         $this->tablename = "closing_cat";
@@ -62,6 +63,7 @@ Class GradingController extends Model{
         }
 
     }
+
 }
 
 

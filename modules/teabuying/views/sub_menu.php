@@ -21,7 +21,7 @@
                     </a>
                     <a href="./index.php?view=print_out"
                         class="list-group-item list-group-item-action d-flex align-items-center">
-                        <span class="icon mr-3"><i class="fe fe-server text-red"></i></span>Print Auction Catalogs
+                        <span class="icon mr-3"><i class="fe fe-server text-red"></i></span>Print Selection List
                     </a>
                     <ul class="demo-accordion accordionjs m-0" data-active-index="false">
                         <li>

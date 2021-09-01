@@ -21,21 +21,24 @@
 		}
 		public function insertGradeCode($code, $percentage, $standardId, $type){
 			if($type=="update"){
-				$this->debugSql = true;
+				$this->debugSql = false;
 				$this->query = "UPDATE `standard_composition` SET  `grade`  = $code,  `percentage` = $percentage 
 				WHERE id = $standardId";
 				$this->executeQuery();
 			}else{
-				$this->debugSql = true;
-				$this->query = "INSERT INTO `standard_composition`(`standard_id`, `grade`, `percentage`)
-				VALUES('$standardId','$code', '$percentage')";
-				$query = $this->executeQuery();
-	
-				if ($query) {
-					return true;
+				$this->debugSql = false;
+				$this->query = "SELECT SUM(percentage) AS total_percentage FROM standard_composition WHERE standard_id = $standardId";
+				$total = $this->executeQuery();
+				if(($total[0]['total_percentage'] + $percentage)<=100){
+					$this->query = "INSERT INTO `standard_composition`(`standard_id`, `grade`, `percentage`)
+					VALUES('$standardId','$code', '$percentage')";
+					$query = $this->executeQuery();
+					echo json_encode(array("type"=>"success", "message" => "Saved Successfully"));
+
 				}else{
-					return false;
+					echo json_encode(array("type"=>"error", "message" => "Percentage Must add up to 100%"));
 				}
+				
 			}
 		
 		}

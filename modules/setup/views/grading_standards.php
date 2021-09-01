@@ -322,12 +322,13 @@
                 url: "grading_standard_action.php",
                 type: "POST",
                 data: $("#composition").serialize() + "&action=save-composition&standardId="+localStorage.getItem("standardId"),
+                dataType:"json",
                 success: function(response) {
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Record added successfully',
+                        icon: response.type,
+                        title: response.message,
                     });
-                    $("#addComposition").modal('hide');
+                    // $("#addComposition").modal('hide');
                     displayComposition(localStorage.getItem("standardId"));
                 }
             });

@@ -16,6 +16,8 @@
 
                         <button id="create" type="button" class="btn btn-success m-1 float-right btn-sm" data-toggle="modal" data-target="#addModal">
                         <i class="fa fa-plus"></i> Add Garden</button>
+                        <button id="createcluster" type="button" class="btn btn-success m-1 float-right btn-sm" data-toggle="modal" data-target="#addModal">
+                        <i class="fa fa-plus"></i> Add Cluster</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -150,6 +152,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+ 
+});
     showAllGardens();
     //View Record
     function showAllGardens() {
@@ -166,6 +170,14 @@ $(document).ready(function() {
 
         });
     }
+    $("body").on("click", ".databaseBtn", function(e) {
+    e.preventDefault();
+    var code = $(this).attr('id');
+    $('#create').html("Add Cluster");
+    $('#create').attr('data-target', '#addComposition');
+    $('#refresh').css("display", "block")
+    localStorage.setItem("code", code);
+    displayCluster(gardenId);
 
     $("#update").click(function(e) {
         if ($("#EditformData")[0].checkValidity()) {
@@ -253,22 +265,6 @@ $(document).ready(function() {
         $("#addComposition").modal('show');
         var editId = $(this).attr('id');
         $('#cluster-form-id').val(editId);
-        // $.ajax({
-        //     url: "action.php",
-        //     type: "POST",
-        //     dataType: "json",
-        //     data: {
-        //         id: editId,
-        //         action: "update-cluster"
-        //     },
-        //     success: function(response) {
-        //         $('#editClusterModal').modal('show');
-        //         var data = response[0];
-        //         $("#EditId").val(data.id);
-        //         $("#percentageUpdate").val(data.percentage);
-        //         $("#code").val(data.grade);
-        //     }
-        // });
     });
 
     $('#helpBlend').click(function(e){
@@ -329,15 +325,7 @@ $(document).ready(function() {
 
 });
 
-$("body").on("click", ".databaseBtn", function(e) {
-    e.preventDefault();
-    var gardenId = $(this).attr('id');
-    $('#create').html("Add Cluster");
-    $('#create').attr('data-target', '#addComposition');
-    $('#refresh').css("display", "block")
-    localStorage.setItem("gardenId", gardenId);
-    displayCluster(gardenId);
-});
+
 
 function displayCluster(id) {
     $.ajax({
@@ -355,45 +343,3 @@ function displayCluster(id) {
 }
 </script>
 
-<!-- 
-  
-    $('#UpdateComposition').click(function(e){
-            var id= $("#EditId").val();
-            e.preventDefault();
-            $.ajax({
-                url: "grading_standard_action.php",
-                type: "POST",
-                data: $("#editCompositionForm").serialize() + "&action=save-composition&type=update&&id="+id,
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Record Updated successfully',
-                    });
-                    $("#editClusterModal").modal('hide');
-                    displayComposition(localStorage.getItem("gardenId"));
-                }
-            });
-            
-    });
-    $("body").on("click", ".deleteCBtn", function(e) {
-            e.preventDefault();
-            var deleteId = $(this).attr('id');
-            $.ajax({
-                url: "grading_standard_action.php",
-                type: "POST",
-                data: {
-                    action:"deleteComposition",
-                    id: deleteId
-                },
-                success: function(response) {
-                    displayComposition(localStorage.getItem("gardenId"));
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Record deleted successfully',
-                    });
-                }
-            });
-    });
-    $("#refresh").click(function(e){
-        location.reload();
-    }) -->

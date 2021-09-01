@@ -39,6 +39,8 @@
                         <td>".$codes['code']."</td>
 			            <td>".$codes['description']."</td>
 			            <td>
+						<a data-toggle='tooltip' data-placement='bottom' title='Set Grade Clusters'  class='databaseBtn text-warning' id='".$codes['id']."'>
+						<i class='fa fa-database' ></i></a>&nbsp&nbsp&nbsp;
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
 			              class='editBtn' id='".$codes['id']."'><i class='fa fa-pencil'></i></a>&nbsp;
 			              <a href='' style='color:red' class='deleteBtn' id='".$codes['id']."'>

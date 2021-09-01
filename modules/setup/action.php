@@ -40,10 +40,7 @@
 			            <td>".$id."</td>
 			            <td>".$garden['mark']."</td>
 			            <td>".$garden['country']."</td>
-			            <td>
-						<a data-toggle='tooltip' data-placement='bottom' title='Set Grade Clusters'  class='databaseBtn text-warning' id='".$garden['id']."'>
-			              <i class='fa fa-database' ></i></a>&nbsp&nbsp&nbsp;
-
+			            <td
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
 			              class='editBtn' id='".$garden['id']."'><i class='fa fa-pencil'></i></a>&nbsp;
 			              <a href='' style='color:red' class='deleteBtn' id='".$garden['id']."'>
@@ -91,8 +88,8 @@
 			        <thead>
 			          <tr>
 			            <th>Id</th>
-			            <th>code</th>
-			            <th>Grade</th>
+			            <th>Garden</th>
+			            <th>Description</th>
 			            <th>Action</th>
 			          </tr>
 			        </thead>
@@ -101,11 +98,10 @@
 			foreach ($clusters as $cluster) {
 			$output.="<tr>
 			            <td>".$id."</td>
-			            <td>".$cluster['code']."</td>
-			            <td>".$cluster['name']."</td>
+			            <td>".$cluster['garden']."</td>
+			            <td>".$cluster['description']."</td>
 			            <td>
-			              <a href='#editCModal' style='color:green' data-toggle='modal' 
-			              class='editCBtn' id='".$cluster['cluster_id']."'><i class='fa fa-pencil'></i></a>&nbsp;
+			         
 			              <a href='' style='color:red' class='deleteCBtn' id='".$cluster['cluster_id']."'>
 			              <i class='fa fa-trash' ></i></a>
 			            </td>
@@ -128,18 +124,17 @@
     
 	if (isset($_POST['action']) && $_POST['action'] == "save-composition") {
 
-		$gardenId = $_POST['gardenId'];
+		$garden = $_POST['garden'];
 		$code = $_POST['code'];
-		$grade = $_POST['grade'];
 		$formid = $_POST['formid'];
 
 		if($formid>0){
 			echo "Updating";
-			$cluster->updateCluster($formid,$gardenId,$code, $grade);
+			$cluster->updateCluster($formid,$garden,$code);
 		}else{
 			echo "Inserting";
 
-			$cluster->insertRecord($gardenId,$code, $grade);
+			$cluster->insertRecord($garden,$code);
 		}
 
 

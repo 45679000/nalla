@@ -7,10 +7,10 @@
 
 		// Insert customer data into customer table
 
-		public function insertRecord($garden,  $code_id, $grade_id)
+		public function insertRecord($garden,  $code_id)
 		{
-			$this->query = "INSERT INTO $this->tableName (garden, grade_id, code_id)
-             VALUES('$garden','$grade_id', '$code_id')";
+			$this->query = "INSERT INTO $this->tableName (garden, code_id)
+             VALUES('$garden', '$code_id')";
 
 			 $this->executeQuery();
 
@@ -18,12 +18,10 @@
 		}
 
 		// Update customer data into customer table
-		public function updateRecord($cluster_id, $garden, $grade_id, $description, $code_id){
+		public function updateRecord($cluster_id, $garden, $code_id){
 			$this->query = "UPDATE $this->tableName SET 
 			 garden = '$garden',
-			 grade_id = '$grade_id',
-             code_id = '$code_id',
-             description = '$description',
+             code_id = '$code_id'
 			 WHERE id = $cluster_id";
 			echo $this->query;
 
@@ -37,11 +35,9 @@
 
 		public function displayRecord($id){
 			$this->query = "SELECT * FROM garden_grade_cluster 
-            INNER JOIN mark_country ON mark_country.id = garden_grade_cluster.garden
             INNER JOIN grading_comments ON grading_comments.id = garden_grade_cluster.code_id
-            INNER JOIN grades ON grades.name = garden_grade_cluster.grade_id
-            WHERE garden_grade_cluster.deleted = 0 AND garden = $id
-            GROUP BY grades.name, garden_grade_cluster.code_id";
+            WHERE garden_grade_cluster.deleted = 0 AND code_id = $id
+            GROUP BY garden_grade_cluster.code_id, garden_grade_cluster.garden";
 			$query = $this->execute();
 
 			$this->query= "SELECT * FROM $this->tableName"; 

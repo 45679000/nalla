@@ -39,6 +39,7 @@
 						<td>".$grade['name']."</td>
                         <td>".$grade['description']."</td>
 			            <td>
+						
 			              <a href='#editModal' style='color:green' data-toggle='modal' 
 			              class='editBtn' id='".$grade['id']."'><i class='fa fa-pencil'></i></a>&nbsp;
 			              <a href='' style='color:red' class='deleteBtn' id='".$grade['id']."'>

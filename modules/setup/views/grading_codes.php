@@ -304,7 +304,7 @@
                         title: 'Record added successfully',
                     });
                     // $("#addComposition").modal('hide');
-                    displayCluster(localStorage.getItem("gardenId"));
+                    displayCluster(localStorage.getItem("code"));
                 }
             });
             
@@ -320,7 +320,7 @@
                     id: deleteId
                 },
                 success: function(response) {
-                    displayCluster(localStorage.getItem("gardenId"));
+                    displayCluster(localStorage.getItem("code"));
                     Swal.fire({
                         icon: 'success',
                         title: 'Record deleted successfully',

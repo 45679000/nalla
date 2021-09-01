@@ -259,6 +259,12 @@
 		<property name="com.jaspersoft.studio.field.tree.path" value="buying_list"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="totalKgs" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{net}]]></variableExpression>
+	</variable>
+	<variable name="totalPkgs" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{pkgs}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -758,9 +764,32 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="758" y="6" width="46" height="14" uuid="aae3e211-cfb8-4b8e-a76e-1efbdfdb22fb"/>
+				<box>
+					<pen lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$V{totalKgs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="660" y="6" width="46" height="14" uuid="5c47e76d-f843-4b43-b3e5-cef8084c4c27"/>
+				<box>
+					<pen lineStyle="Double"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$V{totalPkgs}]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

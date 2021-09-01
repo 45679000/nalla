@@ -13,11 +13,14 @@
 
           if(isset($_GET['type'])){
             $type = trim($_GET['type']);
+            $saleno = isset($_GET['saleno']) ? $_GET['saleno'] : '';
+
             switch ($type) {
               case 'private':
                 $PHPJasperXML->load_xml_file("jrxmlFiles/provisional_plist.jrxml");
               break;
               case 'auction':
+                $PHPJasperXML->arrayParameter=array("saleno"=>$saleno);
                 $PHPJasperXML->load_xml_file("jrxmlFiles/auction_plist.jrxml");
               break;
               default:

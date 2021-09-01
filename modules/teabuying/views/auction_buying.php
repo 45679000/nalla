@@ -91,7 +91,7 @@ $(function() {
     });
 
     $("#plist").click(function(){
-        $("#listBuying").html('<iframe class="frame" frameBorder="0" src="../../reports/purchase_list.php?type=auction&filter=true" width="100%" height="800px"></iframe>');
+        $("#listBuying").html('<iframe class="frame" frameBorder="0" src="../../reports/purchase_list.php?type=auction&filter=true&saleno='+localStorage.getItem("saleno")+'" width="100%" height="800px"></iframe>');
                  
     });
 

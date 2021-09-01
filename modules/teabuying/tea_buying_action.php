@@ -230,7 +230,7 @@
 			<table id="buyingListTable" class="table table-bordered table-striped table-hover table-sm">
 			<thead class="table-primary">
 				<tr>
-					<th>Action Date</th>
+					<th>DD/MM/YYYY</th>
 					<th>Auction</th>
 					<th>Broker</th>
 					<th>Lot</th>

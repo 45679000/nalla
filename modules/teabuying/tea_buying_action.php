@@ -234,11 +234,11 @@
 					<th>Auction</th>
 					<th>Broker</th>
 					<th>Lot</th>
-                    <th>Sale Price</th>
 					<th>Mark</th>
+					<th>Sale Price</th>
+					<th>Pkgs</th>
 					<th>Net</th>
 					<th>Kgs</th>
-					<th>Pkgs</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -249,11 +249,11 @@
 					$output .= '<td>'.$catalog['sale_no'].'</td>';
 					$output .= '<td>'.$catalog['broker'].'</td>';
 					$output .= '<td>'.$catalog['lot'].'</td>';
-					$output .= '<td>'.$catalog['sale_price'].'</td>';
 					$output .= '<td>'.$catalog['mark'].'</td>';
-					$output .= '<td>'.$catalog['net'].'</td>';
+					$output .= '<td>'.$catalog['sale_price'].'</td>';
 					$output .= '<td>'.$catalog['pkgs'].'</td>';
 					$output .= '<td>'.$catalog['kgs'].'</td>';
+					$output .= '<td>'.$catalog['net'].'</td>';
 					if(($catalog["added_to_plist"]==0) && ($catalog["confirmed"]==0)){
 						$output.='
 						<td>

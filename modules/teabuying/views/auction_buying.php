@@ -21,7 +21,7 @@ require_once $path_to_root . 'templates/header.php';
             </form>
             <div>
                 <button id="postBuyingList" class="btn btn-info btn-sm" type="submit" id="confirm" name="confirm"
-                    value="1">Confirm Provisional Purchase List</button>
+                    value="1">Confirm Provisional Purchase List(Notify Finance)</button>
                     <button id="plist" class="btn btn-info btn-sm"><i class="fa fa-file"></i> Print Provisional Purchase List</button>
             </div>
         </div>

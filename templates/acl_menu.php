@@ -72,7 +72,7 @@
 	function menu_tasting_grading($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link" href='.$path_to_root.'modules/teabuying/index.php><i class="fa fa-bar-chart text-primary font-weight-bold"></i> <span class="font-weight-bold">Tea Buying</span></a>
+			<a class="nav-link" href='.$path_to_root.'modules/teabuying/index.php?view=grading-codes><i class="fa fa-bar-chart text-primary font-weight-bold"></i> <span class="font-weight-bold">Tea Buying</span></a>
 		</li>';
 	}
 	function menu_stock($path_to_root){

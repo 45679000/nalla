@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="page-header">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="chamu/views/dashboard.php">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tea Buying</li>
             </ol>
         </div>
@@ -65,12 +65,7 @@ $(function(e) {
 
 $('.select2').select2();
 
-$("#navMenus").on('click','a',function(){
-    // remove classname 'active' from all li who already has classname 'active'
-    $("#navMenus a.active").removeClass("active"); 
-    // adding classname 'active' to current click li 
-    $(this).addClass("active"); 
-});
+
 </script>
 
 </html>

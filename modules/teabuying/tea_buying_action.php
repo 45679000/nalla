@@ -25,7 +25,7 @@
                 $output .="";
                 foreach ($gradingCodes as $gradeCode){
                     $output.='<tr>';
-                        $output.='<td>'.$gradeCode["id"].'</td>';
+                        $output.='<td>'.$gradeCode["order_id"].'</td>';
                         $output.='<td>'.$gradeCode["code"].'</td>';
                         $output.='<td>'.$gradeCode["description"].'</td>';
                     $output.='</tr>';

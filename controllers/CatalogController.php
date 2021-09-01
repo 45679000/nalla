@@ -485,7 +485,7 @@
         }
         public function PrintGradingCodes(){
             try {
-                $this->query = "SELECT * FROM `grading_comments` WHERE deleted = 0";
+                $this->query = "SELECT * FROM `grading_comments` WHERE deleted = 0 ORDER BY code ASC";
                 return $this->executeQuery();
             } catch (EXCEPTION $ex) {
                 var_dump($ex);

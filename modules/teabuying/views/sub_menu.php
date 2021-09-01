@@ -23,18 +23,24 @@
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <span class="icon mr-3"><i class="fe fe-server text-red"></i></span>Print Selection List
                     </a>
-                    <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                        <li>
-                            <div>
-                                <h3>Purchases</h3>
-                            </div>
-                            <div>
-                              
-                            </div>
-                         
-                        </li>
+                </div>
+            </div>
+            <div class="expanel expanel-primary">
+                <div class="expanel-heading">
+                    <h3 class="expanel-title">Purchases</h3>
+                </div>
+                <div class="expanel-body">
+                    <div class="list-group" id="navMenu2">
+                        <a href="./index.php?view=ppurchases"
+                            class="list-group-item list-group-item-action d-flex align-items-center">
+                            <span class="icon mr-3"><i class="fe fe-chrome text-blue"></i></span>Private Purchases
+                        </a>
+                        <a href="./index.php?view=apurchases"
+                            class="list-group-item list-group-item-action d-flex align-items-center">
+                            <span class="icon mr-3"><i class="fe fe-server text-red"></i></span>Auction Purchases
+                        </a>
 
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -230,6 +230,7 @@
 			<table id="buyingListTable" class="table table-bordered table-striped table-hover table-sm">
 			<thead class="table-primary">
 				<tr>
+					<th>Action Date</th>
 					<th>Auction</th>
 					<th>Broker</th>
 					<th>Lot</th>
@@ -244,6 +245,7 @@
 			<tbody>';
 			foreach($catalogs as $catalog){
 				$output .= '<tr>';
+					$output .= '<td>'.$catalog['auction_date'].'</td>';
 					$output .= '<td>'.$catalog['sale_no'].'</td>';
 					$output .= '<td>'.$catalog['broker'].'</td>';
 					$output .= '<td>'.$catalog['lot'].'</td>';

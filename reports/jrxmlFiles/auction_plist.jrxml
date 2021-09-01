@@ -716,7 +716,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="756" y="0" width="51" height="20" uuid="8e1add19-302b-46bb-b65f-be550038d983">
@@ -733,7 +733,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="603" y="0" width="52" height="20" uuid="24a802c3-6bf1-4a3d-a5aa-c089967d0dec">

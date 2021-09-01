@@ -575,7 +575,7 @@
                 if($saleno !=''){
                     $maxSale = $saleno;
                 }
-                $this->query = "SELECT broker, sale_no, sale_price, pkgs, kgs, net, lot, mark, confirmed, added_to_plist, confirmed
+                $this->query = "SELECT *
                 FROM buying_list WHERE sale_no = '$maxSale'";
                 return $this->executeQuery();
                 

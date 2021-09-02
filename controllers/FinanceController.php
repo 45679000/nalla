@@ -91,7 +91,7 @@
             $this->executeQuery();
         }
         public function updateField($lotId, $fieldId, $value, $saleno){
-            $this->query = "UPDATE closing_cat SET $fieldId = '$value'
+            $this->query = "UPDATE buying_list SET $fieldId = '$value'
             WHERE lot = '$lotId' AND sale_no = '$saleno'";
             $this->debugSql = true;
             return $this->executeQuery();

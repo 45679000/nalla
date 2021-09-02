@@ -199,4 +199,115 @@ function loadPurchaseList(){
 
         });
 }
+function updateInvoice(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"broker_invoice",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+function updatePkgs(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"pkgs",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+function updateKgs(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"kgs",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+
+function updateNet(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"net",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+
+}
+function updateHammer(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action:"update-field",
+                lot:lot,
+                field:"sale_price",
+                value:value,
+                saleno: localStorage.getItem("saleno")
+            },
+        success: function (data) {
+            console.log('Submission was successful.');
+        }
+    
+    });
+}
+
 </script>

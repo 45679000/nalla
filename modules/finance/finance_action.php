@@ -206,6 +206,8 @@
 					</thead>
 			        <tbody>';
 					foreach ($purchases as $purchase){
+						$id = $purchase["lot"];
+
 						$totalLots++;
 						$totalPkgs += $purchase['pkgs'];
 						$totalKgs += $purchase['net'];

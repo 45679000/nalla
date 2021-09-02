@@ -98,7 +98,7 @@
 
         }
         public function confirmedPurchaseList(){
-            $this->debugSql = true;
+            $this->debugSql = false;
             $this->query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
             `entry_no`, `value`, `lot`, `company`, buying_list.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
              `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, 

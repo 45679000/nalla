@@ -111,13 +111,10 @@ $shippingI = $controller->getShippingInstructions();
                         <div class="expanel-body">
                             <div class="list-group  mb-0 mail-inbox">
                                 <a href="./index.php?view=purchaselist" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-list"></i></span>Purchase List
-                                </a>
-                                <a href="./index.php?view=ppurchases" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Private Purchases
+                                    <span class="icon mr-3"><i class="fe fe-list text-info fw-bold"></i></span>Purchase List
                                 </a>
                                 <a href="./index.php?view=stock-master" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Stock Master
+                                    <span class="icon mr-3"><i class="fe fe-file-text text-danger fw-bold"></i></span>Stock Master
                                 </a>
                             
                             </div>

@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM buying_list WHERE  confirmed = 1 AND added_to_plist = 1 AND source = 'P']]>
+		<![CDATA[SELECT * FROM buying_list WHERE  source = 'P']]>
 	</queryString>
 	<field name="buying_list_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="buying_list_id"/>

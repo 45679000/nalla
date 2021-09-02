@@ -95,7 +95,7 @@
                 <div class="card-header">
                 <div class="nav">
                     <ul class="navbuttons">
-                        <li class="fa fa-file text-success">
+                        <!-- <li class="fa fa-file text-success">
                             <a class="plist" id="2021-28">
                                 <span>CSL  2021-28</span>  
                             </a>
@@ -126,7 +126,7 @@
                             <a class="plist" id="2021-33">
                             <span>CSL 2021-33</span>  
                             </a>
-                        </li>  
+                        </li>   -->
                          <li class="fa fa-file text-success">
                             <a class="plist" id="2021-34">
                             <span>CSL 2021-34</span>  

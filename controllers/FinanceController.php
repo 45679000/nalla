@@ -98,7 +98,7 @@
 
         }
         public function confirmedPurchaseList(){
-            $this->debugSql = false;
+            $this->debugSql = true;
             $this->query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
             `entry_no`, `value`, `lot`, `company`, buying_list.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
              `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, 
@@ -107,7 +107,7 @@
             FROM `buying_list` 
             LEFT JOIN mark_country ON mark_country.mark = buying_list.mark
             WHERE  buyer_package='CSS' AND sale_no LIKE '%".$this->saleno."%' AND confirmed = 1
-            GROUP BY lot, broker, pkgs
+            GROUP BY lot, broker, invoice, pkgs
             ORDER BY line_no DESC";
             
             return $this->executeQuery();

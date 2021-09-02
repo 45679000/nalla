@@ -20,78 +20,78 @@
             $unit="Kgs"; 
             $icon = "mdi mdi-arrow-collapse-all";
             $mdiText = "Total Kgs purchased";
-            echo get_card($total, $description, $unit, $icon, $mdiText);
+            echo get_card(number_format($total), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStck':
-            $stock->query = "SELECT SUM(kgs) AS kgs
+            $stock->query = "SELECT SUM(pkgs) AS pkgs
              FROM closing_stock 
              LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
              WHERE shippments.id IS NULL";
             $totalKgs = $stock->executeQuery();
             $description = "Total Stock";
-            $unit="kgs"; 
+            $unit="Pkgs"; 
             $icon = "mdi mdi-apps";
-            $mdiText = "Total Kgs In stock";
-            echo get_card($totalKgs[0]['kgs'], $description, $unit, $icon, $mdiText);
+            $mdiText = "Total Pkgs In stock";
+            echo get_card(number_format($totalKgs[0]['pkgs']), $description, $unit, $icon, $mdiText);
             break;
             break;
         case 'totalShpd':
-            $stock->query = "SELECT SUM(shipped_kgs) AS kgs
+            $stock->query = "SELECT SUM(pkgs_shipped) AS pkgs_shipped
              FROM shippments";
             $totalKgs = $stock->executeQuery();
-            $description = "Total Kgs Shipped";
-            $unit="Kgs"; 
+            $description = "Total PKgs Shipped";
+            $unit="Pkgs"; 
             $icon = "mdi mdi-ferry";
-            $mdiText = "Total Kgs Shipped";
-            echo get_card($totalKgs[0]['kgs'], $description, $unit, $icon, $mdiText);
+            $mdiText = "Total PKgs Shipped";
+            echo get_card(number_format($totalKgs[0]['pkgs_shipped']), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckO':
-            $stock->query = "SELECT SUM(kgs) AS kgs
+            $stock->query = "SELECT SUM(pkgs) AS pkgs
              FROM closing_stock 
              LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
              WHERE shippments.id IS NULL AND is_blend_balance = 0";
             $totalKgs = $stock->executeQuery();
             $description = "Total Original Teas";
-            $unit="kgs"; 
+            $unit="Pkgs"; 
             $icon = "mdi mdi-apple-keyboard-command";
             $mdiText = "Total Original Teas In stock";
-            echo get_card($totalKgs[0]['kgs'], $description, $unit, $icon, $mdiText);
+            echo get_card(number_format($totalKgs[0]['pkgs']), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckB':
-            $stock->query = "SELECT SUM(kgs) AS kgs
+            $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
             LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-            WHERE shippments.id IS NULL AND is_blend_balance = 0";
+            WHERE shippments.id IS NULL AND is_blend_balance = 1";
             $totalKgs = $stock->executeQuery();
             $description = "Total Blended Teas";
-            $unit="kgs"; 
+            $unit="Pkgs"; 
             $icon = "mdi mdi-apple-keyboard-command";
-            $mdiText = "Total Blended Kgs In stock";
-           echo get_card($totalKgs[0]['kgs'], $description, $unit, $icon, $mdiText);
+            $mdiText = "Total Blended PKgs In stock";
+           echo get_card(number_format($totalKgs[0]['pkgs']), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckAllc':
-            $stock->query = "SELECT SUM(kgs) AS kgs
+            $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
             LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
             WHERE shippments.id IS NULL AND client_id IS NOT NULL";
             $totalKgs = $stock->executeQuery();
             $description = "Total Allocated Teas";
-            $unit="kgs"; 
+            $unit="Pkgs"; 
             $icon = "mdi mdi-basket-fill";
-            $mdiText = "Total Allocated Kgs";
-           echo get_card($totalKgs[0]['kgs'], $description, $unit, $icon, $mdiText);
+            $mdiText = "Total Allocated PKgs";
+           echo get_card(number_format($totalKgs[0]['pkgs']), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckUnAllc':
-            $stock->query = "SELECT SUM(kgs) AS kgs
+            $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
             LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
             WHERE shippments.id IS NULL AND client_id = 0 ";
             $totalKgs = $stock->executeQuery();
             $description = "Total Unallocated Teas";
-            $unit="kgs"; 
+            $unit="Pkgs"; 
             $icon = "mdi mdi-basket-unfill";
-            $mdiText = "Total Unallocated Kgs";
-           echo get_card($totalKgs[0]['kgs'], $description, $unit, $icon, $mdiText);
+            $mdiText = "Total Unallocated PKgs";
+           echo get_card(number_format($totalKgs[0]['pkgs']), $description, $unit, $icon, $mdiText);
             break;
       
         case 'totalStckPAllc':

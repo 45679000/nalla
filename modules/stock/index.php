@@ -88,13 +88,17 @@ $shippingI = $controller->getShippingInstructions();
         height: 100%;
 
     }
+    .page-header{
+         padding: 0px;
+         margin: 1.5rem !important;
+    }
 </style>
 <body>
 <div class="page-header">
-		<ol class="breadcrumb">
+        <ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/chamu/modules/stock/index.php?view=dashboard">home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Stocks</li>
-		</ol>
+		</ol>		
     </div>
     <div class="container-fluid">
         <div class="row">

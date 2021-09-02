@@ -16,8 +16,7 @@
 
                         <button id="create" type="button" class="btn btn-success m-1 float-right btn-sm" data-toggle="modal" data-target="#addModal">
                         <i class="fa fa-plus"></i> Add Garden</button>
-                        <button id="createcluster" type="button" class="btn btn-success m-1 float-right btn-sm" data-toggle="modal" data-target="#addModal">
-                        <i class="fa fa-plus"></i> Add Cluster</button>
+                       
                         </div>
                     </div>
                     <div class="card-body">
@@ -41,7 +40,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="formData">
+                <form id="formData" method="post">
                     <div class="form-group">
                         <label for="name">Garden Name:</label>
                         <input type="text" class="form-control" name="name" placeholder="Garden Name" required="">
@@ -52,7 +51,7 @@
                     </div>
                     <hr>
                     <div class="form-group float-right">
-                        <button type="submit" class="btn btn-success" id="submit">Submit</button>
+                        <button type="submit" class="btn btn-success" id="saveGarden">Submit</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -94,41 +93,7 @@
         </div>
     </div>
 </div>
-<!-- Add Record  Modal -->
-<div class="modal" id="addComposition">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Set Cluster</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="composition">
-                    <input type="hidden" name="id" id="cluster-form-id">
 
-                    <div class="form-group">
-                        <label for="code">Code:</label>
-                        <select id="code" name="code" class="code form-control form-control-cstm select2 well"><small>(required)</small>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="grade">Grade:</label>
-                        <select id="grade" name="code" class="code form-control form-control-cstm select2 well"><small>(required)</small>
-                        </select>
-                    </div>
-       
-                    <hr>
-                    <div class="form-group float-right">
-                        <button type="submit" class="btn btn-success" id="SaveComposition">Save</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -170,15 +135,7 @@ $(document).ready(function() {
 
         });
     }
-    $("body").on("click", ".databaseBtn", function(e) {
-    e.preventDefault();
-    var code = $(this).attr('id');
-    $('#create').html("Add Cluster");
-    $('#create').attr('data-target', '#addComposition');
-    $('#refresh').css("display", "block")
-    localStorage.setItem("code", code);
-    displayCluster(gardenId);
-
+ 
     $("#update").click(function(e) {
         if ($("#EditformData")[0].checkValidity()) {
             e.preventDefault();
@@ -201,10 +158,9 @@ $(document).ready(function() {
 
 
     //insert ajax request data
-    $("#submit").click(function(e) {
-        if ($("#formData")[0].checkValidity()) {
-            e.preventDefault();
-            $.ajax({
+    $("#saveGarden").click(function(e) {
+        e.preventDefault();
+        $.ajax({
                 url: "action.php",
                 type: "POST",
                 data: $("#formData").serialize() + "&action=insert",
@@ -218,7 +174,7 @@ $(document).ready(function() {
                     showAllGardens();
                 }
             });
-        }
+       
     });
 
     //Edit Record
@@ -323,7 +279,7 @@ $(document).ready(function() {
         location.reload();
     })
 
-});
+
 
 
 

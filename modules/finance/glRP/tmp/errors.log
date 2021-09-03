@@ -1707,3 +1707,7 @@ Stack trace:
 [19-Aug-2021 12:40:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [19-Aug-2021 12:40:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [19-Aug-2021 12:40:53 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[03-Sep-2021 10:32:00 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[03-Sep-2021 10:32:02 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[03-Sep-2021 10:32:02 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[03-Sep-2021 10:32:22 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time

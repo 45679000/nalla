@@ -1,45 +1,3 @@
-$(document).ready(function() {
-    loadPurchaseList();
-    $('#purchaseListTable tbody').on('click', '#allocated', function() {
-        var thisCell = table.cell(this);
-        alert("table Clicked");
-        SubmitData.lot = $(this).parents('tr').find("td:eq(0)").text();
-        SubmitData.check = 0;
-        console.log(SubmitData);
-        // postData(SubmitData, "");
-
-});
-
-function loadPurchaseList() {
-    $.ajax({
-        url: "../../modules/stock/stock-action.php",
-        type: "POST",
-        dataType: "html",
-        data: {
-            action: "purchase-list"
-        },
-        success: function(response) {
-            $("#purchaseList").html(response);
-
-        }
-
-    });
-}
-function checkedRow(){
-    var trs = document.querySelectorAll("tr");
-    for (var i = 0; i < trs.length; i++)
-    (function (e) {
-        trs[e].addEventListener("click", function () {
-            alert("cliked");
-        console.log({
-            "lot": this.querySelectorAll("*")[0].innerHTML.trim(),
-        });
-        }, false);
-    })(i);
-
-}
-
-});
 
 function loadMasterStock(type){
     $(document).ready(function() {
@@ -51,9 +9,12 @@ function loadMasterStock(type){
             data: {
                 action:"master-stock",
                 type:type,
-                saleno:localStorage.getItem("fsale_no"),
-                broker:localStorage.getItem("xbroker"),
-                mark:localStorage.getItem("fmark")
+                saleno:localStorage.getItem("fsaleno"),
+                broker:localStorage.getItem("fbroker"),
+                mark:localStorage.getItem("fmark"),
+                standard:localStorage.getItem("fstandard"),
+                gradecode:localStorage.getItem("fgradecode"),
+
             },
             success: function (data) {
                 $('#stock-master').html(data);

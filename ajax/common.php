@@ -23,10 +23,12 @@ $financeCtlr = new Finance($conn);
 
 
 if (isset($_POST['action']) && $_POST['action'] == "list-brokers") {
+    $type = isset($_POST['filterType']) ? $_POST['filterType'] : 'Select';
+
     $output = "";
 
     $brokers = $catalogue->PrintBrokers();
-            $output = '<option disabled="" value="..." selected="">select</option>';
+            $output = '<option  value="'.$type.'" selected="">'.$type.'</option>';
     if ($catalogue->totalRowCount("brokers") > 0) {
 
          foreach($brokers as $broker){
@@ -39,10 +41,12 @@ if (isset($_POST['action']) && $_POST['action'] == "list-brokers") {
 }
 
 if (isset($_POST['action']) && $_POST['action'] == "garden-list") {
+    $type = isset($_POST['filterType']) ? $_POST['filterType'] : 'Select';
+
     $output = "";
 
     $gardens = $catalogue->PrintGardens();
-            $output = '<option disabled="" value="..." selected="">select</option>';
+    $output = '<option  value="'.$type.'" selected="">'.$type.'</option>';
     if ($catalogue->totalRowCount("brokers") > 0) {
 
          foreach($gardens as $garden){
@@ -70,10 +74,12 @@ if (isset($_POST['action']) && $_POST['action'] == "grade-list") {
     }
 }
 if (isset($_POST['action']) && $_POST['action'] == "standard-list") {
+    $type = isset($_POST['filterType']) ? $_POST['filterType'] : 'Select';
+
     $output = "";
 
     $standard= $catalogue->PrintStandard();
-    $output = '<option disabled="" value="..." selected="">select</option>';
+    $output = '<option  value="'.$type.'" selected="">'.$type.'</option>';
     if (sizeOf($standard) > 0) {
          foreach($standard as $standard){
             $output .= '<option value="'.$standard['standard'].'">'.$standard['standard'].'</option>';
@@ -86,10 +92,12 @@ if (isset($_POST['action']) && $_POST['action'] == "standard-list") {
     
 }
 if (isset($_POST['action']) && $_POST['action'] == "codes") {
+    $type = isset($_POST['filterType']) ? $_POST['filterType'] : 'Select';
+
     $output = "";
 
     $codes= $catalogue->PrintGradingCodes();
-    $output = '<option disabled="" value="..." selected="">select</option>';
+    $output = '<option  value="'.$type.'" selected="">'.$type.'</option>';
     if (sizeOf($codes) > 0) {
          foreach($codes as $code){
             $output .= '<option value="'.$code['id'].'">'.$code['code'].'</option>';
@@ -262,10 +270,11 @@ if (isset($_POST['action']) && $_POST['action'] == "warehouseLocation") {
     
 }
 if (isset($_POST['action']) && $_POST['action'] == "sale_no") {
+    $type = isset($_POST['filterType']) ? $_POST['filterType'] : 'Select';
+
     $output = "";
     $auctions= $catalogue->auctionList();
-    var_dump($auctions);
-    $output = '<option disabled="" value="..." selected="">select</option>';
+    $output = '<option  value="'.$type.'" selected="">'.$type.'</option>';
     if (sizeOf($auctions) > 0) {
          foreach($auctions as $auction){
             $output .= '<option value="'.$auction.'">'.$auction.'</option>';

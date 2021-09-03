@@ -13,63 +13,27 @@ include $path_to_root1 . 'controllers/ShippingController.php';
 include $path_to_root1 .'includes/auction_ids.php';
 
 
-
-$stock = new Stock($conn);
-$stocks = $stock->readStock();
-
-$allocated = $stock->allocatedStock("unallocated");
-$msg = "";
-if (isset($_POST['allocate'])) {
-    $msg = "<p class='success'>Lot Allocated successfully</p>";
-
-    $buyer = isset($_POST['buyer_standard']) ? $_POST['buyer_standard'] : '';
-    $stock_id = isset($_POST['stock_id']) ? $_POST['stock_id'] : '';
-    $mrpValue = isset($_POST['mrpValue']) ? $_POST['mrpValue'] : '';
-    $offerPrice = isset($_POST['offerPrice']) ? $_POST['offerPrice'] : '';
-    $allocatedPkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : '';
-    $InstockPkgs = isset($_POST['pkg_stock']) ? $_POST['pkg_stock'] : '';
-}
-
-$parking = array();
-$saleNo = isset($_POST['saleno']) ? $_POST['saleno'] : '';
-$broker = isset($_POST['broker']) ? $_POST['broker'] : '';
-$category = isset($_POST['category']) ? $_POST['category'] : '';
-$condition = "";
-if ($saleNo != '' && $broker != '' && $category != '') {
-    $condition .= " WHERE sale_no = '" . $saleNo . "' AND broker = '$broker' AND category = '$category' AND lot IN(SELECT lot FROM closing_stock)";
-    $stocks = $stock->readStock("stock", $condition);
-}
-$scart = array();;
-
-if ($saleNo != null) {
-    $stock->saleno = $saleNo;
-    $scart = $stock->readPurchaseList();
-}
-$parking = $stock->parking();
-
-$form = new Form();
-$catalogue = new Catalogue($conn);
-
-$lots = $catalogue->summaryCount("closing_cat_import_id", "main")['count'];
-$kgs = $catalogue->summaryTotal("net", "main")['total'];
-$pkgs = $catalogue->summaryTotal("pkgs", "main")['total'];
-
-$prvt = $catalogue->privatePurchases();
-$formValue = array();
-$controller = new ShippingController($conn);
-if (isset($_POST['step1'])) {
-    unset($_POST['step1']);
-    $formValue = $controller->saveSI($_POST, 1);
-}
-$shippingI = $controller->getShippingInstructions();
-// if(isset($_POST['packing'])){
-//     if(!empty($_POST)){
-//         $_SESSION['packing-materials'][] = $_POST;        
-//     }
-// }
-
 ?>
 <style>
+.navbuttons {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
+
+    max-width: 100%;
+    margin: 0 0 1em;
+    height: 50px;
+
+    white-space: nowrap;
+
+}
+
+.navbuttons LI {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    
+}
     .form-control {
         color: black !important;
         border: 1px solid black !important;
@@ -112,6 +76,9 @@ $shippingI = $controller->getShippingInstructions();
                             <div class="list-group  mb-0 mail-inbox">
                                 <a href="./index.php?view=purchaselist" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-list text-info fw-bold"></i></span>Purchase List
+                                </a>
+                                <a href="./index.php?view=purchaselistPrivate" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-list text-info fw-bold"></i></span>Private Purchases
                                 </a>
                                 <a href="./index.php?view=stock-master" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-file-text text-danger fw-bold"></i></span>Stock Master
@@ -163,6 +130,9 @@ $shippingI = $controller->getShippingInstructions();
                             case 'allocate-stock':
                                 include 'views/allocate_stock.php';
                                 break;
+                            case 'purchaselistPrivate':
+                                include 'views/private_purchases.php';
+                                break;
                             case 'closeblends':
                                 include 'stock_master.php';
                                 break;
@@ -207,15 +177,15 @@ $shippingI = $controller->getShippingInstructions();
 <script src="../../assets/plugins/select2/select2.full.min.js"></script>
 
 <!-- Charts Plugin -->
-<script src="../../assets/plugins/highcharts/highcharts.js"></script>
+<!-- <script src="../../assets/plugins/highcharts/highcharts.js"></script>
 <script src="../../assets/plugins/highcharts/highcharts-3d.js"></script>
 <script src="../../assets/plugins/highcharts/exporting.js"></script>
 <script src="../../assets/plugins/highcharts/export-data.js"></script>
 <script src="../../assets/plugins/highcharts/histogram-bellcurve.js"></script>
-<script src="../../assets/plugins/highcharts/solid-gauge.js"></script>
+<script src="../../assets/plugins/highcharts/solid-gauge.js"></script> -->
 
 <!-- Index Scripts -->
-<script src="../../assets/js/highcharts.js"></script>
+<!-- <script src="../../assets/js/highcharts.js"></script> -->
 
 
 

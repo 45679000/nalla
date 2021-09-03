@@ -25,119 +25,15 @@
     <div class="card">
         <div class="card-header text-center">
             <div id="notificationId">
+                <span>Purchase List</span>
             </div>
-            <!-- <div class="card">
-                <div class="card">
-                <div class="nav">
-                    <ul class="navbuttons">
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-28">
-                                <span>CSL  2021-28</span>  
-                            </a>
-                        </li>
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-29">
-                                <span>CSL 2021-29</span>  
-                                
-                            </a> 
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-30">
-                                <span>CSL 2021-30</span>  
-                                
-                            </a>  
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-31">
-                            <span>CSL 2021-31</span>  
-                            </a>
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-32">
-                            <span>CSL 2021-32</span>  
-                            </a>
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-33">
-                            <span>CSL 2021-33</span>  
-                            </a>
-                        </li>  
-                         <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-34">
-                            <span>CSL 2021-34</span>  
-                            </a>
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-35">
-                            <span>CSL 2021-35</span>  
-                            </a>
-                        </li>  
-                        
-                    </ul>
-                </div>
-                </div> -->
-                <!-- <form method="post">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 well">
-                            <div class="form-group form-inline">
-                                <label class="control-label">Select Action from the list</label>
-                                <select id="saleno" name="saleno" class="form-control select2"><small>(required)</small>
-                                    <option disabled="" value="..." selected="">select</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </form> -->
-            <!-- </div> -->
         </div>
         <div class="card-body p-6">
             <div class="expanel expanel-secondary">
                 <div class="card-header">
                 <div class="nav">
-                    <ul class="navbuttons">
-                        <!-- <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-28">
-                                <span>CSL  2021-28</span>  
-                            </a>
-                        </li>
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-29">
-                                <span>CSL 2021-29</span>  
-                                
-                            </a> 
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-30">
-                                <span>CSL 2021-30</span>  
-                                
-                            </a>  
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-31">
-                            <span>CSL 2021-31</span>  
-                            </a>
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-32">
-                            <span>CSL 2021-32</span>  
-                            </a>
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-33">
-                            <span>CSL 2021-33</span>  
-                            </a>
-                        </li>   -->
-                         <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-34">
-                            <span>CSL 2021-34</span>  
-                            </a>
-                        </li>   
-                        <li class="fa fa-file text-success">
-                            <a class="plist" id="2021-35">
-                            <span>CSL 2021-35</span>  
-                            </a>
-                        </li>  
-                        
+                    <ul id="sale_nav" class="navbuttons">
+                      
                     </ul>
                 </div>
                 </div>
@@ -179,6 +75,14 @@
     $(function() {
         var saleno = '2021-35';
         loadPlist(saleno)
+        salenoListing();
+
+        $(document).on('click','.plist', function(){
+             click = localStorage.getItem("click");
+
+            var saleno = $(this).attr("id");
+            loadPlist(saleno);
+        });
 
         var formData = {
                 saleno: saleno,
@@ -259,7 +163,8 @@
                 url: "../../modules/finance/finance_action.php",
                 data: {
                     action:"confirmed-purchase-list",
-                    saleno:saleno
+                    saleno:saleno,
+                    type: 'A'
                 },
                 success: function(data) {
                     $('#purchaseList').html(data);
@@ -306,6 +211,29 @@
                     });
                 },
 
+            });
+        }
+        function salenoListing(){
+            var mynav = "";
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "../../modules/finance/finance_action.php",
+                data: {
+                    action:"get-sale-no",
+                    type: 'A'
+                },
+                success: function(data) {
+                    for(let i = 0; i<data.length; i++){
+                         $('#sale_nav').append(
+                            $('<li>').append(
+                                $('<a>').attr({'id': data[i].sale_no,'class':'plist', 'href':'#'}).append(
+                                    $('<span>').attr('class', 'tab').append(data[i].sale_no)
+                        ))); 
+
+                    }
+
+                }
             });
         }
     });

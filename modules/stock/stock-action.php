@@ -85,88 +85,6 @@
 		}
 	}
 
-	// Edit Record	
-	if ((isset($_POST['action'])) && $_POST['action'] =="stock-list") {
-		$stocks = $stock->readStock($condition="WHERE lot IN(SELECT lot FROM closing_stock)");
-		$purchaseList = $stock->unconfrimedPurchaseList();
-		if (sizeOf($purchaseList) > 0) {
-			$output .='<table id="purchaseListTable" class="table table-striped table-hover">
-			        <thead>
-					<tr>
-						<th class="wd-15p">Sale No</th>
-						<th class="wd-15p">Broker</th>
-						<th class="wd-15p">Lot No</th>
-						<th class="wd-15p">Ware Hse.</th>
-						<th class="wd-20p">Company</th>
-						<th class="wd-15p">Mark</th>
-						<th class="wd-10p">Grade</th>
-						<th class="wd-25p">Invoice</th>
-						<th class="wd-25p">Pkgs</th>
-						<th class="wd-25p">Type</th>
-						<th class="wd-25p">Net</th>
-						<th class="wd-25p">Gross</th>
-						<th class="wd-25p">Kgs</th>
-						<th class="wd-25p">Value</th>
-						<th class="wd-25p">Comment</th>
-						<th class="wd-25p">Standard</th>
-					</tr>
-			        </thead>
-			        <tbody>';
-					foreach ($purchaseList as $purchase){
-						$output.='<tr>';
-							$output.='<td>'.$purchase["sale_no"].'</td>';
-							$output.='<td>'.$purchase["broker"].'</td>';
-							$output.='<td>'.$purchase["lot"].'</td>';
-							$output.='<td>'.$purchase["ware_hse"].'</td>';
-							$output.='<td>'.$purchase["company"].'</td>';
-							$output.='<td>'.$purchase["mark"].'</td>';
-							$output.='<td>'.$purchase["grade"].'</td>';
-							$output.='<td>'.$purchase["invoice"].'</td>';
-							$output.='<td>'.$purchase["pkgs"].'</td>';
-							$output.='<td>'.$purchase["type"].'</td>';
-							$output.='<td>'.$purchase["net"].'</td>';
-							$output.='<td>'.$purchase["gross"].'</td>';
-							$output.='<td>'.$purchase["kgs"].'</td>';
-							$output.='<td>'.$purchase["value"].'</td>';
-							$output.='<td>'.$purchase["comment"].'</td>';
-							$output.='<td>'.$purchase["standard"].'</td>';
-							if($purchase["added_to_stock"]==0){
-								$output.='
-								<td>
-									<form method="post">
-										<input type="hidden" name="lot" value="'.$purchase["lot"].'"></input>
-										<button style="" type="submit" id="allocated" name="add" value="1">add</button>
-									</form>
-								</td>';
-							}else{
-								$output.='
-								<td>
-									<form method="post">
-										<input type="hidden" name="lot" value="'.$purchase["lot"].'"></input>
-										<button style="" type="submit" id="unallocated" name="add" value="0">remove</button>
-									</form>
-								</td>';
-							}
-						
-						$output.='</tr>';
-					}
-					
-			$output.= '
-			</tbody>
-				</table>
-				<div style="text-align:center;">
-					<form method="post">
-						<input type="hidden" name="lot" value="'.$purchase["lot"].'"></input>
-						<button style="" type="submit" id="confirm" name="confirm" value="1">Confirm</button>
-					</form>
-				</div>';
-      		echo $output;	
-		}else{
-			echo '<h3 class="text-center mt-5">There are no pending lots on the purchase list</h3>';
-		}
-		
-	}
-
     if (isset($_POST['action']) && $_POST['action'] == "update") {
 
 		$name = $_POST['name'];
@@ -261,42 +179,41 @@
 	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "master-stock"){
-		$condition = "WHERE shippments.id IS NULL ";
+
+		$filters = array();
 		$type = $_POST['type'];
-		if($_POST['sale_no'] !=''){
-			$condition .= " AND sale_no = '".$_POST['sale_no']."'";
-		}if($_POST['broker'] !=''){
-			$condition .= " AND  broker = TRIM('".$_POST['broker']."')";
-		}if($_POST['mark'] !=''){
-			$condition .= " AND  closing_stock.mark = '".$_POST['mark']."'";
-		}
+		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : 'All';
+		$broker = isset($_POST['broker']) ? $_POST['broker'] : 'All';
+		$mark = isset($_POST['mark']) ? $_POST['mark'] : 'All';
+		$standard = isset($_POST['standard']) ? $_POST['standard'] : 'All';
+		$gradecode = isset($_POST['gradecode']) ? $_POST['gradecode'] : 'All';
+
+		$filters['saleno'] = $saleno;
+		$filters['broker'] = $broker;
+		$filters['mark'] = $mark;
+		$filters['standard'] = $standard;
+		$filters['gradecode'] = $gradecode;
 		switch ($type) {
 			case 'purchases':
-				$stocks = $stock->readStock($type, $condition);
+				$stocks = $stock->readStock($type, $filters);
 				break;
 			case 'stock':
-				$stocks = $stock->readStock($type, $condition);
+				$stocks = $stock->readStock($type, $filters);
 				break;
 			case 'stocka':
-				$condition .=" AND client_id != 0";
-				$stocks = $stock->readStock($type, $condition);
+				$stocks = $stock->readStock($type, $filters);
 				break;
 			case 'stocko':
-				$condition .=" AND is_blend_balance = 0";
-				$stocks = $stock->readStock($type, $condition);
+				$stocks = $stock->readStock($type, $filters);
 				break;
 			case 'stockb':
-				
-				$condition .=" AND is_blend_balance = 1 ";
-				$stocks = $stock->readStock($type, $condition);
+				$stocks = $stock->readStock($type, $filters);
 				break;
 			case 'stockup':
-				$condition .=" AND paid = 1 AND client_id = 0";
-				$stocks = $stock->readStock($type, $condition);
+				$stocks = $stock->readStock($type, $filters);
 				break;
 			case 'stockuu':
-				$condition .=" AND paid = 0 AND client_id = 0";
-				$stocks = $stock->readStock($type, $condition);
+				$stocks = $stock->readStock($type, $filters);
 				break;
 			default:
 				# code...

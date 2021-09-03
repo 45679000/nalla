@@ -161,7 +161,11 @@
 	if (isset($_POST['action']) && $_POST['action'] == "confirmed-purchase-list") {
 		$saleno = $_POST['saleno'];
 		$finance->saleno=$saleno;
-		$purchases = $finance->confirmedPurchaseList();
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
+		if($type ==''){
+			$type = null;
+		}
+		$purchases = $finance->confirmedPurchaseList($type);
 		$totalPkgs = 0;
 		$totalLots = 0;
 		$totalKgs = 0;
@@ -560,6 +564,11 @@
 	if(isset($_POST['action']) && $_POST['action'] == "remove-invoice"){	
 		$stockid = isset($_POST['stockid']) ? $_POST['stockid'] : '';
 		$finance->removeInvoiceTea($stockid);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "get-sale-no"){	
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
+		$saleno = $stockCtrl->salenoPurchases($type);
+		echo json_encode($saleno);
 	}
 
 	

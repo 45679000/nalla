@@ -3,6 +3,7 @@ $(document).ready(function() {
     if(url ==undefined){
         url="../ajax/common.php";
     }
+    var filterType = document.getElementById("allFilter");
     var mark = document.getElementById("mark");
     var broker = document.getElementById("broker");
     var grade = document.getElementById("grade");
@@ -16,6 +17,10 @@ $(document).ready(function() {
     var buyer = document.getElementById("buyer");
     var code = document.getElementById("code");
 
+
+    if(filterType !=undefined){
+        filterType = "All";
+    }
 
     if(mark !=undefined){
         gardenList(url);
@@ -76,13 +81,52 @@ $(document).ready(function() {
             type: "POST",
             dataType: "html",
             data: {
-                action: "list-brokers"
+                action: "list-brokers",
+                filterType: filterType
             },
             success: function(response) {
                 $("#broker").html(response);
             }
 
         });
+    }
+    function standardList(){
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "standard-list",
+                filterType: filterType
+    
+            },
+            success: function(data) {
+                $("#standard").html(data);
+                $("#standard2").html(data);
+    
+                
+            }
+    
+        });
+        
+    }
+    function codeList($path){
+        $.ajax({
+            url: $path,
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "codes",
+                filterType: filterType
+
+            },
+            success: function(data) {
+                $("#code").html(data);
+    
+            }
+    
+        });
+        
     }
     
     function gardenList(url) {
@@ -91,12 +135,46 @@ $(document).ready(function() {
             type: "POST",
             dataType: "html",
             data: {
-                action: "garden-list"
+                action: "garden-list",
+                filterType: filterType
+
             },
             success: function(response) {
                 $("#mark").html(response);
             }
 
+        });
+    }
+    function saleNo($path) {
+        $.ajax({
+            url: $path,
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "sale_no",
+                filterType: filterType
+    
+            },
+            success: function(response) {
+                $("#saleno").html(response);
+            }
+    
+        });
+    }
+    function saleNoPrvt($path) {
+        $.ajax({
+            url: $path,
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "sale_no_prvt",
+                filterType: filterType
+    
+            },
+            success: function(response) {
+                $("#salenoPRVT").html(response);
+            }
+    
         });
     }
     function gradeList(columnid="grade") {
@@ -105,7 +183,9 @@ $(document).ready(function() {
             type: "POST",
             dataType: "html",
             data: {
-                action: "grade-list"
+                action: "grade-list",
+                filterType: filterType
+
             },
             success: function(response) {
                 $("#grade").html(response);
@@ -144,24 +224,7 @@ function lotList(){
 
     });
 }
-function standardList(){
-    $.ajax({
-        url: url,
-        type: "POST",
-        dataType: "html",
-        data: {
-            action: "standard-list"
-        },
-        success: function(data) {
-            $("#standard").html(data);
-            $("#standard2").html(data);
 
-            
-        }
-
-    });
-    
-}
 
 function clientWithcodeList(){
     $.ajax({
@@ -220,7 +283,9 @@ function brokerList($path) {
         type: "POST",
         dataType: "html",
         data: {
-            action: "list-brokers"
+            action: "list-brokers",
+            filterType: filterType
+
         },
         success: function(response) {
             $("#broker").html(response);
@@ -228,34 +293,7 @@ function brokerList($path) {
 
     });
 }
-function saleNo($path) {
-    $.ajax({
-        url: $path,
-        type: "POST",
-        dataType: "html",
-        data: {
-            action: "sale_no"
-        },
-        success: function(response) {
-            $("#saleno").html(response);
-        }
 
-    });
-}
-function saleNoPrvt($path) {
-    $.ajax({
-        url: $path,
-        type: "POST",
-        dataType: "html",
-        data: {
-            action: "sale_no_prvt"
-        },
-        success: function(response) {
-            $("#salenoPRVT").html(response);
-        }
-
-    });
-}
 function paymentTerms($path){
     $.ajax({
         url: $path,
@@ -289,19 +327,3 @@ function buyerList($path){
     
 }
 
-function codeList($path){
-    $.ajax({
-        url: $path,
-        type: "POST",
-        dataType: "html",
-        data: {
-            action: "codes"
-        },
-        success: function(data) {
-            $("#code").html(data);
-
-        }
-
-    });
-    
-}

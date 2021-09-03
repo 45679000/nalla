@@ -5,34 +5,55 @@
         public $saleno;
         public $broker;
         
-        public function readPurchaseList(){
-            $query = "SELECT `closing_cat_import_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
-            `entry_no`, `value`, `lot`, `company`, closing_cat.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
-             `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, 
-             `imported`, `imported_by`, `allocated`, `added_to_stock`, `grading_comment`, `max_bp`, `target`, `auction_date`, 
-             mark_country.country AS origin
-            FROM `closing_cat` 
-            LEFT JOIN mark_country ON mark_country.mark = closing_cat.mark
-            WHERE  buyer_package='CSS' AND sale_no = '".$this->saleno."' AND confirmed = 1
-            GROUP BY lot, broker, pkgs";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            $rows = $stmt->fetchAll();
-            return $rows;
+        public function salenoPurchases($type){
+            $query = "SELECT sale_no FROM buying_list ";
+            if($type=='A'){
+                $query.=" WHERE source = 'A'";
+            }elseif($type=='P'){
+                $query.=" WHERE source = 'P'";
+            }
+            $query.=" GROUP BY sale_no";
+
+           $this->query = $query;
+           return $this->executeQuery();
+            
         }
 
-        public function readStock($type="", $condition=" WHERE shippments.id IS NULL "){
+        public function readStock($type="", $filters){
+            $saleno = $filters['saleno'];
+            $broker = $filters['broker'];
+            $mark =  $filters['mark'];
+            $standard = $filters['standard'];
+            $gradecode = $filters['gradecode'];
+
             if($type=="purchases"){
                 try {
-                    $this->debugSql = false;
-                    $this->query = "SELECT `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`,
+                    $this->debugSql = true;
+                    $query = "SELECT `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`,
                      `grade`, `invoice`, warehouse, `type`, `sale_price`, `standard`, 
                      DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `allocated`,  mark_country.country, allocation, 
                      pkgs, net AS kgs, kgs AS net, comment
-                     FROM closing_cat 
+                     FROM buying_list 
                     LEFT JOIN mark_country ON  mark_country.mark = closing_cat.mark
-                    WHERE added_to_stock = 1 AND confirmed= 1 
-                    GROUP BY lot 
+                    WHERE added_to_stock = 1 AND confirmed= 1 ";
+
+                    if($saleno !== 'All'){
+                        $query.= " AND sale_no = '$saleno' ";
+                    }
+                    if($broker !== 'All'){
+                        $query.= " AND broker = '$broker' ";
+                    }
+                    if($mark !== 'All'){
+                        $query.= " AND mark = '$mark' ";
+                    }
+                    if($standard !== 'All'){
+                        $query.= " AND standard = '$standard' ";
+                    }
+                    if($gradecode !== 'All'){
+                        $query.= " AND comment = '$gradecode' ";
+                    }
+
+                    $query.= " GROUP BY lot, invoice, broker, sale_no
                     ORDER BY sale_no, lot ASC";
                     return $this->executeQuery();
                     } catch (Exception $th) {
@@ -41,9 +62,10 @@
                 
             }else{
                 try {
-                $this->query = "SELECT shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`, 
+
+                $query = "SELECT shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
                  `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
-                 `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, mark_country.country,  client_id, profoma_invoice_no,
+                 `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
                  closing_stock.pkgs, closing_stock.kgs,
                  (CASE WHEN allocation IS NULL THEN 
                     CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
@@ -51,12 +73,29 @@
                     allocation
                  END) AS allocation, kgs,  net, allocation AS allocated_contract
                  FROM closing_stock 
-                 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no 
-                 LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark 
-                 LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id  
-                ".$condition
-                ." GROUP BY stock_id ORDER BY sale_no, lot  ASC";
-                $this->debugSql = false;
+                 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
+                 LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
+                 LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE shippments.id IS NULL ";
+                if($saleno !== 'All'){
+                    $query.= " AND sale_no = '$saleno' ";
+                }
+                if($broker !== 'All'){
+                    $query.= " AND broker = '$broker' ";
+                }
+                if($mark !== 'All'){
+                    $query.= " AND mark = '$mark' ";
+                }
+                if($standard !== 'All'){
+                    $query.= " AND standard = '$standard' ";
+                }
+                if($gradecode !== 'All'){
+                    $query.= " AND comment = '$gradecode' ";
+                }
+                $query.= " GROUP BY closing_stock.stock_id ORDER BY sale_no, lot  ASC
+                LIMIT 20";
+
+                // $this->debugSql = true;
+                $this->query = $query;
                 return $this->executeQuery();
                 
                 } catch (Exception $th) {

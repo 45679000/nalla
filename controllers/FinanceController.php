@@ -97,18 +97,27 @@
             return $this->executeQuery();
 
         }
-        public function confirmedPurchaseList(){
+        public function confirmedPurchaseList($type=null){
             $this->debugSql = false;
-            $this->query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
+            $query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
             `entry_no`, `value`, `lot`, `company`, buying_list.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
              `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, 
              `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, 
              mark_country.country AS origin, `broker_invoice`, DATE_FORMAT(`auction_date`, '%d/%m/%Y') AS auction_date, added_to_stock
             FROM `buying_list` 
             LEFT JOIN mark_country ON mark_country.mark = buying_list.mark
-            WHERE  buyer_package='CSS' AND sale_no LIKE '%".$this->saleno."%' AND confirmed = 1
-            GROUP BY lot, broker, invoice, pkgs
+            WHERE  buyer_package='CSS' AND sale_no LIKE '%".$this->saleno."%' AND confirmed = 1 ";
+            if($type !=null){
+                if($type=='P'){
+                    $query.=" AND source = 'P'";
+                }elseif($type=='A'){
+                    $query.=" AND source = 'A'";
+
+                }
+            }
+            $query.="GROUP BY lot, broker, invoice, pkgs
             ORDER BY line_no DESC";
+            $this->query = $query;
             
             return $this->executeQuery();
         }

@@ -43,10 +43,10 @@
 
         if($blendno ==''){
         if (count($blends) > 0) {
-			$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark'>
+			$output .="<table  class='table table-striped table-sm table-bordered table-hover thead-dark'>
 			        <thead class='thead-dark'>
 			          <tr>
-                  <th>Sale No</th>
+                  <th>Blend Date</th>
 			            <th>Blend Name</th>
 			            <th>Client</th>
 			            <th>STD</th>
@@ -94,7 +94,7 @@
             $compositions = $blendingCtrl->expectedComposition($blendno);
             $currentComposition = $blendingCtrl->currentComposition($blendno);
             if (count($blends) > 0) {
-                $output .="<table id='grid' style='width:100%;' class='table table-striped table-bordered table-hover'>
+                $output .="<table id='grid' style='width:100%;' class='table table-sm table-striped table-bordered table-hover'>
                         <thead class='thead-light'>
                           <tr>
                             <th>Blend Name</th>
@@ -210,51 +210,56 @@ if(isset($_POST['action']) && $_POST['action'] == "remove-blend-teas"){
 }
 if(isset($_POST['action']) && $_POST['action'] == 'load-unallocated'){
   $type = isset($_POST['type']) ? $_POST['type'] : '';
-  $mark = isset($_POST['mark']) ? $_POST['mark'] : '';
-  $lot = isset($_POST['lot']) ? $_POST['lot'] : '';
-  $grade = isset($_POST['grade']) ? $_POST['grade'] : '';
-  $saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+  $mark = isset($_POST['mark']) ? $_POST['mark'] : 'All';
+  $lot = isset($_POST['lot']) ? $_POST['lot'] : 'All';
+  $grade = isset($_POST['grade']) ? $_POST['grade'] : 'All';
+  $saleno = isset($_POST['saleno']) ? $_POST['saleno'] : 'All';
 
-  
-  $condition=" WHERE pkgs>0 ";
-  if($mark=='' && $grade == '' && $lot == '' && $saleno == ''){
-    $condition = $condition;
-  }else{
-    if($saleno !=null){
-      $condition.=" AND closing_stock.sale_no = '".$saleno."'";
-    }if($mark !=null){
-      $condition.=" AND closing_stock.mark = '".$mark."'";
-    }if($grade !=null){
-      $condition.=" AND closing_stock.grade = '".$grade."'";
-    }if($lot !=null){
-      $condition.=" AND closing_stock.lot = '".$lot."'";
-    }
-  }
+
+  $filters = array();
+  $filters['saleno'] = 'All';
+  $filters['mark'] =  'All';
+  $filters['lot'] =  'All';
+  $filters['grade'] =  'All';
+  $filters['broker'] = 'All';
+  $filters['standard'] ='All';
+  $filters['gradecode'] = 'All';
+
+
+
   $blendBalance = 0;
   $output ="";
-  $stockList = $stockCtrl->readStock("", $condition);
+  $stockList = $stockCtrl->readStock("", $filters);
   if (sizeOf($stockList)> 0) {
       $output .='
-      <table id="direct_lot" class="table table-striped table-bordered">
+      <table id="direct_lot" class="table table-sm table-responsive table-striped table-bordered">
       <thead>
           <tr>
-              <th class="col-sm-2">Sale No</th>
-              <th class="wd-15p">Lot</th>
-              <th class="wd-15p">Mark</th>
-              <th class="wd-10p">Grade</th>
-              <th class="wd-25p">Invoice</th>
-              <th class="wd-25p">Code</th>
-              <th class="wd-25p">Pkgs</th>
-              <th class="wd-25p">Net</th>
-              <th class="wd-25p">Kgs</th>
-              <th class="wd-25p">Actions</th>
+              <th>Line No</th>
+              <th>Sale No</th>
+              <th>DD/MM/YY</th>
+							<th>Broker</th>
+							<th>Warehouse</th>
+              <th>Lot</th>
+              <th>Mark</th>
+              <th>Grade</th>
+              <th>Invoice</th>
+              <th>Code</th>
+              <th>Pkgs</th>
+              <th>Net</th>
+              <th>Kgs</th>
+              <th>Actions</th>
 
           </tr>
       </thead>
       <tbody>';
       foreach ($stockList as $stock) {
           $output.='<tr>';
+              $output.='<td>'.$stock["line_no"].'</td>';
               $output.='<td>'.$stock["sale_no"].'</td>';
+              $output.='<td>'.$stock['import_date'].'</td>';
+              $output.='<td>'.$stock["broker"].'</td>';
+              $output.='<td>'.$stock["ware_hse"].'</td>';
               $output.='<td>'.$stock["lot"].'</td>';
               $output.='<td>'.$stock["mark"].'</td>';
               $output.='<td>'.$stock["grade"].'</td>';
@@ -351,7 +356,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'current-allocation'){
 
   if (sizeOf($currentAllocation)> 0) {
     $output .='
-    <table id="direct_lot" class="table table-striped table-bordered">
+    <table id="alloc" class="table table-sm table-striped table-bordered">
     <thead>
         <tr>
             <th class="wd-15p">Lot</th>
@@ -360,7 +365,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'current-allocation'){
             <th class="wd-25p">Pkgs</th>
             <th class="wd-25p">Kgs</th>
             <th class="wd-25p">Alloc</th>
-            <th class="wd-25p"></th>
+            <th class="wd-25p">Status</th>
 
         </tr>
     </thead>

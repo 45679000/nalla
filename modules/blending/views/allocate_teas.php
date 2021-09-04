@@ -66,10 +66,9 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
 
 ?>
 <div class="col-md-12 col-lg-12">
-
     <div id="contentwrapper">
         <div class="row">
-            <div class="card col-md-8">
+            <div class="card col-md-6 p-2">
                 <div id="tableData">
                 </div>
             </div>
@@ -78,12 +77,12 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                     <div class="col-md-6">
                         <div class="card widgets-cards">
                             <div class="card-body d-flex justify-content-center align-items-center">
-                                <div class="col-5 p-0">
+                                <div class="col-6 p-0">
                                     <div class="wrp icon-circle bg-success">
                                         <i class="si si-basket-loaded icons"></i>
                                     </div>
                                 </div>
-                                <div class="col-7 p-0">
+                                <div class="col-6 p-0">
                                     <div class="wrp text-wrapper">
                                         <p id="totalPkgs"></p>
                                         <p class="text-dark mt-1 mb-0">Pkgs Added</p>
@@ -95,12 +94,12 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
                     <div class="col-md-6">
                         <div class="card widgets-cards">
                             <div class="card-body d-flex justify-content-center align-items-center">
-                                <div class="col-5 p-0">
+                                <div class="col-6 p-0">
                                     <div class="wrp icon-circle bg-success">
                                         <i class="si si-basket-loaded icons"></i>
                                     </div>
                                 </div>
-                                <div class="col-7 p-0">
+                                <div class="col-6 p-0">
                                     <div class="wrp text-wrapper">
                                         <p id="totalkgs"></p>
                                         <p class="text-dark mt-1 mb-0">kgs Added</p>
@@ -116,25 +115,25 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
             <div class="col-md-7">
                 <div class="card">
                     <div style="width:100% !important;">
-                        <div style="width:100% !important;" class="card-header">
-                            <div class="row">
-                                <div class="col-md-3 input-group">
+                        <div style="width:100% !important;  padding:2.6rem !important;" class="card-header">
+                            <div  class="row">
+                                <div class="col-md-4 input-group">
                                     <label for="saleno">Sale No</label>
                                     <select class="select2" data-placeholder="Select" name="saleno"
                                         id="saleno"></select>
                                 </div>
-                                <div class="col-md-3 input-group">
+                                <div class="col-md-4 input-group">
                                     <label for="mark">Mark</label>
                                     <select class="select2" data-placeholder="Select" name="mark" id="mark"></select>
                                 </div>
-                                <div class="col-md-3 input-group">
+                                <div class="col-md-4 input-group">
                                     <label for="grade">Grade</label>
                                     <select class="select2" data-placeholder="Select" name="grade" id="grade"></select>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body table-wrapper-scroll-y my-custom-scrollbar">
-                            <div style="width:100%; height:40vH" id="blendTable">
+                            <div style="width:100%; height:50vH" id="blendTable">
                                 <div class="dimmer active text-center">
                                     <div class="spinner2">
                                         <div class="cube1"></div>
@@ -292,7 +291,7 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-<script src="../../assets/plugins/notify/js/jquery.growl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 <script>

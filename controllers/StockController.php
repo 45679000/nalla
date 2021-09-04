@@ -118,7 +118,7 @@
                 }
                 $query.= " GROUP BY closing_stock.stock_id ORDER BY sale_no, lot  ASC";
 
-                // $this->debugSql = true;
+                $this->debugSql = false;
                 $this->query = $query;
                 return $this->executeQuery();
                 

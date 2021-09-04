@@ -85,14 +85,18 @@
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="name">Output Pkgs:</label>
-                            <input type="text" class="form-control" name="pkgs" placeholder="pkgs" required="">
+                            <input type="text" class="form-control" id="ouptPkgs" name="pkgs" placeholder="pkgs" required="">
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label" for="name">Net:</label>
-                            <input type="text" class="form-control" name="nw" placeholder="Client" required="">
+                            <input type="text" class="form-control" id="ouptNet" name="nw" placeholder="Net" required="">
                         </div>
                         <div class="col-md-3 form-group">
-                            <label class="control-label">Sale No:</label>
+                            <label class="control-label" for="name">Output Kgs:</label>
+                            <input readonly type="disabled" id="ouputKilos" type="text" class="form-control" name="ouputKilos" placeholder="ouputKilos" required="">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Blend Date:</label>
                             <input type="text" class="form-control" name="sale_no" placeholder="sale_no" required="">
                         </div>   
                     </div>
@@ -163,8 +167,9 @@
                             <label class="control-label" for="name">Net:</label>
                             <input id="nw" type="text" class="form-control" name="nw" placeholder="Client" required="">
                         </div>
+                     
                         <div class="col-md-3 form-group">
-                            <label class="control-label">Sale No:</label>
+                            <label class="control-label">Blend Date</label>
                             <input id="sale_no" type="text" class="form-control" name="sale_no" placeholder="sale_no" required="">
                         </div>   
                         <input type="hidden" id="edit-form-id" name="edit-form-id" value=""> 
@@ -202,6 +207,11 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#ouptPkgs, #ouptNet').change(function(e){
+            $("#ouputKilos").val($("#ouptPkgs").val()*$("#ouptNet").val());
+
+        })
+        
         standardList();
         showAllBlends();
         gradeList();

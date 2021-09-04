@@ -81,7 +81,7 @@ include $path_to_root1 .'includes/auction_ids.php';
                                     <span class="icon mr-3"><i class="fe fe-list text-info fw-bold"></i></span>Private Purchases
                                 </a>
                                 <a href="./index.php?view=stock-master" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-file-text text-danger fw-bold"></i></span>Stock Master
+                                    <span class="icon mr-3"><i class="fe fe-file-text text-danger fw-bold"></i></span> Master Stock
                                 </a>
                             
                             </div>

@@ -44,7 +44,10 @@ function loadUnallocated(mark, lot, grade, saleno) {
         url: "blend_action.php",
         success: function (data) {
             $('#blendTable').html(data);
-            $('#direct_lot').DataTable({});
+            $('#direct_lot').DataTable({
+                "pageLength": 50,
+                dom: 'Bfrtip'
+            });
 
         }
     });
@@ -60,7 +63,9 @@ function showClientAllocation(clientid){
         url: "shipping_action.php",
         success: function (data) {
             $('#straightTable').html(data);
-            $("#direct_lot").DataTable({});
+            $("#direct_lot").DataTable({
+
+            });
 
         }
     });
@@ -290,6 +295,10 @@ function currentAllocation(blendno){
         url: "blend_action.php",
         success: function (data) {
             $("#selected").html(data);
+            $("#alloc").DataTable({
+                "pageLength": 50,
+                dom: 'Bfrtip'
+            });
 
         }
     });

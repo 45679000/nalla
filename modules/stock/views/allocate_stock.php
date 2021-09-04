@@ -69,92 +69,90 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="splitLot">
-                            <div class="row">
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Lot</label>
-                                        <input disabled id="lot"></input>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Mark</label>
-                                        <input disabled id="mark"></input>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Invoice</label>
-                                        <input disabled id="invoice"></input>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Current Allocation==></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Pkgs</label>
-                                        <input id="pkgs"></input>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Net</label>
-                                        <input id="net" disabled></input>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Kgs</label>
-                                        <input id="kgs" ></input>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Enter Packages to split==></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Pkgs</label>
-                                        <input id="newpkgs"></input>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Net</label>
-                                        <input id="newnet" disabled></input>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Kgs</label>
-                                        <input id="newkgs" ></input>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     <div class="row">
-                        <div class="col-md-3 form-group float-right">
-                            <button type="submit" class="btn btn-success btn-sm" id="saveSplit">Save</button>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Lot</label>
+                                <input disabled id="elot"></input>
+                            </div>
                         </div>
-                        <div class="col-md-3 form-group float-right">
-                             <button type="button" class="btn btn-danger btn-sm" id="closeModal">Close</button>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Mark</label>
+                                <input disabled id="emark"></input>
+                            </div>
                         </div>
-                        <input hidden id="stock_id"></input>
-
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Invoice</label>
+                                <input disabled id="invoice"></input>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                    <div class="row">
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Current Allocation==></label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Pkgs</label>
+                                <input id="pkgs"></input>
+                            </div>
+                        </div>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Net</label>
+                                <input id="net" disabled></input>
+                            </div>
+                        </div>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Kgs</label>
+                                <input id="kgs"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Enter Packages to split==></label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Pkgs</label>
+                                <input type="number" step="5" min="5" id="newpkgs"></input>
+                            </div>
+                        </div>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Net</label>
+                                <input id="newnet" disabled></input>
+                            </div>
+                        </div>
+                        <div class="col-md-3 well">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Kgs</label>
+                                <input type="number" min="5" id="newkgs"></input>
+                            </div>
+                        </div>
+                    </div>
             </div>
+            <div class="row">
+                <div class="col-md-3 form-group float-right">
+                    <button type="submit" class="btn btn-success btn-sm" id="saveSplit">Save</button>
+                </div>
+                <div class="col-md-3 form-group float-right">
+                    <button type="button" class="btn btn-danger btn-sm" id="closeModal">Close</button>
+                </div>
+                <input hidden id="stock_id"></input>
 
             </div>
+            </form>
         </div>
+
     </div>
 </div>
 </body>
@@ -175,12 +173,19 @@
 <script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script src="../../assets/js/stock.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+<script src="../../assets/plugins/notify/js/rainbow.js"></script>
+<script src="../../assets/plugins/notify/js/jquery.growl.js"></script>
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
 
 
 <script>
 $(document).ready(function(){
+    $("body").on("click", ".splitLot", function(e) {
+    e.preventDefault();
+    var id = $(this).attr('id');
+    splitLot(id);
+    });
+
     loadStockAllocation("unallocated");
     localStorage.setItem("tab", "unallocated");
     $('#closeModal').click(function(e){
@@ -218,39 +223,41 @@ $('#allocated').click(function(e){
     loadStockAllocation("allocated");
     localStorage.setItem("tab", "allocated");
 
+    $(this).removeClass("btn-info");
+    $(this).addClass("btn-success");
+
 })
-function splitLot(element){
-    var id = $(element).attr("id");
-    $('#splitModal').show(); 
+function splitLot(id) {
+    $('#splitModal').show();
+    $('#newpkgs').val(0);
+    $('#newkgs').val(0);
 
     $.ajax({
         type: "POST",
         dataType: "json",
         url: "stock-action.php",
         data: {
-            action:"getlot",
-            id:id
+            action: "getlot",
+            id: id
         },
-    success: function (data) {
-        var lots = data[0]; 
-        $('#pkgs').val(lots.pkgs);
-        $('#kgs').val(lots.kgs);
-        $('#lot').val(lots.lot);
-        $('#net').val(lots.net);
-        $('#mark').val(lots.mark);
-        $('#invoice').val(lots.invoice);
-        $('#newnet').val(lots.net);
-        $('#stock_id').val(lots.stock_id);
-        $('#newpkgs').val(0);
-        $('#newkgs').val(0);
+        success: function(data) {
+            var lots = data[0];
+            $('#pkgs').val(lots.pkgs);
+            $('#kgs').val(lots.kgs);
+            $('#elot').val(lots.lot);
+            $('#net').val(lots.net);
+            $('#emark').val(lots.mark);
+            $('#invoice').val(lots.invoice);
+            $('#newnet').val(lots.net);
+            $('#stock_id').val(lots.stock_id);
+            $("#newpkgs").attr({"max" : lots.pkgs});
+            localStorage.setItem("lotPkgs", lots.pkgs);
 
-
-        
-    },
-    error: function (data) {
-        console.log('An error occurred.');
-        console.log(data);
-    },
+        },
+        error: function(data) {
+            console.log('An error occurred.');
+            console.log(data);
+        },
     });
 }
 
@@ -287,7 +294,11 @@ function appendSelectOptions(element){
         });
     }
 }
-function updateStock(stockId, fieldName, fieldValue){
+function updateStock(element){
+   
+    var fieldName = $(element).attr("name");
+    var fieldValue = $(element).val();
+    var stockId = $(element).attr("id");
     $.ajax({  
             type: "POST",
             dataType: "json",
@@ -299,7 +310,9 @@ function updateStock(stockId, fieldName, fieldValue){
                 fieldValue:fieldValue
             },
         success: function (data) {
-        
+            return $.growl.notice({
+                    message: $(element).attr("name")+" Updated Successfully"
+                });
         }
     });
 }
@@ -333,5 +346,5 @@ function insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs){
 
 </script>
 
-    </html>
+</html>
 

@@ -28,14 +28,21 @@
 
             if($type=="purchases"){
                 try {
-                    $this->debugSql = true;
-                    $query = "SELECT `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, mark_country.`mark`,
-                     `grade`, `invoice`, warehouse, `type`, `sale_price`, `standard`, 
-                     DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, `allocated`,  mark_country.country, allocation, 
-                     pkgs, net AS kgs, kgs AS net, comment
-                     FROM buying_list 
-                    LEFT JOIN mark_country ON  mark_country.mark = closing_cat.mark
-                    WHERE added_to_stock = 1 AND confirmed= 1 ";
+                    $this->debugSql = false;
+                    $query = "SELECT shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
+                    `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
+                    `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
+                    closing_stock.pkgs, closing_stock.kgs,
+                    (CASE WHEN allocation IS NULL THEN 
+                       CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
+                    ELSE 
+                       allocation
+                    END) AS allocation, kgs,  net, allocation AS allocated_contract
+                    FROM closing_stock 
+                    LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
+                    LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
+                    LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment 
+                    LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE shippments.id IS NULL  ";
 
                     if($saleno !== 'All'){
                         $query.= " AND sale_no = '$saleno' ";
@@ -44,17 +51,18 @@
                         $query.= " AND broker = '$broker' ";
                     }
                     if($mark !== 'All'){
-                        $query.= " AND mark = '$mark' ";
+                        $query.= " AND buying_list.mark = '$mark' ";
                     }
                     if($standard !== 'All'){
                         $query.= " AND standard = '$standard' ";
                     }
                     if($gradecode !== 'All'){
-                        $query.= " AND comment = '$gradecode' ";
+                        $query.= " AND b.id = '$gradecode' ";
                     }
 
                     $query.= " GROUP BY lot, invoice, broker, sale_no
                     ORDER BY sale_no, lot ASC";
+                    $this->query = $query;
                     return $this->executeQuery();
                     } catch (Exception $th) {
                     var_dump($th);
@@ -75,7 +83,8 @@
                  FROM closing_stock 
                  LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
                  LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
-                 LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE shippments.id IS NULL ";
+                 LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment 
+                 LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = false ";
                 if($saleno !== 'All'){
                     $query.= " AND sale_no = '$saleno' ";
                 }
@@ -89,10 +98,25 @@
                     $query.= " AND standard = '$standard' ";
                 }
                 if($gradecode !== 'All'){
-                    $query.= " AND comment = '$gradecode' ";
+                    $query.= " AND b.id = '$gradecode' ";
                 }
-                $query.= " GROUP BY closing_stock.stock_id ORDER BY sale_no, lot  ASC
-                LIMIT 20";
+                if($type == "stocko"){
+                    $query.= " AND is_blend_balance = 0";
+
+                }
+                if($type == "stockb"){
+                    $query.= " AND is_blend_balance = 1";
+                }
+                if($type == "stocka"){
+                    $query.= " AND shippments.id IS NOT NULL";
+                }
+                if($type == "stockpu"){
+                    $query.= " AND shippments.id IS NULL AND paid = 1";
+                }
+                if($type == "stockpuu"){
+                    $query.= " AND shippments.id IS NULL AND paid = 0";
+                }
+                $query.= " GROUP BY closing_stock.stock_id ORDER BY sale_no, lot  ASC";
 
                 // $this->debugSql = true;
                 $this->query = $query;
@@ -164,19 +188,20 @@
         }
         public function allocatedStock($type){
             $this->debugSql = false;
-
-            $condition = " WHERE 1";
-            if($type=="unallocated"){
-                $condition.=" AND client_id IS NULL OR client_id = 0 ";
-            }else{
-                $condition.=" AND  client_id != 0 ";
-            }
-            $this->query = "SELECT stock_id, sale_no, debtor_ref, broker, mark, grade, sale_price, lot, net, invoice,
-            comment, standard, pkgs, kgs, 0_debtors_master.short_name
-            FROM closing_stock b
-            LEFT JOIN 0_debtors_master  ON 0_debtors_master.debtor_no = b.client_id"
-            .$condition. "
-            ORDER BY client_id  ASC";
+            $this->query = "SELECT shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
+            `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
+            `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
+            closing_stock.pkgs, closing_stock.kgs,
+            (CASE WHEN allocation IS NULL THEN 
+               CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
+            ELSE 
+               allocation
+            END) AS allocation, kgs,  net, allocation AS allocated_contract
+            FROM closing_stock 
+            LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
+            LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
+            LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment 
+            LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE shippments.id IS NULL LIMIT 20";
             return $this->executeQuery();
         }
         public function sumTotal($columnname, $tablename){
@@ -194,7 +219,7 @@
             return $totals[0]['total'];
         }
         public function clients(){
-            $this->query = "SELECT debtor_no, debtor_ref
+            $this->query = "SELECT debtor_no, debtor_ref, short_name
             FROM 0_debtors_master
             WHERE tea_buyer = 1";
             return $this->executeQuery(); 

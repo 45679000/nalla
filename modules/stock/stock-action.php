@@ -5,10 +5,14 @@
 	require "../../vendor/autoload.php";
     include_once('../../database/page_init.php');
     include '../../controllers/StockController.php';
+	include ('../../controllers/GradingController.php');    
+
     
     $db = new Database();
     $conn = $db->getConnection();
     $stock = new Stock($conn);
+	$gradingController = new GradingController($conn);
+
 	// View record
 	if (isset($_POST['action']) && $_POST['action'] == "purchase-list") {
 		$output = "";
@@ -104,73 +108,96 @@
 		$type = $_POST['type'];
 		$allocatedStock =  $stock->allocatedStock($type);
 		$clients =  $stock->clients();
-		if (sizeOf($allocatedStock) > 0) {
-		$html = "";
+		$gradingCodes = $gradingController->loadCodes();
+        $gradingStandards = $gradingController->loadStandards();
+		$html ="";
+		if(sizeOf($allocatedStock)>0){
+			$html.='<table id="allocatedStockTable" class="table table-sm table-responsive table-striped table-bordered">
+										<thead>
+											<tr>
+												<th>Line No</th>
+												<th>Sale No</th>
+												<th>DD/MM/YY</th>
+												<th>Broker</th>
+												<th>Warehouse</th>
+												<th>Lot</th>
+												<th>Origin</th>
+												<th>Mark</th>
+												<th>Grade</th>
+												<th>Invoice</th>
+												<th>Pkgs</th>
+												<th>Net</th>
+												<th>Kgs</th>
+												<th>Hammer Price</th>
+												<th>WHSE</th>
+												<th>Code</th>
+												<th class="wd-25p">Standard</th>
+                                                <th class="wd-25p">Buyer</th>
+                                                <th class="wd-25p">Action</th>
 
-		$html .='<table id="allocatedStockTable" class="table table-striped table-bordered table-responsive">
-		<thead class="thead-dark">
-			<tr>
-				<td>Lot</td>
-				<td>Sale No</td>
-				<td>Broker</td>
-				<td>Mark</td>
-				<td>Code</td>
-				<td>Grade</td>
-				<td>Invoice</td>
-				<td>Pkgs</td>
-				<td>Net</td>
-				<td>Kgs</td>
-				<td>Hammer.P</td>
-				<td>Client</td>
-				<td>Standard</td>
-				<td>Actions</td>
-			</tr>
-		</thead>
-		<tbody>';
-		
-			foreach ($allocatedStock as $allocated) {
-				$id=$allocated['stock_id'];
-				$html .= '<td>' . $allocated['lot'] . '</td>';
-				$html .= '<td>'.  $allocated['sale_no'] . '</td>';
-				$html .= '<td>' . $allocated['broker'] . '</td>';
-				$html .= '<td>' . $allocated['mark'] . '</td>';
-				$html .= '<td>' . $allocated['comment'] . '</td>';
-				$html .= '<td>' . $allocated['grade'] . '</td>';
-				$html .= '<td>' . $allocated['invoice'] . '</td>';
-				$html .= '<td contentEditable="true">' . $allocated['pkgs'] . '</td>';
-				$html .= '<td>' . $allocated['net'] . '</td>';
-				$html .= '<td>' . $allocated['kgs'] . '</td>';
-				$html .= '<td contentEditable="true">' . $allocated['sale_price'] . '</td>';
-				$html .= '
-				<td 
-					onclick="appendSelectOptions(this)" 
-					id="'.$id.'"
-					class="debtor_ref">
+											</tr>
+										</thead>
+                                        <tbody>';
+                                        foreach ($allocatedStock as $import){
+                                            $id = $import["stock_id"];
+											$client_id = $import["client_id"];
+											
+                                            $html.='<tr>';
+												$html.='<td>'.$import["line_no"].'</td>';
+												$html.='<td>'.$import["sale_no"].'</td>';
+												$html.='<td>'.$import['import_date'].'</td>';
+												$html.='<td>'.$import["broker"].'</td>';
+                                                $html.='<td>'.$import["ware_hse"].'</td>';
+												$html.='<td>'.$import["lot"].'</td>';
+                                                $html.='<td>'.$import["country"].'</td>';
+                                                $html.='<td>'.$import["mark"].'</td>';
+                                                $html.='<td>'.$import["grade"].'</td>';
+                                                $html.='<td>'.$import["invoice"].'</td>';
+                                                $html.='<td>'.$import["pkgs"].'</td>';
+                                                $html.='<td>'.$import["net"].'</td>';
+                                                $html.='<td>'.$import["kgs"].'</td>';
+												$html.='<td>'.$import["sale_price"].'</td>';
+												$html.='<td>'.$import["warehouse"].'</td>';
+                                                $html.='
+												<td style="width:40vH">
+                                                            <select name="comment" id="'.$id.'" onchange="updateStock(this)" class="select2">';
+                                                            foreach ($gradingCodes as $code) {
+                                                                $html.='<option>'.$import["comment"].'</option>';
+                                                                $html.='<option>'.$code['code'].'</option>';
+															}
+                                                			$html.='</select>
+                                                
+                                                </td>';
+                                                $html.='<td style="width:40vH">
+															<select name="standard" id="'.$id.'" onchange="updateStock(this)" class="select2 standard">';
+															foreach ($gradingStandards as $standard) {
+																$html.='<option>'.$import['standard'].'</option>';
+																$html.='<option>'.$standard['standard'].'</option>';
+															}
+                                                			$html.='</select>
+                                                    </td>';
+                                                $html.='<td style="width:10vH">
+                                                    <select value="'.$client_id.'" name="client_id" id="'.$id.'" onchange="updateStock(this)" class="select2 buyer">';
+                                                    foreach ($clients as $client) {
+														$debtorid = $client["debtor_no"];
+                                                        $html.='<option value="'.$debtorid.'">'.$client['short_name'].'</option>';
+                                                    }
+                                                        
+                                                $html.='</select>
+                                                    </td>';
+												$html.='<td>
+													<a class="splitLot" id="'.$import["stock_id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Split Lot">
+													<i class="fa fa-scissors"></i></a>
+												</td>';
 
-					'.$allocated['short_name']. 
-					
-				'</td>';
-				$html .= '<td>'. $allocated['standard'] .'</td>';
-				$html .= '<td>
-							<button  
-								style="color:green" 
-								class="split" 
-								onclick="splitLot(this)"
-								id="'.$id.'"><i class="fa fa-scissors">Split</i> 
-							</button>
-			            </td>';
-				$html .= '</tr>';
-			}
-
-			$html .= '</tbody>
-			</table>
-		</div>
-	</div>';
-			echo $html;
+											$html.='</tr>';
+                                        }
+                                $html.= '</tbody>
+                        </table>';
 		}else{
-			echo '<h3 class="text-center mt-5">There are no unallocated lots</h3>';
-
+			$html = "<h3>No Records Returned</h3>";
 		}
+		echo $html;
 
 	}
 	function ExcelToPHP($dateValue = 0) {
@@ -187,7 +214,7 @@
 		$mark = isset($_POST['mark']) ? $_POST['mark'] : 'All';
 		$standard = isset($_POST['standard']) ? $_POST['standard'] : 'All';
 		$gradecode = isset($_POST['gradecode']) ? $_POST['gradecode'] : 'All';
-
+		
 		$filters['saleno'] = $saleno;
 		$filters['broker'] = $broker;
 		$filters['mark'] = $mark;
@@ -222,13 +249,15 @@
 		$output = "";
 		if($type =="purchases"){
 			if(count($stocks)>0){
-
+		
 				$output .= '<table id="closingstocks2" class="table table-striped table-bordered table-condensed table-responsive" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
+									<th>Line No</th>
 									<th>Sale No</th>
 									<th>DD/MM/YY</th>
 									<th>Broker</th>
+									<th>Warehouse</th>
 									<th>Lot</th>
 									<th>Origin</th>
 									<th>Mark</th>
@@ -237,103 +266,40 @@
 									<th>Pkgs</th>
 									<th>Net</th>
 									<th>Kgs</th>
+									<th>Hammer Price</th>
+									<th>Value Ex.Auction</th>
 									<th>Code</th>
 									<th>WHSE</th>
 									<th>Allocation</th>
-
+		
 								</tr>
 							</thead>
 								<tbody>';
-									$totalPkgs = $stock->sumTotal("pkgs","closing_cat");
-									$totalKgs = $stock->sumTotal("kgs", "closing_cat");
+									
 									foreach ($stocks as $stock){ 
+										$net = $stock['net'];
+										$hammerPrice = round(floatval($stock['sale_price']), 2);
+										$valueExAuct = round($net * $hammerPrice, 2);
+		
+										$output.='<td>'.$stock['line_no'].'</td>';
 										$output.='<td>'.$stock['sale_no'].'</td>';
 										$output.='<td>'.$stock['import_date'].'</td>';
 										$output.='<td>'.$stock['broker'].'</td>';
+										$output.='<td>'.$stock['ware_hse'].'</td>';
 										$output.='<td>'.$stock['lot'].'</td>';
 										$output.='<td>'.$stock['country'].'</td>';
 										$output.='<td>'.$stock['mark'].'</td>';
 										$output.='<td>'.$stock['grade'].'</td>';
-										$output.='<td>'.$stock['invoice'].'</td>'; 
+										$output.='<td>'.$stock['invoice'].'</td>';
 										$output.='<td>'.$stock['pkgs'].'</td>'; //pkgs
-										$output.='<td>'.$stock['net'].'</td>'; //net
+										$output.='<td>'.$net.'</td>'; //net
 										$output.='<td>'.$stock['kgs'].'</td>'; //kgs
+										$output.='<td>'.$hammerPrice.'</td>';
+										$output.='<td>'.floatval($valueExAuct).'</td>';
 										$output.='<td>'.$stock['comment'].'</td>';
 										$output.='<td>'.$stock['warehouse'].'</td>';
 										$output.='<td>'.$stock['allocation'].'</td>';
-
-										$output.='</tr>';
-								
-									}           
-					$output.= '</tbody>';
-					$output.='<tfooter style="outline: thin solid black;">
-								<tr>
-									<td>Totals</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td id="totalPkgs">'.$totalPkgs.'</td>
-									<td></td>
-									<td id="totalKgs">'.$totalKgs.'</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-
-								</tr>
-							</tfooter>
-						</table>';
-			}else{
-				$output = "No records Found";
-
-			}
-			echo $output;
-		}else{
-			if(count($stocks)>0){
-				$output .= '<table id="closingstocks" class="display table table-striped table-bordered" style="width:100%">
-							<thead class="thead-dark">
-								<tr>
-									<th>Sale No</th>
-									<th>DD/MM/YY</th>
-									<th>Broker</th>
-									<th>Lot</th>
-									<th>Origin</th>
-									<th>Mark</th>
-									<th>Grade</th>
-									<th>Invoice</th>
-									<th>Pkgs</th>
-									<th>Net</th>
-									<th>Kgs</th>
-									<th>Code</th>
-									<th>WHSE</th>
-									<th>Allocation</th>
-
-								</tr>
-							</thead>
-								<tbody>';
-									$totalPkgs = $stock->sumTotal("allocated_pkgs","stock_allocation");
-									$totalKgs = $stock->sumTotal("kgs", "closing_stock");
-									$totalNet = $stock->sumTotal("net", "closing_stock");
-									foreach ($stocks as $stock){ 
-										$output.='<td>'.$stock['sale_no'].'</td>';
-										$output.='<td>'.$stock['import_date'].'</td>';
-										$output.='<td>'.$stock['broker'].'</td>';
-										$output.='<td>'.$stock['lot'].'</td>';
-										$output.='<td>'.$stock['country'].'</td>';
-										$output.='<td>'.$stock['mark'].'</td>';
-										$output.='<td>'.$stock['grade'].'</td>';
-										$output.='<td>'.$stock['invoice'].'</td>'; 
-										$output.='<td>'.$stock['pkgs'].'</td>'; //pkgs
-										$output.='<td>'.$stock['net'].'</td>'; //net
-										$output.='<td>'.$stock['kgs'].'</td>'; //kgs
-										$output.='<td>'.$stock['comment'].'</td>';
-										$output.='<td>'.$stock['warehouse'].'</td>';
-										$output.='<td>'.$stock['allocation'].'</td>';
-
+		
 										$output.='</tr>';
 								
 									}           
@@ -344,8 +310,13 @@
 									<th></th>
 									<th></th>
 									<th></th>
-									<th style="text-align:right" colspan="2"></th>
-									<th style="text-align:right" colspan="2"></th>
+									<th></th>
+									<th></th>
+									<th colspan="2"></th>
+									<th colspan="2"></th>
+									<th></th>
+									<th colspan="2"></th>
+									<th></th>
 									<th></th>
 
 								</tr>
@@ -353,12 +324,91 @@
 						</table>';
 			}else{
 				$output = "No records Found";
-
+		
 			}
-  
+			echo $output;
+		}else{
+			if(count($stocks)>0){
+				$output .= '<table id="closingstocks" class="display table table-striped table-bordered" style="width:100%">
+				<thead class="thead-dark">
+				<tr>
+					<th>Line No</th>
+					<th>Sale No</th>
+					<th>DD/MM/YY</th>
+					<th>Broker</th>
+					<th>Warehouse</th>
+					<th>Lot</th>
+					<th>Origin</th>
+					<th>Mark</th>
+					<th>Grade</th>
+					<th>Invoice</th>
+					<th>Pkgs</th>
+					<th>Net</th>
+					<th>Kgs</th>
+					<th>Hammer Price</th>
+					<th>Value Ex.Auction</th>
+					<th>Code</th>
+					<th>WHSE</th>
+					<th>Allocation</th>
+		
+				</tr>
+			</thead>
+				<tbody>';
+					
+					foreach ($stocks as $stock){ 
+						$net = $stock['net'];
+						$hammerPrice = round(floatval($stock['sale_price']), 2);
+						$valueExAuct = round($net * $hammerPrice, 2);
+		
+						$output.='<td>'.$stock['line_no'].'</td>';
+						$output.='<td>'.$stock['sale_no'].'</td>';
+						$output.='<td>'.$stock['import_date'].'</td>';
+						$output.='<td>'.$stock['broker'].'</td>';
+						$output.='<td>'.$stock['ware_hse'].'</td>';
+						$output.='<td>'.$stock['lot'].'</td>';
+						$output.='<td>'.$stock['country'].'</td>';
+						$output.='<td>'.$stock['mark'].'</td>';
+						$output.='<td>'.$stock['grade'].'</td>';
+						$output.='<td>'.$stock['invoice'].'</td>';
+						$output.='<td>'.$stock['pkgs'].'</td>'; //pkgs
+						$output.='<td>'.$net.'</td>'; //net
+						$output.='<td>'.$stock['kgs'].'</td>'; //kgs
+						$output.='<td>'.$hammerPrice.'</td>';
+						$output.='<td>'.floatval($valueExAuct).'</td>';
+						$output.='<td>'.$stock['comment'].'</td>';
+						$output.='<td>'.$stock['warehouse'].'</td>';
+						$output.='<td>'.$stock['allocation'].'</td>';
+		
+						$output.='</tr>';
+				
+					}           
+		$output.= '</tbody>';
+		$output.='<tfoot style="outline: thin solid black;">
+							<tr>
+								<th colspan="4">Sub Total <br> Grand Total</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th colspan="2"></th>
+								<th colspan="2"></th>
+								<th></th>
+								<th colspan="2"></th>
+								<th></th>
+								<th></th>
+
+							</tr>
+				</tfoot>
+		</table>';
+			}else{
+				$output = "No records Found";
+		
+			}
+		
 			echo $output;
 		}
-	}
+		}
 	if(isset($_POST['action']) && $_POST['action'] == "getlot"){
 		$id = $_POST["id"];
 		$lots = $stock->getLot($id);
@@ -445,8 +495,3 @@
 	}
 
 	
-
-
-
-
-

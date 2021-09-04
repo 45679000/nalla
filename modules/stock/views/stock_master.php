@@ -1,5 +1,9 @@
 
-
+<style>
+    .activeLink{
+        background-color: green;
+    }
+</style>
 <div class="col-md-12 col-lg-12">
     <div class="card">
         <div class="card-body p-2">
@@ -62,14 +66,14 @@
                         <div class="card">
                             <div class="row" style="width:100%;">
                                     <div class="col-md-12">
-                                    <button id="purchases" class="btn btn-info btn-sm">Purchases</button>
-                                    <button id="stock" class="btn btn-info btn-sm ml-2">Stock</button>
-                                    <button id="stocko" class="btn btn-info btn-sm ml-2">Stock(Original Teas)</button>
-                                    <button id="stockb" class="btn btn-info btn-sm ml-2">Stock(Blended Teas)</button>
-                                    <button id="stockc" class="btn btn-info btn-sm ml-2">Stock(Contract Wise)</button>
-                                    <button id="stocka" class="btn btn-info btn-sm ml-2">Stock(Awaiting Shipment)</button>
-                                    <button id="stockpu" class="btn btn-info btn-sm ml-2">Paid Unallocated</button>
-                                    <button id="stockuu" class="btn btn-info btn-sm ml-2">UnPaid Unallocated</button>
+                                    <button id="purchases" class="btn btn-success btn-sm category">Purchases</button>
+                                    <button id="stock" class="btn btn-info btn-sm ml-2 category">Stock</button>
+                                    <button id="stocko" class="btn btn-info btn-sm ml-2 category">Stock(Original Teas)</button>
+                                    <button id="stockb" class="btn btn-info btn-sm ml-2 category">Stock(Blended Teas)</button>
+                                    <button id="stockc" class="btn btn-info btn-sm ml-2 category">Stock(Contract Wise)</button>
+                                    <button id="stocka" class="btn btn-info btn-sm ml-2 category">Stock(Awaiting Shipment)</button>
+                                    <button id="stockpu" class="btn btn-info btn-sm ml-2 category">Paid Unallocated</button>
+                                    <button id="stockuu" class="btn btn-info btn-sm ml-2 category">UnPaid Unallocated</button>
                                     </div>
                                     
                             </div>
@@ -118,7 +122,21 @@
 $(document).ready(function() {
 
 $('.select2').select2();
+var category = "purchases";
+loadMasterStock(category);
 
+$(".category").click(function(element){
+    category = $(this).attr("id");
+    $(".category").removeClass("btn-success");
+    $(this).addClass("btn-info");
+
+    $(this).removeClass("btn-info");
+    $(this).addClass("btn-success");
+
+    localStorage.setItem("category", category);
+    loadMasterStock(category);
+
+})
 
 $('#filter').click(function(e){
     e.preventDefault();
@@ -134,15 +152,17 @@ $('#filter').click(function(e){
         localStorage.setItem("fstandard", standard);
         localStorage.setItem("fgradecode", gradecode);
 
+        if(localStorage.getItem("category")!==null){
+            category = localStorage.getItem("category");
+        }
+
+        loadMasterStock(category);
 
     console.log("filtered "+saleno+" "+broker+" "+mark+" "+standard+" "+gradecode);
-    loadMasterStock("purchases");
 
 });
 
 
-
-loadMasterStock("stock");
 $('.table').DataTable({
             "pageLength": 100,
             dom: 'Bfrtip',
@@ -156,30 +176,30 @@ $('.table').DataTable({
 
 });
 
-$('#purchases').click(function(){
-    loadMasterStock("purchases");
+// $('#purchases').click(function(){
+//     loadMasterStock("purchases");
     
-});
-$('#stock').click(function(){
-    loadMasterStock("stock");
-});
-$('#stocko').click(function(){
-    loadMasterStock("stocko");
-});
-$('#stockb').click(function(){
-    loadMasterStock("stockb");
-});
-$('#stockc').click(function(){
-    loadContractWise("stock-action.php", "allocated");
-});
-$('#stocka').click(function(){
-    loadMasterStock("stocka");
-});
-$('#stockpu').click(function(){
-    loadMasterStock("stockpu");
-});
-$('#stockuu').click(function(){
-    loadMasterStock("stockuu");
-});
+// });
+// $('#stock').click(function(){
+//     loadMasterStock("stock");
+// });
+// $('#stocko').click(function(){
+//     loadMasterStock("stocko");
+// });
+// $('#stockb').click(function(){
+//     loadMasterStock("stockb");
+// });
+// $('#stockc').click(function(){
+//     loadContractWise("stock-action.php", "allocated");
+// });
+// $('#stocka').click(function(){
+//     loadMasterStock("stocka");
+// });
+// $('#stockpu').click(function(){
+//     loadMasterStock("stockpu");
+// });
+// $('#stockuu').click(function(){
+//     loadMasterStock("stockuu");
+// });
 
 </script>

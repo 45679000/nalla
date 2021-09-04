@@ -91,9 +91,6 @@ include $path_to_root1 .'includes/auction_ids.php';
                         </div>
                         <div class="expanel-body">
                             <div class="list-group  mb-0 mail-inbox">
-                                <a href="./index.php?view=amend-stock" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-list"></i></span>Stock Amendment
-                                </a>
                                 <a href="./index.php?view=allocate-stock" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Allocate Stock
                                 </a>

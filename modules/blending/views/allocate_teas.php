@@ -292,7 +292,8 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="../../assets/plugins/notify/js/jquery.growl.js"></script>
+
 
 <script>
 $(document).ready(function() {

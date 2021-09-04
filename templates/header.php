@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="<?=$path_to_root ?>assets/fonts/fonts/font-awesome.min.css">
 
     <!-- Font family -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-
+    <link href="<?=$path_to_root ?>assets/css/google_fonts.css" rel="stylesheet" />
+    
 
     <!-- Dashboard Css -->
     <link href="<?=$path_to_root ?>assets/css/dashboard.css" rel="stylesheet" />

@@ -92,7 +92,7 @@
         }
         public function updateField($lotId, $fieldId, $value, $saleno){
             $this->query = "UPDATE buying_list SET $fieldId = '$value'
-            WHERE lot = '$lotId' AND sale_no = '$saleno'";
+            WHERE lot = '$lotId' AND sale_no LIKE '%$saleno%'";
             $this->debugSql = true;
             return $this->executeQuery();
 

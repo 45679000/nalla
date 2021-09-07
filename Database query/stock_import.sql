@@ -160,11 +160,67 @@ UPDATE stock_to_33 SET line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3
 WHERE source = 'T';
 
 
-INSERT INTO `buying_list`(`buying_list_id`,`sale_no`, `broker`,  `comment`, `ware_hse`, `lot`,  `mark`, `grade`,  `invoice`, `pkgs`,  `net`,  `kgs`,             `sale_price`, `standard`, `buyer_package`,  `auction_date`,  `allocated`, `added_to_plist`,  `target`,  `warehouse`, `broker_invoice`, `confirmed`,  `added_to_stock`, `source`) 
-SELECT  `sale_no`, `broker`,  `code`, `ware_house`, `lot`,  `mark`, `grade`,  `invoice`, SUM(`pkgs`),  `net`,  SUM(`kgs`),  `sale_price`, `standard`, 'CSS',       `import_date`,  1,           1,   1,        `warehouse`, `broker_invoice`, 1,  1, `source` 
+DELETE FROM buying_list;
+SET @row_number = 0; 
+INSERT INTO `buying_list`(`buying_list_id`,`sale_no`, `broker`,  `comment`, `ware_hse`, `lot`,  `mark`, `grade`,  `invoice`, `pkgs`,  `net`,  `kgs`, `sale_price`, `standard`, `buyer_package`,  `auction_date`,  `allocated`, `added_to_plist`,  `target`,  `warehouse`, `broker_invoice`, `confirmed`,  `added_to_stock`, `source`) 
+SELECT (@row_number:=@row_number + 1) AS num,
+`sale_no`, `broker`,  `code`, `ware_house`, `lot`,  `mark`, `grade`,  `invoice`, SUM(`pkgs`),  `net`,  SUM(`kgs`),  `sale_price`, `standard`, 'CSS', `import_date`,  1, 
+1, 1, `warehouse`, `broker_invoice`, 1,  1, `source` 
 FROM `stock_to_33`
 WHERE source = 'A' OR source = 'P'
 GROUP BY lot, broker, sale_no, invoice
-ORDER BY 
+ORDER BY sale_no ASC;
 
-89096
+
+UPDATE buying_list SET line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3),  SUBSTRING(sale_no, 6, 2), source, LPAD(buying_list_id, 10, '0')) 
+WHERE source = 'A';
+
+
+UPDATE buying_list SET line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3), SUBSTRING(sale_no, 9, 10), source, LPAD(buying_list_id, 10, '0')) 
+WHERE source = 'P';
+
+
+
+
+DELETE FROM `closing_stock`;
+INSERT INTO `closing_stock`(stock_id, `sale_no`, `broker`,  `comment`, `ware_hse`,  `lot`, 
+           `mark`, `grade`, `invoice`, `pkgs`,  `kgs`,  `net`,
+             `sale_price`, `standard`, `buyer_package`, `import_date`)
+             SELECT stock_id, `sale_no`, `broker`,  `code`, `stock_to_33`.`ware_house`,  `lot`,
+            `mark`, `grade`,  `invoice`, `pkgs`,  `kgs`, `net`, 
+            sale_price, `standard`, 'CSS',stock_to_33.import_date
+            FROM `stock_to_33`;
+
+
+UPDATE closing_stock
+INNER JOIN buying_list ON closing_stock.lot = buying_list.lot 
+AND buying_list.sale_no = closing_stock.sale_no
+SET closing_stock.line_no = buying_list.line_no;
+
+
+SET @row_number = 861; 
+
+UPDATE `closing_stock` 
+INNER JOIN (
+    SELECT stock_id FROM closing_stock) a ON a.stock_id = closing_stock.stock_id
+SET closing_stock.line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3), SUBSTRING(sale_no, 9, 10), 'B', LPAD((@row_number:=@row_number + 1), 10, '0'))
+WHERE broker = 'X';
+
+
+UPDATE closing_stock
+INNER JOIN stock_to_33 ON stock_to_33.stock_id = closing_stock.stock_id
+SET closing_stock.shipped_pkgs = stock_to_33.shipped, 
+closing_stock.allocation = stock_to_33.blend_si,
+closing_stock.current_allocation = stock_to_33.awaiting_shippment;
+
+
+INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `shippedBy`, `instruction_id`, `stock_id`)
+SELECT  a.allocation, a.pkgs_shipped, a.net*a.pkgs_shipped, 'straight', 1, '001', stock_id
+FROM closing_stock a
+WHERE pkgs_shipped = pkgs;
+
+
+INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `shippedBy`, `instruction_id`, `stock_id`)
+SELECT  a.allocation, a.pkgs_shipped, a.net*a.pkgs_shipped, 'straight', 1, '001', stock_id
+FROM closing_stock a
+WHERE pkgs_shipped = pkgs;

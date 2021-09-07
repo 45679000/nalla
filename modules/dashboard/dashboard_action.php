@@ -15,18 +15,18 @@
 
     switch ($tag) {
         case 'totalP':
-            $total = $stock->getTotal("closing_cat", "kgs", "WHERE confirmed = 1")["kgs"];
-            $description = "Total Purchase";
-            $unit="Kgs"; 
+            $total = $stock->getTotal("buying_list", "pkgs", "WHERE confirmed = 1")["pkgs"];
+            $description = "Total Purchases";
+            $unit="Pkgs"; 
             $icon = "mdi mdi-arrow-collapse-all";
-            $mdiText = "Total Kgs purchased";
+            $mdiText = "Total PKgs purchased";
             echo get_card(number_format($total), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStck':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
              FROM closing_stock 
              LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-             WHERE shippments.id IS NULL";
+             WHERE (shippments.is_shipped IS NULL OR shippments.is_shipped = false)";
             $totalKgs = $stock->executeQuery();
             $description = "Total Stock";
             $unit="Pkgs"; 
@@ -49,7 +49,7 @@
             $stock->query = "SELECT SUM(pkgs) AS pkgs
              FROM closing_stock 
              LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-             WHERE shippments.id IS NULL AND is_blend_balance = 0";
+             WHERE (shippments.is_shipped IS NULL OR shippments.is_shipped = false) AND is_blend_balance = 0";
             $totalKgs = $stock->executeQuery();
             $description = "Total Original Teas";
             $unit="Pkgs"; 
@@ -60,8 +60,8 @@
         case 'totalStckB':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
-            LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-            WHERE shippments.id IS NULL AND is_blend_balance = 1";
+             LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
+             WHERE (shippments.is_shipped IS NULL OR shippments.is_shipped = false) AND is_blend_balance = 1";
             $totalKgs = $stock->executeQuery();
             $description = "Total Blended Teas";
             $unit="Pkgs"; 

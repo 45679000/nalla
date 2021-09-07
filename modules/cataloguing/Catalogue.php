@@ -74,14 +74,14 @@
                                 $stmt->execute();
 
                                 $sql = "UPDATE buying_list 
-                                INNER JOIN itts_import ON itts_import.Lot_no = closing_cat.lot
-                                AND closing_cat.sale_no = LEFT(REPLACE (itts_import.auction_number, '/', '-'), length(auction_number)-2)
-                                AND closing_cat.broker = itts_import.broker
+                                INNER JOIN itts_import ON itts_import.Lot_no = buying_list.lot
+                                AND buying_list.sale_no = LEFT(REPLACE (itts_import.auction_number, '/', '-'), length(auction_number)-2)
+                                AND buying_list.broker = itts_import.broker
                                 
-                                SET closing_cat.sale_price = itts_import.sale_price*100,
-                                closing_cat.buyer_package = itts_import.buyer,
-                                closing_cat.auction_date = date_format(STR_TO_DATE(itts_import.auction_date, '%Y-%b-%d'), '%Y-%m/%d')
-                                WHERE closing_cat.sale_no = LEFT(REPLACE (itts_import.auction_number, '/', '-'), length(auction_number)-2)";
+                                SET buying_list.sale_price = itts_import.sale_price*100,
+                                buying_list.buyer_package = itts_import.buyer,
+                                buying_list.auction_date = date_format(STR_TO_DATE(itts_import.auction_date, '%Y-%b-%d'), '%Y-%m/%d')
+                                WHERE buying_list.sale_no = LEFT(REPLACE (itts_import.auction_number, '/', '-'), length(auction_number)-2)";
                         
                                 $stmt = $this->conn->prepare($sql);
                                 $stmt->execute();

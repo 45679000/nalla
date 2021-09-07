@@ -60,8 +60,8 @@
         case 'totalStckB':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
-             LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-             WHERE (shippments.is_shipped IS NULL OR shippments.is_shipped = false) AND is_blend_balance = 1";
+            LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
+            WHERE (shippments.is_shipped IS NULL OR shippments.is_shipped = false) AND is_blend_balance = 1";
             $totalKgs = $stock->executeQuery();
             $description = "Total Blended Teas";
             $unit="Pkgs"; 
@@ -73,12 +73,12 @@
             $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
             LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-            WHERE shippments.id IS NULL AND client_id IS NOT NULL";
+            WHERE (shippments.id IS NOT NULL AND shippments.is_shipped = false)";
             $totalKgs = $stock->executeQuery();
             $description = "Total Allocated Teas";
             $unit="Pkgs"; 
             $icon = "mdi mdi-basket-fill";
-            $mdiText = "Total Allocated PKgs";
+            $mdiText = "Total Allocated PKgs Awaiting Shippment";
            echo get_card(number_format($totalKgs[0]['pkgs']), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckUnAllc':

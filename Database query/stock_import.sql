@@ -1,11 +1,13 @@
+DROP TABLE stock_to_33;
 CREATE TABLE stock_to_33(
     stock_id                        integer,
-    import_date	                    varchar(120),
     sale_no	                        varchar(120),
+    import_date	                    varchar(120),
     broker                          varchar(120),
-	ware_house                       varchar(120),
+    broker_invoice                  varchar(120),
+	ware_house                      varchar(120),
 	lot	                            varchar(120),
-    origin                            varchar(120),
+    origin                          varchar(120),
     mark                            varchar(120),
 	grade                           varchar(120),
 	invoice                         varchar(120),
@@ -17,10 +19,10 @@ CREATE TABLE stock_to_33(
     code	                        varchar(120),
     warehouse	                    varchar(120),
     blend_si	                    varchar(120),
-    allocated_pkgs	                varchar(120),
-    un_allocated	                varchar(120),
-    allocated_shipped	            varchar(120),
-    allocated_awaiting_shippment    varchar(120)
+    pkgs_allocated	                varchar(120),
+    yet_to_allocate	                varchar(120),
+    shipped	                        varchar(120),
+    awaiting_shippment              varchar(120)
 
 );
 
@@ -143,3 +145,21 @@ INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `ship
 SELECT  a.allocation, a.pkgs_shipped, a.net*a.pkgs_shipped, 'straight', 1, '001', stock_id
 FROM closing_stock a
 WHERE pkgs_shipped = pkgs;
+
+
+----- update 
+ALTER TABLE stock_to_33 ADD COLUMN line_no varchar(100);
+UPDATE stock_to_33 SET line_no = CONCAT(SUBSTRING(SUBSTRING('2020-18', 2, 3), 2, 3),  SUBSTRING(sale_no, 6, 2), source, LPAD(stock_id, 10, '0')) 
+WHERE source = 'A';
+
+
+UPDATE stock_to_33 SET line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3), SUBSTRING(sale_no, 9, 10), source, LPAD(stock_id, 10, '0')) 
+WHERE source = 'P';
+
+UPDATE stock_to_33 SET line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3), SUBSTRING(sale_no, 9, 10), source, LPAD(stock_id, 10, '0')) 
+WHERE source = 'T';
+
+
+INSERT INTO `buying_list`(`buying_list_id`, `line_no`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`, `added_to_stock`, `source`) 
+SELECT `buying_list_id`, `line_no`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`, `added_to_stock`, `source` 
+FROM `stock_to_33` WHERE 1

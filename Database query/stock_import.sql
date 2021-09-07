@@ -160,6 +160,11 @@ UPDATE stock_to_33 SET line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3
 WHERE source = 'T';
 
 
-INSERT INTO `buying_list`(`buying_list_id`, `line_no`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`, `added_to_stock`, `source`) 
-SELECT `buying_list_id`, `line_no`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`, `added_to_stock`, `source` 
-FROM `stock_to_33` WHERE 1
+INSERT INTO `buying_list`(`buying_list_id`,`sale_no`, `broker`,  `comment`, `ware_hse`, `lot`,  `mark`, `grade`,  `invoice`, `pkgs`,  `net`,  `kgs`,             `sale_price`, `standard`, `buyer_package`,  `auction_date`,  `allocated`, `added_to_plist`,  `target`,  `warehouse`, `broker_invoice`, `confirmed`,  `added_to_stock`, `source`) 
+SELECT  `sale_no`, `broker`,  `code`, `ware_house`, `lot`,  `mark`, `grade`,  `invoice`, SUM(`pkgs`),  `net`,  SUM(`kgs`),  `sale_price`, `standard`, 'CSS',       `import_date`,  1,           1,   1,        `warehouse`, `broker_invoice`, 1,  1, `source` 
+FROM `stock_to_33`
+WHERE source = 'A' OR source = 'P'
+GROUP BY lot, broker, sale_no, invoice
+ORDER BY 
+
+89096

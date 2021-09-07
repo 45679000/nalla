@@ -79,6 +79,28 @@
                         
                         $stmt = $this->conn->prepare($sql);
                         $stmt->execute();
+
+                        $sql = "UPDATE
+                            `buying_list` AS `dest`,
+                            (
+                                SELECT
+                                    *
+                                FROM
+                                    `itts_import`
+                            ) AS `src`
+                        SET
+                            `dest`.`pkgs` = `src`.`current_packages`,
+                            `dest`.`net` = `src`.`net`,
+                            `dest`.`sale_price` = `src`.`sale_price`
+                        WHERE
+                            `dest`.`lot` = src.lot_no";
+                        
+                        $stmt = $this->conn->prepare($sql);
+                        $stmt->execute();
+
+
+
+
                         $sql = "DELETE FROM itts_import";
                         $stmt = $this->conn->prepare($sql);
                         $stmt->execute();

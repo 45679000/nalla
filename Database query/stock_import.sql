@@ -224,3 +224,27 @@ INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `ship
 SELECT  a.allocation, a.pkgs_shipped, a.net*a.pkgs_shipped, 'straight', 1, '001', stock_id
 FROM closing_stock a
 WHERE pkgs_shipped = pkgs;
+
+INSERT INTO `buying_list`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`, `added_to_stock`, `source`) 
+SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, `auction_date`, `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, `allocation`, `warehouse`, `broker_invoice`, `confirmed`, `line_id`, `added_to_stock`, `source` 
+FROM `buying_list_copy` WHERE sale_no = '2021-35';
+
+
+SET @row_number = 1016; 
+UPDATE `buying_list` 
+INNER JOIN (
+    SELECT buying_list_id FROM buying_list) a ON a.buying_list_id = buying_list.buying_list_id
+SET buying_list.line_no = CONCAT(SUBSTRING(SUBSTRING(sale_no, 2, 3), 2, 3),  SUBSTRING(sale_no, 6, 2), 'A', LPAD((@row_number:=@row_number + 1), 10, '0'))
+WHERE sale_no = '2021-35' 
+ORDER BY lot ASC;
+SELECT * FROM `buying_list` WHERE sale_no = '2021-35' AND added_to_plist = 1;
+
+
+INSERT INTO `closing_stock`(`line_no`,`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`, 
+            `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`,  `kgs`,
+             `sale_price`, `standard`, `buyer_package`, `import_date`)
+             SELECT `line_no`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`, `value`, `lot`,
+            `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `kgs`, `net`, 
+            sale_price/100, `standard`, `buyer_package`, buying_list.auction_date
+            FROM `buying_list`
+            WHERE sale_no = '2021-35' AND added_to_plist = 1;

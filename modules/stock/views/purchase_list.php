@@ -4,7 +4,7 @@
     overflow: auto;
     overflow-y: hidden;
 
-    max-width: 100%;
+    max-width: 50%;
     margin: 0 0 1em;
     height: 50px;
 
@@ -12,11 +12,18 @@
 
 }
 
-.navbuttons LI {
+.navbuttons li {
     display: inline-block;
     vertical-align: top;
-    padding: 10px;
+    padding: 5px;
     
+}
+.navigation{
+    max-width: 200%;
+    margin: 0 0 1em;
+    height: 50px;
+
+    white-space: nowrap;
 }
 
 </style>
@@ -31,7 +38,7 @@
         <div class="card-body p-6">
             <div class="expanel expanel-secondary">
                 <div class="card-header">
-                <div class="nav">
+                <div class="navigation">
                     <ul id="sale_nav" class="navbuttons">
                       
                     </ul>
@@ -90,9 +97,10 @@
             
             };
         $(".plist").click(function(element){
-            var click = localStorage.getItem("click");
-
+            $(this).attr('class', 'label label-success text-white p-2');
             var saleno = $(this).attr("id");
+
+            var click = localStorage.getItem("click");
             loadPlist(saleno);
         })
 
@@ -227,7 +235,7 @@
                     for(let i = 0; i<data.length; i++){
                          $('#sale_nav').append(
                             $('<li>').append(
-                                $('<a>').attr({'id': data[i].sale_no,'class':'plist', 'href':'#'}).append(
+                                $('<a>').attr({'id': data[i].sale_no,'class':'plist label label-primary text-white p-2', 'href':'#'}).append(
                                     $('<span>').attr('class', 'tab').append(data[i].sale_no)
                         ))); 
 

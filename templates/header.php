@@ -66,6 +66,7 @@
     <link href="<?=$path_to_root ?>assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet" />
 
     <link href="<?=$path_to_root ?>assets/plugins/accordion/accordion.css" rel="stylesheet" />
+    <link href="<?=$path_to_root ?>assets/plugins/date-picker/spectrum.css" rel="stylesheet" />
 
 
     <style>

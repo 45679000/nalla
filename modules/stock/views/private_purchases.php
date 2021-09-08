@@ -1,4 +1,32 @@
+<style>
+.navbuttons {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
 
+    max-width: 50%;
+    margin: 0 0 1em;
+    height: 50px;
+
+    white-space: nowrap;
+
+}
+
+.navbuttons li {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    
+}
+.navigation{
+    max-width: 200%;
+    margin: 0 0 1em;
+    height: 50px;
+
+    white-space: nowrap;
+}
+
+</style>
 
 <div class="col-md-12 col-lg-12">
     <div class="card">
@@ -205,7 +233,7 @@
                     for(let i = 0; i<data.length; i++){
                          $('#sale_nav').append(
                             $('<li>').append(
-                                $('<a>').attr({'id': data[i].sale_no,'class':'plist', 'href':'#'}).append(
+                                $('<a>').attr({'id': data[i].sale_no,'class':'plist label label-primary text-white p-2', 'href':'#'}).append(
                                     $('<span>').attr('class', 'tab').append(data[i].sale_no)
                         ))); 
 

@@ -176,30 +176,6 @@ $('.table').DataTable({
 
 });
 
-// $('#purchases').click(function(){
-//     loadMasterStock("purchases");
-    
-// });
-// $('#stock').click(function(){
-//     loadMasterStock("stock");
-// });
-// $('#stocko').click(function(){
-//     loadMasterStock("stocko");
-// });
-// $('#stockb').click(function(){
-//     loadMasterStock("stockb");
-// });
-// $('#stockc').click(function(){
-//     loadContractWise("stock-action.php", "allocated");
-// });
-// $('#stocka').click(function(){
-//     loadMasterStock("stocka");
-// });
-// $('#stockpu').click(function(){
-//     loadMasterStock("stockpu");
-// });
-// $('#stockuu').click(function(){
-//     loadMasterStock("stockuu");
-// });
+
 
 </script>

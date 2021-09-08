@@ -24,6 +24,13 @@
                 <div class="expanel expanel-secondary">
                     <div class="card">
                         <div class="card-header">
+                        <div class="input-group">
+												<div class="input-group-prepend">
+													<div class="input-group-text">
+														<i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+													</div>
+												</div><input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text">
+											</div>
                             <div id="purchaseListactions" class="card-options">
                             </div>
                         </div>
@@ -63,6 +70,16 @@
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.colVis.min.js"></script>
 <script src="../../assets/plugins/select2/select2.full.min.js"></script>
+<!-- Datepicker js -->
+<script src="../../assets/plugins/date-picker/spectrum.js"></script>
+<script src="../../assets/plugins/date-picker/jquery-ui.js"></script>
+<script src="../../assets/plugins/input-mask/jquery.maskedinput.js"></script>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
 $(function() {

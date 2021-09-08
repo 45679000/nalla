@@ -8,11 +8,11 @@
         public function salenoPurchases($type){
             $query = "SELECT sale_no FROM buying_list ";
             if($type=='A'){
-                $query.=" WHERE source = 'A'";
+                $query.=" WHERE source = 'A' AND added_to_stock = 1";
             }elseif($type=='P'){
-                $query.=" WHERE source = 'P'";
+                $query.=" WHERE source = 'P' AND added_to_stock = 1";
             }
-            $query.=" GROUP BY sale_no";
+            $query.=" GROUP BY sale_no ORDER BY sale_no DESC";
 
            $this->query = $query;
            return $this->executeQuery();
@@ -28,21 +28,20 @@
 
             if($type=="purchases"){
                 try {
-                    $this->debugSql = false;
-                    $query = "SELECT shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
+                    $this->debugSql = true;
+                    $query = "SELECT  buying_list.`buying_list_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
                     `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
-                    `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
-                    closing_stock.pkgs, closing_stock.kgs,
+                    `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country, 
+                    buying_list.pkgs, buying_list.kgs,
                     (CASE WHEN allocation IS NULL THEN 
                        CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
                     ELSE 
                        allocation
                     END) AS allocation, kgs,  net, allocation AS allocated_contract
-                    FROM closing_stock 
+                    FROM buying_list 
                     LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
-                    LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
-                    LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment 
-                    LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE shippments.id IS NULL  ";
+                    LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = buying_list.mark 
+                    LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = buying_list.comment ";
 
                     if($saleno !== 'All'){
                         $query.= " AND sale_no = '$saleno' ";

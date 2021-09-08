@@ -10,8 +10,7 @@
                             <div class="col-md-6 well">
                                 <div class="form-group form-inline">
                                     <label class="control-label">Select Action from the list</label>
-                                    <select id="saleno" name="saleno"
-                                        class="form-control select2"><small>(required)</small>
+                                    <select id="saleno" name="saleno" class="form-control select2"><small>(required)</small>
                                         <option disabled="" value="..." selected="">select</option>
                                     </select>
                                 </div>
@@ -24,21 +23,17 @@
                 <div class="expanel expanel-secondary">
                     <div class="card">
                         <div class="card-header">
-                        <div class="input-group">
-												<div class="input-group-prepend">
-													<div class="input-group-text">
-														<i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-													</div>
-												</div><input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text">
-											</div>
+                            <div class="input-group">
+                            <p>Date: <input type="text" id="datepicker"></p>
+                            </div>
                             <div id="purchaseListactions" class="card-options">
                             </div>
                         </div>
                         <div style="height:60vH" class="card-body table-responsive">
                             <div id="purchaseList">
-                                    <div>
-                                        Select The Auction from The List above to load Buyin List
-                                    </div>
+                                <div>
+                                    Select The Auction from The List above to load Buyin List
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,102 +72,104 @@
 
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-$(function() {
-    $("#financeSubmenu").hide();
-    $('#purchaseListCustomOpt').hide();
-    $('select').on('change', function() {
-        $('#purchaseListCustomOpt').show();
-        var saleno = $('#saleno').find(":selected").text();
-        localStorage.setItem("saleno", saleno);
-        loadPurchaseList();
-        checkActivityStatus(5, localStorage.getItem("saleno"));
-    });
-
-
-    $("body").on("click", ".confirmLot", function(e) {
-            e.preventDefault();
-            var id = $(this).attr('id');
-            postToStock(id);
-            loadPurchaseList();
-    });
-    $("body").on("click", ".unconfirmLot", function(e) {
-            e.preventDefault();
-            var id = $(this).attr('id');
-            postToStock(id);
-            loadPurchaseList();
-    });
-
-
-});
-
-function postToStock(id) {
-    $.ajax({
-        type: "POST",
-        dataType: "html",
-        url: "finance_action.php",
-        data: {
-            action: "add_to_stock",
-            id:id,
-            saleno: localStorage.getItem("saleno")
-        },
-        success: function(data) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Posted To Stock',
-            });
+    $(function() {
+        $("#financeSubmenu").hide();
+        $('#purchaseListCustomOpt').hide();
+        $('select').on('change', function() {
+            $('#purchaseListCustomOpt').show();
+            var saleno = $('#saleno').find(":selected").text();
+            localStorage.setItem("saleno", saleno);
             loadPurchaseList();
             checkActivityStatus(5, localStorage.getItem("saleno"));
-        }
+        });
+
+
+        $("body").on("click", ".confirmLot", function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            postToStock(id);
+            loadPurchaseList();
+        });
+        $("body").on("click", ".unconfirmLot", function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            postToStock(id);
+            loadPurchaseList();
+        });
+
 
     });
 
-}
-function checkActivityStatus(id, saleno){
-    var activity;
-    var message;
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "finance_action.php",
-        data: {
-            action: "activity",
-            id:id,
-            saleno:saleno      
-        },
-        success: function(data) {
-            console.log(data[0]);
-            message = data[0].details;
-            status = data[0].completed;
-            activity = data[0].activity_id;
-            emailed = data[0].emailed;
-            if((activity=="5") && (status=="1")){
-                $("#confirmPList").html("confirmed");
-                $('#confirmPList').prop('disabled', true);
-                $("#editPList").hide();
-            }
-            if((activity=="5") && (emailed=="1")){
-                $("#emailPList").html("Notification Sent");
-                $('#emailPList').prop('disabled', true);
+    function postToStock(id) {
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action: "add_to_stock",
+                id: id,
+                saleno: localStorage.getItem("saleno")
+            },
+            success: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Posted To Stock',
+                });
+                loadPurchaseList();
+                checkActivityStatus(5, localStorage.getItem("saleno"));
             }
 
-        }
+        });
 
-    });
-}
-function loadPurchaseList(){
-    var click = localStorage.getItem("click");
+    }
 
-    var formData = {
+    function checkActivityStatus(id, saleno) {
+        var activity;
+        var message;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "finance_action.php",
+            data: {
+                action: "activity",
+                id: id,
+                saleno: saleno
+            },
+            success: function(data) {
+                console.log(data[0]);
+                message = data[0].details;
+                status = data[0].completed;
+                activity = data[0].activity_id;
+                emailed = data[0].emailed;
+                if ((activity == "5") && (status == "1")) {
+                    $("#confirmPList").html("confirmed");
+                    $('#confirmPList').prop('disabled', true);
+                    $("#editPList").hide();
+                }
+                if ((activity == "5") && (emailed == "1")) {
+                    $("#emailPList").html("Notification Sent");
+                    $('#emailPList').prop('disabled', true);
+                }
+
+            }
+
+        });
+    }
+
+    function loadPurchaseList() {
+        var click = localStorage.getItem("click");
+
+        var formData = {
             saleno: localStorage.getItem("saleno"),
             action: "confirmed-purchase-list"
         };
 
-    $.ajax({
+        $.ajax({
             type: "POST",
             dataType: "html",
             url: "finance_action.php",
@@ -208,123 +205,126 @@ function loadPurchaseList(){
                         ],
                         // "scrollCollapse": true,
                     });
-                    if(click> 0){
-                    table.buttons().containers().appendTo('#purchaseListactions');
+                    if (click > 0) {
+                        table.buttons().containers().appendTo('#purchaseListactions');
                     }
                 });
             },
 
         });
-}
-function updateInvoice(element){
+    }
+
+    function updateInvoice(element) {
         var lot = $(element).attr("class");
         var value = $(element).text();
-        
+
         $.ajax({
             type: "POST",
             dataType: "html",
             url: "finance_action.php",
             data: {
-                action:"update-field",
-                lot:lot,
-                field:"broker_invoice",
-                value:value,
+                action: "update-field",
+                lot: lot,
+                field: "broker_invoice",
+                value: value,
                 saleno: localStorage.getItem("saleno")
             },
-        success: function (data) {
-            console.log('Submission was successful.');
-        }
-    
-    });
+            success: function(data) {
+                console.log('Submission was successful.');
+            }
 
-}
-function updatePkgs(element){
+        });
+
+    }
+
+    function updatePkgs(element) {
         var lot = $(element).attr("class");
         var value = $(element).text();
-        
+
         $.ajax({
             type: "POST",
             dataType: "html",
             url: "finance_action.php",
             data: {
-                action:"update-field",
-                lot:lot,
-                field:"pkgs",
-                value:value,
+                action: "update-field",
+                lot: lot,
+                field: "pkgs",
+                value: value,
                 saleno: localStorage.getItem("saleno")
             },
-        success: function (data) {
-            console.log('Submission was successful.');
-        }
-    
-    });
+            success: function(data) {
+                console.log('Submission was successful.');
+            }
 
-}
-function updateKgs(element){
+        });
+
+    }
+
+    function updateKgs(element) {
         var lot = $(element).attr("class");
         var value = $(element).text();
-        
+
         $.ajax({
             type: "POST",
             dataType: "html",
             url: "finance_action.php",
             data: {
-                action:"update-field",
-                lot:lot,
-                field:"kgs",
-                value:value,
+                action: "update-field",
+                lot: lot,
+                field: "kgs",
+                value: value,
                 saleno: localStorage.getItem("saleno")
             },
-        success: function (data) {
-            console.log('Submission was successful.');
-        }
-    
-    });
+            success: function(data) {
+                console.log('Submission was successful.');
+            }
 
-}
+        });
 
-function updateNet(element){
+    }
+
+    function updateNet(element) {
         var lot = $(element).attr("class");
         var value = $(element).text();
-        
+
         $.ajax({
             type: "POST",
             dataType: "html",
             url: "finance_action.php",
             data: {
-                action:"update-field",
-                lot:lot,
-                field:"net",
-                value:value,
+                action: "update-field",
+                lot: lot,
+                field: "net",
+                value: value,
                 saleno: localStorage.getItem("saleno")
             },
-        success: function (data) {
-            console.log('Submission was successful.');
-        }
-    
-    });
+            success: function(data) {
+                console.log('Submission was successful.');
+            }
 
-}
-function updateHammer(element){
+        });
+
+    }
+
+    function updateHammer(element) {
         var lot = $(element).attr("class");
         var value = $(element).text();
-        
+
         $.ajax({
             type: "POST",
             dataType: "html",
             url: "finance_action.php",
             data: {
-                action:"update-field",
-                lot:lot,
-                field:"sale_price",
-                value:value,
+                action: "update-field",
+                lot: lot,
+                field: "sale_price",
+                value: value,
                 saleno: localStorage.getItem("saleno")
             },
-        success: function (data) {
-            console.log('Submission was successful.');
-        }
-    
-    });
-}
+            success: function(data) {
+                console.log('Submission was successful.');
+            }
 
+        });
+    }
 </script>

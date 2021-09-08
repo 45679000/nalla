@@ -239,7 +239,11 @@
         }
         public function genLineNo($buying_list_id){
             $this->debugSql = true;
-            $this->query = "SELECT DATE_FORMAT(CURRENT_DATE, '%y') AS date_part, SUBSTRING(sale_no, 6, 2) AS week_part, source, LPAD(buying_list_id, 10, '0') AS id_part
+            $this->query = "SELECT MAX(line_no) AS line_no FROM closing_stock";
+            $rows = $this->executeQuery();
+            $id = (int)substr($rows[0]['line_no'], -6);
+
+            $this->query = "SELECT DATE_FORMAT(CURRENT_DATE, '%y') AS date_part, SUBSTRING(sale_no, 6, 2) AS week_part, source, LPAD($id+1, 10, '0') AS id_part
             FROM buying_list WHERE buying_list_id = $buying_list_id";
             $row = $this->executeQuery();
             if(sizeOf($row)>0){

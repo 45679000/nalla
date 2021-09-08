@@ -66,8 +66,8 @@
     <link href="<?=$path_to_root ?>assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet" />
 
     <link href="<?=$path_to_root ?>assets/plugins/accordion/accordion.css" rel="stylesheet" />
-    <link href="<?=$path_to_root ?>assets/plugins/date-picker/spectrum.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <style>
     * {
@@ -324,6 +324,7 @@
 
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/js/moment.js"></script>
+
 <script>
 
 $(function () {

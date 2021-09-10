@@ -209,3 +209,9 @@ CREATE TABLE garden_grade_cluster(
     code_id                             integer,
     description                         text
 );
+
+UPDATE `buying_list` SET gross = kgs  WHERE sale_no < '2021-35';
+
+UPDATE `buying_list` SET kgs = net  WHERE sale_no < '2021-35';
+
+UPDATE `buying_list` SET net = gross  WHERE sale_no < '2021-35';

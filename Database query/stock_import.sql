@@ -248,3 +248,19 @@ INSERT INTO `closing_stock`(`line_no`,`sale_no`, `broker`, `category`, `comment`
             sale_price/100, `standard`, `buyer_package`, buying_list.auction_date
             FROM `buying_list`
             WHERE sale_no = '2021-35' AND added_to_plist = 1;
+
+
+
+
+
+
+
+            https://vso.azurewebsites.net/api/CoachVisits/CoachVisitEndpoint.php?action=get-notes&access_token=687104627cc35378a1b906b609716d5f
+
+            https://efl-portal.azurewebsites.net/uploads/Cohort 3 English Literacy Learners Workbook.pdf
+
+
+
+            INSERT INTO `e_learning_media` (`id`, `class`, `file_name`, `file_size`, `file_url`, `file_type`, `session`, `description`, `uploaded_on`, `CohortId`, `category`) 
+            VALUES (NULL, 'VSO TEST COHORT', ' Cohort 3 English Literacy Learners WorkBook ', '100000kb', 'https://efl-portal.azurewebsites.net/uploads/Cohort 3 English Literacy Learners Workbook.pdf'
+', 'application/pdf', NULL, NULL, CURRENT_TIMESTAMP, '1', NULL);

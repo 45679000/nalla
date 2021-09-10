@@ -321,6 +321,7 @@
 						  <thead class='thead-dark'>
 							<tr>
 							  <th>Blend</th>
+							  <th>STD</th>
 							  <th>Grade</th>
 							  <th>Shippment</th>
 							  <th>Blend Input</th>
@@ -330,9 +331,13 @@
 							  <th>Dust</th>
 							  <th>Fiber</th>
 							  <th>Polucon</th>
-							  <th>Blend Remnant</th>
-							  <th>Gain/Loss</th>
-							  <th>Actions</th>
+							  <th>Blend Remnant</th>";
+
+							  if($status == 1){
+								$output.="<th>Gain/Loss</th>";
+
+							  }
+							  $output.="<th>Actions</th>
 							</tr>
 						  </thead>
 						  <tbody>";
@@ -351,6 +356,7 @@
 					  $kgs = $blend['nw']*$blend['Pkgs'];
 				  $output.="<tr>
 							  <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['contractno']."</a></td>
+							  <td>".$blend['blend_no']."</td>
 							  <td>".$blend['Grade']."</td>
 							  <td id='$columnShipment'>".$kgs."</td>
 							  <td id='$columnInput'>".$inputKgs."</td>
@@ -360,9 +366,12 @@
 							  <td contentEditable='true' id='$columnDust'>".$blend['dust']."</td>
 							  <td contentEditable='true' id='$columnFiber'>".$blend['fiber']."</td>
 							  <td contentEditable='true' id='$columnPolucun'>".$blend['pulucon']."</td>
-							  <td  id='$columnBlendRemnant'>".$blend['blend_remnant']."</td>
-							  <td  id='$columnGainLoss'>".round($blend['gain_loss'],2)."</td>
-							  <td>";
+							  <td  id='$columnBlendRemnant'>".$blend['blend_remnant']."</td>";
+							  if($status == 1){
+								$output.="<td  id='$columnGainLoss'>".round(($blend['output_kgs']-$inputKgs),2)."</td>";
+
+							  }
+							  $output.="<td>";
 								if($status == 1){
 									$output.="<span><i class='fa fa-check'></i>
 									closed</span>";

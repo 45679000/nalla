@@ -95,6 +95,7 @@ function loadMasterStock(type){
                     },
                     "pageLength": 30,
                     dom: 'Bfrtip',
+            
                     buttons: [
                         'copyHtml5',
                         'excelHtml5',

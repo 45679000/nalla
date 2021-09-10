@@ -28,39 +28,35 @@
 
             if($type=="purchases"){
                 try {
-                    $this->debugSql = true;
-                    $query = "SELECT  buying_list.`buying_list_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
-                    `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
-                    `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country, 
-                    buying_list.pkgs, buying_list.kgs,
-                    (CASE WHEN allocation IS NULL THEN 
-                       CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
-                    ELSE 
-                       allocation
-                    END) AS allocation, kgs,  net, allocation AS allocated_contract
-                    FROM buying_list 
-                    LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
-                    LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = buying_list.mark 
-                    LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = buying_list.comment ";
+                    $this->debugSql = false;
+                    $query = "SELECT c.line_no, bl.`buying_list_id`, bl.`sale_no`, bl.`broker`, bl.`comment`, bl.`ware_hse`, bl.`value`, bl.`lot`, a.`mark`, bl.`grade`, bl.`invoice`,  bl.warehouse, bl.`type`, bl.`sale_price`, bl.`standard`, 
+                    DATE_FORMAT(bl.`import_date`,'%d/%m/%Y') AS import_date, bl.`allocated`, 
+                    0_debtors_master.debtor_ref, a.country, bl.pkgs, bl.kgs, (CASE WHEN c.allocation IS NULL THEN CONCAT(COALESCE(0_debtors_master.short_name, ' ', c.standard)) ELSE c.allocation END) AS allocation, bl.kgs, bl.net, bl.allocation AS allocated_contract
+                    FROM buying_list bl
+                    INNER JOIN closing_stock c ON c.sale_no = bl.sale_no AND c.broker = bl.broker AND c.lot = bl.lot 
+                    LEFT JOIN 0_debtors_master ON c.client_id = 0_debtors_master.debtor_no 
+                    LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = bl.mark 
+                    LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = bl.comment 
+                    WHERE bl.sale_no NOT LIKE '%2020%' ";
 
                     if($saleno !== 'All'){
-                        $query.= " AND sale_no = '$saleno' ";
+                        $query.= " AND bl.sale_no = '$saleno' ";
                     }
                     if($broker !== 'All'){
-                        $query.= " AND broker = '$broker' ";
+                        $query.= " AND bl.broker = '$broker' ";
                     }
                     if($mark !== 'All'){
-                        $query.= " AND buying_list.mark = '$mark' ";
+                        $query.= " AND bl.mark = '$mark' ";
                     }
                     if($standard !== 'All'){
-                        $query.= " AND standard = '$standard' ";
+                        $query.= " AND bl.standard = '$standard' ";
                     }
                     if($gradecode !== 'All'){
                         $query.= " AND b.id = '$gradecode' ";
                     }
 
-                    $query.= " GROUP BY lot, invoice, broker, sale_no
-                    ORDER BY sale_no, lot ASC";
+                    $query.= " GROUP BY bl.lot, bl.invoice, bl.broker, bl.sale_no
+                    ORDER BY bl.sale_no, bl.lot ASC";
                     $this->query = $query;
                     return $this->executeQuery();
                     } catch (Exception $th) {
@@ -70,7 +66,7 @@
             }else{
                 try {
 
-                $query = "SELECT shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
+                $query = "SELECT line_no, shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
                  `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
                  `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
                  closing_stock.pkgs, closing_stock.kgs,

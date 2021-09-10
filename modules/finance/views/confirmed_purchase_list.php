@@ -203,6 +203,12 @@
                                 titleAttr: 'PDF'
                             }
                         ],
+                        fixedHeader: {
+                        header: true,
+                        headerOffset: 45,
+                        },
+                    scrollY: true,
+
                         // "scrollCollapse": true,
                     });
                     if (click > 0) {

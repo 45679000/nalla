@@ -80,7 +80,7 @@
                             <div class="card-body">
                                 <div class="container-fluid">
                                     <div id="stock-master" class="table-responsive">
-                                        <div id="loader"></div>
+                                        
 
                                     </div>
                                 <div>
@@ -121,11 +121,19 @@
 <script>
 $(document).ready(function() {
 
+$("#stock-master").html(
+    '<div class="card-body"><div class="dimmer active"><div class="spinner2"><div class="cube1"></div><div class="cube2"></div><div>Loading....</div></div></div></div>'
+);
+
 $('.select2').select2();
 var category = "purchases";
 loadMasterStock(category);
 
 $(".category").click(function(element){
+    
+    $("#stock-master").html(
+    '<div class="card-body"><div class="dimmer active"><div class="spinner2"><div class="cube1"></div><div class="cube2"></div></div></div></div>'
+    );
     category = $(this).attr("id");
     $(".category").removeClass("btn-success");
     $(this).addClass("btn-info");
@@ -140,6 +148,9 @@ $(".category").click(function(element){
 
 $('#filter').click(function(e){
     e.preventDefault();
+    $("#stock-master").html(
+    '<div class="card-body"><div class="dimmer active"><div class="spinner2"><div class="cube1"></div><div class="cube2"></div><div>Loading....</div></div></div></div>'
+    );
         var saleno = $('#saleno').val()
         var broker = $('#broker').val();
         var mark = $('#mark').val();

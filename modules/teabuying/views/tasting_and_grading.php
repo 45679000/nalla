@@ -55,7 +55,7 @@
                         <div class="card-body">
                             <div id="gradingTable" class="table-responsive">
                                 <div class="card-body">
-                                    <div class="dimmer active">
+                                    <div id="loading" class="dimmer active">
                                         <div class="spinner2">
                                             <div class="cube1"></div>
                                             <div class="cube2"></div>
@@ -92,7 +92,7 @@
 <!-- file import -->
 <script src="../../assets/plugins/fileuploads/js/dropify.min.js"></script>
 <!-- Custom scroll bar Js-->
-<script src=../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <!-- counter  -->
 <script src="../../assets/plugins/counters/counterup.min.js"></script>

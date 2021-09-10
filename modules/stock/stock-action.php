@@ -250,7 +250,7 @@
 		if($type =="purchases"){
 			if(count($stocks)>0){
 		
-				$output .= '<table id="closingstocks2" class="table table-striped table-bordered table-condensed table-responsive" style="width:100%">
+				$output .= '<table id="closingstocks2" class="table table-striped table-sm  table-bordered table-condensed table-responsive" style="width:100%">
 							<thead class="thead-dark">
 								<tr>
 									<th>Line No</th>
@@ -329,7 +329,7 @@
 			echo $output;
 		}else{
 			if(count($stocks)>0){
-				$output .= '<table id="closingstocks" class="display table table-striped table-bordered" style="width:100%">
+				$output .= '<table id="closingstocks" class="display table table-sm  table-striped table-responsive table-bordered" style="width:100%">
 				<thead class="thead-dark">
 				<tr>
 					<th>Line No</th>

@@ -47,7 +47,7 @@ include $path_to_root . 'includes/auction_ids.php';
                 }else if(($_GET['view']=='allocateblendteas')){
                     include 'views/allocate_teas.php'; 
                 }else if(($_GET['view']=='straight')){
-                    include 'direct_blends.php'; 
+                    include 'views/straightline.php'; 
                 }else{
                     include 'grading_table.php'; 
                 }

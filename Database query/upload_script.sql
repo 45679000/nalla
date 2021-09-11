@@ -215,3 +215,12 @@ UPDATE `buying_list` SET gross = kgs  WHERE sale_no < '2021-35';
 UPDATE `buying_list` SET kgs = net  WHERE sale_no < '2021-35';
 
 UPDATE `buying_list` SET net = gross  WHERE sale_no < '2021-35';
+
+CREATE TABLE straightlineteas(
+	id             		integer primary key,
+    contract_no      	varchar(120),
+    client_id           integer,
+    created_on			date default CURRENT_DATE,
+    details             text
+    
+);

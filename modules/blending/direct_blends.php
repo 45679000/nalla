@@ -96,6 +96,8 @@
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 <script>
 $(document).ready(function(){
+    $("#issueTeaMenu").hide();
+
     clientOptions();
     $('#contentwrapper').hide();
     $('.select2-show-search').select2({placeholder: 'Select an item',});

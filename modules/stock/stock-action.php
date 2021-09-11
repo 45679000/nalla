@@ -356,7 +356,7 @@
 				<tbody>';
 					
 					foreach ($stocks as $stock){ 
-						$net = $stock['net'];
+						$net = $stock['kgs'];
 						$hammerPrice = round(floatval($stock['sale_price']), 2);
 						$valueExAuct = round($net * $hammerPrice, 2);
 		
@@ -371,7 +371,7 @@
 						$output.='<td>'.$stock['grade'].'</td>';
 						$output.='<td>'.$stock['invoice'].'</td>';
 						$output.='<td>'.$stock['pkgs'].'</td>'; //pkgs
-						$output.='<td>'.$net.'</td>'; //net
+						$output.='<td>'.$stock['net'].'</td>'; //net
 						$output.='<td>'.$stock['kgs'].'</td>'; //kgs
 						$output.='<td>'.$hammerPrice.'</td>';
 						$output.='<td>'.floatval($valueExAuct).'</td>';

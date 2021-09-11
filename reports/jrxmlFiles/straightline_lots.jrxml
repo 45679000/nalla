@@ -4,108 +4,168 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="sino" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT stock_allocation.allocation_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`,
+		<![CDATA[SELECT closing_stock.stock_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`,
 `comment`, closing_stock.`ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
-(CASE WHEN stock_allocation.allocated_pkgs != shippments.pkgs_shipped
-   THEN shippments.shipped_kgs
-  ELSE closing_stock.kgs
-END) AS kgs, shippments.pkgs_shipped,
- closing_stock.allocated_whse AS warehouse, country, (CASE WHEN shipping_instructions.contract_no IS NOT NULL THEN  shipping_instructions.contract_no ELSE shippments.si_no END) AS allocation,
-`type`, `net`,
-shippments.pkgs_shipped AS `pkgs`,  `sale_price`, stock_allocation.`standard`,
+shippments.pkgs_shipped, country, (CASE WHEN shipping_instructions.contract_no IS NOT NULL THEN  shipping_instructions.contract_no ELSE shippments.si_no END) AS allocation,
+`type`, `net`, shippments.pkgs_shipped AS `pkgs`,  `sale_price`, closing_stock.`standard`,
 DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,
-stock_allocation.shipped,
+shippments.is_shipped,
 
 CONCAT('CHAMU SUPPLIES LTD - LOT DETAILS-', '  ',COALESCE(shippments.si_no, ''),
-' - ',COALESCE(shipping_instructions.no_containers_type, '') ,' - ', COALESCE(0_debtors_master.debtor_ref,''), '-', COALESCE(destination_total_place_of_delivery, '')) AS header, stock_allocation.mrp_value,
+' - ',COALESCE(shipping_instructions.no_containers_type, '') ,' - ', COALESCE(0_debtors_master.debtor_ref,''), '-', COALESCE(destination_total_place_of_delivery, '')) AS header, 
 shipping_instructions.shipping_marks, note
 
 FROM shippments
-INNER JOIN stock_allocation ON stock_allocation.allocation_id = shippments.allocation_id
-INNER JOIN closing_stock ON closing_stock.stock_id = stock_allocation.stock_id
+INNER JOIN closing_stock ON closing_stock.stock_id = shippments.stock_id
 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
 INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
 LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id
-WHERE si_no = '$P{sino}'
-GROUP BY allocation_id]]>
+WHERE si_no = 'ATC 2124'
+	
+]]>
 	</queryString>
-	<field name="allocation_id" class="java.lang.Integer">
+	<field name="stock_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="stock_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="stock_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="stock_id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
+	<field name="COLUMN_2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="stock_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="stock_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 	</field>
 	<field name="sale_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sale_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="sale_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="broker" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="broker"/>
+		<property name="com.jaspersoft.studio.field.label" value="broker"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="comment" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="comment"/>
+		<property name="com.jaspersoft.studio.field.label" value="comment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ware_hse" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ware_hse"/>
+		<property name="com.jaspersoft.studio.field.label" value="ware_hse"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="value" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="value"/>
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="lot" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lot"/>
+		<property name="com.jaspersoft.studio.field.label" value="lot"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="mark" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mark"/>
+		<property name="com.jaspersoft.studio.field.label" value="mark"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mark_country"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="grade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="grade"/>
+		<property name="com.jaspersoft.studio.field.label" value="grade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="invoice" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pkgs" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="invoice"/>
+		<property name="com.jaspersoft.studio.field.label" value="invoice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="pkgs_shipped" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="pkgs_shipped"/>
+		<property name="com.jaspersoft.studio.field.label" value="pkgs_shipped"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="shippments"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="warehouse" class="java.lang.String"/>
 	<field name="country" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="country"/>
+		<property name="com.jaspersoft.studio.field.label" value="country"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mark_country"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="allocation" class="java.lang.String"/>
+	<field name="allocation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="allocation"/>
+		<property name="com.jaspersoft.studio.field.label" value="allocation"/>
+	</field>
 	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="net" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="net"/>
+		<property name="com.jaspersoft.studio.field.label" value="net"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="kgs" class="java.lang.String">
+	<field name="pkgs" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="pkgs_shipped"/>
+		<property name="com.jaspersoft.studio.field.label" value="pkgs"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="shippments"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="sale_price" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sale_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="sale_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="standard" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="standard"/>
+		<property name="com.jaspersoft.studio.field.label" value="standard"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="closing_stock"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="import_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="import_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="import_date"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="shipped" class="java.lang.Integer">
+	<field name="is_shipped" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="is_shipped"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_shipped"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="shippments"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="header" class="java.lang.String"/>
-	<field name="mrp_value" class="java.lang.Float">
-		<fieldDescription><![CDATA[]]></fieldDescription>
+	<field name="header" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="header"/>
+		<property name="com.jaspersoft.studio.field.label" value="header"/>
 	</field>
 	<field name="shipping_marks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="shipping_marks"/>
+		<property name="com.jaspersoft.studio.field.label" value="shipping_marks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="shipping_instructions"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="note" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="note"/>
+		<property name="com.jaspersoft.studio.field.label" value="note"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="shipping_instructions"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="totaKgs" class="java.lang.String" calculation="Sum">

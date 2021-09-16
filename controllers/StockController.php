@@ -111,7 +111,7 @@
                 if($type == "stockpuu"){
                     $query.= " AND shippments.id IS NULL AND paid = 0";
                 }
-                $query.= " GROUP BY closing_stock.stock_id ORDER BY sale_no, lot  ASC";
+                $query.= " GROUP BY closing_stock.stock_id ORDER BY line_no, lot  DESC";
 
                 $this->debugSql = false;
                 $this->query = $query;

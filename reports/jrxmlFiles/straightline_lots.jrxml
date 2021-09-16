@@ -14,7 +14,7 @@
 `comment`, closing_stock.`ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
 shippments.shipped_kgs AS kgs,  country, (CASE WHEN shipping_instructions.contract_no IS NOT NULL THEN  shipping_instructions.contract_no ELSE shippments.si_no END) AS allocation,
 `type`, `net`, shippments.pkgs_shipped ,  `sale_price`, closing_stock.`standard`, `mrp_value`,
-DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, closing_stock.ware_hse AS warehouse,
+DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, closing_stock.allocated_whse AS warehouse,
 shippments.is_shipped,  shippments.pkgs_shipped AS pkgs,
 
 CONCAT('CHAMU SUPPLIES LTD - LOT DETAILS-', '  ',COALESCE(shippments.si_no, ''),
@@ -26,7 +26,7 @@ INNER JOIN closing_stock ON closing_stock.stock_id = shippments.stock_id
 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
 INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
 LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id
-WHERE si_no = 'ATC 2124']]>
+WHERE trim(si_no) = trim(' $P{sino} ')]]>
 	</queryString>
 	<field name="stock_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="stock_id"/>

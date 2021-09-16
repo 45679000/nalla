@@ -26,7 +26,9 @@ INNER JOIN closing_stock ON closing_stock.stock_id = shippments.stock_id
 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
 INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
 LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id
-WHERE trim(si_no) = trim(' $P{sino} ')]]>
+WHERE trim(si_no) = trim(' $P{sino} ')
+GROUP BY lot, closing_stock.stock_id
+]]>
 	</queryString>
 	<field name="stock_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="stock_id"/>

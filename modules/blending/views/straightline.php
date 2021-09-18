@@ -520,6 +520,15 @@ $(document).ready(function() {
         $("#blendEditForm").hide();
         $('#blendSheetWrapper').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+siNo+'" width="100%" height="800px"></iframe>');
     });
+    $("#approveShippment").click(function(e){
+        Swal.fire({
+                    icon: 'warning',
+                    title: 'Are You Sure You Want to confirm',
+                });
+                $(".swal2-confirm").click(function(e) {
+
+                });
+    })
 });
 
 function menu() {
@@ -552,6 +561,25 @@ function viewAllocations(){
             dataType: "html",
             data: {
                 action: "allocated",
+                contract_no: localStorage.getItem("contractno")
+                
+            },
+            success: function(response) {
+                $("#selected").html(response);
+                $("#alloc").DataTable({
+
+                })
+            }
+
+        });
+}
+function confirmLots(){
+    $.ajax({
+            url: "straightline_action.php",
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "confirm-lots",
                 contract_no: localStorage.getItem("contractno")
                 
             },

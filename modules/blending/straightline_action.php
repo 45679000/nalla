@@ -101,5 +101,9 @@
         $id = isset($_POST["id"]) ? $_POST["id"] : ''; 
         $strCtrl->removeLotStraight($id, $contract_no);
 	}
+    if(isset($_POST['action']) && $_POST['action'] == "confirm-lots"){
+        $contract_no = isset($_POST["contract_no"]) ? $_POST["contract_no"] : ''; 
+
+    }
     
     

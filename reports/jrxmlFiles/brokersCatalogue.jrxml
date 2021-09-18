@@ -25,7 +25,7 @@ GROUP BY grade, mark) AS b
 ON b.grade = a.grade AND b.mark = a.mark
 WHERE sale_no = '$P{sale_no}' AND broker = '$P{broker}'
 GROUP BY lot
-ORDER BY closing_cat_import_id DESC]]>
+ORDER BY closing_cat_import_id ASC]]>
 	</queryString>
 	<field name="sale_no" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -451,7 +451,36 @@ ORDER BY closing_cat_import_id DESC]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="30" width="40" height="15" uuid="3d392505-a94a-46a9-80ec-126495250162"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Page]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="234" y="30" width="26" height="15" uuid="7e0ca5e2-facf-42a7-925e-f97196efa43d"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="30" width="26" height="15" uuid="f1ed1fcf-ca38-42e5-a9ad-d2b9b4b00f0b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Of]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="286" y="30" width="64" height="15" uuid="dde0bff5-c510-44a4-8f96-e3a7f99d9f3c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

@@ -452,7 +452,36 @@ GROUP BY lot ORDER BY closing_cat_import_id ASC]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="30" width="40" height="15" uuid="bf4dace6-c1ca-45f5-b491-df5b7b96ed48"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Page]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="234" y="30" width="26" height="15" uuid="913cbc75-37dd-499f-9fd0-016943c3777a"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="30" width="26" height="15" uuid="4cecdf63-67cf-445f-845b-ec361b56d70f"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Of]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="286" y="30" width="64" height="15" uuid="8e0c40a6-2f1b-470d-a185-6747a86b71d2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

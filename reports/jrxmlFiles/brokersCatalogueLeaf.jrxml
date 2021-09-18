@@ -24,7 +24,8 @@ WHERE sale_no = CONCAT(SUBSTRING_INDEX('$P{sale_no}', '-', 1),'-', SUBSTRING_IND
 GROUP BY grade, mark) AS b
 ON b.grade = a.grade AND b.mark = a.mark
 WHERE sale_no = '$P{sale_no}' AND broker = '$P{broker}' AND a.grade IN ('BP1','PF1') AND category = 'Main'
-GROUP BY lot]]>
+GROUP BY lot
+ORDER BY `closing_cat_import_id` ASC]]>
 	</queryString>
 	<field name="sale_no" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -436,7 +437,36 @@ GROUP BY lot]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="30" width="40" height="15" uuid="7ed34720-0a48-4574-a503-ddd1e7a48c02"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Page]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="234" y="30" width="26" height="15" uuid="2711f472-b955-4413-b59d-915b1342bc39"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="30" width="26" height="15" uuid="12d157bc-7234-4a62-85fb-79963a35f9c5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Of]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="286" y="30" width="64" height="15" uuid="7111289c-930b-44a8-9e9b-4692e5367ba0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

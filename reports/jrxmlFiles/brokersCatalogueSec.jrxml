@@ -437,9 +437,38 @@ ORDER BY `closing_cat_import_id` ASC]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="234" y="30" width="26" height="15" uuid="57b4770e-a648-4960-9e7a-de075fa56213"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="286" y="30" width="64" height="15" uuid="88f57218-ed08-4ad5-9eaf-8411630616d9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="30" width="26" height="15" uuid="8a7c1adb-c2ef-479a-89aa-5ba5c79748ef"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Of]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="30" width="40" height="15" uuid="6f80700a-65a2-46e8-a165-cf0efcdc9048"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Page]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="45" splitType="Stretch"/>
 	</summary>
 </jasperReport>

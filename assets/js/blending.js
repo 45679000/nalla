@@ -52,6 +52,30 @@ function loadUnallocated(mark, lot, grade, saleno) {
         }
     });
 }
+function loadUnallocatedStraightLine(mark, lot, grade, saleno) {
+    $.ajax({
+        type: "POST",
+        data: {
+            action: "load-unallocated",
+            type: "straight",
+            mark:mark,
+            lot:lot,
+            grade:grade,
+            saleno:saleno
+        },
+        cache: true,
+        url: "straightline_action.php",
+        success: function (data) {
+            $('#blendTable').html(data);
+            $('#direct_lot').DataTable({
+                "pageLength": 50,
+                dom: 'Bfrtip'
+            });
+
+        }
+    });
+}
+
 function showClientAllocation(clientid){
     $.ajax({
         type: "POST",

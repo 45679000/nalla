@@ -57,6 +57,24 @@ Class StraightLineController extends Model{
         $this->executeQuery();
 
     }
+    public function summary($contract_no){
+        $this->debugSql = false;
+    
+        $this->query = "SELECT SUM(pkgs_shipped) AS pkgs, SUM(shipped_kgs) AS kgs, SUM(sale_price)/(SELECT COUNT(id) 
+        FROM shippments WHERE si_no = '$contract_no') AS avg_price
+        FROM `shippments` s
+        INNER JOIN closing_stock cs ON cs.stock_id = s.stock_id
+        WHERE si_no = '$contract_no'";
+        $rows= $this->executeQuery();
+
+        return $rows[0];
+    }
+    public function approveShippment($contract_no){
+        $this->debugSql = false;
+    
+        $this->query = "UPDATE shippments SET confirmed = 1 WHERE si_no = '$contract_no'";
+        $this->executeQuery();
+    }
     
 
 }

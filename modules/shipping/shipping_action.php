@@ -453,19 +453,19 @@ else if($action == 'load_blend_summary'){
     } 
 }else if ($action == "load-sis") {
     $output = "";
-    $contracts= $shippingCtrl->contractList();
+    $contracts= $shippingCtrl->getShippingInstructions();
     // var_dump($contracts);
     $output ='
-        <table id="contracts" class="table table-striped table-bordered">
+        <table id="contracts" class="table table-responsive table-sm table-striped table-bordered">
         <thead>
             <tr>
-                <th class="wd-15p">Contract No</th>
+                <th class="wd-15p">Shipping Instruction</th>
             </tr>
         </thead>
         <tbody>';
         foreach ($contracts as $contract) {
             $output.='<tr>';
-                $output.='<td><a><i class="fa fa-folder-o">'.$contract["si_no"].'</i></a></td>';            
+                $output.='<td><a><i id="'.$contract["instruction_id"].'" class="contractno fa fa-folder-o">'.$contract["contract_no"].'</i></a></td>';            
             $output.='</tr>';
         }
         $output.='</tbody>

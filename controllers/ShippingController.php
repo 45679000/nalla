@@ -9,7 +9,7 @@ Class ShippingController extends Model{
     }
 
     public function getShippingInstructions(){
-        $this->query = "SELECT *FROM shipping_instructions LIMIT 1";
+        $this->query = "SELECT *FROM shipping_instructions ";
         return $this->executeQuery();
     }
     public function getAtciveShippingInstructions($id){
@@ -246,15 +246,16 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function getContractNo($id){
-        $this->query = "SELECT contract_no FROM shipping_instructions WHERE instruction_id= '$id' LIMIT 1";
+        $this->query = "SELECT contract_no, instruction_id FROM shipping_instructions WHERE instruction_id= '$id' LIMIT 1";
         return $this->executeQuery();
     }
+
     public function blendList(){
         $this->query = "SELECT blend_no, id FROM blend_master WHERE closed = 0 AND approved = 1";
         return($this->executeQuery());
     }
     public function contractList(){
-        $this->query = "SELECT si_no FROM shippments WHERE `siType` = 'straight' GROUP BY si_no";
+        $this->query = "SELECT si_no, id FROM shippments WHERE `siType` = 'straight' GROUP BY si_no";
         return($this->executeQuery());
     }
     public function fetchSiDetails($sino){

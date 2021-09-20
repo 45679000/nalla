@@ -85,6 +85,15 @@ function viewSis(){
         },
         success: function(data) {
             $("#sis").html(data);
+            $("#contracts").DataTable({
+                "scrollY": 400,
+                "paging": false,
+                    "bInfo": false,
+                    "oLanguage": {
+                        "sSearch": ""
+                    }
+            });
+
         }
 
     });

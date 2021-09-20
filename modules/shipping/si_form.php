@@ -79,7 +79,12 @@
                 </div>
             </form>
             <div class="row">
-                <div id="sis"></div>
+                <div class="col-md-2">
+                    <div id="sis"></div>
+                </div>
+                <div class="col-md-10">
+                    <div id="display"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -117,6 +122,12 @@
             $("#si_form").hide();
             viewSis();
         });
+        $("body").on("click", ".contractno", function(e) {
+            e.preventDefault();
+            var sino = $(this).attr("id");
+            $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/shipping_instructions.php?sino='+sino+'" width="100%" height="1500px"></iframe>');
+        });
+
 
     });
     $('#buyerid').change(function() {

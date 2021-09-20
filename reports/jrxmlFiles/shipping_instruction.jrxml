@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="shipping_instruction" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e89bf137-4baf-419b-b5ec-d83a9aac67d8">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
@@ -119,27 +120,21 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="20" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="23" splitType="Stretch">
+		<band height="42" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="135" y="1" width="226" height="20" uuid="f0fa849e-97ae-4af4-8bd4-22acd7116084"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="139" y="29" width="226" height="12" uuid="f0fa849e-97ae-4af4-8bd4-22acd7116084"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="16" isBold="true"/>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Shipping Instruction]]></text>
 			</staticText>
-			<line>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="1" y="22" width="553" height="1" uuid="9c9a2128-6e76-4329-baf3-77caf177d2f3"/>
-			</line>
 		</band>
-	</pageHeader>
+	</title>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="733" splitType="Stretch">
+		<band height="757" splitType="Stretch">
 			<textField>
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="85" y="0" width="104" height="15" uuid="3dc306c4-39d4-40d5-85ea-5bb10f360ca9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -178,7 +173,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<text><![CDATA[Buyer]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="49" width="252" height="54" uuid="de2b7c42-3c16-403c-b119-e7a81e936200"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
@@ -399,7 +394,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<text><![CDATA[Additional Instructions]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="106" width="365" height="10" uuid="0ba20bec-0d0d-4deb-847e-b832736a09f6"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -407,7 +402,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{contract_no}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="116" width="365" height="14" isPrintWhenDetailOverflows="true" uuid="3fd37abe-9872-43f4-97c3-7814f0f6a6ed"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -415,7 +410,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{target_vessel}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="138" width="365" height="10" isPrintWhenDetailOverflows="true" uuid="796445c6-5498-48ed-982b-887b64c3e7c3"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -423,7 +418,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{no_containers_type}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="149" width="365" height="10" isPrintWhenDetailOverflows="true" uuid="e9bfbd9a-2643-4ae3-9f50-6dbe8b2e654b"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -431,7 +426,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pkgs_shipped}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="191" y="170" width="365" height="38" isPrintWhenDetailOverflows="true" uuid="6f91f048-f821-45b2-bf4b-b6d40cf00365"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -439,7 +434,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{packing_materials}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="208" width="365" height="39" isPrintWhenDetailOverflows="true" uuid="59b66113-08b7-44fd-9186-942b18ee6705"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -447,7 +442,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shipping_marks}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="247" width="365" height="10" isPrintWhenDetailOverflows="true" uuid="3d6e3c32-c62b-431e-a608-4cf3cf8752bf"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -455,7 +450,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tea_standard_no}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="259" width="365" height="10" isPrintWhenDetailOverflows="true" uuid="2a31e67d-c518-43a9-8ae4-c48709ac7080"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -463,7 +458,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{grade_type_of_tea}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="272" width="365" height="12" isPrintWhenDetailOverflows="true" uuid="977a1642-99e1-4b54-83d6-46241106a90c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -471,7 +466,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{consignment_value}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="286" width="365" height="11" isPrintWhenDetailOverflows="true" uuid="67adb8ba-83ea-4395-a47d-3983c943df91"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -479,7 +474,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{type_of_loading}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="301" width="365" height="14" isPrintWhenDetailOverflows="true" uuid="a426e034-2e94-4ffb-bb2c-524b880e11e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -487,7 +482,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{each_net_per_package}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="317" width="365" height="25" isPrintWhenDetailOverflows="true" uuid="b78c453a-60a2-49fb-b8ad-b60011f4661f"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -495,7 +490,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{each_gross_per_package}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="347" width="365" height="15" isPrintWhenDetailOverflows="true" uuid="11faccd7-35b0-4f45-a72e-355ca85ea6af"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -503,7 +498,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{production_date}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="365" width="365" height="13" isPrintWhenDetailOverflows="true" uuid="fa90c06e-44fb-4e9a-aed5-b68b4e18ddcb"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -511,7 +506,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{expiry_date}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="385" width="365" height="10" isPrintWhenDetailOverflows="true" uuid="37645479-2a41-47c8-a70e-0e7ab7cc25f0"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -519,7 +514,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total_net_weight_per_container}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="397" width="365" height="14" isPrintWhenDetailOverflows="true" uuid="0b6559b3-2796-4f95-97a7-9ea37492c768"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -534,7 +529,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{destination_total_place_of_delivery}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="431" width="365" height="25" isPrintWhenDetailOverflows="true" uuid="9386e6e1-7559-495f-a9dc-20862f5976e1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -542,7 +537,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shipper}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="458" width="365" height="60" isPrintWhenDetailOverflows="true" uuid="806d3e50-1eae-4fdd-ae51-264a7e5f487f"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -550,7 +545,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{notify_party}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="519" width="365" height="52" isPrintWhenDetailOverflows="true" uuid="fda948bb-2def-432c-8752-09895555e26a"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -558,7 +553,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{2nd_notify_party}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="572" width="365" height="14" isPrintWhenDetailOverflows="true" uuid="a922b925-c129-41fd-9325-7d55880c9cea"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -566,7 +561,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lc_no}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="588" width="365" height="10" isPrintWhenDetailOverflows="true" uuid="4dc0b965-1894-4c6c-ab8d-ba6941c57e9d"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -574,7 +569,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{date_of_issue}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="603" width="365" height="39" isPrintWhenDetailOverflows="true" uuid="e83d1c8a-67fa-4f48-82c6-7295dad80de5"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -582,7 +577,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{negotiating_bank}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="643" width="365" height="10" isPrintWhenDetailOverflows="true" uuid="2fca2c1b-af9a-4092-b4f5-6294860a65ba"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -590,7 +585,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{marine_insuarance}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="190" y="654" width="365" height="22" isPrintWhenDetailOverflows="true" uuid="2c0ccfc8-5647-4564-b1d6-51def0007532"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -598,7 +593,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qa_inspection}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="189" y="678" width="365" height="27" isPrintWhenDetailOverflows="true" uuid="250eacfd-961f-485f-a46c-1ba46b4df201"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
@@ -613,7 +608,9 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="-1" y="-1" width="1" height="734" isPrintWhenDetailOverflows="true" uuid="910e0459-ac84-48f3-8be9-edf81a4c916a"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="-1" y="-1" width="1" height="750" isPrintWhenDetailOverflows="true" uuid="910e0459-ac84-48f3-8be9-edf81a4c916a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 			</line>
 			<line>
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="252" y="1" width="1" height="102" uuid="d0aa6640-dcb1-485b-8af0-791c425f6332"/>
@@ -637,7 +634,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="732" width="553" height="1" uuid="689e6d34-07a8-4236-8b32-4fbbfc8aa6b0"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="756" width="553" height="1" uuid="689e6d34-07a8-4236-8b32-4fbbfc8aa6b0"/>
 			</line>
 			<staticText>
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="2" width="66" height="15" uuid="08e3e639-f56e-4655-bd3a-965edf6df2b0"/>
@@ -647,7 +644,7 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				</textElement>
 				<text><![CDATA[SI No.]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="252" y="49" width="301" height="55" uuid="d779c2b0-154a-43f0-a074-451c5aa1e1e9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="false"/>
@@ -672,19 +669,15 @@ FROM `shipping_instructions`  WHERE instruction_id = $P{sino};]]>
 				<text><![CDATA[Target Vessel]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="553" y="2" width="1" height="730" isPrintWhenDetailOverflows="true" uuid="eddbb124-a5bd-45e5-a980-95cad37e1801"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="553" y="2" width="1" height="750" isPrintWhenDetailOverflows="true" uuid="eddbb124-a5bd-45e5-a980-95cad37e1801">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="3" y="729" width="553" height="1" uuid="3368d24e-46fd-4a12-8265-a3ae30e64d05"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="1" y="0" width="553" height="1" uuid="9c9a2128-6e76-4329-baf3-77caf177d2f3"/>
 			</line>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="24" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
 		<band splitType="Stretch"/>
 	</pageFooter>

@@ -13,6 +13,22 @@ function siTemplate() {
     });
 
 }
+
+function loadContracts(){
+    $.ajax({
+        url: "shipping_action.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "si-template"
+        },
+        success: function(response) {
+            $("#contract").html(response);
+        }
+
+    });
+    
+}
 function editData(){
     $('#si-templates').change(function(){
         var id = $('#si-templates').val();
@@ -34,7 +50,46 @@ function editData(){
     
         });
     });
+
+
 }
+function contractChange(){
+    $('#contract').change(function(){
+        var id = $('#contract').val();
+        $.ajax({
+            url: "shipping_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "edit-si",
+                id: id
+            },
+            success: function(data) {
+                for (const [key, value] of Object.entries(data[0])) {
+                    $('#'+key).val(value);
+                }
+
+               
+            }
+    
+        });
+    });
+}
+function viewSis(){
+    $.ajax({
+        url: "shipping_action.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "load-sis",
+        },
+        success: function(data) {
+            $("#sis").html(data);
+        }
+
+    });
+}
+
 function addSi(){
     $('#si_form').submit(function(e){
         e.preventDefault();
@@ -58,8 +113,9 @@ function addSi(){
                     dataType: "html", 
                     success: function(data){
                         swal('Success');
-                        $('#nextid').show();
-                        $("#next").attr("href", "index.php?view=shipment-teas&sino="+sino+"&type="+siType);
+                        window.location.href="index.php?view=shipment-teas&sino="+sino+"&type="+siType;
+                        // $('#nextid').show();
+                        // $("#next").attr("href", "index.php?view=shipment-teas&sino="+sino+"&type="+siType);
                     }  
                 });   
 

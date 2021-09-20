@@ -13,6 +13,7 @@ $action = isset($_POST['action']) ? $_POST['action'] : '';
 $shippingCtrl = new ShippingController($conn);
 if($action=='add-si'){
     unset($_POST['action']);
+    unset($_POST['buyerid']);
     $resp = $shippingCtrl->saveSI($_POST, 1);
     $_SESSION['si_type'] = $_POST['shippment_type'];
     $_SESSION['current_si_id'] = $resp;
@@ -121,7 +122,7 @@ if($action=='add-si'){
     if (sizeOf($siTemp) > 0) {
 
          foreach($siTemp as $sitemp){
-            $output .= '<option value="'.$sitemp['instruction_id'].'">'.$sitemp['contract_no'].'||'.$sitemp['si_date'].'</option>';
+            $output .= '<option value="'.$sitemp['instruction_id'].'">'.$sitemp['contract_no'].'</option>';
          }
           echo $output;	
     }else{
@@ -399,12 +400,15 @@ else if($action == 'load_blend_summary'){
 }else if($action=="attach-blend-si"){
     $sino = isset($_POST['sino']) ? $_POST['sino'] : '';
     $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
-    var_dump($shippingCtrl->attachSi($sino, $blendno));
+    $shippingCtrl->attachSi($sino, $blendno);
+    echo json_encode(array("message"=>"success"));
+
     
 }else if($action == "attach-straight-si"){
     $sino = isset($_POST['sino']) ? $_POST['sino'] : '';
     $contractNo = isset($_POST['contractNo']) ? $_POST['contractNo'] : '';
-    var_dump($shippingCtrl->attachSiStraight($sino, $contractNo));
+    $shippingCtrl->attachSiStraight($sino, $contractNo);
+    echo json_encode(array("message"=>"success"));
 
 }else if($action =="blendlist"){
     $output = "";
@@ -447,6 +451,27 @@ else if($action == 'load_blend_summary'){
     }else{
         echo '<option disabled="" value="..." selected="">select</option>';
     } 
+}else if ($action == "load-sis") {
+    $output = "";
+    $contracts= $shippingCtrl->contractList();
+    // var_dump($contracts);
+    $output ='
+        <table id="contracts" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="wd-15p">Contract No</th>
+            </tr>
+        </thead>
+        <tbody>';
+        foreach ($contracts as $contract) {
+            $output.='<tr>';
+                $output.='<td><a><i class="fa fa-folder-o">'.$contract["si_no"].'</i></a></td>';            
+            $output.='</tr>';
+        }
+        $output.='</tbody>
+    </table>';
+    echo $output;
+    
 }
 
 else{

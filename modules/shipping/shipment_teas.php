@@ -4,14 +4,14 @@
         <div class="col-md-6 well">
             <div class="form-group label-floating">
                 <label class="control-label">Blends</label>
-                <select id="blendlist" name="blend" class="form-control select2-show-search"><small>(required)</small>
+                <select id="blendlist" name="blend" class="form-control select2"><small>(required)</small>
                     <option disabled="" value="..." selected="">select</option>
                 </select>
             </div>
         </div>
         <div id="attachButton" class="col-md-6 well">
             <div class="form-group label-floating">
-                <button id="attachblendsheet" class="btn btn-success btn-xs"><i class="fa fa-plus">Attach Blend Sheet</i></button>
+                <button id="attachblendsheet" class="btn btn-success btn-sm">Attach Blend Sheet<i class="fa fa-paperclip text-danger"></i></button>
             </div>
         </div>
     </div>
@@ -19,24 +19,33 @@
     </div>
 </div>
 <?php }else{ ?>
-<div id="straightLine">
-    <div class="row justify-content-center">
-        <div class="col-md-6 well">
-            <div class="form-group label-floating">
-                <label class="control-label">Lot Detail(Contract No)</label>
-                <select id="contactno" name="blend" class="form-control select2-show-search"><small>(required)</small>
-                    <option disabled="" value="..." selected="">select</option>
-                </select>
-            </div>
-        </div>
-        <div id="attachButton" class="col-md-6 well">
-            <div class="form-group label-floating">
-                <button id="attachSiStraight" class="btn btn-success btn-xs"><i class="fa fa-plus">Attach Lot Details</i></button>
-            </div>
-        </div>
+<div id="straightLine" class="card">
+    <div class="card-header">
+       <span>Attach Lot/Blend Sheet</span>
     </div>
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-6 well">
+                <div class="form-group label-floating">
+                    <label class="control-label">Lot Detail(Contract No)</label>
+                    <select id="contactno" name="blend" class="form-control select2"><small>(required)</small>
+                        <option disabled="" value="..." selected="">select</option>
+                    </select>
+                </div>
+            </div>
+            <div id="attachButton" class="col-md-6 well ">
+                <div class="form-group label-floating">
+                    <button id="attachSiStraight" class="btn btn-success btn-sm"><i class="fa fa-paperclip">Attach Lot Details</i></button>
+                </div>
+            </div>
+        </div>
     <div id="document">
     </div>
+    </div>
+    <div class="card-footer">
+
+    </div>
+ 
 </div>
 <?php } ?>
 
@@ -62,7 +71,11 @@
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../../assets/js/sweet_alert2.js"></script>
+
 <script>
+ 
     $(document).ready(function() {
 
         $('#attachButton').hide();
@@ -92,13 +105,24 @@
                     action: "attach-blend-si"
                 },
                 cache: false,
+                dataType: "json",
                 url: "shipping_action.php",
                 success: function(data) {
-                    swal('Success', data.message, 'success');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Attached',
+                    });
                     $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
 
                 }
             });
+        });
+        $('#contactno').change(function(){
+            var contractno = $('#contactno').val().trim();
+            localStorage.setItem("contractno", contractno);
+            $('#attachButton').show();
+            $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="600px"></iframe>');
+
         });
 
     });
@@ -125,19 +149,14 @@
         $('#attachButton').show();
         $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
     })
-    $('#contactno').change(function(){
-        var contractno = $('#contactno').val().trim();
-        localStorage.setItem("contractno", contractno);
-        $('#attachButton').show();
-        $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
-
-    });
+  
 
     $('#attachSiStraight').click(function(){
             var contractNo = localStorage.getItem("contractno");
             var sino = '<?php echo $_GET['sino']; ?>'
             $.ajax({
                 type: "POST",
+                dataType: "json",
                 data: {
                     sino: sino,
                     contractNo: contractNo,
@@ -146,8 +165,11 @@
                 cache: false,
                 url: "shipping_action.php",
                 success: function(data) {
-                    swal('Success', data.message, 'SI Attached');
-                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Attached',
+                    });
+                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractNo+'" width="100%" height="600px"></iframe>');
 
                 }
             });

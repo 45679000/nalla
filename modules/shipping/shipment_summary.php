@@ -109,7 +109,10 @@ if($sino != ''){
     });
         
     $('#previous').click(function(){
-    window.location.href = './index.php?view=documents';
+        var sino = '<?php echo $_GET['sino']; ?>'
+        var siType = '<?php echo $_GET['type']; ?>'
+
+        window.location.href="index.php?view=documents&sino="+sino+"&type="+siType;
     });
 
 </script>

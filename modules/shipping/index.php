@@ -53,9 +53,7 @@ a:hover {
 <div class="container-fluid content">
 
     <div class="card" style="margin-top:20px;">
-        <div class="card-header">
-            <h3 class="card-title">Shipping Process</h3>
-        </div>
+     
         <div class="card-body p-6">
             <?php
             $view = isset($_GET['view']) ? $_GET['view'] :'';
@@ -92,9 +90,13 @@ a:hover {
 
 <script src="<?php echo $path_to_root ?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/select2/select2.full.min.js"></script>
 
 <!---Tabs scripts-->
+
 <script>
+    $('.select2').select2();
+
     $(function(e) {
         $(".first_tab").champ();
         $(".accordion_example").champ({

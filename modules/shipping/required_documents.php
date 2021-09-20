@@ -63,7 +63,7 @@ if($type == 'Blend Shippment'){
     </div>
 </div>
 <div class="text-center">
-<a href="#" class="previous">&laquo; Previous</a>
+<a id="previous" href="#" class="previous">&laquo; Previous</a>
 <a id="next" href="#" class="next">Next &raquo;</a>
 </div>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
@@ -114,6 +114,17 @@ if($type == 'Blend Shippment'){
     
     $('#next').click(function(){
         var sino = '<?php echo $_GET['sino']; ?>'
-        window.location.href = './index.php?view=summary&sino='+sino;
+        var siType = '<?php echo $_GET['type']; ?>'
+
+        window.location.href = './index.php?view=summary&sino='+sino+"&type="+siType;
     });
+
+    $('#previous').click(function(){
+        var sino = '<?php echo $_GET['sino']; ?>'
+        var siType = '<?php echo $_GET['type']; ?>'
+
+        window.location.href="index.php?view=shipment-teas&sino="+sino+"&type="+siType;
+    });
+
+    
 </script>

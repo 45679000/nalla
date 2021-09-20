@@ -223,23 +223,21 @@ Class ShippingController extends Model{
         return $this->executeQuery();
     }
     public function attachSi($sino, $blendno){
-        $this->debugSql = true;
+        $this->debugSql = false;
         $this->query = "UPDATE blend_master SET si_no = '$sino' WHERE blend_no = '$blendno'";
         $this->executeQuery();
         $this->query = "UPDATE shippments
         SET instruction_id = '$sino' 
         WHERE shippments.blend_no = '$blendno'";
          $this->executeQuery();
-         echo $this->query;
       
     }
     public function attachSiStraight($sino, $contractNo){
-        $this->debugSql = true;
+        $this->debugSql = false;
         $this->query = "UPDATE shippments
         SET instruction_id = '$sino' 
         WHERE shippments.si_no = '$contractNo'";
          $this->executeQuery();
-         echo $this->query;
       
     }
 

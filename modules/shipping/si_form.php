@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </form>
-            <div class="row">
+            <div id="si_view" class="row">
                 <div class="col-md-2">
                     <div id="sis"></div>
                 </div>
@@ -108,18 +108,26 @@
         $("#template-form").hide();
         localStorage.getItem("siId");
         $("#createSi").click(function(){
+            $("#si_view").hide();
+            $("#si_form").show();
             $("#template-form").show();
         });
         $("#editSi").click(function(){
+            $("#si_view").hide();
+            $("#si_form").show();
+
             var selectCont ='<select id="contract" class="template select2" name="contract_no">';
             selectCont += '<option disabled="" value="..." selected="">select</option>';
             selectCont += '</select>';
             $("#contractDiv").html(selectCont);
             loadContracts();
             contractChange();
+
         });
         $("#viewSi").click(function(){
             $("#si_form").hide();
+            $("#si_view").show();
+
             viewSis();
         });
         $("body").on("click", ".contractno", function(e) {

@@ -305,7 +305,10 @@ Class BlendingController extends Model{
         $this->debugSql = false;            
         $this->executeQuery();
     }
-    
+        public function updateMrp($stock_id, $value){
+        $this->query = "UPDATE shippments SET  mrp_value = '$value' WHERE stock_id = $stock_id";     
+        $this->executeQuery();
+    }
 }        
 
 

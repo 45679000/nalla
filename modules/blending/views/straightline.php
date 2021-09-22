@@ -622,4 +622,23 @@
 
         });
     }
+	function update_mrp(element){
+		var id = $(element).attr("id");
+		var mrpvalue =  $(element).text();
+		$.ajax({
+            url: "straightline_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "post-mrp",
+				stock_id: id,
+				value: mrpvalue
+
+            },
+            success: function(response) {
+            }
+
+        });
+		
+	}
 </script>

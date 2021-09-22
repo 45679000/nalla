@@ -75,6 +75,12 @@ Class StraightLineController extends Model{
         $this->query = "UPDATE shippments SET confirmed = 1 WHERE si_no = '$contract_no'";
         $this->executeQuery();
     }
+	 public function updateMrp( $value, $stock_id){
+        $this->query = "UPDATE shippments SET  mrp_value = '$value' WHERE stock_id = $stock_id";  
+		 $this->debugSql = true;
+
+        $this->executeQuery();
+    }
     
 
 }

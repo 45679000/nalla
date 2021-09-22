@@ -272,9 +272,15 @@ else if($action=="attach-blend-si"){
     $contractNo = isset($_POST['contractno']) ? $_POST['contractno'] : '';
     $blendno = $shippingCtrl->getBlendno($contractNo);
     echo json_encode(array("blend_no"=>$blendno));
-}
+}else if($action=="edit-si"){
+    if(isset($_POST['id'])){
+        $siRecord = $shippingCtrl->loadSItemplates($_POST['id']);
+        echo json_encode($siRecord);
+    }else{
+        echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
 
-else{
+    }       
+}else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }
 

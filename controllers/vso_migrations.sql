@@ -78,4 +78,28 @@ VALUES
 (784,'0706315611',MD5('ISIOLOEF'),'1','ISIOLOEF',784,'JOSPHINE NAJUMA');
 (785,'0745239784',MD5('ISIOLOEF'),'1','ISIOLOEF',763,'CELINA AKAI'),
 
+
+
 UPDATE  `user` SET access_token = md5(CONCAT(Username,Password)) WHERE UserId > 763
+
+
+
+INSERT INTO `vs_centers` (`CenterId`, `CenterName`, `CohortID`, `Efid`,   `isDeleted`, `SubCountyId`, `created_at`, `Status`) 
+VALUES 
+(268,'BADANA 1',3,786,0,4,CURRENT_TIMESTAMP, 1),
+(267,'SALETI 2',3,787,0,4,CURRENT_TIMESTAMP, 1);
+
+
+INSERT INTO `vs_staff` (`id`, `name`, `position`, `county_id`, `center_id`, `phone_number`,  `active`) 
+VALUES 
+(786,'CELINA AKAI',2,4,266,'0712118648',1),
+(787,'ROSEMINA EYANAE',2,4,267,'0713968833',1);
+
+
+	
+
+INSERT INTO `user`(`UserId`, `Username`, `Password`, `UserType`, `first_password`, `StaffId`, `fullname`, `access_token`) 
+VALUES 
+(786,'0712118648',MD5('ISIOLOEF'),'2','ISIOLOEF',764,'ROSEMINA EYANAE', MD5(CONCAT('0712118648', MD5('ISIOLOEF'))),
+(787,'0713968833',MD5('ISIOLOEF'),'2','ISIOLOEF',765,'JANET EKURA', MD5(CONCAT('0713968833', MD5('ISIOLOEF'));
+

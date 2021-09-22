@@ -78,8 +78,10 @@ function loadPackingMaterials(){
         url: "warehousing_action.php",
         success: function (data) {
          $('#packingMaterial').html(data);
+         $("#packing-materials").DataTable({});
 
         }
+
     });
 }
 

@@ -276,6 +276,19 @@ Class ShippingController extends Model{
         $this->query = "UPDATE stock_allocation SET mrp_value = '$mrp' WHERE allocation_id = $id";
         $this->executeQuery();
     }
+    public function getBlendno($contactNo){
+        $this->debugSql = false;
+
+        $this->query = "SELECT blend_teas.blend_no  
+        FROM blend_teas 
+        INNER JOIN blend_master ON blend_teas.blend_no = blend_master.id
+        WHERE blend_master.contractno = '$contactNo' 
+        GROUP BY blend_teas.blend_no";
+
+        $rows = $this->executeQuery();
+
+        return $rows[0]["blend_no"];
+    }
 }        
 
 

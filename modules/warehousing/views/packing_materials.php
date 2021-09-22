@@ -1,11 +1,10 @@
-<div class="row">
-        <button type="button" class="btn btn-success m-1 float-right" data-toggle="modal" data-target="#addModal">
-            <i class="fa fa-plus"></i> Add Packing Materials</button>
-</div><br>
-
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">
+                <i class="fa fa-plus"></i> Add Packing Materials</button>
+        </div>
+        <div class="card-body">
             <div class="table-responsive" id="packingMaterial">
                 <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
             </div>
@@ -46,7 +45,7 @@
                         <textarea type="text" class="form-control" name="description" placeholder="Enter details" required="">
                         </textarea>
                     </div>
-                    
+
                     <hr>
                     <div class="form-group float-right">
                         <button type="submit" class="btn btn-success" id="submit">Submit</button>
@@ -108,11 +107,12 @@
 <script type="text/javascript">
     $(document).ready(function() {
         loadPackingMaterials();
+        $("body").on("click", ".adjust", function(e) {
+            e.preventDefault();
+            $("#addModal").modal('show');
 
-        $("#update").click(function(e) {
-            if ($("#EditformData")[0].checkValidity()) {
-                e.preventDefault();
-                $.ajax({
+            var id = $(this).attr("id");
+                    $.ajax({
                     url: "action.php",
                     type: "POST",
                     data: $("#EditformData").serialize() + "&action=update",
@@ -121,12 +121,30 @@
                             icon: 'success',
                             title: 'Customer Updated successfully',
                         });
-                        $("#addModal").modal('hide');
+                        $("#addModal").modal('show');
                         $("#EditformData")[0].reset();
                     }
                 });
-            }
         });
+
+        // $("#adjust").click(function(e) {
+        //     if ($("#EditformData")[0].checkValidity()) {
+        //         e.preventDefault();
+        //         $.ajax({
+        //             url: "action.php",
+        //             type: "POST",
+        //             data: $("#EditformData").serialize() + "&action=update",
+        //             success: function(response) {
+        //                 Swal.fire({
+        //                     icon: 'success',
+        //                     title: 'Customer Updated successfully',
+        //                 });
+        //                 $("#addModal").modal('hide');
+        //                 $("#EditformData")[0].reset();
+        //             }
+        //         });
+        //     }
+        // });
 
 
         //insert ajax request data
@@ -144,7 +162,7 @@
                         });
                         // $("#addModal").modal('hide');
                         $("#formData")[0].reset();
-                        loadPackingMaterials()                    
+                        loadPackingMaterials()
                     }
                 });
             }

@@ -84,6 +84,8 @@
                 </div>
                 <div class="col-md-10">
                     <div id="display"></div>
+                    <div id="displaySheet"></div>
+
                 </div>
             </div>
         </div>
@@ -133,7 +135,34 @@
         $("body").on("click", ".contractno", function(e) {
             e.preventDefault();
             var sino = $(this).attr("id");
-            $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/shipping_instructions.php?sino='+sino+'" width="100%" height="1500px"></iframe>');
+            var contractno = $(this).text();
+            var type = $(this).parent().parent().attr("id");
+              if(type=="Blend Shippment"){
+                $.ajax({
+                type: "POST",
+                data: {action:"get-blend-no", contractno:contractno},
+                dataType: "json", 
+                url: "shipping_action.php",
+                success: function (data) {
+                    $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/shipping_instructions.php?sino='+sino+'" width="100%" height="1500px"></iframe>');
+                    $('#displaySheet').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+data.blend_no+'" width="100%" height="800px"></iframe>');
+
+                },
+                error: function (data) {
+                    console.log(data);
+                    $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/shipping_instructions.php?sino='+sino+'" width="100%" height="1500px"></iframe>');
+
+                    $('#displaySheet').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+data.blend_no+'" width="100%" height="800px"></iframe>');
+
+                },
+                });
+
+            }else{
+                $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/shipping_instructions.php?sino='+sino+'" width="100%" height="1500px"></iframe>');
+                $('#displaySheet').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
+         
+            }
+
         });
 
 

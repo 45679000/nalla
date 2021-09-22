@@ -34,16 +34,16 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                             <div class="list-group  mb-0 mail-inbox">
                        
                                 <a href="./index.php?view=packing-materials" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Add Packing materials
+                                    <span class="icon mr-3"><i class="fe fe-grid text-blue"></i></span>Add Packing materials
                                 </a>
                                 <a href="./index.php?view=shipments" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Shipments
+                                    <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Shipments
                                 </a>
                                 <a href="./index.php?view=closeblends" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-shuffle"></i></span>Close Blends
+                                    <span class="icon mr-3"><i class="fe fe-shuffle text-success"></i></span>Close Blends
                                 </a>
                                 <a href="./index.php?view=grades" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-sidebar"></i></span>Stock
+                                    <span class="icon mr-3"><i class="fe fe-sidebar text-warning"></i></span>Stock
                                 </a>
                             </div>
                         </div>

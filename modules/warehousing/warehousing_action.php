@@ -133,14 +133,17 @@
 		$packingMaterials = $warehouses->getPackingMaterials();
 		$output ="";
 		if(count($packingMaterials)>0){
-			$output.='<table class="table table-striped table-hover">
-					<thead>
+	
+			
+				$output.='<table style="width:100%;" id="packing-materials" class="table table-striped  table-sm table-hover">
+				<thead>
 						<tr>
 							<th>ID</th>
 							<th>Category</th>
 							<th>Totals</th>
                             <th>Details</th>
 							<th>Actions</th>
+
 						</tr>
 					</thead>
 					<tbody>';
@@ -153,8 +156,7 @@
 								$output.='<td>'.$packingMaterial['description'].'</td>';
 
 								$output.='<td>
-									<a  class="edit" data-toggle="modal"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i></a>
-									<a  class="deleteBtn"><i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
+									<a class="adjust" data-toggle="modal"><i class="fa fa-exchange" data-toggle="tooltip" title="Adjust">Adjust Levels</i></a>
 								</td>
 							</tr>';
 					}

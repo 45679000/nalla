@@ -124,6 +124,12 @@
             $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="600px"></iframe>');
 
         });
+        $('#blendlist').change(function() {
+        var blendno = $('#blendlist').val();
+        localStorage.setItem("blendno", blendno);
+        $('#attachButton').show();
+        $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+    });
 
     });
     loadSelectionBlendList();
@@ -143,12 +149,7 @@
     $("table").DataTable({
         order: [0, 'ASC']
     });
-    $('#blendlist').change(function() {
-        var blendno = $('#blendlist').val();
-        localStorage.setItem("blendno", blendno);
-        $('#attachButton').show();
-        $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
-    })
+   
   
 
     $('#attachSiStraight').click(function(){

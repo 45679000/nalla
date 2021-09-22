@@ -150,6 +150,7 @@
                     <th>Pkgs</th>
                     <th>Net</th>
                     <th>Kgs</th>
+                    <th>Mrp Value</th>
                     <th>Actions</th>
       
                 </tr>
@@ -170,6 +171,7 @@
                     $output.='<td>'.$stock["pkgs"].'</td>';
                     $output.='<td>'.$stock["net"].'</td>';
                     $output.='<td>'.$stock["kgs"].'</td>';
+                    $output.='<td onBlur="update_mrp(this)" id="'.$stock["stock_id"].'" contenteditable="true">'.$stock["mrp_value"].'</td>';
                     if($stock["allocated_contract"] != null){
                       $output.='<td><a style="font-size:8px;">'.$stock["allocated_contract"].'<a/>';
                       if($stock["confirmed"] == 0){
@@ -211,6 +213,14 @@
         $contract_no = isset($_POST["contract_no"]) ? $_POST["contract_no"] : ''; 
         $totals = $strCtrl->approveShippment($contract_no);
     }
+    if(isset($_POST['action']) && $_POST['action'] == 'post-mrp'){
+        $mrpvalue = isset($_POST["value"]) ? $_POST["value"] : ''; 
+		$stockid = isset($_POST["stock_id"]) ? $_POST["stock_id"] : ''; 
+
+        $strCtrl->updateMrp($mrpvalue, $stockid);
+    }
+
+
 
     
 

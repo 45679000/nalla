@@ -34,7 +34,7 @@
 		$output = "";
 		if(count($shippments)>0){
 			$output .= '
-			<table id="dashboard" class="table">
+			<table id="dashboard" class="table table-sm table-hover table-responsive">
 			<thead>
 				<tr>
 					<th>SI</th>
@@ -42,8 +42,6 @@
 					<th>Consignee</th>
 					<th>Destination</th>
 					<th>Target Vessel</th>
-					<th>Status</th>
-					<th>Progress</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -57,17 +55,23 @@
 					$output .= '<td>'.$shippment['consignee'].'</td>';
 					$output .= '<td>'.$shippment['destination_total_place_of_delivery'].'</td>';
 					$output .= '<td>'.$shippment['target_vessel'].'</td>';
-					$output .= '<td>'.$shippment['status'].'</td>';
-					$output .= '<td>
-									<div class="progress" style="height: 15px;">
-										<div class="progress-bar bg-info" role="progressbar" style="width:95%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</td>';
-					$output .='<td>
-						<button id="'.$sino.'"data-toggle="modal" onclick=updateStatus(this) data-target="#updateStatus"><i class="fa fa-cogs btn-sm">Update Status</button>
-						</td>
-					</tr>		
-				';
+					if($shippment['status']!=="Shipped"){
+						$output .='
+						<td>
+							<a id="'.$sino.'" data-toggle="modal" onclick=updateStatus(this) data-target="#updateStatus">
+								<i class="fa fa-cogs btn-sm">Update Status</i>
+							</a>
+						</td>';
+					}else{
+						$output .='
+						<td>
+							<a id="'.$sino.'" data-toggle="modal">
+								<i class="fa fa-check btn-sm">Shipped</i>
+							</a>
+						</td>';
+					}
+					
+					$output .='</tr>';
 			}
 			$output .= '</tbody>
 					</table>';
@@ -79,8 +83,8 @@
 
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "update-status"){
-		$newStatus = $_POST['statusChange'];
-		$sino = $_POST['sino'];
+		$newStatus = $_POST['value'];
+		$sino = $_POST['id'];
 		$warehouses->shipmentUpdateStatus($newStatus, $sino);
 
 	}
@@ -476,7 +480,7 @@
 		$warehouses->addPackagingMaterials($_POST);
 	}
 
-
+	
 
 ?>
 

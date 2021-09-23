@@ -224,3 +224,8 @@ CREATE TABLE straightlineteas(
     details             text
     
 );
+
+UPDATE buying_list 
+INNER JOIN closing_cat ON closing_cat.sale_no = buying_list.sale_no AND buying_list.lot = closing_cat.lot
+SET buying_list.standard = closing_cat.standard
+WHERE sale_no = '2021-38'

@@ -458,6 +458,11 @@
         $("#close").click(function(e) {
             $("#createForm").toggle();
         });
+        $("body").on("click", ".splitLot", function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            splitLot(id);
+        });
 
         $("body").on("click", ".contractBtn", function(e) {
             e.preventDefault();
@@ -641,4 +646,63 @@
         });
 		
 	}
+    function splitLot(id) {
+    $('#splitModal').show();
+    $('#newpkgs').val(0);
+    $('#newkgs').val(0);
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "../stock/stock-action.php",
+        data: {
+            action: "getlot",
+            id: id
+        },
+        success: function(data) {
+            var lots = data[0];
+            $('#pkgs').val(lots.pkgs);
+            $('#kgs').val(lots.kgs);
+            $('#elot').val(lots.lot);
+            $('#net').val(lots.net);
+            $('#emark').val(lots.mark);
+            $('#invoice').val(lots.invoice);
+            $('#newnet').val(lots.net);
+            $('#stock_id').val(lots.stock_id);
+            $("#newpkgs").attr({"max" : lots.pkgs});
+            localStorage.setItem("lotPkgs", lots.pkgs);
+
+        },
+        error: function(data) {
+            console.log('An error occurred.');
+            console.log(data);
+        },
+    });
+}
+
+function insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs) {
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: '../stock/stock-action.php',
+        data: {
+            action: 'split',
+            stockId: stockId,
+            Pkgs: Pkgs,
+            Kgs: Kgs,
+            NewKgs: NewKgs,
+            NewPkgs: NewPkgs
+        },
+        success: function(data) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Lot Splitted Successfully',
+            });
+            $('#splitModal').trigger("reset");
+            $("#splitModal").hide();
+            loadUnallocated("", "", "", "");
+
+        }
+    });
+}
 </script>

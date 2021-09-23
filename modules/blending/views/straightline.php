@@ -425,6 +425,38 @@
             e.preventDefault();
             $("#createForm").toggle();
         });
+        $('#newpkgs').change(function(e) {
+        var lotPkgs = localStorage.getItem("lotPkgs");
+        var newPkgs = $('#newpkgs').val();
+        var previousPkgs = lotPkgs;
+        var previousKgs = $('#kgs').val();
+        var net = $('#net').val();
+        if(previousPkgs>=0){
+            $('#pkgs').val(previousPkgs - newPkgs);
+            $('#kgs').val((previousPkgs - newPkgs) * net);
+            $('#newkgs').val(previousKgs - ((previousPkgs - newPkgs) * net));
+        }else{
+            alert("Lot cannot be splitted to zero");
+        }     
+    });
+    $('#closeModal').click(function(e) {
+        $('#splitModal').hide();
+    });
+    $('#saveSplit').click(function(e) {
+        e.preventDefault();
+        var stockId = $('#stock_id').val();
+        var Pkgs = $('#pkgs').val();
+        var Kgs = $('#kgs').val();
+        var NewKgs = $('#newkgs').val();
+        var NewPkgs = $('#newpkgs').val();
+        if ((stockId != null) && (Pkgs != null) && (Kgs != null) && (NewKgs != null) && (NewPkgs !=
+                null)) {
+            insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs);
+        } else {
+            alert("You Must Enter packages to split");
+        }
+    });
+        
 
         $("#submit").click(function(e) {
             e.preventDefault();

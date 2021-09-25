@@ -139,7 +139,7 @@
 		if(count($packingMaterials)>0){
 	
 			
-				$output.='<table style="width:100%;" id="packing-materials" class="table table-striped  table-sm table-hover">
+				$output.='<table style="width:100%;" id="packing-materials" class="table table-striped  table-bordered table-sm table-hover">
 				<thead>
 						<tr>
 							<th>ID</th>
@@ -184,7 +184,7 @@
 		$output = "";
 		if(count($shippments)>0){
 			$output .= '
-			<table id="dashboard" class="table">
+			<table id="shippment" class="table table-sm table-responsive table-bordered table-hover table-striped">
 			<thead>
 				<tr>
 					<th>SI</th>
@@ -192,13 +192,13 @@
 					<th>Consignee</th>
 					<th>Destination</th>
 					<th>Target Vessel</th>
-					<th>Status</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>';
 			foreach($shippments as $shippment){
 				$sino = $shippment['instruction_id'];
+				$contractno = $shippment['contract_no'];
 				$output .= '<tr>';
 
 					$output .= '<td>'.$shippment['contract_no'].'</td>';
@@ -206,13 +206,22 @@
 					$output .= '<td>'.$shippment['consignee'].'</td>';
 					$output .= '<td>'.$shippment['destination_total_place_of_delivery'].'</td>';
 					$output .= '<td>'.$shippment['target_vessel'].'</td>';
-					$output .= '<td>'.$shippment['status'].'</td>';
-					$output .='<td>
-						<a href="./index.php?view=shipments&action=allocatematerials&id='.$sino.'">
-						Allocate Materials</a>
-						</td>
-					</tr>		
-				';
+					
+					if($shippment['status']!=="Shipped"){
+						$output .='
+						<td id="'.$contractno.'">
+							<a class="allocatem" id="'.$sino.'">
+							<i class="fa fa-plus"></i>
+							Allocate Materials</a>
+						</td>';
+					}else{
+						$output .='
+						<td>
+							<a id="'.$sino.'" data-toggle="modal">
+								<i class="fa fa-check btn-sm">Shipped</i>
+							</a>
+						</td>';
+					}
 			}
 			$output .= '</tbody>
 					</table>';
@@ -228,13 +237,11 @@
 		$allocatedMaterials = $warehouses->materialAllocation($_POST['sino']);
 		$output ="";
 		if(count($allocatedMaterials)>0){
-			$output.='<table class="table table-striped table-hover">
+			$output.='<table id="alloct" class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Category</th>
+							<th>Material</th>
 							<th>Allocated</th>
-                            <th>Details</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -242,14 +249,10 @@
 					foreach($allocatedMaterials as $allocated){
 						$output.= '
 							<tr>';
-								$output.='<td>'.$allocated['id'].'</td>';
 								$output.='<td>'.$allocated['category'].'</td>';
 								$output.='<td>'.$allocated['allocated_total'].'</td>';
-								$output.='<td>'.$allocated['details'].'</td>';
-
 								$output.='<td>
-									<a  class="edit" data-toggle="modal"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i></a>
-									<a  class="deleteBtn"><i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
+									<a id="'.$allocated['id'].'" class="deleteBtn"><i class="fa fa-trash btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"></i></a>
 								</td>
 							</tr>';
 					}
@@ -266,7 +269,7 @@
 		$packingMaterials = $warehouses->getPackingMaterials();
 		$output ="";
 		if(count($packingMaterials)>0){
-			$output.='<table class="table table-striped table-hover">
+			$output.='<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -289,9 +292,9 @@
 								$output.='<td>'.$packingMaterial['in_stock'].'</td>';
 								$output.='<td id="'.$selectedtotal.'" contentEditable="true"></td>';
 								$output.='<td>
-									<button  id="'.$id.'" onclick=allocateMaterial(this) class="allocate">
-										<i class="fa fa-exchange" data-toggle="tooltip" title="Edit">
-									</i></button>
+									<a  id="'.$id.'"  class="allocate">
+										<i class="fa fa-plus" data-toggle="tooltip" title="Edit">Add
+									</i></a>
 								</td>
 							</tr>';
 					}
@@ -304,9 +307,9 @@
 
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "allocate-material"){
-		$materialid = $_POST['materialid'];
-		$sino = $_POST['sino'];
-		$totalAllocation = $_POST['totalAllocation'];
+		$materialid = $_POST['material'];
+		$sino = $_POST['pk'];
+		$totalAllocation = $_POST['value'];
 
 		$warehouses->upadateAllocation($materialid, $sino,  $totalAllocation);
 	}
@@ -479,8 +482,35 @@
 		unset($_POST['action']);
 		$warehouses->addPackagingMaterials($_POST);
 	}
-
+	if(isset($_POST['action']) && $_POST['action'] == "allocated-materials"){
+		$allocatedMaterials = $warehouses->materialAllocation("");
+		$output ="";
+		if(count($allocatedMaterials)>0){
+			$output.='<table id="alloctions" class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>SI</th>
+							<th>Material</th>
+							<th>Allocated</th>
+						</tr>
+					</thead>
+					<tbody>';
+					foreach($allocatedMaterials as $allocated){
+						$output.= '
+							<tr>';
+								$output.='<td>'.$allocated['contract_no'].'</td>';
+								$output.='<td>'.$allocated['category'].'</td>';
+								$output.='<td>'.$allocated['allocated_total'].'</td>';
+								$output.='</tr>';
+					}
+		$output.='</tbody>
+		</table>';
+		echo $output;
+		}else{
+			echo '<h3 class="text-center mt-5">No materials allocated for this shipment</h3>';
+		}
+	}
 	
-
+	
 ?>
 

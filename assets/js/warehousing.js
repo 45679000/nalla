@@ -97,6 +97,7 @@ function shippment(){
         url: "warehousing_action.php",
         success: function (data) {
          $('#shippments').html(data);
+         $("#shippment").DataTable({})
 
         }
     });
@@ -129,7 +130,7 @@ function loadSiAllocation(sino){
         url: "warehousing_action.php",
         success: function (data) {
          $('#thisAllocation').html(data);
-
+         $('#alloct').DataTable({});
         }
     });
 }
@@ -144,9 +145,24 @@ function loadPackingMaterialsToAlloacate(){
         cache: true,
         url: "warehousing_action.php",
         success: function (data) {
-         $('#packingMaterial').html(data);
+         $('#stock').html(data);
 
         }
     });
 }
+function showPackingMaterialAlloacated(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "allocated-materials"
+        },
+        cache: true,
+        url: "warehousing_action.php",
+        success: function (data) {
+         $('#materialAllocation').html(data);
+         $('#alloctions').DataTable({});
 
+        }
+    });
+}

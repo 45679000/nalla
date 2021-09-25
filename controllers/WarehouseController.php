@@ -47,19 +47,30 @@ Class WarehouseController extends Model{
 
     }
     public function materialAllocation($sino){
-        $this->query = "SELECT material_allocation.id, `category`, `in_stock`, material_allocation.details,  material_allocation.si_no, material_allocation.allocated_total,
-         material_allocation.details
-        FROM material_allocation
-        INNER JOIN packaging_materials ON packaging_materials.id = material_allocation.material
-        WHERE material_allocation.si_no = $sino";
-        return($this->executeQuery());
+        $query = "SELECT contract_no, material_allocation.id, `category`, `in_stock`, material_allocation.details,  
+        material_allocation.si_no, 
+        material_allocation.allocated_total,
+        material_allocation.details
+       FROM material_allocation
+       INNER JOIN packaging_materials ON packaging_materials.id = material_allocation.material
+       INNER JOIN shipping_instructions ON shipping_instructions.instruction_id = material_allocation.si_no";
+        if($sino !=""){
+          $query .=" WHERE material_allocation.si_no = $sino";
+        }
+        $this->query = $query;
+        return $this->executeQuery();
     }
     public function upadateAllocation($materialid, $sino,  $totalAllocation){
         $this->query = "INSERT INTO `material_allocation`(`material`, `si_no`, `allocated_total`) 
         VALUES ('$materialid','$sino','$totalAllocation')";
         $this->executeQuery();
     }
+    public function deleteAllocation($id){
+        $this->debugSql = true;
 
+        $this->query = "DELETE FROM `material_allocation` WHERE id = $id";
+        $this->executeQuery();
+    }
     public function computeTotals($status){
         if($status == "shipped"){
             $status = 1;

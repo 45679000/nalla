@@ -47,8 +47,35 @@ require_once $path_to_root . 'templates/header.php';
 			<div class="card-header"></div>
 			<div id="shippmentStatus"></div>
 		</div>
+
+		<!-- modal start-->
+			<div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+				</div>
+				<div class="modal-body">
+				<form id="formData">
+							<input type="checkbox" class="status" id="Received" name="status" value="Received">
+							<label for="Received">Received to The Warehouse</label><br>
+							<input type="checkbox" class="status" id="Blended" name="status" value="Blended">
+							<label for="Blended"> Blended </label><br>
+							<input type="checkbox" class="status" id="Shipped" name="status" value="Shipped">
+							<label for="Shipped"> Shipped</label><br><br>
+							<hr>
+						</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+				</div>
+			</div>
+			</div>
+		<!-- modal end -->
 		<!-- Add Record  Modal -->
-		<div class="modal modal-md" id="updateStatus">
+		<div class="modal modal-md" id="updateStatus1">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<!-- Modal Header -->

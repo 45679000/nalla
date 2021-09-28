@@ -1,71 +1,171 @@
 <?php
-session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+$path_to_root = "../";
+$path_to_root1 = "../";
 
-$_SESSION['alogin']=$_POST['user_id'];
-echo "<script type='text/javascript'> document.location = 'profile.php'; </script>";
+require_once $path_to_root . 'templates/header.php';
+include $path_to_root . 'models/Model.php';
+require_once $path_to_root . 'controllers/StockController.php';
+include $path_to_root1 . 'widgets/_form.php';
+require_once $path_to_root1 . 'modules/cataloguing/Catalogue.php';
+include $path_to_root1 . 'controllers/ShippingController.php';
+include $path_to_root1 .'includes/auction_ids.php';
+
 
 ?>
-<!doctype html>
-<html lang="en" class="no-js">
+<style>
+.navbuttons {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
+    max-width: 100%;
+    margin: 0 0 1em;
+    height: 50px;
 
-	
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-social.css">
-	<link rel="stylesheet" href="css/bootstrap-select.css">
-	<link rel="stylesheet" href="css/fileinput.min.css">
-	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
-	<link rel="stylesheet" href="css/style.css">
+    white-space: nowrap;
 
-</head>
+}
 
+.navbuttons LI {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    
+}
+    .form-control {
+        color: black !important;
+        border: 1px solid black !important;
+    }
+
+    .card {
+        max-height: 30% !important;
+        padding-bottom: 0px !important;
+    }
+
+    .card-body {
+        background-color: white !important;
+    }
+
+    .clear {
+        height: 100%;
+
+    }
+    .page-header{
+         padding: 0px;
+         margin: 1.5rem !important;
+    }
+</style>
 <body>
-	<div class="login-page bk-img">
-		<div class="form-content">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						<h1 class="text-center text-bold mt-4x">Login</h1>
-						<div class="well row pt-2x pb-3x bk-light">
-							<div class="col-md-8 col-md-offset-2">
-								<form method="post">
+<div class="page-header">
+        <!-- <ol class="breadcrum">
+			<li class="breadcrum-item"><a href="/chamu/modules/stock/index.php?view=dashboard">home</a></li>
+			<li class="breadcrum-item active" aria-current="page">User Management</li>
+		</ol>		 -->
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="expanel expanel-primary">
+                        <div class="expanel-heading">
+                            <h3 class="expanel-title">Users</h3>
+                        </div>
+                        <div class="expanel-body">
+                            <div class="list-group  mb-0 mail-inbox">
+                                <a href="./index.php?view=dashboard" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-home text-info fw-bold"></i></span>Dashboard
+                                </a>
+                                <a href="./index.php?view=users" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-list text-info fw-bold"></i></span>Users
+                                </a>
+                                <a href="./index.php?view=departments" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-file-text text-danger fw-bold"></i></span> Departments
+                                </a>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <?php 
+                    if(isset($_GET['view'])){
+                        $view=$_GET['view'];
 
-									<label for="" class="text-uppercase text-sm">Your Email</label>
-									<input type="text" placeholder="Username" name="username" class="form-control mb" required>
+                        switch($view){
+                            case 'dashboard':
+                                include('dashboard.php');
+                                break;
+                            case 'users':
+                                include 'userlist.php';
+                                break;
+                            case 'departments':
+                                include 'departments.php';
+                                break;
+                            default:
+                            include('dashboard.php');
 
-									<label for="" class="text-uppercase text-sm">Password</label>
-									<input type="password" placeholder="Password" name="password" class="form-control mb" required>
-									<button class="btn btn-primary btn-block" name="login" type="submit">LOGIN</button>
-								</form>
-								<br>
-								<p>Don't Have an Account? <a href="register.php" >Signup</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!-- Loading Scripts -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/dataTables.bootstrap.min.js"></script>
-	<script src="js/Chart.min.js"></script>
-	<script src="js/fileinput.js"></script>
-	<script src="js/chartData.js"></script>
-	<script src="js/main.js"></script>
+                        }
+                            
+                    }
+                
+                ?>
+            </div>
+        </div>
+    </div>
 
+
+    
 </body>
+
+
+<!-- Dashboard js -->
+<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../../assets/js/vendors/selectize.min.js"></script>
+<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
+<!-- Custom Js-->
+<script src="../../assets/js/custom.js"></script>
+
+<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+
+<script src="../../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
+<script src="../../assets/plugins/select2/select2.full.min.js"></script>
+
+<!-- Charts Plugin -->
+<!-- <script src="../../assets/plugins/highcharts/highcharts.js"></script>
+<script src="../../assets/plugins/highcharts/highcharts-3d.js"></script>
+<script src="../../assets/plugins/highcharts/exporting.js"></script>
+<script src="../../assets/plugins/highcharts/export-data.js"></script>
+<script src="../../assets/plugins/highcharts/histogram-bellcurve.js"></script>
+<script src="../../assets/plugins/highcharts/solid-gauge.js"></script> -->
+
+<!-- Index Scripts -->
+<!-- <script src="../../assets/js/highcharts.js"></script> -->
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.select2').select2();
+        
+    });
+</script>
+
+
+
 
 </html>

@@ -2,11 +2,25 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+$path_to_root= "../../";
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
-else{   
+else{
+	
+if(isset($_POST['submit']))
+  {	
+	$name=$_POST['name'];
+	$email=$_POST['email'];
+
+	$sql="UPDATE admin SET username=(:name), email=(:email)";
+	$query = $conn->prepare($sql);
+	$query-> bindParam(':name', $name, PDO::PARAM_STR);
+	$query-> bindParam(':email', $email, PDO::PARAM_STR);
+	$query->execute();
+	$msg="Information Updated Successfully";
+}    
 ?>
 
 <!doctype html>
@@ -78,7 +92,7 @@ else{
 									<div class="panel-heading">Notification</div>
 									   <div class="panel-body">
 <?php 
-$reciver = $_SESSION['alogin'];
+$reciver = 'Admin';
 $sql = "SELECT * from  notification where notireciver = (:reciver) order by time DESC";
 $query = $conn -> prepare($sql);
 $query-> bindParam(':reciver', $reciver, PDO::PARAM_STR);
@@ -105,8 +119,8 @@ foreach($results as $result)
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/dataTables.bootstrap.min.js"></script>
+	<!-- <script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/dataTables.bootstrap.min.js"></script> -->
 	<script src="js/Chart.min.js"></script>
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>

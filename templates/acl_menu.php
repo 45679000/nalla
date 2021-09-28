@@ -108,7 +108,7 @@
 	function menu_user_management($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link" href='.$path_to_root.'admin/admin/index.php><i class="fa fa-users text-danger font-weight-bold"></i><span class="font-weight-bold">User Management</span></a>
+			<a class="nav-link" href='.$path_to_root.'admin/index.php><i class="fa fa-users text-danger font-weight-bold"></i><span class="font-weight-bold">User Management</span></a>
 		</li>';
 	}
 	function menu_setup($path_to_root){

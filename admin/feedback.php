@@ -1,51 +1,52 @@
 <?php
 session_start();
 error_reporting(0);
+$path_to_root= "../../";
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
 else{
-	
-if(isset($_POST['submit']))
-  {	
-	$file = $_FILES['attachment']['name'];
-	$file_loc = $_FILES['attachment']['tmp_name'];
-	$folder="attachment/";
-	$new_file_name = strtolower($file);
-	$final_file=str_replace(' ','-',$new_file_name);
-	
-	$title=$_POST['title'];
-    $description=$_POST['description'];
-	$user=$_SESSION['alogin'];
-	$reciver= 'Admin';
-    $notitype='Send Feedback';
-    $attachment=' ';
+if(isset($_GET['del']))
+{
+$id=$_GET['del'];
+$sql = "delete from users WHERE id=:id";
+$query = $conn->prepare($sql);
+$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> execute();
+$msg="Data Deleted successfully";
+}
 
-	if(move_uploaded_file($file_loc,$folder.$final_file))
-		{
-			$attachment=$final_file;
-		}
-	$notireciver = 'Admin';
-    $sqlnoti="insert into notification (notiuser,notireciver,notitype) values (:notiuser,:notireciver,:notitype)";
-    $querynoti = $conn->prepare($sqlnoti);
-	$querynoti-> bindParam(':notiuser', $user, PDO::PARAM_STR);
-	$querynoti-> bindParam(':notireciver', $notireciver, PDO::PARAM_STR);
-    $querynoti-> bindParam(':notitype', $notitype, PDO::PARAM_STR);
-    $querynoti->execute();
-
-	$sql="insert into feedback (sender, reciver, title,feedbackdata,attachment) values (:user,:reciver,:title,:description,:attachment)";
+if(isset($_REQUEST['unconfirm']))
+	{
+	$aeid=intval($_GET['unconfirm']);
+	$memstatus=1;
+	$sql = "UPDATE users SET status=:status WHERE  id=:aeid";
 	$query = $conn->prepare($sql);
-	$query-> bindParam(':user', $user, PDO::PARAM_STR);
-	$query-> bindParam(':reciver', $reciver, PDO::PARAM_STR);
-	$query-> bindParam(':title', $title, PDO::PARAM_STR);
-	$query-> bindParam(':description', $description, PDO::PARAM_STR);
-	$query-> bindParam(':attachment', $attachment, PDO::PARAM_STR);
-    $query->execute(); 
-	$msg="Feedback Send";
-}    
-?>
+	$query -> bindParam(':status',$memstatus, PDO::PARAM_STR);
+	$query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
+	$query -> execute();
+	$msg="Changes Sucessfully";
+	}
+
+	if(isset($_REQUEST['confirm']))
+	{
+	$aeid=intval($_GET['confirm']);
+	$memstatus=0;
+	$sql = "UPDATE users SET status=:status WHERE  id=:aeid";
+	$query = $conn->prepare($sql);
+	$query -> bindParam(':status',$memstatus, PDO::PARAM_STR);
+	$query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
+	$query -> execute();
+	$msg="Changes Sucessfully";
+	}
+
+
+
+
+
+ ?>
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -58,7 +59,7 @@ if(isset($_POST['submit']))
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
 	
-	<title>Edit Profile</title>
+	<title>Manage Feedback</title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -76,9 +77,8 @@ if(isset($_POST['submit']))
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
+  <style>
 
-	<script type= "text/javascript" src="../vendor/countries.js"></script>
-	<style>
 	.errorWrap {
     padding: 10px;
     margin: 0 0 20px 0;
@@ -95,72 +95,77 @@ if(isset($_POST['submit']))
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
-		</style>
 
+		</style>
 
 </head>
 
 <body>
-<?php
-		$sql = "SELECT * from users;";
-		$query = $conn -> prepare($sql);
-		$query->execute();
-		$result=$query->fetch(PDO::FETCH_OBJ);
-		$cnt=1;	
-?>
 	<?php include($path_to_root.'templates/header.php');?>
 
+
 	<div class="ts-main-content">
-	<?php include('includes/leftbar.php');?>
+		<?php include('includes/leftbar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
+
 				<div class="row">
 					<div class="col-md-12">
-						<div class="row">
-                       
-							<div class="col-md-12">
-                            <h2>Give us Feedback</h2>
-								<div class="panel panel-default">
-									<div class="panel-heading">Edit Info</div>
-<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
-<div class="panel-body">
-<form method="post" class="form-horizontal" enctype="multipart/form-data">
+						<h2 class="page-title">Manage Feedback</h2>
 
-<div class="form-group">
-    <input type="hidden" name="user" value="<?php echo htmlentities($result->email); ?>">
-	<label class="col-sm-2 control-label">Title<span style="color:red">*</span></label>
-	<div class="col-sm-4">
-	<input type="text" name="title" class="form-control" required>
-	</div>
+						<!-- Zero Configuration Table -->
+						<div class="panel panel-default">
+							<div class="panel-heading">List Users</div>
+							<div class="panel-body">
+							<?php if($error){?><div class="errorWrap" id="msgshow"><?php echo htmlentities($error); ?> </div><?php } 
+				else if($msg){?><div class="succWrap" id="msgshow"><?php echo htmlentities($msg); ?> </div><?php }?>
+								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+										       <th>#</th>
+												<th>User Email</th>
+												<th>Title</th>
+                                                <th>Feedback</th>
+                                                <th>Attachment</th>
+											    <th>Action</th>	
+										</tr>
+									</thead>
+									
+									<tbody>
 
-	<label class="col-sm-2 control-label">Attachment<span style="color:red"></span></label>
-	<div class="col-sm-4">
-	<input type="file" name="attachment" class="form-control">
-	</div>
-</div>
-
-<div class="form-group">
-	<label class="col-sm-2 control-label">Description<span style="color:red">*</span></label>
-	<div class="col-sm-10">
-	<textarea class="form-control" rows="5" name="description"></textarea>
-	</div>
-</div>
-
-<div class="form-group">
-	<div class="col-sm-8 col-sm-offset-2">
-		<button class="btn btn-primary" name="submit" type="submit">Send</button>
-	</div>
-</div>
-
-</form>
-									</div>
-								</div>
+<?php 
+$reciver = 'Admin';
+$sql = "SELECT * from  feedback where reciver = (:reciver)";
+$query = $conn -> prepare($sql);
+$query-> bindParam(':reciver', $reciver, PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{				?>	
+										<tr>
+											<td><?php echo htmlentities($cnt);?></td>
+                                            <td><?php echo htmlentities($result->sender);?></td>
+											<td><?php echo htmlentities($result->title);?></td>
+                                            <td><?php echo htmlentities($result->feedbackdata);?></td>
+                                            <td><a href="../attachment/<?php echo htmlentities($result->attachment);?>" ><?php echo htmlentities($result->attachment);?></a></td>
+											
+<td>
+<a href="sendreply.php?reply=<?php echo $result->sender;?>">&nbsp; <i class="fa fa-mail-reply"></i></a>&nbsp;&nbsp;
+</td>
+										</tr>
+										<?php $cnt=$cnt+1; }} ?>
+										
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -169,8 +174,8 @@ if(isset($_POST['submit']))
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/dataTables.bootstrap.min.js"></script>
+	<!-- <script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/dataTables.bootstrap.min.js"></script> -->
 	<script src="js/Chart.min.js"></script>
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
@@ -181,7 +186,7 @@ if(isset($_POST['submit']))
 						$('.succWrap').slideUp("slow");
 					}, 3000);
 					});
-	</script>
+		</script>
 </body>
 </html>
 <?php } ?>

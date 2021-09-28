@@ -21,8 +21,7 @@ Class WarehouseController extends Model{
     public function getPackingMaterials(){
         $this->query = "SELECT packaging_materials.id,  material_allocation.id AS material_id, 
         `category`,  material_allocation.details, packaging_materials.description,
-        (CASE WHEN material_allocation.id IS NULL THEN 
-            in_stock
+        (CASE WHEN material_allocation.id IS NULL THEN  in_stock
             ELSE
              (in_stock - sum(allocated_total))
              END) AS in_stock,
@@ -30,7 +29,7 @@ Class WarehouseController extends Model{
                  FROM packaging_materials
                  LEFT JOIN material_allocation ON packaging_materials.id = material_allocation.material
                 WHERE is_deleted = 0
-                GROUP BY material_allocation.material, category";
+                GROUP BY packaging_materials.id, category";
         return $this->executeQuery();
     }
     public function getWarehouseLocation(){
@@ -111,18 +110,40 @@ Class WarehouseController extends Model{
         $this->executeQuery();
 
     } 
-    public function addClosedBlendToStock($sale_no, $lot, $grade, $pkgs, $net, $kgs, $standard){
-        $this->query = "INSERT INTO `closing_stock`(`sale_no`, `broker`, `lot`,  `mark`, `grade`,  `pkgs`,  `net`, `kgs`, `standard`, `is_blend_balance`, `invoice`) 
-        SELECT '$sale_no','x', '$lot','BLENDED TEA', '$grade', '$pkgs', '$net', '$kgs', '$standard', true, '$lot' ";
-        $this->executeQuery();
-
-        $this->debugSql = false;
-        $this->query = "INSERT INTO `stock_allocation`(`stock_id`,  `standard`, `allocated_pkgs`, `warehouse`)
-        SELECT max(stock_id), standard, $pkgs, 1 FROM closing_stock
-        WHERE lot = '$lot'";
+    public function addClosedBlendToStock( $id, $lineno, $sale_no, $lot, $grade, $pkgs, $net, $kgs, $standard){
+        $this->query = "INSERT INTO `closing_stock`(`line_no`,`sale_no`, `broker`, `lot`,  `mark`, `grade`,  `pkgs`,  `net`, `kgs`, `standard`, `is_blend_balance`, `invoice`) 
+        SELECT '$lineno', '$sale_no','x', '$lot','BLENDED TEA', '$grade', '$pkgs', '$net', '$kgs', '$standard', true, '$lot' ";
         $this->executeQuery();
 
     }  
+
+    public function addjustLevels($materialid, $newlevel, $details){
+        $this->debugSql = true;
+
+        $this->query = "INSERT INTO `material_allocation`(`material`, `si_no`, `allocated_total`, `details`, `allocation_date`)
+        VALUES ('$materialid','00',$newlevel,'$details', CURRENT_TIMESTAMP)";
+        $this->executeQuery();
+
+    }
+    public function genLineNo($blend_id){
+        $this->debugSql = false;
+        $this->query = "SELECT MAX(SUBSTRING(line_no, -7)) AS line_no FROM closing_stock";
+        $rows = $this->executeQuery();
+        $id = ((int)$rows[0]['line_no'])+1;
+
+        $this->query = "SELECT DATE_FORMAT(CURRENT_DATE, '%y') AS date_part, WEEK(CURRENT_DATE) AS week_part, 'B', LPAD($id, 10, '0') AS id_part
+        FROM blend_master WHERE id = $blend_id";
+        $row = $this->executeQuery();
+        if(sizeOf($row)>0){
+            if(($row[0]['date_part'] != null) && ($row[0]['week_part'] != null)  && ($row[0]['id_part'] != null)){
+                $lineno = $row[0]['date_part'].$row[0]['week_part'].'B'.$row[0]['id_part']; 
+            }
+        }else{
+            $lineno = -1;
+        }
+        return $lineno;
+
+    }
 }
 
 

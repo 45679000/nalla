@@ -159,8 +159,8 @@
 								$output.='<td>'.$packingMaterial['in_stock'].'</td>';
 								$output.='<td>'.$packingMaterial['description'].'</td>';
 
-								$output.='<td>
-									<a class="adjust" data-toggle="modal"><i class="fa fa-exchange" data-toggle="tooltip" title="Adjust">Adjust Levels</i></a>
+								$output.='<td class="'.$packingMaterial['category'].'">
+									<a id="'.$packingMaterial['id'].'" class="adjust" data-toggle="modal"><i class="fa fa-exchange" data-toggle="tooltip" title="Adjust">Adjust Levels</i></a>
 								</td>
 							</tr>';
 					}
@@ -313,20 +313,28 @@
 
 		$warehouses->upadateAllocation($materialid, $sino,  $totalAllocation);
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "adjust_level"){
+
+		$materialid = $_POST['material'];
+		$totalAllocation = $_POST['total'];
+		$details = $_POST["details"];
+
+		$warehouses->addjustLevels($materialid, $totalAllocation, $details);
+	}
 
 	if(isset($_POST['action']) && $_POST['action'] =='blend-status'){
-				$type = isset($_POST['type']) ? $_POST['type'] : '';
-				$status = 0;
-				if($type == "closed"){
-					$status = 1;
-				}
-				$blends = $blendCtrl->fetchBlendByStatus($status);
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
+		$status = 0;
+		if($type == "closed"){
+			$status = 1;
+		}
+		$blends = $blendCtrl->fetchBlendByStatus($status);
 
 		$output = "";
 			  $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
 			  if($blendno ==''){
 			  if (count($blends) > 0) {
-				  $output .="<table style='width:100% !important;'  class='table table-striped table-bordered table-hover thead-dark'>
+				  $output .="<table style='width:100% !important;'  class='table table-sm table-responsive table-striped table-bordered table-hover thead-dark'>
 						  <thead class='thead-dark'>
 							<tr>
 							  <th>Blend</th>
@@ -340,54 +348,39 @@
 							  <th>Dust</th>
 							  <th>Fiber</th>
 							  <th>Polucon</th>
-							  <th>Blend Remnant</th>";
-
-							  if($status == 1){
-								$output.="<th>Gain/Loss</th>";
-
-							  }
-							  $output.="<th>Actions</th>
+							  <th>Blend Remnant</th>
+							  <th>Gain/Loss</th>
+							  <th>Actions</th>
 							</tr>
 						  </thead>
 						  <tbody>";
 				  foreach ($blends as $blend) {
 					$inputKgs = $blendCtrl->totalBlendedPerBlend($blend['id']);
-					$columnShipment = $blend['id'].'shipment';
-					$columnInput = $blend['id'].'input';
-					$columnPolucun = $blend['id'].'pulucon';
-					$columnOutput = $blend['id'].'output';
-					$columnSweeping = $blend['id'].'sweeping';
-					$columnCyclone = $blend['id'].'cyclone';
-					$columnDust = $blend['id'].'dust';
-					$columnFiber = $blend['id'].'fiber';
-					$columnBlendRemnant = $blend['id'].'blendRemnant';
-					$columnGainLoss = $blend['id'].'gain_loss';
+
 					  $kgs = $blend['nw']*$blend['Pkgs'];
 				  $output.="<tr>
 							  <td id='lotEdit'><a href='#' onclick='loadAllocationSummaryForBlends()'>".$blend['contractno']."</a></td>
 							  <td>".$blend['blend_no']."</td>
 							  <td>".$blend['Grade']."</td>
-							  <td id='$columnShipment'>".$kgs."</td>
-							  <td id='$columnInput'>".$inputKgs."</td>
-							  <td contentEditable='true' id='$columnOutput'>".$blend['output_kgs']."</td>
-							  <td contentEditable='true' id='$columnSweeping'>".$blend['sweeping']."</td>
-							  <td contentEditable='true' id='$columnCyclone'>".$blend['cyclone']."</td>
-							  <td contentEditable='true' id='$columnDust'>".$blend['dust']."</td>
-							  <td contentEditable='true' id='$columnFiber'>".$blend['fiber']."</td>
-							  <td contentEditable='true' id='$columnPolucun'>".$blend['pulucon']."</td>
-							  <td  id='$columnBlendRemnant'>".$blend['blend_remnant']."</td>";
-							  if($status == 1){
-								$output.="<td  id='$columnGainLoss'>".round(($blend['output_kgs']-$inputKgs),2)."</td>";
+							  <td class='shippment'>".$kgs."</td>
+							  <td class='inputpkgs'>".$inputKgs."</td>
+							  <td>".$blend['output_kgs']."</td>
+							  <td>".$blend['sweeping']."</td>
+							  <td>".$blend['cyclone']."</td>
+							  <td>".$blend['dust']."</td>
+							  <td>".$blend['fiber']."</td>
+							  <td>".$blend['pulucon']."</td>
+							  <td>".$blend['blend_remnant']."</td>
+							  <td>".$blend['output_kgs']."</td>";
 
-							  }
 							  $output.="<td>";
 								if($status == 1){
 									$output.="<span><i class='fa fa-check'></i>
 									closed</span>";
 								}else{
-									$output.="<button onclick=closeBlend(this) style='color:green'  
+									$output.="<a style='color:green'  
 									class='close' id='".$blend['id']."'><i class='fa fa-cog'></i>
-									close</button>";
+									close</a>";
 								}
 								
 								$output.="</td>
@@ -431,13 +424,15 @@
 		$sale_no = $blendDetails[0]['sale_no'];
 		$destination = $blendDetails[0]['destination'];
 
-		
-		$warehouses->addClosedBlendToStock($sale_no, $lot, $grade, $fullPkgs, $nw, $nw*$fullPkgs, $standard);
+		$lineno = $warehouses->genLineNo($id);
+
+		$warehouses->addClosedBlendToStock( $id, $lineno, $sale_no, $lot, $grade, $fullPkgs, $nw, $nw*$fullPkgs, $standard);
 
 		$response = '
-		<table class="table table-bordered" style = "width:inherit;" id="confirm">
+		<table class="table table-sm table-bordered" style = "width:inherit;" id="confirm">
 		<thead>
 			<tr>
+				<th>Line No</th>
 				<th>Lot No</th>
 				<th>Grade</th>
 				<th>Invoice</th>
@@ -449,6 +444,7 @@
 		</thead>
 		<tbody>';
 		$response .='<tr>';
+		$response .='<td>'.$lineno.'</td>';
 		$response .='<td>'.$lot.'</td>';
 		$response .='<td>'.$grade.'</td>';
 		$response .='<td>'.$invoice.'</td>';
@@ -459,8 +455,11 @@
 		$response .='</tr>';
 		if($remainder !=0){
 			$nw = 1;
-			$warehouses->addClosedBlendToStock($sale_no, $lot, $grade, $remainder, $nw, $nw*$remainder, $standard);
+			$lineno = $warehouses->genLineNo($id);
+
+			$warehouses->addClosedBlendToStock($id,$lineno, $sale_no, $lot, $grade, $remainder, $nw, $nw*$remainder, $standard);
 			$response .='<tr>';
+			$response .='<td>'.$lineno.'</td>';
 			$response .='<td>'.$lot.'</td>';
 			$response .='<td>'.$grade.'</td>';
 			$response .='<td>'.$invoice.'</td>';

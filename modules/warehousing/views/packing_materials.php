@@ -63,26 +63,54 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Edit Garden</h4>
+                <h4 class="modal-title">Adjust Stock Levels</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
+            <!-- $('input[name=radioName]:checked', '#myForm').val() -->
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="EditformData">
-                    <input type="hidden" name="id" id="edit-form-id">
-                    <div class="form-group">
-                        <label for="name">Garden Name:</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Garden Name" required="">
-                    </div>custom
-                    <div class="form-group">
-                        <label for="country">Country:</label>
-                        <input type="text" class="form-control" name="country" id="country" placeholder="Enter country" required="">
+                <div class="form-group ">
+                    <div class="form-check-inline">
+                        <label class="custom-control custom-radio">
+                            <button id="addstock" class="btn btn-sm btn-success">Add to Stock</button>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <button id="lessstock" class="btn btn-sm btn-danger">Deduct from Stock</button>
+                        </label>
+
+                    </div>
+                </div>
+                <form style="display:none" id="EditformData">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="value">Type</label>
+                                <input disabled="false" type="text" class="form-control" name="type" value="" id="mtype" placeholder="type" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="value">Number</label>
+                                <input type="text" class="form-control" name="value" id="total" placeholder="Value" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="source">Source:</label>
+                                <select name="source" id="source">
+                                    
+                                </select>
+                            </div>
+                       </div>
                     </div>
                     <hr>
                     <div class="form-group float-right">
-                        <button type="submit" class="btn btn-primary" id="update">Update</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="adjust">Adjust</button>
+                        <button type="submit" class="btn btn-danger btn-sm" id="close">Close</button>
                     </div>
+                    <input type="hidden" name="symbol" id="symbol" value=''>
                 </form>
             </div>
         </div>
@@ -109,42 +137,68 @@
         loadPackingMaterials();
         $("body").on("click", ".adjust", function(e) {
             e.preventDefault();
-            $("#addModal").modal('show');
-
+            $("#editModal").modal('show');
             var id = $(this).attr("id");
-                    $.ajax({
-                    url: "action.php",
-                    type: "POST",
-                    data: $("#EditformData").serialize() + "&action=update",
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Customer Updated successfully',
-                        });
-                        $("#addModal").modal('show');
-                        $("#EditformData")[0].reset();
-                    }
-                });
+            localStorage.setItem("category", $(this).parent().attr("class"));
+            localStorage.setItem("form_id", id);
+
+            var category = $(this).parent().attr("class");
+
+            $("#mtype").val(category);
         });
 
-        // $("#adjust").click(function(e) {
-        //     if ($("#EditformData")[0].checkValidity()) {
-        //         e.preventDefault();
-        //         $.ajax({
-        //             url: "action.php",
-        //             type: "POST",
-        //             data: $("#EditformData").serialize() + "&action=update",
-        //             success: function(response) {
-        //                 Swal.fire({
-        //                     icon: 'success',
-        //                     title: 'Customer Updated successfully',
-        //                 });
-        //                 $("#addModal").modal('hide');
-        //                 $("#EditformData")[0].reset();
-        //             }
-        //         });
-        //     }
-        // });
+        $("#addstock").click(function(e){
+            $("#EditformData").show();
+            $("#lessstock").hide();
+            $("#symbol").val("-");
+
+            $("#source").html(
+                '<option value="">Select</option><option value="Material Bought">Material Bought</option><option value="Material Borrowed">Material Borrowed</option>'
+            );
+
+        });
+        $("#lessstock").click(function(e){
+            $("#EditformData").show();
+            $("#addstock").hide();
+            $("#source").html(
+                '<option value="">Select</option><option value="Material Loaned">Material Loaned</option><option value="Material Sold">Material Sold</option>'
+            );
+            $("#symbol").val("");
+
+        });
+
+        $("#close").click(function(e){
+            e.preventDefault();
+            location.reload();
+
+
+        })
+
+        $("#adjust").click(function(e) {
+            e.preventDefault();
+    
+            var total = $('#symbol').val()+$("#total").val();
+            var details = $("#source").val();
+
+            $.ajax({
+                url: "warehousing_action.php",
+                type: "POST",
+                data: {
+                    material: localStorage.getItem("form_id"),
+                    action: "adjust_level",
+                    total:total,
+                    details:details
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Stock Updated successfully',
+                    });
+                    loadPackingMaterials();
+                    $("#EditformData")[0].reset();
+                }
+            });
+        });
 
 
         //insert ajax request data

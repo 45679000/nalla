@@ -209,12 +209,17 @@ CREATE TABLE garden_grade_cluster(
     code_id                             integer,
     description                         text
 );
+SELECT * FROM `buying_list` WHERE sale_no = 'PRVT-2021-38';
 
-UPDATE `buying_list` SET gross = kgs  WHERE sale_no < '2021-35';
+UPDATE `buying_list` SET gross = kgs  WHERE sale_no = 'PRVT-2021-38';
 
-UPDATE `buying_list` SET kgs = net  WHERE sale_no < '2021-35';
+UPDATE `buying_list` SET kgs = net  WHERE sale_no = 'PRVT-2021-38';
 
-UPDATE `buying_list` SET net = gross  WHERE sale_no < '2021-35';
+UPDATE `buying_list` SET net = gross  WHERE sale_no = 'PRVT-2021-38';
+
+UPDATE `buying_list` SET auction_date = '2021-09-21', confirmed=1  WHERE sale_no = 'PRVT-2021-38';
+UPDATE `buying_list` SET sale_price = sale_price*100 WHERE sale_no = 'PRVT-2021-38';
+
 
 CREATE TABLE straightlineteas(
 	id             		integer primary key,

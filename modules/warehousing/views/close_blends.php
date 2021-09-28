@@ -1,4 +1,8 @@
 <style>
+    .modal-dialog{
+        background-color: rgba(217, 245, 255,0.5);
+        border: 1px solid;
+    }
    .table {
         background-color: white !important;
         width:100% !important;
@@ -32,6 +36,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
+                <span>Blend Closing</span>
                 <div class="card-options">
                     <button id="unclosed" class="btn btn-info btn-sm ml-2">Unclosed</button>
                     <button id="closed" class="btn btn-info btn-sm ml-2">Closed</button>
@@ -46,19 +51,96 @@
         </div>
     </div>
 </div>
-
+<!-- Edit Record  Modal -->
 <div class="modal" id="blendClose">
-    <div class="modal-dialog modal-lg">
+<div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <div class="form-group float-right">
-                        <button type="submit" class="btn btn-primary" id="confirm">Confirm</button>
-                        <button type="button" class="btn btn-danger" id="cancel" >Cancel</button>
-                </div>
+                <h4 class="modal-title">Blend Out Turn</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-         <!-- Modal body -->
-         <div id="preview" class="modal-body">
+            <div class="modal-body">
+                <form id="closingForm">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="value">Blend Output</label>
+                                <input  type="text" class="form-control" name="boutput" value="" id="boutput" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="value">Sweeping</label>
+                                <input  type="text" class="form-control" name="bsweepings" value="" id="bsweepings" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="value">Cyclone</label>
+                                <input  type="text" class="form-control" name="bcyclone" value="" id="bcyclone" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="value">Dust</label>
+                                <input  type="text" class="form-control" name="bdust" value="" id="bdust" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="value">Polucon</label>
+                                <input  type="text" class="form-control" name="bpolucon" value="" id="bpolucon" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="value">Fiber</label>
+                                <input  type="text" class="form-control" name="bfiber" value="" id="bfiber" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="value">Gain/Loss</label>
+                                <input disabled="true" type="text" class="form-control" name="gainLoss" value="" id="gainLoss" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="value">Blend Remnant</label>
+                                <input disabled="true" type="text" class="form-control" name="blendremnant" value="" id="blendremnant" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="value">Input Kgs</label>
+                                <input disabled="true" type="text" class="form-control" name="inputkgs" value="" id="inputkgs" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="value">Shippment</label>
+                                <input disabled="true" type="text" class="form-control" name="shippment" value="" id="shippment" placeholder="0" value="0" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group float-right">
+                        <button type="submit" class="btn btn-primary btn-sm" id="post">Post</button>
+                        <button type="submit" class="btn btn-danger btn-sm" id="close">Close</button>
+                    </div>
+                </form>
+                <div class="card" style="display: none;" id="confirm-table">
+                    <div id="preview"></div>
+                    <div class="form-group float-right">
+                        <button type="submit" class="btn btn-danger btn-sm" id="confirm">Confirm</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -78,7 +160,7 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
-        showAllBlends("closed");
+        showAllBlends("unclosed");
 
         $("#unclosed").click(function(){
             showAllBlends("show-unclosed");
@@ -108,23 +190,52 @@
         }
         
     });
-    function closeBlend(element){
-                var id = $(element).attr("id");
-                var blendShipment = $("#"+id+"shipment").text();
-                var blendInput = $("#"+id+"input").text();
-                var blendOutput = $("#"+id+"output").text();
-                var pulucon = $("#"+id+"pulucon").text();
-                var Sweeping = $("#"+id+"sweeping").text();
-                var Cyclone = $("#"+id+"cyclone").text();
-                var Dust = $("#"+id+"dust").text();
-                var Fiber = $("#"+id+"fiber").text();
+    $("body").on("click", ".close", function(e) {
+        var currentRow = $(this).closest("tr");
+        var shippment = currentRow.find(".shippment").html();
+        var inputkgs = currentRow.find(".inputpkgs").html();
+        $("#shippment").val(shippment);
+        $("#inputkgs").val(inputkgs);
 
-                $("#"+id+"blendRemnant").text(Number(blendOutput)-Number(blendShipment));
-                $("#"+id+"gainLoss").text((Number(blendOutput)+Number(pulucon)+Number(Sweeping)+Number(Cyclone)+Number(Dust)+Number(Fiber)) - Number(blendInput));
-                var BlendRemnant = $("#"+id+"blendRemnant").text();
-                var GainLoss = $("#"+id+"gain_loss").text();
+        var blendid = $(this).attr("id");
+        localStorage.setItem("blendid", blendid);
+        localStorage.setItem("shippment", shippment);
+        localStorage.setItem("inputkgs", inputkgs);
 
-            $.ajax({
+        $("#blendClose").show();
+    });
+
+    $("#boutput, #bpolucon, #bsweepings, #bcyclone, #bdust, #bfiber").on( "blur", function(e){
+        var blendOutput = $("#boutput").val();
+        var pulucon = $("#bpolucon").val();
+        var Sweeping = $("#bsweepings").val();
+        var Cyclone = $("#bcyclone").val();
+        var Dust = $("#bdust").val();
+        var Fiber = $("#bfiber").val();
+        var blendid = localStorage.getItem("blendid");
+        var blendInput = localStorage.getItem("inputkgs");
+        var shippment = localStorage.getItem("shippment");
+        var blendRemant = Number(blendInput)- Number(shippment);
+        $("#blendremnant").val(blendRemant);
+        $("#gainLoss").val((Number(blendOutput)+Number(pulucon)+Number(Sweeping)+Number(Cyclone)+Number(Dust)+Number(Fiber)) - Number(blendInput));
+
+
+    });
+    $("#post").click(function(e){
+        e.preventDefault();
+        var id = localStorage.getItem("blendid", blendid);
+        var blendOutput = $("#boutput").val();
+        var pulucon = $("#bpolucon").val();
+        var Sweeping = $("#bsweepings").val();
+        var Cyclone = $("#bcyclone").val();
+        var Dust = $("#bdust").val();
+        var Fiber = $("#bfiber").val();
+        var blendid = localStorage.getItem("blendid");
+        var blendInput = localStorage.getItem("inputkgs");
+        var blendShipment = localStorage.getItem("shippment");
+        var blendRemant = $("#blendremnant").val();
+        var GainLoss = $("#gainLoss").val();
+        $.ajax({
             type: "POST",
             dataType: "html",
             data: {
@@ -137,7 +248,7 @@
                 Cyclone:Cyclone,
                 Dust:Dust,
                 Fiber:Fiber,
-                BlendRemnant:BlendRemnant,
+                BlendRemnant:blendRemant,
                 GainLoss:GainLoss,
                 pulucon:pulucon
 
@@ -145,25 +256,36 @@
             cache: true,
             url: "warehousing_action.php",
             success: function (data) {
-                $('#blendClose').show();
+                $("#closingForm").hide();
+                $("#confirm-table").show();
                 $('#preview').html(data);
 
             }
         });
-        }
-
+        
+    });
+    
+    
 $('#confirm').click(function(e){
     Swal.fire({
                 icon: 'success',
                 title: 'Confirmed to stock',
             });
     $('#blendClose').hide();
+    showAllBlends("unclosed");
+
 
 });
 $('#cancel').click(function(e){
     $('#blendClose').hide();
 
-})
+});
+$('#close').click(function(e){
+    $('#blendClose').hide();
+
+});
+
+
 
 
     

@@ -98,7 +98,8 @@
     if (isset($_POST['action']) && $_POST['action'] == "add-tea") {
         $contract_no = isset($_POST["contract_no"]) ? $_POST["contract_no"] : ''; 
         $id = isset($_POST["id"]) ? $_POST["id"] : ''; 
-        $strCtrl->addLotStraight($id, $contract_no);
+        $mrp_value = isset($_POST["mrp_value"]) ? $_POST["mrp_value"] : '';
+        $strCtrl->addLotStraight($id, $contract_no, $mrp_value);
 	}
     if (isset($_POST['action']) && $_POST['action'] == "remove-tea") {
         $contract_no = isset($_POST["contract_no"]) ? $_POST["contract_no"] : ''; 
@@ -171,7 +172,7 @@
                     $output.='<td>'.$stock["pkgs"].'</td>';
                     $output.='<td>'.$stock["net"].'</td>';
                     $output.='<td>'.$stock["kgs"].'</td>';
-                    $output.='<td onBlur="update_mrp(this)" id="'.$stock["stock_id"].'" contenteditable="true">'.$stock["mrp_value"].'</td>';
+                    $output.='<td class="mrp_value" onBlur="update_mrp(this)" id="'.$stock["stock_id"].'" contenteditable="true">'.$stock["mrp_value"].'</td>';
                     if($stock["allocated_contract"] != null){
                       $output.='<td><a style="font-size:8px;">'.$stock["allocated_contract"].'<a/>';
                       if($stock["confirmed"] == 0){

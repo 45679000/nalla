@@ -33,11 +33,11 @@ Class StraightLineController extends Model{
 
         return $this->executeQuery();
     }
-    public function addLotStraight($id, $contract_no){
-        $this->debugSql = true;
+    public function addLotStraight($id, $contract_no, $mrp_value){
+        $this->debugSql = false;
     
-        $this->query = "INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `stock_id`) 
-        SELECT '$contract_no', pkgs, kgs, 'straight', stock_id
+        $this->query = "INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `stock_id`, `mrp_value`) 
+        SELECT '$contract_no', pkgs, kgs, 'straight', stock_id, $mrp_value
         FROM closing_stock
         WHERE stock_id = $id";
         $this->executeQuery();

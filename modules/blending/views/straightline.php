@@ -510,6 +510,9 @@
         });
         $("body").on("click", ".addTea", function(e) {
             e.preventDefault();
+            var currentRow = $(this).closest("tr");
+            var mrp_value = currentRow.find(".mrp_value").text();
+
             $this = $(this);
             var id = $(this).attr('id');
             $.ajax({
@@ -519,7 +522,8 @@
                 data: {
                     action: "add-tea",
                     id: id,
-                    contract_no: localStorage.getItem("contractno")
+                    contract_no: localStorage.getItem("contractno"),
+                    mrp_value:mrp_value
                 },
                 success: function(response) {
                     var removeBtn = '<a class="removeAlloc" id="'+id+'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Remove" ><i class="fa fa-close" ></i></a>';
@@ -662,6 +666,23 @@
 	function update_mrp(element){
 		var id = $(element).attr("id");
 		var mrpvalue =  $(element).text();
+		$.ajax({
+            url: "straightline_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "post-mrp",
+				stock_id: id,
+				value: mrpvalue
+
+            },
+            success: function(response) {
+            }
+
+        });
+		
+	}
+    function update_mrpi(id, mrpvalue){
 		$.ajax({
             url: "straightline_action.php",
             type: "POST",

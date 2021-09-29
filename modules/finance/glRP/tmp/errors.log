@@ -1739,3 +1739,18 @@ Stack trace:
 [27-Sep-2021 15:58:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [27-Sep-2021 15:58:08 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
 [27-Sep-2021 16:04:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:52:43 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:52:46 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:52:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:53:19 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:53:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:53:29 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[28-Sep-2021 23:53:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:54:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:54:04 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[28-Sep-2021 23:58:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[28-Sep-2021 23:58:53 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[29-Sep-2021 00:55:59 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[29-Sep-2021 00:56:03 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[29-Sep-2021 00:56:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[29-Sep-2021 00:56:03 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable

@@ -1,97 +1,66 @@
 <?php
 $path_to_root = "../";
-$path_to_root1 = "../";
-include $path_to_root.'templates/header.php';
-
+require_once $path_to_root . 'templates/header.php';
 ?>
-    <div class="my-3 my-md-5" style="margin-top:-20px;">
-        <div class="container-fluid">
-            <div class="page-header">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Reports</li>
-                </ol>
-            </div>
-            <div class="row">
-                <?php  
-                include 'sub_menu.php'; 
-
-                if(isset($_GET['rep'])){
-                    $report = $_GET['rep'];
-                    switch ($report) {
-                        case "broker-catalog":
-                            include 'rep_broker.php';
-                          break;
-                        case "blue":
-                          echo "Your favorite color is blue!";
-                          break;
-                        case "green":
-                          echo "Your favorite color is green!";
-                          break;
-                        default:
-                          echo "Your favorite color is neither red, blue, nor green!";
-                      }
-
-
-
-                }            
-
-                ?>
-
-            </div>
+<style>
+    .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 0.5rem 0.5rem !important;
+    position: relative;
+}
+</style>
+<div class="container-fluid p-3">
+    <div class="card p-3">
+        <div class="row row-cards" id="dashboardWrapper">
+            
         </div>
     </div>
-</div>
-</body>
 
-<!-- Dashboard js -->
+</div>
+
+
+
 <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
 <script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
 <script src="../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
-<!-- forn-wizard js-->
-<script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
-<!-- file import -->
-<script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
-<!-- Custom scroll bar Js-->
-<script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
-
-<!-- counter  -->
-<script src="../assets/plugins/counters/counterup.min.js"></script>
-<script src="../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
 <script src="../assets/js/custom.js"></script>
+<script src="../assets/js/warehousing.js"></script>
 
 <script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/js/sweet_alert2.js"></script>
+<script>
+    print_report("#", "Finance Reports", "fa fa-money text-primary", "cmdfinance");
+    print_report("./koolReports/stockbysaleno/stock_by_sale_no.php", "Stock By Sale No    ", "fa fa-calendar text-success", "");
+    print_report("link", "txt", "icon", "");
+    print_report("link", "txt", "icon", "");
 
+    $("#cmdfinance").click(function(e) {
+        $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/reporting/reports_main.php?Class=6" width="100%" height="1000" style="border:none;">');
+    });
 
-<script type="text/javascript">
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop a file here or click',
-                    'replace': 'Drag and drop or click to replace',
-                    'remove': 'Remove',
-                    'error': 'Ooops, something wrong appended.'
-                },
-                error: {
-                    'fileSize': 'The file size is too big (2M max).'
-                }
-            });
-        </script>
-        <script>
-			$('.counter').countUp();
-		</script>
-        <!-- Data table js -->
-		<script>
-			$(function(e) {
-				$('#closingimports').DataTable();
-			} );
-		</script>
-       
+   function print_report(link, txt, icon, id){
+       var content ='<div class="col-sm-12 col-lg-1 col-md-1 d-flex align-items-stretch">';
+        if(id !=null){
+            content+='<div id="'+id+'" class="card dashboardlink h-100">';
+        }else{
+            content+='<div  class="card dashboardlink h-100">';
+
+        }
+        content+='<div class="card-body">'
+        content+='<div class="card-box tilebox-one">'
+        content+='<i class="icon-layers  text-muted"><a href="'+link+'"><i class="'+icon+'" aria-hidden="true"></i></a></i>'
+        content+='<h6 class="text-drak text-uppercase mt-0">'+txt+'</h6>'
+        content+='</div>'
+        content+='</div>'
+        content+='</div>'
+       $("#dashboardWrapper").append(content
+);             
+   }
+</script>
+
 </html>

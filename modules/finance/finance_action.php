@@ -248,7 +248,7 @@
 						$output.='<tr>';
 							$output .= '<td>' . $purchase['line_no'] . '</td>';
 							$output .= '<td>' . $purchase['sale_no'] . '</td>';
-							$output .= '<td>' . $purchase['auction_date'] . '</td>';
+							$output.='<td onBlur=updateAuctionDate(this) class="'.$id.'" contentEditable = "true">'.$purchase["auction_date"].'</td>';
 							$output .= '<td>' . $purchase['broker'] . '</td>';
 							$output.='<td onBlur=updateInvoice(this) class="'.$id.'" contentEditable = "true">'.$purchase["broker_invoice"].'</td>';
 							$output .= '<td>' . $purchase['ware_hse'] . '</td>';

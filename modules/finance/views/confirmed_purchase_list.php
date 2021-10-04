@@ -22,13 +22,6 @@
             <div class="card-body p-6">
                 <div class="expanel expanel-secondary">
                     <div class="card">
-                        <div class="card-header">
-                            <div class="input-group">
-                            <p>Date: <input type="text" id="datepicker"></p>
-                            </div>
-                            <div id="purchaseListactions" class="card-options">
-                            </div>
-                        </div>
                         <div style="height:60vH" class="card-body table-responsive">
                             <div id="purchaseList">
                                 <div>
@@ -142,8 +135,8 @@
             },
             success: function(data) {
                 console.log(data[0]);
-                message = data[0].details;
-                status = data[0].completed;
+                var message = data[0].details;
+                var status = data[0].completed;
                 activity = data[0].activity_id;
                 emailed = data[0].emailed;
                 if ((activity == "5") && (status == "1")) {
@@ -255,6 +248,28 @@
                 action: "update-field",
                 lot: lot,
                 field: "pkgs",
+                value: value,
+                saleno: localStorage.getItem("saleno")
+            },
+            success: function(data) {
+                console.log('Submission was successful.');
+            }
+
+        });
+
+    }
+    function updateAuctionDate(element){
+        var lot = $(element).attr("class");
+        var value = $(element).text();
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "finance_action.php",
+            data: {
+                action: "update-field",
+                lot: lot,
+                field: "auction_date",
                 value: value,
                 saleno: localStorage.getItem("saleno")
             },

@@ -666,15 +666,14 @@
             try{
                 $this->query = "UPDATE closing_cat  SET $columnName = '$value' WHERE `closing_cat_import_id` = $id"; 
                 $this->executeQuery();
+
                 $this->debugSql = true;
-                $this->query = "INSERT INTO `buying_list`(`sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`,  `lot`, 
-                `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`,
-                `standard`, `buyer_package`, `import_date`, `auction_date`, `grading_comment`, `max_bp`, `target`, `allocation`, 
-                `confirmed`, `source`, `added_to_plist`) 
-                SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`,  `lot`, 
-                `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`,
-                `standard`, `buyer_package`, `import_date`, `auction_date`, `grading_comment`, `max_bp`, `target`, `allocation`, 
-                `confirmed`, 'A', 0 FROM closing_cat WHERE closing_cat_import_id = $id";
+                $this->query = "UPDATE buying_list 
+                INNER JOIN closing_cat ON closing_cat.sale_no = buying_list.sale_no AND buying_list.lot = closing_cat.lot
+                SET buying_list.standard = closing_cat.standard,
+                buying_list.comment = closing_cat.comment
+                WHERE `closing_cat_import_id` = $id";
+                
                 $this->executeQuery();
 
                 $updated = 1;
@@ -692,8 +691,8 @@
              `confirmed`, `source`, `added_to_plist`) 
              SELECT `sale_no`, `broker`, `category`, `comment`, `ware_hse`, `entry_no`,  `lot`, 
             `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`,
-            `standard`, `buyer_package`, `import_date`, `auction_date`, `grading_comment`, `max_bp`, `target`, `allocation`, 
-             `confirmed`, 'P', 1 FROM closing_cat WHERE closing_cat_import_id = $id";
+            `standard`, 'CSS', `import_date`, `auction_date`, `grading_comment`, `max_bp`, `target`, `allocation`, 
+             1, 'P', 1 FROM closing_cat WHERE closing_cat_import_id = $id";
             $this->executeQuery();
 
             $this->query = "UPDATE closing_cat SET confirmed = 1 WHERE closing_cat_import_id = $id";

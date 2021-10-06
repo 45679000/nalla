@@ -122,7 +122,7 @@
             selectCont += '<option disabled="" value="..." selected="">select</option>';
             selectCont += '</select>';
             $("#contractDiv").html(selectCont);
-            loadContracts();
+            updateContract();
             contractChange();
 
         });

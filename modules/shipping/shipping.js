@@ -29,6 +29,21 @@ function loadContracts(){
     });
     
 }
+function updateContract(){
+    $.ajax({
+        url: "shipping_action.php",
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "edit-contract"
+        },
+        success: function(response) {
+            $("#contract").html(response);
+        }
+
+    });
+    
+}
 function editData(){
     $('#si-templates').change(function(){
         var id = $('#si-templates').val();

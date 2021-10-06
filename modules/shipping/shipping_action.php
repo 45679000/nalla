@@ -128,6 +128,20 @@ if($action=='add-si'){
     }else{
         echo '<option disabled="" value="..." selected="">select</option>';
     }
+}
+else if($action=="edit-contract"){
+    $output = "";
+    $siTemp = $shippingCtrl->loadSItemplates(0);
+            $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($siTemp) > 0) {
+
+         foreach($siTemp as $sitemp){
+            $output .= '<option value="'.$sitemp['contract_no'].'">'.$sitemp['contract_no'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
 }else if ($action=="allocate-blend"){
     $id = isset($_POST['id']) ? $_POST['id'] : die();
     $pkgs = isset($_POST['pkgs']) ? $_POST['pkgs'] : die();

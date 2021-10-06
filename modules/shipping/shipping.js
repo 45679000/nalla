@@ -90,6 +90,28 @@ function contractChange(){
         });
     });
 }
+function contractChangeUpdate(){
+    $('#contract').change(function(){
+        var id = $('#contract').val();
+        $.ajax({
+            url: "shipping_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "edit-si-update",
+                id: id
+            },
+            success: function(data) {
+                for (const [key, value] of Object.entries(data[0])) {
+                    $('#'+key).val(value);
+                }
+
+               
+            }
+    
+        });
+    });
+}
 function viewSis(){
     $.ajax({
         url: "shipping_action.php",

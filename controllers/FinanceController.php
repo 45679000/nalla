@@ -155,14 +155,13 @@
             WHERE activities.id = 6  AND activity_id != 6";
             $this->executeQuery();
         }
-        public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details){
+        public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details, $container_no, $buyer_contract_no,$shipping_marks,$other_reference, $final_destination, $description_of_goods){
             $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
             $results = $this->executeQuery();
             if(count($results)==0){
-                $response = array();
-                $this->debugSql = false;
-                $this->query = "INSERT INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_delivery`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`) 
-                VALUES ('$buyer','$consignee','$invoice_no','$invoice_type','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate())";
+                $this->debugSql = true;
+                $this->query = "INSERT INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`) 
+                VALUES ('$buyer','$consignee','$invoice_no','$invoice_type','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate(), '$final_destination', '$other_reference', '$container_no', '$buyer_contract_no', '$shipping_marks', $description_of_goods)";
                 $this->executeQuery();
                 $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
                 $results = $this->executeQuery();

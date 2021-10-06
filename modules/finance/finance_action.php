@@ -20,15 +20,21 @@
 		$buyer = isset($_POST['buyer']) ? $_POST['buyer'] : $error ='You must select a client';
         $consignee = isset($_POST['consignee']) ? $_POST['consignee'] : $error ='You must select a consignee';
         $invoice_no = isset($_POST['invoice_no']) ? $_POST['invoice_no'] : $error ='You must select a invoice_no';
-        $invoice_type = isset($_POST['invoice_type']) ? $_POST['invoice_type'] : $error ='Type missing';
         $invoice_category = isset($_POST['invoice_category']) ? $_POST['invoice_category'] : $error ='You must indicate Invoice Category';
         $port_of_delivery = isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : $error ='You must indicate contract No';
-        $buyer_bank = isset($_POST['buyer_bank']) ? $_POST['buyer_bank'] : $error = 'You must enter sale no';
+        $buyer_bank = isset($_POST['buyer_bank']) ? $_POST['buyer_bank'] : $error = 'You must enter Buyer\'s bank';
         $payment_terms = isset($_POST['payment_terms']) ? $_POST['payment_terms'] : $error ='You must indicate the payment_terms';
 		$pay_bank = isset($_POST['pay_bank']) ? $_POST['pay_bank'] : $error ='You must indicate the Pay Bank';
 		$pay_details = isset($_POST['pay_details']) ? $_POST['pay_details'] : $error ='You must indicate the pay_details';
+		$container_no = isset($_POST['container_no']) ? $_POST['container_no'] : $error ='You must indicate the container_no';
+		$buyer_contract_no = isset($_POST['buyer_contract_no']) ? $_POST['buyer_contract_no'] : $error ='You must indicate the buyer_contract_no';
+		$shipping_marks = isset($_POST['shipping_marks']) ? $_POST['shipping_marks'] : $error ='You must indicate the shipping_marks';
+		$other_reference= isset($_POST['other_reference']) ? $_POST['other_reference'] : $error ='You must indicate the other_reference';
+		$port_of_delivery= isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : $error ='You must indicate the port_of_delivery';
+		$final_destination= isset($_POST['final_destination']) ? $_POST['final_destination'] : $error ='You must indicate the final_destination';
+		$description_of_goods = isset($_POST['description_of_goods']) ? $_POST['description_of_goods'] : $error ='You must indicate the good_description';
 
-        
+		
         if($error ==""){
           $message = $finance->saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details);
           echo json_encode($message);

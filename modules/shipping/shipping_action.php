@@ -294,8 +294,18 @@ else if($action=="attach-blend-si"){
         echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
 
     }       
+}
+else if($action=="edit-si-update"){
+    if(isset($_POST['id'])){
+        $siRecord = $shippingCtrl->loadSIEdit($_POST['id']);
+        echo json_encode($siRecord);
+    }else{
+        echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
+
+    }       
 }else{
     echo json_encode(array("error_code"=>404, "message"=>"Action not found"));
 }
+
 
 ?>

@@ -124,9 +124,14 @@ Class ShippingController extends Model{
             $this->query = "SELECT *FROM shipping_instructions";
             return $this->executeQuery();
         }else{
-            $this->query = "SELECT *FROM shipping_instructions WHERE contract_no = '$id'";
+            $this->query = "SELECT *FROM shipping_instructions WHERE instruction_id = '$id'";
             return $this->executeQuery();
         }
+      
+    }
+    public function loadSIEdit($id=0){
+        $this->query = "SELECT *FROM shipping_instructions WHERE contract_no = '$id'";
+        return $this->executeQuery();
       
     }
     public function loadSelectedForshipment($contactNo){

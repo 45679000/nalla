@@ -123,7 +123,7 @@
             selectCont += '</select>';
             $("#contractDiv").html(selectCont);
             updateContract();
-            contractChange();
+            contractChangeUpdate();
 
         });
         $("#viewSi").click(function(){

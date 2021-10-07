@@ -464,8 +464,8 @@
 			$response .='<td>'.$grade.'</td>';
 			$response .='<td>'.$invoice.'</td>';
 			$response .='<td>'.$destination.'</td>';
-			$response .='<td>'.$nw.'</td>';
 			$response .='<td>'.$remainder.'</td>';
+			$response .='<td>'.$nw.'</td>';
 			$response .='<td>'.$nw*$remainder.'</td>';
 			$response .='</tr>';
 		}

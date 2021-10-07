@@ -356,6 +356,9 @@
 						  <tbody>";
 				  foreach ($blends as $blend) {
 					$inputKgs = $blendCtrl->totalBlendedPerBlend($blend['id']);
+					if($blend['output_kgs'] != null){
+						$inputKgs = $blend['output_kgs'];
+					}
 
 					  $kgs = $blend['nw']*$blend['Pkgs'];
 				  $output.="<tr>

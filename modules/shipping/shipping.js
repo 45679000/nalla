@@ -153,20 +153,15 @@ function addSi(){
                 localStorage.setItem("siType", data.shipment_type);
                 var sino = data.id;
                 var siType = data.shipment_type;
-                $.ajax({   
-                    type: "POST",
-                    data : {action:"generate", siId:data.id},
-                    dataType: "html", 
-                    success: function(data){
-                        swal('Success');
-                        window.location.href="index.php?view=shipment-teas&sino="+sino+"&type="+siType;
-                        $('#nextid').show();
-                        $("#next").attr("href", "index.php?view=shipment-teas&sino="+sino+"&type="+siType);
-                    }  
-                });   
-            }   
-        });   
-        return false;   
+                window.location.href="index.php?view=shipment-teas&sino="+sino+"&type="+siType;
+
+            },
+             error: function(data){
+
+            }  
+        });
+        window.location.href="index.php?view=shipment-teas&sino="+sino+"&type="+siType;
+   
     });
 }
 function addBlend(){

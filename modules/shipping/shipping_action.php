@@ -21,7 +21,6 @@ if($action=='add-si'){
         echo json_encode(array("success"=>"true", "message"=>"Saved Successfully", "id"=>$resp, "shipment_type"=>$_POST['shippment_type']));
     }else{
         echo json_encode(array("success"=>"false", "message"=>"There are some errors in the Form record not saved"));
-
     }
 }else if($action=='update-si'){
     $shippingCtrl->saveSI($post, 1);

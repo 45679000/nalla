@@ -460,7 +460,7 @@
 			$nw = 1;
 			$lineno = $warehouses->genLineNo($id);
 
-			$warehouses->addClosedBlendToStock($id,$lineno, $sale_no, $lot, $grade, $remainder, $nw, $nw*$remainder, $standard);
+			$warehouses->addClosedBlendToStock($id,$lineno, $sale_no, $lot, $grade, $nw, $remainder, $nw*$remainder, $standard);
 			$response .='<tr>';
 			$response .='<td>'.$lineno.'</td>';
 			$response .='<td>'.$lot.'</td>';

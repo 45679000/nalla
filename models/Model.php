@@ -19,7 +19,12 @@ class Model{
         $columnString = implode(',', array_keys($this->data));
         $valueString = implode(',', array_fill(0, count($this->data), '?'));
         try {
-            $stmt = $this->conn->prepare("REPLACE INTO ".$this->tablename." ({$columnString}) VALUES ({$valueString})");
+            $sql = "REPLACE INTO ".$this->tablename." ({$columnString}) VALUES ({$valueString})";
+
+            if($this->debugSql==true){
+                echo $sql;
+            }
+            $stmt = $this->conn->prepare($sql);
             $stmt->execute(array_values($this->data));
             return $this->conn->lastInsertId();
             

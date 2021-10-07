@@ -48,8 +48,11 @@
     padding: 0px;
     margin: 1.5rem !important;
 }
+		
 </style>
 <body>
+        <link href="./assets/plugins/forn-wizard/css/material-bootstrap-wizard.css" rel="stylesheet" />
+		<link href="./assets/plugins/forn-wizard/css/demo.css" rel="stylesheet" />
     <div class="page-header">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/chamu/modules/cataloguing/index.php?view=dashboard">home</a></li>

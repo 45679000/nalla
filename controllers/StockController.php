@@ -65,6 +65,7 @@
                 
             }else{
                 try {
+                $this->debugSql = true;
 
                 $query = "SELECT line_no, shippments.confirmed, shippments.mrp_value, shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
                  `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 

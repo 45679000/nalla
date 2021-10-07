@@ -164,10 +164,6 @@ function addSi(){
                         // $("#next").attr("href", "index.php?view=shipment-teas&sino="+sino+"&type="+siType);
                     }  
                 });   
-
-              
-
-
             }   
         });   
         return false;   

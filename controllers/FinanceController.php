@@ -159,9 +159,9 @@
             $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
             $results = $this->executeQuery();
             if(count($results)==0){
-                $this->debugSql = true;
+                $this->debugSql = false;
                 $this->query = "INSERT INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`) 
-                VALUES ('$buyer','$consignee','$invoice_no','$invoice_type','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate(), '$final_destination', '$other_reference', '$container_no', '$buyer_contract_no', '$shipping_marks', $description_of_goods)";
+                VALUES ('$buyer','$consignee','$invoice_no','profoma','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate(), '$final_destination', '$other_reference', '$container_no', '$buyer_contract_no', '$shipping_marks', '$description_of_goods')";
                 $this->executeQuery();
                 $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
                 $results = $this->executeQuery();
@@ -229,10 +229,14 @@
             return $results[0]['invoice_no'];
         }
         public function invoiceTea($stockid, $invoiceno){
+            echo "here";
+            $this->debugSql = true;
+
             $this->query = "UPDATE closing_stock SET profoma_invoice_no = '$invoiceno' WHERE stock_id = $stockid";
             $this->executeQuery();
         }
         public function removeInvoiceTea($stockid){
+            $this->debugSql = true;
             $this->query = "UPDATE closing_stock SET profoma_invoice_no = NULL WHERE stock_id = $stockid";
             $this->executeQuery();
         }

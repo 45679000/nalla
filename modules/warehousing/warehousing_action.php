@@ -371,7 +371,7 @@
 							  <td>".$blend['fiber']."</td>
 							  <td>".$blend['pulucon']."</td>
 							  <td>".$blend['blend_remnant']."</td>
-							  <td>".$blend['output_kgs']."</td>";
+							  <td>".$blend['gain_loss']."</td>";
 
 							  $output.="<td>";
 								if($status == 1){

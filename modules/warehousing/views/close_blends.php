@@ -215,7 +215,7 @@
         var blendid = localStorage.getItem("blendid");
         var blendInput = localStorage.getItem("inputkgs");
         var shippment = localStorage.getItem("shippment");
-        var blendRemant = Number(shippment)- Number(blendOutput);
+        var blendRemant = Number(blendOutput)- Number(shippment);
         $("#blendremnant").val(blendRemant);
         $("#gainLoss").val((Number(blendOutput)+Number(pulucon)+Number(Sweeping)+Number(Cyclone)+Number(Dust)+Number(Fiber)) - Number(blendInput));
 

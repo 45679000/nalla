@@ -160,8 +160,8 @@ function addSi(){
                     success: function(data){
                         swal('Success');
                         window.location.href="index.php?view=shipment-teas&sino="+sino+"&type="+siType;
-                        // $('#nextid').show();
-                        // $("#next").attr("href", "index.php?view=shipment-teas&sino="+sino+"&type="+siType);
+                        $('#nextid').show();
+                        $("#next").attr("href", "index.php?view=shipment-teas&sino="+sino+"&type="+siType);
                     }  
                 });   
             }   

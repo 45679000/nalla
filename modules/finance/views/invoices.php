@@ -179,8 +179,18 @@
                                     </div>
                                     <div class="tab-pane" id="tab2">
                                         <div class="card">
-                                            <div id="" class="card-header">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div id="invoices"></div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <div id="profoma_invoice_print">
 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
 
                                         </div>
@@ -223,13 +233,12 @@ $(document).ready(function() {
     var invoiceType = '<?php echo $invoicetype ?>';
     $("#invoice_type").val(invoiceType);
     clientWithcodeList();
-
+    loadInvoices();
     //insert ajax request data
     $("#submit").click(function(e) {
         if ($("#formData")[0].checkValidity()) {
             e.preventDefault();
             localStorage.setItem("invoiceno", $("#invoice_no").val());
-
             $.ajax({
                 url: "finance_action.php",
                 type: "POST",
@@ -290,30 +299,10 @@ $(document).ready(function() {
         }
     });
     //Edit Record
-    $("body").on("click", ".editBtn", function(e) {
+    $("body").on("click", ".profoma_print", function(e) {
         e.preventDefault();
-
-        var editId = $(this).attr('id');
-        $.ajax({
-            url: "finance_action.php",
-            type: "POST",
-            dataType: "json",
-            data: {
-                editId: editId
-            },
-            success: function(data) {
-                $("#edit-form-id").val(data[0].id);
-                $("#standardUpdate").val(data[0].std_name);
-                $("#blendid").val(data[0].blendid);
-                $("#contractno").val(data[0].contractno);
-                $("#clientwithcodeUpdate").val(data[0].client_id);
-                $("#updateGrade").val(data[0].Grade);
-                $("#pkgs").val(data[0].Pkgs);
-                $("#nw").val(data[0].nw);
-                $("#sale_no").val(data[0].sale_no);
-
-            }
-        });
+        $("#profoma_print").html('<class="frame" frameBorder="0" src="../../reports/auction_list.php?saleno=' + saleno + '&broker=' + broker + ' &category=' + category +'&filter=true" width="100%" height="800px"></>');
+        
     });
    
     $("body").on("click", ".removeTea", function(e) {
@@ -401,6 +390,25 @@ function loadUnallocated(mark, lot, grade, saleno) {
             $("#stocklist").show();
             $('#stocklist').html(data);
             $('#direct_lot').DataTable({
+                "pageLength": 50,
+                dom: 'Bfrtip'
+            });
+
+        }
+    });
+}
+function loadInvoices() {
+    $.ajax({
+        type: "POST",
+        data: {
+            action: "view-invoices"
+        },
+        cache: true,
+        url: "finance_action.php",
+        success: function (data) {
+            
+            $('#invoices').html(data);
+            $('#invoicetable').DataTable({
                 "pageLength": 50,
                 dom: 'Bfrtip'
             });

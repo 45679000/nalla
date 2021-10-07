@@ -8,8 +8,8 @@
     
     $PHPJasperXML = new PHPJasperXML();
     $PHPJasperXML->debugsql = false;
-    // $PHPJasperXML->arrayParameter=array("sino"=>$_GET['sino']);
-    $PHPJasperXML->load_xml_file("jrxmlFiles/profoma_invoice_blend.jrxml");
+    $PHPJasperXML->arrayParameter=array("invoiceno"=>$_GET['invoiceno']);
+    $PHPJasperXML->load_xml_file("jrxmlFiles/profoma_invoice_straight.jrxml");
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
     ob_end_clean();
     $PHPJasperXML->outpage("I");

@@ -359,24 +359,13 @@
 	// View record
 	if (isset($_POST['action']) && $_POST['action'] == "view-invoices") {
 		$output = "";
-		$invoice_no = isset($_POST['invoiceno']) ? $_POST['invoiceno'] : '';
-		$type = isset($_POST['type']) ? $_POST['type'] : '';
-		$invoices = $finance->fetchInvoices($type, $invoice_no);
+		$invoices = $finance->fetchInvoices('profoma', '');
 		if($invoice_no ==''){
 			if (count($invoices) > 0) {
-				$output .="<table id='grid' class='table table-striped table-bordered table-hover thead-dark table-sm'>
+				$output .="<table id='invoicetable' class='table table-striped table-bordered table-hover thead-dark table-sm'>
 						<thead class='thead-dark'>
 							<tr>
 							<th>Invoice No</th>
-							<th>Buyer</th>
-							<th>Consignee</th>
-							<th>Category</th>
-							<th>Port Of Delivery</th>
-							<th>Buyer Bank</th>
-							<th>Pay Bank</th>
-							<th>Payment Details</th>
-							<th>Date</th>
-							<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>";
@@ -388,19 +377,6 @@
 
 					$output.="<tr>
 						<td><a href='./index.php?view=selectTeas&cat=$cat&kind=$kind&invoice_no=$invoiceid'>".$invoice['invoice_no']."</a></td>
-						<td>".$invoice['debtor_ref']."</td>
-						<td>".$invoice['consignee']."</td>
-						<td>".$invoice['invoice_category']."</td>
-						<td>".$invoice['port_of_delivery']."</td>
-						<td>".$invoice['buyer_bank']."</td>
-						<td>".$invoice['pay_bank']."</td>
-						<td>".$invoice['pay_details']."</td>
-						<td>".$invoice['date_captured']."</td>
-						<td>
-
-							<a class='printInvoice' onlick='printReport(this)' style='color:red' data-toggle='tooltip' data-placement='bottom' title='Remove Tea' >
-					  		<i class='fa fa-file' ></i></a>&nbsp&nbsp&nbsp;
-							</td>
 						</tr>";
 					}
 				$output .= "</tbody>

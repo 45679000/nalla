@@ -5,16 +5,18 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="259"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="730"/>
+	<parameter name="invoiceno" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT tea_invoices.`id`, `buyer`, `consignee`, `address`,`invoice_no`, `invoice_type`, `invoice_category`, `port_of_delivery`, `buyer_bank`, tea_invoices.`payment_terms`, 
 `pay_bank`, `pay_details`, `date_captured`, 0_debtors_master.address,
- tea_invoices.exporter, good_description, contract_no, other_references, terms_of_delivery, lot, mark_country.country, closing_stock.mark, grade, invoice, (pkgs*1) AS pkgs, net, (kgs*1) As kgs, sale_price AS rate_per_kg,
+ tea_invoices.exporter, good_description, contract_no, other_references, terms_of_delivery, lot, mark_country.country, closing_stock.mark, grade, invoice, 
+ (pkgs*1) AS pkgs, net, (kgs*1) As kgs, sale_price AS rate_per_kg,
  ROUND((sale_price* kgs),2) AS final_amount, container_no, shipping_marks
  FROM `tea_invoices`
  INNER JOIN  0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no 
   INNER JOIN  closing_stock ON closing_stock.profoma_invoice_no = tea_invoices.invoice_no 
   INNER JOIN mark_country ON mark_country.mark = closing_stock.mark
- WHERE tea_invoices.id = 1
+ WHERE tea_invoices.invoice_no = '$P{invoiceno}' 
  GROUP BY lot]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
@@ -621,9 +623,9 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="20" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="60" height="18" uuid="57e1f341-553d-4d2c-98f6-86c0a620490f">
+				<reportElement x="0" y="0" width="60" height="10" uuid="57e1f341-553d-4d2c-98f6-86c0a620490f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19540b0c-bc1e-4e46-b40d-0cdbc145a405"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -634,12 +636,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lot]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="59" y="0" width="61" height="18" uuid="73dff8dd-949d-42f4-9ba9-f65180f56658">
+				<reportElement x="59" y="0" width="61" height="10" uuid="73dff8dd-949d-42f4-9ba9-f65180f56658">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="da286ceb-ba30-4f9c-94c8-7131f2461dc1"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -650,12 +652,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Country]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="169" y="0" width="41" height="18" uuid="1feffa21-527d-4d25-891a-f1dce8528e35">
+				<reportElement x="169" y="0" width="41" height="10" uuid="1feffa21-527d-4d25-891a-f1dce8528e35">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a65a5c6f-817b-4af1-8420-cf15485af9e6"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -666,12 +668,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grade]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="0" width="54" height="18" uuid="e0f4513f-c8ec-4f8b-9bee-99acf927c1d4">
+				<reportElement x="209" y="0" width="54" height="10" uuid="e0f4513f-c8ec-4f8b-9bee-99acf927c1d4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f67cc3d7-325c-4803-93db-7fe79b713f97"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -682,12 +684,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Invoice]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="314" y="0" width="66" height="18" uuid="b6aff309-befb-425d-8aca-f2b2e3b96407">
+				<reportElement x="314" y="0" width="66" height="10" uuid="b6aff309-befb-425d-8aca-f2b2e3b96407">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3f8798-d2a0-4715-afee-5250501b549b"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -698,12 +700,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[KGS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="119" y="0" width="51" height="18" uuid="ec33fb9e-9a93-474e-aeb3-1bbb0e482d1a">
+				<reportElement x="119" y="0" width="51" height="10" uuid="ec33fb9e-9a93-474e-aeb3-1bbb0e482d1a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a585dc77-1526-4010-8b99-827cf6aa17ee"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -714,12 +716,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mark]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="0" width="61" height="18" uuid="006fc059-050b-4688-accb-294fdf528eb5">
+				<reportElement x="380" y="0" width="61" height="10" uuid="006fc059-050b-4688-accb-294fdf528eb5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d338b1-f74a-4e08-9c15-89f16eca070b"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -730,12 +732,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="441" y="0" width="49" height="18" uuid="193a7cd7-2088-4434-bf47-9dc89fadedf0">
+				<reportElement x="441" y="0" width="49" height="10" uuid="193a7cd7-2088-4434-bf47-9dc89fadedf0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d338b1-f74a-4e08-9c15-89f16eca070b"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -746,12 +748,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[USD/KG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="491" y="0" width="63" height="18" uuid="fa05b53c-fa23-4c56-80d7-146bd07484c7">
+				<reportElement x="491" y="0" width="63" height="10" uuid="fa05b53c-fa23-4c56-80d7-146bd07484c7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d338b1-f74a-4e08-9c15-89f16eca070b"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -762,12 +764,12 @@
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kgs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="264" y="0" width="50" height="18" uuid="e6320d99-231d-47b9-90a3-0ae69dcf3e84">
+				<reportElement x="264" y="0" width="50" height="10" uuid="e6320d99-231d-47b9-90a3-0ae69dcf3e84">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f67cc3d7-325c-4803-93db-7fe79b713f97"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -778,16 +780,16 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" isBold="true"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Packages]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="-1" width="60" height="18" uuid="7d7ec031-c244-48b2-b87e-d76a1d562951">
+				<reportElement x="0" y="-1" width="60" height="11" uuid="7d7ec031-c244-48b2-b87e-d76a1d562951">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19540b0c-bc1e-4e46-b40d-0cdbc145a405"/>
 				</reportElement>
 				<box>
@@ -798,12 +800,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lot}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="59" y="-1" width="61" height="18" uuid="a804b712-0439-4144-a7b5-c56c39358134">
+				<reportElement x="59" y="-1" width="61" height="11" uuid="a804b712-0439-4144-a7b5-c56c39358134">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="da286ceb-ba30-4f9c-94c8-7131f2461dc1"/>
 				</reportElement>
 				<box>
@@ -814,12 +816,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="169" y="-1" width="41" height="18" uuid="887d2bb9-88dd-4ff0-8fd6-905e34acb71f">
+				<reportElement x="169" y="-1" width="41" height="11" uuid="887d2bb9-88dd-4ff0-8fd6-905e34acb71f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a65a5c6f-817b-4af1-8420-cf15485af9e6"/>
 				</reportElement>
 				<box>
@@ -830,12 +832,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="209" y="-1" width="55" height="18" uuid="9d407acc-b57c-47f4-b300-691cc26b9187">
+				<reportElement x="209" y="-1" width="55" height="11" uuid="9d407acc-b57c-47f4-b300-691cc26b9187">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f67cc3d7-325c-4803-93db-7fe79b713f97"/>
 				</reportElement>
 				<box>
@@ -846,12 +848,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="264" y="-1" width="50" height="18" uuid="af401ef5-5d8c-4909-a546-abfd93028e44">
+				<reportElement x="264" y="-1" width="50" height="11" uuid="af401ef5-5d8c-4909-a546-abfd93028e44">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3f8798-d2a0-4715-afee-5250501b549b"/>
 				</reportElement>
 				<box>
@@ -862,12 +864,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pkgs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="119" y="-1" width="51" height="18" uuid="35e3f5d5-326a-4e08-8706-7790acd6f5b4">
+				<reportElement x="119" y="-1" width="51" height="11" uuid="35e3f5d5-326a-4e08-8706-7790acd6f5b4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a585dc77-1526-4010-8b99-827cf6aa17ee"/>
 				</reportElement>
 				<box>
@@ -878,12 +880,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mark}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="441" y="-1" width="48" height="18" uuid="5e0d22d8-7fc3-44ea-b3ab-c2860c2960b1">
+				<reportElement x="441" y="-1" width="48" height="11" uuid="5e0d22d8-7fc3-44ea-b3ab-c2860c2960b1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d338b1-f74a-4e08-9c15-89f16eca070b"/>
 				</reportElement>
 				<box>
@@ -894,12 +896,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rate_per_kg}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="-1" width="61" height="18" uuid="3f70f929-ef47-43be-8297-005a2ee6244e">
+				<reportElement x="380" y="-1" width="61" height="11" uuid="3f70f929-ef47-43be-8297-005a2ee6244e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d338b1-f74a-4e08-9c15-89f16eca070b"/>
 				</reportElement>
 				<box>
@@ -910,12 +912,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="491" y="-1" width="63" height="18" uuid="d44d2889-0cd8-4e61-a014-14eaace1f80e">
+				<reportElement x="491" y="-1" width="63" height="11" uuid="d44d2889-0cd8-4e61-a014-14eaace1f80e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59d338b1-f74a-4e08-9c15-89f16eca070b"/>
 				</reportElement>
 				<box>
@@ -926,12 +928,12 @@
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{final_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="314" y="-1" width="66" height="18" uuid="7b7cd792-c1cc-4afc-b9f2-09df26dcead1">
+				<reportElement x="314" y="-1" width="66" height="11" uuid="7b7cd792-c1cc-4afc-b9f2-09df26dcead1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3f8798-d2a0-4715-afee-5250501b549b"/>
 				</reportElement>
 				<box>
@@ -942,7 +944,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif"/>
+					<font fontName="Liberation Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
 			</textField>

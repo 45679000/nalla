@@ -422,6 +422,12 @@
 		$updated = $CatalogController->updateClosingCat($value, $id, $columnName);
         echo json_encode(array("updated"=>$updated));
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "add-bid"){
+		$value = $_POST['fieldValue'];
+        $columnName = $_POST['fieldName'];
+        $id = $_POST['fieldKey'];
+		$CatalogController->addBid($value, $id, $columnName);
+	}
 	if(isset($_POST['action']) && $_POST['action'] == "grading-bids"){
 
 		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
@@ -430,7 +436,7 @@
 		$imports = $CatalogController->closingCatalogue($saleno, $broker , $category);
 		$html = "";
 		if(sizeOf($imports)>0){
-			$html='<table id="closingimports" class="table table-striped table-bordered" style="width:100%">
+			$html='<table id="closingimports" class="table table-sm table-striped table-bordered" style="width:100%">
 										<thead>
 											<tr>
 												<th class="wd-15p">Sale No</th>
@@ -479,9 +485,9 @@
                                                 $html.='<td><input style="width:50px" name="max_bp" id="'.$id.'" onchange="updateValue(this)"  value="'.$import['max_bp'].'"></td>';
                                                 $html.='<td>';
 													if($target==0){
-														$html.='<button onclick="bid(this)" id="'.$id.'" name="target" value="1" class="btn btn-success btn-sm">Add to selection list</button>';
+														$html.='<button  id="'.$id.'" name="target" value="1" class="btn btn-success btn-sm addbid">Add to selection list</button>';
 													}else{
-														$html.='<button onclick="bid(this)" id="'.$id.'" name="target" value="0" class="btn btn-danger btn-sm">Remove to selection list</button>';
+														$html.='<button id="'.$id.'" name="target" value="0" class="btn btn-danger btn-sm addbid">Remove to selection list</button>';
 
 													}
 												$html.='</td>';

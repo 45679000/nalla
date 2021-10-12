@@ -362,7 +362,7 @@
 		$invoices = $finance->fetchInvoices('profoma', '');
 		if($invoice_no ==''){
 			if (count($invoices) > 0) {
-				$output .="<table id='invoicetable' class='table table-striped table-bordered table-hover thead-dark table-sm'>
+				$output .="<table id='invoicetable1' class='table-striped table-bordered table-hover thead-dark table-sm'>
 						<thead class='thead-dark'>
 							<tr>
 							<th>Invoice No</th>
@@ -370,13 +370,8 @@
 						</thead>
 						<tbody>";
 				foreach ($invoices as $invoice) {
-			$kgs=$invoice['Pkgs']*$invoice['nw'];
-			$invoiceid = $invoice['id'];
-			$cat = $invoice['invoice_category'];
-			$kind = $invoice['invoice_type'];
-
 					$output.="<tr>
-						<td><a href='./index.php?view=selectTeas&cat=$cat&kind=$kind&invoice_no=$invoiceid'>".$invoice['invoice_no']."</a></td>
+						<td><i class='fa fa-folder'></i><a href='#' class='profoma_print'>".$invoice['invoice_no']."</a></td>
 						</tr>";
 					}
 				$output .= "</tbody>
@@ -515,5 +510,28 @@
 		$saleno = $stockCtrl->salenoPurchases($type);
 		echo json_encode($saleno);
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "profoma-templates"){	
+		$output = "";
+		$invoices = $finance->fetchInvoices('profoma', '');
+            $output = '<option disabled="" value="..." selected="">select</option>';
+		if (sizeOf($invoices) > 0) {
 
+			foreach($invoices as $sitemp){
+				$output .= '<option value="'.$sitemp['id'].'">'.$sitemp['invoice_no'].'</option>';
+			}
+			echo $output;	
+		}else{
+			echo '<option disabled="" value="..." selected="">select</option>';
+		}
+	}
+	// if($action=="edit-si-profoma"){
+	// 	if(isset($_POST['id'])){
+	// 		$inRecord = $finance->loadSIEdit($_POST['id']);
+	// 		echo json_encode($inRecord);
+	// 	}else{
+	// 		echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
+	
+	// 	}       
+	// }
+	
 	

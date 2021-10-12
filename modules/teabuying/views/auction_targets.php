@@ -176,6 +176,34 @@ function loadGradingTable(saleno, broker, category){
         }
     });
 }
+ $("body").on("click", ".addbid", function(e){
+     e.preventDefault();
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "tea_buying_action.php",
+        data: {
+            action:"add-bid",
+            fieldName:$(this).attr("name"),
+            fieldValue:$(this).val(),
+            fieldKey:$(this).attr("id")
+        },
+        success: function(data) {
+                return $.growl.notice({
+                    message: "Bid Added Updated Successfully"
+                });
+                if(id==0){
+                    $(element).text("Add Bid");
+                }else{
+                    $(element).text("Remove Bid");
+
+                }
+        
+        }
+    });
+ })
+
+
 function updateValue(element){
     $.ajax({
         type: "POST",
@@ -195,36 +223,7 @@ function updateValue(element){
         }
     });
 }
-function bid(element){
-    var id = $(element).val();
-    var idtxt = $(element).attr("id");
-    // alert(idtxt);
-    $("#"+idtxt).html("Add Bid");
 
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "tea_buying_action.php",
-        data: {
-            action:"update-grading",
-            fieldName:$(element).attr("name"),
-            fieldValue:$(element).val(),
-            fieldKey:$(element).attr("id")
-        },
-        success: function(data) {
-                return $.growl.notice({
-                    message: "Bid Added Updated Successfully"
-                });
-                if(id==0){
-                    $(element).text("Add Bid");
-                }else{
-                    $(element).text("Remove Bid");
-
-                }
-        
-        }
-    });
-}
 
 
 

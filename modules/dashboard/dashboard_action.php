@@ -94,7 +94,7 @@
         case 'totalStckB':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock";
-           $totalKgs = $stock->executeQuery();
+            $totalKgs = $stock->executeQuery();
 
            $stock->query = "SELECT SUM(pkgs_shipped) AS pkgs_shipped
            FROM shippments
@@ -114,19 +114,19 @@
                $totalStock = $totalKgs[0]['pkgs'];
            }
 
-          $totalBlended = $totalStock - $totalBlendedPkgs["pkgs"];
+          $totalBlended = $totalStock - $totalBlendedPkgs[0]["pkgs"];
 
             $description = "Total Blended Teas";
             $unit="Pkgs"; 
             $icon = "mdi mdi-apple-keyboard-command";
             $mdiText = "Total Blended PKgs In stock";
-           echo get_card(number_format($totalBlended), $description, $unit, $icon, $mdiText);
+           echo get_card(number_format($totalBlendedPkgs["pkgs"]), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckAllc':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
-            LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-            WHERE (shippments.id IS NOT NULL AND shippments.is_shipped = false)";
+            INNER JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
+            WHERE is_shipped = 0";
             $totalKgs = $stock->executeQuery();
             $description = "Total Allocated Teas";
             $unit="Pkgs"; 
@@ -138,7 +138,8 @@
             $stock->query = "SELECT SUM(pkgs) AS pkgs
             FROM closing_stock 
             LEFT JOIN shippments ON  shippments.stock_id = closing_stock.stock_id
-            WHERE shippments.id IS NULL AND client_id = 0 ";
+            WHERE shippments.id IS NULL";
+
             $totalKgs = $stock->executeQuery();
             $description = "Total Unallocated Teas";
             $unit="Pkgs"; 

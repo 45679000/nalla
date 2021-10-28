@@ -34,7 +34,7 @@
 		$output = "";
 		if(count($shippments)>0){
 			$output .= '
-			<table id="dashboard" class="table table-sm table-hover table-responsive">
+			<table id="dashboard" class="table table-sm table-hover">
 			<thead>
 				<tr>
 					<th>SI</th>

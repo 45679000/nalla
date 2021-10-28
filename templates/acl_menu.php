@@ -62,6 +62,10 @@
 							<li>
 								<a href='.$path_to_root.'modules/cataloguing/views/generate_labels.php>Generate Lables</a>
 							</li>
+							<li>
+								<a href='.$path_to_root.'modules/cataloguing/imports/remove_catalogue.php>Remove Catalog</a>
+						    </li>
+
 							
 						</ul>
 					</div>

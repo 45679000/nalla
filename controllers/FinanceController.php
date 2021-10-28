@@ -155,13 +155,13 @@
             WHERE activities.id = 6  AND activity_id != 6";
             $this->executeQuery();
         }
-        public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details, $container_no, $buyer_contract_no,$shipping_marks,$other_reference, $final_destination, $description_of_goods){
+        public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details, $container_no, $buyer_contract_no,$shipping_marks,$other_reference, $final_destination, $description_of_goods, $hs_code){
             $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
             $results = $this->executeQuery();
-            if(count($results)==0){
+            if(count($results)>=0){
                 $this->debugSql = false;
-                $this->query = "INSERT INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`) 
-                VALUES ('$buyer','$consignee','$invoice_no','profoma','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate(), '$final_destination', '$other_reference', '$container_no', '$buyer_contract_no', '$shipping_marks', '$description_of_goods')";
+                $this->query = "REPLACE INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`) 
+                VALUES ('$buyer','$consignee','$invoice_no','profoma','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate(), '$final_destination', '$other_reference', '$container_no', '$buyer_contract_no', '$shipping_marks', '$description_of_goods','$final_destination', '$hs_code')";
                 $this->executeQuery();
                 $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
                 $results = $this->executeQuery();
@@ -193,6 +193,13 @@
             WHERE activity_id = 4 AND buyer_package = 'CSS' AND closing_cat.confirmed = 0
             GROUP BY sale_no";
             return $this->executeQuery();
+        }
+        public function invoiceTemplate(){
+            $this->debugSql = false;
+
+            $this->query = "SELECT * FROM tea_invoices";
+            return $this->executeQuery();
+
         }
         public function fetchInvoices($type, $invoiceno){
             if($invoiceno ==''){
@@ -228,15 +235,24 @@
             $results = $this->executeQuery();
             return $results[0]['invoice_no'];
         }
-        public function invoiceTea($stockid, $invoiceno){
-            echo "here";
+        public function invoiceTea($stockid, $invoiceno, $user){
             $this->debugSql = true;
+            $this->conn->beginTransaction();
+            $this->query = "INSERT INTO `invoice_teas`(`invoice_no`, `stock_id`, `profoma_amount`, `time_stamp`, `created_by`) 
+            SELECT '$invoiceno',$stockid,sale_price,CURRENT_TIMESTAMP, $user
+            FROM closing_stock
+            WHERE stock_id = $stockid";
+            $this->executeQuery();
 
             $this->query = "UPDATE closing_stock SET profoma_invoice_no = '$invoiceno' WHERE stock_id = $stockid";
             $this->executeQuery();
+            if($this->success>1){
+                $this->conn->commit();
+            }
         }
         public function removeInvoiceTea($stockid){
             $this->debugSql = true;
+            $this->query = "DELETE FROM ";
             $this->query = "UPDATE closing_stock SET profoma_invoice_no = NULL WHERE stock_id = $stockid";
             $this->executeQuery();
         }
@@ -260,6 +276,145 @@
             return $lineno;
 
         }
+        public function numberTowords($num){
+
+            $ones = array(
+            0 =>"ZERO",
+            1 => "ONE",
+            2 => "TWO",
+            3 => "THREE",
+            4 => "FOUR",
+            5 => "FIVE",
+            6 => "SIX",
+            7 => "SEVEN",
+            8 => "EIGHT",
+            9 => "NINE",
+            10 => "TEN",
+            11 => "ELEVEN",
+            12 => "TWELVE",
+            13 => "THIRTEEN",
+            14 => "FOURTEEN",
+            15 => "FIFTEEN",
+            16 => "SIXTEEN",
+            17 => "SEVENTEEN",
+            18 => "EIGHTEEN",
+            19 => "NINETEEN",
+            "014" => "FOURTEEN"
+            );
+            $tens = array( 
+            0 => "ZERO",
+            1 => "TEN",
+            2 => "TWENTY",
+            3 => "THIRTY", 
+            4 => "FORTY", 
+            5 => "FIFTY", 
+            6 => "SIXTY", 
+            7 => "SEVENTY", 
+            8 => "EIGHTY", 
+            9 => "NINETY" 
+            ); 
+            $hundreds = array( 
+            "HUNDRED", 
+            "THOUSAND", 
+            "MILLION", 
+            "BILLION", 
+            "TRILLION", 
+            "QUARDRILLION" 
+            ); /*limit t quadrillion */
+            $num = number_format($num,2,".",","); 
+            $num_arr = explode(".",$num); 
+            $wholenum = $num_arr[0]; 
+            $decnum = $num_arr[1]; 
+            $whole_arr = array_reverse(explode(",",$wholenum)); 
+            krsort($whole_arr,1); 
+            $rettxt = ""; 
+            foreach($whole_arr as $key => $i){    
+            while(substr($i,0,1)=="0")
+                    $i=substr($i,1,5);
+                        if($i < 20){ 
+                            /* echo "getting:".$i; */
+                            $rettxt .= $ones[$i]; 
+                            }elseif($i < 100){ 
+                            if(substr($i,0,1)!="0")  $rettxt .= $tens[substr($i,0,1)]; 
+                            if(substr($i,1,1)!="0") $rettxt .= " ".$ones[substr($i,1,1)]; 
+                            }else{ 
+                            if(substr($i,0,1)!="0") $rettxt .= $ones[substr($i,0,1)]." ".$hundreds[0]; 
+                            if(substr($i,1,1)!="0")$rettxt .= " ".$tens[substr($i,1,1)]; 
+                            if(substr($i,2,1)!="0")$rettxt .= " ".$ones[substr($i,2,1)]; 
+                            } 
+                            if($key > 0){ 
+                            $rettxt .= " ".$hundreds[$key]." "; 
+                            }
+                        } 
+                        if($decnum > 0){
+                            $rettxt .= " and ";
+                            if($decnum < 20){
+                            $rettxt .= $ones[$decnum];
+                            }elseif($decnum < 100){
+                            $rettxt .= $tens[substr($decnum,0,1)];
+                            $rettxt .= " ".$ones[substr($decnum,1,1)];
+                            }
+                        }
+            return $rettxt;
+        }
+        public function loadTeaInvoices($invoice_no){
+            $this->debugSql = false;
+            $this->query = "SELECT line_no, invoice_teas.id, invoice_teas.stock_id, sale_no, broker, closing_stock.mark, lot, grade, invoice, pkgs, net,
+            kgs, invoice_teas.profoma_amount,  mark_country.country
+            FROM invoice_teas
+            INNER JOIN closing_stock ON closing_stock.stock_id = invoice_teas.stock_id
+            LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
+            WHERE invoice_no = '$invoice_no'
+            GROUP BY stock_id";
+            return $this->executeQuery();
+            
+        }
+        public function loadBlendTeaInvoices($invoice_no){
+            $this->debugSql = false;
+            $this->query = "SELECT *
+            FROM blend_invoice_line_no
+            WHERE invoice_no = '$invoice_no'";
+            return $this->executeQuery();
+            
+        }
+        public function addRecord($invoice_no){
+            try {
+               $this->debugSql = true;
+               $this->query = "INSERT INTO `blend_invoice_line_no`(`invoice_no`) VALUES('$invoice_no')";
+               $this->executeQuery();
+            } catch (\Throwable $th) {
+               throw $th;
+            }
+         
+            return json_encode(array("added"=>"true"));
+         
+         }
+         public function updateValue($id, $fieldValue, $fieldName){
+            try {
+                $this->debugSql = true;
+
+                $this->query = "UPDATE blend_invoice_line_no SET $fieldName = '$fieldValue' WHERE id = $id";
+                $this->executeQuery();
+            } catch (\Throwable $th) {
+               //throw $th;
+            }
+            return json_encode(array("updated"=>"true"));
+        }
+        public function removeRecord($id){
+            try {
+               $this->debugSql = true;
+               $this->query = "DELETE FROM `blend_invoice_line_no` WHERE id= $id";
+               $this->executeQuery();
+            } catch (\Throwable $th) {
+               throw $th;
+            }
+         
+            return json_encode(array("added"=>"true"));
+         
+         }
+
+        
+
    
     }
     

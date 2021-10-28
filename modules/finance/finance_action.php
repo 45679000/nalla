@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	header("Access-Control-Allow-Origin: *");
     include_once('../../models/Model.php');
 	require "../../vendor/autoload.php";
@@ -6,7 +8,6 @@
     include '../../controllers/FinanceController.php';
 	include '../../controllers/WorkFlow.php';
 	include_once('../../controllers/StockController.php');
-
 
     $db = new Database();
     $conn = $db->getConnection();
@@ -18,22 +19,23 @@
 	if (isset($_POST['action']) && $_POST['action'] == "save-invoice") {
         $error = "";
 		$buyer = isset($_POST['buyer']) ? $_POST['buyer'] : $error ='You must select a client';
-        $consignee = isset($_POST['consignee']) ? $_POST['consignee'] : $error ='You must select a consignee';
-        $invoice_no = isset($_POST['invoice_no']) ? $_POST['invoice_no'] : $error ='You must select a invoice_no';
+        $consignee = isset($_POST['consignee']) ? $_POST['consignee'] : 'SAME AS BUYER';
+        $invoice_no = isset($_POST['invoice_no']) ? $_POST['invoice_no'] : $error ='You must enter an invoice_no';
         $invoice_category = isset($_POST['invoice_category']) ? $_POST['invoice_category'] : $error ='You must indicate Invoice Category';
-        $port_of_delivery = isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : $error ='You must indicate contract No';
-        $buyer_bank = isset($_POST['buyer_bank']) ? $_POST['buyer_bank'] : $error = 'You must enter Buyer\'s bank';
-        $payment_terms = isset($_POST['payment_terms']) ? $_POST['payment_terms'] : $error ='You must indicate the payment_terms';
-		$pay_bank = isset($_POST['pay_bank']) ? $_POST['pay_bank'] : $error ='You must indicate the Pay Bank';
-		$pay_details = isset($_POST['pay_details']) ? $_POST['pay_details'] : $error ='You must indicate the pay_details';
+        $port_of_delivery = isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : '';
+        $buyer_bank = isset($_POST['buyer_bank']) ? $_POST['buyer_bank'] : '';
+        $payment_terms = isset($_POST['payment_terms']) ? $_POST['payment_terms'] : '';
+		$pay_bank = isset($_POST['pay_bank']) ? $_POST['pay_bank'] : '';
+		$pay_details = isset($_POST['pay_details']) ? $_POST['pay_details'] : '';
+		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
 
-		$container_no = isset($_POST['container_no']) ? $_POST['container_no'] : $error ='You must indicate the container_no';
-		$buyer_contract_no = isset($_POST['buyer_contract_no']) ? $_POST['buyer_contract_no'] : $error ='You must indicate the buyer_contract_no';
-		$shipping_marks = isset($_POST['shipping_marks']) ? $_POST['shipping_marks'] : $error ='You must indicate the shipping_marks';
-		$other_reference= isset($_POST['other_reference']) ? $_POST['other_reference'] : $error ='You must indicate the other_reference';
+		$container_no = isset($_POST['container_no']) ? $_POST['container_no'] : '';
+		$buyer_contract_no = isset($_POST['buyer_contract_no']) ? $_POST['buyer_contract_no'] : '';
+		$shipping_marks = isset($_POST['shipping_marks']) ? $_POST['shipping_marks'] : '';
+		$other_reference= isset($_POST['other_references']) ? $_POST['other_references'] : '';
 		$port_of_delivery= isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : $error ='You must indicate the port_of_delivery';
-		$final_destination= isset($_POST['final_destination']) ? $_POST['final_destination'] : $error ='You must indicate the final_destination';
-		$description_of_goods = isset($_POST['description_of_goods']) ? $_POST['description_of_goods'] : $error ='You must indicate the good_description';
+		$final_destination= isset($_POST['final_destination']) ? $_POST['final_destination'] : '';
+		$description_of_goods = isset($_POST['good_description']) ? $_POST['good_description'] : '';
 
 		
         if($error ==""){
@@ -49,7 +51,8 @@
 			  $other_reference,
 			  $port_of_delivery,
 			  $final_destination,
-			  $description_of_goods
+			  $description_of_goods,
+			  $hs_code
 			);
           echo json_encode($message);
 
@@ -356,7 +359,6 @@
 		echo json_encode($auctions);
 
 	}
-	// View record
 	if (isset($_POST['action']) && $_POST['action'] == "view-invoices") {
 		$output = "";
 		$invoices = $finance->fetchInvoices('profoma', '');
@@ -499,7 +501,7 @@
 	if(isset($_POST['action']) && $_POST['action'] == "select-invoice"){	
 		$stockid = isset($_POST['stockid']) ? $_POST['stockid'] : '';
 		$invoiceid = isset($_POST['invoiceid']) ? $_POST['invoiceid'] : '';
-		$finance->invoiceTea($stockid, $invoiceid);
+		$finance->invoiceTea($stockid, $invoiceid, $_SESSION['user_id']);
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "remove-invoice"){	
 		$stockid = isset($_POST['stockid']) ? $_POST['stockid'] : '';
@@ -510,12 +512,11 @@
 		$saleno = $stockCtrl->salenoPurchases($type);
 		echo json_encode($saleno);
 	}
-	if(isset($_POST['action']) && $_POST['action'] == "profoma-templates"){	
+	if(isset($_POST['action']) && $_POST['action'] == "proforma_templates"){	
 		$output = "";
-		$invoices = $finance->fetchInvoices('profoma', '');
+		$invoices = $finance->invoiceTemplate();
             $output = '<option disabled="" value="..." selected="">select</option>';
 		if (sizeOf($invoices) > 0) {
-
 			foreach($invoices as $sitemp){
 				$output .= '<option value="'.$sitemp['id'].'">'.$sitemp['invoice_no'].'</option>';
 			}
@@ -524,14 +525,141 @@
 			echo '<option disabled="" value="..." selected="">select</option>';
 		}
 	}
-	// if($action=="edit-si-profoma"){
-	// 	if(isset($_POST['id'])){
-	// 		$inRecord = $finance->loadSIEdit($_POST['id']);
-	// 		echo json_encode($inRecord);
-	// 	}else{
-	// 		echo json_encode(array("error_code"=>404, "message"=>"Si Not Found"));
+	if(isset($_POST['action']) && $_POST['action'] == "edit-si-invoice"){	
+		$invoiceno = isset($_POST['id']) ? $_POST['id'] : '';
+
+		$records = $finance->fetchInvoices("", $invoiceno);
+
+		echo json_encode($records);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "load-invoice-teas"){
+		$invoiceno = isset($_POST['invoice']) ? $_POST['invoice'] : '';
+
+		$records = $finance->loadTeaInvoices($invoiceno);
+		if (sizeOf($records)> 0) {
+			$output .='
+			<table id="added_lots" class="table table-sm  table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Line No</th>
+					<th>Lot</th>
+					<th>Origin</th>
+					<th>Grade</th>
+					<th>Invoice</th>
+					<th>Pkgs</th>
+					<th>Kgs</th>
+					<th>Net</th>
+					<th>Final Rate Per Kg</th>
+					<th>Actions</th>
+	  
+				</tr>
+			</thead>
+			<tbody>';
+			foreach ($records as $stock) {
+				$output.='<tr>';
+					$output.='<td>'.$stock["line_no"].'</td>';
+					$output.='<td>'.$stock["lot"].'</td>';
+					$output.='<td>'.$stock["country"].'</td>';
+					$output.='<td>'.$stock["grade"].'</td>';
+					$output.='<td>'.$stock["invoice"].'</td>';
+					$output.='<td>'.$stock["pkgs"].'</td>';
+					$output.='<td>'.$stock["kgs"].'</td>';
+					$output.='<td>'.$stock["net"].'</td>';
+					$output.='<td class="profoma_amount" contenteditable="true">'.$stock["profoma_amount"].'</td>';
+
+					  $output.='<td>
+					  <a class="removeTea" id="'.$stock["id"].'" style="color:green" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+					  <i class="fa fa-close" ></i></a>&nbsp&nbsp&nbsp;
+					</td>'; 
+					
+							 
+				$output.='</tr>';
+					
+			}
+			$output.='</tbody>
+		</table>';
+		}    
+	   echo $output;
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "remove-invoice-tea"){
+		$invoiceno = isset($_POST['id']) ? $_POST['id'] : '';
+
+	}	
+	if(isset($_POST['action']) && $_POST['action'] == "load-invoice-teas-blend"){
+		$invoiceno = isset($_POST['invoice']) ? $_POST['invoice'] : '';
+
+		$records = $finance->loadBlendTeaInvoices($invoiceno);
+			$output .='
+			<table id="added_lots" class="table table-sm  table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Item/STD No.</th>
+					<th>Description Of Goods</th>
+					<th>Total Nett(Kgs)</th>
+					<th>CIF Rate (USD)/Kg</th>
+					<th>VAT AMT</th>
+					<th>Amount (USD)</th>
+				</tr>
+			</thead>
+			<tbody>';
+			foreach ($records as $blend) {
+				$id = $blend["id"];
+				$output.='<tr id="'.$id.'">';
+					$output.='<td class="updateable" name="item" contentEditable="true">'.$blend["item"].'</td>';
+					$output.='<td class="updateable" name="description_of_goods" contentEditable="true">'.$blend["description_of_goods"].'</td>';
+					$output.='<td class="updateable" name="total_net" contentEditable="true">'.$blend["total_net"].'</td>';
+					$output.='<td class="updateable" name="p_cif_rate" contentEditable="true">'.$blend["p_cif_rate"].'</td>';
+					$output.='<td class="updateable" name="p_vat_amt" contentEditable="true">'.$blend["p_vat_amt"].'</td>';
+					$output.='<td class="updateable" name="p_amount" contentEditable="true">'.$blend["p_amount"].'</td>';
+					$output.='<td>
+                  <span>
+                     <button class="btn btn-danger"><i id="'.$id.'" class="remove fa fa-minus" style="color:white"></i></button>
+                  </span>
+                  </td>';		 
+				$output.='</tr>';
+					
+			}
+			$output.='</tbody>';
+			$output.='<tfoot>
+			<tr>';
+			$output.= '<td><button id="add" class="btn btn-success btn-sm text" style="font-size:smaller;"><i class="fa fa-plus" style="color:white"></i></button></td>';       
+			$output.='
+			</tr>
+			</tfoot>';
+
+		$output.='</table>';
+		   
+	   echo $output;
+
+	}
+
+	if(isset($_POST['action']) && $_POST['action'] == "add-line"){
+		$invoiceno = isset($_POST['id']) ? $_POST['id'] : '';
+		$finance->addRecord($invoiceno);
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "update-blend-value"){
+		$id = isset($_POST['id']) ? $_POST['id'] : '';
+		$fieldValue = isset($_POST['value']) ? $_POST['value'] : '';
+		$fieldName = isset($_POST['name']) ? $_POST['name'] : '';
+
+		$finance->updateValue($id, $fieldValue, $fieldName);
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "remove-line"){
+		$id = isset($_POST['id']) ? $_POST['id'] : '';
+		$finance->removeRecord($id);
+
+	}
+
 	
-	// 	}       
-	// }
+	
+	 
+	 
+	 
+	
+
+	
+	
 	
 	

@@ -233,4 +233,48 @@ CREATE TABLE straightlineteas(
 UPDATE buying_list 
 INNER JOIN closing_cat ON closing_cat.sale_no = buying_list.sale_no AND buying_list.lot = closing_cat.lot
 SET buying_list.standard = closing_cat.standard
-WHERE buying_list.sale_no = '2021-39'
+WHERE buying_list.sale_no = '2021-39';
+
+
+
+
+
+
+
+
+
+CSL/TXP 21523
+H.S.CODE:0902-4090
+TXP/523 Dtd. 16.07.21
+2021-10-14
+TEXPERTS 523
+
+PORT QASIM,
+Pakistan
+
+PORT QASIM,
+Pakistan
+
+TO THE ORDER OF, HABIB METROPOLITAN BANK LTD., MITHADAR BRANCH, KARACHI, 
+PAKISTAN
+
+FAMILY BANK LIMITED.
+Digo Road Branch
+Mombasa, Kenya
+Current A/c No. (U.S Dollars):092000015905
+SWIFT Code: FABLKENA
+Bank Code: 070, Branch Code:092
+
+C&F PORT QASIM, Pakistan.
+AGAINST CAD SIGHT THROUGH BANK
+
+
+420 Packages Containing 28170.0Kgs Nett, of African Black Tea. 420 Packages Packed in Single in Single Gunny + PP
+Only. Loose Containerised, As per Order No. TXP/21523 Of Benefeciary.
+
+Invoice Covering 1 X 40 FCL Black Tea of African Origin Shipped from Mombasa Port
+to Port Qasim Pakistan
+
+
+ HABIB METROPOLITAN BANK LTD., MITHADAR BRANCH, KARACHI, 
+PAKISTAN

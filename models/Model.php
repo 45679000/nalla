@@ -9,6 +9,7 @@ class Model{
     public $limit;
     public $tableFieldName;
     public $debugSql = false;
+    public $success = 0;
     public function __construct($db){
         $this->conn = $db;
     }
@@ -83,7 +84,8 @@ class Model{
             echo $this->query;
         }
         $duplicate = 0;
-        try{
+        try{ 
+            $this->success ++;
             $rows = $this->conn->query($this->query)->fetchAll();
             return $rows;
         }catch(PDOException $ex){

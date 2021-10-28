@@ -26,7 +26,7 @@
     }
 
     .dashboard {
-        height: 100vH !important;
+        height: 130vH !important;
         padding-bottom: 0px !important;
     
     }
@@ -88,7 +88,7 @@
                                 include 'views/invoices.php';
                                 break;
                             case 'commercial':
-                                include 'views/generate_straightline_profoma.php';
+                                include 'views/commericial_invoice.php';
                                 break;
                             case 'selectTeas':
                                 include 'views/generate_straightline_profoma.php';

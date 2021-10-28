@@ -1,13 +1,12 @@
 <?php
-$path_to_root = "../";
-$path_to_root1 = "../";
+$path_to_root = "../../../";
+$path_to_root1 = "../../../";
 
 require_once $path_to_root.'templates/header.php';
 include $path_to_root.'models/Model.php';
 require $path_to_root."vendor/autoload.php";
-require_once $path_to_root.'modules/cataloguing/Catalogue.php';
+require_once $path_to_root.'controllers/CatalogController.php';
 include $path_to_root1.'includes/auction_ids.php';
-$imported = false;
 
 
 $catalogue = new Catalogue($conn);
@@ -157,32 +156,32 @@ if(isset($_POST['confirm'])){
 
 
 <!-- Dashboard js -->
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../assets/js/vendors/selectize.min.js"></script>
-<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
+<script src="../../../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../../../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../../../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../../../assets/js/vendors/selectize.min.js"></script>
+<script src="../../../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../../../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../../../assets/plugins/rating/jquery.rating-stars.js"></script>
 <!-- forn-wizard js-->
-<script src="../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
-<script src="../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
+<script src="../../../assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
 <!-- file import -->
-<script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
+<script src="../../../assets/plugins/fileuploads/js/dropify.min.js"></script>
 <!-- Custom scroll bar Js-->
-<script src=../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src=../../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <!-- counter  -->
-<script src="../assets/plugins/counters/counterup.min.js"></script>
-<script src="../assets/plugins/counters/waypoints.min.js"></script>
+<script src="../../../assets/plugins/counters/counterup.min.js"></script>
+<script src="../../../assets/plugins/counters/waypoints.min.js"></script>
 <!-- Custom Js-->
-<script src="../assets/js/custom.js"></script>
-<script id="url" data-name="../ajax/common.php" src="../assets/js/common.js"></script>
+<script src="../../../assets/js/custom.js"></script>
+<script id="url" data-name="../../../ajax/common.php" src="../../../assets/js/common.js"></script>
 
 
-<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
 
 <script>

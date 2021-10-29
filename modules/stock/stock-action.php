@@ -112,7 +112,7 @@
         $gradingStandards = $gradingController->loadStandards();
 		$html ="";
 		if(sizeOf($allocatedStock)>0){
-			$html.='<table id="allocatedStockTable" class="table table-sm table-responsive table-striped table-bordered">
+			$html.='<table id="allocatedStockTable" class="table table-sm table-responsive table-striped w-auto table-bordered">
 										<thead>
 											<tr>
 												<th>Line No</th>

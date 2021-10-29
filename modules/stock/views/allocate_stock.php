@@ -176,6 +176,7 @@
 <script src="../../assets/plugins/notify/js/rainbow.js"></script>
 <script src="../../assets/plugins/notify/js/jquery.growl.js"></script>
 <script src="../../assets/plugins/select2/select2.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 <script>

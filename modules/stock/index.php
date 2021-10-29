@@ -100,6 +100,20 @@ include $path_to_root1 .'includes/auction_ids.php';
                             
                             </div>
                         </div>
+                        <div class="expanel-heading">
+                            <h3 class="expanel-title">Issued Teas</h3>
+                        </div>
+                        <div class="expanel-body">
+                            <div class="list-group  mb-0 mail-inbox">
+                                <a href="./index.php?view=blendsheets" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Blend Sheets
+                                </a>
+                                <a href="./index.php?view=lot-details" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Lot Details
+                                </a>
+                            
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,6 +147,13 @@ include $path_to_root1 .'includes/auction_ids.php';
                             case 'closeblends':
                                 include 'stock_master.php';
                                 break;
+                            case 'blendsheets':
+                                include 'views/blend_sheets.php';
+                                break;
+                            case 'lot-details':
+                                include 'views/lot_details.php';
+                                break;
+                                
                             default:
                             include('views/gardens.php');
 

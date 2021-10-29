@@ -462,3 +462,27 @@ if(isset($_POST['action']) && $_POST['action'] == 'blend-input-summary'){
   );
 
 }
+if (isset($_POST['action']) && $_POST['action'] == "show-all") {
+  $blends = $blendingCtrl->fetchBlends();
+  $menu = "
+  <table id='menuStraight' class='table table-sm table-responsive'>
+      <thead>
+          <tr>
+              <th>Blend Sheets</th>
+          </tr>
+      </thead>
+      <tbody>";
+  foreach ($blends as $blend) {
+      $menu.='<tr>';
+        $menu.='<td>
+          <a class="contractBtn" id="'.$blend["contractno"].'" style="color:blue;"><i class="fa fa-folder-open-o"></i>'.$blend["contractno"].'</a>
+        </td>';
+      $menu.='</tr>';
+
+  }
+  $menu.="
+  </tbody>
+  </table>";
+
+  echo $menu;
+}

@@ -499,6 +499,7 @@
         $("body").on("click", ".contractBtn", function(e) {
             e.preventDefault();
             var id = $(this).attr("id");
+            localStorage.removeItem("contractno");
             localStorage.setItem("contractno", id);
             $("#formContainer").hide();
             $("#allocationContainer").show();

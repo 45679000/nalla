@@ -196,10 +196,11 @@ require_once $path_to_root . 'templates/header.php';
 								icon: 'success',
 								title: 'Status Updated',
 							});
-							shipmentStatus("null");
-							shipmentStatus("Shipped");
-							shipmentStatus("Received");
-							shipmentStatus("Blended");
+							location.reload();
+							// shipmentStatus("null");
+							// shipmentStatus("Shipped");
+							// shipmentStatus("Received");
+							// shipmentStatus("Blended");
 						}
 					});
 				}

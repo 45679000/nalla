@@ -192,11 +192,10 @@
     <div class="container-fluid">
         <div class="d-flex">
             <div class="img-div">
-                <img class="circle-avatar" src="<?=$path_to_root ?>images/logo.png" alt="CHAMU">
+                <img src="<?=$path_to_root ?>images/logo.png" class="img-fluid" alt="CHAMU TIFMS"> 
             </div>
-            <div class="container-fluid" style="padding-top:18px;">
-                <div class="text-center" id="sys_notification"
-                    style="padding-top:18px; width:150vH;background-color:honeydew;border-radius: 15px 50px 30px 15px;">
+            <div class="container-fluid">
+                <div class="text-center pt-2" id="sys_notification">
                 </div>
             </div>
            	<div class="d-flex order-lg-2 ml-auto">
@@ -279,29 +278,15 @@
 									</a>
 									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
 										<div class="text-center">
-											<a href="#" class="dropdown-item text-center font-weight-sembold user">Jessica Allan</a>
-											<span class="text-center user-semi-title text-dark">web designer</span>
+											<a id="username" href="#" class="dropdown-item text-center font-weight-sembold user"></a>
+											<span id="department" class="text-center user-semi-title text-dark"></span>
 											<div class="dropdown-divider"></div>
 										</div>
 										<a class="dropdown-item" href="#">
 											<i class="dropdown-icon mdi mdi-account-outline "></i> Profile
 										</a>
-										<a class="dropdown-item" href="#">
-											<i class="dropdown-icon  mdi mdi-settings"></i> Settings
-										</a>
-										<a class="dropdown-item" href="#">
-											<span class="float-right"><span class="badge badge-primary">6</span></span>
-											<i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
-										</a>
-										<a class="dropdown-item" href="#">
-											<i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
-										</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">
-											<i class="dropdown-icon mdi mdi-compass-outline"></i> Need help?
-										</a>
-										<a class="dropdown-item" href="login.html">
-											<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+										<a id="logout" class="dropdown-item">
+											<i  class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
 										</a>
 									</div>
 								</div>
@@ -331,6 +316,8 @@ $(function () {
 	var user_full_name = '<?php echo $user_full_name ?>';
 	var user_department = '<?php echo $user_department ?>';
 
+    var rootpath = '<?php echo $path_to_root ?>';
+
 	var now = moment().format("dddd, MMMM Do, YYYY, h:mm:ss A");
 
 	var ndate = new Date();
@@ -339,9 +326,9 @@ $(function () {
 
     var section = $('#sys_notification');
     var texts = [
-      '<h4>'+greetings+  '  <i class="fa fa-user"></i>'  +user_full_name+ ' <i class="fa fa-home"></i> Department  '+ user_department+'</h4>', 
-      '<h4>CHAMU TIFMS</h4>', 
-      '<h4><i class="fa fa-calendar"></i> '+now+'</h4>', ];
+      '<h4 class="text-white h4 heading">'+greetings+  '  <i class="text-primary fa fa-user"></i>'  +user_full_name+ ' <i class="text-green fa fa-primary"></i> Department  '+ user_department+'</h4>', 
+      '<h4 class="text-white h4 heading">CHAMU TIFMS</h4>', 
+      '<h4 class="text-white h4 heading"><i class="text-primary fa fa-calendar"></i> '+now+'</h4>', ];
     var current = 0;
 
     function nextNotification() {
@@ -351,6 +338,27 @@ $(function () {
     }
     setTimeout(nextNotification, 6000);
     section.html(texts[0]);
+
+    $("#username").html(user_full_name);
+    $("#department").html(user_department);
+    $("#logout").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            data: {
+                action: "logout"
+            },
+            cache: true,
+            url: rootpath+"admin/logout.php",
+            success: function(data) {
+                setTimeout(function() {
+                location.reload();
+            }, 1000);
+            }
+        });
+    });
+
 }); 
+    
 </script>
 

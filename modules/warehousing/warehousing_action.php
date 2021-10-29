@@ -36,8 +36,8 @@
 		$output = "";
 		if(count($shippments)>0){
 			$output .= '
-			<table id="dashboard" class="table table-sm table-bordered table-hover">
-			<thead>
+			<table id="dashboard" class="table w-auto table-sm table-bordered table-hover">
+			<thead class="table-primary">
 				<tr>
 					<th>SI</th>
 					<th>Buyer</th>
@@ -51,7 +51,6 @@
 			foreach($shippments as $shippment){
 				$sino = $shippment['instruction_id'];
 				$output .= '<tr>';
-
 					$output .= '<td>'.$shippment['contract_no'].'</td>';
 					$output .= '<td>'.$shippment['buyer'].'</td>';
 					$output .= '<td>'.$shippment['consignee'].'</td>';

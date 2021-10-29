@@ -25,8 +25,9 @@
         case 'totalStck':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
              FROM closing_stock
-             WHERE sale_no LIKE YEAR(CURRENT_DATE)";
+             WHERE SUBSTRING('2021-24', 1, 4) LIKE YEAR(CURRENT_DATE)";
             $totalKgs = $stock->executeQuery();
+
 
             $stock->query = "SELECT SUM(pkgs_shipped) AS pkgs_shipped
             FROM shippments

@@ -15,7 +15,7 @@
 
     switch ($tag) {
         case 'totalP':
-            $total = $stock->getTotal("buying_list", "pkgs", "WHERE added_to_plist = 1")["pkgs"];
+            $total = $stock->getTotal("buying_list", "pkgs", "WHERE added_to_plist = 1 AND SUBSTRING(sale_no, 1, 4) LIKE YEAR(CURRENT_DATE)")["pkgs"];
             $description = "Total Purchases";
             $unit="Pkgs"; 
             $icon = "mdi mdi-arrow-collapse-all";
@@ -24,8 +24,7 @@
             break;
         case 'totalStck':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
-             FROM closing_stock
-             WHERE SUBSTRING(sale_no, 1, 4) LIKE YEAR(CURRENT_DATE)"; 
+             FROM closing_stock"; 
            $totalKgs = $stock->executeQuery();
 
 

@@ -41,11 +41,13 @@ Class WarehouseController extends Model{
     }
 
     public function shipmentUpdateStatus($newStatus, $sino){
-        $this->query = "UPDATE shipping_instructions SET status = '$newStatus' WHERE instruction_id = $sino";
-        $this->executeQuery();
-        $this->debugSql = true;
         if($newStatus=="Shipped"){
-            $this->query = "UPDATE shippments SET is_shipped = 1 WHERE instruction_id = $sino";
+            $this->query = "UPDATE shippments SET is_shipped = 1 WHERE instruction_id = $sino;  
+             UPDATE shipping_instructions SET status = '$newStatus' WHERE instruction_id = $sino";
+            $this->executeQuery();
+        
+        }else{
+            $this->query = "UPDATE shipping_instructions SET status = '$newStatus' WHERE instruction_id = $sino";
             $this->executeQuery();
         }
        

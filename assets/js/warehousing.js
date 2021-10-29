@@ -31,17 +31,18 @@ function dashboardSummaryTotals(){
         }
     });
 }
-function shipmentStatus(){
+function shipmentStatus(type){
     $.ajax({
         type: "POST",
         dataType: "html",
         data: {
-            action: "shipments"
+            action: "shipments",
+            type: type
         },
         cache: true,
         url: "warehousing_action.php",
         success: function (data) {
-         $('#shippmentStatus').html(data);
+         $('#'+type).html(data);
          $("#dashboard").DataTable({});
 
         }
@@ -50,7 +51,7 @@ function shipmentStatus(){
 function updateStatus(element){
     var sino = $(element).attr("id");
     console.log(sino);
-    localStorage.setItem("si_no", sino);
+    localStorage.setItem("clickedSi", sino);
     
 }
 function loadWarehouses(){

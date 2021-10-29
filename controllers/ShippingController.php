@@ -267,10 +267,17 @@ Class ShippingController extends Model{
         $this->query = "SELECT * FROM shipping_instructions WHERE instruction_id = $sino";
         return($this->executeQuery());
     }
-    public function unshippedSi($id=0){
+    public function shippmentByStatus($id=0, $type="NULL"){
+     
         if($id==0){
-            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1";
-            return($this->executeQuery());
+            if($type=="null"){
+                $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND Status IS NULL";
+                return($this->executeQuery());
+            }else{
+                $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND Status = '$type'";
+                return($this->executeQuery());
+            }
+            
         }else{
             $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND instruction_id = $id";
             return($this->executeQuery());

@@ -30,11 +30,13 @@
 		);
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "shipments"){
-		$shippments= $shippingCtr->unshippedSi();
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
+		$shippments= $shippingCtr->shippmentByStatus("", $type);
+
 		$output = "";
 		if(count($shippments)>0){
 			$output .= '
-			<table id="dashboard" class="table table-sm table-hover">
+			<table id="dashboard" class="table table-sm table-bordered table-hover">
 			<thead>
 				<tr>
 					<th>SI</th>

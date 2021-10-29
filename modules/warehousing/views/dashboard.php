@@ -3,15 +3,6 @@ $path_to_root = "../../";
 require_once $path_to_root . 'templates/header.php';
 ?>
 <style>
-	table,
-	th,
-	td {
-		border: 1px solid black;
-	}
-
-	th {
-		background-color: burlywood;
-	}
 	.modal {
    position: absolute;
    top: 10px;
@@ -43,9 +34,42 @@ require_once $path_to_root . 'templates/header.php';
 				</div>
 			</div>
 		</div>
-		<div class="table-responsive card p-2">
-			<div class="card-header"></div>
-			<div id="shippmentStatus"></div>
+		<div class="card table-responsive p-2">
+			<div class="card-header">
+				<h3 class="card-title">Update Shippment Status</h3>
+			</div>
+			<div class="card-body p-6">
+				<div class="panel panel-primary">
+					<div class=" tab-menu-heading">
+						<div class="tabs-menu1 ">
+							<!-- Tabs -->
+							<ul class="nav panel-tabs">
+								<li class=""><a href="#tab5" class="active" data-toggle="tab">Pending</a></li>
+								<li><a href="#tab6" data-toggle="tab">Received To warehouse</a></li>
+								<li><a href="#tab7" data-toggle="tab">Blended</a></li>
+								<li><a href="#tab8" data-toggle="tab">Shipped</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="panel-body tabs-menu-body">
+						<div class="tab-content">
+							<div class="tab-pane active " id="tab5">
+								<div id="null"></div>
+							</div>
+							<div class="tab-pane " id="tab6">
+								<div id="Received"></div>
+							</div>
+							<div class="tab-pane " id="tab7">
+								<div id="Blended"></div>
+							</div>
+							<div class="tab-pane " id="tab8">
+								<div id="Shipped"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- modal start-->
@@ -115,15 +139,21 @@ require_once $path_to_root . 'templates/header.php';
 		
 			
 			$(document).ready(function() {
-					shipmentStatus();
-					var sino = localStorage.getItem("si_no");
+					shipmentStatus("null");
+					shipmentStatus("Shipped");
+					shipmentStatus("Received");
+					shipmentStatus("Blended");
+
+					var sino = localStorage.getItem("clickedSi");
 
 					$(".status").click(function(e){
+						$('#formData').trigger('reset');
+
 						var value = $(this).val();
 						updateShippmentStatus(value, sino);
 					
 					});
-		
+				
 			
 				
 				appendCard("pvsvs", "../../modules/dashboard/dashboard_action.php");
@@ -166,9 +196,10 @@ require_once $path_to_root . 'templates/header.php';
 								icon: 'success',
 								title: 'Status Updated',
 							});
-							
-							shipmentStatus();
-
+							shipmentStatus("null");
+							shipmentStatus("Shipped");
+							shipmentStatus("Received");
+							shipmentStatus("Blended");
 						}
 					});
 				}

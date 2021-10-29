@@ -116,14 +116,11 @@
 
     $(document).ready(function() {
         menu();
-        print_lotdetails();
-
         $("body").on("click", ".contractBtn", function(e) {
             e.preventDefault();
-            var id = $(this).attr("id");
-            localStorage.removeItem("contractno");
+            var contractno = $(this).attr("id");
+            print_lotdetails(contractno);
 
-            localStorage.setItem("contract", id);
         });
 
     });
@@ -157,9 +154,8 @@
 
     }
 
-    function print_lotdetails() {
-        var siNo = localStorage.getItem("contract");
-        $('#blendSheetWrapper').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino=' + siNo + '" width="100%" height="800px"></iframe>');
+    function print_lotdetails(contractno) {
+        $('#blendSheetWrapper').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino=' + contractno + '" width="100%" height="800px"></iframe>');
     }
 
 

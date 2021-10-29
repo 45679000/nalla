@@ -13,11 +13,12 @@ $catalogue = new Catalogue($conn);
 $imports = [];
 if(isset($_POST['filter'])){
     $_SESSION['sale_no'] = $_POST['saleno'];
+    $_SESSION['broker'] = $_POST['broker'];
     $imports = $catalogue->closingCatalogue($_POST['saleno'], $_POST['broker'] , $_POST['category']);
 }
 
 if(isset($_POST['confirm'])){
-    $removed = $catalogue->removeCatalogue($_SESSION['sale_no']);
+    $removed = $catalogue->removeCatalogue($_SESSION['sale_no'], $_SESSION['broker']);
     if($removed == true){
         echo '<script type="text/javascript">window.location = window.location.href.split("?")[0];</script>';
     }

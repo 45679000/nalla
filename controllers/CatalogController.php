@@ -406,8 +406,8 @@
             }
             
         }
-        public function removeCatalogue($auction = ""){
-            $this->query = "DELETE FROM closing_cat WHERE sale_no = "."'".$auction. "'";
+        public function removeCatalogue($auction = "", $broker){
+            $this->query = "DELETE FROM closing_cat WHERE sale_no ='$auction' AND broker = '$broker'";
             return $this->executeQuery();
         }
         public function maxLow($garden, $grade, $auction){

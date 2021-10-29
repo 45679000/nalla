@@ -24,7 +24,8 @@
             break;
         case 'totalStck':
             $stock->query = "SELECT SUM(pkgs) AS pkgs
-             FROM closing_stock";
+             FROM closing_stock
+             WHERE sale_no LIKE YEAR(CURRENT_DATE)";
             $totalKgs = $stock->executeQuery();
 
             $stock->query = "SELECT SUM(pkgs_shipped) AS pkgs_shipped

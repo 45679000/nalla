@@ -93,31 +93,33 @@ class Users{
 
     }
     public function redirectUser($role){
+        $redirectPath = "";
         switch($role){
             case '1':
-                header("location:dashboard.php");
+                $redirectPath = "../views/dashboard.php";
                 exit();
 
             case '2':
-                header("location:dashboard.php");
+                $redirectPath = "../views/dashboard.php";
                 exit();
 
             case '3':
-                header("location:dashboard.php");
+                $redirectPath = "../views/dashboard.php";
                 exit();
 
             case '4':
-                header("location:dashboard.php");
+                $redirectPath = "../views/dashboard.php";
                 exit();
             case '5':
-                header("location:../modules/warehousing/index.php?view=dashboard");
+                $redirectPath = "../modules/warehousing/index.php?view=dashboard";
                 exit();
             case '6':
-                header("location:../modules/cataloguing/index.php?view=dashboard");
+                $redirectPath = "../modules/cataloguing/index.php?view=dashboard";
                 exit();
             default:
                 echo "Wrong Username or Password";
         }
+        return $redirectPath;
     }
 
     

@@ -1,134 +1,278 @@
-<?php
-session_start();
-    $path_to_root ='../';
-    include $path_to_root.'modules/user-auth/Users.php';
-    include $path_to_root.'modules/mailer/sendEmail.php';
-    include $path_to_root.'database/connection.php';
+<style>
+    body {
+        color: #000;
+        overflow-x: hidden;
+        height: 100%;
 
-    $db = new Database();
-    $conn = $db->getConnection();
-    $user = new Users($conn);
-    $sessionExpired = isset($_GET['sessionExpired']) ? $_GET['sessionExpired'] : 'false';
-    $message = '<p>Enter Username And Password</p>';
-    if($sessionExpired=="true"){
-        $message = '<p class="alert alert-danger" role="alert">Your Session Has Expired Login Again</p>'; 
+        background-image: linear-gradient(to right, #00c6ff, #95d343);
+        background-repeat: no-repeat
     }
 
-    if(isset($_POST['login'])){
-        if($_POST['username'] !=null && $_POST['password']!==null){
-            $user->username=$_POST['username'];
-            $user->password=md5($_POST['password']);
-            $user->authenticateUser();
-    
-            if(!$_SESSION["user_id"]){
-                $message = '<p>Wrong User Name or Password</p>';
-            }else{
-                $message = '<p class="alert alert-success" role="alert">'.$_SESSION["message"].'</p>';
-            }
+    input,
+    textarea {
+        background-color: #F3E5F5;
+        border-radius: 50px !important;
+        padding: 12px 15px 12px 15px !important;
+        width: 100%;
+        box-sizing: border-box;
+        border: none !important;
+        border: 1px solid #F3E5F5 !important;
+        font-size: 16px !important;
+        color: #000 !important;
+        font-weight: 400
+    }
+
+    input:focus,
+    textarea:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        border: 1px solid #D500F9 !important;
+        outline-width: 0;
+        font-weight: 400
+    }
+
+    button:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        outline-width: 0
+    }
+
+    .card {
+        border-radius: 0;
+        border: none
+    }
+
+    .card1 {
+        width: 50%;
+        padding: 40px 30px 10px 30px
+    }
+
+    .card2 {
+        width: 50%;
+        background-image: linear-gradient(to left, #00c6ff, #95d343);
+        background-image: url("../images/login_background_3.JPG");
+
+        /* background-image: linear-gradient(to right, #FFD54F, #D500F9) */
+    }
+
+    #logo {
+        width: 70px;
+        height: 60px
+    }
+
+    .heading {
+        margin-bottom: 60px !important
+    }
+
+    ::placeholder {
+        color: #000 !important;
+        opacity: 1
+    }
+
+    :-ms-input-placeholder {
+        color: #000 !important
+    }
+
+    ::-ms-input-placeholder {
+        color: #000 !important
+    }
+
+    .form-control-label {
+        font-size: 12px;
+        margin-left: 15px
+    }
+
+    .msg-info {
+        padding-left: 15px;
+        margin-bottom: 30px
+    }
+
+    .btn-color {
+        border-radius: 50px;
+        color: #fff;
+        background-image: linear-gradient(to right, #FFD54F, #D500F9);
+        padding: 15px;
+        cursor: pointer;
+        border: none !important;
+        margin-top: 40px
+    }
+
+    .btn-color:hover {
+        color: #fff;
+        background-image: linear-gradient(to right, #D500F9, #FFD54F)
+    }
+
+    .btn-white {
+        border-radius: 50px;
+        color: #D500F9;
+        background-color: #fff;
+        padding: 8px 40px;
+        cursor: pointer;
+        border: 2px solid #D500F9 !important
+    }
+
+    .btn-white:hover {
+        color: #fff;
+        background-image: linear-gradient(to right, #FFD54F, #D500F9)
+    }
+
+    a {
+        color: #000
+    }
+
+    a:hover {
+        color: #000
+    }
+
+    .bottom {
+        width: 100%;
+        margin-top: 50px !important
+    }
+
+    .sm-text {
+        font-size: 15px
+    }
+
+    @media screen and (max-width: 992px) {
+        .card1 {
+            width: 100%;
+            padding: 40px 30px 10px 30px
+        }
+
+        .card2 {
+            width: 100%
+        }
+
+        .right {
+            margin-top: 100px !important;
+            margin-bottom: 100px !important
         }
     }
-    if((isset($_POST['otp'])) && isset($_SESSION['otp'])){
-        if($_POST['otp_verify'] == $_SESSION['otp']){
-            $user->redirectUser($_SESSION['role_id']);    
-        }else{
-            $message= '<p class="alert alert-danger" role="alert">The OTP you entered is Wrong</p>';
+
+    @media screen and (max-width: 768px) {
+        .container {
+            padding: 10px !important
+        }
+
+        .card2 {
+            padding: 50px
+        }
+
+        .right {
+            margin-top: 50px !important;
+            margin-bottom: 50px !important
         }
     }
-    if((isset($_POST['reset']))){
-       // Finally, destroy the session.
-        session_destroy();
-    }
-
-?>
-<html>
+</style>
 
 <head>
-    <link rel="stylesheet" href="<?php echo $path_to_root ?>assets/css/login.css">
-    <link rel="stylesheet" href="<?php echo $path_to_root ?>assets/css/boostrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-
-<body class="bg">
-    <div class="container register">
-        <div class="row">
-            <div class="col-md-3 register-left">
-                <img class="logo" src="<?php echo $path_to_root ?>images/logo.png" alt="" />
-                <h3 style="font-weight:bold; color:blue;">CHAMU TIFMS</h3>
-                <p>Access Limited to authorised user</p>
-            </div>
-            <div class="col-md-7 register-right">
-                <div style="padding-left:12Vh;" id="message"></div>
-
-                <div class="tab-content" id="myTabContent">
-                    <form method="post" action="">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row register-form">
-
-                                <div class="col-md-8">
-                                    <?php if(!isset($_SESSION["otp"])) 
-                                        echo '  <div class="form-group">
-                                                    <input type="text" class="form-control" name="username" placeholder="User Name *" value="" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" name="password" placeholder="Password *" value="" />
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <input type="submit" name="login" value="Login"/><br/>
-                                                </div>
-                                                ';
-                                            else{
-                                        echo '  <div class="form-group">
-                                                     <input type="password" class="form-control" name="otp_verify" placeholder="otp *" value="" />
-                                                </div> 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <input type="submit" name="otp" value="Verify"/><br/>
-
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="submit" name="reset" value="Reset"/><br/>
-                                                    </div>
-                                                 </div>
-
-                                                ';
-                                                
-                                            }
-                                    ?>
-                                </div>
-
-                            </div>
+<div class="container px-4 py-5 mx-auto">
+    <div class="card card0">
+        <div class="d-flex flex-lg-row flex-column-reverse">
+            <div class="card card1">
+                <div class="row justify-content-center my-auto">
+                    <div class="col-md-8 col-10 my-5">
+                        <div class="row justify-content-center px-3 mb-3"><img class="logo" src="../images/logo.png" alt="" /></div>
+                        <h6 class="msg-info">Enter Your Username and Password To login</h6>
+                        <div id="usernameDiv" class="form-group"> <label class="form-control-label text-muted">Username</label>
+                            <input type="text" id="username" name="email" placeholder="Username" class="form-control">
                         </div>
+                        <div id="passwordDiv" class="form-group"> <label class="form-control-label text-muted">Password</label>
+                            <input type="password" id="password" name="psw" placeholder="Password" class="form-control">
+                        </div>
+                        <div id="otpDiv" style="display:none" class="form-group"> <label class="form-control-label text-muted">OTP</label>
+                            <input type="password" id="otp" name="verification_code" placeholder="OTP" class="form-control">
+                        </div>
+                        <div class="row justify-content-center my-3 px-3"> 
+                            <button id="loginBtn" class="btn-block btn-color">Login</button>
+                            <button style="display:none" id="verify" class="btn-block btn-color">Verify</button>
 
+                         </div>
+                    </div>
                 </div>
-                </form>
+                <div class="bottom text-center mb-5">
+                    <!-- <p href="#" class="sm-text mx-auto mb-3">Don't have an account?<button class="btn btn-white ml-2">Create new</button></p> -->
+                </div>
+            </div>
+            <div class="card card2">
+                <div class="my-auto mx-md-5 px-md-5 right">
+                    <h3 style="font-weight:bold; color:white;">CHAMU TIFMS</h3>
+                    <small class="text-white">Bringing Automation To The Tea industry</small>
+                </div>
             </div>
         </div>
-
     </div>
-</body>
+</div>
 
-</html>
-<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
 
 <script>
-$message = '<?php echo $message ?>';
-$("#message").html($message);
-$('.bg').css("background-image", "url(../images/login_background_2.jpeg)"); 
+
 $(function () {
-    var body = $('.bg');
-    var backgrounds = [
-      'url(../images/login_background_3.JPG)', 
-      'url(../images/login_background_4.jpeg)',
-      'url(../images/login_background_5.jpeg)'];
-    var current = 0;
+    $("#loginBtn").click(function(e){
+        e.preventDefault();
+        $(".msg-info").html('<div class="spinner-grow text-primary" role="status"> <span class="sr-only">Loading...</span></div><div class="spinner-grow text-secondary" role="status"><span class="sr-only">Loading...</span></div><div class="spinner-grow text-success" role="status"><span class="sr-only">Loading...</span></div>');
 
-    function nextBackground() {
-        body.css(
-            'background',
-        backgrounds[current = ++current % backgrounds.length]);
+        var username = $("#username").val();
+        var password = $("#password").val();
 
-        setTimeout(nextBackground, 5000);
-    }
-    setTimeout(nextBackground, 5000);
-    body.css('background', backgrounds[0]);
+        $.ajax({
+            type: "POST",
+            data: {
+                action: "login",
+                username: username,
+                password : password
+            },
+            cache: true,
+            url:"../admin/login.php",
+            dataType:"json",
+            success: function(data) {
+                if(data.login=="success"){
+                    $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.message+'</p>');
+                    $("#loginBtn").hide();
+                    $("#usernameDiv").hide();
+                    $("#passwordDiv").hide();
+                    $("#otpDiv").show();
+                    $("#verify").show();
+
+                }
+            }
+
+        });
+    });
+    $("#verify").click(function(e){
+        e.preventDefault();
+        var otp = $("#otp").val();
+        $.ajax({
+            type: "POST",
+            data: {
+                action: "validate_otp",
+                otp: otp
+            },
+            cache: false,
+            url:"../admin/login.php",
+            dataType:"json",
+            success: function(data) {
+                if(data.otp=="success"){
+                    window.location.href = "./dashboard.php";
+
+                }else{
+                    $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.message+'</p>');
+
+                }
+            }, 
+            error: function(data){
+
+            }
+
+        });
+    });
 }); 
 </script>
+

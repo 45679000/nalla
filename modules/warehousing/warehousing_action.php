@@ -36,7 +36,7 @@
 		$output = "";
 		if(count($shippments)>0){
 			$output .= '
-			<table id="dashboard" class="table w-auto table-sm table-bordered table-hover">
+			<table id="dashboard" class="table table-responsive w-auto table-sm table-bordered table-hover">
 			<thead class="table-primary">
 				<tr>
 					<th>SI</th>
@@ -335,7 +335,7 @@
 			  $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
 			  if($blendno ==''){
 			  if (count($blends) > 0) {
-				  $output .="<table style='width:100% !important;'  class='table table-sm table-responsive table-striped table-bordered table-hover thead-dark'>
+				  $output .="<table style='width:100% !important;'  class='table table-sm table-striped table-bordered table-hover thead-dark'>
 						  <thead class='thead-dark'>
 							<tr>
 							  <th>Blend</th>

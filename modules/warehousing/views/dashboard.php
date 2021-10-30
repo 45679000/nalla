@@ -56,15 +56,14 @@ require_once $path_to_root . 'templates/header.php';
 							<div class="tab-pane active " id="tab5">
 								<div id="null"></div>
 							</div>
-							<div class="tab-pane " id="tab6">
+							<div class="tab-pane" id="tab6">
 								<div id="Received"></div>
 							</div>
-							<div class="tab-pane " id="tab7">
+							<div class="tab-pane" id="tab7">
 								<div id="Blended"></div>
 							</div>
-							<div class="tab-pane " id="tab8">
+							<div class="tab-pane" id="tab8">
 								<div id="Shipped"></div>
-
 							</div>
 						</div>
 					</div>

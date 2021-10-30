@@ -301,8 +301,16 @@ Class ShippingController extends Model{
 
         return $rows[0]["blend_no"];
     }
-}        
-
+    public function unshippedSi($id=0){
+        if($id==0){
+            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1";
+            return($this->executeQuery());
+        }else{
+            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND instruction_id = $id";
+        }
+       
+    }
+}
 
 
 ?>

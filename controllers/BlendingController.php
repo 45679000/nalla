@@ -232,11 +232,11 @@ Class BlendingController extends Model{
         $this->debugSql = true;
         $this->query = "UPDATE blend_master SET approved =1 WHERE id = ".$blendno;
         $this->executeQuery();
-        $this->debugSql = true;
+        $this->debugSql = false;
 
         $this->query = "UPDATE blend_teas SET confirmed =1 WHERE blend_no = ".$blendno;
         $this->executeQuery();
-        $this->debugSql = true;
+        $this->debugSql = false;
 
         $this->query = "INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `blend_no`, stock_id) 
         SELECT  allocation, packages, kgs, 'blend', blend_no, blend_teas.stock_id

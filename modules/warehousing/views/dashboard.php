@@ -54,16 +54,16 @@ require_once $path_to_root . 'templates/header.php';
 					<div class="panel-body tabs-menu-body">
 						<div class="tab-content">
 							<div class="tab-pane active " id="tab5">
-								<div id="unupdated"></div>
+								<div id="unupdatedi"></div>
 							</div>
 							<div class="tab-pane" id="tab6">
-								<div id="received"></div>
+								<div id="receivedi"></div>
 							</div>
 							<div class="tab-pane" id="tab7">
-								<div id="blended"></div>
+								<div id="blendedi"></div>
 							</div>
 							<div class="tab-pane" id="tab8">
-								<div id="shipped"></div>
+								<div id="shippedi"></div>
 							</div>
 						</div>
 					</div>
@@ -139,12 +139,11 @@ require_once $path_to_root . 'templates/header.php';
 			
 			$(document).ready(function() {
 						shipmentStatus("null", "unupdated");
-						shipmentStatus("Shipped", "shipped")
-						shipmentStatus("Blended","blended");
-						shipmentStatus("Received","received");
+						shipmentStatus("Shipped", "shippedi")
+						shipmentStatus("Blended","blendedi");
+						shipmentStatus("Received","receivedi");
 				
-
-
+					  $('.table').DataTable({});
 					var sino = localStorage.getItem("clickedSi");
 
 					$(".status").click(function(e){

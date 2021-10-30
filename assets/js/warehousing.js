@@ -43,7 +43,7 @@ function shipmentStatus(type, nodeId){
         url: "warehousing_action.php",
         success: function (data) {
          $('#'+nodeId).html(data);
-         $('#'+type).DataTable({});
+        //  $('#'+type).DataTable({});
 
         }
     });

@@ -263,7 +263,7 @@ Class BlendingController extends Model{
          LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no 
          LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no 
          LEFT JOIN mark_country ON mark_country.mark = closing_stock.mark 
-         WHERE blend_teas.blend_no = $blendno";
+         WHERE blend_teas.blend_no = $blendno GROUP BY stock_id";
         return $this->executeQuery();
     }
     public function totalBlendedTeas($status){

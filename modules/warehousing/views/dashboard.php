@@ -3,15 +3,36 @@ $path_to_root = "../../";
 require_once $path_to_root . 'templates/header.php';
 ?>
 <style>
-	.modal {
-   position: absolute;
-   top: 10px;
-   right: 30px;
-   bottom: 0;
-   left: 3000;
-   z-index: 10040;
-   overflow: auto;
-   overflow-y: auto;
+    .modal-dialog{
+        background-color: rgba(217, 245, 255,0.5);
+        border: 1px solid;
+    }
+   .table {
+        background-color: white !important;
+        width:100% !important;
+    }
+    .toolbar-button{
+        padding: 0.5px !important;
+    }
+    .modal {
+        text-align: center;
+    width:100% !important;
+    }
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  width:1000%;
 }
 </style>
 
@@ -143,7 +164,6 @@ require_once $path_to_root . 'templates/header.php';
 						shipmentStatus("Blended","blendedi");
 						shipmentStatus("Received","receivedi");
 				
-					  $('.table').DataTable({});
 					var sino = localStorage.getItem("clickedSi");
 
 					$(".status").click(function(e){
@@ -206,6 +226,8 @@ require_once $path_to_root . 'templates/header.php';
 				}
 
 				});
+				$('.table').DataTable({});
+
 		</script>
 
 		</html>

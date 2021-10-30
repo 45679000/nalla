@@ -31,7 +31,7 @@ function dashboardSummaryTotals(){
         }
     });
 }
-function shipmentStatus(type){
+function shipmentStatus(type, nodeId){
     $.ajax({
         type: "POST",
         dataType: "html",
@@ -42,7 +42,7 @@ function shipmentStatus(type){
         cache: true,
         url: "warehousing_action.php",
         success: function (data) {
-         $('#'+type).html(data);
+         $('#'+nodeId).html(data);
          $('#'+type).DataTable({});
 
         }

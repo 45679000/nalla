@@ -54,16 +54,16 @@ require_once $path_to_root . 'templates/header.php';
 					<div class="panel-body tabs-menu-body">
 						<div class="tab-content">
 							<div class="tab-pane active " id="tab5">
-								<div id="null"></div>
+								<div id="unupdated"></div>
 							</div>
 							<div class="tab-pane" id="tab6">
-								<div id="Received"></div>
+								<div id="received"></div>
 							</div>
 							<div class="tab-pane" id="tab7">
-								<div id="Blended"></div>
+								<div id="blended"></div>
 							</div>
 							<div class="tab-pane" id="tab8">
-								<div id="Shipped"></div>
+								<div id="shipped"></div>
 							</div>
 						</div>
 					</div>
@@ -138,10 +138,10 @@ require_once $path_to_root . 'templates/header.php';
 		
 			
 			$(document).ready(function() {
-					shipmentStatus("null");
-						shipmentStatus("Shipped")
-						shipmentStatus("Blended");
-						shipmentStatus("Received");
+						shipmentStatus("null", "unupdated");
+						shipmentStatus("Shipped", "shipped")
+						shipmentStatus("Blended","blended");
+						shipmentStatus("Received","received");
 				
 
 

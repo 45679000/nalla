@@ -138,7 +138,7 @@ require_once $path_to_root . 'templates/header.php';
 		
 			
 			$(document).ready(function() {
-						shipmentStatus("null", "unupdated");
+						shipmentStatus("null", "unupdatedi");
 						shipmentStatus("Shipped", "shippedi")
 						shipmentStatus("Blended","blendedi");
 						shipmentStatus("Received","receivedi");

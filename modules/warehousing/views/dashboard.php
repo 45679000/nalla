@@ -139,9 +139,16 @@ require_once $path_to_root . 'templates/header.php';
 			
 			$(document).ready(function() {
 					shipmentStatus("null");
-					shipmentStatus("Shipped");
-					shipmentStatus("Received");
-					shipmentStatus("Blended");
+					$("#tab8").click(function(e){
+						shipmentStatus("Shipped");
+					});
+					$("#tab7").click(function(e){
+						shipmentStatus("Blended");
+					});
+					$("#tab6").click(function(e){
+						shipmentStatus("Received");
+					});
+
 
 					var sino = localStorage.getItem("clickedSi");
 

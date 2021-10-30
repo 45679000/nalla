@@ -139,15 +139,10 @@ require_once $path_to_root . 'templates/header.php';
 			
 			$(document).ready(function() {
 					shipmentStatus("null");
-					$("#tab8").click(function(e){
-						shipmentStatus("Shipped");
-					});
-					$("#tab7").click(function(e){
+						shipmentStatus("Shipped")
 						shipmentStatus("Blended");
-					});
-					$("#tab6").click(function(e){
 						shipmentStatus("Received");
-					});
+				
 
 
 					var sino = localStorage.getItem("clickedSi");

@@ -109,11 +109,11 @@ require_once $path_to_root . 'templates/header.php';
 					<!-- Modal body -->
 					<div class="modal-body">
 						<form id="formData">
-							<input type="checkbox" class="status" id="Received" name="status" value="Received">
+							<input type="checkbox" class="status" id="ReceivedSi" name="status" value="Received">
 							<label for="Received">Received to The Warehouse</label><br>
-							<input type="checkbox" class="status" id="Blended" name="status" value="Blended">
+							<input type="checkbox" class="status" id="BlendedSi" name="status" value="Blended">
 							<label for="Blended"> Blended </label><br>
-							<input type="checkbox" class="status" id="Shipped" name="status" value="Shipped">
+							<input type="checkbox" class="status" id="ShippedSi" name="status" value="Shipped">
 							<label for="Shipped"> Shipped</label><br><br>
 							<hr>
 						</form>

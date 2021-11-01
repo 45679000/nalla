@@ -204,7 +204,7 @@
             <div class="card card2">
                 <div class="my-auto mx-md-5 px-md-5 right">
                     <h3 style="font-weight:bold; color:white;">CHAMU TIFMS</h3>
-                    <small class="text-white">Bringing Automation To The Tea industry</small>
+                    <small id="advrt" class="text-white"></small>
                 </div>
             </div>
         </div>
@@ -215,6 +215,13 @@
 <script>
 
 $(function () {
+  
+    var txt = 'Bringing Automation To The Tea industry';
+    var speed = 50;
+
+    typeWriter(txt, speed);
+
+    
     $("#loginBtn").click(function(e){
         e.preventDefault();
         $(".msg-info").html('<div class="spinner-grow text-primary" role="status"> <span class="sr-only">Loading...</span></div><div class="spinner-grow text-secondary" role="status"><span class="sr-only">Loading...</span></div><div class="spinner-grow text-success" role="status"><span class="sr-only">Loading...</span></div>');
@@ -274,5 +281,16 @@ $(function () {
         });
     });
 }); 
+</script>
+
+<script>
+    function typeWriter(i, txt, speed) {
+        var i = 0;
+        if (i < txt.length) {
+            document.getElementById("advrt").innerHTML += txt.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
+    }
 </script>
 

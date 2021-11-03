@@ -475,7 +475,7 @@ if (isset($_POST['action']) && $_POST['action'] == "show-all") {
   foreach ($blends as $blend) {
       $menu.='<tr>';
         $menu.='<td>
-          <a class="contractBtn" id="'.$blend["contractno"].'" style="color:blue;"><i class="fa fa-folder-open-o"></i>'.$blend["contractno"].'</a>
+          <a class="contractBtn" id="'.$blend["id"].'" style="color:blue;"><i class="fa fa-folder-open-o"></i>'.$blend["std_name"]."/".$blend["blend_no"].'</a>
         </td>';
       $menu.='</tr>';
 

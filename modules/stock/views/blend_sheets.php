@@ -64,7 +64,7 @@
 
 <div class="col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-md-1 card p-2">
+        <div class="col-md-2 card p-2">
             <div class="table-responsive">
                 <div class="card ">
                     <span><i class="fa fa-search card-header">Search Blend Sheet</i></span>
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-            <div class="col-md-11">
+            <div class="col-md-9 card">
                 <div class="card" style="height:85vH;">
                     <div class="card-status card-status-left bg-red br-bl-7 br-tl-7"></div>
 
@@ -155,7 +155,7 @@
     }
 
     function print_lotdetails(contractno) {
-        $('#blendSheetWrapper').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino=' + contractno + '" width="100%" height="800px"></iframe>');
+        $('#blendSheetWrapper').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno=' + contractno + '" width="100%" height="800px"></iframe>');
     }
 
 

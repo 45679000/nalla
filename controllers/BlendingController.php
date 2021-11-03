@@ -29,16 +29,17 @@ Class BlendingController extends Model{
     public function addLotAllocationToBlend($stock_id, $id){
         $this->debugSql = true;
 
+
+        $this->query = "REPLACE INTO blend_teas(stock_id, blend_no, packages, blend_kgs) 
+        SELECT stock_id, '$id', pkgs, kgs
+        FROM closing_stock
+        WHERE stock_id = $stock_id ";
+        $this->executeQuery();
+
         $this->query = "UPDATE closing_stock SET allocation = 
         (
             SELECT contractno FROM blend_master WHERE id = $id
         )
-        WHERE stock_id = $stock_id ";
-        $this->executeQuery();
-
-        $this->query = "INSERT INTO blend_teas(stock_id, blend_no, packages, blend_kgs) 
-        SELECT stock_id, '$id', pkgs, kgs
-        FROM closing_stock
         WHERE stock_id = $stock_id ";
         $this->executeQuery();
         

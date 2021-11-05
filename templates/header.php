@@ -1,5 +1,7 @@
 <?php 
-	session_start();
+	session_start([
+        'cookie_lifetime' => 86400,
+    ]);
 	include $path_to_root.'database/page_init.php';
 
 	include $path_to_root.'templates/validate_login.php';

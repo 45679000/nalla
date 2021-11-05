@@ -241,7 +241,7 @@ if (isset($_POST['action']) && $_POST['action'] == "clear") {
     $output = '<option disabled="" value="..." selected="">select</option>';
     if (sizeOf($clients) > 0) {
          foreach($clients as $clients){
-            $output .= '<option value="'.$clients['debtor_no'].'">'.$clients['debtor_ref'].'</option>';
+            $output .= '<option name="'.$clients['address'].'" value="'.$clients['debtor_no'].'">'.$clients['debtor_ref'].'</option>';
          }
           echo $output;	
     }else{
@@ -306,7 +306,7 @@ if (isset($_POST['action']) && $_POST['action'] == "buyers") {
     $output = '<option disabled="" value="..." selected="">select</option>';
     if (sizeOf($buyers) > 0) {
          foreach($buyers as $buyer){
-            $output .= '<option value="'.$buyer['debtor_no'].'">'.$buyer['debtor_ref'].'</option>';
+            $output .= '<option name="'.$buyer['address'].'" value="'.$buyer['debtor_no'].'">'.$buyer['debtor_ref'].'</option>';
          }
           echo $output;	
     }else{
@@ -321,6 +321,20 @@ if (isset($_POST['action']) && $_POST['action'] == "sale_no_prvt") {
     if (sizeOf($auctions) > 0) {
          foreach($auctions as $auction){
             $output .= '<option value="PRVT-'.$auction.'">'.'PRVT-'.$auction.'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    } 
+}
+if (isset($_POST['action']) && $_POST['action'] == "bank_id") {
+    $output = "";
+
+    $banks= $financeCtlr->fetchErpBanks();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($banks) > 0) {
+         foreach($banks as $bank){
+            $output .= '<option name="'.$bank['bank_address'].'" value="'.$bank['account_code'].'">'.$bank['bank_account_name'].'</option>';
          }
           echo $output;	
     }else{

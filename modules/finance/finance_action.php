@@ -27,17 +27,19 @@
         $payment_terms = isset($_POST['payment_terms']) ? $_POST['payment_terms'] : '';
 		$pay_bank = isset($_POST['pay_bank']) ? $_POST['pay_bank'] : '';
 		$pay_details = isset($_POST['pay_details']) ? $_POST['pay_details'] : '';
-		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
 
+		$bank_id = isset($_POST['bank_id']) ? $_POST['bank_id'] : '';
 		$container_no = isset($_POST['container_no']) ? $_POST['container_no'] : '';
 		$buyer_contract_no = isset($_POST['buyer_contract_no']) ? $_POST['buyer_contract_no'] : '';
 		$shipping_marks = isset($_POST['shipping_marks']) ? $_POST['shipping_marks'] : '';
 		$other_reference= isset($_POST['other_references']) ? $_POST['other_references'] : '';
-		$port_of_delivery= isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : $error ='You must indicate the port_of_delivery';
+
 		$final_destination= isset($_POST['final_destination']) ? $_POST['final_destination'] : '';
 		$description_of_goods = isset($_POST['good_description']) ? $_POST['good_description'] : '';
+		$buyer_address = isset($_POST['buyer_address']) ? $_POST['buyer_address'] : '';
+		$bl_no = isset($_POST['bl_no']) ? $_POST['bl_no'] : '';
+		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
 
-		
         if($error ==""){
           $message = $finance->saveInvoice(
 			  $buyer, $consignee, $invoice_no,
@@ -50,9 +52,13 @@
 			  $shipping_marks,
 			  $other_reference,
 			  $port_of_delivery,
-			  $final_destination,
 			  $description_of_goods,
-			  $hs_code
+			  $final_destination,
+			  $hs_code,
+			  $buyer_address,
+			  $bl_no,
+			  $bank_id
+			  
 			);
           echo json_encode($message);
 

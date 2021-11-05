@@ -16,7 +16,9 @@ $(document).ready(function() {
     var payment_terms = document.getElementById("payment_terms");
     var buyer = document.getElementById("buyer");
     var code = document.getElementById("code");
+    var bank_id = document.getElementById("bank_id");
 
+    
 
     if(filterType !=undefined){
         filterType = "All";
@@ -58,6 +60,11 @@ $(document).ready(function() {
     if(code !=undefined){
         codeList(url);
     }
+    if(bank_id !=undefined){
+        bankList(url);
+    }
+    
+
     
 
     $('.select2').select2();
@@ -102,11 +109,8 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $("#standard").html(data);
-                $("#standard2").html(data);
-    
-                
+                $("#standard2").html(data);     
             }
-    
         });
         
     }
@@ -226,6 +230,7 @@ function lotList(){
 }
 
 
+
 function clientWithcodeList(){
     $.ajax({
         url: url,
@@ -326,4 +331,20 @@ function buyerList($path){
     });
     
 }
+function bankList($path){
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "bank_id"
+        },
+        success: function(data) {
+            $("#bank_id").html(data);
+
+        }
+
+    });
+}
+
 

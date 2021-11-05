@@ -155,17 +155,31 @@
             WHERE activities.id = 6  AND activity_id != 6";
             $this->executeQuery();
         }
-        public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details, $container_no, $buyer_contract_no,$shipping_marks,$other_reference, $final_destination, $description_of_goods, $hs_code){
-    
-            $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
-            $results = $this->executeQuery();
-            if(count($results)>=0){
+        public function saveInvoice($buyer, $consignee, $invoice_no,
+        $invoice_type, $invoice_category, 
+        $port_of_delivery, $buyer_bank, 
+        $payment_terms, $pay_bank, 
+        $pay_details,
+        $container_no,
+        $buyer_contract_no,
+        $shipping_marks,
+        $other_reference,
+        $port_of_discharge,
+        $description_of_goods,
+        $final_destination,
+        $hs_code,
+        $buyer_address,
+        $bl_no,
+        $bank_id
+
+        ){
                 $type = 'profoma';
                 try {
+                $this->conn->beginTransaction();
                 $query = "REPLACE INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, 
                 `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, 
-                `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`) 
-                VALUES(?,?,?,?,?,?,?,?,?,?,'CURRENT_DATE',?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`, `buyer_address`, `bl_no`, `bank_id`) 
+                VALUES(?,?,?,?,?,?,?,?,?,?,CURRENT_DATE,?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(1, $buyer);
                 $stmt->bindParam(2, $consignee);
@@ -185,32 +199,37 @@
                 $stmt->bindParam(16, $description_of_goods);
                 $stmt->bindParam(17, $final_destination);
                 $stmt->bindParam(18, $hs_code);
+                $stmt->bindParam(19, $buyer_address);
+                $stmt->bindParam(20, $bl_no);
+                $stmt->bindParam(21, $bank_id);
+
+           
 
                 $stmt->execute();
+                $this->conn->commit();
                 } catch (Exception $ex) {
                     var_dump($ex);
                 }
                 
 
-                $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
-                $results = $this->executeQuery();
+                // $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
+                // $results = $this->executeQuery();
     
-                if(count($results)==0){
-                    $error = "invoice no $invoice_no Failed to save successfully contact support";
-                    $response["error"] = $error;
-                    $response["code"] = 201;
+                // if(count($results)==0){
+                //     $error = "invoice no $invoice_no Failed to save successfully contact support";
+                //     $response["error"] = $error;
+                //     $response["code"] = 201;
     
-                }else{
-                    $success = "Invoice no $invoice_no has been created succesfully, click the + button to add teas to this Invoice no";
-                    $response["success"] = $success;
-                    $response["code"] = 200;
+                // }else{
+                //     $success = "Invoice no $invoice_no has been created succesfully, click the + button to add teas to this Invoice no";
+                //     $response["success"] = $success;
+                //     $response["code"] = 200;
     
-                }
-            }else{
-                $error = "Invoice no $invoice_no already Exists Do you wish to update?";
-                $response["error"] = $error;
-                $response["code"] = 500;
-            }
+                // }
+                $success = "Invoice no $invoice_no has been created succesfully, click the + button to add teas to this Invoice no $hs_code";
+                $response["success"] = $success;
+                $response["code"] = 200;
+            
             return $response;
     
         }
@@ -256,6 +275,11 @@
         }
         public function fetchErpClients(){
             $this->query = "SELECT * FROM `0_debtors_master` WHERE tea_buyer=1";
+            return $this->executeQuery();
+        }
+        public function fetchErpBanks(){
+            $this->debugSql = false;
+            $this->query = "SELECT * FROM `0_bank_accounts` WHERE inactive = 0";
             return $this->executeQuery();
         }
         public function getInvoiceNo($id){

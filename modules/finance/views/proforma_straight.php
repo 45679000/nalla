@@ -243,8 +243,7 @@
                         <li class="active" id="account"><strong>Invoice Details</strong></li>
                         <li id="personal"><strong>Select Invoice Teas</strong></li>
                         <li id="selected"><strong>Selected Teas</strong></li>
-                        <li id="payment"><strong>Preview</strong></li>
-                        <li id="confirm"><strong>Finish</strong></li>
+                        <li id="confirm"><strong>Print</strong></li>
                     </ul>
                     <div class="progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -271,87 +270,80 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3 well">
-                                    <div class="form-group label-floating">
-                                        <input type="hidden" class="form-control" id="invoice_category" name="invoice_category" placeholder="Invoice No" value="straight">
-                                    </div>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Invoice No:</label>
-                                    <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice No" required="">
-
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Container no:</label>
-                                    <input id="container_no" type="text" class="form-control" name="container_no" placeholder="Container No" required="">
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Buyer's Contract No:</label>
-                                    <input type="text" class="form-control" id="buyer_contract_no" name="buyer_contract_no" placeholder="Buyer's Contract No" required="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="pay_details">
-                                        Terms of Delivery and Payment:</label>
-                                    <textarea class="form-control" name="pay_details" id="pay_details" cols="20" rows="3"></textarea>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Date:</label>
-                                    <input type="text" class="form-control" name="date_captured" id="date_captured" placeholder="Date" required="">
-                                </div>
                                 <div class="col-md-3 form-group">
                                     <label class="control-label">Buyer:</label>
                                     <select id="buyer" name="buyer" class="select2"><small>(required)</small>
                                     </select>
+                                    <textarea class="form-control" name="buyer_address" id="buyer_address" cols="20" rows="3"></textarea>
+                                    <label class="control-label">HS CODE:</label>
+                                    <input type="text" class="form-control" name="hs_code" id="hs_code" placeholder="HS CODE" required="">
+                                </div>
+                          
+                                <div class="col-md-3 form-group">
+                                    <label class="control-label">Invoice No:</label>
+                                    <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice No" required="">
+                                    <label class="control-label">Date:</label>
+                                    <input type="text" class="form-control" name="date_captured" id="date_captured" placeholder="Date" required="">
+                                    <label class="control-label">Buyer's Contract No:</label>
+                                    <input type="text" class="form-control" name="buyer_contract_no" id="buyer_contract_no" placeholder="Buyer's Contract No" required="">
                                 </div>
                                 <div class="col-md-3 form-group">
+                                    <label class="control-label">Container no:</label>
+                                    <input id="container_no" type="text" class="form-control" name="container_no" placeholder="Container No" required="">
                                     <label class="control-label">Shipping Marks:</label>
                                     <input type="text" class="form-control" name="shipping_marks" id="shipping_marks" placeholder="shipping marks" required="">
+                                    <label class="control-label">BL No:</label>
+                                    <input type="text" class="form-control" name="bl_no" id="bl_no" placeholder="BL NO" required="">
+                               
                                 </div>
-
+                                <div class="col-md-3 form-group">
+                                    <label class="control-label">Bank:</label>
+                                    <select id="bank_id" name="bank_id" class="select2"><small>(required)</small>
+                                    </select>
+                                    <label class="control-label" for="pay_bank">Our Bank Detail:</label>
+                                    <textarea class="form-control" name="pay_bank" id="pay_bank" cols="20" rows="6"></textarea>
+                                </div>
+                       
                             </div>
+                  
                             <div class="row">
                                 <div class="col-md-3 form-group">
                                     <label class="control-label" for="port_of_delivery">Port Of
                                         Discharge:</label>
                                     <textarea class="form-control" name="port_of_delivery" id="port_of_delivery" cols="20" rows="3"></textarea>
+                                    <label class="control-label" for="description_of_goods">Description of Goods:</label>
+                                    <textarea class="form-control" name="good_description" id="good_description" cols="20" rows="3"></textarea>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label class="control-label" for="final_destination">Final
                                         Destination:</label>
                                     <textarea class="form-control" name="final_destination" id="final_destination" cols="20" rows="3"></textarea>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="consignee">Consignee:</label>
-                                    <textarea class="form-control" name="consignee" id="consignee" cols="20" rows="3"></textarea>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="pay_bank">Our Bank Detail:</label>
-                                    <textarea class="form-control" name="pay_bank" id="pay_bank" cols="20" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="description_of_goods">Description of Goods:</label>
-                                    <textarea class="form-control" name="good_description" id="good_description" cols="20" rows="3"></textarea>
-                                </div>
-                                <div class="col-md-3 form-group">
                                     <label class="control-label" for="other_reference">Other
                                         reference:</label>
                                     <textarea class="form-control" name="other_references" id="other_references" cols="20" rows="3"></textarea>
                                 </div>
                                 <div class="col-md-3 form-group">
+                                    <label class="control-label" for="consignee">Consignee:</label>
+                                    <textarea class="form-control" name="consignee" id="consignee" cols="20" rows="3"></textarea>
                                     <label class="control-label" for="buyer_bank">Buyer
                                         Bank:</label>
                                     <textarea class="form-control" name="buyer_bank" id="buyer_bank" cols="20" rows="3"></textarea>
                                 </div>
+                                <div class="col-md-3 form-group">
+                                    <label class="control-label" for="pay_details">
+                                        Terms of Delivery and Payment:</label>
+                                    <textarea class="form-control" name="pay_details" id="pay_details" cols="20" rows="3"></textarea>
+                                    <input type="hidden" class="form-control" id="invoice_category" name="invoice_category" placeholder="Invoice No" value="straight">
+
+                                </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-md-3 form-group float-right">
                                     <button id="saveBtn" type="submit" class="btn btn-success btn-sm" id="submit">Save</button>
                                 </div>
                             </div>
+                            
                         </div>
                         <input type="button" id="page1Btn" name="next" class="next action-button" value="Next" />
 
@@ -373,7 +365,7 @@
                             </div>
 
                         </div>
-                        <input type="button" name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                        <input type="button" id="loadTeas" name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     </fieldset>
                     <fieldset>
                         <div class="form-card">
@@ -397,24 +389,6 @@
                         <div class="form-card">
                             <div class="row">
                                 <div class="col-7">
-                                    <h2 class="fs-title">Preview Invoice:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 4 - 5</h2>
-                                </div>
-                            </div>
-                            <div class="col-md-12 text-center">
-                                <div id="invoicePreview">
-
-                                </div>
-                            </div>
-                        </div>
-                        <input type="button" id="submitPI" name="next" class="next action-button" value="Submit" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
                                     <h2 class="fs-title">Finish:</h2>
                                 </div>
                                 <div class="col-5">
@@ -423,8 +397,20 @@
                             </div> <br><br>
                             <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
                             <div class="row justify-content-center">
-                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
-                            </div> <br><br>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="fa fa-print" id="viewInvoice">Print</i>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="invoicePreview"></div>
+                                    </div>
+                                    <div class="card-header">
+
+                                    </div>
+                                    
+                                </div>
+                            </div> 
+                            <br><br>
                             <div class="row justify-content-center">
                                 <div id="finalSubmit" class="col-7 text-center">
                                 </div>
@@ -563,8 +549,11 @@
         setProgressBar(current);
         loadTemplates();
         loadStock("", "", "", "");
-        loadInvoiceTeas();
-        $("#Preview").click(function(e){
+        $("#loadTeas").click(function(e){
+            loadInvoiceTeas();
+        })
+        $("#viewInvoice").click(function(e){
+            e.preventDefault();
             $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_profoma_straight.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
         });
 
@@ -677,6 +666,14 @@
                 }
  
 
+    });
+    $("#buyer").change(function(e){
+        var address = $(this).children(":selected").attr("name");
+        $("#buyer_address").val(address);
+    });
+    $("#bank_id").change(function(e){
+        var bank_address = $(this).children(":selected").attr("name");
+        $("#pay_bank").val(bank_address);
     });
 
     $("#submitUpdate").click(function(e) {
@@ -988,5 +985,8 @@ function loadInvoiceTeas(){
     });
 
 }
+// function getBuyerAddress(id){
+
+// }
 
 </script>

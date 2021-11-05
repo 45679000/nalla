@@ -136,7 +136,7 @@
             success: function(response) {
                 $("#menuTable").html(response);
                 var table = $("#menuStraight").DataTable({
-                    "paging": false,
+                    "paging": true,
                     "bInfo": false,
                     "dom": '<"top"f>rt<"bottom"lp><"clear">', // Positions table elements
                     "language": {
@@ -144,10 +144,7 @@
                         "searchPlaceholder": "Search"   // Placeholder for the search box
                     }
                 });
-                $('#mySearchButton').on( 'keyup click', function () {
-                    table.search($('#mySearchText').val()).draw();
-                } );
-
+                
             }
 
         });

@@ -4,8 +4,13 @@
     $path_to_root = "../";
     $path_to_root1 = "../";
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
+    include '../database/connection.php';
     include_once ($path_to_root.'setting.php');
-    $amount_in_words = "Us Dollars Fifty Two Thousand Two Hundred Thirty Three and Cents Sixty Two Only";
+
+  
+
+
+    $amount_in_words = numberTowords(getInvoiceTotals($_GET['invoiceno']));
     $PHPJasperXML = new PHPJasperXML();
     $PHPJasperXML->debugsql = false;
     $PHPJasperXML->arrayParameter=array("invoiceno"=>$_GET['invoiceno'], "amount_in_words"=>$amount_in_words);
@@ -99,6 +104,24 @@
                         }
                     }
         return $rettxt;
+    }
+
+    function getInvoiceTotals($invoice){
+
+        $db = new Database();
+        $conn = $db->getConnection();
+
+
+        $query = "SELECT SUM(profoma_amount) AS profoma_amount
+        FROM invoice_teas
+        WHERE invoice_no = '$invoice'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+
+        $row = $stmt->fetch();
+
+        return $row["profoma_amount"];
+
     }
 ?>
 

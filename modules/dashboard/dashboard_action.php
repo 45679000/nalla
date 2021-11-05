@@ -43,9 +43,9 @@
     WHERE is_shipped = 0";
     $totalAllocationsPkgs = $stock->executeQuery();
 
-    $stock->query = "SELECT (CASE WHEN SUM(pkgs_shipped) IS NULL THEN 0 ELSE SUM(pkgs_shipped) END) AS pkgs_shipped 
-    FROM shippments
-    LEFT JOIN closing_stock ON closing_stock.stock_id = shippments.stock_id 
+    $stock->query = "SELECT (CASE WHEN SUM(pkgs) IS NULL THEN 0 ELSE SUM(pkgs) END) AS pkgs_shipped 
+    FROM closing_stock 
+    LEFT JOIN shippments ON closing_stock.stock_id = shippments.stock_id 
     WHERE shippments.id IS NULL";
     $totalUnAllocationsPkgs = $stock->executeQuery();
 
@@ -54,8 +54,8 @@
     $totalStock = $totalStockPkgs[0]['stock_pkgs']-$totalShipped[0]['pkgs_shipped'];
 
     $totalShippments = $totalShipped[0]['pkgs_shipped'];
-    $totalStockOriginalTeas =  $totalBlendedPkgs[0]['blended_pkgs'];
-    $totalStockBlendedTeas = $totalOriginalPkgs[0]['original_pkgs'];
+    $totalStockOriginalTeas =  $totalStock- $totalBlendedPkgs[0]['blended_pkgs'];
+    $totalStockBlendedTeas = $totalStock-$totalStockOriginalTeas;
     $totalStockShipped = $totalShippedPkgs[0]["pkgs_shipped"];
     $totalStockAllocated = $totalAllocationsPkgs[0]["pkgs_allocated"];
     $totalStockUnAllocations =  $totalUnAllocationsPkgs[0]["pkgs_shipped"];

@@ -156,13 +156,42 @@
             $this->executeQuery();
         }
         public function saveInvoice($buyer, $consignee, $invoice_no, $invoice_type, $invoice_category,  $port_of_delivery, $buyer_bank, $payment_terms, $pay_bank, $pay_details, $container_no, $buyer_contract_no,$shipping_marks,$other_reference, $final_destination, $description_of_goods, $hs_code){
+    
             $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
             $results = $this->executeQuery();
             if(count($results)>=0){
-                $this->debugSql = false;
-                $this->query = "REPLACE INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`) 
-                VALUES ('$buyer','$consignee','$invoice_no','profoma','$invoice_category','$port_of_delivery','$buyer_bank','$payment_terms', '$pay_bank','$pay_details', curdate(), '$final_destination', '$other_reference', '$container_no', '$buyer_contract_no', '$shipping_marks', '$description_of_goods','$final_destination', '$hs_code')";
-                $this->executeQuery();
+                $type = 'profoma';
+                try {
+                $query = "REPLACE INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, 
+                `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, 
+                `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`) 
+                VALUES(?,?,?,?,?,?,?,?,?,?,'CURRENT_DATE',?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(1, $buyer);
+                $stmt->bindParam(2, $consignee);
+                $stmt->bindParam(3, $invoice_no);
+                $stmt->bindParam(4, $type);
+                $stmt->bindParam(5, $invoice_category);
+                $stmt->bindParam(6, $port_of_delivery);
+                $stmt->bindParam(7, $buyer_bank);
+                $stmt->bindParam(8, $payment_terms);
+                $stmt->bindParam(9, $pay_bank);
+                $stmt->bindParam(10, $pay_details);
+                $stmt->bindParam(11, $final_destination);
+                $stmt->bindParam(12, $other_reference);
+                $stmt->bindParam(13, $container_no);
+                $stmt->bindParam(14, $buyer_contract_no);
+                $stmt->bindParam(15, $shipping_marks);
+                $stmt->bindParam(16, $description_of_goods);
+                $stmt->bindParam(17, $final_destination);
+                $stmt->bindParam(18, $hs_code);
+
+                $stmt->execute();
+                } catch (Exception $ex) {
+                    var_dump($ex);
+                }
+                
+
                 $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
                 $results = $this->executeQuery();
     

@@ -302,7 +302,7 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label class="control-label">Buyer:</label>
-                                    <select id="buyer" name="buyer" class="form-control form-control-cstm select2"><small>(required)</small>
+                                    <select id="buyer" name="buyer" class="select2"><small>(required)</small>
                                     </select>
                                 </div>
                                 <div class="col-md-3 form-group">
@@ -535,12 +535,24 @@
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script id="url" data-name="../../ajax/common.php" src="../../assets/js/common.js"></script>
-<script src="../../assets/plugins/select2/select2.full.min.js"></script>
+<script id="url" data-name="../../../ajax/common.php" src="../../../assets/js/common.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/select2/select2.full.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/jszip.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.print.min.js"></script>
 
 <script>
     $(document).ready(function() {
+        $('.select2').select2();
+
         $("#page1Btn").hide();
 
         var current_fs, next_fs, previous_fs; //fieldsets
@@ -553,7 +565,7 @@
         loadStock("", "", "", "");
         loadInvoiceTeas();
         $("#Preview").click(function(e){
-            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../reports/invoice_profoma_straight.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
+            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_profoma_straight.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
         });
 
         $(".next").click(function() {
@@ -963,7 +975,7 @@ function loadInvoiceTeas(){
             invoice: localStorage.getItem("invoiceno")
         },
         cache: true,
-        url: "../../finance_action.php",
+        url: "../finance_action.php",
         success: function (data) {
             $("#invoiceTeaList").show();
             $('#invoiceTeaList').html(data);

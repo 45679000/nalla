@@ -139,16 +139,16 @@
         $(document).ready(function() {
             $('.select2').select2();
 
-            // $('.table').DataTable({
-            //     "pageLength": 10,
-            //     dom: 'Bfrtip',
-            //     buttons: [
-            //         'copyHtml5',
-            //         'excelHtml5',
-            //         'csvHtml5',
-            //         'pdfHtml5'
-            //     ]
-            // });
+            $('.table').DataTable({
+                "pageLength": 50,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
 
         });
         </script>

@@ -446,7 +446,7 @@
 	  
 		$blendBalance = 0;
 		$output ="";
-		$stockList = $stockCtrl->readStock("", $filters);
+		$stockList = $stockCtrl->readStock("", $filters, 1);
 		if (sizeOf($stockList)> 0) {
 			$output .='
 			<table id="direct_lot" class="table table-sm table-responsive table-striped table-bordered">

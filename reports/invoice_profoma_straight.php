@@ -6,11 +6,15 @@
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
     include '../database/connection.php';
     include_once ($path_to_root.'setting.php');
+    include $path_to_root."vendor/autoload.php";
 
+    use TNkemdilim\MoneyToWords\Converter;
   
 
+    $converter = new Converter("dollar", "cents");
 
-    $amount_in_words = numberTowords(getInvoiceTotals($_GET['invoiceno']));
+    $amount_in_words = $converter->convert(getInvoiceTotals($_GET['invoiceno']));
+
     $PHPJasperXML = new PHPJasperXML();
     $PHPJasperXML->debugsql = false;
     $PHPJasperXML->arrayParameter=array("invoiceno"=>$_GET['invoiceno'], "amount_in_words"=>$amount_in_words);

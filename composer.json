@@ -2,7 +2,8 @@
     "require": {
         "phpoffice/phpspreadsheet": "^1.17",
         "mpdf/mpdf": "^8.0",
-        "koolreport/core": "^5.0"
+        "koolreport/core": "^5.0",
+        "tnkemdilim/money-to-words-converter": "^2.1"
     },"config": {
 
     "platform-check": false

@@ -19,7 +19,7 @@
             
         }
 
-        public function readStock($type="", $filters){
+        public function readStock($type="", $filters, $proforma=0){
             $saleno = $filters['saleno'];
             $broker = $filters['broker'];
             $mark =  $filters['mark'];
@@ -79,8 +79,13 @@
                  FROM closing_stock 
                  LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
                  LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
-                 LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment 
-                 LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 0 OR is_shipped IS NULL ";
+                 LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment ";
+                if($proforma == 1){
+                    $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id ";
+                }else{
+                    $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 0 OR is_shipped IS NULL ";
+
+                }
                 if($saleno !== 'All'){
                     $query.= " AND sale_no = '$saleno' ";
                 }

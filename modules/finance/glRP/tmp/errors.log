@@ -1794,3 +1794,38 @@ Stack trace:
 [05-Nov-2021 16:52:39 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [05-Nov-2021 16:52:43 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [05-Nov-2021 16:52:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:54:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:54:22 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:54:27 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:54:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:55:16 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:56:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:56:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:56:27 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:56:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:56:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:56:39 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:56:44 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:47 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:49 Europe/Berlin] 0:admin:renderer.php:196: sizeof(): Parameter must be an array or an object that implements Countable
+[05-Nov-2021 16:58:50 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:purchase_list.php:19: include(../../database/page_init.php): failed to open stream: No such file or directory
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:purchase_list.php:19: include(): Failed opening '../../database/page_init.php' for inclusion (include_path='.:/usr/share/php')
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:purchase_list.php:20: include(../../models/Model.php): failed to open stream: No such file or directory
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:purchase_list.php:20: include(): Failed opening '../../models/Model.php' for inclusion (include_path='.:/usr/share/php')
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:purchase_list.php:21: include(../../controllers/StockController.php): failed to open stream: No such file or directory
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:purchase_list.php:21: include(): Failed opening '../../controllers/StockController.php' for inclusion (include_path='.:/usr/share/php')
+[05-Nov-2021 16:58:51 Europe/Berlin] 0:admin:purchase_list.php:25: Unhandled exception [0]: Class 'Stock' not found.
+[05-Nov-2021 16:58:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:53 Europe/Berlin] 0:admin:renderer.php:196: sizeof(): Parameter must be an array or an object that implements Countable
+[05-Nov-2021 16:58:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:58:54 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[05-Nov-2021 16:58:54 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[05-Nov-2021 16:59:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[05-Nov-2021 16:59:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time

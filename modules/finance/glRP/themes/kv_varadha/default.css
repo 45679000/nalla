@@ -18,8 +18,8 @@ body {
 }
 
 tr, td, th {
-	font-size: 18px;
-	line-height: 19px;
+	font-size: 12px;
+	line-height: 12px;
 }
 
 table {
@@ -59,14 +59,14 @@ input.small {
 
 a {
 	color: #2ebc9c;
-	font-size: 15px;
+	font-size: 10px;
 	text-decoration: none;
 }
 
 a:link {
 	color: #2ebc9c;
 	text-decoration: none;
-	font-size: 18px !important;
+	font-size: 12px !important;
 }
 
 a:active {

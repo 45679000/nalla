@@ -81,7 +81,9 @@ $bank_account_types = array (
 	BT_TRANSFER => _("Savings Account"),
 		_("Chequing Account"),
 		_("Credit Account"),
-		_("Cash Account")
+		_("Cash Account"),
+		_("Current Account")
+
 	);
 
 $bank_transfer_types = array(

@@ -112,8 +112,9 @@
         $conn = $db->getConnection();
 
 
-        $query = "SELECT SUM(profoma_amount) AS profoma_amount
+        $query = "SELECT SUM(profoma_amount*kgs) AS profoma_amount
         FROM invoice_teas
+        INNER JOIN closing_stock ON closing_stock.stock_id = invoice_teas.stock_id
         WHERE invoice_no = '$invoice'";
         $stmt = $conn->prepare($query);
         $stmt->execute();

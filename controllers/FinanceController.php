@@ -453,6 +453,17 @@
             }
             return json_encode(array("updated"=>"true"));
         }
+        public function updateStraightLineValue($id, $fieldValue, $fieldName){
+            try {
+                $this->debugSql = true;
+
+                $this->query = "UPDATE invoice_teas SET $fieldName = '$fieldValue' WHERE id = $id";
+                $this->executeQuery();
+            } catch (\Throwable $th) {
+               //throw $th;
+            }
+            return json_encode(array("updated"=>"true"));
+        }
         public function removeRecord($id){
             try {
                $this->debugSql = true;

@@ -763,17 +763,19 @@
     });
 
     $("body").on("blur", ".profoma_amount", function(e){
-        var id = $(this).attr('id');
+        var id = $(this).parent().attr('id');
         var value = $(this).text();
+        var fieldName = $(this).attr('class'); 
         $.ajax({
         type: "POST",
         data: {
             action: "update-invoice-value",
             value:value,
-            id:id
+            id:id,
+            fieldName:fieldName
         },
         cache: true,
-        url: "finance_action.php",
+        url: "../finance_action.php",
         success: function (data) {
 
         }

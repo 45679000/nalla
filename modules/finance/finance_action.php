@@ -562,7 +562,7 @@
 			</thead>
 			<tbody>';
 			foreach ($records as $stock) {
-				$output.='<tr>';
+				$output.='<tr id="'.$stock["id"].'">';
 					$output.='<td>'.$stock["line_no"].'</td>';
 					$output.='<td>'.$stock["lot"].'</td>';
 					$output.='<td>'.$stock["country"].'</td>';
@@ -574,7 +574,7 @@
 					$output.='<td class="profoma_amount" contenteditable="true">'.$stock["profoma_amount"].'</td>';
 
 					  $output.='<td>
-					  <a class="removeTea" id="'.$stock["id"].'" style="color:green" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+					  <a class="removeTea" id="'.$stock["id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Remove" >
 					  <i class="fa fa-close" ></i></a>&nbsp&nbsp&nbsp;
 					</td>'; 
 					
@@ -650,6 +650,14 @@
 		$fieldName = isset($_POST['name']) ? $_POST['name'] : '';
 
 		$finance->updateValue($id, $fieldValue, $fieldName);
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "update-invoice-value"){
+		$id = isset($_POST['id']) ? $_POST['id'] : '';
+		$fieldValue = isset($_POST['value']) ? $_POST['value'] : '';
+		$fieldName = isset($_POST['fieldName']) ? $_POST['fieldName'] : '';
+
+		$finance->updateStraightLineValue($id, $fieldValue, $fieldName);
 
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "remove-line"){

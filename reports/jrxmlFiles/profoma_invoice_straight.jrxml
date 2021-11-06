@@ -9,6 +9,12 @@
 	<parameter name="amount_in_words" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="total_amount" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[0.00]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_tax" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[0.00]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT tea_invoices.`id`, `buyer`, `consignee`, `address`,`invoice_no`, `invoice_type`, `invoice_category`, `port_of_delivery`, `port_of_discharge`,  tea_invoices.`payment_terms`, `buyer_contract_no`, `hs_code`, `final_destination`, `date_captured`,
 `pay_bank`, `pay_details`, `date_captured`, 0_debtors_master.address,  pay_details,
@@ -238,11 +244,20 @@
 		<property name="com.jaspersoft.studio.field.tree.path" value="tea_invoices"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="net_amount" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{total_amount}+$V{tax}]]></variableExpression>
+	</variable>
 	<variable name="pkgsTotal" class="java.lang.Integer" incrementType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{pkgs}]]></variableExpression>
 	</variable>
 	<variable name="totalKgs" class="java.lang.Double" incrementType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{kgs}]]></variableExpression>
+	</variable>
+	<variable name="total_amount" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{final_amount}]]></variableExpression>
+	</variable>
+	<variable name="tax" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{total_amount} * 0.01)]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -766,7 +781,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Country]]></text>
+				<text><![CDATA[Origin]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="170" y="-10" width="50" height="10" uuid="1feffa21-527d-4d25-891a-f1dce8528e35">
@@ -830,7 +845,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Mark]]></text>
+				<text><![CDATA[Garden]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="380" y="-10" width="61" height="10" uuid="006fc059-050b-4688-accb-294fdf528eb5">
@@ -1071,17 +1086,17 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="40" width="110" height="10" uuid="f3030be1-c655-4e43-a5e0-d37277018730"/>
+				<reportElement x="2" y="40" width="158" height="11" uuid="f3030be1-c655-4e43-a5e0-d37277018730"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Left">
 					<font fontName="Liberation Serif"/>
 				</textElement>
-				<text><![CDATA[Total Amount(In Words):]]></text>
+				<text><![CDATA[Grand Total Amount(In Words):]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="2" y="139" width="100" height="20" uuid="be01e102-332e-41c3-880a-4368efc6ae01"/>
@@ -1127,8 +1142,8 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
 				</box>
 				<textElement>
 					<font fontName="Liberation Serif" size="6"/>
@@ -1140,8 +1155,8 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
 				</box>
 				<textElement>
 					<font fontName="Liberation Serif" size="6"/>
@@ -1153,8 +1168,8 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
 				</box>
 				<textElement>
 					<font fontName="Liberation Serif" size="6"/>
@@ -1169,7 +1184,7 @@
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textElement>
-					<font fontName="Liberation Serif" size="6"/>
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MINIMUM TAX @1% OF VALUE: AS PER KENYAN GOVERMENT LAW (FINANCE ACT 2020) ]]></text>
 			</staticText>
@@ -1205,7 +1220,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement>
-					<font fontName="Liberation Serif" size="6"/>
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GRAND TOTAL AMOUNT]]></text>
 			</staticText>
@@ -1228,78 +1243,78 @@
 			<textField>
 				<reportElement x="264" y="1" width="50" height="9" uuid="275f78bb-71bf-446a-b0d8-7d18995a29f3"/>
 				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" size="6"/>
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{pkgsTotal}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="492" y="1" width="62" height="9" uuid="03a4855f-f1f1-4ff0-9212-4ab7f465717c">
+			<textField>
+				<reportElement x="492" y="1" width="62" height="9" uuid="2386e00b-f84c-4b41-8db6-fecb32f10ce9">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement>
-					<font fontName="Liberation Serif" size="6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$V{total_amount}]]></textFieldExpression>
+			</textField>
 			<textField>
 				<reportElement x="380" y="1" width="61" height="9" uuid="087451ef-25b7-4b9b-a814-572d38448786">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" size="6"/>
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalKgs}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="492" y="10" width="62" height="9" uuid="f306ea70-cfe8-4143-9164-dda42ba041e3"/>
+			<textField>
+				<reportElement x="492" y="10" width="62" height="9" uuid="368c1986-6bc1-45ff-ab85-573fe23d29b9"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement>
-					<font fontName="Liberation Serif" size="6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{total_tax}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="440" y="19" width="51" height="9" uuid="8aaed4af-ccd4-405c-9674-b9e01ba41be1"/>
+				<reportElement x="440" y="19" width="52" height="9" uuid="8aaed4af-ccd4-405c-9674-b9e01ba41be1"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement>
-					<font fontName="Liberation Serif" size="6"/>
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="492" y="19" width="62" height="9" uuid="73ad3bb4-2cee-40d9-b731-79c5db4daacf"/>
+			<textField>
+				<reportElement x="492" y="19" width="62" height="9" uuid="9815b9f5-0671-4160-8ab6-95ee6c945cb7"/>
 				<box>
 					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement>
-					<font fontName="Liberation Serif" size="6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{total_amount}]]></textFieldExpression>
+			</textField>
 			<textField>
 				<reportElement x="264" y="19" width="50" height="9" uuid="23f1fc0b-c67e-4b16-8592-a7440afe65ac"/>
 				<box>
@@ -1307,7 +1322,7 @@
 					<bottomPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" size="8"/>
+					<font fontName="Liberation Serif" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{pkgsTotal}]]></textFieldExpression>
 			</textField>
@@ -1320,7 +1335,7 @@
 					<bottomPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Liberation Serif" size="6"/>
+					<font fontName="Liberation Serif" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalKgs}]]></textFieldExpression>
 			</textField>
@@ -1332,16 +1347,22 @@
 					<bottomPen lineWidth="0.0"/>
 				</box>
 				<textElement>
-					<font fontName="Liberation Serif" size="5"/>
+					<font fontName="Liberation Serif" size="5" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="113" y="44" width="374" height="22" uuid="b412e3c3-10f5-4855-a129-7fbc1d6e49bb">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="143" y="41" width="374" height="11" uuid="b412e3c3-10f5-4855-a129-7fbc1d6e49bb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3f8798-d2a0-4715-afee-5250501b549b"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Left">
-					<font fontName="Liberation Serif" size="6" isBold="true" isUnderline="true"/>
+					<font fontName="Liberation Serif" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{amount_in_words}]]></textFieldExpression>
 			</textField>

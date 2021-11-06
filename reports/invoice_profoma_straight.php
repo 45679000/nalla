@@ -11,13 +11,20 @@
     use TNkemdilim\MoneyToWords\Converter;
   
 
-    $converter = new Converter("dollar", "cents");
+    $converter = new Converter("", "cents");
+    $row = getInvoiceTotals($_GET['invoiceno']);
 
-    $amount_in_words = $converter->convert(getInvoiceTotals($_GET['invoiceno']));
-
+    $amount_in_words = $converter->convert($row['profoma_amount']);
+    $total_amount = $row['net_amount'];
+    $total_tax = $row['profoma_tax'];
     $PHPJasperXML = new PHPJasperXML();
     $PHPJasperXML->debugsql = false;
-    $PHPJasperXML->arrayParameter=array("invoiceno"=>$_GET['invoiceno'], "amount_in_words"=>$amount_in_words);
+    $PHPJasperXML->arrayParameter=array(
+     "invoiceno"=>$_GET['invoiceno'],
+     "amount_in_words"=>"Us Dollars ".$amount_in_words, 
+     "total_amount"=>$total_amount, 
+     "total_tax" =>$total_tax
+    );
     $PHPJasperXML->load_xml_file("jrxmlFiles/profoma_invoice_straight.jrxml");
     $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
     ob_end_clean();
@@ -27,88 +34,7 @@
     // }
 
 
-    
-    function numberTowords($num){
 
-        $ones = array(
-        0 =>"ZERO",
-        1 => "ONE",
-        2 => "TWO",
-        3 => "THREE",
-        4 => "FOUR",
-        5 => "FIVE",
-        6 => "SIX",
-        7 => "SEVEN",
-        8 => "EIGHT",
-        9 => "NINE",
-        10 => "TEN",
-        11 => "ELEVEN",
-        12 => "TWELVE",
-        13 => "THIRTEEN",
-        14 => "FOURTEEN",
-        15 => "FIFTEEN",
-        16 => "SIXTEEN",
-        17 => "SEVENTEEN",
-        18 => "EIGHTEEN",
-        19 => "NINETEEN",
-        "014" => "FOURTEEN"
-        );
-        $tens = array( 
-        0 => "ZERO",
-        1 => "TEN",
-        2 => "TWENTY",
-        3 => "THIRTY", 
-        4 => "FORTY", 
-        5 => "FIFTY", 
-        6 => "SIXTY", 
-        7 => "SEVENTY", 
-        8 => "EIGHTY", 
-        9 => "NINETY" 
-        ); 
-        $hundreds = array( 
-        "HUNDRED", 
-        "THOUSAND", 
-        "MILLION", 
-        "BILLION", 
-        "TRILLION", 
-        "QUARDRILLION" 
-        ); /*limit t quadrillion */
-        $num = number_format($num,2,".",","); 
-        $num_arr = explode(".",$num); 
-        $wholenum = $num_arr[0]; 
-        $decnum = $num_arr[1]; 
-        $whole_arr = array_reverse(explode(",",$wholenum)); 
-        krsort($whole_arr,1); 
-        $rettxt = ""; 
-    foreach($whole_arr as $key => $i){    
-        while(substr($i,0,1)=="0")
-                $i=substr($i,1,5);
-                    if($i < 20){ 
-                        /* echo "getting:".$i; */
-                        $rettxt .= $ones[$i]; 
-                        }elseif($i < 100){ 
-                        if(substr($i,0,1)!="0")  $rettxt .= $tens[substr($i,0,1)]; 
-                        if(substr($i,1,1)!="0") $rettxt .= " ".$ones[substr($i,1,1)]; 
-                        }else{ 
-                        if(substr($i,0,1)!="0") $rettxt .= $ones[substr($i,0,1)]." ".$hundreds[0]; 
-                        if(substr($i,1,1)!="0")$rettxt .= " ".$tens[substr($i,1,1)]; 
-                        if(substr($i,2,1)!="0")$rettxt .= " ".$ones[substr($i,2,1)]; 
-                        } 
-                        if($key > 0){ 
-                        $rettxt .= " ".$hundreds[$key]." "; 
-                        }
-                    } 
-                    if($decnum > 0){
-                        $rettxt .= " and ";
-                        if($decnum < 20){
-                        $rettxt .= $ones[$decnum];
-                        }elseif($decnum < 100){
-                        $rettxt .= $tens[substr($decnum,0,1)];
-                        $rettxt .= " ".$ones[substr($decnum,1,1)];
-                        }
-                    }
-        return $rettxt;
-    }
 
     function getInvoiceTotals($invoice){
 
@@ -116,7 +42,8 @@
         $conn = $db->getConnection();
 
 
-        $query = "SELECT SUM(profoma_amount*kgs) AS profoma_amount
+        $query = "SELECT SUM(profoma_amount*kgs) AS profoma_amount, SUM(profoma_amount*kgs) * 0.01 AS profoma_tax, 
+        ((SUM(profoma_amount*kgs) * 0.01) + SUM(profoma_amount*kgs)) AS net_amount 
         FROM invoice_teas
         INNER JOIN closing_stock ON closing_stock.stock_id = invoice_teas.stock_id
         WHERE invoice_no = '$invoice'";
@@ -125,7 +52,7 @@
 
         $row = $stmt->fetch();
 
-        return $row["profoma_amount"];
+        return $row;
 
     }
 ?>

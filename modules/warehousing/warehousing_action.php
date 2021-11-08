@@ -59,9 +59,12 @@
 					if($shippment['status']!=="Shipped"){
 						$output .='
 						<td>
-							<a id="'.$sino.'" data-toggle="modal" onclick=updateStatus(this) data-target="#updateStatus">
-								<i class="fa fa-cogs btn-sm">Update Status</i>
-							</a>
+							<select class="shipment-status form-control form-control-sm" id="'.$sino.'">
+								<option>Pending</option>
+								<option>Received</option>
+								<option>Blended</option>
+								<option>Shipped</option>
+							</select>
 						</td>';
 					}else{
 						$output .='
@@ -322,7 +325,6 @@
 
 		$warehouses->addjustLevels($materialid, $totalAllocation, $details);
 	}
-
 	if(isset($_POST['action']) && $_POST['action'] =='blend-status'){
 		$type = isset($_POST['type']) ? $_POST['type'] : '';
 		$status = 0;
@@ -379,12 +381,10 @@
 
 							  $output.="<td>";
 								if($status == 1){
-									$output.="<span><i class='fa fa-check'></i>
-									closed</span>";
+									$output.="<span>
+									<i class='fa fa-check'></i>closed</span>";
 								}else{
-									$output.="<a style='color:green'  
-									class='close' id='".$blend['id']."'><i class='fa fa-cog'></i>
-									close</a>";
+									$output.="<a href=./index.php?view=closeblends&blendno=".$blend['id']." style='color:green' class='close' id='".$blend['id']."'><i class='fa fa-cog'></i></a>";
 								}
 								
 								$output.="</td>
@@ -413,7 +413,7 @@
 		  $remnant = $_POST['BlendRemnant'];
 		  $gain_loss = $_POST['GainLoss'];
 		  $pulucon = $_POST['pulucon'];;
-			$warehouses->closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $pulucon);
+		$warehouses->closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $pulucon);
 
 		$blendDetails = $blendCtrl->fetchBlends($id);
 
@@ -430,8 +430,9 @@
 
 		$lineno = $warehouses->genLineNo($id);
 
-		$warehouses->addClosedBlendToStock( $id, $lineno, $sale_no, $lot, $grade, $fullPkgs, $nw, $nw*$fullPkgs, $standard);
+		// $warehouses->addClosedBlendToStock( $id, $lineno, $sale_no, $lot, $grade, $fullPkgs, $nw, $nw*$fullPkgs, $standard);
 
+		
 		$response = '
 		<table class="table table-sm table-bordered" style = "width:inherit;" id="confirm">
 		<thead>
@@ -447,34 +448,9 @@
 			</tr>
 		</thead>
 		<tbody>';
-		$response .='<tr>';
-		$response .='<td>'.$lineno.'</td>';
-		$response .='<td>'.$lot.'</td>';
-		$response .='<td>'.$grade.'</td>';
-		$response .='<td>'.$invoice.'</td>';
-		$response .='<td>'.$destination.'</td>';
-		$response .='<td>'.$nw.'</td>';
-		$response .='<td>'.$fullPkgs.'</td>';
-		$response .='<td>'.$nw*$fullPkgs.'</td>';
+		
 		$response .='</tr>';
-		if($remainder !=0){
-			$nw = 1;
-			$lineno = $warehouses->genLineNo($id);
-
-			$warehouses->addClosedBlendToStock($id,$lineno, $sale_no, $lot, $grade, $nw, $remainder, $nw*$remainder, $standard);
-			$response .='<tr>';
-			$response .='<td>'.$lineno.'</td>';
-			$response .='<td>'.$lot.'</td>';
-			$response .='<td>'.$grade.'</td>';
-			$response .='<td>'.$invoice.'</td>';
-			$response .='<td>'.$destination.'</td>';
-			$response .='<td>'.$remainder.'</td>';
-			$response .='<td>'.$nw.'</td>';
-			$response .='<td>'.$nw*$remainder.'</td>';
-			$response .='</tr>';
-		}
-
-
+		
 		'</tbody>
 	  
 		</table>';
@@ -513,9 +489,46 @@
 			echo '<h3 class="text-center mt-5">No materials allocated for this shipment</h3>';
 		}
 	}
-	
+	if(isset($_POST['action']) && $_POST['action'] == "add-line"){
+		$blendno = $_POST['blendid'];
+		$warehouse->addBlendLine($blendno);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "load-blend-lines"){
+		$blendno = $_POST['id'];
+		$blendlines = $warehouses->loadBlendLines($blendno);
+		$output .='<table class="table table-sm table-bordered" style = "width:inherit;" id="confirm">
+		<thead>
+			<tr>
+				<th>Lot No</th>
+				<th>Grade</th>
+				<th>Invoice</th>
+				<th>Origin</th>
+				<th>Nw</th>
+				<th>Pkgs</th>
+				<th>Kgs</th>
+			</tr>
+		</thead>
+		<tbody>';
 
-	
-	
+		foreach ($blendlines as $blend) {
+			$kgs = $blend['nw']*$blend['Pkgs'];
+		$output.="<tr>
+					<td>".$blend['line_no']."</td>
+					<td>".$blend['Grade']."</td>
+					<td>".$blend['invoice']."</td>
+					<td>".$blend['origin']."</td>
+					<td>".$blend['nw']."</td>
+					<td>".$blend['pkgs']."</td>
+					<td>".$kgs."</td>";	  
+		}
+		$output .= "</tbody>
+		</table>";
+
+		echo $output;	
+		
+
+
+
+	}
 ?>
 

@@ -174,7 +174,11 @@ require_once $path_to_root . 'templates/header.php';
 					
 					});
 				
-			
+				$("body").on("change", ".shipment-status", function(e) {
+					var value = $(this).val();
+					var id = $(this).attr("id");
+					updateShippmentStatus(value, id);
+				});
 				
 				appendCard("pvsvs", "../../modules/dashboard/dashboard_action.php");
 
@@ -216,16 +220,18 @@ require_once $path_to_root . 'templates/header.php';
 								icon: 'success',
 								title: 'Status Updated',
 							});
-							location.reload();
-							// shipmentStatus("null");
-							// shipmentStatus("Shipped");
-							// shipmentStatus("Received");
-							// shipmentStatus("Blended");
+							shipmentStatus("null", "unupdatedi");
+							shipmentStatus("Shipped", "shippedi")
+							shipmentStatus("Blended","blendedi");
+							shipmentStatus("Received","receivedi");
 						}
 					});
 				}
 
 				});
+
+				
+				
 				$('.table').DataTable({});
 
 		</script>

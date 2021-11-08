@@ -71,17 +71,14 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                             case 'shipments':
                                 $sino = isset($_GET['id']) ? $_GET['id'] : '';
                                 if(($action=='allocatematerials') && ($sino !=null)){
-
                                     include('views/allocate_shippment_materials.php');
-
                                 }else{
                                     include('views/shipments.php');
-
                                 }
                                 break;
-
                             case 'closeblends':
                                 include('views/close_blends.php');
+                                
                                 break;
 
                             case 'stock':

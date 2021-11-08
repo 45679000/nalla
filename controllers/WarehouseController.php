@@ -42,10 +42,12 @@ Class WarehouseController extends Model{
 
     public function shipmentUpdateStatus($newStatus, $sino){
         if($newStatus=="Shipped"){
-            $this->query = "UPDATE shippments SET is_shipped = 1 WHERE instruction_id = $sino;  
-             UPDATE shipping_instructions SET status = '$newStatus' WHERE instruction_id = $sino";
+            $this->query = "UPDATE shippments SET is_shipped = 1 WHERE instruction_id = $sino"; 
             $this->executeQuery();
-        
+ 
+            $this->query = "UPDATE shipping_instructions SET status = '$newStatus' WHERE instruction_id = $sino";
+            $this->executeQuery();
+
         }else{
             $this->query = "UPDATE shipping_instructions SET status = '$newStatus' WHERE instruction_id = $sino";
             $this->executeQuery();
@@ -152,6 +154,31 @@ Class WarehouseController extends Model{
         return $lineno;
 
     }
+    public function addBlendLine($blendno){
+        $sql = "INSERT INTO `blend_lines`(`blend_no`)
+         VALUES ($blendno)";
+         $this->query = $sql;
+         $this->executeQuery();
+    }
+    public function updateBlendLine($id, $sale_no, $net, $pkgs, $kgs){
+        $sql = "UPDATE `blend_lines` 
+                SET `sale_no`='$sale_no',
+                    `net`='$net',
+                    `pkgs`='$pkgs',
+                    `kgs`='$kgs'
+                 WHERE id= $id";
+
+         $this->query = $sql;
+         $this->executeQuery();
+    }
+    public function loadBlendLines($blendno){
+        $this->debugSql = true;
+        $this->query = "SELECT *FROM `blend_lines` WHERE blend_no = ".$blendno;
+        $rows = $this->executeQuery();
+
+        return $rows;
+    }
+ 
 }
 
 

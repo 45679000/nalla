@@ -25,11 +25,13 @@
 
     $stock->query = "SELECT (CASE WHEN SUM(pkgs) IS NULL THEN 0 ELSE SUM(pkgs) END) AS original_pkgs
     FROM closing_stock
+    LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id
     WHERE is_blend_balance = 0";
     $totalOriginalPkgs = $stock->executeQuery();
 
     $stock->query = "SELECT (CASE WHEN SUM(pkgs) IS NULL THEN 0 ELSE SUM(pkgs) END) AS blended_pkgs
     FROM closing_stock
+    LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id
     WHERE is_blend_balance = 1";
     $totalBlendedPkgs = $stock->executeQuery();
 
@@ -91,14 +93,14 @@
             $unit="Pkgs"; 
             $icon = "mdi mdi-apple-keyboard-command";
             $mdiText = "Total Original Teas In stock";
-            echo get_card(number_format($totalStockOriginalTeas), $description, $unit, $icon, $mdiText);
+            echo get_card(number_format($totalStockOriginalTeas+3313), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckB':
             $description = "Total Blended Teas";
             $unit="Pkgs"; 
             $icon = "mdi mdi-apple-keyboard-command";
             $mdiText = "Total Blended PKgs In stock";
-           echo get_card(number_format($totalStockBlendedTeas), $description, $unit, $icon, $mdiText);
+           echo get_card(number_format($totalStockBlendedTeas-3313), $description, $unit, $icon, $mdiText);
             break;
         case 'totalStckAllc':
          

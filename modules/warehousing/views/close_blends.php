@@ -32,119 +32,130 @@
 }
  
 </style>
-<div class="col-md-12 col-lg-12">
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header">
-                <span>Blend Closing</span>
-                <div class="card-options">
-                    <button id="unclosed" class="btn btn-info btn-sm ml-2">Unclosed</button>
-                    <button id="closed" class="btn btn-info btn-sm ml-2">Closed</button>
+<?php
+        $blend_no = $_GET["blendno"];
+
+    if(!isset($_GET["blendno"])){
+        $blend_no = $_GET["blendno"];
+        echo'
+            <div class="col-md-12 col-lg-12">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span>Blend Closing</span>
+                            <div class="card-options">
+                                <button id="unclosed" class="btn btn-info btn-sm ml-2">Unclosed</button>
+                                <button id="closed" class="btn btn-info btn-sm ml-2">Closed</button>
+                            </div>
+                        </div>
+
+                        <div class=" card-body col-lg-12 col-md-12 col-sm-12">
+                            <div class="table-responsive" id="tableData">
+                                <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+}
+?>
+
+ <div class="card">
+                <!-- Modal Header -->
+                <div class="card-header">
+                    <h4 class="modal-title">Blend Out Turn</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="card-body">
+                    <form id="closingForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="value">Blend Output</label>
+                                    <input  type="text" class="form-control" name="boutput" value="" id="boutput" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="value">Sweeping</label>
+                                    <input  type="text" class="form-control" name="bsweepings" value="" id="bsweepings" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="value">Cyclone</label>
+                                    <input  type="text" class="form-control" name="bcyclone" value="" id="bcyclone" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="value">Dust</label>
+                                    <input  type="text" class="form-control" name="bdust" value="" id="bdust" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="value">Polucon</label>
+                                    <input  type="text" class="form-control" name="bpolucon" value="" id="bpolucon" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="value">Fiber</label>
+                                    <input  type="text" class="form-control" name="bfiber" value="" id="bfiber" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="value">Gain/Loss</label>
+                                    <input disabled="true" type="text" class="form-control" name="gainLoss" value="" id="gainLoss" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="value">Blend Remnant</label>
+                                    <input disabled="true" type="text" class="form-control" name="blendremnant" value="" id="blendremnant" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="value">Input Kgs</label>
+                                    <input disabled="true" type="text" class="form-control" name="inputkgs" value="" id="inputkgs" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="value">Shippment</label>
+                                    <input disabled="true" type="text" class="form-control" name="shippment" value="" id="shippment" placeholder="0" value="0" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <hr>
+                    
+                        <div class="form-group float-right">
+                            <button type="submit" class="btn btn-primary btn-sm" id="post">Post</button>
+                            <button type="submit" class="btn btn-danger btn-sm" id="close">Close</button>
+                        </div>
+                    </form>
+                    <div class="card" style="display: none;" id="confirm-table">
+                        <div id="preview">
+                            
+                        </div>
+                        <div class="form-group float-right">
+                            <button type="submit" class="btn btn-danger btn-sm" id="confirm">Confirm</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class=" card-body col-lg-12 col-md-12 col-sm-12">
-                <div class="table-responsive" id="tableData">
-                    <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Edit Record  Modal -->
-<div class="modal" id="blendClose">
-<div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Blend Out Turn</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="closingForm">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="value">Blend Output</label>
-                                <input  type="text" class="form-control" name="boutput" value="" id="boutput" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="value">Sweeping</label>
-                                <input  type="text" class="form-control" name="bsweepings" value="" id="bsweepings" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="value">Cyclone</label>
-                                <input  type="text" class="form-control" name="bcyclone" value="" id="bcyclone" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="value">Dust</label>
-                                <input  type="text" class="form-control" name="bdust" value="" id="bdust" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="value">Polucon</label>
-                                <input  type="text" class="form-control" name="bpolucon" value="" id="bpolucon" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="value">Fiber</label>
-                                <input  type="text" class="form-control" name="bfiber" value="" id="bfiber" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="value">Gain/Loss</label>
-                                <input disabled="true" type="text" class="form-control" name="gainLoss" value="" id="gainLoss" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="value">Blend Remnant</label>
-                                <input disabled="true" type="text" class="form-control" name="blendremnant" value="" id="blendremnant" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="value">Input Kgs</label>
-                                <input disabled="true" type="text" class="form-control" name="inputkgs" value="" id="inputkgs" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="value">Shippment</label>
-                                <input disabled="true" type="text" class="form-control" name="shippment" value="" id="shippment" placeholder="0" value="0" required="">
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-group float-right">
-                        <button type="submit" class="btn btn-primary btn-sm" id="post">Post</button>
-                        <button type="submit" class="btn btn-danger btn-sm" id="close">Close</button>
-                    </div>
-                </form>
-                <div class="card" style="display: none;" id="confirm-table">
-                    <div id="preview"></div>
-                    <div class="form-group float-right">
-                        <button type="submit" class="btn btn-danger btn-sm" id="confirm">Confirm</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+            
 
 <script src="../../assets/js/blending.js"></script>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
@@ -161,7 +172,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         showAllBlends("unclosed");
-
+        var blendno = '<?php echo $blend_no ?>';
+        loadBlendLines(blendno);
         $("#unclosed").click(function(){
             showAllBlends("show-unclosed");
 
@@ -204,6 +216,41 @@
 
         $("#blendClose").show();
     });
+    $("body").on("click", "#add", function(e) {
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "add-line",
+                id:id,
+            },
+            cache: true,
+            url: "warehousing_action.php",
+            success: function (data) {
+          
+
+            }
+        });
+        
+    });
+    function loadBlendLines(id){
+    $.ajax({
+            type: "POST",
+            dataType: "html",
+            data: {
+                action: "load-blend-lines",
+                id:id,
+            },
+            cache: false,
+            url: "warehousing_action.php",
+        success: function (data) {
+            $("#preview").html(data);
+
+        }
+    });
+    
+}
+
 
     $("#boutput, #bpolucon, #bsweepings, #bcyclone, #bdust, #bfiber").on( "blur", function(e){
         var blendOutput = $("#boutput").val();
@@ -257,8 +304,8 @@
             url: "warehousing_action.php",
             success: function (data) {
                 $("#closingForm").hide();
-                $("#confirm-table").show();
-                $('#preview').html(data);
+                $("#preview").show();
+                // $('#preview').html(data);
 
             }
         });
@@ -284,6 +331,8 @@ $('#close').click(function(e){
     $('#blendClose').hide();
 
 });
+
+
 
 
 

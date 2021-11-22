@@ -456,6 +456,8 @@
 		$id = $_POST['id'];
 		$warehouses->updateBlendLine($id, "is_deleted", "1");
 		$warehouses->updateBlendLine($id, "deleted_by", $_SESSION["user_id"]);
+
+		echo json_encode(array("status"=>"removed"));
 	}
 
 	

@@ -384,7 +384,7 @@
 									$output.="<span>
 									<i class='fa fa-check'></i>closed</span>";
 								}else{
-									$output.="<a href=./index.php?view=closeblends&blendno=".$blend['id']." style='color:green' class='close' id='".$blend['id']."'><i class='fa fa-cog'></i></a>";
+									$output.="<a href=./index.php?view=closeblends&blendno=".$blend['id']." style='color:green' class='close' id='".$blend['id']."'><i class='fa fa-file'> Blend Outurn Form</i></a>";
 								}
 								
 								$output.="</td>
@@ -412,50 +412,9 @@
 		  $fiber = $_POST['Fiber'];
 		  $remnant = $_POST['BlendRemnant'];
 		  $gain_loss = $_POST['GainLoss'];
-		  $pulucon = $_POST['pulucon'];;
-		$warehouses->closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $pulucon);
-
-		$blendDetails = $blendCtrl->fetchBlends($id);
-
-		$fullPkgs = intdiv($blendDetails[0]['blend_remnant'], $blendDetails[0]['nw']);
-		$remainder = $blendDetails[0]['blend_remnant']%$blendDetails[0]['nw'];
-		$standard = $blendDetails[0]['std_name'];
-		$lot = $blendDetails[0]['std_name']."/".$blendDetails[0]['blendid'];
-		$invoice = $blendDetails[0]['contractno'];
-		$sale_date = $blendDetails[0]['date_'];
-		$grade = $blendDetails[0]['Grade'];
-		$nw = $blendDetails[0]['nw'];
-		$sale_no = $blendDetails[0]['sale_no'];
-		$destination = $blendDetails[0]['destination'];
-
-		$lineno = $warehouses->genLineNo($id);
-
-		// $warehouses->addClosedBlendToStock( $id, $lineno, $sale_no, $lot, $grade, $fullPkgs, $nw, $nw*$fullPkgs, $standard);
-
+		  $pulucon = $_POST['pulucon'];
+		  $warehouses->closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $pulucon);
 		
-		$response = '
-		<table class="table table-sm table-bordered" style = "width:inherit;" id="confirm">
-		<thead>
-			<tr>
-				<th>Line No</th>
-				<th>Lot No</th>
-				<th>Grade</th>
-				<th>Invoice</th>
-				<th>Origin</th>
-				<th>Nw</th>
-				<th>Pkgs</th>
-				<th>Kgs</th>
-			</tr>
-		</thead>
-		<tbody>';
-		
-		$response .='</tr>';
-		
-		'</tbody>
-	  
-		</table>';
-
-		echo $response;
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "add-packing materials"){
 		unset($_POST['action']);
@@ -490,36 +449,59 @@
 		}
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "add-line"){
-		$blendno = $_POST['blendid'];
-		$warehouse->addBlendLine($blendno);
+		$blendno = $_POST['id'];
+		$warehouses->addBlendLine($blendno);
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "remove-line"){
+		$id = $_POST['id'];
+		$warehouses->updateBlendLine($id, "is_deleted", "1");
+		$warehouses->updateBlendLine($id, "deleted_by", $_SESSION["user_id"]);
+	}
+
+	
 	if(isset($_POST['action']) && $_POST['action'] == "load-blend-lines"){
 		$blendno = $_POST['id'];
 		$blendlines = $warehouses->loadBlendLines($blendno);
 		$output .='<table class="table table-sm table-bordered" style = "width:inherit;" id="confirm">
 		<thead>
 			<tr>
+				<th>Line No</th>
+				<th>Blend Date</th>
+				<th>Sale No</th>
 				<th>Lot No</th>
 				<th>Grade</th>
 				<th>Invoice</th>
 				<th>Origin</th>
+				<th>Mark</th>
 				<th>Nw</th>
 				<th>Pkgs</th>
 				<th>Kgs</th>
+
 			</tr>
 		</thead>
 		<tbody>';
 
 		foreach ($blendlines as $blend) {
-			$kgs = $blend['nw']*$blend['Pkgs'];
-		$output.="<tr>
+			$kgs = $blend['net']*$blend['pkgs'];
+			$net = $blend['net'];
+			$pkgs = $blend['pkgs'];
+			$id = $blend['id'];
+
+
+		$output.="<tr id='$id'>
 					<td>".$blend['line_no']."</td>
-					<td>".$blend['Grade']."</td>
-					<td>".$blend['invoice']."</td>
+					<td>".$blend['date_posted']."</td>
+					<td>".$blend['sale_no']."</td>
+					<td>".$blend['lot_no']."</td>
+					<td>".$blend['grade']."</td>
+					<td>".$blend['lot_no']."</td>
 					<td>".$blend['origin']."</td>
-					<td>".$blend['nw']."</td>
-					<td>".$blend['pkgs']."</td>
-					<td>".$kgs."</td>";	  
+					<td>".$blend['mark']."</td>
+					<td><input value='$net' name='net' class='editable'></input></td>
+					<td><input value='$pkgs' name='pkgs' class='editable'></input></td>
+					<td class='kgs'>".$kgs."</td>
+					<td><i class='fa fa-minus btn remove btn-danger btn-sm'></i></td>";
+  
 		}
 		$output .= "</tbody>
 		</table>";
@@ -530,5 +512,23 @@
 
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "close-parameter"){
+		$blendno = $_POST['id'];
+		$shippment = $warehouses->blendShippment($blendno);
+		$inputKgs = $blendCtrl->totalBlendedPerBlend($blendno);
+
+		echo json_encode(array("shippment"=>$shippment, "inputkgs"=>$inputKgs));
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "update-field"){
+		$id = $_POST['id'];
+		$fieldName = isset($_POST['fieldName']) ? $_POST['fieldName'] : '';
+		$fieldValue = isset($_POST['fieldValue']) ? $_POST['fieldValue'] : '';
+
+		$warehouses->updateBlendLine($id, $fieldName, $fieldValue);
+		echo json_encode(array("status"=>"updated"));
+	}
+
+
+	
 ?>
 

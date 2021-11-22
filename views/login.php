@@ -248,6 +248,9 @@ $(function () {
                     $("#otpDiv").show();
                     $("#verify").show();
 
+                }else{
+                    $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.message+'</p>');
+
                 }
             }
 

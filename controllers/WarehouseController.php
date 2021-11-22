@@ -1,5 +1,7 @@
 <?php
+session_start();
 Class WarehouseController extends Model{
+    
     public $stock;
     public function create($post){
         $this->data = $post;
@@ -106,26 +108,49 @@ Class WarehouseController extends Model{
     }
     
     public function closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $polucon){
-        $this->query = "UPDATE `blend_master` SET
-        `output_kgs`='$output',
-        `sweeping`='$sweeping',
-        `cyclone`='$cyclone',
-        `dust`='$dust',
-        `fiber`='$fiber',
-        `blend_remnant`='$remnant',
-        `gain_loss`='$gain_loss',
-        `polucon`='$polucon',
-        `closed`=1 WHERE id = $id";
+        try {
+            $user = $_SESSION['user_id'];
+            $this->conn->beginTransaction();
+            $this->query = "UPDATE `blend_master` SET
+            `output_kgs`='$output',
+            `sweeping`='$sweeping',
+            `cyclone`='$cyclone',
+            `dust`='$dust',
+            `fiber`='$fiber',
+            `blend_remnant`='$remnant',
+            `gain_loss`='$gain_loss',
+            `polucon`='$polucon',
+            `closed`=1,
+            `closed_by` = $user,
+            `closed_on` = CURRENT_TIMESTAMP WHERE id = $id";
+            $this->executeQuery();
 
-        $this->executeQuery();
+            
+            $this->query = "INSERT INTO `closing_stock`(`line_no`,`sale_no`, `broker`, `lot`,  `mark`, `grade`,  `pkgs`,  `net`, `kgs`, `standard`, `is_blend_balance`, `invoice`, `sale_price`, `import_date`) 
+            SELECT line_no, sale_no,'x', lot_no,mark, grade, pkgs, net, pkgs*net, standard, true, lot_no, sale_price,date_posted 
+            FROM blend_lines
+            WHERE blend_no = $id AND is_deleted = 0 AND added_to_stock = 0";
+            $this->executeQuery();
 
+            $this->query = "UPDATE blend_lines SET added_to_stock = 1
+            WHERE blend_no = $id AND is_deleted = 0";
+            $this->executeQuery();
+
+            $this->query ="SELECT blend_no FROM blend_master WHERE id = $id";
+            $rows=$this->executeQuery();
+
+            $blendno = $rows[0]["blend_no"];
+
+            $this->conn->commit();
+            echo json_encode(array("status"=>"Blend ".$blendno." Has been Successfully Closed Redirecting ..."));
+        } catch (Exception $th) {
+            echo $th;
+            $this->conn->rollBack();
+
+        }
+        
     } 
-    public function addClosedBlendToStock( $id, $lineno, $sale_no, $lot, $grade, $pkgs, $net, $kgs, $standard){
-        $this->query = "INSERT INTO `closing_stock`(`line_no`,`sale_no`, `broker`, `lot`,  `mark`, `grade`,  `pkgs`,  `net`, `kgs`, `standard`, `is_blend_balance`, `invoice`) 
-        SELECT '$lineno', '$sale_no','x', '$lot','BLENDED TEA', '$grade', '$pkgs', '$net', '$kgs', '$standard', true, '$lot' ";
-        $this->executeQuery();
-
-    }  
+ 
 
     public function addjustLevels($materialid, $newlevel, $details){
         $this->debugSql = true;
@@ -155,29 +180,62 @@ Class WarehouseController extends Model{
 
     }
     public function addBlendLine($blendno){
-        $sql = "INSERT INTO `blend_lines`(`blend_no`)
-         VALUES ($blendno)";
+        $blend_price = $this->getBlendPrice($blendno);
+        $blend_origin = $this->getBlendOrigin($blendno);
+        $user = $_SESSION['user_id'];
+        $currentyear = date("Y");
+        $lineno = $this->genLineNo($blendno);
+
+        $sql = "INSERT INTO `blend_lines`(`line_no`,`blend_no`, `lot_no`, `standard`, `grade`, `sale_price`, `origin`, `mark`, `sale_no`, `posted_by`)
+        SELECT '$lineno', id, blend_no, std_name, Grade, '$blend_price', '$blend_origin', 'BLENDED TEA', CONCAT($currentyear,'TB-',id), $user
+        FROM blend_master
+        WHERE id = $blendno";
          $this->query = $sql;
          $this->executeQuery();
     }
-    public function updateBlendLine($id, $sale_no, $net, $pkgs, $kgs){
-        $sql = "UPDATE `blend_lines` 
-                SET `sale_no`='$sale_no',
-                    `net`='$net',
-                    `pkgs`='$pkgs',
-                    `kgs`='$kgs'
-                 WHERE id= $id";
-
+    public function updateBlendLine($id, $fieldName, $fieldValue){
+        $sql = "UPDATE `blend_lines` SET $fieldName='$fieldValue'  WHERE id= $id";
          $this->query = $sql;
          $this->executeQuery();
     }
     public function loadBlendLines($blendno){
-        $this->debugSql = true;
-        $this->query = "SELECT *FROM `blend_lines` WHERE blend_no = ".$blendno;
+        $this->debugSql = false;
+        $this->query = "SELECT *FROM `blend_lines` WHERE blend_no = ".$blendno." AND is_deleted = 0";
         $rows = $this->executeQuery();
 
         return $rows;
     }
+
+    public function blendShippment($blendno){
+        $this->query = "SELECT nw*Pkgs AS kgs  FROM `blend_master` WHERE id = ".$blendno;
+        $rows = $this->executeQuery();
+        return $rows[0]['kgs'];
+    }
+
+    public function getBlendOrigin($blendno){
+        
+        $this->query = "SELECT blend_no, shipping_instructions.destination_total_place_of_delivery 
+        FROM `shippments`
+        INNER JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id  
+        WHERE shippments.blend_no = $blendno
+        GROUP BY shippments.blend_no";
+
+        $rows = $this->executeQuery();
+        return $rows[0]['destination_total_place_of_delivery'];
+
+    }
+    public function getBlendPrice($blendno){
+        $this->query = "SELECT ROUND(SUM(sale_price)/Count(shippments.id),2) AS avg 
+        FROM `shippments`
+        INNER JOIN closing_stock ON closing_stock.stock_id = shippments.stock_id
+        WHERE shippments.blend_no = $blendno
+        GROUP BY shippments.blend_no";
+
+        $rows = $this->executeQuery();
+        return $rows[0]['avg'];
+
+    }
+
  
 }
 

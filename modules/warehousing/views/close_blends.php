@@ -35,9 +35,9 @@
 <?php
         $blend_no = $_GET["blendno"];
 
-    if(!isset($_GET["blendno"])){
+if(!isset($_GET["blendno"])){
         $blend_no = $_GET["blendno"];
-        echo'
+?>
             <div class="col-md-12 col-lg-12">
                 <div class="container-fluid">
                     <div class="card">
@@ -56,15 +56,16 @@
                         </div>
                     </div>
                 </div>
-            </div>';
-}
+            </div>
+
+<?php 
+}else{
 ?>
 
- <div class="card">
+ <div  id="outturncard" class="card">
                 <!-- Modal Header -->
-                <div class="card-header">
-                    <h4 class="modal-title">Blend Out Turn</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="card-header bg-teal">
+                    <h4 class="modal-title">Blend Out Turn Form</h4>
                 </div>
                 <div class="card-body">
                     <form id="closingForm">
@@ -136,27 +137,26 @@
                             </div>
                         </div>
                         <hr>
-                        <hr>
-                    
+                        <div class="card"  id="confirm-table">
+                            <div id="preview">
+                                
+                            </div>
                         <div class="form-group float-right">
-                            <button type="submit" class="btn btn-primary btn-sm" id="post">Post</button>
-                            <button type="submit" class="btn btn-danger btn-sm" id="close">Close</button>
-                        </div>
-                    </form>
-                    <div class="card" style="display: none;" id="confirm-table">
-                        <div id="preview">
-                            
-                        </div>
-                        <div class="form-group float-right">
-                            <button type="submit" class="btn btn-danger btn-sm" id="confirm">Confirm</button>
+                            <button  class="btn btn-success btn-sm" id="add"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
+                        <hr>
+                        <div class="form-group float-right">
+                            <button type="submit" class="btn btn-primary btn-sm" id="post">Close Blend</button>
+                        </div>
+                    </form>
+             
                 </div>
             </div>
 
 
             
-
+<?php }?>
 <script src="../../assets/js/blending.js"></script>
 <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
 <script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -180,7 +180,20 @@
         });
         $("#closed").click(function(){
             showAllBlends("closed");
-
+        });
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "close-parameter",
+                id:blendno,
+            },
+            cache: true,
+            url: "warehousing_action.php",
+            success: function (data) {
+              $("#shippment").val(data.shippment);
+              $("#inputkgs").val(data.inputkgs);
+            }
         });
         //View Record
         function showAllBlends(type) {
@@ -200,39 +213,73 @@
 
             });
         }
-        
-    });
-    $("body").on("click", ".close", function(e) {
-        var currentRow = $(this).closest("tr");
-        var shippment = currentRow.find(".shippment").html();
-        var inputkgs = currentRow.find(".inputpkgs").html();
-        $("#shippment").val(shippment);
-        $("#inputkgs").val(inputkgs);
 
-        var blendid = $(this).attr("id");
-        localStorage.setItem("blendid", blendid);
-        localStorage.setItem("shippment", shippment);
-        localStorage.setItem("inputkgs", inputkgs);
-
-        $("#blendClose").show();
-    });
-    $("body").on("click", "#add", function(e) {
-        $.ajax({
+        $("#add").click(function(e){
+            e.preventDefault();
+            $.ajax({
             type: "POST",
             dataType: "html",
             data: {
                 action: "add-line",
+                id:blendno,
+            },
+            cache: true,
+            url: "warehousing_action.php",
+            success: function (data) {
+                loadBlendLines(blendno);
+
+            }
+        });
+
+        })
+        
+    });
+    
+    $("body").on("blur", ".editable", function(e) {
+        var blendno = '<?php echo $blend_no ?>';
+
+        var id = $(this).parent().parent().attr("id");
+        var fieldName = $(this).attr("name");
+        var fieldValue = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "update-field",
+                fieldName: fieldName,
+                fieldValue: fieldValue,
                 id:id,
             },
             cache: true,
             url: "warehousing_action.php",
             success: function (data) {
-          
-
+                loadBlendLines(blendno);
             }
         });
         
     });
+    $("body").on("click", ".remove", function(e) {
+        var blendno = '<?php echo $blend_no ?>';
+        var id = $(this).parent().parent().attr("id");
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "remove-line",
+                id:id,
+            },
+            cache: true,
+            url: "warehousing_action.php",
+            success: function (data) {
+                loadBlendLines(blendno);
+            }
+        });
+        
+    });
+
+    
     function loadBlendLines(id){
     $.ajax({
             type: "POST",
@@ -270,7 +317,8 @@
     });
     $("#post").click(function(e){
         e.preventDefault();
-        var id = localStorage.getItem("blendid", blendid);
+        var blendno = '<?php echo $blend_no ?>';
+        var id = blendno;
         var blendOutput = $("#boutput").val();
         var pulucon = $("#bpolucon").val();
         var Sweeping = $("#bsweepings").val();
@@ -284,7 +332,7 @@
         var GainLoss = $("#gainLoss").val();
         $.ajax({
             type: "POST",
-            dataType: "html",
+            dataType: "json",
             data: {
                 action: "close_blend",
                 blendid:id,
@@ -303,10 +351,15 @@
             cache: true,
             url: "warehousing_action.php",
             success: function (data) {
-                $("#closingForm").hide();
-                $("#preview").show();
-                // $('#preview').html(data);
-
+                Swal.fire(
+                    'Congratulations',
+                    data.status,
+                    'success'
+                    ); 
+                setTimeout(function() {
+                    location.href = '/chamu/modules/warehousing/index.php?view=closeblends'; 
+            }, 2000);
+                          
             }
         });
         

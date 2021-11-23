@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-primary">
                     <i id="helpBlend" style="float:left; font-size:large" class="fa fa-question-circle">help</i>
                         <div id="help" style="display:none; margin-left:30px; text-align:center">
                         <span class="label label-info">Click Add Standard Button to add new standard,  

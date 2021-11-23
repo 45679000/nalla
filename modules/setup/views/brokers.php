@@ -1,18 +1,37 @@
 <div class="row">
-        <button type="button" class="btn btn-success m-1 float-right" data-toggle="modal" data-target="#addModal">
-            <i class="fa fa-plus"></i> Add New Broker</button>
+       
 </div>
-<br>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="table-responsive" id="tableData">
-                <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
+            <div class="card">
+                    <div class="card-header bg-primary">
+                    <i id="helpBlend" style="float:left; font-size:large" class="fa fa-question-circle">help</i>
+                        <div id="help" style="display:none; margin-left:30px; text-align:center">
+                        <span class="label label-info">Click Add Broker Button to add new Broker,  
+                            <i class="fa fa-pencil btn-success"></i> 
+                            to edit a Broker and <i class="fa fa-trash btn-danger"></i>  to delete a Broker</span>
+                        </div>
+                        <div class="card-options">
+                        <button style="display: none;" id="refresh" type="button" class="btn btn-success m-1 float-right btn-sm">
+                         <i class="fa fa-reply"></i>
+                        </button>
+
+                        <button id="create" type="button" class="btn btn-success m-1 float-right btn-sm" data-toggle="modal" data-target="#addModal">
+                        <i class="fa fa-plus"></i> Add Broker</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    <div class="table-responsive" id="tableData">
+                        <h3 class="text-center text-success" style="margin-top: 150px;">Loading...</h3>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Add Record  Modal -->
 <div class="modal" id="addModal">
@@ -111,7 +130,6 @@
 
             });
         }
-
         $("#update").click(function(e) {
             if ($("#EditformData")[0].checkValidity()) {
                 e.preventDefault();
@@ -167,7 +185,7 @@
                 success: function(response) {
                     var data = JSON.parse(response);
                     $("#edit-form-id").val(data.id);
-                    $("#name").val(data.mark);
+                    $("#name").val(data.name);
                     $("#code").val(data.code);
                 }
             });

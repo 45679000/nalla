@@ -22,7 +22,7 @@
 		$brokers = $broker->displayRecord();
 
 		if ($broker->totalRowCount() > 0) {
-			$output .="<table class='table table-striped table-hover'>
+			$output .="<table class='table table-striped table-bordered table-hover'>
 			        <thead>
 			          <tr>
 			            <th>Id</th>
@@ -32,7 +32,7 @@
 			          </tr>
 			        </thead>
 			        <tbody>";
-			$id = 1;
+				$id = 1;
 			foreach ($brokers as $broker) {
 			$output.="<tr>
 						<td>".$id."</td>
@@ -68,7 +68,7 @@
 		$name = $_POST['name'];
 		$code = $_POST['code'];
         $id = $_POST['id'];
-		$broker->updateRecord($id, $name,  $code);
+		$broker->updateRecord($id, $code, $name);
 	}
 
     	// Delete Record	

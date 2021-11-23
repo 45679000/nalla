@@ -3,7 +3,7 @@ session_start();
 Class WarehouseController extends Model{
     
     public $stock;
-    public function create($post){
+    public function addWarehouse($post){
         $this->data = $post;
         $this->tablename = "warehouses";
         $id = $this->insertQuery();
@@ -16,22 +16,37 @@ Class WarehouseController extends Model{
         $id = $this->insertQuery();
         return $this->selectOne($id, "id");
     }
-    public function getWarehouses(){
-        $this->query = "SELECT *FROM warehouses WHERE is_deleted = false";
+    public function createMaterialTypes($post){
+        $this->data = $post;
+        $this->tablename = "material_types";
+        $id = $this->insertQuery();
+        return $this->selectOne($id, "id");
+    }
+    public function getMaterialTypes(){
+        $this->query = "SELECT *FROM material_types WHERE is_deleted = false";
+        return $this->executeQuery();
+    }
+    public function getWarehouses($id=""){
+        $query = "SELECT *FROM warehouses 
+        WHERE is_deleted = false";
+        if($id !=""){
+           $query .= " AND id= $id";
+        }
+        $this->query = $query;
         return $this->executeQuery();
     }
     public function getPackingMaterials(){
-        $this->query = "SELECT packaging_materials.id,  material_allocation.id AS material_id, 
-        `category`,  material_allocation.details, packaging_materials.description,
+        $this->query = "SELECT packaging_materials.id, `type_id`, material_types.`name`, `uom`, `unit_cost`, material_types.`description`,
+         material_allocation.id AS material_id, `type_id`,  material_allocation.details, packaging_materials.description,
         (CASE WHEN material_allocation.id IS NULL THEN  in_stock
             ELSE
              (in_stock - sum(allocated_total))
-             END) AS in_stock,
-             material_allocation.si_no
-                 FROM packaging_materials
-                 LEFT JOIN material_allocation ON packaging_materials.id = material_allocation.material
-                WHERE is_deleted = 0
-                GROUP BY packaging_materials.id, category";
+        END) AS in_stock, material_allocation.si_no
+        FROM packaging_materials
+        LEFT JOIN material_allocation ON packaging_materials.id = material_allocation.material
+        INNER JOIN material_types ON material_types.id = packaging_materials.type_id
+        WHERE packaging_materials.is_deleted = 0
+        GROUP BY packaging_materials.id, type_id";
         return $this->executeQuery();
     }
     public function getWarehouseLocation(){
@@ -41,7 +56,6 @@ Class WarehouseController extends Model{
         WHERE active = 1";
         return $this->executeQuery();
     }
-
     public function shipmentUpdateStatus($newStatus, $sino){
         if($newStatus=="Shipped"){
             $this->query = "UPDATE shippments SET is_shipped = 1 WHERE instruction_id = $sino"; 
@@ -58,7 +72,7 @@ Class WarehouseController extends Model{
 
     }
     public function materialAllocation($sino){
-        $query = "SELECT contract_no, material_allocation.id, `category`, `in_stock`, material_allocation.details,  
+        $query = "SELECT contract_no, material_allocation.id,  `in_stock`, material_allocation.details,  
         material_allocation.si_no, 
         material_allocation.allocated_total,
         material_allocation.details
@@ -105,8 +119,7 @@ Class WarehouseController extends Model{
         $totalKgs = $this->executeQuery();
 
         return $totalKgs;
-    }
-    
+    } 
     public function closeBlend($id, $output, $sweeping, $cyclone, $dust, $fiber, $remnant, $gain_loss, $polucon){
         try {
             $user = $_SESSION['user_id'];
@@ -150,8 +163,6 @@ Class WarehouseController extends Model{
         }
         
     } 
- 
-
     public function addjustLevels($materialid, $newlevel, $details){
         $this->debugSql = true;
 
@@ -205,13 +216,11 @@ Class WarehouseController extends Model{
 
         return $rows;
     }
-
     public function blendShippment($blendno){
         $this->query = "SELECT nw*Pkgs AS kgs  FROM `blend_master` WHERE id = ".$blendno;
         $rows = $this->executeQuery();
         return $rows[0]['kgs'];
     }
-
     public function getBlendOrigin($blendno){
         
         $this->query = "SELECT blend_no, shipping_instructions.destination_total_place_of_delivery 
@@ -236,7 +245,6 @@ Class WarehouseController extends Model{
 
     }
 
- 
 }
 
 

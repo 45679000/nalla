@@ -1,6 +1,6 @@
 <div class="card table-responsive p-2">
-    <div class="card-header">
-        <h3 class="card-title">Packaging Materials</h3>
+    <div class="card-header bg-teal">
+        <h3 class="card-title">Materials Types</h3>
     </div>
     <div class="card-body p-6">
         <div class="panel panel-primary">
@@ -135,13 +135,14 @@
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 <script src="../../assets/js/sweet-alert.js"></script>
 
+
 <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
 
 
 </body>
 <script type="text/javascript">
 $(document).ready(function() {
-    // loadPackingMaterials();
+    loadPackingMaterials();
     // loadPackingMaterialsTypes();
     // loadWarehouses();
     $("body").on("click", ".adjust", function(e) {

@@ -23,8 +23,8 @@
 		public function updateRecord($id, $code, $name)
 		{
 			$this->query = "UPDATE $this->tablename SET 
-			 mark = '$code',
-			 name = '$name' 
+			 code = trim('$code'),
+			 name = trim('$name') 
 			 WHERE id = $id";
 			echo $this->query;
 
@@ -39,10 +39,8 @@
 		// Fetch customer records for show listing
 		public function displayRecord()
 		{
+			$this->debugSql = false;
 			$this->query = "SELECT * FROM $this->tablename WHERE deleted = 0";
-			$this->executeQuery();
-            $this->debugSql = true;
-			$this->query= "SELECT * FROM $this->tablename"; 
 			return $this->executeQuery();
 		}
 
@@ -74,7 +72,7 @@
 		
 		public function delete($id){
 			$this->query = "UPDATE $this->tablename SET deleted = 1  WHERE id = $id";
-		   	$query = $this->executeQuery();
+		   	$this->execute();
 		}
 
 	}

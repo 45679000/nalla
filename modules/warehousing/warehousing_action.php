@@ -96,7 +96,7 @@
 		$warehouse = $warehouses->getWarehouses();
 		$output ="";
 		if(count($warehouse)>0){
-			$output.='<table class="table table-striped table-hover">
+			$output.='<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -108,34 +108,50 @@
 						</tr>
 					</thead>
 					<tbody>';
+					$serial = 1;
+
 					foreach($warehouse as $warehouse){
+						$id = $warehouse["id"];
 						$output.= '
-							<tr>';
-								$output.='<td>'.$warehouse['id'].'</td>';
+							<tr id='.$id.'>';
+								$output.='<td>'.$serial.'</td>';
 								$output.='<td>'.$warehouse['code'].'</td>';
 								$output.='<td>'.$warehouse['name'].'</td>';
 								$output.='<td>'.$warehouse['location'].'</td>';
 								$output.='<td>'.$warehouse['details'].'</td>';
 
 								$output.='<td>
-									<a  class="edit" data-toggle="modal"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i></a>
+									<a  class="edit " data-toggle="modal"><i class="fa fa-edit" data-toggle="tooltip" title="Edit"></i></a>
 									<a  class="deleteBtn"><i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
 								</td>
 							</tr>';
+							$serial ++;
+
 					}
-		$output.='</tbody>
+ 		$output.='</tbody>
 		</table>';
 		echo $output;
 		}else{
 			echo '<h3 class="text-center mt-5">No records found</h3>';
-		}
-
-		
-		
+		}	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "add-warehouse"){
 		unset($_POST['action']);
-		$warehouses->create($_POST);
+		$warehouses->addWarehouse($_POST);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "get-warehouse"){
+		$id = $_POST["id"];
+		$warehouse = $warehouses->getWarehouses($id)[0];
+
+		echo json_encode(array(
+			"id"=>$warehouse["id"],
+			"code"=>$warehouse["code"],
+			"name"=>$warehouse["name"],
+			"location"=>$warehouse["location"],
+			"details"=>$warehouse["details"]
+			 )
+		);
+	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "load-packing-materials"){
 		$packingMaterials = $warehouses->getPackingMaterials();
@@ -165,6 +181,43 @@
 
 								$output.='<td class="'.$packingMaterial['category'].'">
 									<a id="'.$packingMaterial['id'].'" class="adjust" data-toggle="modal"><i class="fa fa-exchange" data-toggle="tooltip" title="Adjust">Adjust Levels</i></a>
+								</td>
+							</tr>';
+					}
+		$output.='</tbody>
+		</table>';
+		echo $output;
+		}else{
+			echo '<h3 class="text-center mt-5">No records found</h3>';
+		}
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "load-material-types"){
+		$packingMaterialsTypes = $warehouses->getMaterialTypes();
+		$output ="";
+		if(count($packingMaterialsTypes)>0){
+				$output.='<table style="width:100%;" id="packing-materials" class="table table-striped  table-bordered table-sm table-hover">
+				<thead>
+						<tr>
+							<th>id</th>
+							<th>Type</th>
+							<th>UOM</th>
+                            <th>UNIT COST</th>
+							<th>Description</th>
+							<th>Actions</th>
+
+						</tr>
+					</thead>
+					<tbody>';
+					foreach($packingMaterialsTypes as $packingMaterial){
+						$output.= '
+							<tr>';
+								$output.='<td>'.$packingMaterial['id'].'</td>';
+								$output.='<td>'.$packingMaterial['name'].'</td>';
+								$output.='<td>'.$packingMaterial['uom'].'</td>';
+								$output.='<td>'.$packingMaterial['unit_cost'].'</td>';
+								$output.='<td class="'.$packingMaterial['description'].'">
+									<a id="'.$packingMaterial['id'].'" class="adjust"><i class="fa fa-close" data-toggle="tooltip" title="Delete">Delete</i></a>
 								</td>
 							</tr>';
 					}
@@ -399,10 +452,8 @@
 		  }
 	  
 		}
-	  }
-
-
-	  if(isset($_POST['action']) && $_POST['action'] == "close_blend"){
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "close_blend"){
 		  $id = $_POST['blendid'];
 		  $output = $_POST['blendOutput'];
 		  $shippment = $_POST['blendShipment'];
@@ -459,8 +510,6 @@
 
 		echo json_encode(array("status"=>"removed"));
 	}
-
-	
 	if(isset($_POST['action']) && $_POST['action'] == "load-blend-lines"){
 		$blendno = $_POST['id'];
 		$blendlines = $warehouses->loadBlendLines($blendno);
@@ -529,7 +578,11 @@
 		$warehouses->updateBlendLine($id, $fieldName, $fieldValue);
 		echo json_encode(array("status"=>"updated"));
 	}
-
+	if(isset($_POST['action']) && $_POST['action'] == "delete-warehouse"){
+		$pk = $_POST['id'];
+		$warehouses->softDelete($pk, "warehouses");
+		echo json_encode(array("status"=>"Deleted"));
+	}
 
 	
 ?>

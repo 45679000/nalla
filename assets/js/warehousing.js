@@ -54,7 +54,7 @@ function updateStatus(element){
     localStorage.setItem("clickedSi", sino);
     
 }
-function loadWarehouses(){
+function loadWarehouses(url){
     $.ajax({
         type: "POST",
         dataType: "html",
@@ -62,9 +62,10 @@ function loadWarehouses(){
             action: "load-warehouses"
         },
         cache: true,
-        url: "warehousing_action.php",
+        url: url,
         success: function (data) {
          $('#warehouseTable').html(data);
+         $(".table").DataTable({});
 
         }
     });
@@ -86,6 +87,24 @@ function loadPackingMaterials(){
 
     });
 }
+function loadPackingMaterialsTypes(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "load-material-types"
+        },
+        cache: true,
+        url: "warehousing_action.php",
+        success: function (data) {
+         $('#materialtypes').html(data);
+         $("#packing-materials").DataTable({});
+
+        }
+
+    });
+}
+
 
 function shippment(){
     $.ajax({

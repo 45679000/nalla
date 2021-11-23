@@ -32,9 +32,11 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                         </div>
                         <div class="expanel-body">
                             <div class="list-group  mb-0 mail-inbox">
-                       
+                                <a href="./index.php?view=packing-material-types" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-shuffle text-blue"></i></span>Material Types
+                                </a>
                                 <a href="./index.php?view=packing-materials" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-grid text-blue"></i></span>Add Packing materials
+                                    <span class="icon mr-3"><i class="fe fe-grid text-blue"></i></span>Materials Stock
                                 </a>
                                 <a href="./index.php?view=shipments" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Shipments
@@ -66,8 +68,10 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
                             case 'packing-materials':
                                     include('views/packing_materials.php');
-                                break;
-
+                            break;
+                            case 'packing-material-types':
+                                include('views/material_types.php');
+                            break;
                             case 'shipments':
                                 $sino = isset($_GET['id']) ? $_GET['id'] : '';
                                 if(($action=='allocatematerials') && ($sino !=null)){

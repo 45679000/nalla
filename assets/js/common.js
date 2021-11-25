@@ -8,7 +8,7 @@ $(document).ready(function() {
     var broker = document.getElementById("broker");
     var grade = document.getElementById("grade");
     var clientwithcode = document.getElementById("clientwithcode");
-    var warehouseLocation = document.getElementById("warehouseLocation");
+    var warehouse = document.getElementById("warehouse");
     var standard = document.getElementById("standard");
     var standard2 = document.getElementById("standard2");
     var saleno = document.getElementById("saleno");
@@ -17,6 +17,7 @@ $(document).ready(function() {
     var buyer = document.getElementById("buyer");
     var code = document.getElementById("code");
     var bank_id = document.getElementById("bank_id");
+    var material_type = document.getElementById("material_type");
 
     
 
@@ -36,8 +37,8 @@ $(document).ready(function() {
     if(clientwithcode !=undefined){
         clientWithcodeList(url);
     }
-    if(warehouseLocation !=undefined){
-        wareHouseLocation(url);
+    if(warehouse !=undefined){
+        warehouses(url);
     }
     if(standard !=undefined){
         standardList(url);
@@ -63,9 +64,9 @@ $(document).ready(function() {
     if(bank_id !=undefined){
         bankList(url);
     }
-    
-
-    
+    if(material_type !=undefined){
+        materialTypes(url)
+    }
 
     $('.select2').select2();
 
@@ -247,24 +248,6 @@ function clientWithcodeList(){
     });
     
 }
-function wareHouseLocation(){
-    $.ajax({
-        url: url,
-        type: "POST",
-        dataType: "html",
-        data: {
-            action: "warehouseLocation"
-        },
-        success: function(data) {
-            $("#warehouseLocation").html(data);
-
-        }
-
-    });
-    
-}
-
-
 
 function loadAllocated(){
     $.ajax({
@@ -346,5 +329,36 @@ function bankList($path){
 
     });
 }
+function materialTypes($path){
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "material_type"
+        },
+        success: function(data) {
+            $("#material_type").html(data);
+
+        }
+
+    });
+}
 
 
+function warehouses($path){
+    $.ajax({
+        url: $path,
+        type: "POST",
+        dataType: "html",
+        data: {
+            action: "warehouse"
+        },
+        success: function(data) {
+            $("#warehouse").html(data);
+
+        }
+
+    });
+    
+}

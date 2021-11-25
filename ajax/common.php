@@ -21,6 +21,8 @@ $shipingCtr = new ShippingController($conn);
 $warehouseCtr = new WarehouseController($conn);
 $financeCtlr = new Finance($conn);
 
+$model = new Model($conn);
+
 
 if (isset($_POST['action']) && $_POST['action'] == "list-brokers") {
     $type = isset($_POST['filterType']) ? $_POST['filterType'] : 'Select';
@@ -254,14 +256,14 @@ if (isset($_POST['action']) && $_POST['action'] == "client-opt") {
     echo json_encode($clients);
     
 }
-if (isset($_POST['action']) && $_POST['action'] == "warehouseLocation") {
+if (isset($_POST['action']) && $_POST['action'] == "warehouse") {
     $output = "";
-
-    $warehouses= $warehouseCtr->getWarehouseLocation();
+    $model->tablename="warehouses";
+    $warehouses= $model->selectMany();
     $output = '<option disabled="" value="..." selected="">select</option>';
     if (sizeOf($warehouses) > 0) {
          foreach($warehouses as $warehouse){
-            $output .= '<option value="'.$warehouse['id'].'">'.$warehouse['location_name'].'</option>';
+            $output .= '<option value="'.$warehouse['id'].'">'.$warehouse['name']."-".$warehouse['location'].'</option>';
          }
           echo $output;	
     }else{
@@ -335,6 +337,21 @@ if (isset($_POST['action']) && $_POST['action'] == "bank_id") {
     if (sizeOf($banks) > 0) {
          foreach($banks as $bank){
             $output .= '<option name="'.$bank['bank_address'].'" value="'.$bank['account_code'].'">'.$bank['bank_account_name'].'</option>';
+         }
+          echo $output;	
+    }else{
+        echo '<option disabled="" value="..." selected="">select</option>';
+    }
+    
+}
+if (isset($_POST['action']) && $_POST['action'] == "material_type") {
+    $output = "";
+    $model->tablename = "material_types";
+    $materialTypes= $model->selectMany();
+    $output = '<option disabled="" value="..." selected="">select</option>';
+    if (sizeOf($materialTypes) > 0) {
+         foreach($materialTypes as $types){
+            $output .= '<option name="'.$types['name'].'" value="'.$types['id'].'">'.$types['name']."-".$types['description'].'</option>';
          }
           echo $output;	
     }else{

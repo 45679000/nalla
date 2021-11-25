@@ -16,6 +16,14 @@ Class WarehouseController extends Model{
         $id = $this->insertQuery();
         return $this->selectOne($id, "id");
     }
+    public function addMaterialTypes($post){
+        $post["created_by"] = $_SESSION["user_id"];
+        $this->data = $post;
+        $this->tablename = "material_types";
+        $this->debugSql=true;
+        $id = $this->insertQuery();
+        return $this->selectOne($id, "id");
+    }
     public function createMaterialTypes($post){
         $this->data = $post;
         $this->tablename = "material_types";
@@ -23,7 +31,7 @@ Class WarehouseController extends Model{
         return $this->selectOne($id, "id");
     }
     public function getMaterialTypes(){
-        $this->query = "SELECT *FROM material_types WHERE is_deleted = false";
+        $this->query = "SELECT *FROM material_types WHERE is_deleted = 0";
         return $this->executeQuery();
     }
     public function getWarehouses($id=""){
@@ -35,26 +43,25 @@ Class WarehouseController extends Model{
         $this->query = $query;
         return $this->executeQuery();
     }
-    public function getPackingMaterials(){
-        $this->query = "SELECT packaging_materials.id, `type_id`, material_types.`name`, `uom`, `unit_cost`, material_types.`description`,
-         material_allocation.id AS material_id, `type_id`,  material_allocation.details, packaging_materials.description,
-        (CASE WHEN material_allocation.id IS NULL THEN  in_stock
-            ELSE
-             (in_stock - sum(allocated_total))
-        END) AS in_stock, material_allocation.si_no
-        FROM packaging_materials
-        LEFT JOIN material_allocation ON packaging_materials.id = material_allocation.material
+    public function getPackingMaterials($id=""){
+        $this->debugSql = false;
+        $query = "SELECT packaging_materials.`id`, `type_id`, ABS(allocated) AS allocated, unit_cost, warehouses.code, warehouses.name AS warehouse,  warehouses.location, material_types.name, material_types.uom, material_types.unit_cost, 
+        packaging_materials.`description`, (`in_stock`+`allocated`) AS available, unit_cost * (`in_stock`+`allocated`) AS total_value_ksh, unit_cost * (`in_stock`+`allocated`)*100 AS total_value_usd
+        FROM `packaging_materials`
+        INNER JOIN warehouses ON warehouses.id = packaging_materials.warehouse
         INNER JOIN material_types ON material_types.id = packaging_materials.type_id
-        WHERE packaging_materials.is_deleted = 0
-        GROUP BY packaging_materials.id, type_id";
-        return $this->executeQuery();
-    }
-    public function getWarehouseLocation(){
-        $this->query = "SELECT warehouse_location.id, location_name, name, code
-        FROM `warehouse_location` 
-        INNER JOIN warehouses ON warehouses.id = warehouse_location.whse_id
-        WHERE active = 1";
-        return $this->executeQuery();
+        WHERE packaging_materials.is_deleted = 0";
+        if($id !=""){
+            $query .= " AND packaging_materials.id= $id";
+            $this->query = $query;
+
+            return $this->fetchOne();
+        }else{
+            $this->query = $query;
+
+            return $this->executeQuery();
+
+        }
     }
     public function shipmentUpdateStatus($newStatus, $sino){
         if($newStatus=="Shipped"){
@@ -85,10 +92,28 @@ Class WarehouseController extends Model{
         $this->query = $query;
         return $this->executeQuery();
     }
-    public function upadateAllocation($materialid, $sino,  $totalAllocation){
-        $this->query = "INSERT INTO `material_allocation`(`material`, `si_no`, `allocated_total`) 
-        VALUES ('$materialid','$sino','$totalAllocation')";
-        $this->executeQuery();
+    public function upadateAllocation($post){
+        $this->conn->beginTransaction();
+        try {
+            $this->data = $post;
+            $this->tablename = "material_allocation";
+            $id = $this->insertQuery();
+            $material_id = $post["material_id"];
+            $total = $post["total"];
+            if($post["event"] == 0){
+                $total = -$post["total"];
+                $this->query = "UPDATE packaging_materials SET allocated = $total WHERE id = $material_id";
+                $this->executeQuery();
+            }else{
+                $this->query = "UPDATE packaging_materials SET in_stock = in_stock+$total WHERE id = $material_id";
+                $this->executeQuery();
+            }
+            
+            $this->conn->commit();
+        } catch (Exception $ex) {
+            $this->conn->rollBack();
+        }
+       
     }
     public function deleteAllocation($id){
         $this->debugSql = true;

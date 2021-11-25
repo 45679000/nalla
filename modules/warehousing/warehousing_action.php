@@ -11,7 +11,7 @@
 	$blendCtrl = new BlendingController($conn);
 	$warehouses = new WarehouseController($conn);
 	$shippingCtr = new ShippingController($conn);
-
+	
 	if (isset($_POST['action']) && $_POST['action'] == "dashboard-summary-totals") {
 
 		$shipped =  $warehouses->computeTotals("shipped")[0]['totalKgs'];
@@ -153,36 +153,59 @@
 		);
 	
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "get_packing_material_by_id"){
+		$id = $_POST["id"];
+		$record = $warehouses->getPackingMaterials($id);
+		echo json_encode($record);
+	
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "add-material-types"){
+		unset($_POST['action']);
+		$warehouses->addMaterialTypes($_POST);
+	}
 	if(isset($_POST['action']) && $_POST['action'] == "load-packing-materials"){
 		$packingMaterials = $warehouses->getPackingMaterials();
 		$output ="";
 		if(count($packingMaterials)>0){
-	
-			
 				$output.='<table style="width:100%;" id="packing-materials" class="table table-striped  table-bordered table-sm table-hover">
 				<thead>
 						<tr>
-							<th>ID</th>
-							<th>Category</th>
-							<th>Totals</th>
+							<th>id</th>
+							<th>Material</th>
+							<th>UOM</th>
+							<th>Warehouse</th>
+							<th>Location</th>
+							<th>In stock</th>
+							<th>Used</th>
+							<th>Unit Cost</th>
+							<th>Total Value(Ksh)</th>
+							<th>Total Value(USD)</th>
                             <th>Details</th>
 							<th>Actions</th>
 
 						</tr>
 					</thead>
 					<tbody>';
+					$serial = 1;
 					foreach($packingMaterials as $packingMaterial){
 						$output.= '
 							<tr>';
-								$output.='<td>'.$packingMaterial['id'].'</td>';
-								$output.='<td>'.$packingMaterial['category'].'</td>';
-								$output.='<td>'.$packingMaterial['in_stock'].'</td>';
+								$output.='<td>'.$serial.'</td>';
+								$output.='<td>'.$packingMaterial['name'].'</td>';
+								$output.='<td>'.$packingMaterial['uom'].'</td>';
+								$output.='<td>'.$packingMaterial['name'].'</td>';
+								$output.='<td>'.$packingMaterial['location'].'</td>';
+								$output.='<td><a href="#">'.$packingMaterial['available'].'</a></td>';
+								$output.='<td><a href="#">'.$packingMaterial['allocated'].'</a></td>';
+								$output.='<td>'.$packingMaterial['unit_cost'].'</td>';
+								$output.='<td>'.$packingMaterial['total_value_ksh'].'</td>';
+								$output.='<td>'.$packingMaterial['total_value_usd'].'</td>';
 								$output.='<td>'.$packingMaterial['description'].'</td>';
+								$output.='<td><a id="'.$packingMaterial['id'].'" class="adjust" data-toggle="modal"><i class="fa fa-exchange" data-toggle="tooltip" title="Adjust">Adjust Levels</i></a></td>
 
-								$output.='<td class="'.$packingMaterial['category'].'">
-									<a id="'.$packingMaterial['id'].'" class="adjust" data-toggle="modal"><i class="fa fa-exchange" data-toggle="tooltip" title="Adjust">Adjust Levels</i></a>
-								</td>
+					
 							</tr>';
+							$serial ++;
 					}
 		$output.='</tbody>
 		</table>';
@@ -209,17 +232,26 @@
 						</tr>
 					</thead>
 					<tbody>';
+					$serial = 1;
+
 					foreach($packingMaterialsTypes as $packingMaterial){
+						$id = $packingMaterial['id'];
 						$output.= '
 							<tr>';
-								$output.='<td>'.$packingMaterial['id'].'</td>';
+								$output.='<td>'.$serial.'</td>';
 								$output.='<td>'.$packingMaterial['name'].'</td>';
 								$output.='<td>'.$packingMaterial['uom'].'</td>';
 								$output.='<td>'.$packingMaterial['unit_cost'].'</td>';
-								$output.='<td class="'.$packingMaterial['description'].'">
-									<a id="'.$packingMaterial['id'].'" class="adjust"><i class="fa fa-close" data-toggle="tooltip" title="Delete">Delete</i></a>
-								</td>
+								$output.='<td>'.$packingMaterial['description'].'</td>';
+								$output.='<td>
+								<a id="'.$packingMaterial['id'].'" class="delete">
+									<i class="fa fa-trash text-danger" data-toggle="tooltip" title="Delete"></i></a>&nbsp;&nbsp;
+
+									<a href="#editModal" style="color:green" data-toggle="modal"  class="editBtn" id="'.$id.'"><i class="fa fa-pencil"></i></a>
+							</td>
 							</tr>';
+
+							$serial ++;
 					}
 		$output.='</tbody>
 		</table>';
@@ -363,12 +395,11 @@
 		}
 
 	}
-	if(isset($_POST['action']) && $_POST['action'] == "allocate-material"){
-		$materialid = $_POST['material'];
-		$sino = $_POST['pk'];
-		$totalAllocation = $_POST['value'];
-
-		$warehouses->upadateAllocation($materialid, $sino,  $totalAllocation);
+	if(isset($_POST['action']) && $_POST['action'] == "adjust_material_stock"){
+		unset($_POST["action"]);
+		$_POST["allocated_by"] = $warehouses->user;
+		$_POST["allocated_on"] = date("Y-m-d H:i:s");
+		$warehouses->upadateAllocation($_POST);
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "adjust_level"){
 
@@ -583,6 +614,23 @@
 		$warehouses->softDelete($pk, "warehouses");
 		echo json_encode(array("status"=>"Deleted"));
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "delete-warehouse"){
+		$pk = $_POST['id'];
+		$warehouses->softDelete($pk, "warehouses");
+		echo json_encode(array("status"=>"Deleted"));
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "edit-material-type"){
+		$id = isset($_POST['editId']) ? $_POST['editId'] : ''; 
+		$warehouses->tablename = "material_types";
+		$row = $warehouses->getRecordById($id);
+		echo json_encode($row);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "delete-material-type"){
+		$id = isset($_POST['id']) ? $_POST['id'] : ''; 
+		$row = $warehouses->softDelete($id, "material_types");
+		echo json_encode($row);
+	}
+	
 
 	
 ?>

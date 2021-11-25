@@ -1,4 +1,5 @@
 <?php 
+session_start();
 class Model{
     public $query;
     public $conn;
@@ -10,8 +11,11 @@ class Model{
     public $tableFieldName;
     public $debugSql = false;
     public $success = 0;
+    public $user;
     public function __construct($db){
         $this->conn = $db;
+        $this->user = $_SESSION["user_id"];
+
     }
 
     public function insertQuery(){
@@ -98,8 +102,8 @@ class Model{
         }
     }
     public function softDelete($pk, $tablename){
-        $this->conn->query("UPDATE  ".$tablename." SET is_deleted = true WHERE id = ".$pk);
-        return "Record Deleted";
+        $this->conn->query("UPDATE  ".$tablename." SET is_deleted = true, deleted_on = CURRENT_TIMESTAMP, deleted_by = $this->user  WHERE id = ".$pk);
+        return $this->executeQuery();
     }
     public function deleteRow(){
         $this->query = "DELETE FROM  $this->tablename WHERE $this->tableFieldName = $this->id";
@@ -108,6 +112,35 @@ class Model{
     public function execute(){
         $rows = $this->conn->query($this->query);
         return $rows;
+    }
+    public function fetchOne(){
+        if($this->debugSql==true){
+            echo $this->query;
+        }
+        $duplicate = 0;
+        try{ 
+            $this->success ++;
+            $rows = $this->conn->query($this->query)->fetch();
+            return $rows;
+        }catch(PDOException $ex){
+            if ($ex->errorInfo[1] == 1062) {
+                $duplicate = 1;
+                return $duplicate;
+             } else {
+                var_dump($ex);
+             }
+        }
+    }
+    public function getRecordById($id){
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        try {
+            $row = $this->conn->query("SELECT * FROM ".$this->tablename." WHERE id =".$id)->fetch();
+            return $row;
+        } catch (Exception $ex) {
+            var_dump($ex);
+        }
+     
     }
 
 

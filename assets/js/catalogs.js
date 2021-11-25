@@ -17,26 +17,14 @@ function buyingSummary(saleno){
                 select: true,
                 "pageLength": 100,
                 dom: 'Bfrtip',
-                buttons: [{
-                        extend: 'copyHtml5',
-                        text: 'COPY<i class="fa fa-clipboard"></i>',
-                        titleAttr: 'Copy Paste'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        text: 'EXCEL <i class="fa fa-file-excel-o"></i>',
-                        titleAttr: 'Excel'
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        text: 'CSV <i class="fa fa-file-text"></i>',
-                        titleAttr: 'CSV'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: 'PDF <i class="fa fa-file-pdf-o"></i>',
-                        titleAttr: 'PDF'
-                    }
+                "pageLength": 30,
+                    dom: 'Bfrtip',
+            
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
                 ],
                 // "scrollCollapse": true,
             });

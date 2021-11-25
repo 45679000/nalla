@@ -47,6 +47,14 @@ require_once $path_to_root . 'templates/header.php';
 
 <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+<script src="../../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
+<script src="../../assets/plugins/datatable/buttons.colVis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>

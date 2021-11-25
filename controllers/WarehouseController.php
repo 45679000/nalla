@@ -45,7 +45,7 @@ Class WarehouseController extends Model{
     }
     public function getPackingMaterials($id=""){
         $this->debugSql = false;
-        $query = "SELECT packaging_materials.`id`, `type_id`, ABS(allocated) AS allocated, unit_cost, warehouses.code, warehouses.name AS warehouse,  warehouses.location, material_types.name, material_types.uom, material_types.unit_cost, 
+        $query = "SELECT packaging_materials.`id`, `type_id`, ABS(allocated) AS allocated, is_bonded, unit_cost, warehouses.code, warehouses.name AS warehouse,  warehouses.location, material_types.name, material_types.uom, material_types.unit_cost, 
         packaging_materials.`description`, (`in_stock`+`allocated`) AS available, unit_cost * (`in_stock`+`allocated`) AS total_value_ksh, unit_cost * (`in_stock`+`allocated`)*100 AS total_value_usd
         FROM `packaging_materials`
         INNER JOIN warehouses ON warehouses.id = packaging_materials.warehouse
@@ -99,14 +99,27 @@ Class WarehouseController extends Model{
             $this->tablename = "material_allocation";
             $id = $this->insertQuery();
             $material_id = $post["material_id"];
+            $type_id = $post["type_id"];
+
             $total = $post["total"];
             if($post["event"] == 0){
                 $total = -$post["total"];
                 $this->query = "UPDATE packaging_materials SET allocated = $total WHERE id = $material_id";
                 $this->executeQuery();
-            }else{
+            }else if($post["event"] == 1){
                 $this->query = "UPDATE packaging_materials SET in_stock = in_stock+$total WHERE id = $material_id";
                 $this->executeQuery();
+            }else if($post["event"] == 2){
+                $this->query = "UPDATE packaging_materials SET in_stock = in_stock+$total WHERE id = $material_id";
+                $this->executeQuery();
+
+                $total = -$post["total"];
+                $this->query = "UPDATE packaging_materials
+                INNER JOIN warehouses ON packaging_materials.warehouse = warehouses.id
+                SET allocated = $total 
+                WHERE type_id = $type_id AND is_bonded = 1";
+                $this->executeQuery();
+
             }
             
             $this->conn->commit();
@@ -268,6 +281,17 @@ Class WarehouseController extends Model{
         $rows = $this->executeQuery();
         return $rows[0]['avg'];
 
+    }
+    public function getBondedWarehouseStock($type_id){
+        $this->debugSql = false;
+        $this->query = "SELECT packaging_materials.`id`, `material_types`.`name`, `uom`, `type_id`,  (`in_stock`+`allocated`) AS available
+        FROM `packaging_materials`
+        INNER JOIN warehouses ON warehouses.id = packaging_materials.warehouse
+        INNER JOIN material_types ON material_types.id = packaging_materials.type_id
+        WHERE packaging_materials.is_deleted = 0 AND warehouses.is_bonded = 1 AND type_id = $type_id";
+        return $this->executeQuery();
+
+        
     }
 
 }

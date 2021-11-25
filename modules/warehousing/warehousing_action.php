@@ -188,12 +188,18 @@
 					<tbody>';
 					$serial = 1;
 					foreach($packingMaterials as $packingMaterial){
-						$output.= '
+						if($packingMaterial['is_bonded']){
+							$output.= '
+							<tr class="text-light bg-dark">';
+						}else{
+							$output.= '
 							<tr>';
+						}
+						
 								$output.='<td>'.$serial.'</td>';
 								$output.='<td>'.$packingMaterial['name'].'</td>';
 								$output.='<td>'.$packingMaterial['uom'].'</td>';
-								$output.='<td>'.$packingMaterial['name'].'</td>';
+								$output.='<td>'.$packingMaterial['warehouse'].'</td>';
 								$output.='<td>'.$packingMaterial['location'].'</td>';
 								$output.='<td><a href="#">'.$packingMaterial['available'].'</a></td>';
 								$output.='<td><a href="#">'.$packingMaterial['allocated'].'</a></td>';
@@ -629,6 +635,16 @@
 		$id = isset($_POST['id']) ? $_POST['id'] : ''; 
 		$row = $warehouses->softDelete($id, "material_types");
 		echo json_encode($row);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "bonded_stock"){
+		$type_id = isset($_POST['type_id']) ? $_POST['type_id'] : ''; 
+		$row = $warehouses->getBondedWarehouseStock($type_id);
+		if($row[0]["available"]>0){
+			echo json_encode(array("success"=>1, "message"=>"Available For Transfer". $row[0]["available"]. $row[0]["uom"] . " of ". $row[0]["name"]));
+		}else{
+			echo json_encode(array("success"=>0, "message"=>"There are no enough Materials On the Bonded,  Warehouse You cannot Complete This Transfer"));
+		}
+
 	}
 	
 

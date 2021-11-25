@@ -130,7 +130,10 @@
                             <div class="form-group">
                                 <label for="source">Comment:</label>
                                 <textarea  type="text" class="form-control" name="comment" id="comment" placeholder="" required=""></textarea>
-
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="display:none" class="form-group" id="bond">
                             </div>
                         </div>
                     </div>
@@ -222,9 +225,33 @@ $(document).ready(function() {
         $("#event").val("2");
         $("#actionLabel").html("How Many Pieces Do you Wish to Transfer?");
         $("#source").html(
-            '<option value="">Select</option><option value="Material Loaned">Material Loaned</option><option value="Material Sold">Material Sold</option>'
+            '<option value="Bond">Bonded Warehouse</option>'
         );
+        $("#comment").val("Transfer From Bonded Warehouse");
 
+
+        $.ajax({
+            url: "warehousing_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "bonded_stock",
+                type_id: $("#type_id").val()
+            },
+            success: function(data) {
+                if(data.success==1){
+                    $("#bond").html("<span role='alert' class='alert-success'>"+data.message+"</span>");
+                    $("#bond").show();
+
+                }else{
+                    $("#bond").html("<span role='alert' class='alert-danger'>"+data.message+"</span>");
+                    $("#bond").show();
+                    $("#post").hide();
+                }
+              
+            }
+        });
+        
     });
 
 
@@ -246,7 +273,9 @@ $(document).ready(function() {
                 total: $("#new_stock").val(),
                 details: $("#comment").val(),
                 source: $("#source").val(),
-                event: $("#event").val()
+                event: $("#event").val(),
+                type_id: $("#type_id").val()
+
 
             },
             success: function(data) {

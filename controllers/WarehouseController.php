@@ -46,7 +46,7 @@ Class WarehouseController extends Model{
     public function getPackingMaterials($id=""){
         $this->debugSql = false;
         $query = "SELECT packaging_materials.`id`, `type_id`, ABS(allocated) AS allocated, is_bonded, unit_cost, warehouses.code, warehouses.name AS warehouse,  warehouses.location, material_types.name, material_types.uom, material_types.unit_cost, 
-        packaging_materials.`description`, (`in_stock`+`allocated`) AS available, unit_cost * (`in_stock`+`allocated`) AS total_value_ksh, unit_cost * (`in_stock`+`allocated`)*100 AS total_value_usd
+        packaging_materials.`description`, (`in_stock`+`allocated`) AS available, unit_cost * (`in_stock`+`allocated`) AS total_value_ksh, unit_cost * (`in_stock`+`allocated`)/100 AS total_value_usd
         FROM `packaging_materials`
         INNER JOIN warehouses ON warehouses.id = packaging_materials.warehouse
         INNER JOIN material_types ON material_types.id = packaging_materials.type_id
@@ -100,11 +100,11 @@ Class WarehouseController extends Model{
             $id = $this->insertQuery();
             $material_id = $post["material_id"];
             $type_id = $post["type_id"];
-
             $total = $post["total"];
+
             if($post["event"] == 0){
                 $total = -$post["total"];
-                $this->query = "UPDATE packaging_materials SET allocated = $total WHERE id = $material_id";
+                $this->query = "UPDATE packaging_materials SET allocated = $total + allocated WHERE id = $material_id";
                 $this->executeQuery();
             }else if($post["event"] == 1){
                 $this->query = "UPDATE packaging_materials SET in_stock = in_stock+$total WHERE id = $material_id";
@@ -294,7 +294,7 @@ Class WarehouseController extends Model{
         
     }
     public function getMaterialAllocation($id, $event){
-        $this->debugSql = true;
+        // $this->debugSql = false;
         $query = "SELECT material_allocation.`id`,  `total`, `details`,  users.full_name, `allocated_on` 
         FROM `material_allocation`
         INNER JOIN packaging_materials ON packaging_materials.id = material_allocation.material_id
@@ -304,6 +304,9 @@ Class WarehouseController extends Model{
         WHERE material_id = $id ";
         if($event == "add"){
             $query .= " AND event IN (1,2)";
+        }else if($event == "less"){
+            $query .= " AND event IN (0)";
+
         }
 
         $this->query = $query;

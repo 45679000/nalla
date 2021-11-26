@@ -153,8 +153,8 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Adjust Stock Levels</h4>
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -270,13 +270,9 @@ $(document).ready(function() {
         });
         
     });
-
-
-    $("#close").click(function(e) {
+    $(".close").click(function(e) {
         e.preventDefault();
-        location.reload();
-
-
+        $("#allocation").hide();
     });
 
     $("#post").click(function(e) {
@@ -296,13 +292,15 @@ $(document).ready(function() {
 
             },
             success: function(data) {
+                loadPackingMaterials();
+                $("#EditformData")[0].reset();
+                $("#editModal").hide();
                 Swal.fire({
                     icon: 'success',
                     title: 'Stock Adjusted successfully',
                 });
-                loadPackingMaterials();
-                $("#EditformData")[0].reset();
-                $("#editModal").hide();
+
+                setTimeout(function(){ location.reload(); }, 3000);              
 
             }
         });
@@ -348,6 +346,7 @@ $(document).ready(function() {
     //Delete Record
     $("body").on("click", ".stockadd", function(e) {
         $("#allocation").show();
+        $(".modal-title").html("Stock Addition Audit");
         e.preventDefault();
         var id = $(this).parent().parent().attr('id');
         $.ajax({
@@ -361,6 +360,29 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $("#allocationTable").html(data);
+                $("#allocations").DataTable({});
+                
+            }
+        });
+    });
+
+    $("body").on("click", ".stockuse", function(e) {
+        $("#allocation").show();
+        $(".modal-title").html("Stock Useage Audit");
+        e.preventDefault();
+        var id = $(this).parent().parent().attr('id');
+        $.ajax({
+            url: "warehousing_action.php",
+            type: "POST",
+            data: {
+                action: "view-allocation",
+                id: id,
+                event: "less"
+
+            },
+            success: function(data) {
+                $("#allocationTable").html(data);
+                $("#allocations").DataTable({});
                 
             }
         });

@@ -651,7 +651,7 @@
 		$id = isset($_POST['id']) ? $_POST['id'] : ''; 
 		$event = isset($_POST['event']) ? $_POST['event'] : ''; 
 
-		$materialAllocation = $warehouses->getMaterialAllocation($id, $event)();
+		$materialAllocation = $warehouses->getMaterialAllocation($id, $event);
 		$output ="";
 		if(count($materialAllocation)>0){
 				$output.='<table style="width:100%;" id="allocations" class="table table-striped  table-bordered table-sm table-hover">
@@ -675,7 +675,7 @@
 								$output.='<td>'.$materialAllocation['details'].'</td>';
 								$output.='<td>'.$materialAllocation['total'].'</td>';
 								$output.='<td>'.$materialAllocation['allocated_on'].'</td>';
-								$output.='<td>'.$materialAllocation['User'].'</td>';
+								$output.='<td>'.$materialAllocation['full_name'].'</td>';
 							'</td>
 							</tr>';
 

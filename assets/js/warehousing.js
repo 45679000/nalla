@@ -150,7 +150,7 @@ function loadSiAllocation(sino){
         url: "warehousing_action.php",
         success: function (data) {
          $('#thisAllocation').html(data);
-         $('#alloct').DataTable({});
+         $('#siAllocation').DataTable({});
         }
     });
 }
@@ -181,7 +181,7 @@ function showPackingMaterialAlloacated(){
         url: "warehousing_action.php",
         success: function (data) {
          $('#materialAllocation').html(data);
-         $('#alloctions').DataTable({});
+         $('#stockAllocation').DataTable({});
 
         }
     });

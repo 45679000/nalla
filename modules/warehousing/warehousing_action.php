@@ -281,7 +281,7 @@
 		if(count($shippments)>0){
 			$output .= '
 			<table id="shippment" class="table table-sm table-responsive table-bordered table-hover table-striped">
-			<thead>
+			<thead class="bg-secondary text-light">
 				<tr>
 					<th>SI</th>
 					<th>Buyer</th>
@@ -329,15 +329,16 @@
 
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "load-si-allocation"){
-
-		$allocatedMaterials = $warehouses->materialAllocation($_POST['sino']);
+		$allocatedMaterials = $warehouses->materialAllocationBySi($_POST['sino']);
 		$output ="";
 		if(count($allocatedMaterials)>0){
-			$output.='<table id="alloct" class="table table-bordered table-striped table-hover">
+			$output.='<table id="siAllocation" class="table table-striped  table-bordered table-sm table-hover">
 					<thead>
 						<tr>
 							<th>Material</th>
 							<th>Allocated</th>
+							<th>Allocated By</th>
+							<th>Allocated On</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -345,10 +346,12 @@
 					foreach($allocatedMaterials as $allocated){
 						$output.= '
 							<tr>';
-								$output.='<td>'.$allocated['category'].'</td>';
-								$output.='<td>'.$allocated['allocated_total'].'</td>';
+								$output.='<td>'.$allocated['material'].'</td>';
+								$output.='<td>'.$allocated['total'].'</td>';
+								$output.='<td>'.$allocated['full_name'].'</td>';
+								$output.='<td>'.$allocated['allocated_on'].'</td>';
 								$output.='<td>
-									<a id="'.$allocated['id'].'" class="deleteBtn"><i class="fa fa-trash btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"></i></a>
+									<a id="'.$allocated['id'].'" class="deleteBtn"><i class="fa fa-trash text-danger" data-toggle="tooltip" title="Delete"></i></a>
 								</td>
 							</tr>';
 					}
@@ -369,30 +372,33 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Category</th>
+							<th>Type</th>
+							<th>Warehouse</th>
 							<th>IN Stock</th>
-                            <th>To Allocate</th>
+                            <th>Allocate</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>';
+					$serial = 1;
+
 					foreach($packingMaterials as $packingMaterial){
 						$id = $packingMaterial['id'];
 						$selectedId = $id."id";
 						$selectedtotal = $id."selected";
-
+						$type_id = $packingMaterial['type_id'];
 						$output.= '
 							<tr>';
-								$output.='<td id="'.$selectedId.'">'.$packingMaterial['id'].'</td>';
-								$output.='<td>'.$packingMaterial['category'].'</td>';
-								$output.='<td>'.$packingMaterial['in_stock'].'</td>';
+								$output.='<td id="'.$selectedId.'">'.$serial.'</td>';
+								$output.='<td>'.$packingMaterial['name'].'</td>';
+								$output.='<td>'.$packingMaterial['warehouse'].'</td>';
+								$output.='<td>'.$packingMaterial['available'].'</td>';
 								$output.='<td id="'.$selectedtotal.'" contentEditable="true"></td>';
-								$output.='<td>
-									<a  id="'.$id.'"  class="allocate">
-										<i class="fa fa-plus" data-toggle="tooltip" title="Edit">Add
-									</i></a>
+								$output.='<td class="'.$type_id.'">
+									<a  id="'.$id.'"  class="allocate"><i class="fa fa-plus fa-lg text-danger" data-toggle="tooltip" title="Allocate"></i></a>
 								</td>
 							</tr>';
+							$serial++;
 					}
 		$output.='</tbody>
 		</table>';
@@ -510,10 +516,10 @@
 		$warehouses->addPackagingMaterials($_POST);
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "allocated-materials"){
-		$allocatedMaterials = $warehouses->materialAllocation("");
+		$allocatedMaterials = $warehouses->materialAllocationBySi("");
 		$output ="";
 		if(count($allocatedMaterials)>0){
-			$output.='<table id="alloctions" class="table table-bordered table-striped table-hover">
+			$output.='<table id="stockAllocation" class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
 							<th>SI</th>
@@ -526,8 +532,8 @@
 						$output.= '
 							<tr>';
 								$output.='<td>'.$allocated['contract_no'].'</td>';
-								$output.='<td>'.$allocated['category'].'</td>';
-								$output.='<td>'.$allocated['allocated_total'].'</td>';
+								$output.='<td>'.$allocated['material'].'</td>';
+								$output.='<td>'.$allocated['total'].'</td>';
 								$output.='</tr>';
 					}
 		$output.='</tbody>
@@ -689,6 +695,21 @@
 		}
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "allocate-material-si"){
+		unset($_POST["action"]);
+		$_POST["allocated_by"] = $warehouses->user;
+		$_POST["allocated_on"] = date("Y-m-d H:i:s");
+		$warehouses->upadateAllocation($_POST);
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "unallocate-si"){
+		unset($_POST["action"]);
+		$_POST["deleted_by"] = $warehouses->user;
+		$_POST["deleted_on"] = date("Y-m-d H:i:s");
+		$warehouses->unAllocate($_POST);
+
+	}
+	
 	
 ?>
 

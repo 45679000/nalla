@@ -303,10 +303,10 @@ Class ShippingController extends Model{
     }
     public function unshippedSi($id=0){
         if($id==0){
-            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1";
+            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND status != 'Shipped' ORDER BY FIELD(status, 'Received') DESC";
             return($this->executeQuery());
         }else{
-            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND instruction_id = $id";
+            $this->query = "SELECT * FROM shipping_instructions WHERE  sent_to_warehouse = 1 AND status != 'Shipped' AND instruction_id = $id ORDER BY FIELD(status, 'Received') DESC";
         }
        
     }

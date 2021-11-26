@@ -28,8 +28,8 @@ require_once $path_to_root . 'templates/header.php';
     <div class="page">
         <div class="page-main">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Shippments</h3>
+                <div class="card-header bg-primary">
+                    <h3 class="card-title text-light">Shippments</h3>
                 </div>
                 <div class="card-body p-6">
                     <div class="panel panel-primary">
@@ -48,9 +48,10 @@ require_once $path_to_root . 'templates/header.php';
                                 <div class="tab-pane active " id="tab1">
                                     <div id="shippments" class="table-responsive"></div>
                                     <div style="display:none" class="card" id="allocations">
-                                        <div class="card-header">
-                                            <button id="addMaterial" class="btn btn-sucess btn-sm pl-20">Add Material</button>
-                                            <span id="si_no" class="pl-20"></span>
+                                        <div class="card-header bg-teal">
+                                            <button id="addMaterial" class="btn btn-success btn-sm pl-20">Add Material Used In 
+                                                 <span id="si_no" class="pl-20"></span>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -72,7 +73,7 @@ require_once $path_to_root . 'templates/header.php';
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Modal Header -->
-                <div class="modal-header">
+                <div class="modal-header bg-teal">
                     <h4 class="modal-title">Packing Materials</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
@@ -98,7 +99,7 @@ require_once $path_to_root . 'templates/header.php';
 
     <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
     <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="../../assets/js/sweet_alert2.js"></script>
 
     <script>
         shippment();
@@ -121,12 +122,11 @@ require_once $path_to_root . 'templates/header.php';
         });
         $("body").on("click", ".deleteBtn", function(e) {
             var id = $(this).attr("id");
-
             $.ajax({
                 type: "POST",
                 dataType: "html",
                 data: {
-                    action: "unallocate",
+                    action: "unallocate-si",
                     id: id
                 },
                 cache: true,
@@ -138,16 +138,22 @@ require_once $path_to_root . 'templates/header.php';
         });
 
         $("body").on("click", ".allocate", function(e) {
-            var pk = $(this).attr("id");
-            var value = $("#" + pk + "selected").text();
+            var id = $(this).attr("id");
+            var value = $("#" + id + "selected").text();
+            var type_id = $(this).parent().attr("class");
             $.ajax({
                 type: "POST",
                 dataType: "html",
                 data: {
-                    action: "allocate-material",
-                    pk: localStorage.getItem("sino"),
-                    value: value,
-                    material: pk
+                    action: "allocate-material-si",
+                    si_no: localStorage.getItem("sino"),
+                    total: value,
+                    material_id: id,
+                    type_id: type_id,
+                    event: "0",
+                    source:"Si Allocation",
+                    details:"Materials Allocated to SI:"+$("#si_no").text()
+
                 },
                 cache: true,
                 url: "warehousing_action.php",

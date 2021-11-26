@@ -78,18 +78,22 @@ Class WarehouseController extends Model{
        
 
     }
-    public function materialAllocation($sino){
-        $query = "SELECT contract_no, material_allocation.id,  `in_stock`, material_allocation.details,  
-        material_allocation.si_no, 
-        material_allocation.allocated_total,
-        material_allocation.details
-       FROM material_allocation
-       INNER JOIN packaging_materials ON packaging_materials.id = material_allocation.material
-       INNER JOIN shipping_instructions ON shipping_instructions.instruction_id = material_allocation.si_no";
+    public function materialAllocationBySi($sino){
+        $query = "SELECT shipping_instructions.contract_no, material_types.name AS material, material_allocation.`id`,  `total`, `details`,  
+        users.full_name, `allocated_on`, `material_allocation`.total
+        FROM `material_allocation`
+        INNER JOIN packaging_materials ON packaging_materials.id = material_allocation.material_id
+        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = material_allocation.si_no
+        LEFT JOIN material_types ON material_types.id = packaging_materials.type_id
+        LEFT JOIN users ON users.user_id = material_allocation.allocated_by ";
         if($sino !=""){
-          $query .=" WHERE material_allocation.si_no = $sino";
+            $query .= " WHERE si_no = $sino AND `material_allocation`.is_deleted = 0";
+        }else{
+            $query .= " WHERE `material_allocation`.is_deleted = 0 AND si_no IS NOT NULL";
+
         }
         $this->query = $query;
+
         return $this->executeQuery();
     }
     public function upadateAllocation($post){
@@ -312,6 +316,29 @@ Class WarehouseController extends Model{
         $this->query = $query;
 
         return $this->executeQuery();
+    }
+    public function unAllocate($post){
+        $this->conn->beginTransaction();
+        try {
+            $deleted_on = $post["deleted_on"];
+            $deleted_by = $post["deleted_by"];
+            $id = $post["id"];
+            $this->query = "UPDATE material_allocation SET `is_deleted`=1, `deleted_on` = '$deleted_on',  `deleted_by`=$deleted_by WHERE id = $id";
+            $this->executeQuery();
+
+            $this->tablename ="material_allocation";
+            $row = $this->getRecordById($id);
+            $material_id = $row["material_id"];
+            $total = $row["total"];
+
+            $this->query = "UPDATE packaging_materials SET allocated = allocated+$total WHERE id = $material_id";
+            $this->executeQuery();
+            
+            $this->conn->commit();
+        } catch (Exception $ex) {
+            $this->conn->rollBack();
+        }
+       
     }
 
 }

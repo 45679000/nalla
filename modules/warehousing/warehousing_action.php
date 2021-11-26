@@ -647,41 +647,36 @@
 		}
 
 	}
-	
 	if(isset($_POST['action']) && $_POST['action'] == "view-allocation"){
-		$packingMaterialsTypes = $warehouses->getMaterialTypes();
+		$id = isset($_POST['id']) ? $_POST['id'] : ''; 
+		$event = isset($_POST['event']) ? $_POST['event'] : ''; 
+
+		$materialAllocation = $warehouses->getMaterialAllocation($id, $event)();
 		$output ="";
-		if(count($packingMaterialsTypes)>0){
-				$output.='<table style="width:100%;" id="packing-materials" class="table table-striped  table-bordered table-sm table-hover">
+		if(count($materialAllocation)>0){
+				$output.='<table style="width:100%;" id="allocations" class="table table-striped  table-bordered table-sm table-hover">
 				<thead>
 						<tr>
 							<th>id</th>
-							<th>Type</th>
-							<th>UOM</th>
-                            <th>UNIT COST</th>
-							<th>Description</th>
-							<th>Actions</th>
-
+							<th>Details</th>
+							<th>Total</th>
+                            <th>Date</th>
+							<th>User</th>
 						</tr>
 					</thead>
 					<tbody>';
 					$serial = 1;
 
-					foreach($packingMaterialsTypes as $packingMaterial){
-						$id = $packingMaterial['id'];
+					foreach($materialAllocation as $materialAllocation){
+						$id = $materialAllocation['id'];
 						$output.= '
 							<tr>';
 								$output.='<td>'.$serial.'</td>';
-								$output.='<td>'.$packingMaterial['name'].'</td>';
-								$output.='<td>'.$packingMaterial['uom'].'</td>';
-								$output.='<td>'.$packingMaterial['unit_cost'].'</td>';
-								$output.='<td>'.$packingMaterial['description'].'</td>';
-								$output.='<td>
-								<a id="'.$packingMaterial['id'].'" class="delete">
-									<i class="fa fa-trash text-danger" data-toggle="tooltip" title="Delete"></i></a>&nbsp;&nbsp;
-
-									<a href="#editModal" style="color:green" data-toggle="modal"  class="editBtn" id="'.$id.'"><i class="fa fa-pencil"></i></a>
-							</td>
+								$output.='<td>'.$materialAllocation['details'].'</td>';
+								$output.='<td>'.$materialAllocation['total'].'</td>';
+								$output.='<td>'.$materialAllocation['allocated_on'].'</td>';
+								$output.='<td>'.$materialAllocation['User'].'</td>';
+							'</td>
 							</tr>';
 
 							$serial ++;

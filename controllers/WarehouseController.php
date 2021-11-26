@@ -294,6 +294,7 @@ Class WarehouseController extends Model{
         
     }
     public function getMaterialAllocation($id, $event){
+        $this->debugSql = true;
         $query = "SELECT material_allocation.`id`,  `total`, `details`,  users.full_name, `allocated_on` 
         FROM `material_allocation`
         INNER JOIN packaging_materials ON packaging_materials.id = material_allocation.material_id
@@ -302,7 +303,7 @@ Class WarehouseController extends Model{
         LEFT JOIN users ON users.user_id = material_allocation.allocated_by
         WHERE material_id = $id ";
         if($event == "add"){
-            $query.= " AND event IN (1,2)";
+            $query .= " AND event IN (1,2)";
         }
 
         $this->query = $query;

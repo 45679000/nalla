@@ -188,12 +188,13 @@
 					<tbody>';
 					$serial = 1;
 					foreach($packingMaterials as $packingMaterial){
+						$id=$packingMaterial['id'];
 						if($packingMaterial['is_bonded']){
 							$output.= '
-							<tr class="text-light bg-dark">';
+							<tr id="'.$id.'" class="text-light bg-dark">';
 						}else{
 							$output.= '
-							<tr>';
+							<tr id="'.$id.'">';
 						}
 						
 								$output.='<td>'.$serial.'</td>';
@@ -201,8 +202,8 @@
 								$output.='<td>'.$packingMaterial['uom'].'</td>';
 								$output.='<td>'.$packingMaterial['warehouse'].'</td>';
 								$output.='<td>'.$packingMaterial['location'].'</td>';
-								$output.='<td><a href="#">'.$packingMaterial['available'].'</a></td>';
-								$output.='<td><a href="#">'.$packingMaterial['allocated'].'</a></td>';
+								$output.='<td><a class="stockadd" href="#">'.$packingMaterial['available'].'</a></td>';
+								$output.='<td><a class="stockuse" href="#">'.$packingMaterial['allocated'].'</a></td>';
 								$output.='<td>'.$packingMaterial['unit_cost'].'</td>';
 								$output.='<td>'.$packingMaterial['total_value_ksh'].'</td>';
 								$output.='<td>'.$packingMaterial['total_value_usd'].'</td>';
@@ -647,7 +648,52 @@
 
 	}
 	
+	if(isset($_POST['action']) && $_POST['action'] == "view-allocation"){
+		$packingMaterialsTypes = $warehouses->getMaterialTypes();
+		$output ="";
+		if(count($packingMaterialsTypes)>0){
+				$output.='<table style="width:100%;" id="packing-materials" class="table table-striped  table-bordered table-sm table-hover">
+				<thead>
+						<tr>
+							<th>id</th>
+							<th>Type</th>
+							<th>UOM</th>
+                            <th>UNIT COST</th>
+							<th>Description</th>
+							<th>Actions</th>
 
+						</tr>
+					</thead>
+					<tbody>';
+					$serial = 1;
+
+					foreach($packingMaterialsTypes as $packingMaterial){
+						$id = $packingMaterial['id'];
+						$output.= '
+							<tr>';
+								$output.='<td>'.$serial.'</td>';
+								$output.='<td>'.$packingMaterial['name'].'</td>';
+								$output.='<td>'.$packingMaterial['uom'].'</td>';
+								$output.='<td>'.$packingMaterial['unit_cost'].'</td>';
+								$output.='<td>'.$packingMaterial['description'].'</td>';
+								$output.='<td>
+								<a id="'.$packingMaterial['id'].'" class="delete">
+									<i class="fa fa-trash text-danger" data-toggle="tooltip" title="Delete"></i></a>&nbsp;&nbsp;
+
+									<a href="#editModal" style="color:green" data-toggle="modal"  class="editBtn" id="'.$id.'"><i class="fa fa-pencil"></i></a>
+							</td>
+							</tr>';
+
+							$serial ++;
+					}
+		$output.='</tbody>
+		</table>';
+		echo $output;
+		}else{
+			echo '<h3 class="text-center mt-5">No records found</h3>';
+		}
+
+	}
 	
 ?>
 

@@ -293,6 +293,18 @@ Class WarehouseController extends Model{
 
         
     }
+    public function getMaterialAllocation($id, $event){
+        $query = "SELECT material_allocation.`id`,  `total`, `details`,  users.full_name, `allocated_on` 
+        FROM `material_allocation`
+        INNER JOIN packaging_materials ON packaging_materials.id = material_allocation.material_id
+        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = material_allocation.si_no
+        LEFT JOIN material_types ON material_types.id = packaging_materials.type_id
+        LEFT JOIN users ON users.user_id = material_allocation.allocated_by
+        WHERE ";
+        if()
+
+        return $this->executeQuery();
+    }
 
 }
 

@@ -300,8 +300,12 @@ Class WarehouseController extends Model{
         LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = material_allocation.si_no
         LEFT JOIN material_types ON material_types.id = packaging_materials.type_id
         LEFT JOIN users ON users.user_id = material_allocation.allocated_by
-        WHERE ";
-        if()
+        WHERE material_id = $id ";
+        if($event == "add"){
+            $query.= " AND event IN (1,2)";
+        }
+
+        $this->query = $query;
 
         return $this->executeQuery();
     }

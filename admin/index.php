@@ -59,10 +59,7 @@ include $path_to_root1 .'includes/auction_ids.php';
 </style>
 <body>
 <div class="page-header">
-        <!-- <ol class="breadcrum">
-			<li class="breadcrum-item"><a href="/chamu/modules/stock/index.php?view=dashboard">home</a></li>
-			<li class="breadcrum-item active" aria-current="page">User Management</li>
-		</ol>		 -->
+		
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -96,16 +93,16 @@ include $path_to_root1 .'includes/auction_ids.php';
 
                         switch($view){
                             case 'dashboard':
-                                include('dashboard.php');
+                                include('views/dashboard.php');
                                 break;
                             case 'users':
-                                include 'userlist.php';
+                                include 'views/userlist.php';
                                 break;
                             case 'departments':
-                                include 'departments.php';
+                                include 'views/departments.php';
                                 break;
                             default:
-                            include('dashboard.php');
+                            include('views/dashboard.php');
 
                         }
                             

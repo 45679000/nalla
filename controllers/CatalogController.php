@@ -739,4 +739,10 @@
 
         
         }
+        public function ExportSelectionList($auction = "", $broker = "", $category = ""){
+            if($category =="All"){
+                $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' AND target = 1 GROUP BY lot";
+                return $this->executeQuery();
+            }
+    }
 }

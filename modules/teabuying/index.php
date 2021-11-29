@@ -38,6 +38,8 @@
                     include 'views/auction_targets.php'; 
                 }else if(($_GET['view']=='print_out')){
                     include 'views/auction_target_print.php';
+                }else if(($_GET['view']=='selexport')){
+                    include 'views/selection_list_export.php';
                 }else{
                     include 'views/grading_codes.php';  
                 }

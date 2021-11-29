@@ -516,11 +516,65 @@
 		$insertRecord = $CatalogController->confirmPrivate($id);
 		echo json_encode(array("message"=>"Confirmed Successfully"));
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "export-sel-list"){
 
+		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
+		$broker = isset($_POST['broker']) ? $_POST['broker'] : '';
+		$imports = $CatalogController->ExportSelectionList($saleno, $broker , "All");
+		$html = "";
+		if(sizeOf($imports)>0){
+			$html='<table id="closingimports" class="table table-sm table-striped table-bordered" style="width:100%">
+										<thead>
+											<tr>
+												<th class="wd-15p">Sale No</th>
+												<th class="wd-15p">Broker</th>
+												<th class="wd-15p">Lot No</th>
+												<th class="wd-15p">Ware Hse.</th>
+												<th class="wd-20p">Company</th>
+												<th class="wd-15p">Mark</th>
+												<th class="wd-10p">Grade</th>
+                                                <th class="wd-25p">Invoice</th>
+                                                <th class="wd-25p">Pkgs</th>
+                                                <th class="wd-25p">Net</th>
+                                                <th class="wd-25p">Kgs</th>
+                                                <th class="wd-25p">Value</th>
+                                                <th class="wd-25p">Code</th>
+                                                <th class="wd-25p">Standard</th>
+                                                <th class="wd-25p">Bid</th>
 
-	
+											</tr>
+										</thead>
+                                        <tbody>';
+                                        foreach ($imports as $import){
+                                            $id = $import["closing_cat_import_id"];
+											$target = $import["target"];
+                                            $html.='<tr>';
+												$html.='<td>'.$import["sale_no"].'</td>';
+												$html.='<td>'.$import["broker"].'</td>';
+                                                $html.='<td>'.$import["lot"].'</td>';
+                                                $html.='<td>'.$import["ware_hse"].'</td>';
+                                                $html.='<td>'.$import["company"].'</td>';
+                                                $html.='<td>'.$import["mark"].'</td>';
+                                                $html.='<td>'.$import["grade"].'</td>';
+                                                $html.='<td>'.$import["invoice"].'</td>';
+                                                $html.='<td>'.$import["pkgs"].'</td>';
+                                                $html.='<td>'.$import["kgs"].'</td>';
+                                                $html.='<td>'.$import["net"].'</td>';
+                                                $html.='<td>'.$import["value"].'</td>';
+                                                $html.='<td>'.$import["comment"].'</td>';
+                                                $html.='<td>'.$import['standard'].'</div>';
+												$html.='<td>'.$import["max_bp"].'</td>';
+												$html.='</td>';
 
-	
-	
+											$html.='</tr>';
+                                        }
+                                $html.= '</tbody>
+                        </table>';
+		}else{
+			$html = "<h3>No Records Returned</h3>";
+		}
+		echo $html;
+
+	}	
 	
 ?>

@@ -23,6 +23,10 @@
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <span class="icon mr-3"><i class="fe fe-server text-red"></i></span>Print Selection List
                     </a>
+                    <a href="./index.php?view=selexport"
+                        class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="icon mr-3"><i class="fe fe-share text-green"></i></span>Export Selection List
+                    </a>
                 </div>
             </div>
             <div class="expanel expanel-primary">

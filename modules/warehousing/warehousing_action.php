@@ -581,6 +581,7 @@
 			$net = $blend['net'];
 			$pkgs = $blend['pkgs'];
 			$id = $blend['id'];
+			$mark = $blend['mark'];
 
 
 		$output.="<tr id='$id'>
@@ -591,7 +592,11 @@
 					<td>".$blend['grade']."</td>
 					<td>".$blend['lot_no']."</td>
 					<td>".$blend['origin']."</td>
-					<td>".$blend['mark']."</td>
+					<td>
+					<select value ='$mark' class='select2 mark'>
+						<option>BLENDED TEA</option>
+						<option>SIEVED DUST</option>
+					</select></td>
 					<td><input value='$net' name='net' class='editable'></input></td>
 					<td><input value='$pkgs' name='pkgs' class='editable'></input></td>
 					<td class='kgs'>".$kgs."</td>

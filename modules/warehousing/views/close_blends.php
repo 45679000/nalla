@@ -278,6 +278,27 @@ if(!isset($_GET["blendno"])){
         });
         
     });
+    $("body").on("change", ".mark", function(e) {
+        var id = $(this).parent().parent().attr("id");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "update-field",
+                id:id,
+                fieldName: 'mark',
+                fieldValue: $(this).val(),
+            },
+            cache: true,
+            url: "warehousing_action.php",
+            success: function (data) {
+                loadBlendLines(blendno);
+            }
+        });
+        
+    });
+
+    
 
     
     function loadBlendLines(id){

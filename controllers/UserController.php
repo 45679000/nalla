@@ -1,13 +1,10 @@
 <?php
-class Users{
+class UserController extends Model{
     // database connection and table name
-    private $conn;
     public $username;
     public $password;
     // constructor with $db as database connection
-    public function __construct($db){
-        $this->conn = $db;
-    }
+
     public function authenticateUser(){
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -23,26 +20,28 @@ class Users{
                                         );
             
             if($userDetails['user_id'] != null){
-                $_SESSION["user_id"] =     $userDetails['user_id'];
-                $_SESSION["user_name"] =   $userDetails['user_name'];
-                $_SESSION["full_name"] =   $userDetails['full_name'];
-                $_SESSION["email"] =       $userDetails['email'];
-                $_SESSION["role_id"] =     $userDetails['role_id'];
-                $_SESSION["user_department"] = $userDept['department_name'];
+                $this->sessionManager->user_id =  $userDetails['user_id'];
+                $this->sessionManager->user_name =  $userDetails['user_name'];
+                $this->sessionManager->full_name =  $userDetails['full_name'];
+                $this->sessionManager->email =  $userDetails['email'];
+                $this->sessionManager->role_id =  $userDetails['role_id'];
+                $this->sessionManager->user_department =  $userDetails['user_department'];
+
 
                 $userLevels = $this->readOne('access_levels',
                                             'role_id',
                                             $userDetails['role_id']
                                         );
+                $this->sessionManager->menu = $userLevels['menu_name'];
 
-                $_SESSION["menu"] = $userLevels['menu_name'];
                 $otp = $this->generateOtp($user_id);
                 if($otp != null){
                     $mailer = new Mailer("<p>OTP CODE: ".$otp."</p>", $userDetails['email'], "OTP");
                     $is_sent = $mailer->sendEmail($userDetails['email']);
                     if($is_sent==1){
-                        $_SESSION["otp"] = $otp;
-                        $_SESSION["message"] = "Enter the verification code sent to your email";
+                        $this->sessionManager->otp=$otp;
+                        $this->sessionManager->message="Enter the verification code sent to your email";
+
                     }
                 }
                 // $_SESSION["connection"] = $this->conn;
@@ -50,7 +49,6 @@ class Users{
 
 
             }
-            
 
     }
     public function readOne($tablename, $pk, $id){
@@ -154,6 +152,42 @@ class Users{
             echo $ex;
         }
         return $deleted;
+    }
+    public function getTotal($tablename, $field, $condition){
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $sql = "SELECT COUNT($field) AS $field FROM ".$tablename. " ".$condition;
+        try{
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            if($num>0){      
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);   
+                return $row;      
+            } 
+        }catch(Exception $ex){
+            var_dump($ex);
+        }
+    }
+    public function getTodaysActiveUserList(){
+        $this->query = "SELECT users.user_id, users.user_name, users.password, users.full_name, users.email, users.last_login, roles.role_name, users.image,
+         departments.department_name
+        FROM users
+        LEFT JOIN roles ON roles.role_id = users.role_id
+        LEFT JOIN departments ON departments.department_id = users.department_id
+        WHERE  DATE(last_login)  = current_date";
+        return $this->executeQuery();
+
+    }
+    public function getActiveUserList(){
+        $this->query = "SELECT users.user_id, users.user_name, users.password, users.full_name, users.email, users.last_login, roles.role_name, users.image,
+         departments.department_name
+        FROM users
+        LEFT JOIN roles ON roles.role_id = users.role_id
+        LEFT JOIN departments ON departments.department_id = users.department_id
+        WHERE  users.is_active  = 1";
+        return $this->executeQuery();
+
     }
     
     

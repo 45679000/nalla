@@ -61,7 +61,6 @@ error_reporting(1);
 		appendCard("totalStckUnAllc", "../../modules/dashboard/dashboard_action.php");
 
 
-		
 		function appendCard(id, url){
 			$.ajax({
 				type: "POST",
@@ -75,6 +74,7 @@ error_reporting(1);
 				}
 			});
 		}
+		
         
     });
 </script>

@@ -1,6 +1,6 @@
 <?php 
-session_start();
-class Model{
+include 'Session.php';
+class Model extends Session{
     public $query;
     public $conn;
     public $tablename;
@@ -12,9 +12,13 @@ class Model{
     public $debugSql = false;
     public $success = 0;
     public $user;
+    public $sessionManager;
+
     public function __construct($db){
         $this->conn = $db;
-        $this->user = $_SESSION["user_id"];
+        $this->sessionManager = Session::getInstance();
+        $this->user = $this->sessionManager->user_id;
+
 
     }
 

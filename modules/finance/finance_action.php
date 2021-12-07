@@ -605,6 +605,8 @@
 					<th>CIF Rate (USD)/Kg</th>
 					<th>VAT AMT</th>
 					<th>Amount (USD)</th>
+					<th>Actions</th>
+
 				</tr>
 			</thead>
 			<tbody>';
@@ -619,7 +621,7 @@
 					$output.='<td class="updateable" name="p_amount" contentEditable="true">'.$blend["p_amount"].'</td>';
 					$output.='<td>
                   <span>
-                     <button class="btn btn-danger"><i id="'.$id.'" class="remove fa fa-minus" style="color:white"></i></button>
+                     <button class="btn btn-danger btn-sm"><i id="'.$id.'" class="remove fa fa-minus" style="color:white"></i></button>
                   </span>
                   </td>';		 
 				$output.='</tr>';
@@ -629,6 +631,12 @@
 			$output.='<tfoot>
 			<tr>';
 			$output.= '<td><button id="add" class="btn btn-success btn-sm text" style="font-size:smaller;"><i class="fa fa-plus" style="color:white"></i></button></td>';       
+			$output.= '<td></td>';       
+			$output.= '<td></td>';       
+			$output.= '<td></td>';       
+			$output.= '<td></td>';       
+			$output.= '<td></td>';       
+			$output.= '<td></td>';       
 			$output.='
 			</tr>
 			</tfoot>';

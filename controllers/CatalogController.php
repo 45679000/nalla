@@ -429,7 +429,6 @@
             
         
         }
-
         public function privatePurchases(){
             try {
                 $this->query = "SELECT * FROM closing_cat WHERE sale_no like '%P%'";
@@ -445,7 +444,6 @@
             $id = $this->insertQuery();
             return $this->selectOne($id, "id");
         }
-
         public function stockList(){
             try {
                 $this->query = "SELECT * FROM `closing_cat` WHERE allocated = 1";

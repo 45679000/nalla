@@ -34,15 +34,7 @@ include $path_to_root1 .'includes/auction_ids.php';
     padding: 10px;
     
 }
-    .form-control {
-        color: black !important;
-        border: 1px solid black !important;
-    }
-
-    .card {
-        max-height: 30% !important;
-        padding-bottom: 0px !important;
-    }
+  
 
     .card-body {
         background-color: white !important;
@@ -119,27 +111,27 @@ include $path_to_root1 .'includes/auction_ids.php';
 
 
 <!-- Dashboard js -->
-<script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="../../assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="../../assets/js/vendors/selectize.min.js"></script>
-<script src="../../assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="../../assets/js/vendors/circle-progress.min.js"></script>
-<script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
+<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../assets/js/vendors/selectize.min.js"></script>
+<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="../assets/js/vendors/circle-progress.min.js"></script>
+<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
 <!-- Custom Js-->
-<script src="../../assets/js/custom.js"></script>
+<script src="../assets/js/custom.js"></script>
 
-<script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-<script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 
 
-<script src="../../assets/plugins/datatable/dataTables.buttons.min.js"></script>
-<script src="../../assets/plugins/datatable/jszip.min.js"></script>
-<script src="../../assets/plugins/datatable/pdfmake.min.js"></script>
-<script src="../../assets/plugins/datatable/vfs_fonts.js"></script>
-<script src="../../assets/plugins/datatable/buttons.html5.min.js"></script>
-<script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
-<script src="../../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="../assets/plugins/datatable/jszip.min.js"></script>
+<script src="../assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="../assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="../assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="../assets/plugins/datatable/buttons.print.min.js"></script>
+<script src="../assets/plugins/select2/select2.full.min.js"></script>
 
 <!-- Charts Plugin -->
 <!-- <script src="../../assets/plugins/highcharts/highcharts.js"></script>

@@ -5,10 +5,11 @@
 	include $path_to_root.'database/page_init.php';
 
 	include $path_to_root.'templates/validate_login.php';
-	// Turn off error reporting
+
 	error_reporting(1);
 	$user_full_name = $_SESSION["full_name"];
 	$user_department = $_SESSION["user_department"];
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -17,6 +18,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 
     <meta name="msapplication-TileColor" content="#0061da">
     <meta name="theme-color" content="#1643a3">
@@ -29,7 +36,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
     <!-- Title -->
-    <title>Chamu TIFMS</title>
+    <title><?= $_SESSION["projectname"] ?></title>
     <link rel="stylesheet" href="<?=$path_to_root ?>assets/fonts/fonts/font-awesome.min.css">
 
     <!-- Font family -->
@@ -194,7 +201,7 @@
     <div class="container-fluid">
         <div class="d-flex">
             <div class="img-div">
-                <img src="<?=$path_to_root ?>images/logo.png" class="img-fluid" alt="CHAMU TIFMS"> 
+                <img src="<?=$path_to_root ?>images/logo.png" class="img-fluid" alt="<?= $sessionManager->projectname ?>"> 
             </div>
             <div class="container-fluid">
                 <div class="text-center pt-2" id="sys_notification">
@@ -317,6 +324,7 @@
 $(function () {
 	var user_full_name = '<?php echo $user_full_name ?>';
 	var user_department = '<?php echo $user_department ?>';
+    var projectname = '<?php echo $_SESSION["projectname"] ?>';
 
     var rootpath = '<?php echo $path_to_root ?>';
 
@@ -329,7 +337,7 @@ $(function () {
     var section = $('#sys_notification');
     var texts = [
       '<h4 class="text-white h4 heading">'+greetings+  '  <i class="text-primary fa fa-user"></i>'  +user_full_name+ ' <i class="text-green fa fa-primary"></i> Department  '+ user_department+'</h4>', 
-      '<h4 class="text-white h4 heading">CHAMU TIFMS</h4>', 
+      '<h4 class="text-white h4 heading">'+projectname+'</h4>', 
       '<h4 class="text-white h4 heading"><i class="text-primary fa fa-calendar"></i> '+now+'</h4>', ];
     var current = 0;
 
@@ -351,7 +359,7 @@ $(function () {
                 action: "logout"
             },
             cache: true,
-            url: rootpath+"admin/logout.php",
+            url: rootpath+"admin/user_action.php",
             success: function(data) {
                 setTimeout(function() {
                 location.reload();

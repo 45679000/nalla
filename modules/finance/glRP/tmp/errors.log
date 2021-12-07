@@ -1842,3 +1842,4 @@ Stack trace:
 [06-Nov-2021 12:03:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [06-Nov-2021 12:03:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [06-Nov-2021 12:03:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[07-Dec-2021 08:28:40 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time

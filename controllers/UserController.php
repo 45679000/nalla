@@ -189,6 +189,14 @@ class UserController extends Model{
         return $this->executeQuery();
 
     }
+    public function getActiveDepartments(){
+        $this->query = "SELECT departments.department_id, departments.department_name, users.full_name 
+        FROM departments
+        LEFT JOIN users ON users.user_id = departments.department_leader
+        WHERE  departments.is_active  = 1";
+        return $this->executeQuery();
+
+    }
 
     public function addUser($post){
         $this->data = $post;

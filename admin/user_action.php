@@ -129,6 +129,34 @@
         $user->resetPassword($password, $id);
 
     }
+    if($action == "list-departments"){
+        $html = "";
+        $departments = $user->getActiveDepartments();
+        $html.= '
+                <table class="table pt-3 card-table table-striped table-vcenter">
+                    <thead class="bg-teal">
+                        <tr>
+                            <th>Id</th>
+                            <th>Department Name</th>
+                            <th>Department Leader</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>';
+                    foreach($departments AS $record){
+                        $id = $record['department_id'];
+                        $html.= "<tr id=".$id.">";
+                        $html.= "<td>".$record['department_id']."</td>";
+                        $html.= "<td>".$record['department_name']."</td>";
+                        $html.= "<td>".$record['full_name']."</td>";
+                        $html.= "</tr>";
+                    }
+                    $html.= '</tbody>
+                </table>
+    ';
+    echo $html;
+
+    }
 
 
     

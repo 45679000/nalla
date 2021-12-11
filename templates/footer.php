@@ -1,3 +1,8 @@
+<?php  
+
+define ('ROOT', substr( dirname(dirname(__FILE__)) . '/', strlen( $_SERVER[ 'DOCUMENT_ROOT' ] )));
+
+?>
 
 <footer class="footer">
         <div class="container">
@@ -15,45 +20,45 @@
 <a href="#top" id="back-to-top" style="display: inline;"><i class="fa fa-angle-up"></i></a>
 
 <!-- Dashboard js -->
-<script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="<?=$path_to_root ?>assets/js/vendors/bootstrap.bundle.min.js"></script>
-<script src="<?=$path_to_root ?>assets/js/vendors/jquery.sparkline.min.js"></script>
-<script src="<?=$path_to_root ?>assets/js/vendors/selectize.min.js"></script>
-<script src="<?=$path_to_root ?>assets/js/vendors/jquery.tablesorter.min.js"></script>
-<script src="<?=$path_to_root ?>assets/js/vendors/circle-progress.min.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/rating/jquery.rating-stars.js"></script>
+<script src="<?=ROOT ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="<?=ROOT ?>assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="<?=ROOT ?>assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="<?=ROOT ?>assets/js/vendors/selectize.min.js"></script>
+<script src="<?=ROOT ?>assets/js/vendors/jquery.tablesorter.min.js"></script>
+<script src="<?=ROOT ?>assets/js/vendors/circle-progress.min.js"></script>
+<script src="<?=ROOT ?>assets/plugins/rating/jquery.rating-stars.js"></script>
 <!-- forn-wizard js-->
-<script src="<?=$path_to_root ?>assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
+<script src="<?=ROOT ?>assets/plugins/forn-wizard/js/material-bootstrap-wizard.js"></script>
+<script src="<?=ROOT ?>assets/plugins/forn-wizard/js/jquery.validate.min.js"></script>
+<script src="<?=ROOT ?>assets/plugins/forn-wizard/js/jquery.bootstrap.js"></script>
 <!-- file import -->
-<script src="<?=$path_to_root ?>assets/plugins/fileuploads/js/dropify.min.js"></script>
+<script src="<?=ROOT ?>assets/plugins/fileuploads/js/dropify.min.js"></script>
 <!-- Custom scroll bar Js-->
-<script src="<?=$path_to_root ?>assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="<?=ROOT ?>assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <!-- counter  -->
-<script src="<?=$path_to_root ?>assets/plugins/counters/counterup.min.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/counters/waypoints.min.js"></script>
+<script src="<?=ROOT ?>assets/plugins/counters/counterup.min.js"></script>
+<script src="<?=ROOT ?>assets/plugins/counters/waypoints.min.js"></script>
 
 <!-- Charts Plugin -->
-<script src="<?=$path_to_root ?>assets/plugins/chart/Chart.bundle.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/chart/utils.js"></script>
+<script src="<?=ROOT ?>assets/plugins/chart/Chart.bundle.js"></script>
+<script src="<?=ROOT ?>assets/plugins/chart/utils.js"></script>
 
 	<!-- Charts Plugin -->
-<script src="<?=$path_to_root ?>assets/plugins/highcharts/highcharts.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/highcharts/highcharts-3d.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/highcharts/exporting.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/highcharts/export-data.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/highcharts/histogram-bellcurve.js"></script>
-<script src="<?=$path_to_root ?>assets/plugins/highcharts/solid-gauge.js"></script>
+<script src="<?=ROOT ?>assets/plugins/highcharts/highcharts.js"></script>
+<script src="<?=ROOT ?>assets/plugins/highcharts/highcharts-3d.js"></script>
+<script src="<?=ROOT ?>assets/plugins/highcharts/exporting.js"></script>
+<script src="<?=ROOT ?>assets/plugins/highcharts/export-data.js"></script>
+<script src="<?=ROOT ?>assets/plugins/highcharts/histogram-bellcurve.js"></script>
+<script src="<?=ROOT ?>assets/plugins/highcharts/solid-gauge.js"></script>
 
 <!-- Index Scripts -->
-<script src="<?=$path_to_root ?>assets/js/highcharts.js"></script>
+<script src="<?=ROOT ?>assets/js/highcharts.js"></script>
 
 <!-- Custom Js-->
-<script src="<?=$path_to_root ?>assets/js/custom.js"></script>
-<script src="<?=$path_to_root ?>assets/js/index4.js"></script>
+<script src="<?=ROOT ?>assets/js/custom.js"></script>
+<script src="<?=ROOT ?>assets/js/index4.js"></script>
 
 <!---Tabs JS-->
-<script src="<?=$path_to_root ?>assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
+<script src="<?=ROOT ?>assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
 

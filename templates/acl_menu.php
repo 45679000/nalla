@@ -124,7 +124,7 @@
 	function dashboard($path_to_root){
 		return '
 		<li class="nav-item">
-			<a class="nav-link active" href='.$path_to_root.'views/dashboard.php>
+			<a class="nav-link active" href='.ROOT_DIR.'admin/dashboard.php>
 				<i class="fa fa-home"></i>
 				<span> DASHBOARD</span>
 			</a>

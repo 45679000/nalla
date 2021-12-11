@@ -52,6 +52,13 @@
     $totalUnAllocationsPkgs = $stock->executeQuery();
 
 
+    $stock->query = "SELECT SUM(pkgs) AS pkgs, sale_no
+    FROM buying_list 
+    WHERE buying_list.buyer_package = 'CSS' AND buying_list.added_to_stock = 1 AND buying_list.sale_no like '%2021%'
+    GROUP BY sale_no";
+    $stockBySaleno = $stock->executeQuery();
+
+
 
     $totalStock = $totalStockPkgs[0]['stock_pkgs']-$totalShipped[0]['pkgs_shipped'];
 
@@ -118,8 +125,8 @@
             $mdiText = "Total Unallocated PKgs";
            echo get_card(number_format($totalStockUnAllocations), $description, $unit, $icon, $mdiText);
             break;
-      
-        case 'totalStckPAllc':
+        case 'barChart0':
+           echo json_encode($stockBySaleno);
         break;
         case 'pvsvs':
             echo get_pie_chart();

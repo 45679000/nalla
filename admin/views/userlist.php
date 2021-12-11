@@ -237,7 +237,24 @@ include('../../database/page_init.php');
                 }
             });
         });
-
-        
+        $("body").on("click", ".password", function(e) {
+            e.preventDefault();
+            var id = $(this).parent().parent().attr('id');
+            $.ajax({
+                url: "user_action.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: id,
+                    action: "reset-password"
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password Reset Successful, A new Password Has been sent to the User Email',
+                    });
+                }
+            });
+        });
     });
 </script>

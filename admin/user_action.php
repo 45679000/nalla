@@ -54,6 +54,7 @@
                             <th>Role</th>
                             <th>Last Login</th>
                             <th>Department</th>
+                            <th>Reset Password</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -69,10 +70,12 @@
                         $html.= "<td>".$record['role_name']."</td>";
                         $html.= "<td>".$record['last_login']."</td>";
                         $html.= "<td>".$record['department_name']."</td>";
+                        $html.= "<td><a class='fa fa-spinner text-info btn btn-success btn-sm password'>Generate</a></td>";
+
                         $html.= "<td>
                             <i class='fa fa-edit text-success editBtn'></i> &nbsp;&nbsp;&nbsp;
 
-                            <i class='fa fa-close text-danger'></i> 
+                            <i class='fa fa-close text-danger'></i> &nbsp;&nbsp;&nbsp;
 
                         </td>";
 
@@ -122,8 +125,8 @@
     }
     if($action == "reset-password"){
         $id = $_POST["id"];
-        $user->tablename = "users";
-        echo json_encode($user->selectOne($id, "user_id"));
+        $password = isset($_POST["password"]) ? $_POST["password"] : $user->generatePassword();
+        $user->resetPassword($password, $id);
 
     }
 

@@ -205,12 +205,21 @@ class UserController extends Model{
     public function resetPassword($password, $id){
         $id = $_POST["id"];
         $this->tablename = "users";
-        echo json_encode($this->selectOne($id, "user_id"));
+        $record = $this->selectOne($id, "user_id");
 
-        $mailer = new Mailer("<p>User Name: ".$_POST['email'] ."</p> Password:".$password, "", "Password Reset");
-        $is_sent = $mailer->sendEmail($_POST['email']);
+        $mailer = new Mailer("<p>User Name: ".$record[0]['email'] ."</p> Password:".$password, "", "Password Reset");
+        $is_sent = $mailer->sendEmail($record[0]['email']);
+
+        if($is_sent){
+            $this->query = "UPDATE users SET password = md5('$password')";
+            $this->executeQuery();
+            echo json_encode(array("reset"=>"sucess"));
+
+        }
+        else 
+            echo json_encode(array("reset"=>"failed"));
+
     }
-    
     
 }
 ?>

@@ -133,17 +133,9 @@ include $path_to_root1 .'includes/auction_ids.php';
 <script src="../assets/plugins/datatable/buttons.print.min.js"></script>
 <script src="../assets/plugins/select2/select2.full.min.js"></script>
 <script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
+<script src="../assets/js/sweet_alert2.js"></script>
 
-<!-- Charts Plugin -->
-<!-- <script src="../../assets/plugins/highcharts/highcharts.js"></script>
-<script src="../../assets/plugins/highcharts/highcharts-3d.js"></script>
-<script src="../../assets/plugins/highcharts/exporting.js"></script>
-<script src="../../assets/plugins/highcharts/export-data.js"></script>
-<script src="../../assets/plugins/highcharts/histogram-bellcurve.js"></script>
-<script src="../../assets/plugins/highcharts/solid-gauge.js"></script> -->
 
-<!-- Index Scripts -->
-<!-- <script src="../../assets/js/highcharts.js"></script> -->
 
 
 

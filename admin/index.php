@@ -132,6 +132,7 @@ include $path_to_root1 .'includes/auction_ids.php';
 <script src="../assets/plugins/datatable/buttons.html5.min.js"></script>
 <script src="../assets/plugins/datatable/buttons.print.min.js"></script>
 <script src="../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../assets/plugins/fileuploads/js/dropify.min.js"></script>
 
 <!-- Charts Plugin -->
 <!-- <script src="../../assets/plugins/highcharts/highcharts.js"></script>
@@ -153,6 +154,20 @@ include $path_to_root1 .'includes/auction_ids.php';
         
     });
 </script>
+
+<script type="text/javascript">
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Drag and drop a file here or click',
+                    'replace': 'Drag and drop or click to replace',
+                    'remove': 'Remove',
+                    'error': 'Ooops, something wrong appended.'
+                },
+                error: {
+                    'fileSize': 'The file size is too big (2M max).'
+                }
+            });
+        </script>
 
 
 

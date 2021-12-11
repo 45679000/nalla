@@ -59,17 +59,18 @@
                     </thead>
                     <tbody>';
                     foreach($activeusers AS $record){
+                        $id = $record['user_id'];
                         $profile = $record["image"];
-                        $html.= "<tr>";
+                        $html.= "<tr id=".$id.">";
                         $html.= "<td>".$record['user_id']."</td>";
-                        $html.= "<td><span class='avatar brround ' style='background-image: url(../assets/images/faces/male/$profile)'></span></td>";
+                        $html.= "<td><span class='avatar brround ' style='background-image: url($profile)'></span></td>";
                         $html.= "<td>".$record['full_name']."</td>";
                         $html.= "<td>".$record['email']."</td>";
                         $html.= "<td>".$record['role_name']."</td>";
                         $html.= "<td>".$record['last_login']."</td>";
                         $html.= "<td>".$record['department_name']."</td>";
                         $html.= "<td>
-                            <i class='fa fa-edit text-success'></i> &nbsp;&nbsp;&nbsp;
+                            <i class='fa fa-edit text-success editBtn'></i> &nbsp;&nbsp;&nbsp;
 
                             <i class='fa fa-close text-danger'></i> 
 
@@ -80,10 +81,54 @@
                     $html.= '</tbody>
                 </table>
     ';
-
     echo $html;
 
     }
+    if($action == "create-user"){
+   
+        if($_FILES['image']['name']){
+ 
+            move_uploaded_file($_FILES['image']['tmp_name'], "../images/profile/".$_FILES['image']['name']);
+         
+            $img = "../images/profile/".$_FILES['image']['name'];
+            $_POST['image'] = $img;
+
+        }
+        unset($_POST['action']);
+        $plainPassword = $user->generatePassword($length = 5);
+        $passwordEncrypt = md5($plainPassword);
+        $_POST['password'] = $passwordEncrypt;
+        $_POST['user_name'] = $_POST['email'];
+        if($_FILES['image']['name'] == null && $_POST["user_id"] != null){
+            $id = $_POST["user_id"];
+            $user->tablename = "users";
+            $record = $user->selectOne($id, "user_id");
+            $_POST['image'] = $record[0]["image"];
+
+        }
+        if($_POST["user_id"] == null){
+                $mailer = new Mailer("<p>User Name: ".$_POST['email'] ."</p> Password:".$plainPassword, "", "Login Credentials");
+                $is_sent = $mailer->sendEmail($_POST['email']);
+            
+        }
+        $user->addUser($_POST);
+
+    }
+    if($action == "get-user"){
+        $id = $_POST["id"];
+        $user->tablename = "users";
+        echo json_encode($user->selectOne($id, "user_id"));
+
+    }
+    if($action == "reset-password"){
+        $id = $_POST["id"];
+        $user->tablename = "users";
+        echo json_encode($user->selectOne($id, "user_id"));
+
+    }
+
+
+    
 
 
     

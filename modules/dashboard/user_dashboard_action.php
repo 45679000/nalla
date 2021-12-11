@@ -108,7 +108,7 @@
                         $profile = $record["image"];
                         $html.= "<tr>";
                         $html.= "<td>".$record['user_id']."</td>";
-                        $html.= "<td><span class='avatar brround ' style='background-image: url(../assets/images/faces/male/$profile)'></span></td>";
+                        $html.= "<td><span class='avatar brround ' style='background-image: url($profile)'></span></td>";
                         $html.= "<td>".$record['full_name']."</td>";
                         $html.= "<td>".$record['email']."</td>";
                         $html.= "<td>".$record['role_name']."</td>";

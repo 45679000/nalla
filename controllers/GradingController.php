@@ -21,7 +21,7 @@ Class GradingController extends Model{
     public function addPrivatePurchase($post){
         unset($post['action']);
         unset($post['closing_cat_import_id']);
-        $this->debugSql = true;
+        $this->debugSql = false;
         $this->data = $post;
         $this->tablename = "closing_cat";
         $id = $this->insertQuery();

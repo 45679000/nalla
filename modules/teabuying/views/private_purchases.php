@@ -211,7 +211,7 @@ $(document).ready(function() {
                     $("#type").val(data[0].type);
                     $("#sale_price").val(data[0].sale_price);
                     $("#ware_hse").val(data[0].ware_hse);
-
+                    
                 }
             });
         });

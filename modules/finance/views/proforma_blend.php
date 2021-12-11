@@ -439,6 +439,12 @@
 
         setProgressBar(current);
         loadTemplates();
+
+        $("body").on("blur",".updateableText", function(e){
+            alert("changed");
+        });
+
+
         $("#loadTeas").click(function(e){
             loadInvoiceTeas();
         })
@@ -532,6 +538,8 @@
 
             }
         });
+        
+        
         function setProgressBar(curStep) {
             var percent = parseFloat(100 / steps) * curStep;
             percent = percent.toFixed();

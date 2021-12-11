@@ -613,8 +613,8 @@
 			foreach ($records as $blend) {
 				$id = $blend["id"];
 				$output.='<tr id="'.$id.'">';
-					$output.='<td class="updateable" name="item" contentEditable="true">'.$blend["item"].'</td>';
-					$output.='<td class="updateable" name="description_of_goods" contentEditable="true">'.$blend["description_of_goods"].'</td>';
+					$output.='<td><textarea name="item" class="updateableText" rows="20" cols="50">'.$blend["item"].'</textarea></td>';
+					$output.='<td><textarea class="updateableText" name="description_of_goods" rows="20" cols="20">'.$blend["description_of_goods"].'</textarea></td>';
 					$output.='<td class="updateable" name="total_net" contentEditable="true">'.$blend["total_net"].'</td>';
 					$output.='<td class="updateable" name="p_cif_rate" contentEditable="true">'.$blend["p_cif_rate"].'</td>';
 					$output.='<td class="updateable" name="p_vat_amt" contentEditable="true">'.$blend["p_vat_amt"].'</td>';

@@ -189,7 +189,27 @@ class UserController extends Model{
         return $this->executeQuery();
 
     }
+
+    public function addUser($post){
+        $this->data = $post;
+        $this->tablename = "users";
+        $id = $this->insertQuery();
+        return $this->selectOne($id, "user_id");
+
+    }
     
+    public function generatePassword($length = 5){
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+     
+    }
+    public function resetPassword($password, $id){
+        $id = $_POST["id"];
+        $this->tablename = "users";
+        echo json_encode($this->selectOne($id, "user_id"));
+
+        $mailer = new Mailer("<p>User Name: ".$_POST['email'] ."</p> Password:".$password, "", "Password Reset");
+        $is_sent = $mailer->sendEmail($_POST['email']);
+    }
     
     
 }

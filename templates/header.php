@@ -9,6 +9,8 @@
 	error_reporting(1);
 	$user_full_name = $_SESSION["full_name"];
 	$user_department = $_SESSION["user_department"];
+	$usericon = $_SESSION["image"];
+
 
 ?>
 <!doctype html>
@@ -283,7 +285,7 @@
 								</div>
 								<div class="dropdown mt-1">
 									<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-										<span class="avatar avatar-md brround" style="background-image: url(assets/images/faces/female/25.jpg)"></span>
+										<span class="avatar avatar-md brround" style="background-image: url(<?= ROOT_DIR.$usericon ?>)"></span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
 										<div class="text-center">

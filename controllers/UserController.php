@@ -27,6 +27,10 @@ class UserController extends Model{
                 $this->sessionManager->role_id =  $userDetails['role_id'];
                 $this->sessionManager->user_department =  $userDetails['user_department'];
 
+                $img = explode("/",$userDetails['image'],  "2");
+
+                $this->sessionManager->image =  $img[1];
+
 
                 $userLevels = $this->readOne('access_levels',
                                             'role_id',

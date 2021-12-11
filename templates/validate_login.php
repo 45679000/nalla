@@ -1,5 +1,7 @@
 <?php
+    define ('ROOT_DIR', substr( dirname(dirname(__FILE__)) . '/', strlen( $_SERVER[ 'DOCUMENT_ROOT' ] )));
+
 if(!isset($_SESSION["user_id"])){
-    echo '<script type="text/javascript">window.location = "/chamu/admin/login.php?sessionExpired=true";</script>';
+    header("Location: ". ROOT_DIR ."admin/login.php");
 }
 ?>

@@ -83,32 +83,32 @@ require_once $path_to_root . 'templates/header.php';
 				
 
 				
-				// $.ajax({
-				// 	type: "POST",
-				// 	dataType: "json",
-				// 	data: {
-				// 		tag: "barChart0"
-				// 	},
-				// 	cache: true,
-				// 	url: "../modules/dashboard/dashboard_action.php",
-				// 	success: function(data) {
-				// 		var categories = [];
-				// 		var colors = ['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#f1c40f', '#6AF9C4'];
-				// 		var points = [];
-				// 		for(let i=0; i<data.length; i++){
-				// 			categories[i] = data[i].sale_no;
-				// 			points[i] = data[i].pkgs;
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					data: {
+						tag: "barChart0"
+					},
+					cache: true,
+					url: "../modules/dashboard/dashboard_action.php",
+					success: function(data) {
+						var categories = [];
+						var colors = ['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#f1c40f', '#6AF9C4'];
+						var points = [];
+						for(let i=0; i<data.length; i++){
+							categories[i] = data[i].sale_no;
+							points[i] = data[i].pkgs;
 
-				// 		}
-				// 		console.log(points);
-				// 		drawChart('highchart7',
-				// 					'Packages Bought By Sale No',
-				// 					categories,
-				// 					colors,
-				// 					points
-				// 		);
-				// 	}
-				// });
+						}
+						console.log(points);
+						drawChart('highchart7',
+									'Packages Bought By Sale No',
+									categories,
+									colors,
+									points
+						);
+					}
+				});
 
 				function appendCard(id, url) {
 					$.ajax({

@@ -58,6 +58,15 @@
     GROUP BY sale_no";
     $stockBySaleno = $stock->executeQuery();
 
+    $stock->query = "SELECT shipping_instructions.contract_no, shipping_instructions.status, shipping_instructions.`updated_on`, 
+    shipping_instructions.`sent_to_warehouse`, buyer, SUM(shippments.pkgs_shipped)  AS pkgs_shipped
+    FROM shipping_instructions 
+    INNER JOIN shippments ON shippments.instruction_id = shipping_instructions.instruction_id 
+    LEFT JOIN 0_debtors_master ON 0_debtors_master.debtor_no = shipping_instructions.buyerid 
+    GROUP BY shipping_instructions.contract_no ";
+
+    $shippmentStatus = $stock->executeQuery();
+
 
 
     $totalStock = $totalStockPkgs[0]['stock_pkgs']-$totalShipped[0]['pkgs_shipped'];
@@ -128,8 +137,8 @@
         case 'barChart0':
            echo json_encode($stockBySaleno);
         break;
-        case 'pvsvs':
-            echo get_pie_chart();
+        case 'shippmentStatus':
+            echo get_table_card($shippmentStatus);
         break;
         default:
             # code...
@@ -174,6 +183,37 @@
             </div>
         </div>
     ';
+     return $output;
+     }
+
+     function get_table_card($shippmentStatus){
+         $output = '<table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+         <thead>
+             <tr>
+                 <th></th>
+                 <th>SI No</th>
+                 <th>Pkgs</th>
+                 <th>Status</th>
+                 <th>Updated On</th>
+             </tr>
+         </thead>
+         <tbody>';
+         foreach($shippmentStatus as $shippment){
+             $output.='<tr>';
+             $output.='<td class="text-center">
+                        <div class="avatar brround d-block" style="background-image: url(../images/shippments.jpg)">
+                        </div>
+                    </td>';
+             $output.='<td>'.$shippment["contract_no"].'</td>';
+             $output.='<td>'.$shippment["pkgs_shipped"].'</td>';
+             $output.='<td>'.$shippment["status"].'</td>';
+             $output.='<td>'.$shippment["updated_on"].'</td>';
+             $output.='</tr>';
+
+         }
+         $output.='</tbody>
+     </table>';
+
      return $output;
      }
 

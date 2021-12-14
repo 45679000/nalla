@@ -52,13 +52,14 @@ define ('ROOT', substr( dirname(dirname(__FILE__)) . '/', strlen( $_SERVER[ 'DOC
 <script src="<?=ROOT ?>assets/plugins/highcharts/histogram-bellcurve.js"></script>
 <script src="<?=ROOT ?>assets/plugins/highcharts/solid-gauge.js"></script>
 
-<!-- Index Scripts -->
-<script src="<?=ROOT ?>assets/js/highcharts.js"></script>
-
 <!-- Custom Js-->
 <script src="<?=ROOT ?>assets/js/custom.js"></script>
-<script src="<?=ROOT ?>assets/js/index4.js"></script>
 
 <!---Tabs JS-->
 <script src="<?=ROOT ?>assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
+
+
+
+<script src="<?=ROOT ?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="<?=ROOT ?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
 

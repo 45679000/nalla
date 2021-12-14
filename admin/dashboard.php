@@ -44,6 +44,19 @@ require_once $path_to_root . 'templates/header.php';
 						</div>
 					</div>
 
+					<div class="row mg-t-20">
+							<div class="col-md-6 ">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title ">Shippment Status</h3>
+									</div>
+									<div class="table-responsive" id="shippmentStatus">
+									
+									</div>
+								</div>
+							</div>
+						</div>
+
 
 
 				</div>
@@ -55,43 +68,39 @@ require_once $path_to_root . 'templates/header.php';
 		?>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				// appendCard("pvsvs", "../modules/dashboard/dashboard_action.php");
 
 				appendCard("totalP", "../modules/dashboard/dashboard_action.php");
 				appendCard("totalStck", "../modules/dashboard/dashboard_action.php");
 				appendCard("totalShpd", "../modules/dashboard/dashboard_action.php");
 				appendCard("totalusers", "../modules/dashboard/user_dashboard_action.php");
+				appendCard("shippmentStatus", "../modules/dashboard/dashboard_action.php");
 
+				
 				$.ajax({
-						type: "POST",
-						dataType: "json",
-						data: {
-							tag: "barChart0"
-						},
-						cache: true,
-						url: "../modules/dashboard/dashboard_action.php",
-						success: function(data) {
-							var categories = [];
-							var colors = ['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#f1c40f', '#6AF9C4'];
-							var points = [];
-							for(let i=0; i<data.length; i++){
-								console.log(data[i].sale_no);
-								categories[i] = data[i].sale_no;
-								points[i] = data[i].pkgs;
+					type: "POST",
+					dataType: "json",
+					data: {
+						tag: "barChart0"
+					},
+					cache: true,
+					url: "../modules/dashboard/dashboard_action.php",
+					success: function(data) {
+						var categories = [];
+						var colors = ['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#f1c40f', '#6AF9C4'];
+						var points = [];
+						for(let i=0; i<data.length; i++){
+							categories[i] = data[i].sale_no;
+							points[i] = data[i].pkgs;
 
-							}
-							drawChart('highchart7',
-									  'Packages Bought By Sale No',
-						  			  categories,
-						  			  colors,
-						  			  points
-						   );
 						}
-					});
-
-
-
-			
+						drawChart('highchart7',
+									'Packages Bought By Sale No',
+									categories,
+									colors,
+									points
+						);
+					}
+				});
 
 				function appendCard(id, url) {
 					$.ajax({
@@ -103,6 +112,8 @@ require_once $path_to_root . 'templates/header.php';
 						url: url,
 						success: function(data) {
 							$("#" + id).html(data);
+							$(".table").dataTable({});
+
 						}
 					});
 				}
@@ -113,34 +124,34 @@ require_once $path_to_root . 'templates/header.php';
 
 			function drawChart(id, text, xAxisArray, colorsArray, dataPointsArray, url){
 	
-			var chart = Highcharts.chart(id, {
+				var chart = Highcharts.chart(id, {
 
-				title: {
-					text: ''
-				},
+					title: {
+						text: ''
+					},
 
-				subtitle: {
-					text: text
-				},
-				exporting: {
-					enabled: true
-				},
-				credits: {
-					enabled: false
-				},
-				xAxis: {
-					categories: xAxisArray 
-				},
-				colors: colorsArray,
-				series: [{
-					type: 'column',
-					colorByPoint: true,
-					data: dataPointsArray,
-					showInLegend: false
-				}]
+					subtitle: {
+						text: text
+					},
+					exporting: {
+						enabled: true
+					},
+					credits: {
+						enabled: false
+					},
+					xAxis: {
+						categories: xAxisArray 
+					},
+					colors: colorsArray,
+					series: [{
+						type: 'column',
+						colorByPoint: true,
+						data: dataPointsArray,
+						showInLegend: false
+					}]
 
-			});
-		}
+				});
+			}
 
 			
 		</script>

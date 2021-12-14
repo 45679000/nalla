@@ -74,34 +74,41 @@ require_once $path_to_root . 'templates/header.php';
 				appendCard("totalShpd", "../modules/dashboard/dashboard_action.php");
 				appendCard("totalusers", "../modules/dashboard/user_dashboard_action.php");
 				appendCard("shippmentStatus", "../modules/dashboard/dashboard_action.php");
+				drawChart('highchart7',
+									'Packages Bought By Sale No',
+									['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+									['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#f1c40f', '#6AF9C4'],
+									[29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+						);
+				
 
 				
-				$.ajax({
-					type: "POST",
-					dataType: "json",
-					data: {
-						tag: "barChart0"
-					},
-					cache: true,
-					url: "../modules/dashboard/dashboard_action.php",
-					success: function(data) {
-						var categories = [];
-						var colors = ['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#f1c40f', '#6AF9C4'];
-						var points = [];
-						for(let i=0; i<data.length; i++){
-							categories[i] = data[i].sale_no;
-							points[i] = data[i].pkgs;
+				// $.ajax({
+				// 	type: "POST",
+				// 	dataType: "json",
+				// 	data: {
+				// 		tag: "barChart0"
+				// 	},
+				// 	cache: true,
+				// 	url: "../modules/dashboard/dashboard_action.php",
+				// 	success: function(data) {
+				// 		var categories = [];
+				// 		var colors = ['#17B794', '#172f71', '#ecb403', '#24CBE5', '#64E572', '#FF9655', '#f1c40f', '#6AF9C4'];
+				// 		var points = [];
+				// 		for(let i=0; i<data.length; i++){
+				// 			categories[i] = data[i].sale_no;
+				// 			points[i] = data[i].pkgs;
 
-						}
-						console.log(points);
-						drawChart('highchart7',
-									'Packages Bought By Sale No',
-									categories,
-									colors,
-									points
-						);
-					}
-				});
+				// 		}
+				// 		console.log(points);
+				// 		drawChart('highchart7',
+				// 					'Packages Bought By Sale No',
+				// 					categories,
+				// 					colors,
+				// 					points
+				// 		);
+				// 	}
+				// });
 
 				function appendCard(id, url) {
 					$.ajax({
@@ -113,7 +120,7 @@ require_once $path_to_root . 'templates/header.php';
 						url: url,
 						success: function(data) {
 							$("#" + id).html(data);
-							$(".table").dataTable({});
+							// $(".table").dataTable({});
 
 						}
 					});

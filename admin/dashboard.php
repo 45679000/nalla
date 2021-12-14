@@ -93,6 +93,7 @@ require_once $path_to_root . 'templates/header.php';
 							points[i] = data[i].pkgs;
 
 						}
+						console.log(points);
 						drawChart('highchart7',
 									'Packages Bought By Sale No',
 									categories,

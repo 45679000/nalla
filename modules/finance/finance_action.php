@@ -183,6 +183,13 @@
 
 		return json_encode ($finance->updateField($lot, $field, $value, $saleno));
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "update-auction-date"){
+		$field = $_POST['field'];
+		$value = $_POST['value'];
+		$saleno = $_POST['saleno'];
+
+		return json_encode ($finance->updateAuctionDate($field, $value, $saleno));
+	}
 	if(isset($_POST['action']) && $_POST['action'] == "confirm-purchaselist"){
 		$saleno = $_POST['saleno'];
 		$finance->confirmPurchaseList($saleno);

@@ -22,6 +22,7 @@
                             </div>
                         </div>
                         <div style="height:60vH" class="card-body table-responsive">
+                            
                             <div id="purchaseList">
 
                             </div>
@@ -48,6 +49,7 @@
 
 <script>
 $(function() {
+
     unconfirmedSales();
     $("#breadcrumbList").append("<li class='breadcrumb-item active' aria-current='page'>Purchase List</li>");
     $("#confirmPList").hide();

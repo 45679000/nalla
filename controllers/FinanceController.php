@@ -93,8 +93,21 @@
         public function updateField($lotId, $fieldId, $value, $saleno){
             $this->query = "UPDATE buying_list SET $fieldId = '$value'
             WHERE lot = '$lotId' AND sale_no LIKE '%$saleno%'";
-            $this->debugSql = true;
+            $this->debugSql = false;
             return $this->executeQuery();
+
+        }
+        public function updateAuctionDate($fieldId, $value, $saleno){
+            $this->query = "UPDATE buying_list SET $fieldId = '$value'
+            WHERE  sale_no LIKE '%$saleno%'";
+            $this->debugSql = false;
+            $this->executeQuery();
+
+            $this->query = "UPDATE closing_stock SET $fieldId = '$value'
+            WHERE  sale_no LIKE '%$saleno%'";
+            $this->debugSql = true;
+
+            $this->executeQuery();
 
         }
         public function confirmedPurchaseList($type=null){

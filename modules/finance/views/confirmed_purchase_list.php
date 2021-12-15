@@ -233,6 +233,8 @@
 
                         // "scrollCollapse": true,
                     });
+                    $.fn.dataTable.ext.errMode = 'none';
+
                     if (click > 0) {
                         table.buttons().containers().appendTo('#purchaseListactions');
                     }

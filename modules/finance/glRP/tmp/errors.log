@@ -1843,3 +1843,28 @@ Stack trace:
 [06-Nov-2021 12:03:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [06-Nov-2021 12:03:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [07-Dec-2021 08:28:40 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:03:20 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:03:22 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:03:22 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:03:44 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:04:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:04:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:05:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:05:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:05:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:05:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:06:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:06:16 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:06:59 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:35 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:56 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:07:59 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:13:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[14-Dec-2021 12:13:31 Europe/Berlin] 0:admin:gl_db_rates.inc:161: file_get_contents(): php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+[14-Dec-2021 12:13:31 Europe/Berlin] 0:admin:gl_db_rates.inc:161: file_get_contents(https://www.bloomberg.com/quote/USDKES:CUR): failed to open stream: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+[14-Dec-2021 12:13:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time

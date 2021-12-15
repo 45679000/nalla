@@ -22,6 +22,15 @@
             <div class="card-body p-6">
                 <div class="expanel expanel-secondary">
                     <div class="card">
+                        <div class="card-header">
+                            <span style="display:inline-block">
+                                <label>Select Auction Date: </label>
+                                <div class="input-group date">
+                                    <input id="auction_date" class="form-control" data-date-format="yyyy-mm-dd" name="auction_date" type="text" readonly />
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </span>
+                        </div>
                         <div style="height:60vH" class="card-body table-responsive">
                             <div id="purchaseList">
                                 <div>
@@ -50,6 +59,7 @@
 <script id="url" data-name="../../ajax/common.php" src="../../assets/js/common.js"></script>
 
 
+
 <script src="../../assets/plugins/datatable/dataTables.buttons.min.js"></script>
 <script src="../../assets/plugins/datatable/jszip.min.js"></script>
 <script src="../../assets/plugins/datatable/pdfmake.min.js"></script>
@@ -58,19 +68,38 @@
 <script src="../../assets/plugins/datatable/buttons.print.min.js"></script>
 <script src="../../assets/plugins/datatable/buttons.colVis.min.js"></script>
 <script src="../../assets/plugins/select2/select2.full.min.js"></script>
-<!-- Datepicker js -->
-<script src="../../assets/plugins/date-picker/spectrum.js"></script>
-<script src="../../assets/plugins/date-picker/jquery-ui.js"></script>
-<script src="../../assets/plugins/input-mask/jquery.maskedinput.js"></script>
 
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+
+
 
 <script>
+    $('#auction_date').datepicker();
+
+    $('#auction_date').change(function(e) {
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "finance_action.php",
+                data: {
+                    action: "update-auction-date",
+                    field: "auction_date",
+                    value: $('#auction_date').val(),
+                    saleno: localStorage.getItem("saleno")
+                },
+                success: function(data) {
+                    loadPurchaseList();
+
+                }
+
+            });
+    
+        });
     $(function() {
+   
+
         $("#financeSubmenu").hide();
         $('#purchaseListCustomOpt').hide();
         $('select').on('change', function() {
@@ -80,7 +109,7 @@
             loadPurchaseList();
             checkActivityStatus(5, localStorage.getItem("saleno"));
         });
-
+        
 
         $("body").on("click", ".confirmLot", function(e) {
             e.preventDefault();

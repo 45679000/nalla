@@ -173,7 +173,10 @@
         content: "\f073"
     }
     
-
+    #progressbar #submitInvoice:before {
+        font-family: FontAwesome;
+        content: "\f00c"
+    }
     #progressbar #payment:before {
         font-family: FontAwesome;
         content: "\f030"
@@ -184,7 +187,7 @@
     }
     #progressbar #confirm:before {
         font-family: FontAwesome;
-        content: "\f00c"
+        content: "\f02f"
     }
 
     #progressbar li:before {
@@ -249,6 +252,8 @@
                         <li class="active" id="account"><strong>Invoice Details</strong></li>
                         <li id="personal"><strong>Add Blend Line</strong></li>
                         <li id="confirm"><strong>Print</strong></li>
+                        <li id="submitInvoice"><strong>Submit Invoice</strong></li>
+
                     </ul>
                     <div class="progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -375,14 +380,14 @@
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
-                                <div class="col-2">
-                                    <h2 class="fs-title">Finish:</h2>
+                                <div class="col-6">
+                                    <h2 class="fs-title">Print:</h2>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-6">
                                     <h2 class="steps">Step 3 - 3</h2>
                                 </div>
                             </div> <br><br>
-                            <h2 class="purple-text text-center"><strong>Preview And Submit Invoice</strong></h2> <br>
+                            <h2 class="purple-text text-center"><strong>Preview And Print Invoice</strong></h2> <br>
                             <div class="row justify-content-center text-center">
                                 <div class="card">
                                     <div class="card-header">
@@ -390,6 +395,39 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="invoicePreview"></div>
+                                    </div>
+                                    <div class="card-header">
+
+                                    </div>
+                                    
+                                </div>
+                            </div> 
+                            <br><br>
+                            <div class="row justify-content-center">
+                                <div id="finalSubmit" class="col-7 text-center">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button"  name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h2 class="fs-title">Finish:</h2>
+                                </div>
+                                <div class="col-6">
+                                    <h2 class="steps">Step 4 - 4</h2>
+                                </div>
+                            </div> <br><br>
+                            <h2 class="purple-text text-center"><strong>Submit Invoice</strong></h2> <br>
+                            <div class="row justify-content-center text-center">
+                                <div class="card">
+                                    <div class="card-header">
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <button class="btn btn-secondary" id="invoiceSubmit">Submit Invoice</button>
                                     </div>
                                     <div class="card-header">
 
@@ -427,6 +465,47 @@
 <script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.print.min.js"></script>
 
 <script>
+    $("#invoiceSubmit").click(function(e){
+        e.preventDefault();
+        $.ajax({
+                type: "POST",
+                data: {
+                    action: "submit-invoice",
+                    invoice:localStorage.getItem("invoiceno")
+                    
+                },
+                cache: true,
+                url: "../finance_action.php",
+                success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: "Invoice Submitted Successfully",
+                        });
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    }
+            });
+    });
+    $("body").on("blur",".updateableText", function(e){
+            var value = $(this).val();
+            var name =  $(this).attr("name");
+                $.ajax({
+                type: "POST",
+                data: {
+                    action: "update-blend-value",
+                    value:value,
+                    id:$(this).parent().parent().attr("id"),
+                    name: name
+                },
+                cache: true,
+                url: "../finance_action.php",
+                success: function (data) {
+
+                }
+            });
+        });
     $(document).ready(function() {
         $('.select2').select2();
 
@@ -448,14 +527,7 @@
         $("#loadTeas").click(function(e){
             loadInvoiceTeas();
         })
-        $("#viewInvoice").click(function(e){
-            e.preventDefault();
-            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_proforma_blend.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
 
-        });
-        $("#Preview").click(function(e){
-            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_proforma_blend.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
-        });
         $(".next").click(function() {
 
             current_fs = $(this).parent();
@@ -537,9 +609,7 @@
             success: function (data) {
 
             }
-        });
-        
-        
+        });    
         function setProgressBar(curStep) {
             var percent = parseFloat(100 / steps) * curStep;
             percent = percent.toFixed();
@@ -763,47 +833,10 @@
 
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
     $(document).ready(function() {
         $("#page1Btn").hide();
+        $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_proforma_blend.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
 
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
@@ -813,8 +846,8 @@
         setProgressBar(current);
         loadTemplates();
         loadInvoiceTeas();
-        $("#Preview").click(function(e){
-            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../reports/invoice_proforma_blend.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
+        $("#Preview").click(function(e){ 
+            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_proforma_blend.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
         });
         $(".next").click(function() {
 

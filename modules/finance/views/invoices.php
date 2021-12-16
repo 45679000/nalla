@@ -61,6 +61,8 @@ if($invoicetype=="straight"){
     include 'proforma_straight.php';
 }else if($invoicetype=="blend"){
     include 'proforma_blend.php';
+}else if($invoicetype=="test"){
+    include 'test_proforma.php';
 }else{
     echo '
 <div class="card bg-primary" style="margin-top:20vh; background-color:blue !important;">
@@ -72,10 +74,16 @@ if($invoicetype=="straight"){
         <div>
              <a href="views/invoices.php?view=blend"> Proforma Invoice Blend Tea</a>
         </div>
+
+        <div>
+        <a href="views/invoices.php?view=test"> Proforma Invoice Blend Test</a>
+        </div>
+
     </div>
 </div>
     
-    ';
+    ';        
+
 }
 ?>
 

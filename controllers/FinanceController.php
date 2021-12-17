@@ -571,11 +571,11 @@
             $invoice = array();
             $trans_date = date('Y-m-d');
             $this->query = "
-            SELECT `0_suppliers`.`supplier_id`, `sale_no`, `broker`, 1 AS `user`, `lot`,  `mark`, `grade`,  `invoice`, `pkgs`, `net`, `kgs`, `sale_price`,  `auction_date`,  `broker_invoice` AS invoice_no, 
-            (`sale_price`/100) * net AS total_amount, `0_suppliers`.`payable_account`
+            SELECT buying_list.buying_list_id, `0_suppliers`.`supplier_id`, `sale_no`, `broker`, 1 AS `user`, `lot`,  `mark`, `grade`,  `invoice`, `pkgs`, `net`,
+             `kgs`, `sale_price`, `auction_date`,  `broker_invoice` AS invoice_no, (`sale_price`/100) * net AS total_amount, `0_suppliers`.`payable_account`
             FROM `buying_list` 
             INNER JOIN brokers ON brokers.code = buying_list.broker
-            INNER JOIN  `0_suppliers` ON `0_suppliers`.`supp_name` LIKE '%'||brokers.name||'%'  
+            INNER JOIN  `0_suppliers` ON `0_suppliers`.`code`  = `brokers`.`code`  
             WHERE buying_list_id = $buyingListId";
             
              $invoice = $this->executeQuery();
@@ -611,7 +611,11 @@
                 "payable_account" => $invoice[0]["payable_account"],
                 "supplier_id" => $invoice[0]["supplier_id"],
                 "rate" =>  1,  
-                "unit_tax" =>0
+                "unit_tax" =>0,
+                "delivery_address" => "Chamu",
+                "kgs" => $invoice[0]["net"],
+                "unit_price" => $invoice[0]["sale_price"]
+
 
                 
 

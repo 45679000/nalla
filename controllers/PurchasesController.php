@@ -3,6 +3,7 @@ class Purchases extends Model
 {
     public $cart;
     public $tbpref = "0_";
+    public $rollBack = 0;
 
     //insert into bank trans//
     public function post_purchase(){
@@ -12,51 +13,36 @@ class Purchases extends Model
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->conn->beginTransaction();
 
-
         $this->add_audit_trail(18, $cart->trans_no, $cart->user, $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
         $this->add_audit_trail(25, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
         $this->add_audit_trail(20, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
-
-    
 
         $this->add_gl_trans(20,  $cart->trans_no, $cart->stock_id, $cart->description, -$cart->total_amount,  NULL, NULL);
         $this->add_gl_trans(20,  $cart->trans_no, $cart->payable_account, $cart->memo, $cart->total_amount,  2, 0x37);
 
         $this->add_ref(20, $cart->trans_no, $cart->reference);
 
-        $order_no = $this->purch_orders($cart->supplier_id, $cart->description, $cart->trans_date, $cart->reference, $cart->requisition_no, "DEF", $cart->delivery_address, $cart->total_amount, $cart->total_amount, $cart->total_amount, 0 );
+        $order_no = $this->purch_orders($cart->supplier_id, $cart->description, $cart->trans_date, "auto", $cart->reference, "DEF", "N/A", $cart->total_amount, 0, 0, 0 );
 
-        $po_detail_item = $this->purch_order_details($order_no, $cart->stock_id, $cart->description, $cart->trans_date, $cart->pkgs,  $cart->unit_price, $cart->act_price, $cart->unit_price, $cart->pkgs, $cart->pkgs);
+        $po_detail_item = $this->purch_order_details($order_no, $cart->stock_id, $cart->description, $cart->trans_date, $cart->kgs,  $cart->unit_price, $cart->unit_price, 0, $cart->kgs, $cart->kgs);
 
-        $grn_batch_id = $this->grn_batch($cart->supplier_id, $order_no, $cart->reference, $cart->trans_date, $cart->stock_id, $cart->rate);
+        $grn_batch_id = $this->grn_batch($cart->supplier_id, $order_no, "auto", $cart->trans_date, "DEF", $cart->rate);
 
-        $grn_item_id = $this->grn_items($grn_batch_id, $po_detail_item, $cart->stock_id, $cart->description, $cart->pkgs, $cart->pkgs);
+        $grn_item_id = $this->grn_items($grn_batch_id, $po_detail_item, $cart->stock_id, $cart->description, $cart->kgs, $cart->kgs);
 
-        $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id, $po_detail_item, $cart->stock_id, $cart->description,  $cart->pkgs, $cart->unit_price, $cart->unit_tax, $cart->memo);
-
-	
-       
-
-        // $this->add_ref(10, $cart->trans_no, $cart->reference);
-		// $this->add_ref(12, $cart->trans_no, $cart->reference);
-
-        // $this->add_memo(13, $cart->trans_no, "TEA Sales");
-		// $this->add_memo(10, $cart->trans_no, "TEA Sales");
-        // $this->add_memo(12, $cart->trans_no, "TEA Sales");
+        $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id, $po_detail_item, $cart->stock_id, $cart->description,  $cart->kgs, $cart->unit_price, $cart->unit_tax, $cart->memo);
 
 
+        $this->add_memo(20, $cart->trans_no, "TEA");
+		
        if($this->rollBack >2){
             $this->conn->commit();
-			$this->markPosted();
 
 			return $cart->trans_no;
 
        }else{
            $this->conn->rollBack();
        }
-
-
-
     }
     public function add_bank_trans($type, $trans_no, $bank_act, $ref, $trans_date, $amount, $persontype, $personid){
         try {
@@ -182,8 +168,9 @@ class Purchases extends Model
     public function supp_invoice_items($supp_trans_no, $supp_trans_type, $grn_item_id, $po_detail_item_id, $stock_id, $description,  $quantity, $unit_price, $unit_tax, $memo){
 		try {
             
-			$sql = "INSERT INTO ".$this->tbpref."supp_invoice_items(`supp_trans_no`, `supp_trans_type`, `grn_item_id`, `po_detail_item_id`, `stock_id`, `description`,  `quantity`, `unit_price`, `unit_tax`, `memo_`, `dimension_id`, `dimension2_id`)
-			VALUES (?,?,0,?,?,?,?,?,?,?,?,0,0)";
+			$sql = "INSERT INTO ".$this->tbpref."supp_invoice_items(`supp_trans_no`, `gl_code`,`supp_trans_type`, `grn_item_id`, `po_detail_item_id`, `stock_id`, `description`,  `quantity`, 
+            `unit_price`, `unit_tax`, `memo_`, `dimension_id`, `dimension2_id`)
+			VALUES (?,0,?,?,?,?,?,?,?,?,?,0,0)";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->bindParam(1,$supp_trans_no);
 			$stmt->bindParam(2,$supp_trans_type);
@@ -308,7 +295,7 @@ class Purchases extends Model
 	}
     public function purch_orders($supplier_id, $comments, $ord_date, $reference, $requisition_no, $into_stock_location, $delivery_address, $total, $prep_amount, $alloc, $tax_included ){
 		try {
-			$sql2 = "INSERT INTO ".$this->tbpref."sales_order_details (`supplier_id`, `comments`, `ord_date`, `reference`, `requisition_no`, `into_stock_location`, `delivery_address`, `total`, `prep_amount`, `alloc`, `tax_included`) 
+			$sql2 = "INSERT INTO ".$this->tbpref."purch_orders (`supplier_id`, `comments`, `ord_date`, `reference`, `requisition_no`, `into_stock_location`, `delivery_address`, `total`, `prep_amount`, `alloc`, `tax_included`) 
 			VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			$stmt2 = $this->conn->prepare($sql2);
 			$stmt2->bindParam(1, $supplier_id);
@@ -338,7 +325,7 @@ class Purchases extends Model
     public function purch_order_details($order_no, $item_code, $description, $delivery_date, $qty_invoiced,  $unit_price, $act_price, $std_cost_unit, $quantity_ordered, $quantity_received){
 		try {
 			$sql2 = "INSERT INTO ".$this->tbpref."purch_order_details (`order_no`, `item_code`, `description`, `delivery_date`, `qty_invoiced`, `unit_price`, `act_price`, `std_cost_unit`, `quantity_ordered`, `quantity_received`) 
-			VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			VALUES (?,?,?,?,?,?,?,?,?,?)";
 			$stmt2 = $this->conn->prepare($sql2);
 			$stmt2->bindParam(1, $order_no);
 			$stmt2->bindParam(2, $item_code);

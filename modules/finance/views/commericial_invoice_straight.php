@@ -415,9 +415,21 @@
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script id="url" data-name="../../ajax/common.php" src="../../assets/js/common.js"></script>
-<script src="../../assets/plugins/select2/select2.full.min.js"></script>
+<script id="url" data-name="../../../ajax/common.php" src="../../../assets/js/common.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/select2/select2.full.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/dataTables.buttons.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/jszip.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.print.min.js"></script>
+
+
 
 <script>
     $(document).ready(function() {
@@ -433,7 +445,7 @@
         loadStock("", "", "", "");
         loadInvoiceTeas();
         $("#Preview").click(function(e){
-            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../reports/invoice_commercial_straight.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
+            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_commercial_straight.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
         });
 
         $(".next").click(function() {
@@ -510,7 +522,7 @@
             e.preventDefault();
             localStorage.setItem("invoiceno", $("#invoice_no").val());
             $.ajax({
-                url: "finance_action.php",
+                url: "../finance_action.php",
                 type: "POST",
                 data: $("#formData").serialize() + "&action=save-invoice",
                 dataType: "json",
@@ -551,7 +563,7 @@
         if ($("#EditformData")[0].checkValidity()) {
             e.preventDefault();
             $.ajax({
-                url: "finance_action.php",
+                url: "../finance_action.php",
                 type: "POST",
                 data: $("#EditformData").serialize() + "&action=update",
                 dataType: "html",
@@ -573,7 +585,7 @@
         e.preventDefault();
         var id = $(this).attr('id');
         $.ajax({
-            url: "finance_action.php",
+            url: "../finance_action.php",
             type: "POST",
             data: {
                 action: "remove-invoice-tea",
@@ -594,7 +606,7 @@
         $(this).parent().text(localStorage.getItem("invoiceno"));
 
         $.ajax({
-            url: "finance_action.php",
+            url: "../finance_action.php",
             type: "POST",
             data: {
                 action: "select-invoice",
@@ -609,12 +621,11 @@
             }
         });
     });
-    //Delete Record
     $("body").on("click", ".deleteBtn", function(e) {
         e.preventDefault();
         var deleteId = $(this).attr('id');
         $.ajax({
-            url: "finance_action.php",
+            url: "../finance_action.php",
             type: "POST",
             data: {
                 deleteId: deleteId
@@ -632,7 +643,6 @@
         var id = $(this).attr('id');
         splitLot(id);
     });
-
     $("body").on("blur", ".profoma_amount", function(e){
         var id = $(this).attr('id');
         var value = $(this).text();
@@ -644,7 +654,7 @@
             id:id
         },
         cache: true,
-        url: "finance_action.php",
+        url: "../finance_action.php",
         success: function (data) {
 
         }
@@ -706,19 +716,29 @@
             alert("Lot cannot be splitted to zero");
         }     
     });
-
     $("#submitCI").click(function(e){
-        $("#finalSubmit").html('<h5 class="purple-text text-center">You Have Successfully Created Invoice</h5>'+localStorage.getItem("invoiceno"));
-        setTimeout(function() {
-               location.reload();
-               }, 3000);
+            e.preventDefault();
+            $.ajax({
+                url: "../finance_action.php",
+                type: "POST",
+                data: {
+                    action: "submit-invoice",
+                    type: "straight"
+                },
+                dataType: "html",
+                success: function(response) {
+                    $("#finalSubmit").html('<h5 class="purple-text text-center">You Have Successfully Created Invoice</h5>'+localStorage.getItem("invoiceno"));
+                    setTimeout(function() {
+                        location.reload();
+                        }, 3000);
+                }
+            });
     })
-
     });
     $('#proforma_template').change(function(e) {
                 var id = $('#proforma_template').val();
                 $.ajax({
-                    url: "finance_action.php",
+                    url: "../finance_action.php",
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -748,7 +768,7 @@ function loadStock(mark, lot, grade, saleno) {
             saleno:saleno
         },
         cache: true,
-        url: "finance_action.php",
+        url: "../finance_action.php",
         success: function (data) {
             $("#stocklist").show();
             $('#stocklist').html(data);
@@ -768,7 +788,7 @@ function loadTemplates(){
            
         },
         dataType:"html",
-        url: "finance_action.php",
+        url: "../finance_action.php",
         success: function (data) {
             $('#proforma_template').html(data);
         }
@@ -843,7 +863,7 @@ function loadInvoiceTeas(){
             invoice: localStorage.getItem("invoiceno")
         },
         cache: true,
-        url: "finance_action.php",
+        url: "../finance_action.php",
         success: function (data) {
             $("#invoiceTeaList").show();
             $('#invoiceTeaList').html(data);

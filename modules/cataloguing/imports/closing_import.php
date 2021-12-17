@@ -97,11 +97,8 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                     <div class="col-sm-6">
                                                             <div class="form-group label-floating">
                                                                 <label class="control-label">SALE NO</label>
-                                                                <select name="saleno" class="select2 form-control" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
-                                                                    ';
-                        loadAuction();
-                        echo '
+                                                                <select id="saleno" name="saleno" class="select2 form-control" ><small>(required)</small>
+                    
                                                                 </select>
                                                             </div>
                                                         </div>

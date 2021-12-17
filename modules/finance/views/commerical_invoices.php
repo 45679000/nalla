@@ -58,7 +58,7 @@ $invoicetype = isset($_GET["view"]) ? $_GET["view"] : '';
 
 <?php
 if($invoicetype=="straight"){
-    include 'proforma_straight.php';
+    include 'commericial_invoice_straight.php';
 }else if($invoicetype=="blend"){
     include 'proforma_blend.php';
 }else if($invoicetype=="test"){
@@ -69,14 +69,14 @@ if($invoicetype=="straight"){
     <div class="card-body bg-danger text-center">
     <span>Which Type of invoice are you creating?</span>
         <div>
-             <a href="views/invoices.php?view=straight"> Proforma Invoice Straight Line</a>
+             <a href="views/commerical_invoices.php?view=straight"> Commercial Invoice Straight Line</a>
         </div>
         <div>
-             <a href="views/invoices.php?view=blend"> Proforma Invoice Blend Tea</a>
+             <a href="views/commerical_invoices.php?view=blend"> Commercial Invoice Blend Tea</a>
         </div>
 
         <div>
-        <a href="views/invoices.php?view=test"> Proforma Invoice Blend Test</a>
+        <a href="views/invoices.php?view=test"> Commercial Invoice Blend Test</a>
         </div>
 
     </div>

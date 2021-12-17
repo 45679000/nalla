@@ -5,15 +5,21 @@
     include_once('../../models/Model.php');
 	require "../../vendor/autoload.php";
     include_once('../../database/page_init.php');
+	include_once('../../controllers/StockController.php');
+	include_once('../../controllers/SalesController.php');
+	include_once('../../controllers/PurchasesController.php');
+
     include '../../controllers/FinanceController.php';
 	include '../../controllers/WorkFlow.php';
-	include_once('../../controllers/StockController.php');
 
     $db = new Database();
     $conn = $db->getConnection();
     $finance = new Finance($conn);
 	$workFlow = new WorkFlow($conn);
 	$stockCtrl = new Stock($conn);
+	$salesCtrl = new Sales($conn);
+	$purchaseCtrl = new Purchases($conn);
+
 
 	// Insert Record
 	if (isset($_POST['action']) && $_POST['action'] == "save-invoice") {
@@ -359,6 +365,11 @@
 		$id = $_POST['id'];
 
 		$finance->postToStock($saleno, $id);
+
+		// $purchaseCtrl->cart = $finance->pcart($id);
+		// $purchaseCtrl->post_purchase();
+
+
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "activity"){	
 		$activityid = isset($_POST['id']) ? $_POST['id'] : 0;
@@ -653,7 +664,6 @@
 	   echo $output;
 
 	}
-
 	if(isset($_POST['action']) && $_POST['action'] == "add-line"){
 		$invoiceno = isset($_POST['id']) ? $_POST['id'] : '';
 		$finance->addRecord($invoiceno);
@@ -680,11 +690,19 @@
 		$finance->removeRecord($id);
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "submit-invoice"){
+		$invoice_no = isset($_POST['invoice']) ? $_POST['invoice'] : '';
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
 
+		$cart = $finance->submitInvoice($type, $invoice_no);
+		var_dump($cart);
+		$salesCtrl->clean();
+		$salesCtrl->cart = $cart;
+		$salesCtrl->post_pos_sale();
+
+
+	}
 	
-	
-	 
-	 
 	 
 	
 

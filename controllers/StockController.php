@@ -30,7 +30,7 @@
                 try {
                     $this->debugSql = false;
                     $query = "SELECT c.line_no, bl.`buying_list_id`, bl.`sale_no`, bl.`broker`, bl.`comment`, bl.`ware_hse`, bl.`value`, bl.`lot`, a.`mark`, bl.`grade`, bl.`invoice`,  bl.warehouse, bl.`type`, bl.`sale_price`, bl.`standard`, 
-                    DATE_FORMAT(bl.`import_date`,'%d/%m/%Y') AS import_date, bl.`allocated`, 
+                    DATE_FORMAT(bl.`auction_date`,'%d/%m/%Y') AS import_date, bl.`allocated`, 
                     0_debtors_master.debtor_ref, a.country, bl.pkgs, bl.kgs, (CASE WHEN c.allocation IS NULL THEN CONCAT(COALESCE(0_debtors_master.short_name, ' ', c.standard)) ELSE c.allocation END) AS allocation, bl.kgs, bl.net, bl.allocation AS allocated_contract
                     FROM buying_list bl
                     INNER JOIN closing_stock c ON c.sale_no = bl.sale_no AND c.broker = bl.broker AND c.lot = bl.lot 
@@ -68,7 +68,7 @@
                 $this->debugSql = true;
 
                 $query = "SELECT line_no, shippments.confirmed, shippments.mrp_value, shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
-                 `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`import_date`,'%d/%m/%Y') AS import_date, 
+                 `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`auction_date`,'%d/%m/%Y') AS import_date, 
                  `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
                  closing_stock.pkgs, closing_stock.kgs,
                  (CASE WHEN allocation IS NULL THEN 

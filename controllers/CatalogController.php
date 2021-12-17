@@ -609,6 +609,9 @@
                 $auction_id = date("Y").'-'.str_pad($i, 2, '0', STR_PAD_LEFT);
                 $auctions[$auction_id] = $auction_id;
             }
+            $auctions["2022-01"] = "2022-01";
+            $auctions["2022-02"] = "2022-02";
+
             return $auctions;
         }
         public function getMaxSaleNo(){

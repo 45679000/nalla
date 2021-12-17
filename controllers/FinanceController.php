@@ -165,6 +165,8 @@
             LEFT JOIN auction_activities ON auction_activities.activity_id = activities.id
             WHERE activities.id = 6  AND activity_id != 6";
             $this->executeQuery();
+
+
         }
         public function saveInvoice($buyer, $consignee, $invoice_no,
             $invoice_type, $invoice_category, 
@@ -525,49 +527,101 @@
 
 		
 
-		$cart = new stdClass();
-		$id = 0;
-        
-        $termsDate = $invoice[0]["days_before_due_date"];
-        $duedate=Date('y:m:d', strtotime('+'.$termsDate.' days'));
-echo $termsDate;
-		$cart = (Object) array(
-			"total_amount"=>$invoice[0]["total_amount"], 
-			"personid"=>0x37,
-			"persontype"=>2,
-			"person_id"=>$invoice[0]["debtor_no"],
-			"trans_no"=>$trans_no, 
-			"trans_date"=>$trans_date,
-			"trans_no_from"=>$trans_no,
-			"trans_type_from"=>12,
-			"trans_type_to"=>10,
-			"trans_no_to"=>$trans_no,
-			"ref"=>$invoice[0]["invoice_no"],
-			"user"=>$invoice[0]["user"],
-			"fiscal_year"=>4,
-			"reference"=>$invoice[0]["invoice_no"],
-			"memo"=>"admin",
-			"customer_ref"=>'',
-			"ov_gst" => $invoice[0]["tax"],
-            "stock_id" => 1063,
-            "invoice_no" =>$invoice_no,
-            "description" =>"TEA SALE",
-            "branch_code" =>$invoice[0]["branch_code"],
-            "receivables_account" => $invoice[0]["receivables_account"],
-            "debtor_no" => $invoice[0]["debtor_no"],
-            "due_date" =>  $duedate,  
-
+            $cart = new stdClass();
+            $id = 0;
             
+            $termsDate = $invoice[0]["days_before_due_date"];
+            $duedate=Date('y:m:d', strtotime('+'.$termsDate.' days'));
+            $cart = (Object) array(
+                "total_amount"=>$invoice[0]["total_amount"], 
+                "personid"=>0x37,
+                "persontype"=>2,
+                "person_id"=>$invoice[0]["debtor_no"],
+                "trans_no"=>$trans_no, 
+                "trans_date"=>$trans_date,
+                "trans_no_from"=>$trans_no,
+                "trans_type_from"=>12,
+                "trans_type_to"=>10,
+                "trans_no_to"=>$trans_no,
+                "ref"=>$invoice[0]["invoice_no"],
+                "user"=>$invoice[0]["user"],
+                "fiscal_year"=>4,
+                "reference"=>$invoice[0]["invoice_no"],
+                "memo"=>"admin",
+                "customer_ref"=>'',
+                "ov_gst" => $invoice[0]["tax"],
+                "stock_id" => 1063,
+                "invoice_no" =>$invoice_no,
+                "description" =>"TEA SALE",
+                "branch_code" =>$invoice[0]["branch_code"],
+                "receivables_account" => $invoice[0]["receivables_account"],
+                "debtor_no" => $invoice[0]["debtor_no"],
+                "due_date" =>  $duedate,  
+
+                
 
 
 
-			
-		);
+                
+            );
 
-		return $cart;
+            return $cart;
         }
-         
+        public function pcart($buyingListId){
+            $invoice = array();
+            $trans_date = date('Y-m-d');
+            $this->query = "
+            SELECT `0_suppliers`.`supplier_id`, `sale_no`, `broker`, 1 AS `user`, `lot`,  `mark`, `grade`,  `invoice`, `pkgs`, `net`, `kgs`, `sale_price`,  `auction_date`,  `broker_invoice` AS invoice_no, 
+            (`sale_price`/100) * net AS total_amount, `0_suppliers`.`payable_account`
+            FROM `buying_list` 
+            INNER JOIN brokers ON brokers.code = buying_list.broker
+            INNER JOIN  `0_suppliers` ON `0_suppliers`.`supp_name` LIKE '%'||brokers.name||'%'  
+            WHERE buying_list_id = $buyingListId";
+            
+             $invoice = $this->executeQuery();
+             
+            $stmt1 = $this->conn->prepare("SELECT (CASE WHEN (max(type_no)) IS NULL THEN 1 ELSE max(type_no)+1 END)  AS trans_no FROM  ".$this->tbpref."gl_trans");
+            $stmt1->execute();
+            $row = $stmt1->fetch();
+            $trans_no = $row["trans_no"];
 
+		
+
+            $cart = new stdClass();
+            $id = 0;
+            
+            $termsDate = $invoice[0]["days_before_due_date"];
+            $duedate=Date('y:m:d', strtotime('+'.$termsDate.' days'));
+            $cart = (Object) array(
+                "total_amount"=>$invoice[0]["total_amount"], 
+                "trans_no"=>$trans_no, 
+                "trans_date"=>$trans_date,
+                "trans_no_from"=>$trans_no,
+                "trans_type_from"=>12,
+                "trans_type_to"=>10,
+                "trans_no_to"=>$trans_no,
+                "ref"=>$invoice[0]["invoice_no"],
+                "user"=>$invoice[0]["user"],
+                "fiscal_year"=>4,
+                "reference"=>$invoice[0]["invoice_no"],
+                "memo"=>"admin",
+                "stock_id" => 1063,
+                "description" =>"TEA",
+                "branch_code" =>$invoice[0]["branch_code"],
+                "payable_account" => $invoice[0]["payable_account"],
+                "supplier_id" => $invoice[0]["supplier_id"],
+                "rate" =>  1,  
+                "unit_tax" =>0
+
+                
+
+
+
+                
+            );
+
+            return $cart;
+        }
         
 
    

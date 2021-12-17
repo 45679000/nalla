@@ -7,6 +7,7 @@
     include_once('../../database/page_init.php');
 	include_once('../../controllers/StockController.php');
 	include_once('../../controllers/SalesController.php');
+	include_once('../../controllers/PurchasesController.php');
 
     include '../../controllers/FinanceController.php';
 	include '../../controllers/WorkFlow.php';
@@ -17,6 +18,8 @@
 	$workFlow = new WorkFlow($conn);
 	$stockCtrl = new Stock($conn);
 	$salesCtrl = new Sales($conn);
+	$purchaseCtrl = new Purchases($conn);
+
 
 	// Insert Record
 	if (isset($_POST['action']) && $_POST['action'] == "save-invoice") {
@@ -362,6 +365,11 @@
 		$id = $_POST['id'];
 
 		$finance->postToStock($saleno, $id);
+
+		// $purchaseCtrl->cart = $finance->pcart($id);
+		// $purchaseCtrl->post_purchase();
+
+
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "activity"){	
 		$activityid = isset($_POST['id']) ? $_POST['id'] : 0;

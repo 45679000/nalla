@@ -4,7 +4,7 @@
     Class Finance extends Model{
         public $saleno;
         public $broker;
-        
+        public $tbpref = "0_";
         public function readPurchaseList(){
             $this->debugSql = false;
             $this->query = "SELECT `closing_cat_import_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
@@ -19,7 +19,6 @@
             
             return $this->executeQuery();
         }
-
         public function readStock($type="", $condition="WHERE 1"){
             if($type=="purchases"){
                 try {
@@ -61,7 +60,6 @@
             }
             
         }
-
         public function unconfrimedPurchaseList(){
             $this->query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS' AND closing_cat.added_to_stock = 0;
             ORDER BY sale_no, lot DESC";
@@ -93,8 +91,21 @@
         public function updateField($lotId, $fieldId, $value, $saleno){
             $this->query = "UPDATE buying_list SET $fieldId = '$value'
             WHERE lot = '$lotId' AND sale_no LIKE '%$saleno%'";
-            $this->debugSql = true;
+            $this->debugSql = false;
             return $this->executeQuery();
+
+        }
+        public function updateAuctionDate($fieldId, $value, $saleno){
+            $this->query = "UPDATE buying_list SET $fieldId = '$value'
+            WHERE  sale_no LIKE '%$saleno%'";
+            $this->debugSql = false;
+            $this->executeQuery();
+
+            $this->query = "UPDATE closing_stock SET $fieldId = '$value'
+            WHERE  sale_no LIKE '%$saleno%'";
+            $this->debugSql = true;
+
+            $this->executeQuery();
 
         }
         public function confirmedPurchaseList($type=null){
@@ -154,23 +165,25 @@
             LEFT JOIN auction_activities ON auction_activities.activity_id = activities.id
             WHERE activities.id = 6  AND activity_id != 6";
             $this->executeQuery();
+
+
         }
         public function saveInvoice($buyer, $consignee, $invoice_no,
-        $invoice_type, $invoice_category, 
-        $port_of_delivery, $buyer_bank, 
-        $payment_terms, $pay_bank, 
-        $pay_details,
-        $container_no,
-        $buyer_contract_no,
-        $shipping_marks,
-        $other_reference,
-        $port_of_discharge,
-        $description_of_goods,
-        $final_destination,
-        $hs_code,
-        $buyer_address,
-        $bl_no,
-        $bank_id
+            $invoice_type, $invoice_category, 
+            $port_of_delivery, $buyer_bank, 
+            $payment_terms, $pay_bank, 
+            $pay_details,
+            $container_no,
+            $buyer_contract_no,
+            $shipping_marks,
+            $other_reference,
+            $port_of_discharge,
+            $description_of_goods,
+            $final_destination,
+            $hs_code,
+            $buyer_address,
+            $bl_no,
+            $bank_id
 
         ){
                 $type = 'profoma';
@@ -211,21 +224,6 @@
                     var_dump($ex);
                 }
                 
-
-                // $this->query = "SELECT invoice_no FROM tea_invoices WHERE invoice_no = '$invoice_no'";
-                // $results = $this->executeQuery();
-    
-                // if(count($results)==0){
-                //     $error = "invoice no $invoice_no Failed to save successfully contact support";
-                //     $response["error"] = $error;
-                //     $response["code"] = 201;
-    
-                // }else{
-                //     $success = "Invoice no $invoice_no has been created succesfully, click the + button to add teas to this Invoice no";
-                //     $response["success"] = $success;
-                //     $response["code"] = 200;
-    
-                // }
                 $success = "Invoice no $invoice_no has been created succesfully, click the + button to add teas to this Invoice no $hs_code";
                 $response["success"] = $success;
                 $response["code"] = 200;
@@ -455,7 +453,7 @@
         }
         public function updateStraightLineValue($id, $fieldValue, $fieldName){
             try {
-                $this->debugSql = true;
+                $this->debugSql = false;
 
                 $this->query = "UPDATE invoice_teas SET $fieldName = '$fieldValue' WHERE id = $id";
                 $this->executeQuery();
@@ -466,7 +464,7 @@
         }
         public function removeRecord($id){
             try {
-               $this->debugSql = true;
+               $this->debugSql = false;
                $this->query = "DELETE FROM `blend_invoice_line_no` WHERE id= $id";
                $this->executeQuery();
             } catch (\Throwable $th) {
@@ -476,7 +474,158 @@
             return json_encode(array("added"=>"true"));
          
          }
+        public function submitInvoice($invoice_no, $type){
+            try {
+               $this->debugSql = false;
+               $this->query = "UPDATE tea_invoices SET  submitted = 1 WHERE invoice_no = '$invoice_no'";
+               $this->executeQuery();
 
+               return $this->cart($type, $invoice_no);
+            } catch (\Throwable $th) {
+               throw $th;
+            }
+         
+         
+        }
+        public function cart($invoice_no, $type){
+            $invoice = array();
+            $trans_date = date('Y-m-d');
+            if($type=="straight"){
+                $this->query = "
+                SELECT tea_invoices.`id`, `buyer` AS debtor_no, `consignee`, `address`,`invoice_teas`.`invoice_no`, `invoice_type`,  `0_debtors_master`.`payment_terms`,
+                 `buyer_contract_no`, `pay_bank`, `pay_details`, SUM(`invoice_teas`.`commercial_amount`) AS total_amount, (0.01 * SUM(`invoice_teas`.`commercial_amount`)) AS tax,
+                `invoice_teas`.`created_by` AS user, receivables_account, `branch_code`, `days_before_due` AS days_before_due_date
+                FROM `tea_invoices`
+                INNER JOIN  0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no 
+                INNER JOIN `invoice_teas`  ON  `invoice_teas`.`invoice_no` = `tea_invoices`.`invoice_no`
+                LEFT JOIN `0_cust_branch` ON `0_cust_branch`.`debtor_no` = `0_debtors_master`.`debtor_no` 
+                LEFT JOIN `0_payment_terms` ON `0_payment_terms`.`terms_indicator` = `0_debtors_master`.`payment_terms`
+                WHERE `invoice_teas`.`invoice_no` = trim('$invoice_no')
+                GROUP BY tea_invoices.invoice_no";
+                $invoice = $this->executeQuery();
+             
+            }else if($type=="blend"){
+                $this->query = "
+                SELECT tea_invoices.`id`,tea_invoices.`invoice_no`, `tea_invoices`.`buyer` AS debtor_no, `invoice_type`, tea_invoices.`payment_terms`, `buyer_contract_no`, blend_invoice_line_no.item, blend_invoice_line_no.total_net,
+                blend_invoice_line_no.p_cif_rate, blend_invoice_line_no.p_vat_amt, blend_invoice_line_no.`c_amount`,  (`c_vat_amt` + `c_amount`) AS total_amount, 0 AS tax, 
+                `blend_invoice_line_no`.`created_by` AS user, receivables_account, `branch_code`, `days_before_due` AS days_before_due_date
+                FROM blend_invoice_line_no
+                INNER JOIN  tea_invoices ON tea_invoices.invoice_no = blend_invoice_line_no.invoice_no
+                INNER JOIN  `0_debtors_master` ON `tea_invoices`.buyer = `0_debtors_master`.`debtor_no`
+                LEFT JOIN `0_cust_branch` ON `0_cust_branch`.`debtor_no` = `0_debtors_master`.`debtor_no` 
+                LEFT JOIN `0_payment_terms` ON `0_payment_terms`.`terms_indicator` = `0_debtors_master`.`payment_terms`
+                WHERE `tea_invoices`.`invoice_no` = trim('$invoice_no')
+                GROUP BY tea_invoices.invoice_no";
+                $invoice =  $this->executeQuery();
+                
+            }
+    
+            $stmt1 = $this->conn->prepare("SELECT (CASE WHEN (max(type_no)) IS NULL THEN 1 ELSE max(type_no)+1 END)  AS trans_no FROM  ".$this->tbpref."gl_trans");
+            $stmt1->execute();
+            $row = $stmt1->fetch();
+            $trans_no = $row["trans_no"];
+
+		
+
+            $cart = new stdClass();
+            $id = 0;
+            
+            $termsDate = $invoice[0]["days_before_due_date"];
+            $duedate=Date('y:m:d', strtotime('+'.$termsDate.' days'));
+            $cart = (Object) array(
+                "total_amount"=>$invoice[0]["total_amount"], 
+                "personid"=>0x37,
+                "persontype"=>2,
+                "person_id"=>$invoice[0]["debtor_no"],
+                "trans_no"=>$trans_no, 
+                "trans_date"=>$trans_date,
+                "trans_no_from"=>$trans_no,
+                "trans_type_from"=>12,
+                "trans_type_to"=>10,
+                "trans_no_to"=>$trans_no,
+                "ref"=>$invoice[0]["invoice_no"],
+                "user"=>$invoice[0]["user"],
+                "fiscal_year"=>4,
+                "reference"=>$invoice[0]["invoice_no"],
+                "memo"=>"admin",
+                "customer_ref"=>'',
+                "ov_gst" => $invoice[0]["tax"],
+                "stock_id" => 1063,
+                "invoice_no" =>$invoice_no,
+                "description" =>"TEA SALE",
+                "branch_code" =>$invoice[0]["branch_code"],
+                "receivables_account" => $invoice[0]["receivables_account"],
+                "debtor_no" => $invoice[0]["debtor_no"],
+                "due_date" =>  $duedate,  
+
+                
+
+
+
+                
+            );
+
+            return $cart;
+        }
+        public function pcart($buyingListId){
+            $invoice = array();
+            $trans_date = date('Y-m-d');
+            $this->query = "
+            SELECT buying_list.buying_list_id, `0_suppliers`.`supplier_id`, `sale_no`, `broker`, 1 AS `user`, `lot`,  `mark`, `grade`,  `invoice`, `pkgs`, `net`,
+             `kgs`, `sale_price`, `auction_date`,  `broker_invoice` AS invoice_no, (`sale_price`/100) * net AS total_amount, `0_suppliers`.`payable_account`
+            FROM `buying_list` 
+            INNER JOIN brokers ON brokers.code = buying_list.broker
+            INNER JOIN  `0_suppliers` ON `0_suppliers`.`code`  = `brokers`.`code`  
+            WHERE buying_list_id = $buyingListId";
+            
+             $invoice = $this->executeQuery();
+             
+            $stmt1 = $this->conn->prepare("SELECT (CASE WHEN (max(type_no)) IS NULL THEN 1 ELSE max(type_no)+1 END)  AS trans_no FROM  ".$this->tbpref."gl_trans");
+            $stmt1->execute();
+            $row = $stmt1->fetch();
+            $trans_no = $row["trans_no"];
+
+		
+
+            $cart = new stdClass();
+            $id = 0;
+            
+            $termsDate = $invoice[0]["days_before_due_date"];
+            $duedate=Date('y:m:d', strtotime('+'.$termsDate.' days'));
+            $cart = (Object) array(
+                "total_amount"=>$invoice[0]["total_amount"], 
+                "trans_no"=>$trans_no, 
+                "trans_date"=>$trans_date,
+                "trans_no_from"=>$trans_no,
+                "trans_type_from"=>12,
+                "trans_type_to"=>10,
+                "trans_no_to"=>$trans_no,
+                "ref"=>$invoice[0]["invoice_no"],
+                "user"=>$invoice[0]["user"],
+                "fiscal_year"=>4,
+                "reference"=>$invoice[0]["invoice_no"],
+                "memo"=>"admin",
+                "stock_id" => 1063,
+                "description" =>"TEA",
+                "branch_code" =>$invoice[0]["branch_code"],
+                "payable_account" => $invoice[0]["payable_account"],
+                "supplier_id" => $invoice[0]["supplier_id"],
+                "rate" =>  1,  
+                "unit_tax" =>0,
+                "delivery_address" => "Chamu",
+                "kgs" => $invoice[0]["net"],
+                "unit_price" => $invoice[0]["sale_price"]
+
+
+                
+
+
+
+                
+            );
+
+            return $cart;
+        }
         
 
    

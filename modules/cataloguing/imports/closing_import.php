@@ -98,7 +98,6 @@ if(!empty($_FILES) && isset($_POST['saleno']) && isset($_POST['broker'])){
                                                             <div class="form-group label-floating">
                                                                 <label class="control-label">SALE NO</label>
                                                                 <select id="saleno" name="saleno" class="select2 form-control" ><small>(required)</small>
-                                                                    <option disabled="" value="..." selected="">select</option>
                     
                                                                 </select>
                                                             </div>

@@ -88,7 +88,7 @@
                                 include 'views/invoices.php';
                                 break;
                             case 'commercial':
-                                include 'views/commericial_invoice.php';
+                                include 'views/commerical_invoices.php';
                                 break;
                             case 'selectTeas':
                                 include 'views/generate_straightline_profoma.php';

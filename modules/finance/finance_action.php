@@ -18,7 +18,7 @@
 	$workFlow = new WorkFlow($conn);
 	$stockCtrl = new Stock($conn);
 	$salesCtrl = new Sales($conn);
-	$purchaseCtrl = new Purchases($conn);
+	// $purchaseCtrl = new Purchases($conn);
 
 
 	// Insert Record
@@ -363,10 +363,10 @@
 	if(isset($_POST['action']) && $_POST['action'] == "add_to_stock"){
 		$saleno = $_POST['saleno'];
 		$id = $_POST['id'];
-		// $finance->postToStock($saleno, $id);
+		$finance->postToStock($saleno, $id);
 
-		$purchaseCtrl->cart = $finance->pcart($id);
-		$purchaseCtrl->post_purchase();
+		// $purchaseCtrl->cart = $finance->pcart($id);
+		// $purchaseCtrl->post_purchase();
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "activity"){	
 		$activityid = isset($_POST['id']) ? $_POST['id'] : 0;

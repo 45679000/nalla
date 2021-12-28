@@ -150,8 +150,12 @@ form .error {
 </div>
 
 <script src="<?php echo $path_to_root ?>assets/js/vendors/jquery-3.2.1.min.js"></script>
-<script src="<?php echo $path_to_root ?>/assets/plugins/select2/select2.full.min.js"></script>
-
+<script src="<?php echo $path_to_root ?>assets/plugins/select2/select2.full.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/jszip.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/pdfmake.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/vfs_fonts.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.html5.min.js"></script>
+<script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.print.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -171,8 +175,6 @@ $(document).ready(function() {
         });
 
     }
-
-
     $("#plistContainer").hide();
 
     $("#bookingFacility").on('submit', (function(e) {
@@ -215,19 +217,94 @@ $(document).ready(function() {
         });
 
     }
+    $("#createSi").click(function(e) {
+        $("#bookingFacility").show();
+        $("#previewFacility").hide();
+        localStorage.setItem("fc_no", "");
 
+
+    });
     $("#page_1").click(function(e) {
         $("#bookingFacility").hide();
+        $("#plistContainer").hide();
+        
         $("#previewFacility").html(
             '<iframe class="frame" frameBorder="0" src="../../reports/booking_facility_cover_page.php?fc_no=' +
             localStorage.getItem("fc_no") + '" width="1000px" height="800px"></iframe>');
     });
     $("#page_2").click(function(e) {
         $("#bookingFacility").hide();
+        $("#plistContainer").hide();
+
         $("#previewFacility").html(
             '<iframe class="frame" frameBorder="0" src="../../reports/booking_schedule_2.php?fc_no=' +
             localStorage.getItem("fc_no") + '" width="1000px" height="800px"></iframe>');
     });
+    $("#page_3").click(function(e) {
+        $("#bookingFacility").hide();
+        $("#plistContainer").hide();
+
+        $("#previewFacility").html(
+            '<iframe class="frame" frameBorder="0" src="../../reports/schedule_of_assets.php?fc_no=' +
+            localStorage.getItem("fc_no") + '" width="1000px" height="800px"></iframe>');
+    });
+    $("#page_4").click(function(e) {
+        $("#bookingFacility").hide();
+        $("#plistContainer").hide();
+
+        $.ajax({
+            type: "POST",
+            data: {
+                action: "lot_details",
+                facility_no: localStorage.getItem("fc_no")
+            },
+            dataType: "html",
+            url: "finance_action.php",
+            success: function(data) {
+                $("#previewFacility").html(data);
+                $("#purchaseListTable").DataTable({
+                    scrollX: '50vh',
+                    scrollCollapse: false,
+                    paging: true,
+                    scrollY: '50vh',
+                    dom: 'Bfrtip',
+                        buttons: [{
+                                extend: 'copyHtml5',
+                                text: 'COPY<i class="fa fa-clipboard"></i>',
+                                titleAttr: 'Copy Paste'
+                            },
+                            {
+                                extend: 'excelHtml5',
+                                text: 'EXCEL <i class="fa fa-file-excel-o"></i>',
+                                titleAttr: 'Excel'
+                            },
+                            {
+                                extend: 'csvHtml5',
+                                text: 'CSV <i class="fa fa-file-text"></i>',
+                                titleAttr: 'CSV'
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                text: 'PDF <i class="fa fa-file-pdf-o"></i>',
+                                titleAttr: 'PDF'
+                            }
+                        ],
+                        fixedHeader: {
+                        header: true,
+                        headerOffset: 45,
+                        },
+                    scrollY: true,
+
+
+                });
+            }
+        });
+    });
+
+    
+
+
+    
     $('#bk-templates').change(function(e) {
         var id = $('#bk-templates').val();
         $.ajax({
@@ -248,6 +325,26 @@ $(document).ready(function() {
 
         });
     });
+
+    $("body").on("click", ".confirmLot", function(e) {
+        e.preventDefault();
+        var id = $(this).attr('id');
+        $.ajax({
+            type: "POST",
+            data: {
+                action: "book-lot",
+                id: id,
+                facility_no: localStorage.getItem("fc_no")
+            },
+            dataType: "html",
+            url: "finance_action.php",
+            success: function(data) {
+                loadUnbookedLots();
+            }
+        });
+    });
+
+    
 
 });
 </script>

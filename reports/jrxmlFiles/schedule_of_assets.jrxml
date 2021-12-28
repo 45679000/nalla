@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="booking_facility_page_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5b23c8f-ba16-4728-937d-f94d2721383c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT `id`, DATE_FORMAT(`created_on`,'%d/%m/%Y') AS created_on, buying_list.broker, SUM(pkgs) AS pkgs, SUM(kgs) AS kgs, broker_invoice, (SUM(`sale_price`) * kgs) AS value,
+`booking_facility`.facility_no
+FROM `booking_facility`
+INNER JOIN buying_list  ON buying_list.`facility_no` = `booking_facility`.`facility_no`
+WHERE  id = 3
+GROUP BY broker_invoice]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="created_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="created_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="broker" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="broker"/>
+		<property name="com.jaspersoft.studio.field.label" value="broker"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="buying_list"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pkgs" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="pkgs"/>
+		<property name="com.jaspersoft.studio.field.label" value="pkgs"/>
+	</field>
+	<field name="kgs" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="kgs"/>
+		<property name="com.jaspersoft.studio.field.label" value="kgs"/>
+	</field>
+	<field name="broker_invoice" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="broker_invoice"/>
+		<property name="com.jaspersoft.studio.field.label" value="broker_invoice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="buying_list"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="value" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="value"/>
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<field name="facility_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="facility_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="facility_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalPkgs" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{pkgs}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totalQuantity" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{kgs}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totalValue" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{value}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="144" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="57" width="40" height="21" uuid="ac024391-22bf-4db6-be5d-e2d8d25983e4"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="375" y="118" width="170" height="20" uuid="2b0618fc-f250-4c43-93ed-2f97f145afd9"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facility_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="55" width="170" height="20" uuid="d313e6cb-a2d7-4e32-b815-1cd75648aad3"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{created_on}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="118" width="361" height="20" uuid="f4a6b753-c13b-455b-970d-026912821dc5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SCHEDULE OF ASSETS REFERRED TO ABOVE FA NO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40">
+			<staticText>
+				<reportElement x="290" y="2" width="76" height="38" uuid="9bcac044-eabc-437a-9ee7-7b0b9cddbfe2"/>
+				<box topPadding="4" leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No of Packages]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="2" width="76" height="38" uuid="63737aae-21c1-4f90-ab15-9f9ad637bcbf"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity (Kgs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="2" width="104" height="38" uuid="bbe63ab0-f5d9-4621-bd99-73ae5a6481da"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Value In (USD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="2" width="178" height="38" uuid="53ec6706-b416-4d83-85a7-c1469375907b"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serial No of Invoice (if any)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="112" height="38" uuid="edbb872c-524a-4448-bc2b-65197791e5f4"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="290" y="1" width="76" height="32" uuid="d46b7b64-ce80-4e0b-b1e5-3a8cdca8ba06"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pkgs}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="366" y="1" width="76" height="32" uuid="8e37310c-a609-4a2a-8135-1fccffe3293c"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="443" y="1" width="104" height="32" uuid="9adfb5eb-489b-423d-988a-f3cae6f74b6e"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="1" width="112" height="32" uuid="f21d1b86-2658-4b28-8314-d38f42ce896b"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{created_on}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="112" y="1" width="178" height="32" uuid="6b938dcc-0f6c-433e-ac24-e879e445374c"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{broker_invoice}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="187" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="141" width="170" height="28" uuid="9839dd0b-6e37-4ac2-9012-f84da408f6e2"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Authorized Signatory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="53" width="170" height="28" uuid="6138906e-d233-4bc1-b641-9659bdfe8002"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Your faithfully,]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="366" y="0" width="76" height="32" uuid="5aa2d5c5-2e50-4229-ad1f-ddce1569cc84"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalQuantity}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="442" y="0" width="105" height="32" uuid="09afcb38-3060-4b9b-9ac4-38f16133dec1"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalValue}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="290" y="0" width="76" height="32" uuid="67670601-edb3-4603-9a0d-6bc7e8b5a897"/>
+				<box topPadding="4" leftPadding="4">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPkgs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="290" height="32" uuid="ea34ef84-4cbc-479e-b223-4d4d88e0d978"/>
+				<box topPadding="5">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -667,7 +667,31 @@
             return $this->selectOne($id, "id");
     
         }
+        public function bookLot($id, $facility_no){
+            try {
+               $this->debugSql = false;
+               $this->query = "UPDATE buying_list SET  is_booked = 1, facility_no = '$facility_no' WHERE buying_list_id = $id";
+               $this->executeQuery();
 
+            } catch (\Throwable $th) {
+               throw $th;
+            }
+         
+         
+        }
+        public function bookedLots($facility_no){
+            try {
+               $this->debugSql = false;
+               $this->query = "SELECT * FROM buying_list WHERE facility_no = '$facility_no'";
+               return $this->executeQuery();
+
+            } catch (\Throwable $th) {
+               throw $th;
+            }
+         
+         
+        }
+        
    
     }
     

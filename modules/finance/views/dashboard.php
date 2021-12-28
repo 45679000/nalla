@@ -192,10 +192,8 @@ $("#suppliers").click(function(e) {
     $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/purchasing/manage/suppliers.php" width="100%" height="1000" style="border:none;">');
 });
 $("#paymentSchedule").click(function(e) {
-    Swal.fire({
-        icon: 'notice',
-        title: 'Development in progress',
-    });
+    window.location.href = "./index.php?view=payment-schedule";
+
 });
 $("#paidLots").click(function(e) {
     Swal.fire({

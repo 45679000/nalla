@@ -58,7 +58,7 @@
 		// Fetch single data for edit from customer table
 		public function getRecordById($id){
 			$this->query = "SELECT * FROM $this->tableName WHERE cluster_id = '$id'";
-            $this->debugSql = true;
+           $this->debugSql = true;
 			return $this->executeQuery();
 
 		}
@@ -101,7 +101,7 @@
 			$this->executeQuery();
 		}
         public function updateCluster($formid, $gardenId,$code, $grade){
-            $this->debugSql = true;
+           $this->debugSql = true;
             $this->query = "UPDATE garden_grade_cluster SET code_id = '$code', grade_id = '$grade' WHERE cluster_id= $formid";
 			return $this->executeQuery();
         }

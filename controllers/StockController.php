@@ -65,7 +65,7 @@
                 
             }else{
                 try {
-                $this->debugSql = true;
+               $this->debugSql = true;
 
                 $query = "SELECT line_no, shippments.confirmed, shippments.mrp_value, shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
                  `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`auction_date`,'%d/%m/%Y') AS import_date, 
@@ -181,7 +181,7 @@
         }
 
         public function allocateStock($stock_id, $fieldName, $fieldValue){
-                $this->debugSql = true;
+               $this->debugSql = true;
                 $this->query = "UPDATE `closing_stock` SET $fieldName = '$fieldValue'
                 WHERE `stock_id` = '$stock_id'";
                 $this->executeQuery();

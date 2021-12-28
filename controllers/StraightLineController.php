@@ -34,7 +34,7 @@ Class StraightLineController extends Model{
         return $this->executeQuery();
     }
     public function addLotStraight($id, $contract_no, $mrp_value){
-        $this->debugSql = true;
+       $this->debugSql = true;
     
         $this->query = "INSERT INTO `shippments`(`si_no`, `pkgs_shipped`, `shipped_kgs`, `siType`, `stock_id`, `mrp_value`) 
         SELECT '$contract_no', pkgs, kgs, 'straight', stock_id, '$mrp_value'
@@ -47,7 +47,7 @@ Class StraightLineController extends Model{
 
     }
     public function removeLotStraight($id, $contract_no){
-        $this->debugSql = true;
+       $this->debugSql = true;
     
         $this->query = "DELETE FROM `shippments`
         WHERE stock_id = $id";

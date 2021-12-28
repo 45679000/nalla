@@ -241,7 +241,7 @@
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active" id="account"><strong>Invoice Details</strong></li>
-                        <li id="selected"><strong>PI Teas</strong></li>
+                        <li id="selected"><strong>CI Teas</strong></li>
                         <li id="payment"><strong>Preview</strong></li>
                         <li id="confirm"><strong>Finish</strong></li>
                     </ul>

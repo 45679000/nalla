@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="booking_facility_page_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5b23c8f-ba16-4728-937d-f94d2721383c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT `id`, `facility_no`, `facility_ref`, `amount`, `value_date`, `tenure`, `beneficiary_name`, `beneficiary_bank`, 
+`bank_address`, `account_number`, `swift_code`, `created_by`, DATE_FORMAT(`created_on`,'%d/%m/%Y') AS created_on, 
+`is_deleted`, `deleted_by`, `deleted_on`
+ FROM `booking_facility` WHERE  id = 3]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="facility_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="facility_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="facility_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="facility_ref" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="facility_ref"/>
+		<property name="com.jaspersoft.studio.field.label" value="facility_ref"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="value_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="value_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="value_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tenure" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tenure"/>
+		<property name="com.jaspersoft.studio.field.label" value="tenure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="beneficiary_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="beneficiary_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="beneficiary_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="beneficiary_bank" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="beneficiary_bank"/>
+		<property name="com.jaspersoft.studio.field.label" value="beneficiary_bank"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bank_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="bank_address"/>
+		<property name="com.jaspersoft.studio.field.label" value="bank_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="account_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="account_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="account_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="swift_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="swift_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="swift_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_by" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="created_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="created_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="created_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="created_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="is_deleted" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="is_deleted"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_deleted"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deleted_by" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="deleted_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="deleted_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deleted_on" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="deleted_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="deleted_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="259" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="58" width="40" height="21" uuid="ac024391-22bf-4db6-be5d-e2d8d25983e4"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="58" width="59" height="20" uuid="750b539d-ad31-40d7-9f66-0ab83ad262e7"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FA NO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="377" y="55" width="170" height="20" uuid="2b0618fc-f250-4c43-93ed-2f97f145afd9"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facility_no}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="11" y="89" width="199" height="52" uuid="e7ddd36b-1741-40d4-8c75-35cca8915220"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bank_address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="38" width="170" height="20" uuid="d313e6cb-a2d7-4e32-b815-1cd75648aad3"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{created_on}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="131" width="172" height="20" uuid="5c07bdc9-ee4d-4c77-94a8-bf2d52e3ae31"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[NAIROBI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="10" width="183" height="20" uuid="7c1c999d-320d-47d7-8bc1-caf4095c54f3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SCHEDULE 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="163" width="167" height="21" uuid="9af07f27-69a0-4acc-bd3e-0bf2d8832e66"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dear Sir/Madam]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="200" width="420" height="30" uuid="1a5c404a-6e6d-4a4a-9336-cd3cca9266fd"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DECLARATION AND WRITTEN REQUEST FOR FACILITY APPLICATION NO:  "+$F{facility_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="360" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="8" width="20" height="21" uuid="d0db8dea-ceb6-403b-a11b-a8156cb5b374"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="4" width="530" height="46" uuid="c9044975-8e84-4489-9bb5-70c1387a8169"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[With reference to the Facility Agreement made between you and us, we hereby declare and certify that we have purchased for exports the Assets as specified in the Schedule hereto.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="22" height="21" uuid="fbd96beb-ae6c-4088-99dc-c215cb68f94a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[2.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="80" width="530" height="46" uuid="869d0a16-9598-492e-9fb0-37cb91145a84"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[We hereby request you to finance the purchase of the Assets as set out in Part A of the Schedule hereto from the Supplier(s) in accordance with the provisions of the Agreement.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="140" width="22" height="21" uuid="204d587d-52ec-4dab-8823-41823c4ea251"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[3.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="138" width="530" height="46" uuid="a285a436-62b6-457d-9d7c-66daf881aab0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Please make arrangements to pay the Cost Price of Tea -  USD. " +$F{amount}+ "  Only as per the following details:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="210" width="237" height="21" uuid="792d89ab-d0eb-4ff8-9dee-7d73f9ae5343"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUPPLIER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="210" width="151" height="21" uuid="53ec6706-b416-4d83-85a7-c1469375907b"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BANK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="210" width="151" height="21" uuid="c09f7950-2bb5-4bd5-93aa-2f9e40c510a4"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A/C NUMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="240" width="238" height="30" uuid="7d5044c9-cde6-49ae-9b58-cb7096f33756"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[EATTA - TEA COLLECTION ACCOUNT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="240" width="152" height="30" uuid="ee53f471-59f2-42be-a56f-a6c0b174bc85"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[EQUITY BANK - BRANCH CODE 156]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="399" y="240" width="151" height="30" uuid="0d378940-0be2-479e-8556-e8df6f5d134b"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{account_number}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="272" width="550" height="1" uuid="80b4d96e-c843-4589-946b-39f7104e1bee"/>
+			</line>
+			<line>
+				<reportElement x="3" y="205" width="550" height="1" uuid="127d195d-f118-4d1a-bf38-44a7bc2babd3"/>
+			</line>
+			<line>
+				<reportElement x="2" y="233" width="550" height="1" uuid="c42765a2-b53e-458a-9734-5642d6a2a836"/>
+			</line>
+			<line>
+				<reportElement x="2" y="206" width="1" height="66" uuid="69b4135c-9161-4de1-9aea-0a216f37a36f"/>
+			</line>
+			<line>
+				<reportElement x="242" y="207" width="1" height="66" uuid="b625907e-840a-4133-a0df-f07de1710005"/>
+			</line>
+			<line>
+				<reportElement x="397" y="206" width="1" height="66" uuid="db14697b-03b7-4928-b195-58ea87bb6b12"/>
+			</line>
+			<line>
+				<reportElement x="551" y="207" width="1" height="66" uuid="348c09fa-5f9d-435a-94c9-c11c40aef137"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="290" width="22" height="21" uuid="a5870f2d-754d-4873-bf1a-8be01974e042"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[4.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="290" width="530" height="46" uuid="a11d3b5c-92a8-4dbc-af1e-ce8f99b508b0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[We undertake that once you finance the assets set out in the Schedule hereto, we shall immeaditely arrange shipment of the same assets on the basis of our Agreement]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="187" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="129" width="170" height="28" uuid="9839dd0b-6e37-4ac2-9012-f84da408f6e2"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Authorized Signatory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="53" width="170" height="28" uuid="6138906e-d233-4bc1-b641-9659bdfe8002"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Your faithfully,]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

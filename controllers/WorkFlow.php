@@ -7,7 +7,7 @@ Class WorkFlow extends Model{
 
     public function addApproval($approvalId, $userid, $event, $approvePerson, $details){
         try {
-            $this->debugSql = true;
+           $this->debugSql = true;
             $this->query = "SELECT approval_id FROM `approval_workflow` WHERE approval_id ='$approvalId'";
             $approval = $this->executeQuery();
             if(count($approval)>0){

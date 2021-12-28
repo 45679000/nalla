@@ -18,7 +18,7 @@
 	$workFlow = new WorkFlow($conn);
 	$stockCtrl = new Stock($conn);
 	$salesCtrl = new Sales($conn);
-	// $purchaseCtrl = new Purchases($conn);
+	$purchaseCtrl = new Purchases($conn);
 
 
 	// Insert Record
@@ -365,8 +365,8 @@
 		$id = $_POST['id'];
 		$finance->postToStock($saleno, $id);
 
-		// $purchaseCtrl->cart = $finance->pcart($id);
-		// $purchaseCtrl->post_purchase();
+		$purchaseCtrl->cart = $finance->pcart($id);
+		$purchaseCtrl->post_purchase();
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "activity"){	
 		$activityid = isset($_POST['id']) ? $_POST['id'] : 0;
@@ -546,10 +546,30 @@
 			echo '<option disabled="" value="..." selected="">select</option>';
 		}
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "bk-templates"){	
+		$output = "";
+		$invoices = $finance->bookingFacilityTemplate();
+            $output = '<option disabled="" value="..." selected="">select</option>';
+		if (sizeOf($invoices) > 0) {
+			foreach($invoices as $bktemp){
+				$output .= '<option value="'.$bktemp['facility_no'].'">'.$bktemp['facility_no'].'</option>';
+			}
+			echo $output;	
+		}else{
+			echo '<option disabled="" value="..." selected="">select</option>';
+		}
+	}	
 	if(isset($_POST['action']) && $_POST['action'] == "edit-si-invoice"){	
 		$invoiceno = isset($_POST['id']) ? $_POST['id'] : '';
 
 		$records = $finance->fetchInvoices("", $invoiceno);
+
+		echo json_encode($records);
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "edit-facility"){	
+		$facilityno = isset($_POST['id']) ? $_POST['id'] : '';
+
+		$records = $finance->fetchFacility($facilityno);
 
 		echo json_encode($records);
 	}
@@ -699,8 +719,167 @@
 
 
 	}
+	if (isset($_POST['action']) && $_POST['action'] == "unbooked_lots") {
+		$saleno = $_POST['saleno'];
+		$finance->saleno=$saleno;
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
+		if($type ==''){
+			$type = null;
+		}
+		$purchases = $finance->unpaidLots();
+		$totalPkgs = 0;
+		$totalLots = 0;
+		$totalKgs = 0;
+		$totalNet = 0;
+		$totalHammer = 0;
+		$totalValue = 0;
+		$totalBrokerage = 0;
+		$totalbrokerage = 0;
+		$totalAmount = 0;
+		$totalAfterTax = 0;
+		$totalAddon = 0;
+		$totalpayable = 0;
+		$totalPayableStock = 0;
+
+		if (sizeOf($purchases) > 0) {
+			$output .='<table id="purchaseListTable" class="table table-bordered table-striped table-hover table-sm">
+			<thead class="table-primary">
+							<tr>
+								<th>Line No</th>
+								<th>Sale No</th>
+								<th>DD/MM/YY</th>
+								<th>Broker</th>
+								<th>Broker Invoice</th>
+								<th>Warehouse</th>
+								<th>Lot</th>
+								<th>Origin</th>
+								<th>Mark</th>
+								<th>Grade</th>
+								<th>Invoice</th>
+								<th>Pkgs</th>
+								<th>Net</th>
+								<th>Kgs</th>
+								<th>Auction Hammer Price per Kg(USD)</th>
+								<th>Withholding Tax @ 5% Of Brokerage Amount Payable to Domestic Taxes Dept(USD)</th>
+								<th>Prompt Payable to EATTA-TCA After Deduction of W.Tax</th>
+								<th>Actions</th>
+							</tr>
+					</thead>
+			        <tbody>';
+					foreach ($purchases as $purchase){
+						$id = $purchase["lot"];
+
+						$totalLots++;
+						$totalPkgs += $purchase['pkgs'];
+						$totalKgs += $purchase['net'];
+						$totalNet += $purchase['kgs'];
+
+
+						$afterTax = round(($totalamount) - (5 / 100) * $brokerage, 2);
+						$addon = 0;
+
+						$net = $purchase['net'];
+						$hammerPrice = round(floatval($purchase['sale_price']/100), 2);
+						$valueExAuct = round($net * $hammerPrice, 2);
+						$brokerage = round(($valueExAuct) * (0.005), 2);
+						$finalPrompt = round($brokerage + $valueExAuct, 2);
+						$withholdingTax = round((0.05*$brokerage),2);
+						$finalPromptEata = round($finalPrompt-$withholdingTax, 2);
+						$totalPayable = round($addon + $hammerPrice, 2);
+
+
+						$totalBrokerage += $brokerage;
+						$totalValue += $valueExAuct;
+						$totalHammer += $hammerPrice;
+						$totalAmount += $finalPrompt;
+						$totalbrokerage += round((0.05 * $brokerage), 2);
+						$withholdingTaxTotal += $withholdingTax;
+						$totalPromptEata += $finalPromptEata;
+
+						$totalAfterTax += $afterTax;
+						$totalAddon += $addon;
+						$totalpayable += $totalPayable;
+
+
+						$totalPayableStock += $totalPayable * $purchase['net'];
+						$output.='<tr>';
+							$output .= '<td>' . $purchase['line_no'] . '</td>';
+							$output .= '<td>' . $purchase['sale_no'] . '</td>';
+							$output.='<td onBlur=updateAuctionDate(this) class="'.$id.'" contentEditable = "true">'.$purchase["auction_date"].'</td>';
+							$output .= '<td>' . $purchase['broker'] . '</td>';
+							$output.='<td onBlur=updateInvoice(this) class="'.$id.'" contentEditable = "true">'.$purchase["broker_invoice"].'</td>';
+							$output .= '<td>' . $purchase['ware_hse'] . '</td>';
+							$output .= '<td>' . $purchase['lot'] . '</td>';
+							$output .= '<td>' . $purchase['origin'] . '</td>';
+							$output .= '<td>' . $purchase['mark'] . '</td>';
+							$output .= '<td>' . $purchase['grade'] . '</td>';
+							$output .= '<td>' . $purchase['invoice'] . '</td>';
+							$output.='<td onBlur=updatePkgs(this) class="'.$id.'" contentEditable = "true">'.$purchase["pkgs"].'</td>';
+							$output.='<td onBlur=updateKgs(this) class="'.$id.'" contentEditable = "true">'.$purchase["kgs"].'</td>';
+							$output.='<td onBlur=updateNet(this) class="'.$id.'" contentEditable = "true">'.$purchase["net"].'</td>';
+							$output.='<td onBlur=updateHammer(this) class="'.$id.'" contentEditable = "true">'.$hammerPrice.'</td>';
+							$output .= '<td>' . number_format((float)$withholdingTax, 2, '.', '') . '</td>';
+							$output .= '<td>' . number_format((float)$finalPromptEata, 2, '.', '') . '</td>';
+							if($purchase["is_booked"]==0){
+								$output.='
+								<td>
+									<a class="confirmLot" id="'.$purchase["buying_list_id"].'" style="color:green" data-toggle="tooltip" data-placement="bottom" title="Book Lot" >
+									<i class="fa fa-check-circle-o" ></i></a>
+								</td>';
+							}else{
+								$output.='
+								<td>
+									<a style="color:green" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+									<i class="fa fa-check">Booked:'.$purchase["facility_no"].'</i></a>
+								</td>';
+							}
+							$output .= '</tr>';
+						$output.='</tr>';
+					}
+					
+			$output .= '</tbody>';
+			$output .= '<tfooter>
+						<tr>';
+							$output .= '<td><b>TOTALS</td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td><b>' . $totalLots . '</b></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td><b>' . $totalPkgs . '</b></td>'; //pkgs
+							$output .= '<td><b>' . round(($totalNet / $totalLots),2) . '</b></td>'; //kgs
+							$output .= '<td><b>' . number_format((float)$totalKgs, 2, '.', '') . '</b></td>'; //net
+							$output .= '<td><b>' . round(($totalHammer/$totalLots),2) . '</b></td>'; //auction hammer
+							$output .= '<td><b>' . number_format((float)$withholdingTaxTotal, 2, '.', '') . '</b></td>';
+							$output .= '<td><b>' . number_format((float)$totalPromptEata, 2, '.', '') . '</b></td>';
+							$output .= '<td></td>';
+
+
+			$output .= '</tr>
+						</tfooter>
+				</table>';
+      		echo $output;	
+		}else{
+			echo '<h3 class="text-center mt-5">There are no pending lots on the purchase list</h3>';
+		}
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "create_booking_facility"){
+		unset($_POST["action"]);
+		$_POST["created_on"] = date('Y-m-d H:i:s');
+		$_POST["created_by"] = $finance->user;
+
+		$facility = $finance->addBookingFacility($_POST);
+
+		echo json_encode($facility);
+
+	}
 	
-	 
 	
 
 	

@@ -79,7 +79,7 @@
      
         }
         public function confirmPurchaseList($saleno){
-            $this->debugSql = true;
+           $this->debugSql = true;
             $this->query = "UPDATE closing_cat SET confirmed = 1 WHERE added_to_stock = 1 AND sale_no = '$saleno'";
             $this->executeQuery();
 
@@ -103,7 +103,7 @@
 
             $this->query = "UPDATE closing_stock SET $fieldId = '$value'
             WHERE  sale_no LIKE '%$saleno%'";
-            $this->debugSql = true;
+           $this->debugSql = true;
 
             $this->executeQuery();
 
@@ -247,6 +247,13 @@
             return $this->executeQuery();
 
         }
+        public function bookingFacilityTemplate(){
+            $this->debugSql = false;
+
+            $this->query = "SELECT * FROM booking_facility";
+            return $this->executeQuery();
+
+        }
         public function fetchInvoices($type, $invoiceno){
             if($invoiceno ==''){
                 $this->debugSql = false;
@@ -266,6 +273,13 @@
             }
             // $this->debugSql = "true";
        
+        }
+        public function fetchFacility($facility_no){
+            $this->query = "SELECT *
+            FROM booking_facility 
+            WHERE facility_no = '$facility_no'";
+            return $this->executeQuery();
+                 
         }
         public function paymentTerms(){
             $this->query = "SELECT * FROM `0_payment_terms`";
@@ -287,7 +301,7 @@
             return $results[0]['invoice_no'];
         }
         public function invoiceTea($stockid, $invoiceno, $user){
-            $this->debugSql = true;
+           $this->debugSql = true;
             $this->conn->beginTransaction();
             $this->query = "INSERT INTO `invoice_teas`(`invoice_no`, `stock_id`, `profoma_amount`, `time_stamp`, `created_by`) 
             SELECT '$invoiceno',$stockid,sale_price,CURRENT_TIMESTAMP, $user
@@ -302,13 +316,13 @@
             }
         }
         public function removeInvoiceTea($stockid){
-            $this->debugSql = true;
+           $this->debugSql = true;
             $this->query = "DELETE FROM ";
             $this->query = "UPDATE closing_stock SET profoma_invoice_no = NULL WHERE stock_id = $stockid";
             $this->executeQuery();
         }
         public function genLineNo($buying_list_id){
-            $this->debugSql = true;
+           $this->debugSql = true;
             $this->query = "SELECT MAX(SUBSTRING(line_no, -7)) AS line_no FROM closing_stock";
             $rows = $this->executeQuery();
             $id = ((int)$rows[0]['line_no'])+1;
@@ -430,7 +444,7 @@
         }
         public function addRecord($invoice_no){
             try {
-               $this->debugSql = true;
+              $this->debugSql = true;
                $this->query = "INSERT INTO `blend_invoice_line_no`(`invoice_no`) VALUES('$invoice_no')";
                $this->executeQuery();
             } catch (\Throwable $th) {
@@ -442,7 +456,7 @@
          }
          public function updateValue($id, $fieldValue, $fieldName){
             try {
-                $this->debugSql = true;
+               $this->debugSql = true;
 
                 $this->query = "UPDATE blend_invoice_line_no SET $fieldName = '$fieldValue' WHERE id = $id";
                 $this->executeQuery();
@@ -585,7 +599,14 @@
             $row = $stmt1->fetch();
             $trans_no = $row["trans_no"];
 
-		
+
+            $net = $invoice[0]['net'];
+            $hammerPrice = round(floatval($invoice[0]['sale_price']/100), 2);
+            $valueExAuct = round($net * $hammerPrice, 2);
+            $brokerage = round(($valueExAuct) * (0.005), 2);
+            $finalPrompt = round($brokerage + $valueExAuct, 2);
+            $withholdingTax = round((0.05*$brokerage),2);
+           
 
             $cart = new stdClass();
             $id = 0;
@@ -593,7 +614,7 @@
             $termsDate = $invoice[0]["days_before_due_date"];
             $duedate=Date('y:m:d', strtotime('+'.$termsDate.' days'));
             $cart = (Object) array(
-                "total_amount"=>$invoice[0]["total_amount"], 
+                "total_amount"=>$finalPrompt, 
                 "trans_no"=>$trans_no, 
                 "trans_date"=>$trans_date,
                 "trans_no_from"=>$trans_no,
@@ -604,9 +625,9 @@
                 "user"=>$invoice[0]["user"],
                 "fiscal_year"=>4,
                 "reference"=>$invoice[0]["invoice_no"],
-                "memo"=>"admin",
-                "stock_id" => 1063,
-                "description" =>"TEA",
+                "memo"=>$invoice[0]["sale_no"]."-:".$invoice[0]["lot"]."-:".$invoice[0]["mark"]."-:".$invoice[0]["grade"],
+                "stock_id" => 1030,
+                "description" =>"TEA Purchase",
                 "branch_code" =>$invoice[0]["branch_code"],
                 "payable_account" => $invoice[0]["payable_account"],
                 "supplier_id" => $invoice[0]["supplier_id"],
@@ -614,19 +635,38 @@
                 "unit_tax" =>0,
                 "delivery_address" => "Chamu",
                 "kgs" => $invoice[0]["net"],
-                "unit_price" => $invoice[0]["sale_price"]
-
-
-                
-
-
+                "unit_price" => $invoice[0]["sale_price"],
+                "withholdingTax" => $withholdingTax
 
                 
             );
 
             return $cart;
         }
-        
+        public function unpaidLots(){
+            $query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
+            `entry_no`, `value`, `lot`, `company`, buying_list.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
+             `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, 
+             `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, 
+             mark_country.country AS origin, `broker_invoice`, DATE_FORMAT(`auction_date`, '%d/%m/%Y') AS auction_date, added_to_stock,
+             `facility_no`, is_paid, is_booked
+            FROM `buying_list` 
+            LEFT JOIN mark_country ON mark_country.mark = buying_list.mark
+            WHERE  added_to_stock = 1 AND is_paid = 0 ";
+            
+            $query.="GROUP BY lot, broker, invoice, pkgs
+            ORDER BY line_no DESC";
+            $this->query = $query;
+            
+            return $this->executeQuery();
+        }
+        public function addBookingFacility($post){
+            $this->data = $post;
+            $this->tablename = "booking_facility";
+            $id = $this->insertQuery();
+            return $this->selectOne($id, "id");
+    
+        }
 
    
     }

@@ -2020,3 +2020,639 @@ Stack trace:
 [17-Dec-2021 15:38:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [17-Dec-2021 15:40:56 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
 [17-Dec-2021 15:41:22 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:16:44 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:16:45 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:16:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:16:47 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:16:47 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:16:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:16:49 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:16:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:16:51 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:16:51 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:16:51 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:17:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:17:12 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:17:12 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:17:12 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:20:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:20:21 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:25:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:25:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:25:11 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:25:14 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:25:14 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:25:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:25:15 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:25:15 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:25:15 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:27:27 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:27:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:27:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:28:19 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:28:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:28:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:29:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:30:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:30:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:30:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:30:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:30:49 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:30:50 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:30:50 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:30:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:30:51 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:30:51 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:30:51 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:38:56 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:38:56 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:38:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:38:58 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:38:58 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:38:58 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:39:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:39:12 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:39:12 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:39:12 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:44:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:44:08 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:44:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:44:09 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:44:09 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:44:09 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:58:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:58:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:58:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:58:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:58:08 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:58:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:58:10 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:58:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 09:58:12 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 09:58:12 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 09:58:12 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 10:14:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:14:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:14:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:14:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:16:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:17:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:17:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:17:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:18:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:18:16 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:18:23 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:18:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:18:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:18:39 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:18:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:19:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:19:23 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:19:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:19:38 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:19:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:19:47 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:20:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:20:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:20:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:20:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:21:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:21:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:21:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:21:31 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:21:37 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:22:00 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:22:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:22:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:22:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:22:38 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:23:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:23:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:23:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:23:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:23:37 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:23:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:23:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:28:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:28:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:32:25 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:32:27 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:33:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:33:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:33:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:33:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:33:37 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:33:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:33:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:34:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:34:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:34:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:34:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:35:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:35:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:35:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:35:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:35:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:35:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:36:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:36:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:36:31 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:36:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 10:36:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 11:23:32 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 11:23:34 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 11:23:34 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 11:23:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 11:23:49 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 11:23:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 11:23:51 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:32:16 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:16 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:17 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:37 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:39 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:47 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:47 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:32:47 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:32:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:52 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:32:54 Europe/Berlin] 0:admin:current_user.inc:318: number_format() expects parameter 2 to be int, float given
+[18-Dec-2021 12:32:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:32:57 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:32:59 Europe/Berlin] 0:admin:current_user.inc:318: number_format() expects parameter 2 to be int, float given
+[18-Dec-2021 12:33:02 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:02 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:02 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:05 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:06 Europe/Berlin] 0:admin:current_user.inc:318: number_format() expects parameter 2 to be int, float given
+[18-Dec-2021 12:33:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:17 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:18 Europe/Berlin] 0:admin:current_user.inc:318: number_format() expects parameter 2 to be int, float given
+[18-Dec-2021 12:33:19 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:19 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:21 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:23 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:23 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:24 Europe/Berlin] 0:admin:current_user.inc:318: number_format() expects parameter 2 to be int, float given
+[18-Dec-2021 12:33:26 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:26 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:28 Europe/Berlin] 0:admin:current_user.inc:318: number_format() expects parameter 2 to be int, float given
+[18-Dec-2021 12:33:33 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:38 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:33:38 Europe/Berlin] 0:admin:db_pager.inc:293: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:33:39 Europe/Berlin] 0:admin:current_user.inc:318: number_format() expects parameter 2 to be int, float given
+[18-Dec-2021 12:51:35 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:51:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:51:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:51:38 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:51:38 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:51:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:51:40 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:51:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 12:51:41 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:51:41 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 12:51:41 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 12:52:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:36:00 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:36:02 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:36:02 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:36:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:36:04 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 13:37:02 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:37:02 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 13:37:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:37:04 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 13:37:04 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 13:37:04 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 13:39:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:39:38 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:39:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:39:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:40:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:40:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:40:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:40:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:41:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:41:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:41:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:41:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 13:41:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:06 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:10 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:11 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:09:37 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:36:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:36:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:36:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:37:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:39:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:39:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:39:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:40:14 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:40:39 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:40:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:41:00 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 14:41:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:11:51 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:11:53 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:11:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:11:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:11:55 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:11:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:11:57 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:11:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:11:58 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:11:58 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 15:11:58 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:12:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:12:18 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:12:18 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 15:12:18 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:12:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:12:49 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:12:49 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 15:12:49 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:14:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[18-Dec-2021 15:14:29 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[18-Dec-2021 15:14:29 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[18-Dec-2021 15:14:29 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:04:49 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:04:50 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:04:50 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:04:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:04:52 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:04:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:04:53 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:04:53 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:04:53 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:07:16 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:07:16 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:07:16 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:07:16 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:08:26 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:08:26 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:08:26 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:08:26 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:09:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:09:17 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:09:17 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:09:17 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:09:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:09:29 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:09:29 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:09:29 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:10:25 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:10:25 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:10:25 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:10:25 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:34:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:34:14 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:34:14 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:35:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:35:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:35:10 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:35:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:35:12 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:35:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:35:13 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:35:13 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:35:13 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:37:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:37:50 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:38:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:38:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:38:14 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:48:02 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:48:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:48:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:48:14 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:48:22 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:48:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:49:30 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:49:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:49:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:49:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:49:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:50:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:50:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:50:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:00 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:51:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:16 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:19 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:44 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:52:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:53:00 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:53:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:53:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:53:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:53:30 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:53:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:27 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:30 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:43 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:54:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:43 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:47 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:47 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:55:49 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:49 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:55:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:55:51 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:55:51 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 09:55:51 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 09:59:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 09:59:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:00:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:06:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:06:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:07:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:07:44 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:07:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:07:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:07:59 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:08:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:08:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:08:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:08:47 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:08:47 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:08:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:09:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:09:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:09:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:09:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:09:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:09:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:10:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:10:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:10:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:10:24 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:10:26 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:10:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:10:55 Europe/Berlin] 0:admin:renderer.php:196: sizeof(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 10:11:25 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:11:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:20:26 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:20:27 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:20:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:21:39 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:21:39 Europe/Berlin] 0:admin:renderer.php:196: sizeof(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 10:21:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 10:21:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:35:46 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:35:48 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:35:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:35:51 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:35:51 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:35:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:35:53 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:35:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:35:55 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:35:55 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:35:55 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:38:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:39:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:39:01 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:39:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:39:06 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:39:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:39:08 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:39:08 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:39:08 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:40:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:40:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:40:07 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:40:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:40:11 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:40:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:40:12 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:40:13 Europe/Berlin] 0:admin:rep102.php:207: A non-numeric value encountered
+[20-Dec-2021 15:40:13 Europe/Berlin] 0:admin:rep102.php:207: A non-numeric value encountered
+[20-Dec-2021 15:40:13 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:40:13 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:40:16 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:40:16 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:40:16 Europe/Berlin] 0:admin:rep102.php:207: A non-numeric value encountered
+[20-Dec-2021 15:40:16 Europe/Berlin] 0:admin:rep102.php:207: A non-numeric value encountered
+[20-Dec-2021 15:40:16 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:40:16 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:42:42 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:42:42 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:42:43 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:42:43 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:42:43 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:42:43 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:42:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:42:53 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:42:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:42:54 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:42:55 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:42:55 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:43:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:43:09 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:43:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:43:11 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:43:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:43:12 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:43:13 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:43:13 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:44:25 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:44:25 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:44:30 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:44:30 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:44:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:44:32 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:44:32 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:44:32 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:44:44 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:44:44 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:44:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:44:45 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:44:45 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:44:45 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:46:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:46:20 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:46:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[20-Dec-2021 15:46:21 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 15:46:21 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[20-Dec-2021 15:46:21 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[20-Dec-2021 16:18:31 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 09:00:14 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 09:26:46 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 09:26:48 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 09:26:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 09:27:00 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 09:27:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:11 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:12 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:18 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:47:20 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:20 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:47:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:21 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:47:22 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 15:47:22 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:47:43 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:47:43 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:47:43 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 15:47:43 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:59:09 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:59:11 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:59:11 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:59:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:59:12 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:59:13 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 15:59:13 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 15:59:13 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 15:59:13 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:00:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:00:04 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:00:06 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:00:06 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:00:06 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 16:00:06 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:01:08 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:01:08 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:01:08 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 16:01:08 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:01:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:01:55 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:01:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:02:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:02:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:02:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:02:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:02:48 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:03:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:03:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:03:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:03:34 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:03:35 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:03:35 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:03:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:03:36 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:03:36 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 16:03:36 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:04:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:04:50 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:04:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:05:02 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:05:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:05:07 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:05:10 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:05:12 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:14:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:31:30 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:31:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:31:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:31:34 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:31:34 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:31:37 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:31:37 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:31:38 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:31:38 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:31:38 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 16:31:38 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:35:32 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:35:32 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:35:33 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:35:33 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:35:33 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 16:35:33 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:41:56 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:41:59 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:42:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:42:30 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:42:41 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:42:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:43:00 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:43:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:43:35 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:43:36 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:43:39 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:54:57 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:54:59 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:54:59 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:55:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:55:01 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:55:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:55:03 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:55:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:55:04 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:55:04 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 16:55:04 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 16:59:15 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:28 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:29 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:35 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:40 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 16:59:53 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:01 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:03 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:03 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:00:04 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:04 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:00:05 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:05 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:00:05 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 17:00:05 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:00:18 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:22 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:46 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:52 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:54 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:56 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:56 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:00:58 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:58 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:00:59 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:00:59 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:00:59 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 17:00:59 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:03:43 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:03:43 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:03:45 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:03:45 Europe/Berlin] 0:admin:reports_classes.inc:37: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:03:45 Europe/Berlin] 0:admin:tcpdf.php:4693: The each() function is deprecated. This message will be suppressed on further calls
+[21-Dec-2021 17:03:45 Europe/Berlin] 0:admin:fpdi.php:489: count(): Parameter must be an array or an object that implements Countable
+[21-Dec-2021 17:04:17 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time
+[21-Dec-2021 17:04:21 Europe/Berlin] 0:admin:session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time

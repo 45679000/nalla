@@ -133,7 +133,7 @@ Class WarehouseController extends Model{
        
     }
     public function deleteAllocation($id){
-        $this->debugSql = true;
+       $this->debugSql = true;
 
         $this->query = "DELETE FROM `material_allocation` WHERE id = $id";
         $this->executeQuery();
@@ -206,7 +206,7 @@ Class WarehouseController extends Model{
         
     } 
     public function addjustLevels($materialid, $newlevel, $details){
-        $this->debugSql = true;
+       $this->debugSql = true;
 
         $this->query = "INSERT INTO `material_allocation`(`material`, `si_no`, `allocated_total`, `details`, `allocation_date`)
         VALUES ('$materialid','00',$newlevel,'$details', CURRENT_TIMESTAMP)";

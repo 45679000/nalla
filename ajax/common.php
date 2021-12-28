@@ -279,7 +279,7 @@ if (isset($_POST['action']) && $_POST['action'] == "sale_no") {
     $output = '<option  value="'.$type.'" selected="">'.$type.'</option>';
     if (sizeOf($auctions) > 0) {
          foreach($auctions as $auction){
-            $output .= '<option value="'.$auction.'">'.$auction.'</option>';
+            $output .= '<option value="'.$auction["sale_no"].'">'.$auction["sale_no"].'</option>';
          }
           echo $output;	
     }else{

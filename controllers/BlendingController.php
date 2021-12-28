@@ -27,7 +27,7 @@ Class BlendingController extends Model{
     }
 
     public function addLotAllocationToBlend($stock_id, $id){
-        $this->debugSql = true;
+       $this->debugSql = true;
 
 
         $this->query = "REPLACE INTO blend_teas(stock_id, blend_no, packages, blend_kgs) 
@@ -161,7 +161,7 @@ Class BlendingController extends Model{
         WHERE blend_teas.id = ".$id. " AND blend_teas.confirmed = 0"; 
         $this->executeQuery();
 
-        $this->debugSql = true;
+       $this->debugSql = true;
         $this->query = "DELETE FROM blend_teas WHERE id = ".$id. " AND confirmed = 0"; 
         $this->executeQuery();  
     }
@@ -230,7 +230,7 @@ Class BlendingController extends Model{
 
     }
     public function approveBlend($blendno){
-        $this->debugSql = true;
+       $this->debugSql = true;
         $this->query = "UPDATE blend_master SET approved =1 WHERE id = ".$blendno;
         $this->executeQuery();
         $this->debugSql = false;

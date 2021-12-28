@@ -90,6 +90,9 @@
                             case 'commercial':
                                 include 'views/commerical_invoices.php';
                                 break;
+                            case 'payment-schedule':
+                                include 'views/booking_facility.php';
+                                break;
                             case 'selectTeas':
                                 include 'views/generate_straightline_profoma.php';
                                 break;

@@ -60,7 +60,7 @@ $invoicetype = isset($_GET["view"]) ? $_GET["view"] : '';
 if($invoicetype=="straight"){
     include 'commericial_invoice_straight.php';
 }else if($invoicetype=="blend"){
-    include 'proforma_blend.php';
+    include 'commercial_invoice_blend.php';
 }else if($invoicetype=="test"){
     include 'test_proforma.php';
 }else{
@@ -76,7 +76,6 @@ if($invoicetype=="straight"){
         </div>
 
         <div>
-        <a href="views/invoices.php?view=test"> Commercial Invoice Blend Test</a>
         </div>
 
     </div>

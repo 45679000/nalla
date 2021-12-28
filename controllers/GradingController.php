@@ -30,7 +30,7 @@ Class GradingController extends Model{
     }
     public function updatePrivatePurchase($post){
         unset($post['action']);
-        $this->debugSql = true;
+       $this->debugSql = true;
         $this->data = $post;
         $this->tablename = "closing_cat";
         $id = $this->insertQuery();
@@ -38,7 +38,7 @@ Class GradingController extends Model{
     
     }
     public function deletePrivatePurchase($id){
-        $this->debugSql = true;
+       $this->debugSql = true;
         $this->tablename = "closing_cat";
         $this->tableFieldName = "closing_cat_import_id";
         $this->id = $id;

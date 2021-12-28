@@ -222,11 +222,11 @@
         public function confirmCatalogue(){
             $confirmed = true;
             try {
-                $this->debugSql = true;
+               $this->debugSql = true;
                 $this->query = "SELECT COUNT(closing_cat_import_id) AS total_rows FROM closing_cat WHERE sale_no =  '$this->saleno' AND broker = '$this->broker'";
                 $results = $this->executeQuery();
                 if($results[0]['total_rows'] > 0){
-                    $this->debugSql = true;
+                   $this->debugSql = true;
                     $this->query = "INSERT INTO `closing_cat`(`sale_no`, `broker`,  `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
                     SELECT  c.`sale_no`, c.`broker`, c.`ware_hse`, c.`entry_no`, c.`value`, c.`lot`, c.`company`, c.`mark`, c.`grade`, c.`manf_date`, c.`ra`, c.`rp`, c.`invoice`, c.`pkgs`, c.`type`, c.`net`, c.`gross`, c.`kgs`, c.`tare`, c.`sale_price`, c.`buyer_package`, c.`category`,c.`import_date`, c.`imported`, c.`imported_by`, md5(CONCAT(trim(c.broker), trim(c.sale_no), trim(c.lot)))
                     FROM closing_cat_import c
@@ -249,7 +249,7 @@
                     $confirmed = true;
 
                 }else{
-                    $this->debugSql = true;
+                   $this->debugSql = true;
                     $this->query = "INSERT INTO `closing_cat`(`sale_no`, `broker`, `ware_hse`, `entry_no`, `value`, `lot`, `company`, `mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`, `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `buyer_package`, `category`, `import_date`, `imported`, `imported_by`, `line_id`)
                     SELECT  c.`sale_no`, c.`broker`, c.`ware_hse`, c.`entry_no`, c.`value`, c.`lot`, c.`company`, c.`mark`, c.`grade`, c.`manf_date`, c.`ra`, c.`rp`, c.`invoice`, c.`pkgs`, c.`type`, c.`net`, c.`gross`, c.`kgs`, c.`tare`, c.`sale_price`, c.`buyer_package`, c.`category`,c.`import_date`, c.`imported`, c.`imported_by`, md5(CONCAT(trim(c.broker), trim(c.sale_no), trim(c.lot)))
                     FROM closing_cat_import c
@@ -384,7 +384,7 @@
         public function importValuationCatalogue($saleno, $user_id){
             $processed = false;
             try {
-                $this->debugSql = true;
+               $this->debugSql = true;
                 $this->query = "UPDATE closing_cat a
                 INNER JOIN closing_cat_import b ON md5(CONCAT(trim(b.broker), trim(b.sale_no), trim(b.lot))) = a.line_id               
                 SET a.value = b.value
@@ -604,15 +604,21 @@
             }
 
         }
-        public function auctionList(){
+        public function GenerateAuctionList(){
             for($i = 0; $i<53; $i++){
-                $auction_id = date("Y").'-'.str_pad($i, 2, '0', STR_PAD_LEFT);
-                $auctions[$auction_id] = $auction_id;
-            }
-            $auctions["2022-01"] = "2022-01";
-            $auctions["2022-02"] = "2022-02";
+                $week = str_pad($i, 2, '0', STR_PAD_LEFT);
+                $auction_id = date("Y").'-'.$week;
+                $this->query = "INSERT INTO auctions(sale_no, active, details)
+                VALUES($auction_id, 1, 'WEEK- "."$week )";
 
-            return $auctions;
+                $this->executeQuery();
+
+            }
+
+        }
+        public function auctionList($status=1){
+            $this->query = "SELECT * FROM  auctions WHERE active = $status";
+            return $this->executeQuery();
         }
         public function getMaxSaleNo(){
             $this->query = "SELECT MAX(sale_no) AS max_sale

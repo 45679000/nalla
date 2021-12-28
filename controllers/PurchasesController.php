@@ -17,25 +17,30 @@ class Purchases extends Model
         $this->add_audit_trail(25, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
         $this->add_audit_trail(20, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
 
-        $this->add_gl_trans(20,  $cart->trans_no, $cart->stock_id, $cart->description, -$cart->total_amount,  NULL, NULL);
+        $this->add_gl_trans(20,  $cart->trans_no, $cart->stock_id, $cart->description, -$cart->total_amount-$cart->withholdingTax,  NULL, NULL);
         $this->add_gl_trans(20,  $cart->trans_no, $cart->payable_account, $cart->memo, $cart->total_amount,  2, 0x37);
+        $this->add_gl_trans(20,  $cart->trans_no, 1080, $cart->memo, $cart->withholdingTax,  2, 0x37);
 
         $this->add_ref(20, $cart->trans_no, $cart->reference);
 
         $order_no = $this->purch_orders($cart->supplier_id, $cart->description, $cart->trans_date, "auto", $cart->reference, "DEF", "N/A", $cart->total_amount, 0, 0, 0 );
 
         $po_detail_item = $this->purch_order_details($order_no, $cart->stock_id, $cart->description, $cart->trans_date, $cart->kgs,  $cart->unit_price, $cart->unit_price, 0, $cart->kgs, $cart->kgs);
+        $po_detail_item1 = $this->purch_order_details($order_no, 1062, $cart->description, $cart->trans_date, 1,  $cart->withholdingTax, $cart->withholdingTax, 0, 1, 1);
 
         $grn_batch_id = $this->grn_batch($cart->supplier_id, $order_no, "auto", $cart->trans_date, "DEF", $cart->rate);
 
         $grn_item_id = $this->grn_items($grn_batch_id, $po_detail_item, $cart->stock_id, $cart->description, $cart->kgs, $cart->kgs);
+		$grn_item_id1 = $this->grn_items($grn_batch_id, $po_detail_item1, 1062, $cart->description, 1, 1);
+
 
         $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id, $po_detail_item, $cart->stock_id, $cart->description,  $cart->kgs, $cart->unit_price, $cart->unit_tax, $cart->memo);
+        $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id1, $po_detail_item1, 1062, "Witholding-Tea Brokerage Fees",  1, $cart->withholdingTax, $cart->unit_tax, $cart->memo);
 
 
-        $this->add_memo(20, $cart->trans_no, "TEA");
+        $this->add_memo(20, $cart->trans_no, "TEA Purchase");
 		
-       if($this->rollBack >2){
+       if($this->rollBack >8){
             $this->conn->commit();
 
 			return $cart->trans_no;

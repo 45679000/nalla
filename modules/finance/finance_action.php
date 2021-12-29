@@ -879,6 +879,150 @@
 		echo json_encode($facility);
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "book-lot"){
+		$id = isset($_POST['id']) ? $_POST['id'] : '';
+		$facility_no = isset($_POST['facility_no']) ? $_POST['facility_no'] : '';
+		$finance->bookLot($id, $facility_no);
+
+	}
+	if (isset($_POST['action']) && $_POST['action'] == "lot_details") {
+		$facility_no = isset($_POST['facility_no']) ? $_POST['facility_no'] : '';
+
+		$purchases = $finance->bookedLots($facility_no);
+		$totalPkgs = 0;
+		$totalLots = 0;
+		$totalKgs = 0;
+		$totalNet = 0;
+		$totalHammer = 0;
+		$totalValue = 0;
+		$totalBrokerage = 0;
+		$totalbrokerage = 0;
+		$totalAmount = 0;
+		$totalAfterTax = 0;
+		$totalAddon = 0;
+		$totalpayable = 0;
+		$totalPayableStock = 0;
+
+		if (sizeOf($purchases) > 0) {
+			$output .='<table id="purchaseListTable" class="table table-bordered table-striped table-hover table-sm">
+			<thead class="table-primary">
+							<tr>
+								<th>Sale No</th>
+								<th>DD/MM/YY</th>
+								<th>Broker</th>
+								<th>Broker Invoice</th>
+								<th>Warehouse</th>
+								<th>Lot</th>
+								<th>Origin</th>
+								<th>Mark</th>
+								<th>Grade</th>
+								<th>Invoice</th>
+								<th>Pkgs</th>
+								<th>Net</th>
+								<th>Kgs</th>
+								<th>Auction Hammer Price per Kg(USD)</th>
+								<th>Value Ex Auction</th>
+								<th>Brokerage Amount 0.5 % on value(USD)</th>
+								<th>Final Prompt Value Including Brokerage 0.5 % on value(USD)</th>
+								<th>Withholding Tax @ 5% Of Brokerage Amount Payable to Domestic Taxes Dept(USD)</th>
+								<th>Prompt Payable to EATTA-TCA After Deduction of W.Tax</th>
+							</tr>
+					</thead>
+			        <tbody>';
+					foreach ($purchases as $purchase){
+						$id = $purchase["lot"];
+
+						$totalLots++;
+						$totalPkgs += $purchase['pkgs'];
+						$totalKgs += $purchase['net'];
+						$totalNet += $purchase['kgs'];
+
+
+						$afterTax = round(($totalamount) - (5 / 100) * $brokerage, 2);
+						$addon = 0;
+
+						$net = $purchase['net'];
+						$hammerPrice = round(floatval($purchase['sale_price']/100), 2);
+						$valueExAuct = round($net * $hammerPrice, 2);
+						$brokerage = round(($valueExAuct) * (0.005), 2);
+						$finalPrompt = round($brokerage + $valueExAuct, 2);
+						$withholdingTax = round((0.05*$brokerage),2);
+						$finalPromptEata = round($finalPrompt-$withholdingTax, 2);
+						$totalPayable = round($addon + $hammerPrice, 2);
+
+
+						$totalBrokerage += $brokerage;
+						$totalValue += $valueExAuct;
+						$totalHammer += $hammerPrice;
+						$totalAmount += $finalPrompt;
+						$totalbrokerage += round((0.05 * $brokerage), 2);
+						$withholdingTaxTotal += $withholdingTax;
+						$totalPromptEata += $finalPromptEata;
+
+						$totalAfterTax += $afterTax;
+						$totalAddon += $addon;
+						$totalpayable += $totalPayable;
+
+
+						$totalPayableStock += $totalPayable * $purchase['net'];
+						$output.='<tr>';
+							$output .= '<td>' . $purchase['sale_no'] . '</td>';
+							$output.='<td onBlur=updateAuctionDate(this) class="'.$id.'" contentEditable = "true">'.$purchase["auction_date"].'</td>';
+							$output .= '<td>' . $purchase['broker'] . '</td>';
+							$output.='<td onBlur=updateInvoice(this) class="'.$id.'" contentEditable = "true">'.$purchase["broker_invoice"].'</td>';
+							$output .= '<td>' . $purchase['ware_hse'] . '</td>';
+							$output .= '<td>' . $purchase['lot'] . '</td>';
+							$output .= '<td>' . $purchase['origin'] . '</td>';
+							$output .= '<td>' . $purchase['mark'] . '</td>';
+							$output .= '<td>' . $purchase['grade'] . '</td>';
+							$output .= '<td>' . $purchase['invoice'] . '</td>';
+							$output.='<td onBlur=updatePkgs(this) class="'.$id.'" contentEditable = "true">'.$purchase["pkgs"].'</td>';
+							$output.='<td onBlur=updateKgs(this) class="'.$id.'" contentEditable = "true">'.$purchase["kgs"].'</td>';
+							$output.='<td onBlur=updateNet(this) class="'.$id.'" contentEditable = "true">'.$purchase["net"].'</td>';
+							$output.='<td onBlur=updateHammer(this) class="'.$id.'" contentEditable = "true">'.$hammerPrice.'</td>';
+							$output .= '<td>' . number_format((float)$valueExAuct, 2, '.', '') . '</td>'; //value ex auction
+							$output .= '<td>' . number_format((float)$brokerage, 2, '.', '') . '</td>'; // brokerage fee
+							$output .= '<td>' . number_format((float)$finalPrompt, 2, '.', '') . '</td>'; //final prompt value
+							$output .= '<td>' . number_format((float)$withholdingTax, 2, '.', '') . '</td>';
+							$output .= '<td>' . number_format((float)$finalPromptEata, 2, '.', '') . '</td>';
+							$output .= '</tr>';
+						$output.='</tr>';
+					}
+					
+			$output .= '</tbody>';
+			$output .= '<tfooter>
+						<tr>';
+							$output .= '<td><b>TOTALS</td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td><b>' . $totalLots . '</b></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td></td>';
+							$output .= '<td><b>' . $totalPkgs . '</b></td>'; //pkgs
+							$output .= '<td><b>' . round(($totalNet / $totalLots),2) . '</b></td>'; //kgs
+							$output .= '<td><b>' . number_format((float)$totalKgs, 2, '.', '') . '</b></td>'; //net
+							$output .= '<td><b>' . round(($totalHammer/$totalLots),2) . '</b></td>'; //auction hammer
+							$output .= '<td><b>' . number_format((float)$totalValue, 2, '.', '') . '</b></td>'; //value ex auction
+							$output .= '<td><b>' . round(($totalBrokerage),2) . '</b></td>'; // brokerage fee
+							$output .= '<td><b>' . $totalAmount . '</b></td>'; //final prompt value
+							$output .= '<td><b>' . number_format((float)$withholdingTaxTotal, 2, '.', '') . '</b></td>';
+							$output .= '<td><b>' . number_format((float)$totalPromptEata, 2, '.', '') . '</b></td>';
+							$output .= '<td></td>';
+
+
+			$output .= '</tr>
+						</tfooter>
+				</table>';
+      		echo $output;	
+		}else{
+			echo '<h3 class="text-center mt-5">There are no  lots on the facility list</h3>';
+		}
+
+	}
 	
 	
 

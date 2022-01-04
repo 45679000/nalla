@@ -7,7 +7,7 @@ class Purchases extends Model
 
     //insert into bank trans//
     public function post_purchase(){
-        $this->clean();
+        // $this->clean();
         //insert into bank trans//
         $cart = $this->cart;
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -17,8 +17,8 @@ class Purchases extends Model
         $this->add_audit_trail(25, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
         $this->add_audit_trail(20, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
 
-        $this->add_gl_trans(20,  $cart->trans_no, $cart->stock_id, $cart->description, -$cart->total_amount-$cart->withholdingTax,  NULL, NULL);
-        $this->add_gl_trans(20,  $cart->trans_no, $cart->payable_account, $cart->memo, $cart->total_amount,  2, 0x37);
+        $this->add_gl_trans(20,  $cart->trans_no, $cart->stock_id, $cart->description, $cart->total_amount-$cart->withholdingTax,  NULL, NULL);
+        $this->add_gl_trans(20,  $cart->trans_no, $cart->payable_account, $cart->memo, -$cart->total_amount,  2, 0x37);
         $this->add_gl_trans(20,  $cart->trans_no, 1080, $cart->memo, $cart->withholdingTax,  2, 0x37);
 
         $this->add_ref(20, $cart->trans_no, $cart->reference);
@@ -33,7 +33,7 @@ class Purchases extends Model
         $grn_item_id = $this->grn_items($grn_batch_id, $po_detail_item, $cart->stock_id, $cart->description, $cart->kgs, $cart->kgs);
 		$grn_item_id1 = $this->grn_items($grn_batch_id, $po_detail_item1, 1062, $cart->description, 1, 1);
 
-
+		$this->supp_trans($cart->trans_no, 20, $cart->supplier_id, $cart->reference, $cart->reference, $cart->trans_date,  $cart->trans_date, $cart->total_amount, $ov_discount=0, $ov_gst=0, $cart->rate, $alloc=0, $tax_included=0);
         $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id, $po_detail_item, $cart->stock_id, $cart->description,  $cart->kgs, $cart->unit_price, $cart->unit_tax, $cart->memo);
         $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id1, $po_detail_item1, 1062, "Witholding-Tea Brokerage Fees",  1, $cart->withholdingTax, $cart->unit_tax, $cart->memo);
 
@@ -49,6 +49,55 @@ class Purchases extends Model
            $this->conn->rollBack();
        }
     }
+
+	public function process_facility(){
+        // $this->clean();
+        //insert into bank trans//
+        $cart = $this->cart;
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->beginTransaction();
+
+        $this->add_audit_trail(0, $cart->trans_no, $cart->user, $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
+       
+		$this->add_to_journal(0,  $cart->trans_no, $cart->trans_date, $cart->reference, $cart->source_ref,  $cart->trans_date, $cart->trans_date, "USD", $cart->amount, $cart->rate);
+
+        $this->add_gl_trans(0,  $cart->trans_no, $cart->account1, $cart->description, $cart->amount,  NULL, NULL);
+        $this->add_gl_trans(0,  $cart->trans_no, $cart->account2, $cart->memo, -$cart->amount,  NULL, NULL);
+
+		
+        $this->add_ref(0, $cart->trans_no, $cart->reference);
+       
+        $this->add_memo(0, $cart->trans_no, "Deal Transfer");
+		
+       if($this->rollBack >0){
+            $this->conn->commit();
+
+			return $cart->trans_no;
+
+       }else{
+           $this->conn->rollBack();
+       }
+    }
+	public function add_to_journal($type,  $trans_no, $trans_date, $reference, $source_ref,  $eventdate, $doc_date, $currency, $amount, $rate){
+		try {
+			$sql="INSERT INTO `0_journal`(`type`, `trans_no`, `tran_date`, `reference`, `source_ref`, `event_date`, `doc_date`, `currency`, `amount`, `rate`) 
+			VALUES (?,?,current_date,?,?,current_date,current_date,?,?,?)";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->bindValue(1, 0);
+			$stmt->bindParam(2, $trans_no);	
+			$stmt->bindParam(3, $reference);
+			$stmt->bindParam(4, $source_ref);
+			$stmt->bindParam(5, $currency);
+			$stmt->bindParam(6, $amount);
+			$stmt->bindParam(7, $rate);
+			$stmt->execute();
+
+			return $this->conn->lastInsertId();
+            $this->rollBack =+ 1;
+		} catch (Exception $ex) {
+			var_dump($ex);
+		}
+	}
     public function add_bank_trans($type, $trans_no, $bank_act, $ref, $trans_date, $amount, $persontype, $personid){
         try {
            
@@ -166,6 +215,36 @@ class Purchases extends Model
 
             return $this->conn->lastInsertId();
         } catch (Exception $ex) {
+            var_dump($ex);
+            return -1;
+        }
+	}
+	public function supp_trans($trans_no, $type, $supplier_id, $reference, $supp_reference, $tran_date,  $due_date, $ov_amount, $ov_discount=0, $ov_gst=0, $rate, $alloc=0, $tax_included=0){
+		try {
+            
+			$sql = "INSERT INTO ".$this->tbpref."supp_trans(`trans_no`, `type`,`supplier_id`, `reference`, `supp_reference`, `tran_date`, `due_date`,  `ov_amount`, `ov_discount`, `ov_gst`, `rate`, `alloc`, `tax_included`)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->bindParam(1,$trans_no);
+			$stmt->bindParam(2,$type);
+			$stmt->bindParam(3,$supplier_id);
+			$stmt->bindParam(4,$reference);
+			$stmt->bindParam(5,$supp_reference);
+			$stmt->bindParam(6,$tran_date);
+			$stmt->bindParam(7,$due_date);
+			$stmt->bindParam(8,$ov_amount);
+			$stmt->bindParam(9,$ov_discount);
+			$stmt->bindParam(10,$ov_gst);
+			$stmt->bindParam(11,$rate);
+			$stmt->bindParam(12,$alloc);
+			$stmt->bindParam(13,$tax_included);
+
+            $stmt->execute();
+            $this->rollBack ++;
+
+            return $this->conn->lastInsertId();
+        } catch (Exception $ex) {
+			
             var_dump($ex);
             return -1;
         }
@@ -428,6 +507,7 @@ class Purchases extends Model
         // DELETE FROM 0_purch_data;
         // DELETE FROM 0_purch_orders;
         // DELETE FROM 0_purch_order_details;
+		// DELETE FROM 0_journal;
 
 
         
@@ -453,6 +533,9 @@ class Purchases extends Model
 			$this->conn->prepare("DELETE FROM ".$this->tbpref."purch_data")->execute();
 			$this->conn->prepare("DELETE FROM ".$this->tbpref."purch_orders")->execute();
 			$this->conn->prepare("DELETE FROM ".$this->tbpref."purch_order_details")->execute();
+			$this->conn->prepare("DELETE FROM ".$this->tbpref."sup_trans")->execute();
+			$this->conn->prepare("DELETE FROM ".$this->tbpref."journal")->execute();
+			$this->conn->prepare("DELETE FROM ".$this->tbpref."gl_trans")->execute();
 
             $this->conn->commit();
 			$this->rollBack ++;
@@ -487,7 +570,7 @@ class Purchases extends Model
 		while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
 			$id++;
 			$items = array(
-					"stock_id"=>$row2['code'],
+					"stock_id"=>1068,
 					"description"=>$row2['item'],
 					"vat"=>$row2['vat'],
 					"levy"=>$row2['levy'],

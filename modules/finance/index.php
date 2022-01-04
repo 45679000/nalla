@@ -96,11 +96,13 @@
                             case 'selectTeas':
                                 include 'views/generate_straightline_profoma.php';
                                 break;
+                            case 'settleFacility':
+                                include 'views/process_tea_payment.php';
+                                break;
                                 default:
                             include('views/dashboard.php');    
 
                         }
-                        
                             
                     }
                 

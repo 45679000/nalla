@@ -501,6 +501,58 @@
          
          
         }
+
+        public function fcart($facility_no){
+            try {
+               $this->debugSql = false;
+               $this->query = "UPDATE booking_facility SET  is_processed = 1 WHERE facility_no = '$facility_no'";
+               $this->executeQuery();
+               
+               $this->query = "SELECT * 
+               FROM booking_facility 
+               WHERE facility_no = '$facility_no'";
+               $facility = $this->executeQuery();
+
+               $stmt1 = $this->conn->prepare("SELECT (CASE WHEN (max(type_no)) IS NULL THEN 1 ELSE max(type_no)+1 END)  AS trans_no FROM  ".$this->tbpref."gl_trans");
+               $stmt1->execute();
+               $row = $stmt1->fetch();
+               $trans_no = $row["trans_no"];
+
+
+                $stmt2 = $this->conn->prepare("SELECT *FROM 0_exchange_rates WHERE date_ = current_date AND curr_code = 'USD'");
+                $stmt2->execute();
+                $row2 = $stmt2->fetch();
+                $rate = $row2["rate_buy"];
+
+                $cart = new stdClass();
+                $id = 0;
+
+                $trans_date = Date("Y-m-d");
+                $cart = (Object) array(
+                    "amount"=>$facility[0]["amount"], 
+                    "trans_no"=>$trans_no, 
+                    "trans_date"=>$trans_date,
+                    "fiscal_year"=>4,
+                    "reference"=>$facility[0]["facility_no"],
+                    "memo"=>"FCNO:".$facility[0]["facility_no"],
+                    "account1" => 1037,
+                    "account2" =>1034,
+                    "rate" =>  $rate,
+                    "user" => 1,
+                    "description" => "FCNO:".$facility[0]["facility_no"],
+                    "reference" => $facility[0]["facility_no"],
+                    "source_ref" => $facility[0]["facility_no"]
+
+                    
+                );
+               return $cart;
+
+            } catch (\Throwable $th) {
+               throw $th;
+            }
+         
+         
+        }
         public function cart($invoice_no, $type){
             $invoice = array();
             $trans_date = date('Y-m-d');
@@ -568,7 +620,7 @@
                 "invoice_no" =>$invoice_no,
                 "description" =>"TEA SALE",
                 "branch_code" =>$invoice[0]["branch_code"],
-                "receivables_account" => $invoice[0]["receivables_account"],
+                "receivables_account" => 1020,
                 "debtor_no" => $invoice[0]["debtor_no"],
                 "due_date" =>  $duedate,  
 
@@ -599,6 +651,11 @@
             $row = $stmt1->fetch();
             $trans_no = $row["trans_no"];
 
+            $stmt2 = $this->conn->prepare("SELECT *FROM 0_exchange_rates WHERE date_ = current_date AND curr_code = 'USD'");
+            $stmt2->execute();
+            $row2 = $stmt2->fetch();
+            $rate = $row2["rate_buy"];
+
 
             $net = $invoice[0]['net'];
             $hammerPrice = round(floatval($invoice[0]['sale_price']/100), 2);
@@ -626,12 +683,12 @@
                 "fiscal_year"=>4,
                 "reference"=>$invoice[0]["invoice_no"],
                 "memo"=>$invoice[0]["sale_no"]."-:".$invoice[0]["lot"]."-:".$invoice[0]["mark"]."-:".$invoice[0]["grade"],
-                "stock_id" => 1030,
+                "stock_id" => 1068,
                 "description" =>"TEA Purchase",
                 "branch_code" =>$invoice[0]["branch_code"],
                 "payable_account" => $invoice[0]["payable_account"],
                 "supplier_id" => $invoice[0]["supplier_id"],
-                "rate" =>  1,  
+                "rate" =>  $rate,  
                 "unit_tax" =>0,
                 "delivery_address" => "Chamu",
                 "kgs" => $invoice[0]["net"],
@@ -683,6 +740,32 @@
             try {
                $this->debugSql = false;
                $this->query = "SELECT * FROM buying_list WHERE facility_no = '$facility_no'";
+               return $this->executeQuery();
+
+            } catch (\Throwable $th) {
+               throw $th;
+            }
+         
+         
+        }
+        public function Facilities($facility_no="all"){
+            try {
+               $this->debugSql = false;
+               $query = "SELECT booking_facility.`facility_no`, `value_date`, buying_list.broker_invoice,
+                COUNT(buying_list.buying_list_id) AS total_lots, booking_facility.amount, booking_facility.account_number
+               FROM `booking_facility`
+               INNER JOIN buying_list ON buying_list.facility_no = booking_facility.facility_no ";
+
+               if($facility_no =="all"){
+                $query.=" GROUP BY facility_no ";
+
+               }else{
+                $query.=" WHERE facility_no = '$facility_no'
+                
+                  GROUP BY facility_no";
+
+               }
+               $this->query = $query;
                return $this->executeQuery();
 
             } catch (\Throwable $th) {

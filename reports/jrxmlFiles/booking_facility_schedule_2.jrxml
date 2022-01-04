@@ -110,26 +110,12 @@
 	</background>
 	<title>
 		<band height="259" splitType="Stretch">
-			<staticText>
-				<reportElement x="8" y="58" width="40" height="21" uuid="ac024391-22bf-4db6-be5d-e2d8d25983e4"/>
-				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Date:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="321" y="58" width="59" height="20" uuid="750b539d-ad31-40d7-9f66-0ab83ad262e7"/>
-				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[FA NO:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="377" y="55" width="170" height="20" uuid="2b0618fc-f250-4c43-93ed-2f97f145afd9"/>
+				<reportElement x="375" y="55" width="170" height="20" uuid="2b0618fc-f250-4c43-93ed-2f97f145afd9"/>
 				<textElement textAlignment="Left" markup="html">
 					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{facility_no}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["FA NO"+$F{facility_no}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="11" y="89" width="199" height="52" uuid="e7ddd36b-1741-40d4-8c75-35cca8915220"/>
@@ -139,11 +125,11 @@
 				<textFieldExpression><![CDATA[$F{bank_address}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="48" y="38" width="170" height="20" uuid="d313e6cb-a2d7-4e32-b815-1cd75648aad3"/>
+				<reportElement x="15" y="38" width="170" height="20" uuid="d313e6cb-a2d7-4e32-b815-1cd75648aad3"/>
 				<textElement textAlignment="Left" markup="html">
 					<font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{created_on}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date "+$F{created_on}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="10" y="131" width="172" height="20" uuid="5c07bdc9-ee4d-4c77-94a8-bf2d52e3ae31"/>

@@ -44,7 +44,7 @@ require_once $path_to_root . 'templates/header.php';
                 <div class="card-box tilebox-one">
                     <i class="icon-layers float-left text-muted"><i class="fa fa-credit-card-alt text-danger"
                             aria-hidden="true"></i></i>
-                    <h6 class="text-drak text-uppercase mt-0">Mark Lots Paid</h6>
+                    <h6 class="text-drak text-uppercase mt-0">Booking Facility Settlement</h6>
                 </div>
             </div>
         </div>
@@ -196,10 +196,8 @@ $("#paymentSchedule").click(function(e) {
 
 });
 $("#paidLots").click(function(e) {
-    Swal.fire({
-        icon: 'notice',
-        title: 'Development in progress',
-    });
+    window.location.href = "./index.php?view=settleFacility";
+
 });
 
 

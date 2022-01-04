@@ -5,7 +5,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT `id`, DATE_FORMAT(`created_on`,'%d/%m/%Y') AS created_on, buying_list.broker, SUM(pkgs) AS pkgs, SUM(kgs) AS kgs, broker_invoice, (SUM(`sale_price`) * kgs) AS value,
-`booking_facility`.facility_no
+`booking_facility`.facility_no, net
 FROM `booking_facility`
 INNER JOIN buying_list  ON buying_list.`facility_no` = `booking_facility`.`facility_no`
 WHERE  id = 3
@@ -53,12 +53,18 @@ GROUP BY broker_invoice]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="booking_facility"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="net" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="net"/>
+		<property name="com.jaspersoft.studio.field.label" value="net"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="buying_list"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="totalPkgs" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{pkgs}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="totalQuantity" class="java.lang.Float" calculation="Sum">
-		<variableExpression><![CDATA[$F{kgs}]]></variableExpression>
+		<variableExpression><![CDATA[$F{net}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="totalValue" class="java.lang.Double" calculation="Sum">
@@ -69,34 +75,20 @@ GROUP BY broker_invoice]]>
 	</background>
 	<title>
 		<band height="144" splitType="Stretch">
-			<staticText>
-				<reportElement x="8" y="57" width="40" height="21" uuid="ac024391-22bf-4db6-be5d-e2d8d25983e4"/>
-				<textElement textAlignment="Right">
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Date:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="375" y="118" width="170" height="20" uuid="2b0618fc-f250-4c43-93ed-2f97f145afd9"/>
+				<reportElement x="1" y="107" width="544" height="20" uuid="2b0618fc-f250-4c43-93ed-2f97f145afd9"/>
 				<textElement textAlignment="Left" markup="html">
 					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{facility_no}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["SCHEDULE OF ASSETS REFERRED TO ABOVE FA NO "+$F{facility_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="48" y="55" width="170" height="20" uuid="d313e6cb-a2d7-4e32-b815-1cd75648aad3"/>
+				<reportElement x="1" y="55" width="170" height="20" uuid="d313e6cb-a2d7-4e32-b815-1cd75648aad3"/>
 				<textElement textAlignment="Left" markup="html">
 					<font fontName="SansSerif" size="12" isBold="true" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{created_on}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date "+$F{created_on}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="13" y="118" width="361" height="20" uuid="f4a6b753-c13b-455b-970d-026912821dc5"/>
-				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[SCHEDULE OF ASSETS REFERRED TO ABOVE FA NO]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -189,7 +181,7 @@ GROUP BY broker_invoice]]>
 				<textElement textAlignment="Left">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{kgs}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{net}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="443" y="1" width="104" height="32" uuid="9adfb5eb-489b-423d-988a-f3cae6f74b6e"/>

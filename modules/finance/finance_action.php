@@ -1023,7 +1023,66 @@
 		}
 
 	}
+	if (isset($_POST['action']) && $_POST['action'] == "view-facilities") {
+
+		$purchases = $finance->Facilities($facility_no="all");
 	
+		if (sizeOf($purchases) > 0) {
+			$output .='	<table class="table card-table table-vcenter text-nowrap">
+					<thead>
+						<tr>
+							<th>Facility No</th>
+							<th>Date</th>
+							<th>No of Lots</th>
+							<th>Status</th>
+							<th>Total Amount(USD)</th>
+							<th></th>
+						</tr>
+						<tbody>
+						<tr>';
+					foreach ($purchases as $purchase){
+						
+						$totalPayableStock += $totalPayable * $purchase['net'];
+						$output.='<tr>';
+							$output .= '<td><a href="store.html" class="text-inherit">'.$purchase["facility_no"].'</a></td>';
+							$output .= '<td>'.$purchase["value_date"].'</td>';
+							$output .= '<td>'.$purchase["total_lots"].'</td>';
+							$output .= '<td><span class="status-icon bg-warning"></span> pending</td>';
+							$output .= '<td>'."USD:".$purchase["amount"].'</td>';
+							$output .= '<td class="text-right">';
+							if($purchase["is_processed"]==0){
+								$output.='<a class="icon"></a>
+								<a id="'.$purchase["facility_no"].'" class="btn btn-warning btn-sm process"><i class="fa fa-history"></i> Process</a>';
+							}
+							if($purchase["is_paid"]==0 && $purchase["is_processed"]==1){
+								$output.='<a class="icon"></a>
+								<a id="'.$purchase["facility_no"].'" class="btn btn-success btn-sm pay"><i class="fa fa-link"></i> Pay</a>';
+							}
+							
+							$output.='</td>';
+						$output.='</tr>';
+					}
+					
+			$output .= '</tbody>
+		
+				</table>';
+      		echo $output;	
+		}
+
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "process-facility"){
+		$facility_no = isset($_POST['facility_no']) ? $_POST['facility_no'] : '';
+		$purchaseCtrl->clean();
+		$cart = $finance->fcart($facility_no);
+		$purchaseCtrl->cart = $cart;
+		$purchaseCtrl->process_facility();
+
+
+	}
+
+
+
+
 	
 
 	

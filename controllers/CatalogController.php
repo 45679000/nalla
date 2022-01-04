@@ -606,12 +606,12 @@
         }
         public function GenerateAuctionList(){
             for($i = 1; $i<53; $i++){
-<<<<<<< HEAD
+// <<<<<<< HEAD
                 // $year = date("Y");
                 $year = 2022;
-=======
+// =======
                 $year = date("Y");
->>>>>>> 92e243019ae2a0e607bd6c4a9ba4bb2e66feeb8b
+// >>>>>>> 92e243019ae2a0e607bd6c4a9ba4bb2e66feeb8b
                 $this->query = "INSERT INTO auctions(sale_no, active, auction_details)
                 VALUES(CONCAT($year, '-',  lpad($i,2,'0')), 1, 'WEEK- $i ')";
                 $this->executeQuery();

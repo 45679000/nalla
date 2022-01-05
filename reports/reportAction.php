@@ -68,9 +68,18 @@ if (isset($_POST['action']) && $_POST['action'] == "printRA") {
     echo $html;
 }
 if (isset($_POST['action']) && $_POST['action'] == "purchaseList") {
-    $startDate = isset($_POST["from"]) ? $_POST["from"] : '2020-01-01';
-    $endDate = isset($_POST["to"]) ? $_POST["to"] : '2030-12-31';
-    $model->query = "SELECT *FROM buying_list WHERE import_date BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE)";
+    $startDate = isset($_POST["from"]) ? $_POST["from"] : date('Y-m-01');
+    $endDate = isset($_POST["to"]) ? $_POST["to"] : date('Y-m-t');
+
+
+    $model->query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 
+            `entry_no`, `value`, `lot`, `company`, buying_list.`mark`, `grade`, `manf_date`, `ra`, `rp`, `invoice`, `pkgs`,
+             `type`, `net`, `gross`, `kgs`, `tare`, `sale_price`, `standard`, `buyer_package`, `import_date`, 
+             `imported`, `imported_by`, `allocated`, `added_to_plist`, `grading_comment`, `max_bp`, `target`, 
+             mark_country.country AS origin, `broker_invoice`, DATE_FORMAT(`auction_date`, '%d/%m/%Y') AS auction_date, added_to_stock
+            FROM `buying_list` 
+            LEFT JOIN mark_country ON mark_country.mark = buying_list.mark
+            WHERE  buyer_package='CSS' AND auction_date BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE)";
     
     $data = $model->executeQuery();
     $html = "";
@@ -80,6 +89,7 @@ if (isset($_POST['action']) && $_POST['action'] == "purchaseList") {
 											<tr>
 												<th class="wd-15p">Sale No</th>
 												<th class="wd-15p">Lot No</th>
+                                                <th class="wd-15p">Date</th>
 												<th class="wd-15p">Broker</th>
 												<th class="wd-15p">Ware Hse.</th>
 												<th class="wd-15p">Mark</th>
@@ -98,6 +108,7 @@ if (isset($_POST['action']) && $_POST['action'] == "purchaseList") {
             $html .= '<tr>';
             $html .= '<td>' . $import["sale_no"] . '</td>';
             $html .= '<td>' . $import["lot"] . '</td>';
+            $html .= '<td>' . $import["auction_date"] . '</td>';
             $html .= '<td>' . $import["broker"] . '</td>';
             $html .= '<td>' . $import["ware_hse"] . '</td>';
             $html .= '<td>' . $import["mark"] . '</td>';

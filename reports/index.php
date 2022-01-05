@@ -10,14 +10,12 @@ require_once $path_to_root . 'templates/header.php';
         padding: 0.5rem 0.5rem !important;
         position: relative;
     }
-    .datePicker {
-        display: none;
-    }
+  
 </style>
 <div class="container-fluid p-3">
     
     <div class="card p-3">
-        <form method="POST" class="datePicker">
+        <form method="POST" id="filterDiv" style="display: none;" class="datePicker">
             <div class="date-group row col-5">
                 <label for="from">Start date:</label>
                 <input type="date" id="from" name="startDate" class="form-control">
@@ -113,6 +111,12 @@ require_once $path_to_root . 'templates/header.php';
 			});
 
     });
+    $("#purchaseList").click(function(e) {
+        e.preventDefault();
+        loadBuyingList("", "");
+
+
+    });
         $('#from, #to').change(function(e) {
             e.preventDefault();
             var from = $('#from').val();
@@ -133,7 +137,7 @@ require_once $path_to_root . 'templates/header.php';
 					$(".table").dataTable({
                         lengthChange: false,
                             select: true,
-                            "pageLength": 100,
+                            "pageLength": 50,
                             dom: 'Bfrtip',
                             buttons: [{
                                     extend: 'copyHtml5',
@@ -157,17 +161,13 @@ require_once $path_to_root . 'templates/header.php';
                                 }
                             ],
                     });
+                    $("#filterDiv").show();
+
 				}
         });
     }
     
-    $("#purchaseList").click(function(e) {
-        e.preventDefault();
-        $(".datePicker").removeClass();
-        $("#closingimports_filter").appendChild(saP);
-        if($("#closingimports_filter")){console.log('holla')}
-        
-    });
+
 
    function print_report(link, txt, icon, id){
        var content ='<div class="col-sm-12 col-lg-1 col-md-1 d-flex align-items-stretch">';

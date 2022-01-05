@@ -42,6 +42,9 @@ include $path_to_root . 'templates/header.php';
                                 <a href="./index.php?view=warehouse" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-list"></i></span>Manage Warehouses
                                 </a>
+                                <a href="./index.php?view=auctions" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-list"></i></span>Auctions
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -75,7 +78,9 @@ include $path_to_root . 'templates/header.php';
                             case 'warehouse':
                                 include('views/manage_warehouses.php');
                                 break;
-
+                            case 'auctions':
+                                include('views/auction.php');
+                                break;
                             
                             default:
                             include('views/gardens.php');

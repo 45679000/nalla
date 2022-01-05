@@ -7,8 +7,8 @@
 <style>
     body {
         color: #000;
-        overflow-x: hidden;
-        height: 100%;
+        overflow-x: hidden !important;
+        /* height: 100%; */
 
         background-image: linear-gradient(to right, #00c6ff, #95d343);
         background-repeat: no-repeat
@@ -46,13 +46,13 @@
     }
 
     .card {
-        border-radius: 0;
-        border: none
+        border-radius: 0 !important;
+        border: none !important;
     }
 
     .card1 {
         width: 50%;
-        padding: 40px 30px 10px 30px
+        /* padding: 40px 30px 10px 30px !important; */
     }
 
     .card2 {
@@ -65,7 +65,7 @@
 
     #logo {
         width: 70px;
-        height: 60px
+        height: 40px
     }
 
     .heading {
@@ -148,7 +148,8 @@
         }
 
         .card2 {
-            width: 100%
+            width: 100%;
+            display: none !important;
         }
 
         .right {
@@ -159,7 +160,7 @@
 
     @media screen and (max-width: 768px) {
         .container {
-            padding: 10px !important
+            padding: 10px !important;
         }
 
         .card2 {
@@ -185,7 +186,7 @@
         <div class="d-flex flex-lg-row flex-column-reverse">
             <div class="card card1">
                 <div class="row justify-content-center my-auto">
-                    <div class="col-md-8 col-10 my-5">
+                    <div class="col-md-8 col-10 mt-5">
                         <div class="row justify-content-center px-3 mb-3"><img class="logo" src="../images/logo.png" alt="" /></div>
                         <h6 class="msg-info">Enter Your Username and Password To login</h6>
                         <div id="usernameDiv" class="form-group"> <label class="form-control-label text-muted">Username</label>
@@ -204,9 +205,9 @@
                          </div>
                     </div>
                 </div>
-                <div class="bottom text-center mb-5">
-                    <!-- <p href="#" class="sm-text mx-auto mb-3">Don't have an account?<button class="btn btn-white ml-2">Create new</button></p> -->
-                </div>
+                <!-- <div class="bottom text-center mb-5">
+                    <p href="#" class="sm-text mx-auto mb-3">Don't have an account?<button class="btn btn-white ml-2">Create new</button></p> 
+                </div> -->
             </div>
             <div class="card card2">
                 <div class="my-auto mx-md-5 px-md-5 right">

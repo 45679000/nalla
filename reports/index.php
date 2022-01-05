@@ -17,15 +17,14 @@ require_once $path_to_root . 'templates/header.php';
 <div class="container-fluid p-3">
     
     <div class="card p-3">
-    <form method="POST" class="datePicker">
+        <form method="POST" class="datePicker">
             <div class="date-group row col-5">
                 <label for="from">Start date:</label>
-                <!-- <input type="date" id="from" name="startDate" class="form-control"> -->
-                <input type="text" id="from" name="startDate" placeholder="Example 2021-01" class="form-control">
+                <input type="date" id="from" name="startDate" class="form-control">
+                
                 <label for="to">End date:</label>
-                <!-- <input type="date" id="to" name="endDate" class="form-control"> -->
-                <input type="text" id="to" name="startDate" placeholder="Example 2021-04" class="form-control">
-                <input type="submit" value="Filter" class="btn btn-primary" id="submitSaleNo">
+                <input type="date" id="to" name="endDate" class="form-control">
+                
             </div>
         </form>
         <div class="row row-cards" id="dashboardWrapper" style="padding: 10px;">
@@ -69,7 +68,6 @@ require_once $path_to_root . 'templates/header.php';
     print_report("./koolReports/stockbysaleno/stock_by_sale_no.php", "Stock By Sale No    ", "fa fa-calendar text-success", "");
     print_report("#", "Print RA Teas", " fa fa-file-pdf-o text-info", "printRA");
     print_report("#", "Buying List", "fa fa-file", "purchaseList");
-
     $("#cmdfinance").click(function(e) {
         $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/reporting/reports_main.php?Class=6" width="100%" height="1000" style="border:none;">');
     });
@@ -115,13 +113,7 @@ require_once $path_to_root . 'templates/header.php';
 			});
 
     });
-        // $('#from, #to').change(function(e) {
-        //     e.preventDefault();
-        //     var from = $('#from').val();
-        //     var to = $('#to').val();
-        //     loadBuyingList(from, to);
-        // });
-        $('#submitSaleNo').click(function(e) {
+        $('#from, #to').change(function(e) {
             e.preventDefault();
             var from = $('#from').val();
             var to = $('#to').val();
@@ -172,45 +164,9 @@ require_once $path_to_root . 'templates/header.php';
     $("#purchaseList").click(function(e) {
         e.preventDefault();
         $(".datePicker").removeClass();
-        // $.ajax({
-		// 		type: "POST",
-		// 		data: {
-		// 			action: "purchaseList",
-		// 		},
-		// 		// cache: true,
-		// 		url: "reportAction.php",
-		// 		success: function (data) {
-		// 			$("#dashboardWrapper").html(data);
-		// 			$(".table").dataTable({
-        //                 lengthChange: false,
-        //                     select: true,
-        //                     "pageLength": 100,
-        //                     dom: 'Bfrtip',
-        //                     buttons: [{
-        //                             extend: 'copyHtml5',
-        //                             text: 'COPY<i class="fa fa-clipboard"></i>',
-        //                             titleAttr: 'Copy Paste'
-        //                         },
-        //                         {
-        //                             extend: 'excelHtml5',
-        //                             text: 'EXCEL <i class="fa fa-file-excel-o"></i>',
-        //                             titleAttr: 'Excel'
-        //                         },
-        //                         {
-        //                             extend: 'csvHtml5',
-        //                             text: 'CSV <i class="fa fa-file-text"></i>',
-        //                             titleAttr: 'CSV'
-        //                         },
-        //                         {
-        //                             extend: 'pdfHtml5',
-        //                             text: 'PDF <i class="fa fa-file-pdf-o"></i>',
-        //                             titleAttr: 'PDF'
-        //                         }
-        //                     ],
-        //             });
-		// 		}
-		// 	});
-
+        $("#closingimports_filter").appendChild(saP);
+        if($("#closingimports_filter")){console.log('holla')}
+        
     });
 
    function print_report(link, txt, icon, id){

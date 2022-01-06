@@ -129,6 +129,12 @@
         $user->resetPassword($password, $id);
 
     }
+    if($action == "forgot-password"){
+        $username = $_POST["username"];
+        $password = isset($_POST["password"]) ? $_POST["password"] : $user->generatePassword();
+        $user->forgotPassword($password, $username);
+
+    }
     if($action == "list-departments"){
         $html = "";
         $departments = $user->getActiveDepartments();
@@ -157,6 +163,7 @@
     echo $html;
 
     }
+
 
 
     

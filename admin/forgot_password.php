@@ -48,19 +48,11 @@
     .card {
         border-radius: 0 !important;
         border: none !important;
-    }
-
-    .card1 {
-        width: 50%;
-        /* padding: 40px 30px 10px 30px !important; */
-    }
-
-    .card2 {
-        width: 50%;
-        background-image: linear-gradient(to left, #00c6ff, #95d343);
-        background-image: url("../images/login_background_3.JPG");
-
-        /* background-image: linear-gradient(to right, #FFD54F, #D500F9) */
+        margin-top: 11vH;
+        margin-bottom: 11vH;
+        margin-right: 70vH;
+        margin-left: 70vH;
+        
     }
 
     #logo {
@@ -140,38 +132,6 @@
     .sm-text {
         font-size: 15px
     }
-
-    /* @media screen and (max-width: 992px) {
-        .card1 {
-            width: 100%;
-            padding: 40px 30px 10px 30px
-        }
-
-        .card2 {
-            width: 100%;
-            display: none !important;
-        }
-
-        .right {
-            margin-top: 100px !important;
-            margin-bottom: 100px !important
-        }
-    } */
-
-    /* @media screen and (max-width: 768px) {
-        .container {
-            padding: 10px !important;
-        }
-
-        .card2 {
-            padding: 50px
-        }
-
-        .right {
-            margin-top: 50px !important;
-            margin-bottom: 50px !important
-        }
-    } */
 </style>
 
 <head>
@@ -181,34 +141,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>TIFMS</title>
 </head>
-<div class="container pt-20 py-5 mx-auto  align-items-center">
-    <div class="card pt-20 card0">
-        <div class="d-flex flex-lg-row flex-column-reverse">
-            <div class="card card1 d-flex justify-content-center" >
-                <div class="row justify-content-center my-auto">
-                    <div class="col-md-6 col-10 mt-5">
-                        <div class="row justify-content-center px-3 mb-3"><img class="logo" src="../images/logo.png" alt="" /></div>
-                        <h6 class="msg-info">Enter Your Username</h6>
-                        <div id="usernameDiv" class="form-group"> <label class="form-control-label text-muted">Username</label>
-                            <input type="text" id="username" name="email" placeholder="Username" class="form-control">
-                        </div>
-                        <div  class="form-group"> <label class="form-control-label text-muted">Enter New Password</label>
-                            <input type="password" id="newPassword" name="newpassword" placeholder="New Password" class="form-control">
-                        </div>
-                        <div id="passwordDiv" class="form-group"> <label class="form-control-label text-muted">Password</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" class="form-control">
-                        </div>
-                        
-                        <div class="row justify-content-center my-3 px-3"> 
-                            <button id="ResetPassword" class="btn-block btn-color">Reset Password</button>
-                         </div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <div class="row justify-content-center px-3 mb-3">
+                <img class="logo" src="../images/logo.png" alt="" />
+             </div>
+        </div>
+        <div class="card-body" >
+            <div class="row justify-content-center my-auto">
+                <div class="col-md-6 col-8 mt-5">
+                    <h6 class="msg-info">Enter Your Username</h6>
+                    <div id="usernameDiv" class="form-group"> <label class="form-control-label text-muted">Username</label>
+                        <input type="text" id="username" name="email" placeholder="Username" class="form-control">
                     </div>
+                    <div  class="form-group"> <label class="form-control-label text-muted">Enter New Password</label>
+                        <input type="password" id="newPassword" name="newpassword" placeholder="New Password" class="form-control">
+                    </div>
+                    <div id="passwordDiv" class="form-group"> <label class="form-control-label text-muted">Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" class="form-control">
+                    </div>
+                    
+                   
                 </div>
-                <!-- <div class="bottom text-center mb-5">
-                    <p href="#" class="sm-text mx-auto mb-3">Don't have an account?<button class="btn btn-white ml-2">Create new</button></p> 
-                </div> -->
-            </div>
-            
+            </div>            
+        </div>
+        <div class="card-footer">
+        <div class="row justify-content-center my-3 px-3"> 
+                        <button id="ResetPassword" class="btn-block btn-color">Reset Password</button>
+                        </div>
         </div>
     </div>
 </div>

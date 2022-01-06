@@ -181,30 +181,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>TIFMS</title>
 </head>
-<div class="container px-4 py-5 mx-auto  align-items-center">
-    <div class="card card0">
+<div class="container pt-20 py-5 mx-auto  align-items-center">
+    <div class="card pt-20 card0">
         <div class="d-flex flex-lg-row flex-column-reverse">
             <div class="card card1 d-flex justify-content-center" >
                 <div class="row justify-content-center my-auto">
-                    <div class="col-md-8 col-10 mt-5">
+                    <div class="col-md-6 col-10 mt-5">
                         <div class="row justify-content-center px-3 mb-3"><img class="logo" src="../images/logo.png" alt="" /></div>
-                        <h6 class="msg-info">Enter Your Username and Password To login</h6>
+                        <h6 class="msg-info">Enter Your Username</h6>
                         <div id="usernameDiv" class="form-group"> <label class="form-control-label text-muted">Username</label>
                             <input type="text" id="username" name="email" placeholder="Username" class="form-control">
                         </div>
+                        <div  class="form-group"> <label class="form-control-label text-muted">Enter New Password</label>
+                            <input type="password" id="newPassword" name="newpassword" placeholder="New Password" class="form-control">
+                        </div>
                         <div id="passwordDiv" class="form-group"> <label class="form-control-label text-muted">Password</label>
-                            <input type="password" id="password" name="psw" placeholder="Password" class="form-control">
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" class="form-control">
                         </div>
-                        <div id="otpDiv" style="display:none" class="form-group"> <label class="form-control-label text-muted">OTP</label>
-                            <input type="password" id="otp" name="verification_code" placeholder="OTP" class="form-control">
-                        </div>
-                        <div>
-                            <a href="forgot_password.php">Forgot Password ?</a>
-                        </div>
+                        
                         <div class="row justify-content-center my-3 px-3"> 
-                            <button id="loginBtn" class="btn-block btn-color">Login</button>
-                            <button style="display:none" id="verify" class="btn-block btn-color">Verify</button>
-
+                            <button id="ResetPassword" class="btn-block btn-color">Reset Password</button>
                          </div>
                     </div>
                 </div>
@@ -212,12 +208,7 @@
                     <p href="#" class="sm-text mx-auto mb-3">Don't have an account?<button class="btn btn-white ml-2">Create new</button></p> 
                 </div> -->
             </div>
-            <div class="card card2">
-                <div class="my-auto mx-md-5 px-md-5 right">
-                    <h3 style="font-weight:bold; color:white;"><?= $sessionManager->projectname ?></h3>
-                    <small id="advrt" class="text-white"></small>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -227,23 +218,27 @@
 
 $(function () {
   
-    var txt = 'Bringing Automation To The Tea industry';
-    var speed = 50;
-
-    typeWriter(txt, speed);
-
-    
-    $("#loginBtn").click(function(e){
+    $("#ResetPassword").click(function(e){
         e.preventDefault();
         $(".msg-info").html('<div class="spinner-grow text-primary" role="status"> <span class="sr-only">Loading...</span></div><div class="spinner-grow text-secondary" role="status"><span class="sr-only">Loading...</span></div><div class="spinner-grow text-success" role="status"><span class="sr-only">Loading...</span></div>');
 
         var username = $("#username").val();
-        var password = $("#password").val();
+        var npassword = $("#newPassword").val();
+        var cpassword = $("#confirmPassword").val();
+        var error = "";
+        var password = "";
 
-        $.ajax({
+        if(npassword.trim()==cpassword.trim()){
+            password = npassword;
+        }else{
+            error = "New Password and Confirm Password Should Match";
+        }
+
+        if(error ==""){
+            $.ajax({
             type: "POST",
             data: {
-                action: "login",
+                action: "forgot-password",
                 username: username,
                 password : password
             },
@@ -251,60 +246,25 @@ $(function () {
             url:"user_action.php",
             dataType:"json",
             success: function(data) {
-                if(data.login=="success"){
-                    $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.message+'</p>');
-                    $("#loginBtn").hide();
-                    $("#usernameDiv").hide();
-                    $("#passwordDiv").hide();
-                    $("#otpDiv").show();
-                    $("#verify").show();
-
+                if(data.success=="1"){
+                    $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.response+'</p>');
+                   
                 }else{
-                    $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.message+'</p>');
+                    $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.response+'</p>');
 
                 }
             }
 
         });
+
+        }else{
+            $(".msg-info").html('<p class="alert alert-danger" role="alert">'+error+'</p>');
+
+        }
+ 
     });
-    $("#verify").click(function(e){
-        e.preventDefault();
-        var otp = $("#otp").val();
-        $.ajax({
-            type: "POST",
-            data: {
-                action: "validate_otp",
-                otp: otp
-            },
-            cache: false,
-            url:"user_action.php",
-            dataType:"json",
-            success: function(data) {
-                if(data.otp=="success"){
-                    window.location.href = "./dashboard.php";
 
-                }else{
-                    $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.message+'</p>');
-
-                }
-            }, 
-            error: function(data){
-
-            }
-
-        });
-    });
 }); 
 </script>
 
-<script>
-    function typeWriter(i, txt, speed) {
-        var i = 0;
-        if (i < txt.length) {
-            document.getElementById("advrt").innerHTML += txt.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        }
-    }
-</script>
 

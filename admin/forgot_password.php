@@ -45,7 +45,7 @@
         outline-width: 0
     }
 
-    .card {
+    /* .card {
         border-radius: 0 !important;
         border: none !important;
         margin-top: 11vH;
@@ -53,7 +53,7 @@
         margin-right: 70vH;
         margin-left: 70vH;
         
-    }
+    } */
 
     #logo {
         width: 70px;
@@ -141,16 +141,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>TIFMS</title>
 </head>
-<div class="container-fluid">
-    <div class="card">
+<div class="container" style="padding-top:5%; padding-right:13%; padding-left:13%;">
+    <div class="card justify-content-center h-55">
         <div class="card-header">
             <div class="row justify-content-center px-3 mb-3">
                 <img class="logo" src="../images/logo.png" alt="" />
              </div>
         </div>
         <div class="card-body" >
-            <div class="row justify-content-center my-auto">
-                <div class="col-md-6 col-8 mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-8 mt-5">
                     <h6 class="msg-info">Enter Your Username</h6>
                     <div id="usernameDiv" class="form-group"> <label class="form-control-label text-muted">Username</label>
                         <input type="text" id="username" name="email" placeholder="Username" class="form-control">
@@ -168,8 +168,8 @@
         </div>
         <div class="card-footer">
         <div class="row justify-content-center my-3 px-3"> 
-                        <button id="ResetPassword" class="btn-block btn-color">Reset Password</button>
-                        </div>
+             <button id="ResetPassword" class="btn-block btn-color">Reset Password</button>
+        </div>
         </div>
     </div>
 </div>

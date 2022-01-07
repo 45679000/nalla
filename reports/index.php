@@ -17,11 +17,11 @@ require_once $path_to_root . 'templates/header.php';
     <div class="card p-3">
         <form method="POST" id="filterDiv" style="display: none;" class="datePicker">
             <div class="date-group row col-5">
-                <label for="from">Start date:</label>
-                <input type="date" id="from" name="startDate" class="form-control">
+                    <label for="from">Start date:</label>
+                    <input type="date" id="from" name="startDate" class="form-control" value="2021-01-01">
                 
                 <label for="to">End date:</label>
-                <input type="date" id="to" name="endDate" class="form-control">
+                <input type="date" id="to" name="endDate" class="form-control" value="2021-12-31">
                 
             </div>
         </form>
@@ -113,16 +113,17 @@ require_once $path_to_root . 'templates/header.php';
     });
     $("#purchaseList").click(function(e) {
         e.preventDefault();
-        loadBuyingList("", "");
+        loadBuyingList("2021-01-01", "2021-12-31");
+        $("#filterDiv").show();
 
 
     });
-        $('#from, #to').change(function(e) {
-            e.preventDefault();
-            var from = $('#from').val();
-            var to = $('#to').val();
-            loadBuyingList(from, to);
-        });
+    $('#from, #to').change(function(e) {
+        e.preventDefault();
+        var from = $('#from').val();
+        var to = $('#to').val();
+        loadBuyingList(from, to);
+    });
     function loadBuyingList(from, to) {
         $.ajax({
             url: "reportAction.php",
@@ -161,7 +162,7 @@ require_once $path_to_root . 'templates/header.php';
                                 }
                             ],
                     });
-                    $("#filterDiv").show();
+                    // $("#filterDiv").show();
 
 				}
         });

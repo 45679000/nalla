@@ -247,7 +247,7 @@ $(function () {
             dataType:"json",
             success: function(data) {
                 if(data.success=="1"){
-                    $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.response+'</p>');
+                    $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.response+'</p><a href="./login.php">Go back to login page</a>');
                    
                 }else{
                     $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.response+'</p>');

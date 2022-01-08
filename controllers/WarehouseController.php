@@ -297,6 +297,16 @@ Class WarehouseController extends Model{
 
         
     }
+    public function getShippmentsForUpdate($contractNo){
+        $query = "SELECT * FROM `shippments` WHERE si_no = '$contractNo'";
+        $this->query = $query;
+        return $this->executeQuery();
+    }
+    public function updateShippmentConfirmationStatus($contractNo){
+        $query = "UPDATE `shippments` SET confirmed = 0 WHERE si_no = '$contractNo'";
+        $this->query = $query;
+        return $this->executeQuery();
+    }
     public function getMaterialAllocation($id, $event){
         // $this->debugSql = false;
         $query = "SELECT material_allocation.`id`,  `total`, `details`,  users.full_name, `allocated_on` 

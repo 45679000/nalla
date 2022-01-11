@@ -1,0 +1,19 @@
+[11-Jan-2022 10:17:15 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/templates/header.php on line 3
+[11-Jan-2022 10:17:19 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/templates/header.php on line 3
+[11-Jan-2022 10:17:23 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:17:24 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/finance/finance_action.php on line 465
+[11-Jan-2022 10:17:24 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:17:24 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/finance/finance_action.php on line 580
+[11-Jan-2022 10:17:24 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/finance/finance_action.php on line 623
+[11-Jan-2022 10:17:24 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:17:29 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:17:34 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:17:34 Africa/Khartoum] PHP Notice:  Undefined variable: invoice_type in /var/www/html/chamu/modules/finance/finance_action.php on line 52
+[11-Jan-2022 10:23:39 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:23:39 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:23:39 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/finance/finance_action.php on line 581
+[11-Jan-2022 10:23:39 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:23:39 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/finance/finance_action.php on line 465
+[11-Jan-2022 10:23:43 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:23:50 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:23:50 Africa/Khartoum] PHP Notice:  Undefined variable: invoice_type in /var/www/html/chamu/modules/finance/finance_action.php on line 52

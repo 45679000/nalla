@@ -5,7 +5,6 @@
 .table{
     white-space:nowrap; 
 }
-
 </style>
 <div class="col-md-12 col-lg-12">
     <div class="card">

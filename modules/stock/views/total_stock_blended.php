@@ -14,7 +14,7 @@
                 <div class="expanel expanel-secondary">
 
                     <div class="expanel-heading">
-                        <h3 class="expanel-title">Total Purchases</h3>
+                        <h3 class="expanel-title">Total Stock Blended Tea</h3>
                     </div>
                     <div class="expanel-body">
 
@@ -120,7 +120,7 @@
 
         $('.select2').select2();
 
-        loadMasterStock("tpurchase");
+        loadMasterStock("tsblend");
         $("#saleno, #broker, #mark, #standard, #code").change(function(e) {
             var key = $(this).attr("name");
             var value = $(this).val();
@@ -128,7 +128,7 @@
                 delete thisIsObject[key]; 
             }
             filter[key] = value;
-            loadMasterStock("tpurchase");
+            loadMasterStock("tsblend");
 
 
         });

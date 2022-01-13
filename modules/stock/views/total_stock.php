@@ -14,7 +14,7 @@
                 <div class="expanel expanel-secondary">
 
                     <div class="expanel-heading">
-                        <h3 class="expanel-title">Total Purchases</h3>
+                        <h3 class="expanel-title">Total Operating Stock</h3>
                     </div>
                     <div class="expanel-body">
 
@@ -29,7 +29,7 @@
                                         <div class="col-md-2 well text-center">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">AUCTION</label>
-                                                <select id="saleno" name="bl.sale_no"
+                                                <select id="saleno" name="sale_no"
                                                     class="form-control select2"><small>(required)</small>
                                                 </select>
                                             </div>
@@ -120,7 +120,7 @@
 
         $('.select2').select2();
 
-        loadMasterStock("tpurchase");
+        loadMasterStock("tstock");
         $("#saleno, #broker, #mark, #standard, #code").change(function(e) {
             var key = $(this).attr("name");
             var value = $(this).val();
@@ -128,7 +128,7 @@
                 delete thisIsObject[key]; 
             }
             filter[key] = value;
-            loadMasterStock("tpurchase");
+            loadMasterStock("tstock");
 
 
         });

@@ -11,7 +11,7 @@
         /* height: 100%; */
 
         background-image: linear-gradient(to right, #00c6ff, #95d343);
-        background-repeat: no-repeat
+        background:cover;
     }
 
     input,
@@ -141,7 +141,7 @@
         font-size: 15px
     }
 
-    @media screen and (max-width: 992px) {
+    /* @media screen and (max-width: 992px) {
         .card1 {
             width: 100%;
             padding: 40px 30px 10px 30px
@@ -156,9 +156,9 @@
             margin-top: 100px !important;
             margin-bottom: 100px !important
         }
-    }
+    } */
 
-    @media screen and (max-width: 768px) {
+    /* @media screen and (max-width: 768px) {
         .container {
             padding: 10px !important;
         }
@@ -171,7 +171,7 @@
             margin-top: 50px !important;
             margin-bottom: 50px !important
         }
-    }
+    } */
 </style>
 
 <head>
@@ -181,10 +181,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>TIFMS</title>
 </head>
-<div class="container px-4 py-5 mx-auto">
+<div class="container px-4 py-5 mx-auto  align-items-center">
     <div class="card card0">
         <div class="d-flex flex-lg-row flex-column-reverse">
-            <div class="card card1">
+            <div class="card card1 d-flex justify-content-center" >
                 <div class="row justify-content-center my-auto">
                     <div class="col-md-8 col-10 mt-5">
                         <div class="row justify-content-center px-3 mb-3"><img class="logo" src="../images/logo.png" alt="" /></div>
@@ -197,6 +197,9 @@
                         </div>
                         <div id="otpDiv" style="display:none" class="form-group"> <label class="form-control-label text-muted">OTP</label>
                             <input type="password" id="otp" name="verification_code" placeholder="OTP" class="form-control">
+                        </div>
+                        <div>
+                            <a href="forgot_password.php">Forgot Password ?</a>
                         </div>
                         <div class="row justify-content-center my-3 px-3"> 
                             <button id="loginBtn" class="btn-block btn-color">Login</button>

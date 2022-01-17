@@ -15,25 +15,25 @@ include $path_to_root1 .'includes/auction_ids.php';
 
 ?>
 <style>
-.navbuttons {
-    display: inline-block;
-    overflow: auto;
-    overflow-y: hidden;
+    .navbuttons {
+        display: inline-block;
+        overflow: auto;
+        overflow-y: hidden;
 
-    max-width: 100%;
-    margin: 0 0 1em;
-    height: 50px;
+        max-width: 100%;
+        margin: 0 0 1em;
+        height: 50px;
 
-    white-space: nowrap;
+        white-space: nowrap;
 
-}
+    }
 
-.navbuttons LI {
-    display: inline-block;
-    vertical-align: top;
-    padding: 10px;
-    
-}
+    .navbuttons LI {
+        display: inline-block;
+        vertical-align: top;
+        padding: 10px;
+        
+    }
     .form-control {
         color: black !important;
         border: 1px solid black !important;

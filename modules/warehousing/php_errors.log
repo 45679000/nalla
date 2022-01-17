@@ -1,0 +1,125 @@
+[14-Jan-2022 12:20:50 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:20:50 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:20:50 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:20:50 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:02 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:02 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:12 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:12 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:12 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:12 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 560
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Warning:  Invalid argument supplied for foreach() in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 579
+[14-Jan-2022 12:21:21 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:23 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[14-Jan-2022 12:21:23 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:30 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:30 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:30 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:30 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:42 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:45 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:45 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:50 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 560
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Warning:  Invalid argument supplied for foreach() in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 579
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:27:56 Africa/Khartoum] PHP Notice:  Undefined index: pulucon in /var/www/html/chamu/modules/warehousing/warehousing_action.php on line 475
+[17-Jan-2022 07:28:12 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:28:12 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:13 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:16 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:35 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:37 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:37 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:37 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:38 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:38 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:38 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:40 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:40 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:40 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:49 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:51 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:51 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:51 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:52 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:52 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:52 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:52 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:52 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:52 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:53 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:53 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:53 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:54 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:54 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:54 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:54 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:54 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:54 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:55 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:55 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:55 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:57 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:57 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:57 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:58 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:58 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:58 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:59 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:29:59 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:29:59 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:00 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:00 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:00 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:02 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:02 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:02 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:05 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:05 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:05 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:08 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:11 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:16 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:18 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:18 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:18 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:18 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:30:18 Africa/Khartoum] PHP Warning:  A non-numeric value encountered in /var/www/html/chamu/controllers/WarehouseController.php on line 110
+[17-Jan-2022 07:30:18 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:44:45 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:44:50 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[17-Jan-2022 07:44:50 Africa/Khartoum] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted_on' in 'field list' in /var/www/html/chamu/models/Model.php:109
+Stack trace:
+#0 /var/www/html/chamu/models/Model.php(109): PDO->query('UPDATE  warehou...')
+#1 /var/www/html/chamu/modules/warehousing/warehousing_action.php(632): Model->softDelete('8', 'warehouses')
+#2 {main}
+  thrown in /var/www/html/chamu/models/Model.php on line 109

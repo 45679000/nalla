@@ -10,18 +10,20 @@ require_once $path_to_root . 'templates/header.php';
         padding: 0.5rem 0.5rem !important;
         position: relative;
     }
-  
+    .datePicker {
+        display: none;
+    }
 </style>
 <div class="container-fluid p-3">
     
     <div class="card p-3">
-        <form method="POST" id="filterDiv" style="display: none;" class="datePicker">
+        <form method="POST" class="datePicker">
             <div class="date-group row col-5">
-                    <label for="from">Start date:</label>
-                    <input type="date" id="from" name="startDate" class="form-control" value="2021-01-01">
+                <label for="from">Start date:</label>
+                <input type="date" id="from" name="startDate" class="form-control">
                 
                 <label for="to">End date:</label>
-                <input type="date" id="to" name="endDate" class="form-control" value="2021-12-31">
+                <input type="date" id="to" name="endDate" class="form-control">
                 
             </div>
         </form>
@@ -111,19 +113,12 @@ require_once $path_to_root . 'templates/header.php';
 			});
 
     });
-    $("#purchaseList").click(function(e) {
-        e.preventDefault();
-        loadBuyingList("2021-01-01", "2021-12-31");
-        $("#filterDiv").show();
-
-
-    });
-    $('#from, #to').change(function(e) {
-        e.preventDefault();
-        var from = $('#from').val();
-        var to = $('#to').val();
-        loadBuyingList(from, to);
-    });
+        $('#from, #to').change(function(e) {
+            e.preventDefault();
+            var from = $('#from').val();
+            var to = $('#to').val();
+            loadBuyingList(from, to);
+        });
     function loadBuyingList(from, to) {
         $.ajax({
             url: "reportAction.php",
@@ -138,7 +133,7 @@ require_once $path_to_root . 'templates/header.php';
 					$(".table").dataTable({
                         lengthChange: false,
                             select: true,
-                            "pageLength": 50,
+                            "pageLength": 100,
                             dom: 'Bfrtip',
                             buttons: [{
                                     extend: 'copyHtml5',
@@ -162,13 +157,17 @@ require_once $path_to_root . 'templates/header.php';
                                 }
                             ],
                     });
-                    // $("#filterDiv").show();
-
 				}
         });
     }
     
-
+    $("#purchaseList").click(function(e) {
+        e.preventDefault();
+        $(".datePicker").removeClass();
+        $("#closingimports_filter").appendChild(saP);
+        if($("#closingimports_filter")){console.log('holla')}
+        
+    });
 
    function print_report(link, txt, icon, id){
        var content ='<div class="col-sm-12 col-lg-1 col-md-1 d-flex align-items-stretch">';

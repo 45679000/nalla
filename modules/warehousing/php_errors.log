@@ -123,3 +123,15 @@ Stack trace:
 #1 /var/www/html/chamu/modules/warehousing/warehousing_action.php(632): Model->softDelete('8', 'warehouses')
 #2 {main}
   thrown in /var/www/html/chamu/models/Model.php on line 109
+[18-Jan-2022 16:45:41 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[18-Jan-2022 16:45:42 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[18-Jan-2022 16:45:42 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[18-Jan-2022 16:45:42 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[18-Jan-2022 19:11:14 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[18-Jan-2022 19:11:15 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[18-Jan-2022 19:11:15 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[18-Jan-2022 19:11:15 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[20-Jan-2022 12:01:05 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[20-Jan-2022 12:01:05 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[20-Jan-2022 12:01:05 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[20-Jan-2022 12:01:05 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46

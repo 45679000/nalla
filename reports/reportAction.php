@@ -68,38 +68,36 @@ if (isset($_POST['action']) && $_POST['action'] == "printRA") {
     echo $html;
 }
 if (isset($_POST['action']) && $_POST['action'] == "purchaseList") {
-    $startDate = isset($_POST["startDate"]) ? $_POST["startDate"]:  '2021-01-01';
-    $endDate = isset($_POST["endDate"]) ? $_POST["endDate"]: '2021-12-31';
-    $model->query = "SELECT *FROM buying_list WHERE auction_date BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE)";
-   
+    $startDate = isset($_POST["from"]) ? $_POST["from"] : '2020-01-01';
+    $endDate = isset($_POST["to"]) ? $_POST["to"] : '2030-12-31';
+    $model->query = "SELECT *FROM buying_list WHERE import_date BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE)";
+    
     $data = $model->executeQuery();
     $html = "";
     if (sizeOf($data) > 0) {
         $html = '<table id="closingimports" class="table table-striped table-bordered" style="width:100%;">
-            <thead>
-                <tr>
-                    <th class="wd-15p">Sale No</th>
-                    <th class="wd-15p">Lot No</th>
-                    <th class="wd-15p">Date</th>
-                    <th class="wd-15p">Broker</th>
-                    <th class="wd-15p">Ware Hse.</th>
-                    <th class="wd-15p">Mark</th>
-                    <th class="wd-10p">Grade</th>
-                    <th class="wd-25p">Invoice</th>
-                    <th class="wd-25p">Pkgs</th>
-                    <th class="wd-25p">Net</th>
-                    <th class="wd-25p">Kgs</th>
-                    <th class="wd-25p">Sale Price</th>
-                    <th class="wd-25p">Buyer Package</th>
+										<thead>
+											<tr>
+												<th class="wd-15p">Sale No</th>
+												<th class="wd-15p">Lot No</th>
+												<th class="wd-15p">Broker</th>
+												<th class="wd-15p">Ware Hse.</th>
+												<th class="wd-15p">Mark</th>
+												<th class="wd-10p">Grade</th>
+                                                <th class="wd-25p">Invoice</th>
+                                                <th class="wd-25p">Pkgs</th>
+                                                <th class="wd-25p">Net</th>
+                                                <th class="wd-25p">Kgs</th>
+                                                <th class="wd-25p">Sale Price</th>
+                                                <th class="wd-25p">Buyer Package</th>
 
-                </tr>
-            </thead>
-            <tbody>';
+											</tr>
+										</thead>
+                                        <tbody>';
         foreach ($data as $import) {
             $html .= '<tr>';
             $html .= '<td>' . $import["sale_no"] . '</td>';
             $html .= '<td>' . $import["lot"] . '</td>';
-            $html .= '<td>' . $import["auction_date"] . '</td>';
             $html .= '<td>' . $import["broker"] . '</td>';
             $html .= '<td>' . $import["ware_hse"] . '</td>';
             $html .= '<td>' . $import["mark"] . '</td>';

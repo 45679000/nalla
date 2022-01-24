@@ -206,28 +206,6 @@
 	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "master-stock"){
-		$type = $_POST['type'];
-		$StkFilter = isset($_POST['filter']) ? $_POST['filter'] : '';		
-		if($type=="opstock"){
-			$dataList = $stock->loadOpeningStock($StkFilter);
-			$stock->stockGrid($dataList);
-		}else if($type=="tstock"){
-			$dataList = $stock->loadTotalStock($StkFilter);
-			$stock->stockGrid($dataList);
-		}else if($type=="tpurchase"){
-			$dataList = $stock->loadPurchases($StkFilter);
-			$stock->stockGrid($dataList);
-		}else if($type=="tsblend"){
-			$dataList = $stock->loadBlendedTea($StkFilter);
-			$stock->stockGrid($dataList);
-		}else if($type=="tsoriginal"){
-			$dataList = $stock->loadOriginalTea($StkFilter);
-			$stock->stockGrid($dataList);
-		}
-		
-		
-
-
 
 		$filters = array();
 		$type = $_POST['type'];

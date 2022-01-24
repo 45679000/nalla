@@ -15,25 +15,25 @@ include $path_to_root1 .'includes/auction_ids.php';
 
 ?>
 <style>
-    .navbuttons {
-        display: inline-block;
-        overflow: auto;
-        overflow-y: hidden;
+.navbuttons {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
 
-        max-width: 100%;
-        margin: 0 0 1em;
-        height: 50px;
+    max-width: 100%;
+    margin: 0 0 1em;
+    height: 50px;
 
-        white-space: nowrap;
+    white-space: nowrap;
 
-    }
+}
 
-    .navbuttons LI {
-        display: inline-block;
-        vertical-align: top;
-        padding: 10px;
-        
-    }
+.navbuttons LI {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    
+}
     .form-control {
         color: black !important;
         border: 1px solid black !important;
@@ -80,21 +80,10 @@ include $path_to_root1 .'includes/auction_ids.php';
                                 <a href="./index.php?view=purchaselistPrivate" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-list text-info fw-bold"></i></span>Private Purchases
                                 </a>
-                                <a href="./index.php?view=opstock" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="fe fe-file-text text-success fw-bold"></i></span>Opening Stock
+                                <a href="./index.php?view=stock-master" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="fe fe-file-text text-danger fw-bold"></i></span> Master Stock
                                 </a>
-                                <a href="./index.php?view=tstock" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="si si-organization text-danger fw-bold"></i></span>Total Stock
-                                </a>
-                                <a href="./index.php?view=tpurchase" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="si si-calculator text-danger fw-bold"></i></span>Total Purchases
-                                </a>
-                                <a href="./index.php?view=orignalTeas" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="si si-note text-teal fw-bold"></i></span>Original Teas
-                                </a>
-                                <a href="./index.php?view=blendedTeas" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="si si-grid text-info fw-bold"></i></span>Blended Teas
-                                </a>
+                            
                             </div>
                         </div>
                         <div class="expanel-heading">
@@ -143,20 +132,8 @@ include $path_to_root1 .'includes/auction_ids.php';
                             case 'ppurchases':
                                 include 'views/private_purchases.php';
                                 break;
-                            case 'opstock':
-                                include 'views/opening_stock.php';
-                                break;
-                            case 'tstock':
-                                include 'views/total_stock.php';
-                                break;
-                            case 'tpurchase':
-                                include 'views/total_purchase.php';
-                                break;
-                            case 'orignalTeas':
-                                include 'views/total_stock_original.php';
-                                break;
-                            case 'blendedTeas':
-                                include 'views/total_stock_blended.php';
+                            case 'stock-master':
+                                include 'views/stock_master.php';
                                 break;
                             case 'amend-stock':
                                 include 'views/amend_stock.php';

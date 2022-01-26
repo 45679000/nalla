@@ -228,24 +228,24 @@
                $this->debugSql = false;
 
                 $query = "SELECT line_no, shippments.confirmed, shippments.mrp_value, shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
-                 `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`auction_date`,'%d/%m/%Y') AS import_date, 
-                 `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
-                 closing_stock.pkgs, closing_stock.kgs,
-                 (CASE WHEN allocation IS NULL THEN 
-                    CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
-                 ELSE 
-                    allocation
-                 END) AS allocation, kgs,  net, allocation AS allocated_contract
-                 FROM closing_stock 
-                 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
-                 LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
-                 LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment ";
-                if($proforma == 1){
-                    $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id ";
-                }else{
-                    $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 0 OR is_shipped IS NULL ";
+                `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`auction_date`,'%d/%m/%Y') AS import_date, 
+                `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
+                closing_stock.pkgs, closing_stock.kgs,
+                (CASE WHEN allocation IS NULL THEN 
+                   CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
+                ELSE 
+                   allocation
+                END) AS allocation, kgs,  net, allocation AS allocated_contract
+                FROM closing_stock 
+                LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
+                LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
+                LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment ";
+               if($proforma == 1){
+                   $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id ";
+               }else{
+                   $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 0 OR is_shipped IS NULL ";
 
-                }
+               }
                 if($saleno !== 'All'){
                     $query.= " AND sale_no = '$saleno' ";
                 }

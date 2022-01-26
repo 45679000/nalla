@@ -3,7 +3,6 @@ Class ReportData extends Model{
     public $invoiceNo;
 
     public function proformaInvoiceData(){
-        $invoice_no = $this->invoiceNo;
         $this->query = "SELECT  tea_invoices.`id`, `buyer`, `consignee`, `address`,`invoice_no`, `invoice_type`, `invoice_category`, `port_of_delivery`, `port_of_discharge`,  tea_invoices.`payment_terms`, `buyer_contract_no`, `hs_code`, `final_destination`, `date_captured`,
         `pay_bank`, `pay_details`, `date_captured`, 0_debtors_master.address,  pay_details,
         tea_invoices.exporter, good_description, contract_no, other_references, terms_of_delivery, lot, mark_country.country, closing_stock.mark, grade, invoice, 
@@ -12,7 +11,7 @@ Class ReportData extends Model{
            INNER JOIN  0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no 
            INNER JOIN  closing_stock ON closing_stock.profoma_invoice_no = tea_invoices.invoice_no 
            INNER JOIN mark_country ON mark_country.mark = closing_stock.mark
-           WHERE tea_invoices.invoice_no =  '$invoice_no'
+           WHERE tea_invoices.invoice_no =  'TXP 2389'
          GROUP BY lot  
         ORDER BY `tea_invoices`.`container_no`  DESC";
 

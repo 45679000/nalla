@@ -88,7 +88,7 @@ $pdf->AddPage();
 
 $pdf->setFont('helvetica', '', 8);
 
-$rpData->invoiceNo = $_GET["invoiceNo"];
+$rpData->invoiceNo = trim($_GET["invoiceNo"]);
 $data = $rpData->proformaInvoiceData();
 $address = str_replace(',', ',<br />',$data[0]['address']);
 $consignee = $data[0]['consignee'];

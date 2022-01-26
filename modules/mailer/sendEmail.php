@@ -24,7 +24,7 @@ class Mailer{
         $mail = new PHPMailer();
 
         //set a host
-        $mail->Host = "mail.startech.co.ke";
+        $mail->Host = "mail.chamusupplies.com";
     
         //enable SMTP
         $mail->isSMTP();
@@ -34,8 +34,8 @@ class Mailer{
         $mail->SMTPAuth = true;
     
         //set login details for Gmail account
-        $mail->Username = "francis@startech.co.ke";
-        $mail->Password = "Progress101";
+        $mail->Username = "info@chamusupplies.com";
+        $mail->Password = "Chamu@2022";
     
         //set type of protection
         $mail->SMTPSecure = "tls"; //or we can use TLS

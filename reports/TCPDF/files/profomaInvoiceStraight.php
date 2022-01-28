@@ -89,6 +89,7 @@ $pdf->setFont('helvetica', '', 8);
 
 $rpData->invoiceNo = trim($_GET["invoiceNo"]);
 $data = $rpData->proformaInvoiceData();
+$teaForInvoice = $rpData->loadTeas();
 $address = str_replace(',', ',<br />',$data[0]['address']);
 $consignee = $data[0]['consignee'];
 $exporter = $data[0]['exporter'];
@@ -100,6 +101,17 @@ $other_references = $data[0]['other_references'];
 $buyer_contract_no = $data[0]['buyer_contract_no'];
 $invoiceno = $data[0]['invoice_no'];
 $date = date_format(date_create($data[0]['date_captured']),"d.m.Y");
+// $address = str_replace(',', ',<br />',$data[0]['address']);
+// $consignee = $data[0]['consignee'];
+// $exporter = $data[0]['exporter'];
+// $descriptionOfGoods = $data[0]['good_description'];
+// $port_of_discharge = $data[0]['port_of_discharge'];
+// $final_destination = $data[0]['final_destination'];
+// $terms_of_delivery = $data[0]['pay_details'];
+// $other_references = $data[0]['other_references'];
+// $buyer_contract_no = $data[0]['buyer_contract_no'];
+// $invoiceno = $data[0]['invoice_no'];
+// $date = date_format(date_create($data[0]['date_captured']),"d.m.Y");
 // -----------------------------------------------------------------------------
 
 
@@ -167,8 +179,9 @@ $dataSize = sizeof($data)+3;
 $total = 0;
 $totalPackages = 0; 
 $totalKgs = 0; 
-
-foreach($data as $item) {
+// $pdf->Cell(15,4,$item["rate_per_kg"],1,0,'C');
+// $pdf->Cell(15,4,$item["kgs"]*$item["rate_per_kg"],1,0,'C');
+foreach($teaForInvoice as $item) {
     $pdf->Cell(15,4,$item["lot"],1,0,'C');
     $pdf->Cell(15,4,$item["country"],1,0,'C');
     $pdf->Cell(30,4,$item["mark"],1,0,'C');
@@ -177,8 +190,8 @@ foreach($data as $item) {
     $pdf->Cell(15,4,$item["pkgs"],1,0,'C');
     $pdf->Cell(15,4,$item["net"],1,0,'C');
     $pdf->Cell(15,4,$item["kgs"],1,0,'C');
-    $pdf->Cell(15,4,$item["rate_per_kg"],1,0,'C');
-    $pdf->Cell(15,4,$item["kgs"]*$item["rate_per_kg"],1,0,'C');
+    $pdf->Cell(15,4,$item["profoma_amount"],1,0,'C');
+    $pdf->Cell(15,4,$item["kgs"]*$item["profoma_amount"],1,0,'C');
 
     $total += $item["final_amount"];
     $totalPackages += $item["pkgs"];

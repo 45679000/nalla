@@ -301,7 +301,8 @@
             return $results[0]['invoice_no'];
         }
         public function invoiceTea($stockid, $invoiceno, $user){
-           $this->debugSql = true;
+            
+        //    $this->debugSql = false;
             $this->conn->beginTransaction();
             $this->query = "INSERT INTO `invoice_teas`(`invoice_no`, `stock_id`, `profoma_amount`, `time_stamp`, `created_by`) 
             SELECT '$invoiceno',$stockid,sale_price,CURRENT_TIMESTAMP, $user
@@ -316,9 +317,9 @@
             }
         }
         public function removeInvoiceTea($stockid){
-           $this->debugSql = true;
-            $this->query = "DELETE FROM ";
-            $this->query = "UPDATE closing_stock SET profoma_invoice_no = NULL WHERE stock_id = $stockid";
+        //    $this->debugSql = true;
+            $this->query = "DELETE FROM `invoice_teas` WHERE `invoice_teas`.`id` = $stockid";
+            // $this->query = "UPDATE closing_stock SET profoma_invoice_no = NULL WHERE stock_id = $stockid";
             $this->executeQuery();
         }
         public function genLineNo($buying_list_id){
@@ -423,7 +424,7 @@
             return $rettxt;
         }
         public function loadTeaInvoices($invoice_no){
-            $this->debugSql = false;
+            // $this->debugSql = false;
             $this->query = "SELECT line_no, invoice_teas.id, invoice_teas.stock_id, sale_no, broker, closing_stock.mark, lot, grade, invoice, pkgs, net,
             kgs, invoice_teas.profoma_amount,  mark_country.country
             FROM invoice_teas

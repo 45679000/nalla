@@ -24,7 +24,8 @@ require_once $path_to_root . 'templates/header.php';
                 
                 <label for="to">End date:</label>
                 <input type="date" id="to" name="endDate" class="form-control">
-                
+                <p class="text-danger" style="display: none;" id="helpText">Select start and end dates</p>                
+                <button class="btn btn-success" id="selectDate">Select</button>
             </div>
         </form>
         <div class="row row-cards" id="dashboardWrapper" style="padding: 10px;">
@@ -113,11 +114,17 @@ require_once $path_to_root . 'templates/header.php';
 			});
 
     });
-        $('#from, #to').change(function(e) {
+        // loadBuyingList()
+        $('#selectDate').click(function(e) {
             e.preventDefault();
             var from = $('#from').val();
             var to = $('#to').val();
-            loadBuyingList(from, to);
+            if(from != 0 && to != 0){
+                loadBuyingList(from, to);
+            }else{
+                document.getElementById('helpText').style.display = ''
+            }
+            
         });
     function loadBuyingList(from, to) {
         $.ajax({
@@ -157,6 +164,7 @@ require_once $path_to_root . 'templates/header.php';
                                 }
                             ],
                     });
+                    document.getElementById('helpText').style.display = 'none'
 				}
         });
     }
@@ -166,7 +174,6 @@ require_once $path_to_root . 'templates/header.php';
         $(".datePicker").removeClass();
         $("#closingimports_filter").appendChild(saP);
         if($("#closingimports_filter")){console.log('holla')}
-        
     });
 
    function print_report(link, txt, icon, id){

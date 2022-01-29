@@ -159,9 +159,15 @@
                     <br> <!-- fieldsets -->
                     <fieldset id="formData">
                         <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Invoice Details:</h2>
+                            <div class="row" style="display: flex; justify-content:space-between;">
+                                <div>
+                                    <h2 class="fs-title">Invoice Details: <span id="invoiceNumbe"></span></h2>
+                                </div>
+                                <div>
+                                    <div id="selectTeas"><a href="#selectTeasDiv" class="btn btn-success">Select your teas here</a></div>
+                                </div>
+                                <div>
+                                    <div id="selectTeas"><a href="#viewTeasDiv" class="btn btn-success">View and Edit Teas you have selected</a></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -248,7 +254,7 @@
                                     </div>
                                     <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
                                         <div class="form-group float-right">
-                                            <button id="saveBtn" type="submit" class="btn btn-success btn-sm" id="submit">Save</button>
+                                            <button id="saveBtn" type="submit" class="btn btn-success btn-lg" id="submit">Save</button>
                                         </div>
                                     </div>
                                     </div>
@@ -258,15 +264,12 @@
                                     <div id="invoicePreview"></div>
                                 </div>
                             </div>
+                            <div><p class="text-danger" style="font-size: 1.5rem; margin: 0.5rem 0; text-align:center;">*Make sure to save data you have inputed above before you proceed to Select your teas</p></div>
                         </div>
-                        <input type="button" id="page1Btn" name="next" class="next action-button" value="Next" />
-                        <div class="form-card">
+                        <div class="form-card" id="selectTeasDiv">
                             <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Select Teas For This Profoma:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 2 - 4</h2>
+                                <div>
+                                    <h2 class="fs-title">Select Teas For This Profoma: <span id="invoiceNumb"></span></h2>
                                 </div>
                             </div>
                             <div class ="col-md-8 p-3">
@@ -276,90 +279,16 @@
                             </div>
 
                         </div>
-                        <div class="form-card">
+                        <div class="form-card" id="viewTeasDiv">
                             <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Invoice Teas:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 3 - 4</h2>
-                                    
+                                <div class="">
+                                    <h2 class="fs-title">Invoice Teas: <span id="invoiceNumber"></span></h2>
                                 </div>
                             </div>
                             <div class ="col-md-8 p-3">
-                                <button id="loadTeas">Load teas</button>
+                                <button id="loadTeas" class="btn btn-danger">Load teas</button>
                                 <div id="invoiceTeaList">
                                     <span>Loading....</span>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Select Teas For This Profoma:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 2 - 4</h2>
-                                </div>
-                            </div>
-                            <div class ="col-md-8 p-3">
-                                <div id="stocklist">
-                                    <span>Loading....</span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- <input type="button" id="loadTeas" name="next" class="next action-button" value="Next" />  -->
-                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Invoice Teas:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 3 - 4</h2>
-                                </div>
-                            </div>
-                            <div class ="col-md-8 p-3">
-                                <div id="invoiceTeaList">
-                                    <span>Loading....</span>
-                                </div>
-                            </div>
-                        </div>
-                        <input id="Preview" type="button" name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Finish:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 5 - 5</h2>
-                                </div>
-                            </div> <br><br>
-                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
-                            <div class="row justify-content-center">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <i class="fa fa-print" id="viewInvoice">Print</i>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="invoicePreview"></div>
-                                    </div>
-                                    <div class="card-header">
-
-                                    </div>
-                                    
-                                </div>
-                            </div> 
-                            <br><br>
-                            <div class="row justify-content-center">
-                                <div id="finalSubmit" class="col-7 text-center">
                                 </div>
                             </div>
                         </div>
@@ -483,6 +412,9 @@
 <script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.print.min.js"></script>
 
 <script>
+    document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
+    document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
+    document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
     let loadPreview = (invoiceNum) =>{
         $("#invoicePreview").html(`<iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" width="1000px" height="800px"></iframe>`);
     }
@@ -589,6 +521,9 @@
         if ($("#formData")[0].checkValidity()) {
             e.preventDefault();
             localStorage.setItem("invoiceno", $("#invoice_no").val());
+            document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
+            document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
+            document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
             $.ajax({
                 url: "../finance_action.php",
                 type: "POST",
@@ -611,6 +546,9 @@
                         $("#saveBtn").hide();
                         $("#page1Btn").show();
                         loadPreview(localStorage.getItem("invoiceno"))
+                        document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
+                        document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
+                        document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
                      }
                     if (response.code == 500) {
                         Swal.fire({

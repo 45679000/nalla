@@ -68,8 +68,8 @@ if (isset($_POST['action']) && $_POST['action'] == "printRA") {
     echo $html;
 }
 if (isset($_POST['action']) && $_POST['action'] == "purchaseList") {
-    $startDate = isset($_POST["from"]) ? $_POST["from"] : '2020-01-01';
-    $endDate = isset($_POST["to"]) ? $_POST["to"] : '2030-12-31';
+    $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : '2020-01-01';
+    $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : '2030-12-31';
     $model->query = "SELECT *FROM buying_list WHERE import_date BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE)";
     
     $data = $model->executeQuery();

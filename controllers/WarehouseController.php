@@ -340,7 +340,26 @@ Class WarehouseController extends Model{
         }
        
     }
+    public function getOpenShippments(){
+        // $this->debugSql = false;
+        $query = "SELECT  closing_stock.lot, closing_stock.broker, closing_stock.allocation, closing_stock.invoice, shippments.pkgs_shipped, shippments.shipped_kgs, shippments.siType, shippments.shipped_on, shippments.stock_id, shippments.mrp_value FROM `shippments` INNER JOIN `closing_stock` ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 1";
+        $this->query = $query;
 
+        return $this->executeQuery();
+    }
+    public function changeShippmentStatus($stockId){
+        // $this->debugSql = false;
+        try{
+            $query = "UPDATE `shippments`SET shippments.is_shipped = 0, shippments.confirmed= 0 WHERE shippments.stock_id = $stockId;";
+            $this->query = $query;
+
+            $this->executeQuery();
+            echo 'success';
+        }catch(Exception $ex){
+            echo 'error';
+        }
+        
+    }
 }
 
 

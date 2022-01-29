@@ -1,6 +1,6 @@
 <?php
 $path_to_root = "../../";
-require_once $path_to_root . 'templates/header.php';
+// require_once $path_to_root . 'templates/header.php';
 ?>
 <style>
     .modal {
@@ -29,6 +29,24 @@ require_once $path_to_root . 'templates/header.php';
         font-weight: bold;
 
     }
+    .loader {
+        position: absolute;
+        top: 80px;
+        right: 45%;
+        z-index: 1;
+        display: none;
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 
 <body class="container-fluid">
@@ -39,14 +57,15 @@ require_once $path_to_root . 'templates/header.php';
                 <div class="card-header bg-primary">
                     <h3 class="card-title text-light">Shippments</h3>
                 </div>
-                <div class="card-header te">Shippment Lots to be updated</div>
-                <div class="card-body p-6">
-                    
+                <div class="card-header te">Lots marked shipped</div>
+                <div class="card-body p-6 loaderParent">
+                    <div class="loader"></div>
                     <div class="panel panel-primary">
                         <div class="panel-body tabs-menu-body">
                             <div class="tab-content">
                                 <div class="tab-pane active " id="tab1">
-                                    <div id="shippments" class="table-responsive"></div>
+                                    <div id="shippments" class="table-responsive">
+                                    </div>
                                     <div style="display:none" class="card" id="allocations">
                                         <div class="card-header bg-teal">
                                             <button id="addMaterial" class="btn btn-success btn-sm pl-20">Add Material Used In 
@@ -83,15 +102,45 @@ require_once $path_to_root . 'templates/header.php';
     <script src="../../assets/js/sweet_alert2.js"></script>
 
     <script>
-        openShippment();
-        $("body").on("click", ".open-shipment", function(e) {
-            var contractno = $(this).parent().attr("id");
-            updateShippmentConfirmation(contractno)
+        openShippments();   
+        function openShippments() {
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                data: {
+                    action: "open-shippments"
+                },
+                cache: true,
+                url: "warehousing_action.php",
+                success: function (data) {
+                    $('#shippments').html(data)
+                    $("#open-shippments").DataTable({})
+                }
+            })
+        }
+        $("body").on("click", ".setNotShip", function(e) {
+            var stockId = $(this).attr("id");
+            // console.log(contractno)
+            document.querySelector('.loaderParent').style.opacity = 0.5
+
+            changeShippmentStatus(stockId)
         });
-        $("body").on("click", "#updateShippmentStatus", function(e) {
-            var contractno = document.querySelector('.contractNoValue').innerText;
-            updateShippmentStatus(contractno)
-        });   
+        function changeShippmentStatus(stockId){
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                data: {
+                    action: "update-shippment",
+                    stockId: stockId
+                },
+                url: "warehousing_action.php",
+                success: function (data) {
+                    alert(`Tea of Lot No. ${stockId} shipped status changed to not shipped`)
+                    openShippments()
+                    document.querySelector('.loaderParent').style.opacity = 1
+                }
+            })
+        }
     </script>
 
     </html>

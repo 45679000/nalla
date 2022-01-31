@@ -43,6 +43,13 @@ Class ReportData extends Model{
         $data = $this->executeQuery();
         return $data;
     }
+    public function loadBlendInvoice(){
+        $invoice_no = $this->invoiceNo;
+        $this->query = "SELECT `item` ,`invoice_no`, `total_net`, `p_cif_rate`, `c_vat_amt`, `description_of_goods`, `p_amount` FROM `blend_invoice_line_no` WHERE invoice_no = '$invoice_no'";
+        
+        $data = $this->executeQuery();
+        return $data;
+    }
 }
 
 ?>

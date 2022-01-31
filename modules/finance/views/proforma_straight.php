@@ -164,7 +164,7 @@
                                     <h2 class="fs-title">Invoice Details: <span id="invoiceNumbe"></span></h2>
                                 </div>
                                 <div>
-                                    <div id="selectTeas"><a href="#selectTeasDiv" class="btn btn-success">Select your teas here</a></div>
+                                    <div id="selectTeas"><a href="#selectTeasDiv" class="btn btn-success">Select your teas</a></div>
                                 </div>
                                 <div>
                                     <div id="selectTeas"><a href="#viewTeasDiv" class="btn btn-success">View and Edit Teas you have selected</a></div>

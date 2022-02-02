@@ -59,6 +59,11 @@ $path_to_root = "../../";
                 </div>
                 <div class="card-header te">Lots marked shipped</div>
                 <div class="card-body p-6 loaderParent">
+                    <div class="rows">
+                        <button id="straighLine" class="btn btn-success">Straight Teas</button>
+                        <button id="blendTeas" class="btn btn-primary">Blend Teas</button>
+                    </div>
+                    
                     <div class="loader"></div>
                     <div class="panel panel-primary">
                         <div class="panel-body tabs-menu-body">
@@ -102,6 +107,20 @@ $path_to_root = "../../";
     <script src="../../assets/js/sweet_alert2.js"></script>
 
     <script>
+        let blendBtn = document.getElementById('blendTeas')
+        let straightBtn = document.getElementById('straighLine')
+        blendBtn.addEventListener('click',(e)=>{
+            e.preventDefault()
+            blendBtn.className = 'btn btn-success'
+            straightBtn.className = 'btn btn-primary'
+            openBlendShippments()
+        })
+        straightBtn.addEventListener('click',(e)=>{
+            e.preventDefault()
+            blendBtn.className = 'btn btn-primary'
+            straightBtn.className = 'btn btn-success'
+            openShippments()
+        })
         openShippments();   
         function openShippments() {
             $.ajax({
@@ -118,7 +137,29 @@ $path_to_root = "../../";
                 }
             })
         }
+        function openBlendShippments() {
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                data: {
+                    action: "open-blend-shippments"
+                },
+                cache: true,
+                url: "warehousing_action.php",
+                success: function (data) {
+                    $('#shippments').html(data)
+                    $("#open-shippments").DataTable({})
+                }
+            })
+        }
         $("body").on("click", ".setNotShip", function(e) {
+            var stockId = $(this).attr("id");
+            // console.log(contractno)
+            document.querySelector('.loaderParent').style.opacity = 0.5
+
+            changeShippmentStatus(stockId)
+        });
+        $("body").on("click", ".setNotShipBlend", function(e) {
             var stockId = $(this).attr("id");
             // console.log(contractno)
             document.querySelector('.loaderParent').style.opacity = 0.5
@@ -137,6 +178,22 @@ $path_to_root = "../../";
                 success: function (data) {
                     alert(`Tea of Lot No. ${stockId} shipped status changed to not shipped`)
                     openShippments()
+                    document.querySelector('.loaderParent').style.opacity = 1
+                }
+            })
+        }
+        function changeShippmentStatus(stockId){
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                data: {
+                    action: "update-blend-shippment",
+                    stockId: stockId
+                },
+                url: "warehousing_action.php",
+                success: function (data) {
+                    alert(`Tea of Lot No. ${stockId} shipped status changed to not shipped`)
+                    openBlendShippments()
                     document.querySelector('.loaderParent').style.opacity = 1
                 }
             })

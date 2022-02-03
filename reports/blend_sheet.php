@@ -6,6 +6,7 @@
     include_once($path_to_root1."phpjasperxml/PHPJasperXML.inc.php");
     include_once ($path_to_root.'setting.php');
 
+    
     $PHPJasperXML = new PHPJasperXML();
     $PHPJasperXML->debugsql = false;
     if(isset($_GET['blendno'])){

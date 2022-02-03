@@ -525,7 +525,7 @@
 		$finance->invoiceTea($stockid, $invoiceid, $_SESSION['user_id']);
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "remove-invoice"){	
-		$stockid = isset($_POST['stockid']) ? $_POST['stockid'] : '';
+		$stockid = isset($_POST['id']) ? $_POST['id'] : '';
 		$finance->removeInvoiceTea($stockid);
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "get-sale-no"){	

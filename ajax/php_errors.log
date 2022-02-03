@@ -1,0 +1,4 @@
+[11-Jan-2022 10:17:24 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/controllers/WarehouseController.php on line 2
+[11-Jan-2022 10:17:25 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46
+[11-Jan-2022 10:23:39 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/controllers/WarehouseController.php on line 2
+[11-Jan-2022 10:23:39 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/models/Session.php on line 46

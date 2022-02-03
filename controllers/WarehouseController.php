@@ -297,16 +297,6 @@ Class WarehouseController extends Model{
 
         
     }
-    public function getShippmentsForUpdate($contractNo){
-        $query = "SELECT * FROM `shippments` WHERE si_no = '$contractNo'";
-        $this->query = $query;
-        return $this->executeQuery();
-    }
-    public function updateShippmentConfirmationStatus($contractNo){
-        $query = "UPDATE `shippments` SET confirmed = 0 WHERE si_no = '$contractNo'";
-        $this->query = $query;
-        return $this->executeQuery();
-    }
     public function getMaterialAllocation($id, $event){
         // $this->debugSql = false;
         $query = "SELECT material_allocation.`id`,  `total`, `details`,  users.full_name, `allocated_on` 
@@ -350,7 +340,45 @@ Class WarehouseController extends Model{
         }
        
     }
+    public function getOpenShippments(){
+        // $this->debugSql = false;
+        $query = "SELECT  closing_stock.lot, closing_stock.broker, closing_stock.allocation, closing_stock.invoice, shippments.pkgs_shipped, shippments.shipped_kgs, shippments.siType, shippments.shipped_on, shippments.stock_id, shippments.mrp_value FROM `shippments` INNER JOIN `closing_stock` ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 1";
+        $this->query = $query;
 
+        return $this->executeQuery();
+    }
+    public function getOpenBlendShippments(){
+        $query = "SELECT  closing_stock.lot, closing_stock.broker, closing_stock.allocation, closing_stock.invoice, shippments.pkgs_shipped, shippments.shipped_kgs, shippments.siType, shippments.shipped_on, shippments.stock_id, shippments.mrp_value, blend_teas.stock_id, blend_teas.blend_kgs, blend_teas.packages FROM ((`shippments` INNER JOIN `closing_stock` ON shippments.stock_id = closing_stock.stock_id) INNER JOIN `blend_teas` ON blend_teas.stock_id = shippments.stock_id) WHERE is_shipped = 1 AND blend_teas.confirmed = 1";
+        $this->query = $query;
+
+        return $this->executeQuery();
+    }
+    public function changeShippmentStatus($stockId){
+        // $this->debugSql = false;
+        try{
+            $query = "UPDATE `shippments`SET shippments.is_shipped = 0, shippments.confirmed= 0 WHERE shippments.stock_id = $stockId;";
+            $this->query = $query;
+
+            $this->executeQuery();
+            echo 'success';
+        }catch(Exception $ex){
+            echo 'error';
+        }
+        
+    }
+    public function changeBLendShippmentStatus($stockId){
+        // $this->debugSql = false;
+        try{
+            $query = "UPDATE `shippments` LEFT JOIN `blend_teas` ON shippments.stock_id = blend_teas.stock_id SET shippments.is_shipped = 0, shippments.confirmed= 0, blend_teas.confirmed = 0 WHERE shippments.stock_id = $stockId";
+            $this->query = $query;
+
+            $this->executeQuery();
+            echo 'success';
+        }catch(Exception $ex){
+            echo 'error';
+        }
+        
+    }
 }
 
 

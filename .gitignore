@@ -8,6 +8,6 @@ setting.php
 autoload.php
 autoload2.php
 config_db.php
-
+/reports/TCPDF/*
 /modules/finance/glRP/company/*
 /0/*

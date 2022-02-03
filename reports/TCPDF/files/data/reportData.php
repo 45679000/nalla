@@ -3,6 +3,7 @@ Class ReportData extends Model{
     public $invoiceNo;
 
     public function proformaInvoiceData(){
+        $this->query = "SELECT * FROM tea_invoices";
         $invoice_no = $this->invoiceNo;
         $this->query = "SELECT  tea_invoices.`id`, `buyer`, `consignee`, `address`,`invoice_no`, `invoice_type`, `invoice_category`, `port_of_delivery`, `port_of_discharge`,  tea_invoices.`payment_terms`, `buyer_contract_no`, `hs_code`, `final_destination`, `date_captured`,
         `pay_bank`, `pay_details`, `date_captured`, 0_debtors_master.address,  pay_details,
@@ -21,9 +22,34 @@ Class ReportData extends Model{
          return $data;
 
     }
-    
+    public function profomaNittyGritty(){
+        $invoice_no = $this->invoiceNo;
+        $this->query = "SELECT `id`, `buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_delivery`, `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `exporter`, `good_description`, `contract_no`, `other_references`, `terms_of_delivery`, `container_no`, `shipping_marks`, `buyer_contract_no`, `port_of_discharge`, `hs_code`, `final_destination`, `buyer_address`, `bank_id`, `bl_no` FROM `tea_invoices` WHERE tea_invoices.invoice_no = '$invoice_no'";
+
+         $data = $this->executeQuery();
+
+         return $data;
+    }
+    public function loadTeas(){
+        $invoice_no = $this->invoiceNo;
+        $this->query = "SELECT line_no, invoice_teas.id, invoice_teas.stock_id, sale_no, broker, closing_stock.mark, lot, grade, invoice, pkgs, net,
+        kgs, invoice_teas.profoma_amount,  mark_country.country,ROUND((invoice_teas.profoma_amount* kgs),2) AS final_amount
+        FROM invoice_teas
+        INNER JOIN closing_stock ON closing_stock.stock_id = invoice_teas.stock_id
+        LEFT JOIN mark_country ON  mark_country.mark = closing_stock.mark
+        WHERE invoice_no = '$invoice_no'
+        GROUP BY stock_id";
+        
+        $data = $this->executeQuery();
+        return $data;
+    }
+    public function loadBlendInvoice(){
+        $invoice_no = $this->invoiceNo;
+        $this->query = "SELECT `item` ,`invoice_no`, `total_net`, `p_cif_rate`, `c_vat_amt`, `description_of_goods`, `p_amount` FROM `blend_invoice_line_no` WHERE invoice_no = '$invoice_no'";
+        
+        $data = $this->executeQuery();
+        return $data;
+    }
 }
-
-
 
 ?>

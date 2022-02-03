@@ -1,0 +1,3 @@
+[11-Jan-2022 10:17:22 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/templates/header.php on line 3
+[11-Jan-2022 10:23:38 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/templates/header.php on line 3
+[11-Jan-2022 14:41:09 Africa/Khartoum] PHP Notice:  session_start(): A session had already been started - ignoring in /var/www/html/chamu/templates/header.php on line 3

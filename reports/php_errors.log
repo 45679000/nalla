@@ -1,0 +1,6 @@
+[18-Jan-2022 14:25:35 Africa/Khartoum] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to TNkemdilim\MoneyToWords\Converter::_setMoney() must be of the type string, null given, called in /var/www/html/chamu/vendor/tnkemdilim/money-to-words-converter/src/Converter.php on line 173 and defined in /var/www/html/chamu/vendor/tnkemdilim/money-to-words-converter/src/Converter.php:140
+Stack trace:
+#0 /var/www/html/chamu/vendor/tnkemdilim/money-to-words-converter/src/Converter.php(173): TNkemdilim\MoneyToWords\Converter->_setMoney(NULL)
+#1 /var/www/html/chamu/reports/invoice_profoma_straight.php(17): TNkemdilim\MoneyToWords\Converter->convert(NULL)
+#2 {main}
+  thrown in /var/www/html/chamu/vendor/tnkemdilim/money-to-words-converter/src/Converter.php on line 140

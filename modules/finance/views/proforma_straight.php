@@ -56,7 +56,7 @@
         padding: 8px 15px 8px 15px;
         border: 1px solid #ccc;
         border-radius: 0px;
-        margin-bottom: 25px;
+        margin-bottom: 1px;
         margin-top: 2px;
         width: 100%;
         box-sizing: border-box;
@@ -66,7 +66,9 @@
         font-size: 16px;
         letter-spacing: 1px
     }
-
+    #msform label{
+        font-size: 1rem !important;
+    }
     #msform input:focus,
     #msform textarea:focus {
         -moz-box-shadow: none !important;
@@ -143,91 +145,6 @@
         color: gray;
         text-align: left
     }
-
-    #progressbar {
-        margin-bottom: 30px;
-        overflow: hidden;
-        color: lightgrey
-    }
-
-    #progressbar .active {
-        color: #673AB7
-    }
-
-    #progressbar li {
-        list-style-type: none;
-        font-size: 15px;
-        width: 25%;
-        float: left;
-        position: relative;
-        font-weight: 400
-    }
-
-    #progressbar #account:before {
-        font-family: FontAwesome;
-        content: "\f2bb"
-    }
-
-    #progressbar #personal:before {
-        font-family: FontAwesome;
-        content: "\f073"
-    }
-    
-
-    #progressbar #payment:before {
-        font-family: FontAwesome;
-        content: "\f030"
-    }
-    #progressbar #selected:before {
-        font-family: FontAwesome;
-        content: "\f00e"
-    }
-    #progressbar #confirm:before {
-        font-family: FontAwesome;
-        content: "\f00c"
-    }
-
-    #progressbar li:before {
-        width: 50px;
-        height: 50px;
-        line-height: 45px;
-        display: block;
-        font-size: 20px;
-        color: #ffffff;
-        background: lightgray;
-        border-radius: 50%;
-        margin: 0 auto 10px auto;
-        padding: 2px
-    }
-
-    #progressbar li:after {
-        content: '';
-        width: 100%;
-        height: 2px;
-        background: lightgray;
-        position: absolute;
-        left: 0;
-        top: 25px;
-        z-index: -1
-    }
-
-    #progressbar li.active:before,
-    #progressbar li.active:after {
-        background: #673AB7
-    }
-
-    .progress {
-        height: 20px
-    }
-
-    .progress-bar {
-        background-color: #673AB7
-    }
-
-    .fit-image {
-        width: 100%;
-        object-fit: cover
-    }
 </style>
 
 
@@ -238,25 +155,19 @@
                 <h2 id="heading">Create Profoma Invoice Straight Line</h2>
                 <p>Fill all form field to go to next step</p>
                 <form id="msform" class="p-1">
-                    <!-- progressbar -->
-                    <ul id="progressbar">
-                        <li class="active" id="account"><strong>Invoice Details</strong></li>
-                        <li id="personal"><strong>Select Invoice Teas</strong></li>
-                        <li id="selected"><strong>Selected Teas</strong></li>
-                        <li id="confirm"><strong>Print</strong></li>
-                    </ul>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div> 
+                   
                     <br> <!-- fieldsets -->
                     <fieldset id="formData">
                         <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Invoice Details:</h2>
+                            <div class="row" style="display: flex; justify-content:space-between;">
+                                <div>
+                                    <h2 class="fs-title">Invoice Details: <span id="invoiceNumbe"></span></h2>
                                 </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 1 - 4</h2>
+                                <div>
+                                    <div id="selectTeas"><a href="#selectTeasDiv" class="btn btn-success">Select your teas</a></div>
+                                </div>
+                                <div>
+                                    <div id="selectTeas"><a href="#viewTeasDiv" class="btn btn-success">View and Edit Teas you have selected</a></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -268,94 +179,97 @@
                                 </div>
 
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Buyer:</label>
-                                    <select id="buyer" name="buyer" class="select2"><small>(required)</small>
-                                    </select>
-                                    <textarea class="form-control" name="buyer_address" id="buyer_address" cols="20" rows="3"></textarea>
-                                    <label class="control-label">HS CODE:</label>
-                                    <input type="text" class="form-control" name="hs_code" id="hs_code" placeholder="HS CODE" required="">
-                                </div>
-                          
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Invoice No:</label>
-                                    <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice No" required="">
-                                    <label class="control-label">Date:</label>
-                                    <input type="text" class="form-control" name="date_captured" id="date_captured" placeholder="Date" required="">
-                                    <label class="control-label">Buyer's Contract No:</label>
-                                    <input type="text" class="form-control" name="buyer_contract_no" id="buyer_contract_no" placeholder="Buyer's Contract No" required="">
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Container no:</label>
-                                    <input id="container_no" type="text" class="form-control" name="container_no" placeholder="Container No" required="">
-                                    <label class="control-label">Shipping Marks:</label>
-                                    <input type="text" class="form-control" name="shipping_marks" id="shipping_marks" placeholder="shipping marks" required="">
-                                    <label class="control-label">BL No:</label>
-                                    <input type="text" class="form-control" name="bl_no" id="bl_no" placeholder="BL NO" required="">
-                               
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label">Bank:</label>
-                                    <select id="bank_id" name="bank_id" class="select2"><small>(required)</small>
-                                    </select>
-                                    <label class="control-label" for="pay_bank">Our Bank Detail:</label>
-                                    <textarea class="form-control" name="pay_bank" id="pay_bank" cols="20" rows="6"></textarea>
-                                </div>
-                       
-                            </div>
-                  
-                            <div class="row">
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="port_of_delivery">Port Of
-                                        Discharge:</label>
-                                    <textarea class="form-control" name="port_of_delivery" id="port_of_delivery" cols="20" rows="3"></textarea>
-                                    <label class="control-label" for="description_of_goods">Description of Goods:</label>
-                                    <textarea class="form-control" name="good_description" id="good_description" cols="20" rows="3"></textarea>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="final_destination">Final
-                                        Destination:</label>
-                                    <textarea class="form-control" name="final_destination" id="final_destination" cols="20" rows="3"></textarea>
-                                    <label class="control-label" for="other_reference">Other
-                                        reference:</label>
-                                    <textarea class="form-control" name="other_references" id="other_references" cols="20" rows="3"></textarea>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="consignee">Consignee:</label>
-                                    <textarea class="form-control" name="consignee" id="consignee" cols="20" rows="3"></textarea>
-                                    <label class="control-label" for="buyer_bank">Buyer
-                                        Bank:</label>
-                                    <textarea class="form-control" name="buyer_bank" id="buyer_bank" cols="20" rows="3"></textarea>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label class="control-label" for="pay_details">
-                                        Terms of Delivery and Payment:</label>
-                                    <textarea class="form-control" name="pay_details" id="pay_details" cols="20" rows="3"></textarea>
-                                    <input type="hidden" class="form-control" id="invoice_category" name="invoice_category" placeholder="Invoice No" value="straight">
-
-                                </div>
+                            <div style="display: flex; width: 100%;">
+                                <div style="width: 40%;">
+                                    <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
+                                        <div class="form-group">
+                                            <label class="control-label">Buyer:</label>
+                                            <select id="buyer" name="buyer" class="select2"><small>(required)</small>
+                                            </select>
+                                            <textarea class="form-control" name="buyer_address" id="buyer_address" cols="20" rows="3"></textarea>
+                                            <label class="control-label">HS CODE:</label>
+                                            <input type="text" class="form-control" name="hs_code" id="hs_code" placeholder="HS CODE" required="">
+                                        </div>
                                 
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 form-group float-right">
-                                    <button id="saveBtn" type="submit" class="btn btn-success btn-sm" id="submit">Save</button>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <input type="button" id="page1Btn" name="next" class="next action-button" value="Next" />
+                                        <div class="form-group">
+                                            <label class="control-label">Invoice No:</label>
+                                            <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice No" required="">
+                                            <label class="control-label">Date:</label>
+                                            <input type="text" class="form-control" name="date_captured" id="date_captured" placeholder="Date" required="">
+                                            <label class="control-label">Buyer's Contract No:</label>
+                                            <input type="text" class="form-control" name="buyer_contract_no" id="buyer_contract_no" placeholder="Buyer's Contract No" required="">
+                                        </div>
+                                    </div>
+                                    <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
+                                        <div class="form-group">
+                                            <label class="control-label">Container no:</label>
+                                            <input id="container_no" type="text" class="form-control" name="container_no" placeholder="Container No" required="">
+                                            <label class="control-label">Shipping Marks:</label>
+                                            <input type="text" class="form-control" name="shipping_marks" id="shipping_marks" placeholder="shipping marks" required="">
+                                            <label class="control-label">BL No:</label>
+                                            <input type="text" class="form-control" name="bl_no" id="bl_no" placeholder="BL NO" required="">
+                                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Bank:</label>
+                                            <select id="bank_id" name="bank_id" class="select2"><small>(required)</small>
+                                            </select>
+                                            <label class="control-label" for="pay_bank">Our Bank Detail:</label>
+                                            <textarea class="form-control" name="pay_bank" id="pay_bank" cols="20" rows="6"></textarea>
+                                        </div>                           
+                                    </div>
+                        
+                                    <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
+                                        <div class="form-group">
+                                            <label class="control-label" for="port_of_delivery">Port Of
+                                                Discharge:</label>
+                                            <textarea class="form-control" name="port_of_delivery" id="port_of_delivery" cols="20" rows="3"></textarea>
+                                            <label class="control-label" for="description_of_goods">Description of Goods:</label>
+                                            <textarea class="form-control" name="good_description" id="good_description" cols="20" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="final_destination">Final
+                                                Destination:</label>
+                                            <textarea class="form-control" name="final_destination" id="final_destination" cols="20" rows="3"></textarea>
+                                            <label class="control-label" for="other_reference">Other
+                                                reference:</label>
+                                            <textarea class="form-control" name="other_references" id="other_references" cols="20" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
+                                        <div class="form-group">
+                                            <label class="control-label" for="consignee">Consignee:</label>
+                                            <textarea class="form-control" name="consignee" id="consignee" cols="20" rows="3"></textarea>
+                                            <label class="control-label" for="buyer_bank">Buyer
+                                                Bank:</label>
+                                            <textarea class="form-control" name="buyer_bank" id="buyer_bank" cols="20" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="pay_details">
+                                                Terms of Delivery and Payment:</label>
+                                            <textarea class="form-control" name="pay_details" id="pay_details" cols="20" rows="3"></textarea>
+                                            <input type="hidden" class="form-control" id="invoice_category" name="invoice_category" placeholder="Invoice No" value="straight">
 
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Select Teas For This Profoma:</h2>
+                                        </div>
+                                    </div>
+                                    <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
+                                        <div class="form-group float-right">
+                                            <button id="saveBtn" type="submit" class="btn btn-success btn-lg" id="submit">Save</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <div class="card-body" style="width: 50%;">
+                                    <button id="reloadPreview" class="btn btn-primary-lg">Refresh pdf</button>
+                                    <p>Showing invoice of whose Invoice No. is: <span id="showInvoiceNo" class="text-secondary"></span></p>
+                                    <div id="invoicePreview"></div>
                                 </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 2 - 4</h2>
+                            </div>
+                            <div><p class="text-danger" style="font-size: 1.5rem; margin: 0.5rem 0; text-align:center;">*Make sure to save data you have inputed above before you proceed to Select your teas</p></div>
+                        </div>
+                        <div class="form-card" id="selectTeasDiv">
+                            <div class="row">
+                                <div>
+                                    <h2 class="fs-title">Select Teas For This Profoma: <span id="invoiceNumb"></span></h2>
                                 </div>
                             </div>
                             <div class ="col-md-8 p-3">
@@ -365,54 +279,16 @@
                             </div>
 
                         </div>
-                        <input type="button" id="loadTeas" name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-card">
+                        <div class="form-card" id="viewTeasDiv">
                             <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Invoice Teas:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 3 - 4</h2>
+                                <div class="">
+                                    <h2 class="fs-title">Invoice Teas: <span id="invoiceNumber"></span></h2>
                                 </div>
                             </div>
                             <div class ="col-md-8 p-3">
+                                <button id="loadTeas" class="btn btn-danger">Load teas</button>
                                 <div id="invoiceTeaList">
                                     <span>Loading....</span>
-                                </div>
-                            </div>
-                        </div>
-                        <input id="Preview" type="button" name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Finish:</h2>
-                                </div>
-                                <div class="col-5">
-                                    <h2 class="steps">Step 5 - 5</h2>
-                                </div>
-                            </div> <br><br>
-                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
-                            <div class="row justify-content-center">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <i class="fa fa-print" id="viewInvoice">Print</i>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="invoicePreview"></div>
-                                    </div>
-                                    <div class="card-header">
-
-                                    </div>
-                                    
-                                </div>
-                            </div> 
-                            <br><br>
-                            <div class="row justify-content-center">
-                                <div id="finalSubmit" class="col-7 text-center">
                                 </div>
                             </div>
                         </div>
@@ -536,11 +412,25 @@
 <script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.print.min.js"></script>
 
 <script>
+    document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
+    document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
+    document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
+    let loadPreview = (invoiceNum) =>{
+        $("#invoicePreview").html(`<iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" width="1000px" height="800px"></iframe>`);
+    }
+    let reloadPreview = document.getElementById('reloadPreview');
+    let showInvoiceNo = document.getElementById('showInvoiceNo')
+    reloadPreview.addEventListener('click', (e)=>{
+        e.preventDefault()
+        loadPreview(localStorage.getItem("invoiceno"))
+        showInvoiceNo.innerText = localStorage.getItem("invoiceno")
+    })
+    $("#stocklist").show();
     $(document).ready(function() {
         $('.select2').select2();
-
+        let invoiceNum = localStorage.getItem("invoiceno")
         $("#page1Btn").hide();
-
+        loadPreview()
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
         var current = 1;
@@ -550,6 +440,7 @@
         loadTemplates();
         loadStock("", "", "", "");
         $("#loadTeas").click(function(e){
+            e.preventDefault()
             loadInvoiceTeas();
         })
         $("#viewInvoice").click(function(e){
@@ -630,17 +521,22 @@
         if ($("#formData")[0].checkValidity()) {
             e.preventDefault();
             localStorage.setItem("invoiceno", $("#invoice_no").val());
+            document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
+            document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
+            document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
             $.ajax({
                 url: "../finance_action.php",
                 type: "POST",
                 data: $("#formData").serialize() + "&action=save-invoice",
                 dataType: "json",
                 success: function(response) {
+                    console.log(response);
                     if (response.code == 201) {
                         Swal.fire({
                             icon: 'error',
                             title: response.error,
                         });
+                        
                     }
                     if (response.code == 200) {
                         Swal.fire({
@@ -649,7 +545,10 @@
                         });
                         $("#saveBtn").hide();
                         $("#page1Btn").show();
-       
+                        loadPreview(localStorage.getItem("invoiceno"))
+                        document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
+                        document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
+                        document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
                      }
                     if (response.code == 500) {
                         Swal.fire({
@@ -660,7 +559,8 @@
                 },
                 error: function(response) {
                     console.log(response);
-                    // alert("response= "+response.code);
+                    alert("response= "+response.responseText);
+                    // $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/invoice_profoma_straight.php?invoiceno='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
                 }
             });
                 }
@@ -704,8 +604,9 @@
         $.ajax({
             url: "../finance_action.php",
             type: "POST",
+            // remove-invoice-tea
             data: {
-                action: "remove-invoice-tea",
+                action: "remove-invoice",
                 id: id,
             },
             success: function(response) {
@@ -713,7 +614,7 @@
                     icon: 'success',
                     title: 'Tea Removed',
                 });
-                loadInvoiceTeas();
+                loadPreview(localStorage.getItem("invoiceno"))
             }
         });
     });
@@ -731,10 +632,13 @@
                 invoiceid :localStorage.getItem("invoiceno")
             },
             success: function(response) {
+                console.log(response)
                 Swal.fire({
                     icon: 'success',
                     title: 'Tea Added',
                 });
+                // console.log(stockid);
+                loadInvoiceTeas()
             }
         });
     });
@@ -777,7 +681,7 @@
         cache: true,
         url: "../finance_action.php",
         success: function (data) {
-
+            loadPreview(localStorage.getItem("invoiceno"))
         }
     });
     });
@@ -847,25 +751,29 @@
 
     });
     $('#proforma_template').change(function(e) {
-                var id = $('#proforma_template').val();
-                $.ajax({
-                    url: "../finance_action.php",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        action: "edit-si-invoice",
-                        id: id
-                    },
-                    success: function(data) {
-                        for (const [key, value] of Object.entries(data[0])) {
-                            $('#' + key).val(value);
-                        }
+        var id = $('#proforma_template').val();
+        let invNo
+        $.ajax({
+            url: "../finance_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "edit-si-invoice",
+                id: id
+            },
+            success: function(data) {
+                invNo = data[0].invoice_no
+                loadPreview(invNo)
+                for (const [key, value] of Object.entries(data[0])) {
+                    $('#' + key).val(value);
+                    
+                }
+                
 
+            }
 
-                    }
-
-                });
-            });
+        });
+    });
 
 function loadStock(mark, lot, grade, saleno) {
     $.ajax({
@@ -973,7 +881,7 @@ function loadInvoiceTeas(){
             action: "load-invoice-teas",
             invoice: localStorage.getItem("invoiceno")
         },
-        cache: true,
+        // cache: true,
         url: "../finance_action.php",
         success: function (data) {
             $("#invoiceTeaList").show();

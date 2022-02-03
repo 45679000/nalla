@@ -47,6 +47,9 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                                 <a href="./index.php?view=stock" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-sidebar text-warning"></i></span>Stock
                                 </a>
+                                <a href="./index.php?view=openshippments" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Change shippment status
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -88,14 +91,16 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                             case 'stock':
                                 include('views/stock.php');
                                 break;
-                            
+
+                            case 'openshippments':
+                                include('views/open_shipments.php');
+                                break;
+
                             default:
                             include('views/gardens.php');
 
-                        }
-                            
+                        }     
                     }
-                
                 ?>
             </div>
         </div>

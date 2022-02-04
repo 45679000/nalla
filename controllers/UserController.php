@@ -223,7 +223,7 @@ class UserController extends Model{
         $is_sent = $mailer->sendEmail($record[0]['email']);
 
         if($is_sent){
-            $this->query = "UPDATE users SET password = md5('$password')";
+            $this->query = "UPDATE users SET password = md5('$password') WHERE user_id = $id";
             $this->executeQuery();
             echo json_encode(array("reset"=>"sucess"));
 

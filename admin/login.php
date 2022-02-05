@@ -195,6 +195,7 @@
                         <div id="passwordDiv" class="form-group"> <label class="form-control-label text-muted">Password</label>
                             <input type="password" id="password" name="psw" placeholder="Password" class="form-control">
                         </div>
+                        <p class="text-center">Forgot password?<a href="./forgot_password.php">Reset</a></p>
                         <div id="otpDiv" style="display:none" class="form-group"> <label class="form-control-label text-muted">OTP</label>
                             <input type="password" id="otp" name="verification_code" placeholder="OTP" class="form-control">
                         </div>

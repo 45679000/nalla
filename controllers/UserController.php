@@ -232,6 +232,27 @@ class UserController extends Model{
             echo json_encode(array("reset"=>"failed"));
 
     }
+    public function forgotPassword($password, $username){
+        $id = $_POST["id"];
+        $this->query = "SELECT * FROM `users` WHERE users.user_name = '$username'";
+        $record = $this->executeQuery();
+        if($record){
+            $mailer = new Mailer("<p>User Name: ".$record[0]['email'] ."</p> Password:".$password, "", "Password Reset");
+            $is_sent = $mailer->sendEmail($record[0]['email']);
     
+            if($is_sent){
+                $this->query = "UPDATE users SET password = md5('$password') WHERE users.user_name = '$username'";
+                $this->executeQuery();
+                echo "success";
+    
+            }
+            else {
+                echo json_encode(array("reset"=>"failed"));
+            }
+        } else {
+            echo "error";
+        }
+        
+    }
 }
 ?>

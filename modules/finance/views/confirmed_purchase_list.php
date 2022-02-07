@@ -7,10 +7,16 @@
                 <div class="card">
                     <form method="post">
                         <div class="row justify-content-center">
-                            <div class="col-md-6 well">
-                                <div class="form-group form-inline">
+                            <div class="col-md-8 well row">
+                                <div class="form-group form-inline col-6">
                                     <label class="control-label">Select Action from the list</label>
                                     <select id="saleno" name="saleno" class="form-control select2"><small>(required)</small>
+                                        <option disabled="" value="..." selected="">select</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-inline col-6">
+                                    <label class="control-label">Select Action from the list - Private Purchases</label>
+                                    <select id="salenoPRVT" name="saleno" class="form-control select2"><small>(required)</small>
                                         <option disabled="" value="..." selected="">select</option>
                                     </select>
                                 </div>
@@ -102,9 +108,16 @@
 
         $("#financeSubmenu").hide();
         $('#purchaseListCustomOpt').hide();
-        $('select').on('change', function() {
+        $('#saleno').on('change', function() {
             $('#purchaseListCustomOpt').show();
             var saleno = $('#saleno').find(":selected").text();
+            localStorage.setItem("saleno", saleno);
+            loadPurchaseList();
+            checkActivityStatus(5, localStorage.getItem("saleno"));
+        });
+        $('#salenoPRVT').on('change', function() {
+            $('#purchaseListCustomOpt').show();
+            var saleno = $('#salenoPRVT').find(":selected").text();
             localStorage.setItem("saleno", saleno);
             loadPurchaseList();
             checkActivityStatus(5, localStorage.getItem("saleno"));

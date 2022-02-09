@@ -416,7 +416,7 @@
     document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
     document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
     let loadPreview = (invoiceNum) =>{
-        $("#invoicePreview").html(`<iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" width="1000px" height="800px"></iframe>`);
+        $("#invoicePreview").html(`<p class="text-danger">Click refresh pdf button before you download it</p><a href="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" class="btn btn-danger">Download</a><iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" width="1000px" height="800px"></iframe>`);
     }
     let reloadPreview = document.getElementById('reloadPreview');
     let showInvoiceNo = document.getElementById('showInvoiceNo')

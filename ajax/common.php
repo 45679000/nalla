@@ -321,8 +321,9 @@ if (isset($_POST['action']) && $_POST['action'] == "sale_no_prvt") {
     $auctions= $catalogue->auctionList();
     $output = '<option disabled="" value="..." selected="">select</option>';
     if (sizeOf($auctions) > 0) {
+         $id = 0;
          foreach($auctions as $auction){
-            $output .= '<option value="PRVT-'.$auction.'">'.'PRVT-'.$auction.'</option>';
+            $output .= '<option value="PRVT-'.$auction['sale_no'].'">'.'PRVT-'.$auction['sale_no'].'</option>';
          }
           echo $output;	
     }else{

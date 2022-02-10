@@ -205,13 +205,15 @@ $(function () {
             },
             cache: true,
             url:"user_action.php",
-            dataType:"json",
+            // dataType:"json",
             success: function(data) {
-                if(data.success=="1"){
-                    $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.response+'</p><a href="./login.php">Go back to login page</a>');
+                if(data == "success"){
+                    $(".msg-info").html('<p class="alert alert-success" role="alert">Password changed successfully</p><a href="./login.php">Login</a>');
+                    $('.form-group').hide();
+                    $('#ResetPassword').hide();
                    
                 }else{
-                    $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.response+'</p>');
+                    $(".msg-info").html('<p class="alert alert-danger" role="alert">Failed try again</p>');
 
                 }
             }

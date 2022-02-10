@@ -117,7 +117,7 @@
              mark_country.country AS origin, `broker_invoice`, DATE_FORMAT(`auction_date`, '%d/%m/%Y') AS auction_date, added_to_stock
             FROM `buying_list` 
             LEFT JOIN mark_country ON mark_country.mark = buying_list.mark
-            WHERE  buyer_package='CSS' AND sale_no LIKE '%".$this->saleno."%' AND confirmed = 1 ";
+            WHERE  buyer_package='CSS' AND sale_no = '$this->saleno' AND confirmed = 1 ";
             if($type !=null){
                 if($type=='P'){
                     $query.=" AND source = 'P'";

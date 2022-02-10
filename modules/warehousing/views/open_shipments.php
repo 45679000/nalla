@@ -137,6 +137,7 @@ $path_to_root = "../../";
                 }
             })
         }
+        // open blend shippments
         function openBlendShippments() {
             $.ajax({
                 type: "POST",

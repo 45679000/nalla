@@ -714,7 +714,115 @@
 		$warehouses->unAllocate($_POST);
 
 	}
-	
-	
+	if(isset($_POST['action'])  && $_POST['action'] == "open-shippments"){
+		$openShippments = $warehouses->getOpenShippments();
+		$output ="";
+		if(count($openShippments)>0){
+			$output.='<h3 class="card-title text-bold" >Straight Line Teas</h3>
+			<table style="width:100%;" id="open-shippments" class="table table-striped  table-bordered table-sm table-hover">
+			<thead>
+				<tr>
+					<th>Lot</th>
+					<th>Broker</th>
+					<th>Allocation</th>
+					<th>Invoice</th>
+					<th>Pkgs shipped</th>
+					<th>Shipped Kgs</th>
+					<th>Si Type</th>
+					<th>Date shipped</th>
+					<th>Stock Id</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>';
+			$serial = 1;
+
+			foreach($openShippments as $openShippments){
+				// $id = $openShippments['id'];
+				$output.= '
+					<tr>';
+						$output.='<td>'.$openShippments['lot'].'</td>';
+						$output.='<td>'.$openShippments['broker'].'</td>';
+						$output.='<td>'.$openShippments['allocation'].'</td>';
+						$output.='<td>'.$openShippments['invoice'].'</td>';
+						$output.='<td>'.$openShippments['pkgs_shipped'].'</td>';
+						$output.='<td>'.$openShippments['shipped_kgs'].'</td>';
+						$output.='<td>'.$openShippments['siType'].'</td>';
+						$output.='<td>'.$openShippments['shipped_on'].'</td>';
+						$output.='<td>'.$openShippments['stock_id'].'</td>';
+						$output.='<td>'.'<button class="btn btn-danger btn-sm setNotShip" id='.$openShippments['stock_id'].'>Change shippment status</button>'.'</td>';
+					'</td>
+					</tr>';
+
+					$serial ++;
+			}
+			$output.='</tbody>
+			</table>';
+			echo $output;
+		}else{
+			echo '<h3 class="text-center mt-5">No records found</h3>';
+		}
+	}
+	if(isset($_POST['action'])  && $_POST['action'] == "open-blend-shippments"){
+		$openShippments = $warehouses->getOpenBlendShippments();
+		$output ="";
+		if(count($openShippments)>0){
+			$output.='<h3 class="card-title text-bold" >Blend Teas</h3>
+			<table style="width:100%;" id="open-shippments" class="table table-striped  table-bordered table-sm table-hover">
+			<thead>
+				<tr>
+					<th>Lot</th>
+					<th>Broker</th>
+					<th>Allocation</th>
+					<th>Invoice</th>
+					<th>Pkgs shipped</th>
+					<th>Shipped Kgs</th>
+					<th>Si Type</th>
+					<th>Date shipped</th>
+					<th>Stock Id</th>
+					<th>Blend packages</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>';
+			$serial = 1;
+			
+			foreach($openShippments as $openShippments){
+				// $id = $openShippments['id'];
+				$output.= '
+					<tr>';
+						$output.='<td>'.$openShippments['lot'].'</td>';
+						$output.='<td>'.$openShippments['broker'].'</td>';
+						$output.='<td>'.$openShippments['allocation'].'</td>';
+						$output.='<td>'.$openShippments['invoice'].'</td>';
+						$output.='<td>'.$openShippments['pkgs_shipped'].'</td>';
+						$output.='<td>'.$openShippments['shipped_kgs'].'</td>';
+						$output.='<td>'.$openShippments['siType'].'</td>';
+						$output.='<td>'.$openShippments['shipped_on'].'</td>';
+						$output.='<td>'.$openShippments['stock_id'].'</td>';
+						$output.='<td>'.$openShippments['packages'].'</td>';
+						$output.='<td>'.'<button class="btn btn-danger btn-sm setNotShipBlend" id='.$openShippments['stock_id'].'>Change shippment status</button>'.'</td>';
+					'</td>
+					</tr>';
+
+					$serial ++;
+			}
+			$output.='</tbody>
+			</table>';
+			echo $output;
+		}else{
+			echo '<h3 class="text-center mt-5">No records found</h3>';
+		}
+	}
+	if(isset($_POST['action'])  && $_POST['action'] == 'update-shippment'){
+		$stockId = $_POST['stockId'];
+		$success = $warehouses->changeShippmentStatus($stockId);
+		echo $success;
+	}
+	if(isset($_POST['action'])  && $_POST['action'] == 'update-blend-shippment'){
+		$stockId = $_POST['stockId'];
+		$success = $warehouses->changeBlendShippmentStatus($stockId);
+		echo $success;
+	}
 ?>
 

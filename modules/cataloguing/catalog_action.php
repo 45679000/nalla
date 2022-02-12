@@ -111,9 +111,6 @@
 		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
 		$broker = isset($_POST['broker']) ? $_POST['broker'] : '';
 		$category = isset($_POST['category']) ? $_POST['category'] : '';
-		// $saleno = '2022-01';
-		// $broker = 'ALS';
-		// $category = 'leaf';
 		$imports = $CatalogController->closingCatalogue($saleno, $broker,$category);
 		$html = "";
 		if(sizeOf($imports)>0){

@@ -330,7 +330,7 @@
             $id = $this->insertQuery();
             return $this->selectOne($id, "closing_cat_import_id");
         }
-        public function closingCatalogue($auction = "", $broker = "", $category = "All"){
+        public function closingCatalogue($auction = "", $broker = "", $category = ""){
                 if($category =="All"){
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' GROUP BY lot";
                     return $this->executeQuery();

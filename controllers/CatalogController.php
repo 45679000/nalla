@@ -331,28 +331,6 @@
             return $this->selectOne($id, "closing_cat_import_id");
         }
         public function closingCatalogue($auction = "", $broker = "", $category = "All"){
-            if($broker == "All"){
-                if($category =="All"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' GROUP BY lot";
-                    return $this->executeQuery();
-                }else if($category =="leaf"){
-                    $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND grade IN ('BP1','PF1') GROUP BY lot";
-                    return $this->executeQuery();
-                }else if($category=="dust"){
-                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND grade IN ('PD','D1', 'DUST1') GROUP BY lot";
-                        return $this->executeQuery(); 
-                }else{
-                    if($category=="Main"){
-                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND grade IN ('PD','D1', 'DUST1', 'BP1','PF1') 
-                        AND category = 'Main' GROUP BY lot";
-                        return $this->executeQuery();
-                    }else{
-                        $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND category = '$category' GROUP BY lot";
-                        return $this->executeQuery();
-                    }
-                   
-                }
-            }else {
                 if($category =="All"){
                     $this->query = "SELECT * FROM closing_cat LEFT JOIN brokers ON brokers.code = closing_cat.broker WHERE sale_no LIKE '%$auction%' AND broker = '$broker' GROUP BY lot";
                     return $this->executeQuery();
@@ -373,7 +351,6 @@
                     }
                    
                 }
-            }
         }
         public function postCatalogueProcess($saleno, $user_id){
             $processed = false;

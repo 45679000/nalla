@@ -32,7 +32,6 @@ if (isset($_POST['action']) && $_POST['action'] == "list-brokers") {
     $brokers = $catalogue->PrintBrokers();
             $output = '<option  value="'.$type.'" selected="">'.$type.'</option>';
     if ($catalogue->totalRowCount("brokers") > 0) {
-        $output .= '<option value="All">All</option>';
         foreach($brokers as $broker){
         $output .= '<option value="'.$broker['code'].'">'.$broker['code'].'||'.$broker['name'].'</option>';
         }

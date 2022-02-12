@@ -231,6 +231,44 @@
             return $response;
     
         }
+        public function updateInvoice($buyer, $consignee, $invoice_no,
+            $invoice_type, $invoice_category, 
+            $port_of_delivery, $buyer_bank, 
+            $payment_terms, $pay_bank, 
+            $pay_details,
+            $container_no,
+            $buyer_contract_no,
+            $shipping_marks,
+            $other_reference,
+            $port_of_discharge,
+            $description_of_goods,
+            $final_destination,
+            $hs_code,
+            $buyer_address,
+            $bl_no,
+            $bank_id
+
+        ){
+                $type = 'profoma';
+                try {
+                $this->conn->beginTransaction();
+                $query = "UPDATE `tea_invoices` SET `buyer`='$buyer', `consignee`= '$consignee', `invoice_type` = '$invoice_type', `invoice_category` = '$invoice_category', `port_of_discharge`= '$port_of_discharge', 
+                `buyer_bank` = '$buyer_bank', `payment_terms` = '$payment_terms', `pay_bank` = '$pay_bank', `pay_details` = '$pay_details', `port_of_delivery` = '$port_of_delivery', `other_references` = '$other_reference',
+                `container_no` = '$container_no', `buyer_contract_no` = '$buyer_contract_no', `shipping_marks` = '$shipping_marks', `good_description` = '$description_of_goods', `final_destination` = '$final_destination', `hs_code` = '$hs_code', `buyer_address` = '$buyer_address', `bl_no` = '$bl_no', `bank_id` = '$bank_id' WHERE `invoice_no` = '$invoice_no'";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+                $this->conn->commit();
+                } catch (Exception $ex) {
+                    var_dump($ex);
+                }
+                
+                $success = "Invoice no $invoice_no has been updated succesfully, click the + button to add teas to this Invoice no $hs_code";
+                $response["success"] = $success;
+                $response["code"] = 200;
+            
+            return $response;
+    
+        }
         public function unconfirmedSales(){
             $this->debugSql = false;
             $this->query = "SELECT closing_cat.sale_no, count(lot) AS totalLots, sum(pkgs) AS totalPkgs, sum(net) AS totalKgs

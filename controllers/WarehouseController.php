@@ -340,14 +340,14 @@ Class WarehouseController extends Model{
         }
        
     }
-    public function getOpenShippments(){
+    public function shippedStraight(){
         // $this->debugSql = false;
         $query = "SELECT  closing_stock.lot, closing_stock.broker, closing_stock.allocation, closing_stock.invoice, shippments.pkgs_shipped, shippments.shipped_kgs, shippments.siType, shippments.shipped_on, shippments.stock_id, shippments.mrp_value FROM `shippments` INNER JOIN `closing_stock` ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 1";
         $this->query = $query;
 
         return $this->executeQuery();
     }
-    public function getOpenBlendShippments(){
+    public function shippedBlend(){
         $query = "SELECT  closing_stock.lot, closing_stock.broker, closing_stock.allocation, closing_stock.invoice, shippments.pkgs_shipped, shippments.shipped_kgs, shippments.siType, shippments.shipped_on, shippments.stock_id, shippments.mrp_value, blend_teas.stock_id, blend_teas.blend_kgs, blend_teas.packages FROM ((`shippments` INNER JOIN `closing_stock` ON shippments.stock_id = closing_stock.stock_id) INNER JOIN `blend_teas` ON blend_teas.stock_id = shippments.stock_id) WHERE is_shipped = 1 AND blend_teas.confirmed = 1";
         $this->query = $query;
 
@@ -379,8 +379,92 @@ Class WarehouseController extends Model{
         }
         
     }
-}
+    public function straightTeasShipped($type){
+        // $this->debugSql = false;
+        try{
+            $query = "SELECT * FROM `shipping_instructions` WHERE shipping_instructions.status='Shipped' AND shippment_type = '$type' ORDER BY `shipping_instructions`.`instruction_id` DESC";
+            $this->query = $query;
 
+            return $this->executeQuery();
+        }catch(Exception $ex){
+            echo 'error';
+        }
+        
+    }
+    public function reverseShippment($instructionId, $type){
+        // $teaType = $type;
+        if ($type == 'Straight Line'){
+            try{
+                $query = "UPDATE `shipping_instructions` LEFT JOIN `shippments` ON shipping_instructions.contract_no = shippments.si_no SET shippments.is_shipped = 0, shippments.confirmed= 0, shipping_instructions.status = NUll, shipping_instructions.updated_on = CURRENT_TIMESTAMP WHERE shipping_instructions.instruction_id = '$instructionId' ";
+                $this->query = $query;
+    
+                $this->executeQuery();
+                echo json_encode('success');
+            }catch(Exception $ex){
+                echo 'error';
+            }
+        }elseif($type == 'Blend Shippment') {
+            try{
+                $query = "UPDATE `shipping_instructions` INNER JOIN `shippments` ON shipping_instructions.contract_no = shippments.si_no INNER JOIN `blend_teas` ON blend_teas.stock_id = shippments.stock_id INNER JOIN `blend_master` ON shipping_instructions.contract_no = blend_master.contractno SET shippments.is_shipped = 0, shippments.confirmed= 0, shipping_instructions.status = NUll, shipping_instructions.updated_on = CURRENT_TIMESTAMP, blend_teas.confirmed = 0 , blend_master.approved = 0 WHERE shipping_instructions.instruction_id = $instructionId ";
+                $this->query = $query;
+    
+                $this->executeQuery();
+                echo 'success';
+            }catch(Exception $ex){
+                echo 'error';
+            }
+        } else {
+            echo 'error';
+        }
+        // try{
+        //     $query = "UPDATE `shippments` LEFT JOIN `blend_teas` ON shippments.stock_id = blend_teas.stock_id SET shippments.is_shipped = 0, shippments.confirmed= 0, blend_teas.confirmed = 0 WHERE shippments.stock_id = ";
+        //     $this->query = $query;
+
+        //     $this->executeQuery();
+        //     echo 'success';
+        // }catch(Exception $ex){
+        //     echo 'error';
+        // }
+        
+    }
+    public function viewTeas($contractNo, $type){
+        // $teaType = $type;
+        if ($type == 'Straight Line'){
+            try{
+                $query = "SELECT shipping_instructions.contract_no, shippments.pkgs_shipped, shippments.shipped_kgs
+                ,closing_stock.sale_no, closing_stock.lot, closing_stock.mark FROM `shipping_instructions`JOIN `shippments` ON shipping_instructions.contract_no = shippments.si_no LEFT JOIN `closing_stock` ON closing_stock.stock_id = shippments.stock_id WHERE shipping_instructions.contract_no = '$contractNo'";
+                $this->query = $query;
+    
+                return $this->executeQuery();
+            }catch(Exception $ex){
+                echo 'error';
+            }
+        }elseif($type == 'Blend Shippment') {
+            try{
+                $query = "SELECT shipping_instructions.contract_no, shippments.pkgs_shipped, shippments.shipped_kgs
+                ,closing_stock.sale_no, closing_stock.lot, closing_stock.mark, closing_stock.allocation, blend_master.blend_no FROM `shipping_instructions`JOIN `shippments` ON shipping_instructions.contract_no = shippments.si_no LEFT JOIN `closing_stock` ON closing_stock.stock_id = shippments.stock_id JOIN `blend_master` ON blend_master.contractno = shipping_instructions.contract_no WHERE shipping_instructions.contract_no = '$contractNo' ";
+                $this->query = $query;
+    
+                return $this->executeQuery();
+            }catch(Exception $ex){
+                echo 'error';
+            }
+        } else {
+            echo 'error';
+        }
+        // try{
+        //     $query = "UPDATE `shippments` LEFT JOIN `blend_teas` ON shippments.stock_id = blend_teas.stock_id SET shippments.is_shipped = 0, shippments.confirmed= 0, blend_teas.confirmed = 0 WHERE shippments.stock_id = ";
+        //     $this->query = $query;
+
+        //     $this->executeQuery();
+        //     echo 'success';
+        // }catch(Exception $ex){
+        //     echo 'error';
+        // }
+        
+    }
+}
+// WHERE shipping_instructions.status='Shipped'
 
 ?>
 

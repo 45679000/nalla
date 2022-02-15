@@ -714,12 +714,12 @@
 		$warehouses->unAllocate($_POST);
 
 	}
-	if(isset($_POST['action'])  && $_POST['action'] == "open-shippments"){
-		$openShippments = $warehouses->getOpenShippments();
+	if(isset($_POST['action'])  && $_POST['action'] == "shipped-straight"){
+		$openShippments = $warehouses->shippedStraight();
 		$output ="";
 		if(count($openShippments)>0){
 			$output.='<h3 class="card-title text-bold" >Straight Line Teas</h3>
-			<table style="width:100%;" id="open-shippments" class="table table-striped  table-bordered table-sm table-hover">
+			<table style="width:100%;" id="shipped-straight" class="table table-striped  table-bordered table-sm table-hover">
 			<thead>
 				<tr>
 					<th>Lot</th>
@@ -731,7 +731,6 @@
 					<th>Si Type</th>
 					<th>Date shipped</th>
 					<th>Stock Id</th>
-					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>';
@@ -750,7 +749,6 @@
 						$output.='<td>'.$openShippments['siType'].'</td>';
 						$output.='<td>'.$openShippments['shipped_on'].'</td>';
 						$output.='<td>'.$openShippments['stock_id'].'</td>';
-						$output.='<td>'.'<button class="btn btn-danger btn-sm setNotShip" id='.$openShippments['stock_id'].'>Change shippment status</button>'.'</td>';
 					'</td>
 					</tr>';
 
@@ -763,12 +761,12 @@
 			echo '<h3 class="text-center mt-5">No records found</h3>';
 		}
 	}
-	if(isset($_POST['action'])  && $_POST['action'] == "open-blend-shippments"){
-		$openShippments = $warehouses->getOpenBlendShippments();
+	if(isset($_POST['action'])  && $_POST['action'] == "shipped-blend"){
+		$shippedBlendTeas = $warehouses->shippedBlend();
 		$output ="";
-		if(count($openShippments)>0){
+		if(count($shippedBlendTeas)>0){
 			$output.='<h3 class="card-title text-bold" >Blend Teas</h3>
-			<table style="width:100%;" id="open-shippments" class="table table-striped  table-bordered table-sm table-hover">
+			<table style="width:100%;" id="shipped-blend" class="table table-striped  table-bordered table-sm table-hover">
 			<thead>
 				<tr>
 					<th>Lot</th>
@@ -781,27 +779,25 @@
 					<th>Date shipped</th>
 					<th>Stock Id</th>
 					<th>Blend packages</th>
-					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>';
 			$serial = 1;
 			
-			foreach($openShippments as $openShippments){
+			foreach($shippedBlendTeas as $blendShipped){
 				// $id = $openShippments['id'];
 				$output.= '
 					<tr>';
-						$output.='<td>'.$openShippments['lot'].'</td>';
-						$output.='<td>'.$openShippments['broker'].'</td>';
-						$output.='<td>'.$openShippments['allocation'].'</td>';
-						$output.='<td>'.$openShippments['invoice'].'</td>';
-						$output.='<td>'.$openShippments['pkgs_shipped'].'</td>';
-						$output.='<td>'.$openShippments['shipped_kgs'].'</td>';
-						$output.='<td>'.$openShippments['siType'].'</td>';
-						$output.='<td>'.$openShippments['shipped_on'].'</td>';
-						$output.='<td>'.$openShippments['stock_id'].'</td>';
-						$output.='<td>'.$openShippments['packages'].'</td>';
-						$output.='<td>'.'<button class="btn btn-danger btn-sm setNotShipBlend" id='.$openShippments['stock_id'].'>Change shippment status</button>'.'</td>';
+						$output.='<td>'.$blendShipped['lot'].'</td>';
+						$output.='<td>'.$blendShipped['broker'].'</td>';
+						$output.='<td>'.$blendShipped['allocation'].'</td>';
+						$output.='<td>'.$blendShipped['invoice'].'</td>';
+						$output.='<td>'.$blendShipped['pkgs_shipped'].'</td>';
+						$output.='<td>'.$blendShipped['shipped_kgs'].'</td>';
+						$output.='<td>'.$blendShipped['siType'].'</td>';
+						$output.='<td>'.$blendShipped['shipped_on'].'</td>';
+						$output.='<td>'.$blendShipped['stock_id'].'</td>';
+						$output.='<td>'.$blendShipped['packages'].'</td>';
 					'</td>
 					</tr>';
 
@@ -823,6 +819,93 @@
 		$stockId = $_POST['stockId'];
 		$success = $warehouses->changeBlendShippmentStatus($stockId);
 		echo $success;
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "shipped-teas"){
+		$type = $_POST['type'];
+		$shippments= $warehouses->straightTeasShipped($type);
+
+		$output = "";
+		if(count($shippments)>0){
+			$output .= '
+			<h2 id="teaType"></h2>
+			<table id="ShippedTeas" class="table table-responsive w-auto table-sm table-bordered table-hover">
+			<thead class="table-primary">
+				<tr>
+					<th>SI</th>
+					<th>Buyer</th>
+					<th>Consignee</th>
+					<th>Destination</th>
+					<th>Target Vessel</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>';
+			foreach($shippments as $shippment){
+				$sino = $shippment['instruction_id'];
+				$output .= '<tr>';
+					$output .= '<td>'.$shippment['contract_no'].'</td>';
+					$output .= '<td>'.$shippment['buyer'].'</td>';
+					$output .= '<td>'.$shippment['consignee'].'</td>';
+					$output .= '<td>'.$shippment['destination_total_place_of_delivery'].'</td>';
+					$output .= '<td>'.$shippment['target_vessel'].'</td>';
+					$output .= '<td>
+					<button id="'.$shippment["instruction_id"].'" class="btn btn-sm btn-danger reverseshippment">Reverse shippments status</button>
+					</td>';
+			}
+			$output .= '</tbody>
+					</table>';
+
+		}else{
+			$output.= "<p>You don't have any active Shippments to track</p>";
+		}
+		echo $output;
+
+	}
+	if(isset($_POST['action'])  && $_POST['action'] == 'reverse-shippment'){
+		$instructionId = $_POST['instructionId'];
+		$type = $_POST['type'];
+		$success = $warehouses->reverseShippment($instructionId, $type);
+		echo $success;
+	}
+	if(isset($_POST['action']) && $_POST['action'] == "view-teas"){
+		$type = $_POST['type'];
+		$instructionId = $_POST['instruction_id'];
+		$shippments= $warehouses->viewTeas($instructionId, $type);
+		$output = "";
+		if(count($shippments)>0){
+			$output .= '
+			<h2 id="teaType"></h2>
+			<table id="viewShippedTeas" class="table table-responsive w-auto table-sm table-bordered table-hover">
+			<thead class="table-primary">
+				<tr>
+					<th>Contract No</th>
+					<th>Sale no</th>
+					<th>Lot</th>
+					<th>Mark</th>
+					<th>Pkgs</th>
+					<th>Kgs</th>
+					'.$type = 'Blend Shippment' ? '<th>Blend No' :''.'		
+				</tr>
+			</thead>
+			<tbody>';
+			foreach($shippments as $shippment){
+				$output .= '<tr>';
+					$output .= '<td>'.$shippment['contract_no'].'</td>';
+					$output .= '<td>'.$shippment['sale_no'].'</td>';
+					$output .= '<td>'.$shippment['lot'].'</td>';
+					$output .= '<td>'.$shippment['mark'].'</td>';
+					$output .= '<td>'.$shippment['pkgs_shipped'].'</td>';
+					$output .= '<td>'.$shippment['shipped_kgs'].'</td>';
+					$type = 'Blend Shippment' ? '<td>'.$shippment['shipped_kgs'].'</td>' :'';
+			}
+			$output .= '</tbody>
+					</table>';
+
+		}else{
+			$output.= "<p>You don't have any active Shippments to track</p>";
+		}
+		echo $output;
+
 	}
 ?>
 

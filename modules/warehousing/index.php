@@ -17,7 +17,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
         background-color: white;
     }
 </style>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
     <div class="page-header">
        
@@ -47,8 +47,11 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                                 <a href="./index.php?view=stock" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-sidebar text-warning"></i></span>Stock
                                 </a>
+                                <a href="./index.php?view=shippedLots" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>View Shipped lots
+                                </a>
                                 <a href="./index.php?view=openshippments" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Change shippment status
+                                    <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Change shippment Status
                                 </a>
                             </div>
                         </div>
@@ -92,10 +95,13 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                                 include('views/stock.php');
                                 break;
 
+                            case 'shippedLots':
+                                include('views/shippedLots.php');
+                                break;
+                            
                             case 'openshippments':
                                 include('views/open_shipments.php');
                                 break;
-
                             default:
                             include('views/gardens.php');
 

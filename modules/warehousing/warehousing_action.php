@@ -907,5 +907,57 @@
 		echo $output;
 
 	}
+	if(isset($_POST['action']) && $_POST['action'] == "allShippmentsDocs"){
+		$shippments= $shippingCtr->allShippingInstructions();
+
+		$output = "";
+		if(count($shippments)>0){
+			$output .= '
+			<table id="all-shipping-instructions" class="table table-responsive w-auto table-sm table-bordered table-hover">
+			<thead class="table-primary">
+				<tr>
+					<th>SI</th>
+					<th>SI Date</th>
+					<th>Destination</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>';
+			foreach($shippments as $shippment){
+				$sino = $shippment['instruction_id'];
+				$output .= '<tr>';
+					$output .= '<td>'.$shippment['contract_no'].'</td>';
+					$output .= '<td>'.$shippment['si_date'].'</td>';
+					$output .= '<td>'.$shippment['destination_total_place_of_delivery'].'</td>';
+					if($shippment['status']!=="Shipped"){
+						$output .='
+						<td>
+							<select class="shipment-status form-control form-control-sm" id="'.$sino.'">
+								<option>Pending</option>
+								<option>Received</option>
+								<option>Blended</option>
+								<option>Shipped</option>
+							</select>
+						</td>';
+					}else{
+						$output .='
+						<td>
+							<a id="'.$sino.'" data-toggle="modal">
+								<i class="fa fa-check btn-sm">Shipped</i>
+							</a>
+						</td>';
+					}
+					
+					$output .='</tr>';
+			}
+			$output .= '</tbody>
+					</table>';
+
+		}else{
+			$output.= "<p>You don't have any active Shippments to track</p>";
+		}
+		echo $output;
+
+	}
 ?>
 

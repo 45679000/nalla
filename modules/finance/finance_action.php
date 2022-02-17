@@ -45,6 +45,7 @@
 		$buyer_address = isset($_POST['buyer_address']) ? $_POST['buyer_address'] : '';
 		$bl_no = isset($_POST['bl_no']) ? $_POST['bl_no'] : '';
 		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
+		$min_tax = isset($_POST['min_tax']) ? $_POST['min_tax'] : '';
 
         if($error ==""){
           $message = $finance->saveInvoice(
@@ -63,7 +64,8 @@
 			  $hs_code,
 			  $buyer_address,
 			  $bl_no,
-			  $bank_id
+			  $bank_id,
+			  $min_tax
 			  
 			);
           echo json_encode($message);
@@ -99,6 +101,7 @@
 		$buyer_address = isset($_POST['buyer_address']) ? $_POST['buyer_address'] : '';
 		$bl_no = isset($_POST['bl_no']) ? $_POST['bl_no'] : '';
 		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
+		$min_tax = isset($_POST['min_tax']) ? $_POST['min_tax'] : '';
         if($error ==""){
           $message = $finance->updateInvoice(
 			  $buyer, $consignee, $invoice_no,
@@ -116,7 +119,8 @@
 			  $hs_code,
 			  $buyer_address,
 			  $bl_no,
-			  $bank_id
+			  $bank_id,
+			  $min_tax
 			  
 			);
           echo json_encode($message);

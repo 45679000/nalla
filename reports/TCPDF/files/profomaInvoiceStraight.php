@@ -101,17 +101,9 @@ $other_references = $data[0]['other_references'];
 $buyer_contract_no = $data[0]['buyer_contract_no'];
 $invoiceno = $data[0]['invoice_no'];
 $date = date_format(date_create($data[0]['date_captured']),"d.m.Y");
-// $address = str_replace(',', ',<br />',$data[0]['address']);
-// $consignee = $data[0]['consignee'];
-// $exporter = $data[0]['exporter'];
-// $descriptionOfGoods = $data[0]['good_description'];
-// $port_of_discharge = $data[0]['port_of_discharge'];
-// $final_destination = $data[0]['final_destination'];
-// $terms_of_delivery = $data[0]['pay_details'];
-// $other_references = $data[0]['other_references'];
-// $buyer_contract_no = $data[0]['buyer_contract_no'];
-// $invoiceno = $data[0]['invoice_no'];
-// $date = date_format(date_create($data[0]['date_captured']),"d.m.Y");
+$min_tax = $data[0]['min_tax'];
+$percent = round((float)$min_tax * 100 ) . '%';
+
 // -----------------------------------------------------------------------------
 
 
@@ -208,11 +200,11 @@ foreach($teaForInvoice as $item) {
 
     $pdf->Ln();
 
-    $pdf->Cell(135,4,"MINIMUM TAX @ 1% OF VALUE AS PER KENYA GOVERNMAENT LAW (FINANCE ACT 2020)",1,0,'L');
-    $pdf->Cell(15,4,"1%",1,0,'C');
+    $pdf->Cell(135,4,"MINIMUM TAX @ ".$min_tax." OF VALUE AS PER KENYA GOVERNMAENT LAW (FINANCE ACT 2020)",1,0,'L');
+    $pdf->Cell(15,4,$percent,1,0,'C');
     $pdf->Cell(15,4,"",1,0,'L');
 
-    $pdf->Cell(15,4,number_format((float)0.01*$total,2),1,0,'C');
+    $pdf->Cell(15,4,number_format((float)$min_tax*$total,2),1,0,'C');
 
     $pdf->Ln();
 
@@ -222,7 +214,7 @@ foreach($teaForInvoice as $item) {
     $pdf->Cell(15,4,"",1,0,'L');
     $pdf->Cell(15,4, $totalKgs,1,0,'C');
     $pdf->Cell(15,4,"",1,0,'L');
-    $pdf->Cell(15,4,number_format((float)(0.01*$total)+(+$total),2),1,0,'C');
+    $pdf->Cell(15,4,number_format((float)($min_tax*$total)+(+$total),2),1,0,'C');
 
 // -----------------------------------------------------------------------------
 $pdf->Ln();

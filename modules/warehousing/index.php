@@ -41,6 +41,9 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                                 <a href="./index.php?view=shipments" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Shipments
                                 </a>
+                                <a href="./index.php?view=shipment-files" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Shipment Supporting documents
+                                </a>
                                 <a href="./index.php?view=closeblends" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-shuffle text-success"></i></span>Close Blends
                                 </a>
@@ -85,6 +88,11 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                                 }else{
                                     include('views/shipments.php');
                                 }
+                                break;
+                            case 'shipment-files':
+                                $sino = isset($_GET['id']) ? $_GET['id'] : '';
+                                include('views/shipment-files.php');
+                                
                                 break;
                             case 'closeblends':
                                 include('views/close_blends.php');

@@ -124,15 +124,15 @@ $pdf->MultiCell(27.5,8,"<u><b>Date:</b></u><br>$date", 0, 'J',false,$ln = 1,$x =
 $pdf->MultiCell(55,8,"", 1, 'J',false,$ln = 1,$x = '140',$y = '36',true,  0,  true,true, 0, 'T',false);
 
 $pdf->MultiCell(55,6,"<b>Buyer's Contract No. & Date</b><br>$buyer_contract_no", 1, 'J',false,$ln = 1,$x = '140',$y = '44',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(125,6,"<u><b>CONSIGNEE:</b></u><br>$consignee", 1, 'J',false,$ln = 1,$x = '15',$y = '56',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(125,7,"<u><b>EXPORTER:</b></u><br>$exporter", 1, 'J',false,$ln = 1,$x = '15',$y = '62',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(55,20,"<b>Other Reference</b><br><br>$other_references", 1, 'J',false,$ln = 1,$x = '140',$y = '50',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(180,7,"<u><b>Description of Goods:</b></u><br>$descriptionOfGoods", 1, 'J',false,$ln = 1,$x = '15',$y = '70',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(62.5,6,"<u><b>country of origin:</b></u><br>KENYA", 1, 'J',false,$ln = 1,$x = '15',$y = '77',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(62.5,6,"<u><b>Port of Loading:</b><br>Mombasa</u>", 1, 'J',false,$ln = 1,$x = '77.5',$y = '77',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(62.5,6,"<u><b>Port of Discharge:</b></u><br>$port_of_discharge", 1, 'J',false,$ln = 1,$x = '15',$y = '83',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(62.5,6,"<u><b>Final Destination:</b></u><br>$final_destination", 1, 'J',false,$ln = 1,$x = '77.5',$y = '83',true,  0,  true,true, 0, 'T',false);
-$pdf->MultiCell(55,12,"<u><b>Terms of Delivery and Payment:</b></u><br>$terms_of_delivery", 1, 'J',false,$ln = 1,$x = '140',$y = '77',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(125,12,"<u><b>CONSIGNEE:</b></u><br>$consignee", 1, 'J',false,$ln = 1,$x = '15',$y = '56',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(125,7,"<u><b>EXPORTER:</b></u><br>$exporter", 1, 'J',false,$ln = 1,$x = '15',$y = '68',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(55,26,"<b>Other Reference</b><br><br>$other_references", 1, 'J',false,$ln = 1,$x = '140',$y = '50',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(180,7,"<u><b>Description of Goods:</b></u><br>$descriptionOfGoods", 1, 'J',false,$ln = 1,$x = '15',$y = '76',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(62.5,6,"<u><b>country of origin:</b></u><br>KENYA", 1, 'J',false,$ln = 1,$x = '15',$y = '83',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(62.5,6,"<u><b>Port of Loading:</b><br>Mombasa</u>", 1, 'J',false,$ln = 1,$x = '77.5',$y = '83',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(62.5,6,"<u><b>Port of Discharge:</b></u><br>$port_of_discharge", 1, 'J',false,$ln = 1,$x = '15',$y = '89',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(62.5,6,"<u><b>Final Destination:</b></u><br>$final_destination", 1, 'J',false,$ln = 1,$x = '77.5',$y = '89',true,  0,  true,true, 0, 'T',false);
+$pdf->MultiCell(55,12,"<u><b>Terms of Delivery and Payment:</b></u><br>$terms_of_delivery", 1, 'J',false,$ln = 1,$x = '140',$y = '83',true,  0,  true,true, 0, 'T',false);
 
 $pdf->setFont('helvetica', 'B', 5);
 // set cell padding

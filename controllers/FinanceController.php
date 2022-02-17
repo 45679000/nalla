@@ -183,7 +183,7 @@
             $hs_code,
             $buyer_address,
             $bl_no,
-            $bank_id
+            $bank_id, $min_tax
 
         ){
                 $type = 'profoma';
@@ -191,8 +191,8 @@
                 $this->conn->beginTransaction();
                 $query = "REPLACE INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, 
                 `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, 
-                `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`, `buyer_address`, `bl_no`, `bank_id`) 
-                VALUES(?,?,?,?,?,?,?,?,?,?,CURRENT_DATE,?,?,?,?,?,?,?,?,?,?,?)";
+                `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`, `buyer_address`, `bl_no`, `bank_id`, `min_tax`) 
+                VALUES(?,?,?,?,?,?,?,?,?,?,CURRENT_DATE,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(1, $buyer);
                 $stmt->bindParam(2, $consignee);
@@ -215,6 +215,7 @@
                 $stmt->bindParam(19, $buyer_address);
                 $stmt->bindParam(20, $bl_no);
                 $stmt->bindParam(21, $bank_id);
+                $stmt->bindParam(22, $min_tax);
 
            
 
@@ -239,23 +240,45 @@
             $container_no,
             $buyer_contract_no,
             $shipping_marks,
-            $other_reference,
+            $other_references,
             $port_of_discharge,
-            $description_of_goods,
+            $good_description,
             $final_destination,
             $hs_code,
             $buyer_address,
             $bl_no,
-            $bank_id
+            $bank_id,
+            $min_tax
 
         ){
                 $type = 'profoma';
                 try {
                 $this->conn->beginTransaction();
-                $query = "UPDATE `tea_invoices` SET `buyer`='$buyer', `consignee`= '$consignee', `invoice_type` = '$invoice_type', `invoice_category` = '$invoice_category', `port_of_discharge`= '$port_of_discharge', 
-                `buyer_bank` = '$buyer_bank', `payment_terms` = '$payment_terms', `pay_bank` = '$pay_bank', `pay_details` = '$pay_details', `port_of_delivery` = '$port_of_delivery', `other_references` = '$other_reference',
-                `container_no` = '$container_no', `buyer_contract_no` = '$buyer_contract_no', `shipping_marks` = '$shipping_marks', `good_description` = '$description_of_goods', `final_destination` = '$final_destination', `hs_code` = '$hs_code', `buyer_address` = '$buyer_address', `bl_no` = '$bl_no', `bank_id` = '$bank_id' WHERE `invoice_no` = '$invoice_no'";
+                $query = "UPDATE `tea_invoices` SET buyer = :buyer, consignee= :consignee,invoice_type = :invoice_type, invoice_category= :invoice_category ,port_of_discharge= :port_of_discharge, buyer_bank= :buyer_bank,payment_terms= :payment_terms, pay_bank= :pay_bank , pay_details= :pay_details, port_of_delivery= :port_of_delivery, other_references= :other_references,container_no= :container_no , buyer_contract_no= :buyer_contract_no , shipping_marks= :shipping_marks, good_description= :good_description, final_destination= :final_destination, hs_code= :hs_code, buyer_address= :buyer_address, bl_no= :bl_no, bank_id= :bank_id, min_tax= :min_tax  WHERE `invoice_no` = '$invoice_no'";
+                // 
+                //  ,
                 $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':buyer', $buyer);
+                $stmt->bindParam(':consignee', $consignee);
+                $stmt->bindParam(':invoice_type', $invoice_type);
+                $stmt->bindParam(':invoice_category', $invoice_category);
+                $stmt->bindParam(':port_of_discharge', $port_of_discharge);
+                $stmt->bindParam(':buyer_bank', $buyer_bank);
+                $stmt->bindParam(':payment_terms', $payment_terms);
+                $stmt->bindParam(':pay_bank', $pay_bank);
+                $stmt->bindParam(':pay_details', $pay_details);
+                $stmt->bindParam(':port_of_delivery', $port_of_delivery);
+                $stmt->bindParam(':other_references', $other_references);
+                $stmt->bindParam(':container_no', $container_no);
+                $stmt->bindParam(':buyer_contract_no', $buyer_contract_no);
+                $stmt->bindParam(':shipping_marks', $shipping_marks);
+                $stmt->bindParam(':good_description', $good_description);
+                $stmt->bindParam(':final_destination', $final_destination);
+                $stmt->bindParam(':hs_code', $hs_code);
+                $stmt->bindParam(':buyer_address', $buyer_address);
+                $stmt->bindParam(':bl_no', $bl_no);
+                $stmt->bindParam(':bank_id', $bank_id);
+                $stmt->bindParam(':min_tax',$min_tax);
                 $stmt->execute();
                 $this->conn->commit();
                 } catch (Exception $ex) {

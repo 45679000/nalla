@@ -253,6 +253,12 @@
                                         </div>
                                     </div>
                                     <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
+                                        <div class="form-group">
+                                            <label class="control-label" for="consignee">Min tax:</label>
+                                            <input class="form-control" name="min_tax" id="min_tax"/>
+                                        </div>
+                                    </div>
+                                    <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
                                         <div class="form-group float-right">
                                             <button id="saveBtn" type="submit" class="btn btn-success btn-lg" id="submit">Save</button>
                                             <button id="updateBtn" type="submit" class="btn btn-success btn-lg" id="submit">Update</button>

@@ -3,9 +3,9 @@ class Database2{
   
     // specify your own database credentials
     private $host = "localhost";
-    private $db_name = "chamu";
-    private $username = "chamu";
-    private $password = "Trymenot123#$$";
+    private $db_name = "chamus";
+    private $username = "iano";
+    private $password = "manemaniac";
     public $conn;
     public $validToken = false;
 

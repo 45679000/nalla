@@ -25,6 +25,15 @@ require_once $path_to_root . 'templates/header.php';
         padding: 1rem;
         border-bottom: 1px solid #333;
     }
+    #uploadForm {
+        margin: auto !important;
+        box-shadow: 0px 0px 4px #333;
+        border-radius: 3px;
+        padding: 1rem;
+    }
+    select {
+        border: 1px solid #333 !important;
+    }
 </style>
 
 <body class="container-fluid">
@@ -36,9 +45,10 @@ require_once $path_to_root . 'templates/header.php';
                     <h3 class="card-title text-light">Shippments' Supporting documents</h3>
                 </div>
                 <div class="alert alert-info m-5" role="alert" id="successMessage">Done! Check Table below to confirm that they are saved</div>
-                <div class="col-md-6 my-5 ">
-                    <form action="" id="uploadForm">
-                        <select id="si" name="si" class="select form-control"><small>(required)</small></select>
+                <div class="alert alert-danger m-5" role="alert" id="errorMessage">Error! Try again. If problems persist contact the concerned</div>
+                <div class="col-12 my-5 ">
+                    <form action="" id="uploadForm" class="">
+                        <select id="si" name="si" class="select form-control col-md-4 col-6"><small>(required)</small></select>
                         <!-- <input type="text" name="si-no" id="si-no" placeholder="Choose si No." class="form-control"> -->
                         <input type="file" id="pdf" name="pdf[]" class="form-control" multiple>
                         <input type="submit" value="Upload Files" class="btn btn-secondary" id="uploadBtn">
@@ -46,8 +56,8 @@ require_once $path_to_root . 'templates/header.php';
                 </div>
                 <div class="col-md-6 mt-5">
                     <p class="p-2 h5">Choose Shipping instruction to view it's Uploaded documents</p>
-                    <select id="shipping_instruction" name="si" class="select form-control"><small>(required)</small></select>
-                    <button class="btn btn-primary" id="searchBtn">Search</button>
+                    <select id="shipping_instruction" name="si" class="select form-control col-md-4 col-6"><small>(required)</small></select>
+                    <button class="btn btn-info" id="searchBtn">Search</button>
                 </div>
                 <div class="card col-12 p-md-4" id="">
                     <div class='card p-3 '><h3 class='h3'>Documents of contract Number -  <span id="contractNumber"></span></h3>
@@ -76,6 +86,7 @@ require_once $path_to_root . 'templates/header.php';
 
     <script>
         $('#successMessage').hide()
+        $('#errorMessage').hide()
         siList()
         function siList() {
             $.ajax({
@@ -104,13 +115,20 @@ require_once $path_to_root . 'templates/header.php';
                 processData:false,
                 success: function(response){
                     console.log(response);
+                    if(response == 1){
+                        $('#errorMessage').show()
+                        $('#successMessage').hide()
+                    }
                     // $('#successMessage').show()
                 },
                 error: function(error) {
                     // console.error(error);
                     if(error.status == 200){
                         $('#successMessage').show()
-   
+                        $('#errorMessage').hide()
+                    } else {
+                        $('#errorMessage').show()
+                        $('#successMessage').hide()
                     }
                 }
             });

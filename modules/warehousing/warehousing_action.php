@@ -985,11 +985,11 @@
 			if(move_uploaded_file($filesArr['tmp_name'][$i],'../../uploads/'.$filename)){
 				$success = $shippingCtr->saveShippmentDocsName($filename,$siNo);
 				if($success == 'success'){
-					echo 'success';
+					echo json_encode('success');
 					// $error = 0;
 				}else {
 					// $error = 1;
-					echo $success;
+					echo json_encode($success);
 				}
 				// echo $success;
 			}
@@ -998,22 +998,22 @@
 			}
 			 
 		}
-		echo $error;
+		echo json_encode($error);
 	}
 	if (isset($_POST['action']) && $_POST['action'] == 'si-documents') {
 		$si = $_POST['si'];
 		$data = $shippingCtr->shippingDocs($si);
 		$contractNo = $shippingCtr->getContractNo($si);
 		$output = "";
-		echo $contractNo['contract_no'];
-		if(count($data)<1){
-			echo "This Si has no documents uploaded for it";
-		}else {
+		if($data){
 			foreach($data as $files){
-				$output.="<p>".$files['file_name']."<a class='danger text-right' href=".$path_to_root."uploads/".$files['file_name'].">Download<a/></p>";
+				$output .="<p>".$files['file_name']."<a class='danger text-right' href=".$path_to_root."uploads/".$files['file_name'].">Download<a/></p>";
 			}
-			echo $output;
+			
+		}else {
+			$output.="<p class='info'>This Si has no documents uploaded for it</p>";
 		}
+		echo $output;
 	}
 ?>
 

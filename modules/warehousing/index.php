@@ -42,7 +42,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
                                     <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Shipments
                                 </a>
                                 <a href="./index.php?view=shipment-files" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <span class="icon mr-3"><i class="mdi mdi-ferry text-lime"></i></span>Shipment Supporting documents
+                                    <span class="icon mr-3"><i class="fe fe-grid text-blue"></i></span>Shipment Supporting documents
                                 </a>
                                 <a href="./index.php?view=closeblends" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-shuffle text-success"></i></span>Close Blends

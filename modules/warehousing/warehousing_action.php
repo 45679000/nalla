@@ -959,5 +959,61 @@
 		echo $output;
 
 	}
+	if (isset($_POST['action']) && $_POST['action'] == "list-si") {
+		$output = "";
+		$si = $shippingCtr->getShippingInstructions();
+		if (count($si) > 0) {
+			foreach($si as $shipping_instruction){
+			$output .= '<option value="'.$shipping_instruction['instruction_id'].'">'.$shipping_instruction['contract_no'].'</option>';
+			}
+			echo $output;	
+		}else{
+			echo '<option disabled="" value="..." selected="">select</option>';
+		}
+	}
+	if (isset($_POST['si'])) {
+		$filesArr = $_FILES["pdf"];
+		$siNo = $_POST['si']; 
+        $fileNames = array_filter($filesArr['name']); 
+		// echo $filesArr['tmp_name'][0];
+		$error;
+		$countfiles = count($filesArr['name']);
+		for($i=0;$i<$countfiles;$i++){
+			$filename = $siNo.$filesArr['name'][$i];
+			// echo $filename;
+			// Upload file
+			if(move_uploaded_file($filesArr['tmp_name'][$i],'../../uploads/'.$filename)){
+				$success = $shippingCtr->saveShippmentDocsName($filename,$siNo);
+				if($success == 'success'){
+					echo 'success';
+					// $error = 0;
+				}else {
+					// $error = 1;
+					echo $success;
+				}
+				// echo $success;
+			}
+			else {
+				$error = 1;
+			}
+			 
+		}
+		echo $error;
+	}
+	if (isset($_POST['action']) && $_POST['action'] == 'si-documents') {
+		$si = $_POST['si'];
+		$data = $shippingCtr->shippingDocs($si);
+		$contractNo = $shippingCtr->getContractNo($si);
+		$output = "";
+		echo $contractNo['contract_no'];
+		if(count($data)<1){
+			echo "This Si has no documents uploaded for it";
+		}else {
+			foreach($data as $files){
+				$output.="<p>".$files['file_name']."<a class='danger text-right' href=".$path_to_root."uploads/".$files['file_name'].">Download<a/></p>";
+			}
+			echo $output;
+		}
+	}
 ?>
 

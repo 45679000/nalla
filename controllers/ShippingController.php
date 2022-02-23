@@ -310,6 +310,28 @@ Class ShippingController extends Model{
         }
        
     }
+    public function allShippingInstructions(){
+     
+        $this->query = "SELECT * FROM shipping_instructions  ORDER BY `shipping_instructions`.`instruction_id` DESC";
+        return $this->executeQuery() ;
+     
+    }
+    public function saveShippmentDocsName($fileName, $instructionId){
+        try{
+            $this->query = "INSERT INTO `shippmentFiles` (`id`, `file_name`, `uploaded_on`, `instruction_id`) VALUES (NULL, '$fileName', CURRENT_TIMESTAMP, $instructionId)";
+            $this->executeQuery();
+            echo 'success';
+        }catch (Exception $ex) {
+            var_dump($ex);
+            echo 'fail';
+        }
+    }
+    public function shippingDocs($si){
+     
+        $this->query = "SELECT shippmentFiles.file_name, shippmentFiles.instruction_id, shipping_instructions.contract_no FROM shippmentFiles JOIN shipping_instructions ON shippmentFiles.instruction_id = shipping_instructions.instruction_id  WHERE shippmentFiles.instruction_id = $si";
+        return $this->executeQuery() ;
+     
+    }
 }
 
 

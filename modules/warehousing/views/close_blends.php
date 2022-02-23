@@ -331,7 +331,7 @@ if(!isset($_GET["blendno"])){
         var blendid = localStorage.getItem("blendid");
         var blendInput = localStorage.getItem('inputKgs');
         var shippment = localStorage.getItem("shippment");
-        var blendRemant = Number(blendOutput)- Number(shippment);
+        var blendRemant = Number(blendOutput)- Number(blendInput);
         $("#blendremnant").val(blendRemant);
         $("#gainLoss").val((Number(blendInput))-Number(blendOutput));
 

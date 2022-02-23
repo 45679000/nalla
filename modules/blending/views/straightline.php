@@ -71,7 +71,7 @@
 
 <div class="col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-md-1 card p-2">
+        <div class="col-2 card p-2">
             <div class="table-responsive">
                 <div class="card ">
                     <span id="addNewBtn"><i class="fa fa-plus card-header">ADD NEW</i></span>

@@ -61,7 +61,6 @@
         opacity: 0.3;
         color: white;
     }
-
     @media screen and (max-width:450) {
         .counter {
             margin-bottom: 10px;
@@ -118,7 +117,7 @@
 
             </div>
         </div>
-        <div id="allocationContainer" class="col-md-11">
+        <div id="allocationContainer" class="col-md-10">
             <div class="card">
                 <div class="card-header">
                     <span class="label" id="allocationLabel"></span>
@@ -231,6 +230,23 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-2">
+                                            <div id="editContract" class="card widgets-cards clickable">
+                                                <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <div class="col-6 p-0">
+                                                        <div class="wrp icon-circle bg-danger">
+                                                            <i class="si si-pencil icons"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 p-0">
+                                                        <div class="wrp text-wrapper">
+                                                            <p id="price"></p>
+                                                            <p class="text-dark mt-1 mb-0">Edit Contract Details</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -292,6 +308,43 @@
 </div>
 
 
+<div class="modal fade" id="editContractModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="h5" id="exampleModalLabel">Update Contract Number<span id="contractHeading" class="text-info"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="updateContract">
+            <p id="errorForm" class="text-danger"></p>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Contract No:</label>
+            <input type="text" class="form-control" id="contract-no" name="contract-no" required>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Client Name:</label>
+            <select id="client" name="client" class="buyer form-control form-control-cstm select2-show-search well" required><small>(required)</small>
+            </select>          
+        </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Details:</label>
+            <input class="form-control" id="details" name="details" type="text">
+            <input type="text" name="contract_id" id="contract_id">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Update Detaills" class="btn btn-danger" id="submit-updates">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- split Record  Modal -->
 <div class="modal" id="splitModal">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -415,8 +468,8 @@
 <script>
     $("#issueTeaMenu").hide();
     $("#allocationContainer").hide();
-
-
+    $('#contract_id').hide()
+    $('#errorForm').hide()
     $(document).ready(function() {
         menu();
         print_lotdetails();
@@ -759,4 +812,76 @@ function insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs) {
         }
     });
 }
+$('#editContract').click(function(e){
+    $("#editContractModal").modal('show');
+    let contractNumber = localStorage.getItem('contractno')
+    $.ajax({
+        url: "straightline_action.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+            action: "get-contract-details",
+            contract: contractNumber
+        },
+        success: function(response) {
+            // var data = response[0]
+            document.getElementById('contract-no').value= response[0].contract_no
+            document.getElementById('client').value = response[0].client_id
+            document.getElementById('contract_id').value = response[0].id
+            $('#contractHeading').text(response[0].contract_no)
+        }
+
+    });
+})
+$.ajax({
+    url: "straightline_action.php",
+    type: "POST",
+    dataType: "html",
+    data: {
+        action: "get-all-buyers",
+    },
+    success: function(response) {
+        $('#client').html(response)
+    }
+
+});
+$('#submit-updates').click(function(e) {
+    e.preventDefault()
+    var contract_no = $('#contract-no').val()
+    var client = $('#client').val()
+    var details = $('#details').val()
+    var contract_id = $('#contract_id').val()
+    if(!contract_no && !client){
+        $.ajax({
+        url: "straightline_action.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                action: "update-contract",
+                contract_no: contract_no,
+                client: client,
+                details: details,
+                contract_id: contract_id
+            },
+            success: function(response) {
+                $('#editContract').modal('hide');
+                if(response == 0){
+                    Swal.fire({
+                        icon: 'success',
+                        title: `Contract ${contract_no} Updated successfully`,
+                    });
+                }else {
+                    Swal.fire({
+                        icon: 'danger',
+                        title: `Contract ${contract_no} not updated`,
+                    });
+                }
+            }
+
+        });
+    }else {
+        $('#errorForm').show()
+        $('#errorForm').text("Make sure to fill in contract Number and select the buyer before submission")
+    }
+})
 </script>

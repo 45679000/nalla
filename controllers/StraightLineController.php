@@ -14,12 +14,23 @@ Class StraightLineController extends Model{
     }
     public function addStraightline($contract_no, $client_id, $details){
 
-            $this->debugSql = false;
-        
-            $this->query = "REPLACE INTO `straightlineteas`(`contract_no`, `client_id`,  `details`) 
-            VALUES ('$contract_no', '$client_id', '$details')";
+        $this->debugSql = false;
+    
+        $this->query = "REPLACE INTO `straightlineteas`(`contract_no`, `client_id`,  `details`) 
+        VALUES ('$contract_no', '$client_id', '$details')";
 
-            return $this->executeQuery();
+        return $this->executeQuery();
+    }
+    public function getAContract($contract_no){
+        $this->query = "SELECT id, contract_no, client_id
+        FROM `straightlineteas` WHERE contract_no = '$contract_no'";
+
+        return $this->executeQuery();
+    }
+    public function updateContract($contract_no, $client, $details, $client_id){
+        $this->query = "UPDATE `straightlineteas` SET contract_no = '$contract_no', client_id = '$client', details = '$details' WHERE id = $client_id";
+
+        return $this->executeQuery();
     }
     public function allocationStraightline($contract_no){
 

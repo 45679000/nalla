@@ -4,10 +4,12 @@
     include_once('../../database/page_init.php');
     include_once('../../controllers/StraightLineController.php');
     include_once('../../controllers/StockController.php');
+    include '../../controllers/FinanceController.php';
 
 
     $strCtrl = new StraightLineController($conn);
     $stockCtrl = new Stock($conn);
+    $financeCtlr = new Finance($conn);
 
 
 	// Insert Record	
@@ -219,6 +221,39 @@
 		$stockid = isset($_POST["stock_id"]) ? $_POST["stock_id"] : ''; 
 
         $strCtrl->updateMrp($mrpvalue, $stockid);
+    }
+    if(isset($_POST['action']) && $_POST['action'] == 'get-contract-details'){
+        $contract_no = $_POST['contract'];
+        $contractDetails = $strCtrl->getAContract($contract_no);
+        echo json_encode($contractDetails);
+    }
+    if (isset($_POST['action']) && $_POST['action'] == "get-all-buyers") {
+        $output = "";
+
+        $buyers= $financeCtlr->fetchErpClients();
+        $output = '<option disabled="" value="..." selected="">select</option>';
+        if (sizeOf($buyers) > 0) {
+                foreach($buyers as $buyer){
+                $output .= '<option name="'.$buyer['address'].'" value="'.$buyer['debtor_no'].'">'.$buyer['debtor_ref'].'</option>';
+                }
+                echo $output;	
+        }else{
+            echo '<option disabled="" value="..." selected="">select</option>';
+        }
+        
+    }
+    if(isset($_POST['action']) && $_POST['action'] == 'update-contract'){
+        $contract_no = $_POST['contract_no'];
+        $details = $_POST['details'];
+        $contract_id = $_POST['contract_id'];
+        $client = $_POST['client'];
+        $contractUpdate = $strCtrl->updateContract($contract_no, $client, $details, $contract_id);
+        if(count($contractUpdate)>0){
+            echo 1;
+        }
+        else {
+            echo 0;
+        }
     }
 
 

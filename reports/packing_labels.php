@@ -36,7 +36,7 @@ $printed = 0;
                         <table>
                             <tr>
                                 <td><b>SALE:'.$offer['sale_no']. '</b></td>
-                                <td>DATE:'.$offer['manf_date']. '</td> 
+                                <td>DATE:'.date("Y-m-d", $offer['manf_date']). '</td> 
                             </tr>
                             <tr>
                                 <td>'.$offer['mark'].'</td>

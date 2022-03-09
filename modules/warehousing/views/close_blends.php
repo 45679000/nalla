@@ -330,10 +330,12 @@ if(!isset($_GET["blendno"])){
         var Fiber = $("#bfiber").val();
         var blendid = localStorage.getItem("blendid");
         var blendInput = localStorage.getItem('inputKgs');
-        var shippment = localStorage.getItem("shippment");
-        var blendRemant = Number(blendOutput)- Number(blendInput);
+        // var shippment = localStorage.getItem("shippment");
+        var shippment = $("#shippment").val()
+        // console.log(shippment);
+        var blendRemant = (Number(blendOutput) - Number(shippment));
         $("#blendremnant").val(blendRemant);
-        $("#gainLoss").val((Number(blendInput))-Number(blendOutput));
+        $("#gainLoss").val((Number(blendOutput)+Number(Sweeping)+Number(Cyclone)+Number(Dust)+Number(pulucon)+Number(Fiber))- Number(blendInput));
 
 
     });

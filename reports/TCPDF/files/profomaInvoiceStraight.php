@@ -45,9 +45,9 @@ $pdf = new Invoices(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-
 
 // set document information
 $pdf->setCreator(PDF_CREATOR);
-$pdf->setAuthor('Nicola Asuni');
-$pdf->setTitle('TCPDF Example 048');
-$pdf->setSubject('TCPDF Tutorial');
+$pdf->setAuthor('Korir');
+$pdf->setTitle('Straight line teas invoice');
+$pdf->setSubject('Invoices');
 $pdf->setKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
@@ -85,7 +85,7 @@ $pdf->setFont('helvetica', 'B', 20);
 // add a page
 $pdf->AddPage();
 
-$pdf->setFont('helvetica', '', 8);
+$pdf->setFont('helvetica', '', 12);
 
 $rpData->invoiceNo = trim($_GET["invoiceNo"]);
 $data = $rpData->proformaInvoiceData();
@@ -181,9 +181,9 @@ foreach($teaForInvoice as $item) {
     $pdf->Cell(30,4,$item["invoice"],1,0,'C');
     $pdf->Cell(15,4,$item["pkgs"],1,0,'C');
     $pdf->Cell(15,4,$item["net"],1,0,'C');
-    $pdf->Cell(15,4,$item["kgs"],1,0,'C');
-    $pdf->Cell(15,4,$item["profoma_amount"],1,0,'C');
-    $pdf->Cell(15,4,$item["kgs"]*$item["profoma_amount"],1,0,'C');
+    $pdf->Cell(15,4,number_format($item["kgs"],1),1,0,'C');
+    $pdf->Cell(15,4,number_format($item["profoma_amount"], 2),1,0,'C');
+    $pdf->Cell(15,4,number_format($item["kgs"]*$item["profoma_amount"],2),1,0,'C');
 
     $total += $item["final_amount"];
     $totalPackages += $item["pkgs"];
@@ -194,7 +194,7 @@ foreach($teaForInvoice as $item) {
     $pdf->Cell(105,4,"TOTAL",1,0,'L');
     $pdf->Cell(15,4,$totalPackages,1,0,'C');
     $pdf->Cell(15,4,"",1,0,'L');
-    $pdf->Cell(15,4, $totalKgs,1,0,'C');
+    $pdf->Cell(15,4, number_format($totalKgs,1),1,0,'C');
     $pdf->Cell(15,4,"",1,0,'L');
     $pdf->Cell(15,4,number_format((float)$total, 2, '.', ''),1,0,'C');
 
@@ -212,7 +212,7 @@ foreach($teaForInvoice as $item) {
     $pdf->Cell(105,4,"GRAND TOTAL AMOUNT",1,0,'L');
     $pdf->Cell(15,4,$totalPackages,1,0,'C');
     $pdf->Cell(15,4,"",1,0,'L');
-    $pdf->Cell(15,4, $totalKgs,1,0,'C');
+    $pdf->Cell(15,4, number_format($totalKgs,1),1,0,'C');
     $pdf->Cell(15,4,"",1,0,'L');
     $pdf->Cell(15,4,number_format((float)($min_tax*$total)+(+$total),2),1,0,'C');
 

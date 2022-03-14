@@ -801,7 +801,7 @@
     $(document).ready(function() {
         $("#page1Btn").hide();
         function loadPreview() {
-            $("#invoicePreview").html('<iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/blendInvoice.php?invoiceNo='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
+            $("#invoicePreview").html('<p class="text-danger">Click refresh pdf button before you download it</p><a href="../../../reports/TCPDF/files/blendInvoice.php?invoiceNo='+localStorage.getItem("invoiceno")+'" class="btn btn-danger">Download</a><iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/blendInvoice.php?invoiceNo='+localStorage.getItem("invoiceno")+'" width="1000px" height="800px"></iframe>');
         }
         loadPreview()
 

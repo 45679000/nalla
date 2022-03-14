@@ -57,7 +57,7 @@ $path_to_root = "../../";
                 <div class="card-header bg-primary">
                     <h3 class="card-title text-light">Shippments</h3>
                 </div>
-                <div class="card-header te">Shipped Teas</div>
+                <div class="card-header te">Shipped lots</div>
                 <div class="card-body p-6 loaderParent">
                     <div class="rows">
                         <button id="straighLine" class="btn btn-success">Straight Teas</button>
@@ -91,18 +91,7 @@ $path_to_root = "../../";
         </div>
     </div>
     </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog col-12" role="document">
-            <div class="modal-content">
-                <div class="" id="teasForShippment"></div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
     <script src="../../assets/js/vendors/jquery-3.2.1.min.js"></script>
@@ -124,7 +113,7 @@ $path_to_root = "../../";
             e.preventDefault()
             blendBtn.className = 'btn btn-success'
             straightBtn.className = 'btn btn-primary'
-            shippedBlendTeas()
+            shippedBlends()
         })
         straightBtn.addEventListener('click',(e)=>{
             e.preventDefault()
@@ -138,106 +127,80 @@ $path_to_root = "../../";
                 type: "POST",
                 dataType: "html",
                 data: {
-                    action: "shipped-teas",
-                    type: 'Straight Line'
+                    action: "shipped-straight"
                 },
                 cache: true,
                 url: "warehousing_action.php",
                 success: function (data) {
                     $('#shippments').html(data)
-                    document.getElementById('teaType').innerText = 'Straight Line'
-                    $("#ShippedTeas").DataTable({})
+                    $("#shipped-straight").DataTable({})
                 }
             })
         }
         // open blend shippments
-        function shippedBlendTeas() {
+        function shippedBlends() {
             $.ajax({
                 type: "POST",
                 dataType: "html",
                 data: {
-                    action: "shipped-teas",
-                    type: 'Blend Shippment'
+                    action: "shipped-blend"
                 },
                 cache: true,
                 url: "warehousing_action.php",
                 success: function (data) {
+                    console.log(data)
                     $('#shippments').html(data)
-                    document.getElementById('teaType').innerText = 'Blend Shippment'
-                    $("#ShippedTeas").DataTable({})
+                    $("#shipped-blend").DataTable({})
                 }
             })
         }
-        $("body").on("click", ".viewTeas", function(e) {
-            var contractNo = $(this).attr("id");
-            console.log(contractNo)
-            var type = document.getElementById('teaType').innerText
-            viewTeas(contractNo, type)
+        $("body").on("click", ".setNotShip", function(e) {
+            var stockId = $(this).attr("id");
+            // console.log(contractno)
+            document.querySelector('.loaderParent').style.opacity = 0.5
+
+            changeShippmentStatus(stockId)
         });
-        $("body").on("click", ".reverseshippment", function(e) {
-            var instructionId = $(this).attr("id");
-            var type = document.getElementById('teaType').innerText
-            // console.log(contractNo);
-            if(instructionId.length > 1){
-                let text = `You are about to change shippment status of contract Number ${instructionId}`;
-                if (confirm(text) == true) {
-                    changeShippmentStatus(instructionId,type)
-                }
-            } 
-            else {
-                alert('This shippment has no Contract number');
-            }
+        $("body").on("click", ".setNotShipBlend", function(e) {
+            var stockId = $(this).attr("id");
+            // console.log(contractno)
+            document.querySelector('.loaderParent').style.opacity = 0.5
+
+            changeShippmentStatus(stockId)
         });
-        function changeShippmentStatus(instructionId, type){
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                data: {
-                    action: "reverse-shippment",
-                    instructionId: instructionId,
-                    type: type 
-                },
-                url: "warehousing_action.php",
-                success: function (data) {
-                    console.log(data);
-                    if(data = 'success'){
-                        Swal.fire(
-                            'Shippment status changed',
-                            'Go to stock to confirm changes',
-                            'success'
-                        )
-                    }
-                    else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Failed',
-                            text: 'Try again',
-                            footer: '<p>If this persists contact the technical team</p>'
-                        })
-                    }
-                }
-            })
-        }
-        function viewTeas(contractNo, type) {
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                data: {
-                    action: "view-teas",
-                    contractNo: contractNo,
-                    type: type 
-                },
-                url: "warehousing_action.php",
-                success: function (data) {
-                    console.log(data);
-                    $('#teasForShippment').html(data)
-                    $("#viewShippedTeas").DataTable({})
-                    // alert(`Tea of Lot No. ${stockId} shipped status changed to not shipped`)
-                    // shippedStraightTeas()
-                    // document.querySelector('.loaderParent').style.opacity = 1
-                }
-            })
-        }
+        // This gotta go
+        // function changeShippmentStatus(stockId){
+        //     $.ajax({
+        //         type: "POST",
+        //         dataType: "html",
+        //         data: {
+        //             action: "update-shippment",
+        //             stockId: stockId
+        //         },
+        //         url: "warehousing_action.php",
+        //         success: function (data) {
+        //             alert(`Tea of Lot No. ${stockId} shipped status changed to not shipped`)
+        //             shippedStraightTeas()
+        //             document.querySelector('.loaderParent').style.opacity = 1
+        //         }
+        //     })
+        // }
+        // function changeShippmentStatus(stockId){
+        //     $.ajax({
+        //         type: "POST",
+        //         dataType: "html",
+        //         data: {
+        //             action: "update-blend-shippment",
+        //             stockId: stockId
+        //         },
+        //         url: "warehousing_action.php",
+        //         success: function (data) {
+        //             alert(`Tea of Lot No. ${stockId} shipped status changed to not shipped`)
+        //             shippedBlends()
+        //             document.querySelector('.loaderParent').style.opacity = 1
+        //         }
+        //     })
+        // }
     </script>
 
     </html>

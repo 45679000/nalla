@@ -111,7 +111,7 @@
 		$saleno = isset($_POST['saleno']) ? $_POST['saleno'] : '';
 		$broker = isset($_POST['broker']) ? $_POST['broker'] : '';
 		$category = isset($_POST['category']) ? $_POST['category'] : '';
-		$imports = $CatalogController->closingCatalogue($saleno, $broker , $category);
+		$imports = $CatalogController->closingCatalogue($saleno, $broker,$category);
 		$html = "";
 		if(sizeOf($imports)>0){
 			$html='<table id="closingimports" class="table table-striped table-bordered" style="width:100%">

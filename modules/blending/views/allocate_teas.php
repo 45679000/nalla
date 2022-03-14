@@ -68,7 +68,7 @@ $blendno = isset($_GET['blendno']) ? $_GET['blendno'] : '';
 <div class="col-md-12 col-lg-12">
     <div id="contentwrapper">
         <div class="row">
-            <div class="card col-md-6 p-2">
+            <div class="card col-md-9 p-2">
                 <div id="tableData">
                 </div>
             </div>

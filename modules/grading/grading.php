@@ -63,7 +63,7 @@
 
         }
         public function readOffers($saleno){
-            $this->query="SELECT *FROM closing_cat WHERE allocated = true AND sale_no = '$saleno'";
+            $this->query="SELECT * FROM closing_cat WHERE allocated = true AND sale_no = '$saleno'";
             return($this->executeQuery());
 
         }

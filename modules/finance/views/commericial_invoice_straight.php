@@ -730,9 +730,9 @@
                 dataType: "html",
                 success: function(response) {
                     $("#finalSubmit").html('<h5 class="purple-text text-center">You Have Successfully Created Invoice</h5>'+localStorage.getItem("invoiceno"));
-                    // setTimeout(function() {
-                    //     location.reload();
-                    //     }, 3000);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 3000);
                 }
             });
     })
@@ -858,22 +858,6 @@ function insertSplit(stockId, Pkgs, Kgs, NewKgs, NewPkgs) {
 }
 function loadInvoiceTeas(){
     $.ajax({
-                url: "../finance_action.php",
-                type: "POST",
-                data: {
-                    action: "submit-invoice",
-                    type: "straight",
-                    invoice: localStorage.getItem("invoiceno")
-                },
-                dataType: "html",
-                success: function(response) {
-                    $("#finalSubmit").html('<h5 class="purple-text text-center">You Have Successfully Created Invoice</h5>'+localStorage.getItem("invoiceno"));
-                    // setTimeout(function() {
-                    //     location.reload();
-                    //     }, 3000);
-                }
-            });
-    $.ajax({
         type: "POST",
         dataType:"html",
         data: {
@@ -894,12 +878,4 @@ function loadInvoiceTeas(){
     });
 
 }
-// soFunc()
-// function soFunc(){
-    // $("#submitCI").click(function(e){
-            // e.preventDefault();
-            
-    // })
-// }
-
 </script>

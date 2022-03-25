@@ -45,7 +45,7 @@
 		$buyer_address = isset($_POST['buyer_address']) ? $_POST['buyer_address'] : '';
 		$bl_no = isset($_POST['bl_no']) ? $_POST['bl_no'] : '';
 		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
-		$min_tax = isset($_POST['min_tax']) ? $_POST['min_tax'] : '';
+		$min_tax = isset($_POST['min_tax']) ? $_POST['min_tax'] : '0.00';
 
         if($error ==""){
           $message = $finance->saveInvoice(
@@ -663,7 +663,7 @@
 					$output.='<td>'.$stock["pkgs"].'</td>';
 					$output.='<td>'.$stock["kgs"].'</td>';
 					$output.='<td>'.$stock["net"].'</td>';
-					$output.='<td class="profoma_amount" contenteditable="true">'.$stock["profoma_amount"].'</td>';
+					$output.='<td class="profoma_amount" contenteditable="true" id="'.$stock["id"].'">'.$stock["profoma_amount"].'</td>';
 
 					  $output.='<td>
 					  <a class="removeTea" id="'.$stock["id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Remove" >
@@ -767,12 +767,12 @@
 	if(isset($_POST['action']) && $_POST['action'] == "submit-invoice"){
 		$invoice_no = isset($_POST['invoice']) ? $_POST['invoice'] : '';
 		$type = isset($_POST['type']) ? $_POST['type'] : '';
-
+		// echo $type;
 		$cart = $finance->submitInvoice($type, $invoice_no);
-		var_dump($cart);
-		$salesCtrl->clean();
+		// print_r($cart);
+		// $salesCtrl->clean();
 		$salesCtrl->cart = $cart;
-		$salesCtrl->post_pos_sale();
+		print_r($salesCtrl->post_pos_sale());
 
 
 	}

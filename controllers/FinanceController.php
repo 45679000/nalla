@@ -230,6 +230,7 @@
                 $response["code"] = 200;
             
             return $response;
+            // INSERT INTO `0_sales_orders` (`order_no`, `trans_type`, `version`, `type`, `debtor_no`, `branch_code`, `reference`, `customer_ref`, `comments`, `ord_date`, `order_type`, `ship_via`, `delivery_address`, `contact_phone`, `contact_email`, `deliver_to`, `freight_cost`, `from_stk_loc`, `delivery_date`, `payment_terms`, `total`, `prep_amount`, `alloc`) VALUES ('', '30', '0', '0', '0', '0', '', '', NULL, '0000-00-00', '0', '0', '', NULL, NULL, '', '0', '', '0000-00-00', NULL, '0', '0', '0')
     
         }
         public function updateInvoice($buyer, $consignee, $invoice_no,
@@ -365,8 +366,8 @@
             
         //    $this->debugSql = false;
             $this->conn->beginTransaction();
-            $this->query = "INSERT INTO `invoice_teas`(`invoice_no`, `stock_id`, `profoma_amount`, `time_stamp`, `created_by`) 
-            SELECT '$invoiceno',$stockid,sale_price,CURRENT_TIMESTAMP, $user
+            $this->query = "INSERT INTO `invoice_teas`(`invoice_no`, `stock_id`, `profoma_amount`, `commercial_amount`, `time_stamp`, `created_by`) 
+            SELECT '$invoiceno',$stockid,sale_price, sale_price*kgs,CURRENT_TIMESTAMP, $user
             FROM closing_stock
             WHERE stock_id = $stockid";
             $this->executeQuery();
@@ -532,11 +533,14 @@
                 $this->debugSql = false;
 
                 $this->query = "UPDATE invoice_teas SET $fieldName = '$fieldValue' WHERE id = $id";
-                $this->executeQuery();
+                if($this->executeQuery()){
+                    return json_encode(array("updated"=>"true"));
+                }
             } catch (\Throwable $th) {
-               //throw $th;
+            //    echo  $th;
+                return json_encode(array("updated"=>"false"));
             }
-            return json_encode(array("updated"=>"true"));
+            // return json_encode(array("updated"=>"true"));
         }
         public function removeRecord($id){
             try {
@@ -550,18 +554,16 @@
             return json_encode(array("added"=>"true"));
          
          }
-        public function submitInvoice($invoice_no, $type){
+        public function submitInvoice($type, $invoice_no){
             try {
                $this->debugSql = false;
                $this->query = "UPDATE tea_invoices SET  submitted = 1 WHERE invoice_no = '$invoice_no'";
                $this->executeQuery();
 
-               return $this->cart($type, $invoice_no);
+               return $this->cart('straight', $invoice_no);
             } catch (\Throwable $th) {
                throw $th;
             }
-         
-         
         }
 
         public function fcart($facility_no){
@@ -615,21 +617,22 @@
          
          
         }
-        public function cart($invoice_no, $type){
+        public function cart( $type,$invoice_no){
             $invoice = array();
             $trans_date = date('Y-m-d');
             if($type=="straight"){
-                $this->query = "
-                SELECT tea_invoices.`id`, `buyer` AS debtor_no, `consignee`, `address`,`invoice_teas`.`invoice_no`, `invoice_type`,  `0_debtors_master`.`payment_terms`,
-                 `buyer_contract_no`, `pay_bank`, `pay_details`, SUM(`invoice_teas`.`commercial_amount`) AS total_amount, (0.01 * SUM(`invoice_teas`.`commercial_amount`)) AS tax,
-                `invoice_teas`.`created_by` AS user, receivables_account, `branch_code`, `days_before_due` AS days_before_due_date
-                FROM `tea_invoices`
-                INNER JOIN  0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no 
-                INNER JOIN `invoice_teas`  ON  `invoice_teas`.`invoice_no` = `tea_invoices`.`invoice_no`
-                LEFT JOIN `0_cust_branch` ON `0_cust_branch`.`debtor_no` = `0_debtors_master`.`debtor_no` 
-                LEFT JOIN `0_payment_terms` ON `0_payment_terms`.`terms_indicator` = `0_debtors_master`.`payment_terms`
-                WHERE `invoice_teas`.`invoice_no` = trim('$invoice_no')
-                GROUP BY tea_invoices.invoice_no";
+                $this->query = "SELECT tea_invoices.`id`, `buyer` AS debtor_no, `consignee`, `address`,`invoice_teas`.`invoice_no`, `invoice_type`,  `0_debtors_master`.`payment_terms`,
+                `buyer_contract_no`, `pay_bank`, `pay_details`, SUM(invoice_teas.profoma_amount*closing_stock.kgs) AS total_amount, (0.01 * SUM(invoice_teas.profoma_amount*closing_stock.kgs)) AS tax,
+               `invoice_teas`.`created_by` AS user, receivables_account, `branch_code`, `days_before_due` AS days_before_due_date
+               FROM `tea_invoices`
+               INNER JOIN  0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no
+               INNER JOIN `invoice_teas`  ON  `invoice_teas`.`invoice_no` = `tea_invoices`.`invoice_no`
+               INNER JOIN closing_stock ON closing_stock.stock_id = `invoice_teas`.`stock_id`
+               LEFT JOIN `0_cust_branch` ON `0_cust_branch`.`debtor_no` = `0_debtors_master`.`debtor_no` 
+               LEFT JOIN `0_payment_terms` ON `0_payment_terms`.`terms_indicator` = `0_debtors_master`.`payment_terms` 
+               
+               WHERE `invoice_teas`.`invoice_no` = trim('$invoice_no')
+               GROUP BY tea_invoices.invoice_no";
                 $invoice = $this->executeQuery();
              
             }else if($type=="blend"){

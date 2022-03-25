@@ -772,8 +772,7 @@
 		// print_r($cart);
 		// $salesCtrl->clean();
 		$salesCtrl->cart = $cart;
-		// print_r($salesCtrl->post_pos_sale());
-		print_r($cart);
+		print_r($salesCtrl->post_pos_sale());
 
 
 	}

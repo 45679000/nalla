@@ -414,7 +414,7 @@
 
         public function stockGrid($dataList){
             $output = "";
-
+            $subTotal = 0;
             if(count($dataList)>0){
 				$output .= '<table id="closingstocks" class="display table table-sm  table-striped table-responsive table-bordered" style="width:100%">
 				<thead class="thead-dark">
@@ -434,6 +434,7 @@
 					<th>Kgs</th>
 					<th>Hammer Price</th>
 					<th>Value Ex.Auction</th>
+                    <th>Value Inclusive <br> of brokerage fee(0.5%)</th>
 					<th>Code</th>
 					<th>WHSE</th>
 					<th>Allocation</th>
@@ -446,7 +447,10 @@
 						$net = $stock['kgs'];
 						$hammerPrice = round(floatval($stock['sale_price']), 2);
 						$valueExAuct = round($net * $hammerPrice, 2);
-		
+                        $brokerage = round(($valueExAuct) * (0.005), 2);
+                        $finalPrompt = round($brokerage + $valueExAuct, 2);
+                        $subTotal += $finalPrompt;
+
 						$output.='<td>'.$stock['line_no'].'</td>';
 						$output.='<td>'.$stock['sale_no'].'</td>';
 						$output.='<td>'.$stock['import_date'].'</td>';
@@ -462,6 +466,7 @@
 						$output.='<td>'.$stock['kgs'].'</td>'; //kgs
 						$output.='<td>'.$hammerPrice.'</td>';
 						$output.='<td>'.floatval($valueExAuct).'</td>';
+                        $output.='<td>'.floatval($finalPrompt).'</td>';
 						$output.='<td>'.$stock['comment'].'</td>';
 						$output.='<td>'.$stock['warehouse'].'</td>';
 						$output.='<td>'.$stock['allocation'].'</td>';
@@ -481,7 +486,8 @@
 								<th colspan="2"></th>
 								<th colspan="2"></th>
 								<th></th>
-								<th colspan="2"></th>
+								<th></th>
+                                <th>'.$subTotal.' USD</th>
 								<th></th>
 								<th></th>
 

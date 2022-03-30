@@ -487,7 +487,7 @@
 								<th colspan="2"></th>
 								<th></th>
 								<th></th>
-                                <th>'.$subTotal.' USD</th>
+                                <th></th>
 								<th></th>
 								<th></th>
 

@@ -11,31 +11,108 @@ $rpData = new ReportData($conn);
 
 
 $rpData->invoiceNo = $_GET["invoiceNo"];
-$data = $rpData->proformaInvoiceData();
+$data = $rpData->getData();
+$shippingData = $rpData->getShippingData();
+
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+// set document information
+$pdf->SetCreator(PDF_CREATOR);
+$pdf->SetAuthor('Nicola Asuni');
+$pdf->SetTitle('TCPDF Example 001');
+$pdf->SetSubject('TCPDF Tutorial');
+$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+// $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING);
+
+// set header and footer fonts
+$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+// set default monospaced font
+$pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+// set margins
+// $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP);
+$pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+$pdf->setFooterMargin(PDF_MARGIN_FOOTER);
+
+// set auto page breaks
+$pdf->setAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+// set image scale factor
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+// set some language-dependent strings (optional)
+if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+}
+
+// ---------------------------------------------------------
+
+// set font
+$pdf->setFont('helvetica', 'B', 20);
+
+// add a page
+$pdf->AddPage();
+
+$pdf->setFont('helvetica', '', 8);
+	
 
 $tbl = '<html><body>
-<table cellspacing="110" cellpadding="1" border="1" align="center">';
-$dataSize = sizeof($data);
-echo $dataSize;
-for($i=0; $i<6; $i++){
-        $item = $data[$dataSize];
-        $tbl .='<tr>';
-        $tbl .='<td colspan="1">'.$item["lot"].'</td>';
-        $tbl .='<td colspan="2">'.$item["country"].'</td>';
-        $tbl .='<td colspan="2>'.$item["mark"].'</td>';
-        $tbl .='<td>'.$item["grade"].'</td>';
-        $tbl .='<td>'.$item["invoice"].'</td>';
-        $tbl .='<td>'.$item["pkgs"].'</td>';
-        $tbl .='<td>'.$item["net"].'</td>';
-        $tbl .='<td>'.$item["kgs"].'</td>';
-        $tbl .='<td>'.$item["sale_price"].'</td>';
-        $tbl .='<td>'.$item["kgs"]*$item["sale_price"].'</td>';
-        $tbl .="</tr>";
-    
-
+<table cellspacing="" border="1" cellpadding="2"  align="center">
+<thead>
+<tr>
+<td colspan="15" style="background-color: #CCFCFD;" height="30">CHAMU SUPPLIES LTD - LOT DETAILS- BTH 21933 - 8278/01(A) - '.$shippingData[0]['no_containers_type'].' - '.$shippingData[0]['debtor_ref'].' - '.$shippingData[0]['destination_total_place_of_delivery'].'</td>
+</tr>
+<tr>
+<td colspan="13"></td>
+<td colspan="2"><b>Allocation</b></td>
+</tr>
+<tr>
+        <td align="left"><b>Sale No.</b></td>
+        <td align="center"><b>DD/MM/YY</b></td>
+        <td align="center"><b>Broker</b></td>
+        <td align="center"><b>Warehouse</b></td>
+        <td align="center"><b>Lot</b></td>
+        <td align="center"><b>Origin</b></td>
+        <td align="center"><b>Mark</b></td>
+        <td align="center"> <b>Grade</b></td>
+        <td align="center"><b>Invoice</b></td>
+        <td align="center"><b>Pkgs</b></td>
+        <td align="center"><b>Net</b></td>
+        <td align="center"> <b>Kgs</b></td>
+        <td align="center"><b>Mrp</b></td>
+        <td align="center"><b>WHSE</b></td>
+        <td align="center"><b>SI/BLend No.</b></td>
+</tr>
+</thead>';
+// $dataSize = sizeof($data);
+// echo $dataSize;
+$tbl .= '<tbody> ';
+foreach($data as $item){
+        $tbl .= '<tr style="font-size: 8px;"><td>'.$item['sale_no'].'</td>
+        <td>'.$item['import_date'].'</td>
+        <td>'.$item['broker'].'</td>
+        <td>'.$item['ware_hse'].'</td>
+        <td>'.$item['lot'].'</td>
+        <td>'.$item['country'].'</td>
+        <td>'.$item['mark'].'</td>
+        <td>'.$item['grade'].'</td>
+        <td>'.$item['invoice'].'</td>
+        <td>'.$item['pkgs'].'</td>
+        <td>'.$item['net'].'</td>
+        <td>'.$item['kgs'].'</td>
+        <td>'.$item['mrp_value'].'</td>
+        <td>'.$item['warehouse'].'</td>
+        <td style="background-color: #FCCCCC">'.$item['allocation'].'</td></tr>';
 }
+$tbl .= '</tbody>';
 $tbl .= '</table>
 </body>
 </html>';
 
-echo $tbl;
+// echo $tbl;
+$pdf->writeHTML($tbl, true, false, false, false, '');
+// //Close and output PDF document
+$pdf->Output('proformaInvoice.pdf', 'I');

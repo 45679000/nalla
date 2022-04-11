@@ -177,7 +177,20 @@
                                     .reduce(function(a, b) {
                                         return intVal(a) + intVal(b);
                                     }, 0);
-
+                                    pageInclBrokerTotalVal = api
+                                    .column(15, {
+                                        page: 'current'
+                                    })
+                                    .data()
+                                    .reduce(function(a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
+                                totalInclBrokerTotalVal = api
+                                    .column(15)
+                                    .data()
+                                    .reduce(function(a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
                                 // Total kgs all pages
                                 totalkgs = api
                                     .column(12)
@@ -229,6 +242,12 @@
                                     ' USD <br>' + totalValue.toFixed(2) +
                                     ' USD'
                                 );
+                                $(api.column(15).footer()).html(
+                                    '' + pageInclBrokerTotalVal.toFixed(2) +
+                                    ' USD <br>' + totalInclBrokerTotalVal.toFixed(2) +
+                                    ' USD'
+                                );
+
                             },
                             "pageLength": 30,
                             dom: 'Bfrtip',

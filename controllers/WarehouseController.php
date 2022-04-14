@@ -180,11 +180,14 @@ Class WarehouseController extends Model{
             `closed_on` = CURRENT_TIMESTAMP WHERE id = $id";
             $this->executeQuery();
 
+            $this->query = "DELETE closing_stock FROM closing_stock LEFT JOIN blend_lines ON closing_stock.line_no = blend_lines.line_no WHERE blend_lines.blend_no = $id";
+            $this->executeQuery();
             
             $this->query = "INSERT INTO `closing_stock`(`line_no`,`sale_no`, `broker`, `lot`,  `mark`, `grade`,  `pkgs`,  `net`, `kgs`, `standard`, `is_blend_balance`, `invoice`, `sale_price`, `import_date`) 
             SELECT line_no, sale_no,'x', lot_no,mark, grade, pkgs, net, pkgs*net, standard, true, lot_no, sale_price,date_posted 
             FROM blend_lines
-            WHERE blend_no = $id AND is_deleted = 0 AND added_to_stock = 0";
+            WHERE blend_no = $id AND is_deleted = 0 ";
+            // AND added_to_stock = 0
             $this->executeQuery();
 
             $this->query = "UPDATE blend_lines SET added_to_stock = 1
@@ -253,10 +256,17 @@ Class WarehouseController extends Model{
     }
     public function loadBlendLines($blendno){
         $this->debugSql = false;
-        $this->query = "SELECT *FROM `blend_lines` WHERE blend_no = ".$blendno." AND is_deleted = 0";
+        $this->query = "SELECT * FROM `blend_lines` WHERE blend_no = ".$blendno." AND is_deleted = 0";
         $rows = $this->executeQuery();
 
         return $rows;
+    }
+    public function getStockid($blendno){
+        $this->debugSql = false;
+        $this->query = "SELECT FROM `blend_lines` WHERE blend_no = ".$blendno." AND is_deleted = 0";
+        $row = $this->executeQuery();
+
+        return $row;
     }
     public function blendShippment($blendno){
         $this->query = "SELECT nw*Pkgs AS kgs  FROM `blend_master` WHERE id = ".$blendno;

@@ -78,14 +78,15 @@ if($type == 'Blend Shippment'){
         $('#lot-details').click(function(){
             var sino = '<?php echo $_GET['sino']; ?>'
             var viewid = '<?php echo $viewid; ?>'
-            var contractno = localStorage.getItem("contractno");
+            // var cNumber = localStorage.getItem("contractno");
+            var cNumber = JSON.parse(localStorage.getItem("contractno"));
             var blendno = localStorage.getItem("blendno");
 
             $('#ishippingInstructions').hide();
                 $('#iprofomainvoice').hide();
             if(viewid==0){
              
-                $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
+                $('#display').html('<iframe class="frame" frameBorder="0" src="http://localhost/chamu/reports/TCPDF/files/testReport.php?invoiceNo='+cNumber+'" width="100%" height="600px"></iframe>');
 
             }else{
                 $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');

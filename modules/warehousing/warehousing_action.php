@@ -479,7 +479,7 @@
 							  $output.="<td>";
 								if($status == 1){
 									$output.="<span>
-									<i class='fa fa-check'></i>closed</span>";
+									<i class='fa fa-check'></i>closed</span><a href=./index.php?view=closeblends&blendno=".$blend['id']." style='color:green' class='close' id='".$blend['id']."'>Edit</a>";
 								}else{
 									$output.="<a href=./index.php?view=closeblends&blendno=".$blend['id']." style='color:green' class='close' id='".$blend['id']."'><i class='fa fa-file'> Blend Outurn Form</i></a>";
 								}
@@ -605,8 +605,7 @@
 		}
 		$output .= "</tbody>
 		</table>";
-
-		echo $output;	
+		echo $output;
 		
 
 

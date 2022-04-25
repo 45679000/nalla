@@ -1,6 +1,7 @@
 <?php
 Class ReportData extends Model{
     public $invoiceNo;
+    public $invoiceArray = array();
 
     public function proformaInvoiceData(){
         $this->query = "SELECT * FROM tea_invoices";
@@ -51,6 +52,7 @@ Class ReportData extends Model{
         return $data;
     }
     public function getData(){
+        $invoiceArr = $this->invoiceArray;
         $this->query = "SELECT closing_stock.stock_id, closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`,
         `comment`, closing_stock.`ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
         shippments.shipped_kgs AS kgs,  country, (CASE WHEN shipping_instructions.contract_no IS NOT NULL THEN  shipping_instructions.contract_no ELSE shippments.si_no END) AS allocation,
@@ -61,14 +63,50 @@ Class ReportData extends Model{
         LEFT JOIN straightlineteas ON straightlineteas.contract_no = shippments.si_no
         LEFT JOIN 0_debtors_master ON straightlineteas.client_id = 0_debtors_master.debtor_no
         INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
-        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id
-        WHERE trim(si_no) = trim('BTH 21928')
-        GROUP BY lot, closing_stock.stock_id";
+        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id";
+        // if(count($invoiceArr) > 1){
+            $this->query .=" WHERE trim(si_no) IN (";
+            $count = 0;
+            $lastValue = count($invoiceArr);
+            foreach($invoiceArr as $key => $item){
+                $this->query .=" trim('$item') ";
+                $count ++;
+                if($count == $lastValue){
+                    $this->query .="";
+                }else {
+                    $this->query .=", ";
+                }
+
+            }
+            $this->query .= ") GROUP BY lot, closing_stock.stock_id";
+        // }
         $data = $this->executeQuery();
         return $data;
     }
     public function getShippingData(){
-        $this->query = "SELECT 0_debtors_master.debtor_ref ,shipping_instructions.no_containers_type, shipping_instructions.destination_total_place_of_delivery FROM `shipping_instructions` LEFT JOIN straightlineteas ON straightlineteas.contract_no = shipping_instructions.contract_no LEFT JOIN 0_debtors_master ON straightlineteas.client_id = 0_debtors_master.debtor_no WHERE shipping_instructions.contract_no = 'BTH 21928'";
+        $invoiceArr = $this->invoiceArray;
+        $this->query = "SELECT shipping_instructions.buyer,shipping_instructions.no_containers_type, shipping_instructions.destination_total_place_of_delivery, shipping_instructions.contract_no, shipping_instructions.shippment_type FROM `shipping_instructions` LEFT JOIN straightlineteas ON straightlineteas.contract_no = shipping_instructions.contract_no ";
+        // if(count($invoiceArr) > 1){
+            $this->query .=" WHERE shipping_instructions.contract_no IN (";
+            $count = 0;
+            $lastValue = count($invoiceArr);
+            foreach($invoiceArr as $key => $item){
+                $this->query .=" trim('$item') ";
+                $count ++;
+                if($count == $lastValue){
+                    $this->query .="";
+                }else {
+                    $this->query .=", ";
+                }
+
+            }
+            $this->query .= ")";
+        // } 
+        // else {
+        //     $this->query .=" WHERE shipping_instructions.contract_no IN ('$invoiceArr[0]')";
+
+        // }
+        
         $data = $this->executeQuery();
         return $data;
     }

@@ -92,7 +92,6 @@ if($type == 'Blend Shippment'){
 
             }
 
-            
     });
     
     $('#shippingInstructions').click(function(){

@@ -8,12 +8,23 @@ require_once('data/reportData.php');
 $db = new Database2();
 $conn = $db->getConnection();
 $rpData = new ReportData($conn);
-
-
-$rpData->invoiceNo = $_GET["invoiceNo"];
+$myArr = $_GET["invoiceNo"];
+$myArray = explode(',', $myArr);
+// var_dump($myArray);
+$rpData->invoiceArray = $myArray;
 $data = $rpData->getData();
+// var_dump($data);
 $shippingData = $rpData->getShippingData();
-
+// var_dump($shippingData);
+function shippmentType($type){
+        $teaType = '';
+        if($type == 'Straight Line'){
+                $teaType = 'LOT DETAILS';
+        }else if($type == 'Blend Shippment'){
+                $teaType = 'BLEND SHEET';
+        }
+        return $teaType;
+}
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
@@ -62,9 +73,11 @@ $pdf->setFont('helvetica', '', 8);
 $tbl = '<html><body>
 <table cellspacing="" border="1" cellpadding="2"  align="center">
 <thead>
-<tr>
-<td colspan="15" style="background-color: #CCFCFD;" height="30">CHAMU SUPPLIES LTD - LOT DETAILS- BTH 21933 - 8278/01(A) - '.$shippingData[0]['no_containers_type'].' - '.$shippingData[0]['debtor_ref'].' - '.$shippingData[0]['destination_total_place_of_delivery'].'</td>
-</tr>
+';
+foreach($shippingData as $shippment){
+        $tbl .= '<tr><td colspan="15" style="background-color: #CCFCFD;" height="30">CHAMU SUPPLIES LTD - '.shippmentType($shippment['shippment_type']).' - '. $shippment['contract_no'].'- '.$shippment['no_containers_type'].' - '.$shippment['buyer'].' - '.$shippment['destination_total_place_of_delivery'].'</td></tr>';
+}
+$tbl .= '
 <tr>
 <td colspan="13"></td>
 <td colspan="2"><b>Allocation</b></td>

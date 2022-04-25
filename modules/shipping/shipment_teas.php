@@ -30,6 +30,7 @@
             <div class="col-md-6 well">
                 <div class="form-group label-floating">
                     <label class="control-label">Lot Detail(Contract No)</label>
+                    <!-- <select id="contactno" name="blend" class="form-control select2" multiple><small>(required)</small> -->
                     <select id="contactno" name="blend" class="form-control select2"><small>(required)</small>
                         <option disabled="" value="..." selected="">select</option>
                     </select>
@@ -119,11 +120,20 @@
                 }
             });
         });
-        $('#contactno').change(function(){
-            var contractno = $('#contactno').val().trim();
+        // $('#contactno').change(function(){
+            var contractno = $('#contactno').val()
+            // .trim();
             localStorage.setItem("contractno", contractno);
+
+        //     var contractno = $('#contactno').val();
+        //     var cNumber = contractno.toString();
+        //     // var numberS = cNumber.map((e) => trim(e))
+        //     localStorage.setItem("contractno", JSON.stringify(cNumber));
+            // localStorage.setItem("contractno", cNumber);
+            // console.log(cNumber);
             $('#attachButton').show();
             $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="600px"></iframe>');
+            // $('#document').html('<iframe class="frame" frameBorder="0" src="http://localhost/chamu/reports/TCPDF/files/testReport.php?invoiceNo='+cNumber+'" width="100%" height="600px"></iframe>');
 
         });
         $('#blendlist').change(function() {
@@ -133,7 +143,7 @@
         $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
     });
 
-    });
+    // });
     loadSelectionBlendList();
     loadSelectionLotList();
     $('#next').click(function() {

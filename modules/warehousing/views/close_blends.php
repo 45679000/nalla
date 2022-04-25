@@ -314,6 +314,7 @@ if(!isset($_GET["blendno"])){
             url: "warehousing_action.php",
         success: function (data) {
             $("#preview").html(data);
+            // console.log(data.output);
 
         }
     });

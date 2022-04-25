@@ -22,6 +22,7 @@ if($action=='add-si'){
     }else{
         echo json_encode(array("success"=>"false", "message"=>"There are some errors in the Form record not saved"));
     }
+    
 }else if($action=='update-si'){
     $shippingCtrl->saveSI($post, 1);
 }else if($action=='load-active-si'){

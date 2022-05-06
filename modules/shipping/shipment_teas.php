@@ -125,7 +125,7 @@
             // localStorage.setItem("contractno", cNumber);
             // console.log(cNumber);
             $('#attachButton').show();
-            $('#document').html('<iframe class="frame" frameBorder="0" src="http://localhost/chamu/reports/TCPDF/files/testReport.php?invoiceNo='+cNumber+'" width="100%" height="600px"></iframe>');
+            $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/TCPDF/files/testReport.php?invoiceNo='+cNumber+'" width="100%" height="600px"></iframe>');
 
         });
         $('#blendlist').change(function() {

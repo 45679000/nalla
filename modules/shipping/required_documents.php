@@ -86,7 +86,7 @@ if($type == 'Blend Shippment'){
                 $('#iprofomainvoice').hide();
             if(viewid==0){
              
-                $('#display').html('<iframe class="frame" frameBorder="0" src="http://localhost/chamu/reports/TCPDF/files/testReport.php?invoiceNo='+cNumber+'" width="100%" height="600px"></iframe>');
+                $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/TCPDF/files/testReport.php?invoiceNo='+cNumber+'" width="100%" height="600px"></iframe>');
 
             }else{
                 $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');

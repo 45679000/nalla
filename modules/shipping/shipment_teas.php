@@ -117,6 +117,7 @@
                 }
             });
         });
+        
         $('#contactno').change(function(){
             var contractno = $('#contactno').val();
             var cNumber = contractno.toString();

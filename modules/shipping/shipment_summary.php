@@ -18,7 +18,6 @@ if($sino != ''){
         $contractno = $shipment['contract_no'];
 
     }
-    
 
 }
 

@@ -74,6 +74,7 @@ if($type == 'Blend Shippment'){
         $('#ilotdetails').hide();
         $('#ishippingInstructions').hide();
         $('#iprofomainvoice').hide();
+        
 
         $('#lot-details').click(function(){
             var sino = '<?php echo $_GET['sino']; ?>'

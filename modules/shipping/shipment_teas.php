@@ -117,6 +117,7 @@
                 }
             });
         });
+        
         $('#contactno').change(function(){
             var contractno = $('#contactno').val().trim();
             localStorage.setItem("contractno", contractno);

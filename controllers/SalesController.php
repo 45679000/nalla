@@ -9,15 +9,16 @@ class Sales extends Model
         // $this->clean();
         //insert into bank trans//
         $cart = $this->cart;
-        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->conn->beginTransaction();
+        // $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // $this->conn->beginTransaction();
 
 
         $this->add_audit_trail(30, $cart->trans_no, $cart->user, $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
         $this->add_audit_trail(13, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
         $this->add_audit_trail(10, $cart->trans_no, $cart->user,  $cart->description, $cart->fiscal_year,  $cart->trans_date, 0);
 
-        $this->add_debtor_trans($cart->trans_no,10,0,$cart->debtor_no,$cart->branch_code, $cart->due_date,  $cart->reference,2,$cart->trans_no, $cart->total_amount, 0, 0,0,0,0, 0,1,1,0,0,4,0);
+		// $cart->trans_no
+        $this->add_debtor_trans($cart->trans_no,10,0,$cart->debtor_no,$cart->branch_code, $cart->due_date,  $cart->reference,2,9, $cart->total_amount, 0, 0,0,0,0, 0,1,1,0,0,4,0);
         $this->add_debtor_trans($cart->trans_no,13,1,$cart->debtor_no,$cart->branch_code, $cart->due_date, 'auto',2,1, $cart->total_amount, 0, 0,0,0,0, 0,1,1,0,0,4,0);
 
         $this->add_debtor_trans_details($cart->trans_no, 13, $cart->stock_id, $cart->description, $cart->total_amount, $cart->ov_gst, 1, 0, 0, 1, 1);
@@ -43,15 +44,15 @@ class Sales extends Model
         $this->add_memo(12, $cart->trans_no, "TEA Sales");
 
 
-       if($this->rollBack >2){
-            $this->conn->commit();
-			$this->markPosted();
+    //    if($this->rollBack >2){
+    //         $this->conn->commit();
+	// 		$this->markPosted();
 
-			return $cart->trans_no;
+	// 		return $cart->trans_no;
 
-       }else{
-           $this->conn->rollBack();
-       }
+    //    }else{
+    //        $this->conn->rollBack();
+    //    }
 
 
 
@@ -59,8 +60,7 @@ class Sales extends Model
     public function add_bank_trans($type, $trans_no, $bank_act, $ref, $trans_date, $amount, $persontype, $personid)
     {
         try {
-           
-
+			$this->conn->beginTransaction();
             $sql2 = "INSERT INTO ".$this->tbpref."bank_trans(`type`, `trans_no`, `bank_act`, `ref`, `trans_date`, `amount`,  `person_type_id`, `person_id`)
             VALUES (?,?,?,?,?,?,?,?)";
 
@@ -90,7 +90,7 @@ class Sales extends Model
         // (10, 1, 1, '2021-10-08 13:54:57', '', 5, '2021-10-08', 0),
         // (12, 1, 1, '2021-10-08 13:54:58', '', 5, '2021-10-08', 0);
 		try {
-            
+			$this->conn->beginTransaction();
 
 			$sql = "INSERT INTO ".$this->tbpref."audit_trail(`type`, `trans_no`, `user`, `stamp`, `description`, `fiscal_year`, `gl_date`, `gl_seq`)
 			VALUES (?,?,?,CURRENT_TIMESTAMP,?,?,?,?)";
@@ -103,8 +103,10 @@ class Sales extends Model
             $stmt->bindParam(6,$gl_date);
 			$stmt->bindParam(7,$gl_seq);
 			$stmt->execute();
+			// $this->executeQuery();
 
-            $this->rollBack ++;
+            // $this->conn->commit();
+			$this->conn->commit();
 
             return $this->conn->lastInsertId();
 
@@ -118,7 +120,7 @@ class Sales extends Model
         //INSERT INTO `0_cust_allocations` (`person_id`, `amt`, `date_alloc`, `trans_no_from`, `trans_type_from`, `trans_no_to`, `trans_type_to`) VALUES
         //(7, 5900, '2021-10-08', 1, 12, 1, 10);
 		try {
-            
+            $this->conn->beginTransaction();
 			$sql = "INSERT INTO ".$this->tbpref."cust_allocations(`person_id`, `amt`, `date_alloc`, `trans_no_from`, `trans_type_from`, `trans_no_to`, `trans_type_to`)
 			VALUES (?,?,?,?,?,?,?)";
 			$stmt = $this->conn->prepare($sql);
@@ -131,7 +133,7 @@ class Sales extends Model
 			$stmt->bindParam(7,$trans_type_to);
 
 			$stmt->execute();
-            $this->rollBack ++;
+            $this->conn->commit();
             return $this->conn->lastInsertId();
         } catch (Exception $ex) {
             var_dump($ex);
@@ -142,6 +144,7 @@ class Sales extends Model
 	$ov_freight_tax=0,$ov_discount=0,$alloc,$prep_amount=0,$rate,$ship_via,$dimension_id,$dimension2_id,$payment_terms,$tax_included){
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
+			$this->conn->beginTransaction();
 			$sql = "INSERT INTO 0_debtor_trans(`trans_no`, `type`, `version`, `debtor_no`, `branch_code`, `reference`, `tpe`, `order_`, `ov_amount`, `ov_gst`, `ov_freight`, `ov_freight_tax`, `ov_discount`, `alloc`, `prep_amount`, `rate`, `ship_via`, `dimension_id`, `dimension2_id`, `payment_terms`, `tax_included`, `tran_date`, `due_date`) 
 			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, CURRENT_DATE, ?)";
 			$stmt = $this->conn->prepare($sql);
@@ -170,7 +173,7 @@ class Sales extends Model
 
             
             $stmt->execute();
-            $this->rollBack ++;
+            $this->conn->commit();
 
             return $this->conn->lastInsertId();
         } catch (Exception $ex) {
@@ -180,7 +183,7 @@ class Sales extends Model
 	}
     public function add_debtor_trans_details($debtor_trans_no, $debtor_trans_type, $stock_id, $description, $unit_price, $unit_tax, $quantity, $discount_percent, $standard_cost, $qty_done, $src_id){
 		try {
-            
+            $this->conn->beginTransaction();
 			$sql = "INSERT INTO ".$this->tbpref."debtor_trans_details(`debtor_trans_no`, `debtor_trans_type`, `stock_id`, `description`, `unit_price`, `unit_tax`, `quantity`, `discount_percent`, `standard_cost`, `qty_done`, `src_id`)
 			VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			$stmt = $this->conn->prepare($sql);
@@ -196,7 +199,7 @@ class Sales extends Model
 			$stmt->bindParam(10,$qty_done);
 			$stmt->bindParam(11,$src_id);
             $stmt->execute();
-            $this->rollBack ++;
+            $this->conn->commit();
 
             return $this->conn->lastInsertId();
         } catch (Exception $ex) {
@@ -207,6 +210,7 @@ class Sales extends Model
 	}
     public function add_gl_trans($type, $typeno, $account, $memo, $amount,  $person_type_id, $person_id){
 		try {
+			$this->conn->beginTransaction();
 			$sql2 = "SELECT max(type_no) AS type_no FROM ".$this->tbpref."gl_trans";
 			$stmt2 = $this->conn->prepare($sql2);
 			$stmt2->execute();
@@ -224,7 +228,7 @@ class Sales extends Model
 			$stmt->bindParam(5, $amount);
 			$stmt->bindParam(6, $person_type_id);
 			$stmt->bindParam(7, $person_id);
-            $this->rollBack ++;
+            $this->conn->commit();
 
 			$stmt->execute();
             
@@ -238,7 +242,7 @@ class Sales extends Model
 	 $order_type, $ship_via, $deliver_to, $delivery_address, $contact_phone,$freight_cost, $from_stk_loc, $payment_terms, 
 	$total, $prep_amount){
 		try{
-			
+			$this->conn->beginTransaction();
 			$sql = "INSERT INTO ".$this->tbpref."sales_orders (order_no, type, version, ord_date, debtor_no, trans_type, branch_code, customer_ref, reference, comments,
 			 order_type, ship_via, deliver_to, delivery_address, contact_phone,
 			freight_cost, from_stk_loc,  payment_terms, total, prep_amount, delivery_date)
@@ -265,7 +269,7 @@ class Sales extends Model
 
 				$stmt->execute();
 				$insertedRId = $this->conn->lastInsertId();
-                $this->rollBack ++;
+                $this->conn->commit();
 
 				return $insertedRId;
 		}catch(Exception $ex){
@@ -277,6 +281,7 @@ class Sales extends Model
 	}
     public function sales_order_details($order_no, $trans_type, $stk_code, $description, $unit_price, $quantity){
 		try {
+			$this->conn->beginTransaction();
 			$sql2 = "INSERT INTO ".$this->tbpref."sales_order_details (order_no, trans_type, stk_code, description,qty_sent, unit_price, quantity) 
 			VALUES (?, ?,?,?,?,?,?)";
 			$stmt2 = $this->conn->prepare($sql2);
@@ -288,7 +293,7 @@ class Sales extends Model
 			$stmt2->bindParam(6, $unit_price);
 			$stmt2->bindParam(7, $quantity);
 			$stmt2->execute();
-            $this->rollBack ++;
+            $this->conn->commit();
 
 			return $this->conn->lastInsertId();
 			
@@ -301,11 +306,12 @@ class Sales extends Model
 	}	
     public function trans_tax_details($trans_type, $trans_no, $tax_type_id, $rate, $net_amount, $amount, $memo, $reg_type="NULL"){
         try {
+			$this->conn->beginTransaction();
             $sql= "INSERT INTO ".$this->tbpref."trans_tax_details (`trans_type`, `trans_no`, `tran_date`, `tax_type_id`, `rate`, `ex_rate`, `included_in_price`, `net_amount`, `amount`, `memo`, `reg_type`)
              VALUES($trans_type, $trans_no, CURRENT_DATE, $tax_type_id, $rate, 1, 0, $net_amount, $amount, '$memo', $reg_type)";
              $stmt = $this->conn->prepare($sql);
              $stmt->execute();
-             $this->rollBack ++;
+             $this->conn->commit();
 
              return $this->conn->lastInsertId();
 
@@ -318,6 +324,7 @@ class Sales extends Model
     }
     public function add_memo($type, $id, $memo){
 		try {
+			$this->conn->beginTransaction();
 			$sql = "INSERT INTO ".$this->tbpref."comments(`type`, `id`, `date_`, `memo_`)
 			VALUES (?,?,current_date,?)";
 			$stmt = $this->conn->prepare($sql);
@@ -325,10 +332,12 @@ class Sales extends Model
 			$stmt->bindParam(2,$id);
 			$stmt->bindParam(3,$memo);
 			$stmt->execute();
+			$this->conn->commit();
+
 	     return $this->conn->lastInsertId();
 			
 		} catch (Exception $ex) {
-			$this->rollBack ++;
+			$this->conn->commit();
 			echo $ex;
 			return -1;
 			
@@ -336,6 +345,7 @@ class Sales extends Model
 	}
 	public function add_ref($type, $id, $ref){
 		try {
+			$this->conn->beginTransaction();
 			$sql = "INSERT INTO ".$this->tbpref."refs(`type`, `id`,  `reference`)
 			VALUES (?,?,?)";
 			$stmt = $this->conn->prepare($sql);
@@ -343,10 +353,12 @@ class Sales extends Model
 			$stmt->bindParam(2,$id);
 			$stmt->bindParam(3,$ref);
 			$stmt->execute();
+			$this->conn->commit();
+
 	     return $this->conn->lastInsertId();
 			
 		} catch (Exception $ex) {
-			$this->rollBack ++;
+			$this->conn->commit();
 			echo $ex;
 			return -1;
 			
@@ -380,7 +392,7 @@ class Sales extends Model
 			$this->conn->prepare("DELETE FROM ".$this->tbpref."refs")->execute();
 
             $this->conn->commit();
-			$this->rollBack ++;
+			$this->conn->commit();
 
         } catch (\Throwable $th) {
             $this->conn->rollBack();

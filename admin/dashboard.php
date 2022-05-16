@@ -35,7 +35,7 @@ require_once $path_to_root . 'templates/header.php';
 						<div class="col-lg-12 col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h3 class="card-title">Year 2021 Buying</h3>
+									<h3 class="card-title">Year 2022 Buying</h3>
 								</div>
 								<div class="card-body text-center">
 									<div id="highchart7"></div>

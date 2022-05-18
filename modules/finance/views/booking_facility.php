@@ -36,6 +36,20 @@ form .error {
 .required:after {
     content: " *";
 }
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 
@@ -139,6 +153,7 @@ form .error {
             </form>
             <div>
                 <div id="plistContainer" class="col-md-12">
+                    <div class="loader"></div>
                     <div id="purchase_list_view"></div>
                 </div>
             </div>
@@ -159,6 +174,7 @@ form .error {
 
 <script>
 $(document).ready(function() {
+    $('.loader').hide()
     loadFacilityTemplates();
 
     function loadFacilityTemplates() {
@@ -196,6 +212,7 @@ $(document).ready(function() {
     }));
 
     function loadUnbookedLots() {
+        $('.loader').show()
         $.ajax({
             type: "POST",
             dataType: "html",
@@ -204,6 +221,7 @@ $(document).ready(function() {
                 action: 'unbooked_lots',
             },
             success: function(data) {
+                $('.loader').hide()
                 $("#purchase_list_view").html(data);
                 $("#purchaseListTable").DataTable({
                     scrollX: '50vh',

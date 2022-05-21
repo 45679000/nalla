@@ -714,12 +714,12 @@
             $stmt1 = $this->conn->prepare("SELECT (CASE WHEN (max(type_no)) IS NULL THEN 1 ELSE max(type_no)+1 END)  AS trans_no FROM  ".$this->tbpref."gl_trans");
             $stmt1->execute();
             $row = $stmt1->fetch();
-            $trans_no = $invoice[0]["lot"];
+            $trans_no = $row["trans_no"];
 
             $stmt2 = $this->conn->prepare("SELECT *FROM 0_exchange_rates WHERE date_ = current_date AND curr_code = 'USD'");
             $stmt2->execute();
             $row2 = $stmt2->fetch();
-            $rate = $row2["rate_buy"] ? $row2["rate_buy"] : 116.65;
+            $rate = $row2["rate_buy"];
 
 
             $net = $invoice[0]['net'];
@@ -729,9 +729,6 @@
             $finalPrompt = round($brokerage + $valueExAuct, 2);
             $withholdingTax = round((0.05*$brokerage),2);
            
-            $this->add_item($invoice[0]["lot"],$invoice[0]["invoice"], $invoice[0]["broker"].'-'. $invoice[0]["mark"].'-'.$invoice[0]["invoice"], 1, 2, 'kgs', 'B', 1001, 1001, 1001, 1001, 1530, 0, 0, 0, 0, 0,
-            'D', 100,  1, null, null);
-            // print_r($stock_master_id);
 
             $cart = new stdClass();
             $id = 0;
@@ -748,10 +745,10 @@
                 "trans_no_to"=>$trans_no,
                 "ref"=>$invoice[0]["invoice_no"],
                 "user"=>$invoice[0]["user"],
-                "fiscal_year"=>5,
+                "fiscal_year"=>4,
                 "reference"=>$invoice[0]["invoice_no"],
                 "memo"=>$invoice[0]["sale_no"]."-:".$invoice[0]["lot"]."-:".$invoice[0]["mark"]."-:".$invoice[0]["grade"],
-                "stock_id" => $trans_no,
+                "stock_id" => 1068,
                 "description" =>"TEA Purchase",
                 "branch_code" =>$invoice[0]["branch_code"],
                 "payable_account" => $invoice[0]["payable_account"],
@@ -767,42 +764,6 @@
             );
 
             return $cart;
-        }
-        public function add_item($stock_id, $description, $long_description, $category_id, 
-            $tax_type_id, $units, $mb_flag,	$sales_account, $inventory_account, 
-            $cogs_account, $adjustment_account,	$wip_account, $dimension_id, 
-            $dimension2_id, $no_sale, $editable, $no_purchase,
-            $depreciation_method='D', $depreciation_rate=100,  $depreciation_factor=1, $depreciation_start=null,
-            $fa_class_id=null)
-        {
-            // $this->conn->beginTransaction();
-            $this->query = "INSERT INTO 0_stock_master (stock_id, description, long_description, category_id,
-                tax_type_id, units, mb_flag, sales_account, inventory_account, cogs_account,
-                adjustment_account, wip_account, dimension_id, dimension2_id, no_sale, no_purchase, editable,
-                depreciation_method, depreciation_rate, depreciation_factor, depreciation_start, depreciation_date, fa_class_id)
-                VALUES ($stock_id, '$description', '$long_description',$category_id, $tax_type_id, '$units', '$mb_flag',$sales_account, $inventory_account, $cogs_account,$adjustment_account,$wip_account,$dimension_id, $dimension2_id,$no_sale,$no_purchase,$editable,'$depreciation_method',$depreciation_rate,$depreciation_factor, '0000-00-00', '0000-00-00', '')";
-            // db_query($sql, "The item could not be added");
-            
-            // $stmt = $this->conn->prepare($sql);
-            // $stmt->execute();
-            // $stock_master_id = $this->conn->lastInsertId();
-            $this->executeQuery();
-            // $stock_master_id = $this->conn->lastInsertId();
-
-            $this->query = "INSERT INTO 0_loc_stock (loc_code, stock_id) SELECT loc_code, $stock_id FROM 0_locations";
-
-            $this->executeQuery();
-            // // db_query($sql, "The item locstock could not be added");
-
-            $this->add_item_code($stock_id, $stock_id, $description, $category_id, 1, 0);
-        }
-        public function add_item_code($item_code, $stock_id, $description, $category, $qty, $foreign=0)
-        {
-            $this->query = "INSERT INTO 0_item_codes (item_code, stock_id, description, category_id, quantity, is_foreign) VALUES( $item_code,$stock_id,$description,$category,$qty,$foreign)";
-
-            // db_query($sql,"an item code could not be added");
-            $this->executeQuery();
-
         }
         public function unpaidLots(){
             $query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 

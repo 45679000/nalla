@@ -251,11 +251,12 @@ $(function () {
             success: function(data) {
                 if(data.login=="success"){
                     $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.message+'</p>');
-                    $("#loginBtn").hide();
-                    $("#usernameDiv").hide();
-                    $("#passwordDiv").hide();
-                    $("#otpDiv").show();
-                    $("#verify").show();
+                    window.location.href = "./dashboard.php";
+                    // $("#loginBtn").hide();
+                    // $("#usernameDiv").hide();
+                    // $("#passwordDiv").hide();
+                    // $("#otpDiv").show();
+                    // $("#verify").show();
 
                 }else{
                     $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.message+'</p>');

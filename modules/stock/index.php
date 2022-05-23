@@ -108,7 +108,11 @@ include $path_to_root1 .'includes/auction_ids.php';
                                 <a href="../blending/index.php" class="list-group-item list-group-item-action d-flex align-items-center">
                                     <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Issue Teas
                                 </a>
-                            
+                                <?php if($_SESSION['user_id'] == 19 || $_SESSION['user_id'] == 12) : ?>
+                                <a href="./index.php?view=balanceStock" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <span class="icon mr-3"><i class="si si-grid text-info fw-bold"></i></span>Balance stock
+                                </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="expanel-heading">
@@ -176,7 +180,9 @@ include $path_to_root1 .'includes/auction_ids.php';
                             case 'lot-details':
                                 include 'views/lot_details.php';
                                 break;
-                                
+                            case 'balanceStock':
+                                include 'views/balance_stock.php';
+                                break;
                             default:
                             include('views/gardens.php');
 

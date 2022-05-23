@@ -297,7 +297,15 @@
             ORDER BY sale_no, lot DESC";
             return $this->executeQuery();
         }
-
+        public function reconciliateStock(){
+            $this->query = "SELECT closing_stock.stock_id,sale_no, broker, lot, mark, invoice, allocation, shippments.pkgs_shipped, shippments.is_shipped FROM closing_stock LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id ORDER BY `closing_stock`.`sale_no` DESC";
+            return $this->executeQuery();
+        }
+        public function markAsShipped($stock_id){
+            $query = "UPDATE shippments SET is_shipped = 1 WHERE stock_id = $stock_id";
+            $stmt = $this->conn->prepare($query);
+            return $stmt->execute();
+        }
         public function readAllPurchaseList(){
             $query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS'";
         

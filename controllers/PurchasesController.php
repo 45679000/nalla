@@ -26,16 +26,16 @@ class Purchases extends Model
         $order_no = $this->purch_orders($cart->supplier_id, $cart->description, $cart->trans_date, "auto", $cart->reference, "DEF", "N/A", $cart->total_amount, 0, 0, 0 );
 
         $po_detail_item = $this->purch_order_details($order_no, $cart->stock_id, $cart->description, $cart->trans_date, $cart->kgs,  $cart->unit_price, $cart->unit_price, 0, $cart->kgs, $cart->kgs);
-        $po_detail_item1 = $this->purch_order_details($order_no, 1062, $cart->description, $cart->trans_date, 1,  $cart->withholdingTax, $cart->withholdingTax, 0, 1, 1);
+        // $po_detail_item1 = $this->purch_order_details($order_no, 1062, $cart->description, $cart->trans_date, 1,  $cart->withholdingTax, $cart->withholdingTax, 0, 1, 1);
 
         $grn_batch_id = $this->grn_batch($cart->supplier_id, $order_no, "auto", $cart->trans_date, "DEF", $cart->rate);
 
         $grn_item_id = $this->grn_items($grn_batch_id, $po_detail_item, $cart->stock_id, $cart->description, $cart->kgs, $cart->kgs);
-		$grn_item_id1 = $this->grn_items($grn_batch_id, $po_detail_item1, 1062, $cart->description, 1, 1);
+		// $grn_item_id1 = $this->grn_items($grn_batch_id, $po_detail_item1, 1062, $cart->description, 1, 1);
 
 		$this->supp_trans($cart->trans_no, 20, $cart->supplier_id, $cart->reference, $cart->reference, $cart->trans_date,  $cart->trans_date, $cart->total_amount, $ov_discount=0, $ov_gst=0, $cart->rate, $alloc=0, $tax_included=0);
         $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id, $po_detail_item, $cart->stock_id, $cart->description,  $cart->kgs, $cart->unit_price, $cart->unit_tax, $cart->memo);
-        $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id1, $po_detail_item1, 1062, "Witholding-Tea Brokerage Fees",  1, $cart->withholdingTax, $cart->unit_tax, $cart->memo);
+        // $this->supp_invoice_items($cart->trans_no, 20,  $grn_item_id1, $po_detail_item1, 1062, "Witholding-Tea Brokerage Fees",  1, $cart->withholdingTax, $cart->unit_tax, $cart->memo);
 
 
         $this->add_memo(20, $cart->trans_no, "TEA Purchase");

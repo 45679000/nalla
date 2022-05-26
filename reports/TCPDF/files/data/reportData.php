@@ -83,6 +83,53 @@ Class ReportData extends Model{
         $data = $this->executeQuery();
         return $data;
     }
+    public function getBlendData(){
+        $invoiceArr = $this->invoiceArray;
+        $this->query = "SELECT  closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`,
+        `comment`, closing_stock.`ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
+         closing_stock.allocated_whse AS warehouse,
+        `type`, `net`,
+        (blend_teas.blend_kgs) AS `kgs`,  `sale_price`, `standard`,
+        DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date,  blend_teas.id AS selected_for_shipment,
+        blend_teas.packages AS blended_packages, blend_teas.blend_kgs,
+        mark_country.country, blend_teas.packages AS blended_packages,  
+        CONCAT( 'STD - ' ,COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,'')) AS allocation,
+        blend_master.contractno,
+        CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
+               COALESCE(blend_master.std_name, ''), '/',
+               COALESCE(blend_master.blendid,''),
+        ' - ', COALESCE(shipping_instructions.no_containers_type,''),
+        ' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),
+        '-', COALESCE(blend_master.contractno,'')
+         ) AS header, shipping_instructions.shipping_marks, note
+        
+        FROM blend_teas
+        INNER JOIN blend_master ON blend_master.id = blend_teas.blend_no
+        INNER JOIN 0_debtors_master ON blend_master.client_id = 0_debtors_master.debtor_no
+        INNER JOIN closing_stock ON closing_stock.stock_id = blend_teas.stock_id
+        INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
+        LEFT JOIN shippments ON shippments.blend_no = blend_master.id
+        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id";
+        // if(count($invoiceArr) > 1){
+            $this->query .=" WHERE blend_teas.blend_no IN ( 98";
+            // $count = 0;
+            // $lastValue = count($invoiceArr);
+            // foreach($invoiceArr as $key => $item){
+            //     $this->query .=" trim('$item') ";
+            //     $count ++;
+            //     if($count == $lastValue){
+            //         $this->query .="";
+            //     }else {
+            //         $this->query .=", ";
+            //     }
+
+            // }
+            $this->query .= ")  GROUP BY closing_stock.stock_id
+            ORDER BY closing_stock.invoice ASC";
+        // }
+        $data = $this->executeQuery();
+        return $data;
+    }
     public function getShippingData(){
         $invoiceArr = $this->invoiceArray;
         $this->query = "SELECT shipping_instructions.buyer,shipping_instructions.no_containers_type, shipping_instructions.destination_total_place_of_delivery, shipping_instructions.contract_no, shipping_instructions.shippment_type FROM `shipping_instructions` LEFT JOIN straightlineteas ON straightlineteas.contract_no = shipping_instructions.contract_no ";
@@ -101,6 +148,40 @@ Class ReportData extends Model{
 
             }
             $this->query .= ")";
+        // } 
+        // else {
+        //     $this->query .=" WHERE shipping_instructions.contract_no IN ('$invoiceArr[0]')";
+
+        // }
+        
+        $data = $this->executeQuery();
+        return $data;
+    }
+    public function getBlendsShippingData(){
+        $invoiceArr = $this->invoiceArray;
+        $this->query = "SELECT CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
+        COALESCE(blend_master.std_name, ''), '/',
+        COALESCE(blend_master.blendid,''),
+ ' - ', COALESCE(shipping_instructions.no_containers_type,''),
+ ' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),
+ '-', COALESCE(blend_master.contractno,'')
+  ) AS header FROM blend_master LEFT JOIN shippments ON shippments.blend_no = blend_master.id
+        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id WHERE blend_master.id = 98";
+        // if(count($invoiceArr) > 1){
+            // $this->query .=" WHERE shipping_instructions.contract_no IN (";
+            // $count = 0;
+            // $lastValue = count($invoiceArr);
+            // foreach($invoiceArr as $key => $item){
+            //     $this->query .=" trim('$item') ";
+            //     $count ++;
+            //     if($count == $lastValue){
+            //         $this->query .="";
+            //     }else {
+            //         $this->query .=", ";
+            //     }
+
+            // }
+            // $this->query .= ")";
         // } 
         // else {
         //     $this->query .=" WHERE shipping_instructions.contract_no IN ('$invoiceArr[0]')";

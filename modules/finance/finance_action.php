@@ -374,7 +374,7 @@
 							}else{
 								$output.='
 								<td>
-									<a style="color:green" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+									<a style="color:green; cursor: pointer;" class="unconfirmLot" data-toggle="tooltip" data-placement="bottom" title="Remove"  id="'.$purchase["buying_list_id"].'">
 									<i class="fa fa-check">Added to stock</i></a>
 								</td>';
 							}

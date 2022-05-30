@@ -83,8 +83,8 @@ Class ReportData extends Model{
         $data = $this->executeQuery();
         return $data;
     }
-    public function getBlendData(){
-        $invoiceArr = $this->invoiceArray;
+    public function getBlendData($arr){
+        // $invoiceArr = $this->invoiceArray;
         $this->query = "SELECT  closing_stock.`stock_id`, closing_stock.`sale_no`, `broker`,
         `comment`, closing_stock.`ware_hse`,  `value`, `lot`,  mark_country.`mark`, closing_stock.`grade`, `invoice`,
          closing_stock.allocated_whse AS warehouse,
@@ -109,24 +109,8 @@ Class ReportData extends Model{
         INNER JOIN closing_stock ON closing_stock.stock_id = blend_teas.stock_id
         INNER JOIN mark_country ON  mark_country.mark = closing_stock.mark
         LEFT JOIN shippments ON shippments.blend_no = blend_master.id
-        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id";
-        // if(count($invoiceArr) > 1){
-            $this->query .=" WHERE blend_teas.blend_no IN ( 98";
-            // $count = 0;
-            // $lastValue = count($invoiceArr);
-            // foreach($invoiceArr as $key => $item){
-            //     $this->query .=" trim('$item') ";
-            //     $count ++;
-            //     if($count == $lastValue){
-            //         $this->query .="";
-            //     }else {
-            //         $this->query .=", ";
-            //     }
-
-            // }
-            $this->query .= ")  GROUP BY closing_stock.stock_id
+        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id WHERE blend_teas.blend_no = $arr GROUP BY closing_stock.stock_id
             ORDER BY closing_stock.invoice ASC";
-        // }
         $data = $this->executeQuery();
         return $data;
     }
@@ -157,36 +141,12 @@ Class ReportData extends Model{
         $data = $this->executeQuery();
         return $data;
     }
-    public function getBlendsShippingData(){
-        $invoiceArr = $this->invoiceArray;
-        $this->query = "SELECT CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
+    public function getBlendsShippingData($arr){
+        // $invoiceArr = $this->invoiceArray;
+        $this->query = "SELECT blend_master.contractno,CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
         COALESCE(blend_master.std_name, ''), '/',
-        COALESCE(blend_master.blendid,''),
- ' - ', COALESCE(shipping_instructions.no_containers_type,''),
- ' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),
- '-', COALESCE(blend_master.contractno,'')
-  ) AS header FROM blend_master LEFT JOIN shippments ON shippments.blend_no = blend_master.id
-        LEFT JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id WHERE blend_master.id = 98";
-        // if(count($invoiceArr) > 1){
-            // $this->query .=" WHERE shipping_instructions.contract_no IN (";
-            // $count = 0;
-            // $lastValue = count($invoiceArr);
-            // foreach($invoiceArr as $key => $item){
-            //     $this->query .=" trim('$item') ";
-            //     $count ++;
-            //     if($count == $lastValue){
-            //         $this->query .="";
-            //     }else {
-            //         $this->query .=", ";
-            //     }
-
-            // }
-            // $this->query .= ")";
-        // } 
-        // else {
-        //     $this->query .=" WHERE shipping_instructions.contract_no IN ('$invoiceArr[0]')";
-
-        // }
+        COALESCE(blend_master.blendid,''),' - ', COALESCE(shipping_instructions.no_containers_type,''),' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),'-', COALESCE(blend_master.contractno,'')) AS header FROM blend_master INNER JOIN shippments ON shippments.blend_no = blend_master.id
+        INNER JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id WHERE blend_master.id = $arr GROUP BY shippments.si_no";
         
         $data = $this->executeQuery();
         return $data;

@@ -94,14 +94,16 @@
             });
 
         });
-        $('#attachblendsheet').click(function() {
+        $('#attachblendsheet').click(function(e) {
+            e.preventDefault()
             var blendno = localStorage.getItem("blendno");
+            var cNumber = JSON.parse(localStorage.getItem("blendno"));
             var sino = '<?php echo $_GET['sino']; ?>'
             $.ajax({
                 type: "POST",
                 data: {
                     sino: sino,
-                    blendno: blendno,
+                    blendno: cNumber,
                     action: "attach-blend-si"
                 },
                 cache: false,
@@ -112,8 +114,8 @@
                         icon: 'success',
                         title: 'Attached',
                     });
-                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
-
+                    
+                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/TCPDF/files/blend_sheet.php?invoiceNo='+cNumber+'" width="100%" height="1000px"></iframe>');
                 }
             });
         });
@@ -131,7 +133,7 @@
         localStorage.setItem("blendno", JSON.stringify(cNumber));
 
         $('#attachButton').show();
-        $('#document').html('<iframe class="frame" frameBorder="0" src="http://localhost/chamu/reports/TCPDF/files/blend_sheet.php?invoiceNo='+cNumber+'" width="100%" height="600px"></iframe>');
+        $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/TCPDF/files/blend_sheet.php?invoiceNo='+cNumber+'" width="100%" height="1000px"></iframe>');
         // $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
     });
 

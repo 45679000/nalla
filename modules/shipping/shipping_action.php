@@ -209,7 +209,11 @@ else if($action=="edit-contract"){
 else if($action=="attach-blend-si"){
     $sino = isset($_POST['sino']) ? $_POST['sino'] : '';
     $blendno = isset($_POST['blendno']) ? $_POST['blendno'] : '';
-    $shippingCtrl->attachSi($sino, $blendno);
+    $blendNoArray = explode(',', $blendno);
+    foreach($blendNoArray as $blendNumber){
+        $shippingCtrl->attachSi($sino, filter_var($blendNumber, FILTER_SANITIZE_NUMBER_INT));
+        // var_dump();
+    }
     echo json_encode(array("message"=>"success"));
 
     

@@ -22,8 +22,7 @@ CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
        COALESCE(blend_master.std_name, ''), '/',
        COALESCE(blend_master.blendid,''),
 ' - ', COALESCE(shipping_instructions.no_containers_type,''),
-' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''), COALESCE(0_debtors_master.debtor_ref,''),
-'-',
+' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''), '-',COALESCE(0_debtors_master.debtor_ref,''),
 '-', COALESCE(blend_master.contractno,'')
  ) AS header, shipping_instructions.shipping_marks, note
 

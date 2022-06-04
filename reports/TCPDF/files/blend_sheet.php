@@ -62,7 +62,8 @@ $pdf->setFont('helvetica', 'B', 20);
 foreach($myArray as $arr){
         // // add a page
         $data = $rpData->getBlendData($arr);
-        $pdf->AddPage();
+        $pdf->AddPage('L', 'A4');
+        // $pdf->AddPage();
         $shippingData = $rpData->getBlendsShippingData($arr);
         $pdf->setFont('helvetica', '', 8);
                 

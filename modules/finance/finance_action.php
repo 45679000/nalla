@@ -1132,7 +1132,7 @@
 	// }
 	if(isset($_POST['action']) && $_POST['action'] == "process-facility"){
 		$facility_no = isset($_POST['facility_no']) ? $_POST['facility_no'] : '';
-		$purchaseCtrl->clean();
+		// $purchaseCtrl->clean();
 		$cart = $finance->fcart($facility_no);
 		$purchaseCtrl->cart = $cart;
 		$purchaseCtrl->process_facility();

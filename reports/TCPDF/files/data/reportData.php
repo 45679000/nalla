@@ -145,8 +145,8 @@ Class ReportData extends Model{
         // $invoiceArr = $this->invoiceArray;
         $this->query = "SELECT blend_master.contractno,CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
         COALESCE(blend_master.std_name, ''), '/',
-        COALESCE(blend_master.blendid,''),' - ', COALESCE(shipping_instructions.no_containers_type,''),' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),'-', COALESCE(blend_master.contractno,'')) AS header FROM blend_master INNER JOIN shippments ON shippments.blend_no = blend_master.id
-        INNER JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id WHERE blend_master.id = $arr GROUP BY shippments.si_no";
+        COALESCE(blend_master.blendid,''),' - ', COALESCE(shipping_instructions.no_containers_type,''),' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),'-',COALESCE(0_debtors_master.debtor_ref,''),'-', COALESCE(blend_master.contractno,'')) AS header FROM blend_master INNER JOIN shippments ON shippments.blend_no = blend_master.id
+        INNER JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id INNER JOIN 0_debtors_master ON blend_master.client_id = 0_debtors_master.debtor_no WHERE blend_master.id = $arr GROUP BY shippments.si_no";
         
         $data = $this->executeQuery();
         return $data;

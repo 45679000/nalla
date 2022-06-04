@@ -24,8 +24,12 @@ function copy_from_trans(&$supp_trans)
 
 	$_POST['_ex_rate'] = $supp_trans->ex_rate;
 	if (isset($supp_trans->tax_overrides))
-	    foreach($supp_trans->tax_overrides as $id => $value)
-		    $_POST['mantax'][$id] = price_format($value);
+	    foreach($supp_trans->tax_overrides as $id => $value){
+			if($id != 3){
+				$_POST['mantax'][$id] = price_format($value);			
+				}
+		    
+			}
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -45,8 +49,10 @@ function copy_to_trans(&$supp_trans)
 	$supp_trans->ov_amount = $supp_trans->ov_discount = 0; /* for starters */
     if (isset($_POST['mantax'])) {
 		foreach($_POST['mantax'] as $id => $tax) {
-	    	$supp_trans->tax_overrides[$id] = user_numeric($_POST['mantax'][$id]);
-	    	}
+			if($id != 3){
+	    		$supp_trans->tax_overrides[$id] = user_numeric($_POST['mantax'][$id]);
+			}
+		}
 	}
 	else
 		unset($supp_trans->tax_overrides);

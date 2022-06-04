@@ -156,7 +156,11 @@ function add_supp_invoice(&$supp_trans)
     {
 	    $taxes = $supp_trans->get_taxes($supp_trans->tax_group_id);
 	    foreach ($taxes as $n => $taxitem)
-			$item_added_tax += isset($taxitem['Override']) ? $taxitem['Override'] : round2($taxitem['Value'], user_price_dec());
+			if($n==3){
+				$item_added_tax -= isset($taxitem['Override']) ? $taxitem['Override'] : round2($taxitem['Value'], user_price_dec());
+			}else {
+				$item_added_tax += isset($taxitem['Override']) ? $taxitem['Override'] : round2($taxitem['Value'], user_price_dec());
+			}
 	}
 
 	if ($trans_type == ST_SUPPCREDIT)

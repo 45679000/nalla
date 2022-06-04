@@ -586,7 +586,7 @@
                 $stmt2 = $this->conn->prepare("SELECT *FROM 0_exchange_rates WHERE date_ = current_date AND curr_code = 'USD'");
                 $stmt2->execute();
                 $row2 = $stmt2->fetch();
-                $rate = $row2["rate_buy"];
+                $rate = $row2["rate_buy"] ? $row2["rate_buy"] : 119.00;
 
                 $cart = new stdClass();
                 $id = 0;

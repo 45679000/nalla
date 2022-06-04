@@ -71,15 +71,15 @@ foreach($myArray as $arr){
         <table cellspacing="" border="1" cellpadding="2"  align="center">
         <thead>
         ';
-        $tbl .= '<tr><td colspan="15" style="background-color: #CCFCFD;" height="30">'.$shippingData[0]['header'].'</td></tr>';
+        $tbl .= '<tr><td colspan="14" style="background-color: #CCFCFD;" height="30">'.$shippingData[0]['header'].'</td></tr>';
         $tbl .= '
         <tr>
-        <td colspan="13"></td>
+        <td colspan="12"></td>
         <td colspan="2"><b>Allocation</b></td>
         </tr>
         <tr>
                 <td align="left"><b>Sale No.</b></td>
-                <td colspan="2" align="center"><b>DD/MM/YY</b></td>
+                <td align="center"><b>DD/MM/YY</b></td>
                 <td align="center"><b>Broker</b></td>
                 <td align="center" ><b>Warehouse</b></td>
                 <td align="center"><b>Lot</b></td>
@@ -100,7 +100,7 @@ foreach($myArray as $arr){
                 $totalPkgs +=$item['blended_packages'];
                 $totalKgs +=$item['kgs'];
                 $tbl .= '<tr style="font-size: 8px;"><td>'.$item['sale_no'].'</td>
-                <td colspan="2">'.$item['import_date'].'</td>
+                <td>'.$item['import_date'].'</td>
                 <td>'.$item['broker'].'</td>
                 <td >'.$item['ware_hse'].'</td>
                 <td>'.$item['lot'].'</td>
@@ -115,7 +115,7 @@ foreach($myArray as $arr){
         }
         $tbl .= '
         <tr>
-        <td colspan="9" align="left"><b>SHIPPING MARKS: </b>'.$shippingData[0]['contractno'].'</td>
+        <td colspan="8" align="left"><b>SHIPPING MARKS: </b>'.$shippingData[0]['contractno'].'</td>
         <td>'.$totalPkgs.'</td>
         <td></td>
         <td>'.$totalKgs.'</td>
@@ -123,7 +123,7 @@ foreach($myArray as $arr){
         </tr>';
         $tbl .= '
         <tr>
-        <td colspan="3" align="left"><b>NOTE: </b></td>
+        <td colspan="2" align="left"><b>NOTE: </b></td>
         <td colspan="12">'.$data[0]['shipping_marks'].'</td>
         </tr>';
         $tbl .= '</tbody>';

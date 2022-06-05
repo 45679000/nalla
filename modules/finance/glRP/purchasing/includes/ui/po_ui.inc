@@ -275,7 +275,7 @@ function display_po_items(&$order, $editable=true)
 	
 	$tax_total = display_edit_tax_items($taxes, $colspan, $order->tax_included, 2, $order->trans_type==ST_SUPPINVOICE);
 
-	$display_total = price_format(($total + input_num('freight_cost') + $tax_total));
+	$display_total = price_format(($total + input_num('freight_cost') + $tax_total - $_POST['mantax[3]'] - $_POST['mantax[3]']));
 
 	start_row();
 	label_cells(_("Amount Total"), $display_total, "colspan=$colspan align='right'","align='right'");

@@ -1,0 +1,44 @@
+[02-Mar-2022 18:20:05 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[03-Mar-2022 07:16:26 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:16:26 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 251
+[03-Mar-2022 07:17:20 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:17:20 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 251
+[03-Mar-2022 07:17:52 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:17:52 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 251
+[03-Mar-2022 07:20:33 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:21:18 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:23:58 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:23:58 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 253
+[03-Mar-2022 07:25:10 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:25:10 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 253
+[03-Mar-2022 07:25:30 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:25:30 Africa/Khartoum] PHP Notice:  Undefined index: client_id in /var/www/html/chamu/modules/blending/straightline_action.php on line 250
+[03-Mar-2022 07:25:30 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 253
+[03-Mar-2022 07:26:49 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:26:49 Africa/Khartoum] PHP Notice:  Undefined variable: client in /var/www/html/chamu/modules/blending/straightline_action.php on line 253
+[03-Mar-2022 07:27:25 Africa/Khartoum] PHP Notice:  Undefined variable: buyer in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:27:25 Africa/Khartoum] PHP Notice:  Undefined variable: buyer in /var/www/html/chamu/modules/blending/straightline_action.php on line 253
+[03-Mar-2022 07:27:44 Africa/Khartoum] PHP Notice:  Undefined variable: buyer in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:28:16 Africa/Khartoum] PHP Notice:  Undefined variable: buyer in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:28:39 Africa/Khartoum] PHP Notice:  Undefined variable: buyer in /var/www/html/chamu/modules/blending/straightline_action.php on line 248
+[03-Mar-2022 07:37:52 Africa/Khartoum] PHP Notice:  Array to string conversion in /var/www/html/chamu/modules/blending/straightline_action.php on line 251
+[07-Mar-2022 09:59:48 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[07-Mar-2022 10:04:24 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[07-Mar-2022 10:04:45 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[07-Mar-2022 10:04:52 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[07-Mar-2022 10:04:59 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[07-Mar-2022 10:05:04 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[08-Mar-2022 19:19:51 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/blending/straightline_action.php on line 235
+[08-Mar-2022 19:20:03 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/blending/straightline_action.php on line 138
+[08-Mar-2022 19:20:38 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/blending/straightline_action.php on line 235
+[08-Mar-2022 19:20:44 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/blending/straightline_action.php on line 138
+[08-Mar-2022 19:20:56 Africa/Khartoum] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/blending/blend_action.php on line 233
+[08-Mar-2022 19:26:26 Africa/Khartoum] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /var/www/html/chamu/modules/blending/blend_action.php on line 45
+[22-Mar-2022 17:14:45 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[22-Mar-2022 17:15:12 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[05-Apr-2022 08:55:29 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[06-Apr-2022 19:08:22 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[06-Apr-2022 19:09:29 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[06-Apr-2022 19:14:34 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[06-Apr-2022 19:35:34 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408
+[07-Apr-2022 08:46:01 Africa/Khartoum] PHP Notice:  Undefined variable: output in /var/www/html/chamu/modules/blending/blend_action.php on line 408

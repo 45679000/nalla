@@ -23,7 +23,7 @@ stock_allocation.shipped,  blend_teas.id AS selected_for_shipment,
 blend_teas.packages AS blended_packages,
 mark_country.country, blend_teas.packages AS blended_packages,  CONCAT(COALESCE(blend_master.blend_no, '-'), '-' ,COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,'')) AS allocation,
 
-CONCAT('CHAMU SUPPLIES LTD','  ',COALESCE(blend_master.blend_no, ''), COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,''),
+CONCAT('Techsavanna teas SUPPLIES LTD','  ',COALESCE(blend_master.blend_no, ''), COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,''),
 ' - ', COALESCE(0_debtors_master.debtor_ref,'')) AS header
 
 FROM shippments

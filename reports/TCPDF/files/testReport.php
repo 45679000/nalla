@@ -75,7 +75,7 @@ var_dump($data);
 // <thead>
 // ';
 // foreach($shippingData as $shippment){
-//         $tbl .= '<tr><td colspan="15" style="background-color: #CCFCFD;" height="30">CHAMU SUPPLIES LTD - '.shippmentType($shippment['shippment_type']).' - '. $shippment['contract_no'].'- '.$shippment['no_containers_type'].' - '.$shippment['buyer'].' - '.$shippment['destination_total_place_of_delivery'].'</td></tr>';
+//         $tbl .= '<tr><td colspan="15" style="background-color: #CCFCFD;" height="30">Techsavanna teas SUPPLIES LTD - '.shippmentType($shippment['shippment_type']).' - '. $shippment['contract_no'].'- '.$shippment['no_containers_type'].' - '.$shippment['buyer'].' - '.$shippment['destination_total_place_of_delivery'].'</td></tr>';
 // }
 // $tbl .= '
 // <tr>

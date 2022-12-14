@@ -181,7 +181,7 @@
 			<table cellspacing="0" cellpadding="3" border="">
 				
 				<tr>
-					<td><b style="font-size:16px">CHAMU SUPPLIES LIMITED</b>
+					<td><b style="font-size:16px">Techsavanna teas SUPPLIES LIMITED</b>
 					<br />
 						<span style="font-size:12px">P.O Box 86040-80100</span>
 						<div></div>	

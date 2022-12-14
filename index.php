@@ -7,7 +7,7 @@
   $sessionManager = Session::getInstance();
   $config = parse_ini_file("config.ini");
 
-  $sessionManager->projectname = $config["projectname"];
+  $sessionManager->projectname ="Techsavanna teas";
   $sessionManager->project_root = $path;
 
   header("location:admin/login.php");

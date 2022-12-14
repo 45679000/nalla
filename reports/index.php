@@ -70,7 +70,7 @@ require_once $path_to_root . 'templates/header.php';
     print_report("#", "Print RA Teas", " fa fa-file-pdf-o text-info", "printRA");
     print_report("#", "Buying List", "fa fa-file", "purchaseList");
     $("#cmdfinance").click(function(e) {
-        $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/reporting/reports_main.php?Class=6" width="100%" height="1000" style="border:none;">');
+        $("#dashboardWrapper").html('<iframe src="/techteas/modules/finance/glRP/reporting/reports_main.php?Class=6" width="100%" height="1000" style="border:none;">');
     });
     $("#printRA").click(function(e) {
         e.preventDefault();

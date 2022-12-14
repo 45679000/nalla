@@ -156,11 +156,11 @@ WHERE mark_country.deleted = 0]]>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CHAMU SUPPLIERS LIMITED]]></text>
+				<text><![CDATA[Techsavanna teas SUPPLIERS LIMITED]]></text>
 			</staticText>
 			<!-- <image>
 				<reportElement x="7" y="1" width="137" height="44" uuid="7576e3d3-45f4-47da-b919-c8dcc80bd6d6"/>
-				<imageExpression><![CDATA["/opt/lampp/htdocs/chamu-tifms/images/logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["/opt/lampp/htdocs/Techsavanna teas-tifms/images/logo.png"]]></imageExpression>
 			</image> -->
 		</band>
 	</title>

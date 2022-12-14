@@ -1,0 +1,6 @@
+[11-Apr-2022 11:33:04 Africa/Khartoum] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /var/www/html/chamu/controllers/CatalogController.php:219
+Stack trace:
+#0 /var/www/html/chamu/controllers/CatalogController.php(219): PDO->query('SELECT COUNT(cl...')
+#1 /var/www/html/chamu/modules/cataloguing/imports/closing_import.php(30): Catalogue->summaryCount('closing_cat_imp...', 'main')
+#2 {main}
+  thrown in /var/www/html/chamu/controllers/CatalogController.php on line 219

@@ -172,24 +172,24 @@ $("#commercialInvoice").click(function(e) {
     window.location.href = "./index.php?view=commercial";
 });
 $("#prvtPurchases").click(function(e) {
-    window.location.href = "/chamu/modules/stock/index.php?view=ppurchases";
+    window.location.href = "/techteas/modules/stock/index.php?view=ppurchases";
 });
 
 $("#missingLots").click(function(e) {
-    window.location.href = "/chamu/views/view_valuations.php";
+    window.location.href = "/techteas/views/view_valuations.php";
 
 });
 $("#banking_gl").click(function(e) {
-    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/index.php?application=GL" width="100%" height="1000" style="border:none;">');
+    $("#dashboardWrapper").html('<iframe src="/techteas/modules/finance/glRP/index.php?application=GL" width="100%" height="1000" style="border:none;">');
 });
 $("#purchasesOthers").click(function(e) {
-    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/index.php?application=AP" width="100%" height="1000" style="border:none;">');
+    $("#dashboardWrapper").html('<iframe src="/techteas/modules/finance/glRP/index.php?application=AP" width="100%" height="1000" style="border:none;">');
 });
 $("#customers").click(function(e) {
-    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/sales/manage/customers.php" width="100%" height="1000" style="border:none;">');
+    $("#dashboardWrapper").html('<iframe src="/techteas/modules/finance/glRP/sales/manage/customers.php" width="100%" height="1000" style="border:none;">');
 });
 $("#suppliers").click(function(e) {
-    $("#dashboardWrapper").html('<iframe src="/chamu/modules/finance/glRP/purchasing/manage/suppliers.php" width="100%" height="1000" style="border:none;">');
+    $("#dashboardWrapper").html('<iframe src="/techteas/modules/finance/glRP/purchasing/manage/suppliers.php" width="100%" height="1000" style="border:none;">');
 });
 $("#paymentSchedule").click(function(e) {
     window.location.href = "./index.php?view=payment-schedule";

@@ -58,7 +58,7 @@ Class ReportData extends Model{
         shippments.shipped_kgs AS kgs,  country, (CASE WHEN shipping_instructions.contract_no IS NOT NULL THEN  shipping_instructions.contract_no ELSE shippments.si_no END) AS allocation,
         `type`, `net`, shippments.pkgs_shipped ,  `sale_price`, closing_stock.`standard`, `mrp_value`,
         DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, closing_stock.allocated_whse AS warehouse,
-        shippments.is_shipped,  shippments.pkgs_shipped AS pkgs, CONCAT('CHAMU SUPPLIES LTD - LOT DETAILS-', '  ',COALESCE(shippments.si_no, ''), ' - ',COALESCE(shipping_instructions.no_containers_type, '') ,' - ', COALESCE(0_debtors_master.debtor_ref,''), '-', COALESCE(destination_total_place_of_delivery, '')) AS header, shipping_instructions.shipping_marks, note FROM shippments
+        shippments.is_shipped,  shippments.pkgs_shipped AS pkgs, CONCAT('Techsavanna teas SUPPLIES LTD - LOT DETAILS-', '  ',COALESCE(shippments.si_no, ''), ' - ',COALESCE(shipping_instructions.no_containers_type, '') ,' - ', COALESCE(0_debtors_master.debtor_ref,''), '-', COALESCE(destination_total_place_of_delivery, '')) AS header, shipping_instructions.shipping_marks, note FROM shippments
         INNER JOIN closing_stock ON closing_stock.stock_id = shippments.stock_id
         LEFT JOIN straightlineteas ON straightlineteas.contract_no = shippments.si_no
         LEFT JOIN 0_debtors_master ON straightlineteas.client_id = 0_debtors_master.debtor_no
@@ -95,7 +95,7 @@ Class ReportData extends Model{
         mark_country.country, blend_teas.packages AS blended_packages,  
         CONCAT( 'STD - ' ,COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,'')) AS allocation,
         blend_master.contractno,
-        CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
+        CONCAT('Techsavanna teas SUPPLIES LTD- BLEND SHEET ','  ','-STD',
                COALESCE(blend_master.std_name, ''), '/',
                COALESCE(blend_master.blendid,''),
         ' - ', COALESCE(shipping_instructions.no_containers_type,''),
@@ -143,7 +143,7 @@ Class ReportData extends Model{
     }
     public function getBlendsShippingData($arr){
         // $invoiceArr = $this->invoiceArray;
-        $this->query = "SELECT blend_master.contractno,CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
+        $this->query = "SELECT blend_master.contractno,CONCAT('Techsavanna teas SUPPLIES LTD- BLEND SHEET ','  ','-STD',
         COALESCE(blend_master.std_name, ''), '/',
         COALESCE(blend_master.blendid,''),' - ', COALESCE(shipping_instructions.no_containers_type,''),' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),'-',COALESCE(0_debtors_master.debtor_ref,''),'-', COALESCE(blend_master.contractno,'')) AS header FROM blend_master INNER JOIN shippments ON shippments.blend_no = blend_master.id
         INNER JOIN shipping_instructions ON shipping_instructions.instruction_id = shippments.instruction_id INNER JOIN 0_debtors_master ON blend_master.client_id = 0_debtors_master.debtor_no WHERE blend_master.id = $arr GROUP BY shippments.si_no";

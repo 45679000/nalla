@@ -16,7 +16,7 @@ $path_to_root ='../';
                 <div class="row">
                     <div class="col-md-3 register-left">
                         <img class="logo" src="<?php echo $path_to_root ?>images/logo.png" alt=""/>
-                        <h3 style="font-weight:bold; color:blue;">CHAMU TIFMS</h3>
+                        <h3 style="font-weight:bold; color:blue;">Techsavanna teas TIFMS</h3>
                         <p>You Have Been Logged Out</p>
                     </div>
                     <div class="col-md-9 register-right">

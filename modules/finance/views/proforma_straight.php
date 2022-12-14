@@ -253,8 +253,15 @@
                                         </div>
                                     </div>
                                     <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
+                                        <div class="form-group">
+                                            <label class="control-label" for="consignee">Min tax:</label>
+                                            <input class="form-control" name="min_tax" id="min_tax"/>
+                                        </div>
+                                    </div>
+                                    <div class="" style="display: flex; width: 100%; justify-content: space-evenly;">
                                         <div class="form-group float-right">
                                             <button id="saveBtn" type="submit" class="btn btn-success btn-lg" id="submit">Save</button>
+                                            <button id="updateBtn" type="submit" class="btn btn-success btn-lg" id="submit">Update</button>
                                         </div>
                                     </div>
                                     </div>
@@ -415,8 +422,10 @@
     document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
     document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
     document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
+    let formInvoiceNo = document.getElementById('invoice_no')
+    $('#updateBtn').hide()
     let loadPreview = (invoiceNum) =>{
-        $("#invoicePreview").html(`<iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" width="1000px" height="800px"></iframe>`);
+        $("#invoicePreview").html(`<p class="text-danger">Click refresh pdf button before you download it</p><a href="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" class="btn btn-danger">Download</a><iframe class="frame" frameBorder="0" src="../../../reports/TCPDF/files/profomaInvoiceStraight.php?invoiceNo=${invoiceNum}" width="1000px" height="800px"></iframe>`);
     }
     let reloadPreview = document.getElementById('reloadPreview');
     let showInvoiceNo = document.getElementById('showInvoiceNo')
@@ -544,6 +553,8 @@
                             title: response.success,
                         });
                         $("#saveBtn").hide();
+                        $('#updateBtn').show()
+                        $("#page1Btn").hide();
                         $("#page1Btn").show();
                         loadPreview(localStorage.getItem("invoiceno"))
                         document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
@@ -567,6 +578,49 @@
  
 
     });
+    $('#updateBtn').click((e)=>{
+        e.preventDefault()
+        updateForm()
+    })
+    let updateForm = ()=>{
+        $.ajax({
+                url: "../finance_action.php",
+                type: "POST",
+                data: $("#formData").serialize() + "&action=update-invoice",
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    if (response.code == 201) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.error,
+                        });
+                        
+                    }
+                    if (response.code == 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.success,
+                        });
+                        $("#saveBtn").hide();
+                        $('#updateBtn').show();
+                        loadPreview(localStorage.getItem("invoiceno"))
+                        document.getElementById('invoiceNumber').innerHTML = localStorage.getItem("invoiceno")
+                        document.getElementById('invoiceNumbe').innerHTML = localStorage.getItem("invoiceno")
+                        document.getElementById('invoiceNumb').innerHTML = localStorage.getItem("invoiceno")
+                     }
+                    if (response.code == 500) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.error,
+                        });
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+    }
     $("#buyer").change(function(e){
         var address = $(this).children(":selected").attr("name");
         $("#buyer_address").val(address);

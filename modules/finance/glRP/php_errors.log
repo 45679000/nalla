@@ -1,0 +1,2 @@
+[07-Mar-2022 10:37:44 Europe/Berlin] PHP Notice:  Undefined property: sys_prefs::$go_debug in /var/www/html/chamu/modules/finance/glRP/includes/errors.inc on line 75
+[07-Mar-2022 10:37:44 Europe/Berlin] 0::session.inc:432:[before upgrade] ini_set(): A session is active. You cannot change the session module's ini settings at this time

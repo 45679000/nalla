@@ -89,6 +89,61 @@
 		}
 	}
 
+	if (isset($_POST['action']) && $_POST['action'] == "recon-stock") {
+		$output = "";
+
+		$reconList = $stock->reconciliateStock();
+		if(count($reconList)>0){
+			$output .= '
+			<h2 id="teaType"></h2>
+			<table id="ShippedTeas" class="table table-responsive w-auto table-sm table-bordered table-hover">
+			<thead class="table-primary">
+				<tr>
+					<th>Sale no</th>
+					<th>Broker</th>
+					<th>Lot</th>
+					<th>Mark</th>
+					<th>Invoice</th>
+					<th>Allocation</th>
+					<th>Pkgs shipped</th>
+					<th>Shippment status</th>
+				</tr>
+			</thead>
+			<tbody>';
+			foreach($reconList as $shippment){
+				// $sino = $shippment['instruction_id'];
+				$output .= '<tr>';
+					$output .= '<td>'.$shippment['sale_no'].'</td>';
+					$output .= '<td>'.$shippment['broker'].'</td>';
+					$output .= '<td>'.$shippment['lot'].'</td>';
+					$output .= '<td>'.$shippment['mark'].'</td>';
+					$output .= '<td>'.$shippment['invoice'].'</td>';
+					$output .= '<td>'.$shippment['allocation'].'</td>';
+					$output .= '<td>'.$shippment['pkgs_shipped'].'</td>';
+					// $output .= '<td>'.$shippment['is_shipped'].'</td>';
+					if($shippment['is_shipped'] == 1){
+						$output .= '<td>
+					<button id="'.$shippment["stock_id"].'" class="btn btn-sm btn-success reverse" disabled>Shipped</button>
+					</td>';
+					}else {
+						$output .= '<td>
+					<button id="'.$shippment["stock_id"].'" class="btn btn-sm btn-danger shipp">Mark as shipped</button>
+					</td>';
+					}
+			}
+			$output .= '</tbody>
+					</table>';
+
+		}else{
+			$output.= "<p>You don't have any active Shippments to track</p>";
+		}
+		echo $output;
+	}
+	if(isset($_POST['action']) && $_POST['action'] == 'mark-as-shipped'){
+		$stock_id = $_POST['stock_id'];
+		$output = $stock->markAsShipped($stock_id);
+		echo $output;
+	}
     if (isset($_POST['action']) && $_POST['action'] == "update") {
 
 		$name = $_POST['name'];
@@ -206,6 +261,28 @@
 	
 	}
 	if(isset($_POST['action']) && $_POST['action'] == "master-stock"){
+		$type = $_POST['type'];
+		$StkFilter = isset($_POST['filter']) ? $_POST['filter'] : '';		
+		if($type=="opstock"){
+			$dataList = $stock->loadOpeningStock($StkFilter);
+			$stock->stockGrid($dataList);
+		}else if($type=="tstock"){
+			$dataList = $stock->loadTotalStock($StkFilter);
+			$stock->stockGrid($dataList);
+		}else if($type=="tpurchase"){
+			$dataList = $stock->loadPurchases($StkFilter);
+			$stock->stockGrid($dataList);
+		}else if($type=="tsblend"){
+			$dataList = $stock->loadBlendedTea($StkFilter);
+			$stock->stockGrid($dataList);
+		}else if($type=="tsoriginal"){
+			$dataList = $stock->loadOriginalTea($StkFilter);
+			$stock->stockGrid($dataList);
+		}
+		
+		
+
+
 
 		$filters = array();
 		$type = $_POST['type'];

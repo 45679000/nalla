@@ -197,7 +197,7 @@
     <div class="container-fluid">
         <div class="d-flex">
             <div class="img-div">
-                <img src="<?=$path_to_root ?>images/logo.png" class="img-fluid" alt="<?= $sessionManager->projectname ?>"> 
+                <!-- <img src="<?=$path_to_root ?>images/logo.png" class="img-fluid" alt="<?= $sessionManager->projectname ?>">  -->
             </div>
             <div class="container-fluid">
                 <div class="text-center pt-2" id="sys_notification">
@@ -332,9 +332,7 @@ $(function () {
 
     var section = $('#sys_notification');
     var texts = [
-      '<h4 class="text-white h4 heading">'+greetings+  '  <i class="text-primary fa fa-user"></i>'  +user_full_name+ ' <i class="text-green fa fa-primary"></i> Department  '+ user_department+'</h4>', 
-      '<h4 class="text-white h4 heading">'+projectname+'</h4>', 
-      '<h4 class="text-white h4 heading"><i class="text-primary fa fa-calendar"></i> '+now+'</h4>', ];
+      '<h4 class="text-white h4 heading">'+greetings+  '  <i class="text-primary fa fa-user"></i>'  +user_full_name+ ' <i class="text-green fa fa-primary"></i> Department  '+ user_department+'</h4>',       '<h4 class="text-white h4 heading"><i class="text-primary fa fa-calendar"></i> '+now+'</h4>', ];
     var current = 0;
 
     function nextNotification() {

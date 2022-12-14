@@ -140,10 +140,10 @@ $(function() {
             };
 
           $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "../catalog_action.php",
-                data: formData,
+            type: "POST",
+            dataType: "html",
+            url: "../catalog_action.php",
+            data: formData,
             success: function (data) {
                 $('#catalogview').html(data);
                 $('#closingimports').DataTable();

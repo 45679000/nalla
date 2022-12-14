@@ -98,7 +98,7 @@
     .btn-color {
         border-radius: 50px;
         color: #fff;
-        background-image: linear-gradient(to right, #FFD54F, #D500F9);
+        /* background-image: linear-gradient(to right, #FFD54F, #D500F9); */
         padding: 15px;
         cursor: pointer;
         border: none !important;
@@ -107,7 +107,7 @@
 
     .btn-color:hover {
         color: #fff;
-        background-image: linear-gradient(to right, #D500F9, #FFD54F)
+        /* background-image: linear-gradient(to right, #D500F9, #FFD54F) */
     }
 
     .btn-white {
@@ -187,7 +187,9 @@
             <div class="card card1">
                 <div class="row justify-content-center my-auto">
                     <div class="col-md-8 col-10 mt-5">
-                        <div class="row justify-content-center px-3 mb-3"><img class="logo" src="../images/logo.png" alt="" /></div>
+                        <div class="row justify-content-center px-3 mb-3">
+                            <!-- <img class="logo" src="../images/logo.png" alt="" /> -->
+                        </div>
                         <h6 class="msg-info">Enter Your Username and Password To login</h6>
                         <div id="usernameDiv" class="form-group"> <label class="form-control-label text-muted">Username</label>
                             <input type="text" id="username" name="email" placeholder="Username" class="form-control">
@@ -251,11 +253,12 @@ $(function () {
             success: function(data) {
                 if(data.login=="success"){
                     $(".msg-info").html('<p class="alert alert-success" role="alert">'+data.message+'</p>');
-                    $("#loginBtn").hide();
-                    $("#usernameDiv").hide();
-                    $("#passwordDiv").hide();
-                    $("#otpDiv").show();
-                    $("#verify").show();
+                    window.location.href = "./dashboard.php";
+                    // $("#loginBtn").hide();
+                    // $("#usernameDiv").hide();
+                    // $("#passwordDiv").hide();
+                    // $("#otpDiv").show();
+                    // $("#verify").show();
 
                 }else{
                     $(".msg-info").html('<p class="alert alert-danger" role="alert">'+data.message+'</p>');

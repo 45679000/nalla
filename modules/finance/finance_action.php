@@ -45,6 +45,7 @@
 		$buyer_address = isset($_POST['buyer_address']) ? $_POST['buyer_address'] : '';
 		$bl_no = isset($_POST['bl_no']) ? $_POST['bl_no'] : '';
 		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
+		$min_tax = isset($_POST['min_tax']) ? $_POST['min_tax'] : '0.00';
 
         if($error ==""){
           $message = $finance->saveInvoice(
@@ -63,7 +64,63 @@
 			  $hs_code,
 			  $buyer_address,
 			  $bl_no,
-			  $bank_id
+			  $bank_id,
+			  $min_tax
+			  
+			);
+          echo json_encode($message);
+
+        }else{
+          $formError["error"]=$error;
+          $formError["code"] = 201;
+
+          echo json_encode($formError);
+
+        }
+	}
+	if (isset($_POST['action']) && $_POST['action'] == "update-invoice") {
+        $error = "";
+		$buyer = isset($_POST['buyer']) ? $_POST['buyer'] : $error ='You must select a client';
+        $consignee = isset($_POST['consignee']) ? $_POST['consignee'] : 'SAME AS BUYER';
+        $invoice_no = isset($_POST['invoice_no']) ? $_POST['invoice_no'] : $error ='You must enter an invoice_no';
+        $invoice_category = isset($_POST['invoice_category']) ? $_POST['invoice_category'] : $error ='You must indicate Invoice Category';
+        $port_of_delivery = isset($_POST['port_of_delivery']) ? $_POST['port_of_delivery'] : '';
+        $buyer_bank = isset($_POST['buyer_bank']) ? $_POST['buyer_bank'] : '';
+        $payment_terms = isset($_POST['payment_terms']) ? $_POST['payment_terms'] : '';
+		$pay_bank = isset($_POST['pay_bank']) ? $_POST['pay_bank'] : '';
+		$pay_details = isset($_POST['pay_details']) ? $_POST['pay_details'] : '';
+
+		$bank_id = isset($_POST['bank_id']) ? $_POST['bank_id'] : '';
+		$container_no = isset($_POST['container_no']) ? $_POST['container_no'] : '';
+		$buyer_contract_no = isset($_POST['buyer_contract_no']) ? $_POST['buyer_contract_no'] : '';
+		$shipping_marks = isset($_POST['shipping_marks']) ? $_POST['shipping_marks'] : '';
+		$other_reference= isset($_POST['other_references']) ? $_POST['other_references'] : '';
+
+		$final_destination= isset($_POST['final_destination']) ? $_POST['final_destination'] : '';
+		$description_of_goods = isset($_POST['good_description']) ? $_POST['good_description'] : '';
+		$buyer_address = isset($_POST['buyer_address']) ? $_POST['buyer_address'] : '';
+		$bl_no = isset($_POST['bl_no']) ? $_POST['bl_no'] : '';
+		$hs_code = isset($_POST['hs_code']) ? $_POST['hs_code'] : '';
+		$min_tax = isset($_POST['min_tax']) ? $_POST['min_tax'] : '';
+        if($error ==""){
+          $message = $finance->updateInvoice(
+			  $buyer, $consignee, $invoice_no,
+			  $invoice_type, $invoice_category, 
+			  $port_of_delivery, $buyer_bank, 
+			  $payment_terms, $pay_bank, 
+			  $pay_details,
+			  $container_no,
+			  $buyer_contract_no,
+			  $shipping_marks,
+			  $other_reference,
+			  $port_of_delivery,
+			  $description_of_goods,
+			  $final_destination,
+			  $hs_code,
+			  $buyer_address,
+			  $bl_no,
+			  $bank_id,
+			  $min_tax
 			  
 			);
           echo json_encode($message);
@@ -317,7 +374,7 @@
 							}else{
 								$output.='
 								<td>
-									<a style="color:green" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+									<a style="color:green; cursor: pointer;" class="unconfirmLot" data-toggle="tooltip" data-placement="bottom" title="Remove"  id="'.$purchase["buying_list_id"].'">
 									<i class="fa fa-check">Added to stock</i></a>
 								</td>';
 							}
@@ -606,7 +663,7 @@
 					$output.='<td>'.$stock["pkgs"].'</td>';
 					$output.='<td>'.$stock["kgs"].'</td>';
 					$output.='<td>'.$stock["net"].'</td>';
-					$output.='<td class="profoma_amount" contenteditable="true">'.$stock["profoma_amount"].'</td>';
+					$output.='<td class="profoma_amount" contenteditable="true" id="'.$stock["id"].'">'.$stock["profoma_amount"].'</td>';
 
 					  $output.='<td>
 					  <a class="removeTea" id="'.$stock["id"].'" style="color:red" data-toggle="tooltip" data-placement="bottom" title="Remove" >
@@ -710,12 +767,12 @@
 	if(isset($_POST['action']) && $_POST['action'] == "submit-invoice"){
 		$invoice_no = isset($_POST['invoice']) ? $_POST['invoice'] : '';
 		$type = isset($_POST['type']) ? $_POST['type'] : '';
-
+		// echo $type;
 		$cart = $finance->submitInvoice($type, $invoice_no);
-		var_dump($cart);
-		$salesCtrl->clean();
+		// print_r($cart);
+		// $salesCtrl->clean();
 		$salesCtrl->cart = $cart;
-		$salesCtrl->post_pos_sale();
+		print_r($salesCtrl->post_pos_sale());
 
 
 	}
@@ -1027,7 +1084,7 @@
 
 		$purchases = $finance->Facilities($facility_no="all");
 	
-		if (sizeOf($purchases) > 0) {
+		// if (sizeOf($purchases) > 0) {
 			$output .='	<table class="table card-table table-vcenter text-nowrap">
 					<thead>
 						<tr>
@@ -1040,27 +1097,30 @@
 						</tr>
 						<tbody>
 						<tr>';
-					foreach ($purchases as $purchase){
-						
-						$totalPayableStock += $totalPayable * $purchase['net'];
-						$output.='<tr>';
-							$output .= '<td><a href="store.html" class="text-inherit">'.$purchase["facility_no"].'</a></td>';
-							$output .= '<td>'.$purchase["value_date"].'</td>';
-							$output .= '<td>'.$purchase["total_lots"].'</td>';
-							$output .= '<td><span class="status-icon bg-warning"></span> pending</td>';
-							$output .= '<td>'."USD:".$purchase["amount"].'</td>';
-							$output .= '<td class="text-right">';
-							if($purchase["is_processed"]==0){
-								$output.='<a class="icon"></a>
-								<a id="'.$purchase["facility_no"].'" class="btn btn-warning btn-sm process"><i class="fa fa-history"></i> Process</a>';
-							}
-							if($purchase["is_paid"]==0 && $purchase["is_processed"]==1){
-								$output.='<a class="icon"></a>
-								<a id="'.$purchase["facility_no"].'" class="btn btn-success btn-sm pay"><i class="fa fa-link"></i> Pay</a>';
-							}
-							
-							$output.='</td>';
-						$output.='</tr>';
+                    if (sizeOf($purchases) > 0) {
+                        foreach ($purchases as $purchase) {
+                            $totalPayableStock += $totalPayable * $purchase['net'];
+                            $output.='<tr>';
+                            $output .= '<td><a href="store.html" class="text-inherit">'.$purchase["facility_no"].'</a></td>';
+                            $output .= '<td>'.$purchase["value_date"].'</td>';
+                            $output .= '<td>'.$purchase["total_lots"].'</td>';
+                            $output .= '<td><span class="status-icon bg-warning"></span> pending</td>';
+                            $output .= '<td>'."USD:".$purchase["amount"].'</td>';
+                            $output .= '<td class="text-right">';
+                            if ($purchase["is_processed"]==0) {
+                                $output.='<a class="icon"></a>
+									<a id="'.$purchase["facility_no"].'" class="btn btn-warning btn-sm process"><i class="fa fa-history"></i> Process</a>';
+                            }
+                            if ($purchase["is_paid"]==0 && $purchase["is_processed"]==1) {
+                                $output.='<a class="icon"></a>
+									<a id="'.$purchase["facility_no"].'" class="btn btn-success btn-sm pay"><i class="fa fa-link"></i> Pay</a>';
+                            }
+                                
+                            $output.='</td>';
+                            $output.='</tr>';
+                        }
+                    } else{
+						$output = "<p class='m-4'>No records found</p>";
 					}
 					
 			$output .= '</tbody>
@@ -1069,10 +1129,10 @@
       		echo $output;	
 		}
 
-	}
+	// }
 	if(isset($_POST['action']) && $_POST['action'] == "process-facility"){
 		$facility_no = isset($_POST['facility_no']) ? $_POST['facility_no'] : '';
-		$purchaseCtrl->clean();
+		// $purchaseCtrl->clean();
 		$cart = $finance->fcart($facility_no);
 		$purchaseCtrl->cart = $cart;
 		$purchaseCtrl->process_facility();

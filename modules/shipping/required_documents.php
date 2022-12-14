@@ -80,7 +80,7 @@ if($type == 'Blend Shippment'){
             var viewid = '<?php echo $viewid; ?>'
             var contractno = localStorage.getItem("contractno");
             var blendno = localStorage.getItem("blendno");
-
+            var cNumber = JSON.parse(localStorage.getItem("blendno"));
             $('#ishippingInstructions').hide();
                 $('#iprofomainvoice').hide();
             if(viewid==0){
@@ -88,7 +88,7 @@ if($type == 'Blend Shippment'){
                 $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/straightline_lots.php?sino='+contractno+'" width="100%" height="800px"></iframe>');
 
             }else{
-                $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+                $('#display').html('<iframe class="frame" frameBorder="0" src="../../reports/TCPDF/files/blend_sheet.php?invoiceNo='+cNumber+'" width="100%" height="1000px"></iframe>');
 
             }
 

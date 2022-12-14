@@ -117,7 +117,7 @@
              mark_country.country AS origin, `broker_invoice`, DATE_FORMAT(`auction_date`, '%d/%m/%Y') AS auction_date, added_to_stock
             FROM `buying_list` 
             LEFT JOIN mark_country ON mark_country.mark = buying_list.mark
-            WHERE  buyer_package='CSS' AND sale_no LIKE '%".$this->saleno."%' AND confirmed = 1 ";
+            WHERE  buyer_package='CSS' AND sale_no = '$this->saleno' AND confirmed = 1 ";
             if($type !=null){
                 if($type=='P'){
                     $query.=" AND source = 'P'";
@@ -183,7 +183,7 @@
             $hs_code,
             $buyer_address,
             $bl_no,
-            $bank_id
+            $bank_id, $min_tax
 
         ){
                 $type = 'profoma';
@@ -191,8 +191,8 @@
                 $this->conn->beginTransaction();
                 $query = "REPLACE INTO `tea_invoices`(`buyer`, `consignee`, `invoice_no`, `invoice_type`, `invoice_category`, `port_of_discharge`, 
                 `buyer_bank`, `payment_terms`, `pay_bank`, `pay_details`, `date_captured`, `port_of_delivery`, `other_references`, 
-                `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`, `buyer_address`, `bl_no`, `bank_id`) 
-                VALUES(?,?,?,?,?,?,?,?,?,?,CURRENT_DATE,?,?,?,?,?,?,?,?,?,?,?)";
+                `container_no`, `buyer_contract_no`, `shipping_marks`, `good_description`, `final_destination`, `hs_code`, `buyer_address`, `bl_no`, `bank_id`, `min_tax`) 
+                VALUES(?,?,?,?,?,?,?,?,?,?,CURRENT_DATE,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(1, $buyer);
                 $stmt->bindParam(2, $consignee);
@@ -215,6 +215,7 @@
                 $stmt->bindParam(19, $buyer_address);
                 $stmt->bindParam(20, $bl_no);
                 $stmt->bindParam(21, $bank_id);
+                $stmt->bindParam(22, $min_tax);
 
            
 
@@ -225,6 +226,67 @@
                 }
                 
                 $success = "Invoice no $invoice_no has been created succesfully, click the + button to add teas to this Invoice no $hs_code";
+                $response["success"] = $success;
+                $response["code"] = 200;
+            
+            return $response;
+            // INSERT INTO `0_sales_orders` (`order_no`, `trans_type`, `version`, `type`, `debtor_no`, `branch_code`, `reference`, `customer_ref`, `comments`, `ord_date`, `order_type`, `ship_via`, `delivery_address`, `contact_phone`, `contact_email`, `deliver_to`, `freight_cost`, `from_stk_loc`, `delivery_date`, `payment_terms`, `total`, `prep_amount`, `alloc`) VALUES ('', '30', '0', '0', '0', '0', '', '', NULL, '0000-00-00', '0', '0', '', NULL, NULL, '', '0', '', '0000-00-00', NULL, '0', '0', '0')
+    
+        }
+        public function updateInvoice($buyer, $consignee, $invoice_no,
+            $invoice_type, $invoice_category, 
+            $port_of_delivery, $buyer_bank, 
+            $payment_terms, $pay_bank, 
+            $pay_details,
+            $container_no,
+            $buyer_contract_no,
+            $shipping_marks,
+            $other_references,
+            $port_of_discharge,
+            $good_description,
+            $final_destination,
+            $hs_code,
+            $buyer_address,
+            $bl_no,
+            $bank_id,
+            $min_tax
+
+        ){
+                $type = 'profoma';
+                try {
+                $this->conn->beginTransaction();
+                $query = "UPDATE `tea_invoices` SET buyer = :buyer, consignee= :consignee,invoice_type = :invoice_type, invoice_category= :invoice_category ,port_of_discharge= :port_of_discharge, buyer_bank= :buyer_bank,payment_terms= :payment_terms, pay_bank= :pay_bank , pay_details= :pay_details, port_of_delivery= :port_of_delivery, other_references= :other_references,container_no= :container_no , buyer_contract_no= :buyer_contract_no , shipping_marks= :shipping_marks, good_description= :good_description, final_destination= :final_destination, hs_code= :hs_code, buyer_address= :buyer_address, bl_no= :bl_no, bank_id= :bank_id, min_tax= :min_tax  WHERE `invoice_no` = '$invoice_no'";
+                // 
+                //  ,
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':buyer', $buyer);
+                $stmt->bindParam(':consignee', $consignee);
+                $stmt->bindParam(':invoice_type', $invoice_type);
+                $stmt->bindParam(':invoice_category', $invoice_category);
+                $stmt->bindParam(':port_of_discharge', $port_of_discharge);
+                $stmt->bindParam(':buyer_bank', $buyer_bank);
+                $stmt->bindParam(':payment_terms', $payment_terms);
+                $stmt->bindParam(':pay_bank', $pay_bank);
+                $stmt->bindParam(':pay_details', $pay_details);
+                $stmt->bindParam(':port_of_delivery', $port_of_delivery);
+                $stmt->bindParam(':other_references', $other_references);
+                $stmt->bindParam(':container_no', $container_no);
+                $stmt->bindParam(':buyer_contract_no', $buyer_contract_no);
+                $stmt->bindParam(':shipping_marks', $shipping_marks);
+                $stmt->bindParam(':good_description', $good_description);
+                $stmt->bindParam(':final_destination', $final_destination);
+                $stmt->bindParam(':hs_code', $hs_code);
+                $stmt->bindParam(':buyer_address', $buyer_address);
+                $stmt->bindParam(':bl_no', $bl_no);
+                $stmt->bindParam(':bank_id', $bank_id);
+                $stmt->bindParam(':min_tax',$min_tax);
+                $stmt->execute();
+                $this->conn->commit();
+                } catch (Exception $ex) {
+                    var_dump($ex);
+                }
+                
+                $success = "Invoice no $invoice_no has been updated succesfully, click the + button to add teas to this Invoice no $hs_code";
                 $response["success"] = $success;
                 $response["code"] = 200;
             
@@ -304,8 +366,8 @@
             
         //    $this->debugSql = false;
             $this->conn->beginTransaction();
-            $this->query = "INSERT INTO `invoice_teas`(`invoice_no`, `stock_id`, `profoma_amount`, `time_stamp`, `created_by`) 
-            SELECT '$invoiceno',$stockid,sale_price,CURRENT_TIMESTAMP, $user
+            $this->query = "INSERT INTO `invoice_teas`(`invoice_no`, `stock_id`, `profoma_amount`, `commercial_amount`, `time_stamp`, `created_by`) 
+            SELECT '$invoiceno',$stockid,sale_price, sale_price*kgs,CURRENT_TIMESTAMP, $user
             FROM closing_stock
             WHERE stock_id = $stockid";
             $this->executeQuery();
@@ -471,11 +533,14 @@
                 $this->debugSql = false;
 
                 $this->query = "UPDATE invoice_teas SET $fieldName = '$fieldValue' WHERE id = $id";
-                $this->executeQuery();
+                if($this->executeQuery()){
+                    return json_encode(array("updated"=>"true"));
+                }
             } catch (\Throwable $th) {
-               //throw $th;
+            //    echo  $th;
+                return json_encode(array("updated"=>"false"));
             }
-            return json_encode(array("updated"=>"true"));
+            // return json_encode(array("updated"=>"true"));
         }
         public function removeRecord($id){
             try {
@@ -489,18 +554,16 @@
             return json_encode(array("added"=>"true"));
          
          }
-        public function submitInvoice($invoice_no, $type){
+        public function submitInvoice($type, $invoice_no){
             try {
                $this->debugSql = false;
                $this->query = "UPDATE tea_invoices SET  submitted = 1 WHERE invoice_no = '$invoice_no'";
                $this->executeQuery();
 
-               return $this->cart($type, $invoice_no);
+               return $this->cart('straight', $invoice_no);
             } catch (\Throwable $th) {
                throw $th;
             }
-         
-         
         }
 
         public function fcart($facility_no){
@@ -523,7 +586,7 @@
                 $stmt2 = $this->conn->prepare("SELECT *FROM 0_exchange_rates WHERE date_ = current_date AND curr_code = 'USD'");
                 $stmt2->execute();
                 $row2 = $stmt2->fetch();
-                $rate = $row2["rate_buy"];
+                $rate = $row2["rate_buy"] ? $row2["rate_buy"] : 119.00;
 
                 $cart = new stdClass();
                 $id = 0;
@@ -554,21 +617,22 @@
          
          
         }
-        public function cart($invoice_no, $type){
+        public function cart( $type,$invoice_no){
             $invoice = array();
             $trans_date = date('Y-m-d');
             if($type=="straight"){
-                $this->query = "
-                SELECT tea_invoices.`id`, `buyer` AS debtor_no, `consignee`, `address`,`invoice_teas`.`invoice_no`, `invoice_type`,  `0_debtors_master`.`payment_terms`,
-                 `buyer_contract_no`, `pay_bank`, `pay_details`, SUM(`invoice_teas`.`commercial_amount`) AS total_amount, (0.01 * SUM(`invoice_teas`.`commercial_amount`)) AS tax,
-                `invoice_teas`.`created_by` AS user, receivables_account, `branch_code`, `days_before_due` AS days_before_due_date
-                FROM `tea_invoices`
-                INNER JOIN  0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no 
-                INNER JOIN `invoice_teas`  ON  `invoice_teas`.`invoice_no` = `tea_invoices`.`invoice_no`
-                LEFT JOIN `0_cust_branch` ON `0_cust_branch`.`debtor_no` = `0_debtors_master`.`debtor_no` 
-                LEFT JOIN `0_payment_terms` ON `0_payment_terms`.`terms_indicator` = `0_debtors_master`.`payment_terms`
-                WHERE `invoice_teas`.`invoice_no` = trim('$invoice_no')
-                GROUP BY tea_invoices.invoice_no";
+                $this->query = "SELECT tea_invoices.`id`, `buyer` AS debtor_no, `consignee`, `address`,`invoice_teas`.`invoice_no`, `invoice_type`,  `0_debtors_master`.`payment_terms`,
+                `buyer_contract_no`, `pay_bank`, `pay_details`, SUM(invoice_teas.profoma_amount*closing_stock.kgs) AS total_amount, (0.01 * SUM(invoice_teas.profoma_amount*closing_stock.kgs)) AS tax,
+               `invoice_teas`.`created_by` AS user, receivables_account, `branch_code`, `days_before_due` AS days_before_due_date
+               FROM `tea_invoices`
+               INNER JOIN  0_debtors_master ON tea_invoices.buyer = 0_debtors_master.debtor_no
+               INNER JOIN `invoice_teas`  ON  `invoice_teas`.`invoice_no` = `tea_invoices`.`invoice_no`
+               INNER JOIN closing_stock ON closing_stock.stock_id = `invoice_teas`.`stock_id`
+               LEFT JOIN `0_cust_branch` ON `0_cust_branch`.`debtor_no` = `0_debtors_master`.`debtor_no` 
+               LEFT JOIN `0_payment_terms` ON `0_payment_terms`.`terms_indicator` = `0_debtors_master`.`payment_terms` 
+               
+               WHERE `invoice_teas`.`invoice_no` = trim('$invoice_no')
+               GROUP BY tea_invoices.invoice_no";
                 $invoice = $this->executeQuery();
              
             }else if($type=="blend"){
@@ -612,7 +676,7 @@
                 "trans_no_to"=>$trans_no,
                 "ref"=>$invoice[0]["invoice_no"],
                 "user"=>$invoice[0]["user"],
-                "fiscal_year"=>4,
+                "fiscal_year"=>5,
                 "reference"=>$invoice[0]["invoice_no"],
                 "memo"=>"admin",
                 "customer_ref"=>'',
@@ -655,7 +719,7 @@
             $stmt2 = $this->conn->prepare("SELECT *FROM 0_exchange_rates WHERE date_ = current_date AND curr_code = 'USD'");
             $stmt2->execute();
             $row2 = $stmt2->fetch();
-            $rate = $row2["rate_buy"];
+            $rate = $row2["rate_buy"] ? $row2["rate_buy"] : 119.65;
 
 
             $net = $invoice[0]['net'];
@@ -665,6 +729,9 @@
             $finalPrompt = round($brokerage + $valueExAuct, 2);
             $withholdingTax = round((0.05*$brokerage),2);
            
+            $this->add_item($invoice[0]["lot"],$invoice[0]["invoice"], $invoice[0]["broker"].'-'. $invoice[0]["mark"].'-'.$invoice[0]["invoice"], 1, 2, 'kgs', 'B', 1001, 1001, 1001, 1001, 1530, 0, 0, 0, 0, 0,
+            'D', 100,  1, null, null);
+            // print_r($stock_master_id);
 
             $cart = new stdClass();
             $id = 0;
@@ -681,10 +748,10 @@
                 "trans_no_to"=>$trans_no,
                 "ref"=>$invoice[0]["invoice_no"],
                 "user"=>$invoice[0]["user"],
-                "fiscal_year"=>4,
+                "fiscal_year"=>5,
                 "reference"=>$invoice[0]["invoice_no"],
                 "memo"=>$invoice[0]["sale_no"]."-:".$invoice[0]["lot"]."-:".$invoice[0]["mark"]."-:".$invoice[0]["grade"],
-                "stock_id" => 1068,
+                "stock_id" => $invoice[0]["lot"],
                 "description" =>"TEA Purchase",
                 "branch_code" =>$invoice[0]["branch_code"],
                 "payable_account" => $invoice[0]["payable_account"],
@@ -700,6 +767,42 @@
             );
 
             return $cart;
+        }
+        public function add_item($stock_id, $description, $long_description, $category_id, 
+            $tax_type_id, $units, $mb_flag,	$sales_account, $inventory_account, 
+            $cogs_account, $adjustment_account,	$wip_account, $dimension_id, 
+            $dimension2_id, $no_sale, $editable, $no_purchase,
+            $depreciation_method='D', $depreciation_rate=100,  $depreciation_factor=1, $depreciation_start=null,
+            $fa_class_id=null)
+        {
+            // $this->conn->beginTransaction();
+            $this->query = "INSERT INTO 0_stock_master (stock_id, description, long_description, category_id,
+                tax_type_id, units, mb_flag, sales_account, inventory_account, cogs_account,
+                adjustment_account, wip_account, dimension_id, dimension2_id, no_sale, no_purchase, editable,
+                depreciation_method, depreciation_rate, depreciation_factor, depreciation_start, depreciation_date, fa_class_id)
+                VALUES ($stock_id, '$description', '$long_description',$category_id, $tax_type_id, '$units', '$mb_flag',$sales_account, $inventory_account, $cogs_account,$adjustment_account,$wip_account,$dimension_id, $dimension2_id,$no_sale,$no_purchase,$editable,'$depreciation_method',$depreciation_rate,$depreciation_factor, '0000-00-00', '0000-00-00', '')";
+            // db_query($sql, "The item could not be added");
+            
+            // $stmt = $this->conn->prepare($sql);
+            // $stmt->execute();
+            // $stock_master_id = $this->conn->lastInsertId();
+            $this->executeQuery();
+            // $stock_master_id = $this->conn->lastInsertId();
+
+            $this->query = "INSERT INTO 0_loc_stock (loc_code, stock_id) SELECT loc_code, $stock_id FROM 0_locations";
+
+            $this->executeQuery();
+            // // db_query($sql, "The item locstock could not be added");
+
+            $this->add_item_code($stock_id, $stock_id, $description, $category_id, 1, 0);
+        }
+        public function add_item_code($item_code, $stock_id, $description, $category, $qty, $foreign=0)
+        {
+            $this->query = "INSERT INTO 0_item_codes (item_code, stock_id, description, category_id, quantity, is_foreign) VALUES( $item_code,$stock_id,$description,$category,$qty,$foreign)";
+
+            // db_query($sql,"an item code could not be added");
+            $this->executeQuery();
+
         }
         public function unpaidLots(){
             $query = "SELECT `line_no`,`buying_list_id`, `sale_no`, `broker`, `category`, `comment`, `ware_hse`, 

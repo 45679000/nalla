@@ -18,11 +18,11 @@ blend_teas.packages AS blended_packages, blend_teas.blend_kgs,
 mark_country.country, blend_teas.packages AS blended_packages,  
 CONCAT( 'STD - ' ,COALESCE(blend_master.std_name, ''), '/', COALESCE(blend_master.blendid,'')) AS allocation,
 blend_master.contractno,
-CONCAT('CHAMU SUPPLIES LTD- BLEND SHEET ','  ','-STD',
+CONCAT('Techsavanna teas SUPPLIES LTD- BLEND SHEET ','  ','-STD',
        COALESCE(blend_master.std_name, ''), '/',
        COALESCE(blend_master.blendid,''),
 ' - ', COALESCE(shipping_instructions.no_containers_type,''),
-' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),
+' - ', COALESCE(shipping_instructions.destination_total_place_of_delivery,''),  '-',COALESCE(0_debtors_master.debtor_ref,''),
 '-', COALESCE(blend_master.contractno,'')
  ) AS header, shipping_instructions.shipping_marks, note
 

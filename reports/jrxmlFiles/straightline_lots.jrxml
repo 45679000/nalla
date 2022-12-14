@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chamu"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Techsavanna teas"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="sino" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -17,7 +17,7 @@ shippments.shipped_kgs AS kgs,  country, (CASE WHEN shipping_instructions.contra
 DATE_FORMAT(`import_date`,'%d/%m/%y') AS import_date, closing_stock.allocated_whse AS warehouse,
 shippments.is_shipped,  shippments.pkgs_shipped AS pkgs,
 
-CONCAT('CHAMU SUPPLIES LTD - LOT DETAILS-', '  ',COALESCE(shippments.si_no, ''),
+CONCAT('Techsavanna teas SUPPLIES LTD - LOT DETAILS-', '  ',COALESCE(shippments.si_no, ''),
 ' - ',COALESCE(shipping_instructions.no_containers_type, '') ,' - ', COALESCE(0_debtors_master.debtor_ref,''), '-', COALESCE(destination_total_place_of_delivery, '')) AS header, 
 shipping_instructions.shipping_marks, note
 

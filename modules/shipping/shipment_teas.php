@@ -4,7 +4,7 @@
         <div class="col-md-6 well">
             <div class="form-group label-floating">
                 <label class="control-label">Blends</label>
-                <select id="blendlist" name="blend" class="form-control select2"><small>(required)</small>
+                <select id="blendlist" name="blend" class="form-control select2" multiple><small>(required)</small>
                     <option disabled="" value="..." selected="">select</option>
                 </select>
             </div>
@@ -94,14 +94,16 @@
             });
 
         });
-        $('#attachblendsheet').click(function() {
+        $('#attachblendsheet').click(function(e) {
+            e.preventDefault()
             var blendno = localStorage.getItem("blendno");
+            var cNumber = JSON.parse(localStorage.getItem("blendno"));
             var sino = '<?php echo $_GET['sino']; ?>'
             $.ajax({
                 type: "POST",
                 data: {
                     sino: sino,
-                    blendno: blendno,
+                    blendno: cNumber,
                     action: "attach-blend-si"
                 },
                 cache: false,
@@ -112,8 +114,8 @@
                         icon: 'success',
                         title: 'Attached',
                     });
-                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
-
+                    
+                    $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/TCPDF/files/blend_sheet.php?invoiceNo='+cNumber+'" width="100%" height="1000px"></iframe>');
                 }
             });
         });
@@ -126,9 +128,13 @@
         });
         $('#blendlist').change(function() {
         var blendno = $('#blendlist').val();
-        localStorage.setItem("blendno", blendno);
+        // localStorage.setItem("blendno", blendno);
+        var cNumber = blendno.toString();
+        localStorage.setItem("blendno", JSON.stringify(cNumber));
+
         $('#attachButton').show();
-        $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
+        $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/TCPDF/files/blend_sheet.php?invoiceNo='+cNumber+'" width="100%" height="1000px"></iframe>');
+        // $('#document').html('<iframe class="frame" frameBorder="0" src="../../reports/blend_sheet.php?blendno='+blendno+'" width="100%" height="800px"></iframe>');
     });
 
     });

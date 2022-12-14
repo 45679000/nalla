@@ -228,24 +228,24 @@
                $this->debugSql = false;
 
                 $query = "SELECT line_no, shippments.confirmed, shippments.mrp_value, shippments.id AS shipped, closing_stock.`stock_id`, `sale_no`, `broker`, `comment`, `ware_hse`, `value`, `lot`, a.`mark`, 
-                `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`auction_date`,'%d/%m/%Y') AS import_date, 
-                `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
-                closing_stock.pkgs, closing_stock.kgs,
-                (CASE WHEN allocation IS NULL THEN 
-                   CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
-                ELSE 
-                   allocation
-                END) AS allocation, kgs,  net, allocation AS allocated_contract
-                FROM closing_stock 
-                LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
-                LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
-                LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment ";
-               if($proforma == 1){
-                   $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id ";
-               }else{
-                   $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 0 OR is_shipped IS NULL ";
+                 `grade`, `invoice`, allocated_whse AS warehouse, `type`, `sale_price`, `standard`, DATE_FORMAT(`auction_date`,'%d/%m/%Y') AS import_date, 
+                 `allocated`, `selected_for_shipment`, approval_id, 0_debtors_master.debtor_ref, a.country,  client_id, profoma_invoice_no,
+                 closing_stock.pkgs, closing_stock.kgs,
+                 (CASE WHEN allocation IS NULL THEN 
+                    CONCAT(COALESCE(0_debtors_master.short_name, ' ', standard))
+                 ELSE 
+                    allocation
+                 END) AS allocation, kgs,  net, allocation AS allocated_contract
+                 FROM closing_stock 
+                 LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
+                 LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
+                 LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment ";
+                if($proforma == 1){
+                    $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id ";
+                }else{
+                    $query.= " LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE is_shipped = 0 OR is_shipped IS NULL ";
 
-               }
+                }
                 if($saleno !== 'All'){
                     $query.= " AND sale_no = '$saleno' ";
                 }
@@ -297,7 +297,15 @@
             ORDER BY sale_no, lot DESC";
             return $this->executeQuery();
         }
-
+        public function reconciliateStock(){
+            $this->query = "SELECT closing_stock.stock_id,sale_no, broker, lot, mark, invoice, allocation, shippments.pkgs_shipped, shippments.is_shipped FROM closing_stock LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id ORDER BY `closing_stock`.`sale_no` DESC";
+            return $this->executeQuery();
+        }
+        public function markAsShipped($stock_id){
+            $query = "UPDATE shippments SET is_shipped = 1 WHERE stock_id = $stock_id";
+            $stmt = $this->conn->prepare($query);
+            return $stmt->execute();
+        }
         public function readAllPurchaseList(){
             $query = "SELECT * FROM `closing_cat` WHERE  buyer_package = 'CSS'";
         
@@ -362,7 +370,7 @@
             LEFT JOIN 0_debtors_master ON closing_stock.client_id = 0_debtors_master.debtor_no
             LEFT JOIN (SELECT mark, country FROM mark_country GROUP BY mark) AS a ON a.mark = closing_stock.mark 
             LEFT JOIN (SELECT code, id FROM grading_comments GROUP BY code) AS b ON b.code = closing_stock.comment 
-            LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE shippments.id IS NULL LIMIT 20";
+            LEFT JOIN shippments ON shippments.stock_id = closing_stock.stock_id WHERE shippments.id IS NULL ORDER BY line_no DESC";
             return $this->executeQuery();
         }
         public function sumTotal($columnname, $tablename){
@@ -414,7 +422,7 @@
 
         public function stockGrid($dataList){
             $output = "";
-
+            $subTotal = 0;
             if(count($dataList)>0){
 				$output .= '<table id="closingstocks" class="display table table-sm  table-striped table-responsive table-bordered" style="width:100%">
 				<thead class="thead-dark">
@@ -434,6 +442,7 @@
 					<th>Kgs</th>
 					<th>Hammer Price</th>
 					<th>Value Ex.Auction</th>
+                    <th>Value Inclusive <br> of brokerage fee(0.5%)</th>
 					<th>Code</th>
 					<th>WHSE</th>
 					<th>Allocation</th>
@@ -446,7 +455,10 @@
 						$net = $stock['kgs'];
 						$hammerPrice = round(floatval($stock['sale_price']), 2);
 						$valueExAuct = round($net * $hammerPrice, 2);
-		
+                        $brokerage = round(($valueExAuct) * (0.005), 2);
+                        $finalPrompt = round($brokerage + $valueExAuct, 2);
+                        $subTotal += $finalPrompt;
+
 						$output.='<td>'.$stock['line_no'].'</td>';
 						$output.='<td>'.$stock['sale_no'].'</td>';
 						$output.='<td>'.$stock['import_date'].'</td>';
@@ -462,6 +474,7 @@
 						$output.='<td>'.$stock['kgs'].'</td>'; //kgs
 						$output.='<td>'.$hammerPrice.'</td>';
 						$output.='<td>'.floatval($valueExAuct).'</td>';
+                        $output.='<td>'.floatval($finalPrompt).'</td>';
 						$output.='<td>'.$stock['comment'].'</td>';
 						$output.='<td>'.$stock['warehouse'].'</td>';
 						$output.='<td>'.$stock['allocation'].'</td>';
@@ -481,7 +494,8 @@
 								<th colspan="2"></th>
 								<th colspan="2"></th>
 								<th></th>
-								<th colspan="2"></th>
+								<th></th>
+                                <th></th>
 								<th></th>
 								<th></th>
 

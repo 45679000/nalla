@@ -161,7 +161,7 @@ GROUP BY closing_stock.stock_id]]>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CHAMU SUPPLIES LIMITED]]></text>
+				<text><![CDATA[Techsavanna teas SUPPLIES LIMITED]]></text>
 			</staticText>
 			<image>
 				<reportElement x="8" y="5" width="143" height="52" uuid="80325a35-1ee5-46af-9430-9f7b8701d5da"/>

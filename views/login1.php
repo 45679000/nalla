@@ -52,7 +52,7 @@ session_start();
         <div class="row">
             <div class="col-md-3 register-left">
                 <img class="logo" src="<?php echo $path_to_root ?>images/logo.png" alt="" />
-                <h3 style="font-weight:bold; color:blue;">CHAMU TIFMS</h3>
+                <h3 style="font-weight:bold; color:blue;">Techsavanna teas TIFMS</h3>
                 <p>Access Limited to authorised user</p>
             </div>
             <div class="col-md-7 register-right">

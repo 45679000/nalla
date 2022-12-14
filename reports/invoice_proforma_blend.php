@@ -77,7 +77,7 @@
 	// 		<table cellspacing="0" cellpadding="3" border="">
 				
 	// 			<tr>
-	// 				<td><b>CHAMU SUPPLIES LIMITED</b>
+	// 				<td><b>Techsavanna teas SUPPLIES LIMITED</b>
 	// 				<br />
 	// 					P.O Box 86040-80100
 	// 					<div></div>	

@@ -651,12 +651,13 @@
         data: {
             action: "update-invoice-value",
             value:value,
-            id:id
+            id:id,
+            fieldName: "profoma_amount"
         },
         cache: true,
         url: "../finance_action.php",
         success: function (data) {
-
+            console.log(data);
         }
     });
     });
@@ -723,14 +724,15 @@
                 type: "POST",
                 data: {
                     action: "submit-invoice",
-                    type: "straight"
+                    type: "straight",
+                    invoice: localStorage.getItem("invoiceno")
                 },
                 dataType: "html",
                 success: function(response) {
                     $("#finalSubmit").html('<h5 class="purple-text text-center">You Have Successfully Created Invoice</h5>'+localStorage.getItem("invoiceno"));
                     setTimeout(function() {
                         location.reload();
-                        }, 3000);
+                    }, 3000);
                 }
             });
     })
@@ -876,5 +878,4 @@ function loadInvoiceTeas(){
     });
 
 }
-
 </script>

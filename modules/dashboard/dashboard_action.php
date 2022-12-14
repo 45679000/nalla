@@ -54,7 +54,7 @@
 
     $stock->query = "SELECT SUM(pkgs) AS pkgs, sale_no
     FROM buying_list 
-    WHERE buying_list.buyer_package = 'CSS' AND buying_list.added_to_stock = 1 AND buying_list.sale_no like '%2021%'
+    WHERE buying_list.buyer_package = 'CSS' AND buying_list.added_to_stock = 1 AND buying_list.sale_no like '%2022%'
     GROUP BY sale_no";
     $stockBySaleno = $stock->executeQuery();
 

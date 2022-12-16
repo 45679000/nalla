@@ -2,7 +2,7 @@
     $path_to_root ='../';
     include $path_to_root.'models/Model.php';
     include $path_to_root.'controllers/UserController.php';
-    include $path_to_root.'modules/mailer/sendEmail.php';
+    // include $path_to_root.'modules/mailer/sendEmail.php';
     include $path_to_root.'database/connection.php';
 
     $db = new Database();

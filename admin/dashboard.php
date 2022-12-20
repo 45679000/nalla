@@ -3,7 +3,7 @@ $path_to_root = "../";
 require_once $path_to_root . 'templates/header.php';
 ?>
 
-<body class="container-fluid">
+<body class="">
 	<div id="global-loader"></div>
 	<div class="page">
 		<div class="page-main">

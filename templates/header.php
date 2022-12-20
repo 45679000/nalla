@@ -170,15 +170,15 @@
         width: 85px;
         /* overflow:hidden; */
         border-radius: 50%;
-        background-color: white;
+        /* background-color: white; */
     }
 
-    .img-div img {
+    /* .img-div img {
         -webkit-transform: translate(-50%);
         margin-left: 34px;
         height: 50px;
         width: 50px;
-    }
+    } */
 	.header{
 		margin-top: 0.5vh;
 	}
@@ -193,11 +193,11 @@
     </style>
 
 </head>
-<div class="header py-1">
+<div class="header py-2">
     <div class="container-fluid">
         <div class="d-flex">
             <div class="img-div">
-                <!-- <img src="<?=$path_to_root ?>images/logo.png" class="img-fluid" alt="<?= $sessionManager->projectname ?>">  -->
+                <img src="https://cdn.shopify.com/s/files/1/0570/7150/1496/files/Footer_Logo_2x_45ab59d1-1213-4b2d-9e0f-824392d709e2_x120@2x.png?v=1621937858" alt="<?= $sessionManager->projectname ?>"> 
             </div>
             <div class="container-fluid">
                 <div class="text-center pt-2" id="sys_notification">
@@ -279,7 +279,7 @@
 								</div>
 								<div class="dropdown mt-1">
 									<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-										<span class="avatar avatar-md brround" style="background-image: url(<?= ROOT_DIR.$usericon ?>)"></span>
+										<span class="avatar avatar-md brround" ><i class="fe fe-user text-dark"></i></span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
 										<div class="text-center">

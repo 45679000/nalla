@@ -142,12 +142,12 @@ include('../../database/page_init.php');
                                 </select>
                     		</div>
 						</div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
 							<div class="form-group">
 								<label for="name">Profile Picture:</label>
 								<input type="file" id="image"   name="image"/>
                     		</div>
-						</div>
+						</div> -->
                         <input type="hidden" class="form-control"  name="action" value="create-user">
                         <input type="hidden" class="form-control"  id="user_id" name="user_id">
 

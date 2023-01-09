@@ -28,18 +28,19 @@ class Mailer{
     
         //enable SMTP
         $mail->isSMTP();
-        $mail->SMTPDebug = 2;
+        $mail->SMTPDebug = 0;
     
         //set authentication to true
         $mail->SMTPAuth = true;
     
         //set login details for Gmail account
-        $mail->Username = "ippf@techsavanna.technology";
-        $mail->Password = "w[*AjUXkLe@Q";
+        $mail->Username = "korir@techsavanna.technology";
+        $mail->Password = "c[Cs(G.GCycU";
     
         //set type of protection
-        $mail->SMTPSecure = "tls"; //or we can use TLS
-    
+        $mail->SMTPSecure = "ssl"; //or we can use TLS
+        // $mail->SMTPSecure = false;
+        // $mail->SMTPAutoTLS = false;
         //set a port
         $mail->Port = 465; //or 587 if TLS
     
@@ -56,7 +57,7 @@ class Mailer{
         
     
         //set who is sending an email
-        $mail->setFrom('ippf@techsavanna.technology', 'CHAMU TIFMS');
+        $mail->setFrom('korir@techsavanna.technology', 'NALLA TIFMS');
     
         //set where we are sending email (recipients)
         $mail->addAddress($recepient, "Recepient Name");
@@ -66,7 +67,7 @@ class Mailer{
             return 1;
         }
         else{
-           return $mail->send();
+           return 0;
         }
     
     }

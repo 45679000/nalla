@@ -45,14 +45,14 @@ class UserController extends Model{
                 if($otp != null){
                     
                     $mailer = new Mailer("<p>OTP CODE: ".$otp."</p>", $userDetails['email'], "OTP");
-                    $is_sent = $mailer->sendEmail($userDetails['email']);
-                    if($is_sent==1){
+                    // $is_sent = $mailer->sendEmail($userDetails['email']);
+                    // if($is_sent==1){
                         $this->sessionManager->otp=$otp;
-                        $this->sessionManager->message="Enter the verification code sent to your email";
+                    //     $this->sessionManager->message="Enter the verification code sent to your email";
 
-                    }else {
-                        var_dump($is_sent); die();
-                    }
+                    // }else {
+                    //     var_dump($is_sent); die();
+                    // }
                 }
                 // $_SESSION["connection"] = $this->conn;
 
@@ -215,7 +215,11 @@ class UserController extends Model{
         return $this->selectOne($id, "user_id");
 
     }
-    
+    public function removeUser($id){
+        $this->query = "DELETE FROM `users` WHERE users.user_id = $id";
+        $record = $this->executeQuery();
+        return $record;
+    }
     public function generatePassword($length = 5){
         return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
      

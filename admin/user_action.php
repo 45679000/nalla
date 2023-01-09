@@ -74,10 +74,12 @@
 
                         $html.= "<td>
                             <i class='fa fa-edit text-success editBtn'></i> &nbsp;&nbsp;&nbsp;
+                            "; 
+                            if($_SESSION['role_id'] == 1){
+                                $html.= "<i class='fa fa-close text-danger deleteBtn'></i> &nbsp;&nbsp;&nbsp;";
+                            }
 
-                            <i class='fa fa-close text-danger'></i> &nbsp;&nbsp;&nbsp;
-
-                        </td>";
+                        $html.= "</td>";
 
                         $html.= "</tr>";
                     }
@@ -114,6 +116,7 @@
                 $is_sent = $mailer->sendEmail($_POST['email']);
             
         }
+        // echo $_POST['role_id']; die();
         $user->addUser($_POST);
 
     }
@@ -121,6 +124,12 @@
         $id = $_POST["id"];
         $user->tablename = "users";
         echo json_encode($user->selectOne($id, "user_id"));
+
+    }
+    if($action == "delete-user"){
+        $id = $_POST["id"];
+        $user->tablename = "users";
+        echo json_encode($user->removeUser($id));
 
     }
     if($action == "reset-password"){

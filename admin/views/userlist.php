@@ -4,7 +4,11 @@ error_reporting(1);
 $path_to_root = "../../";
 include('../../database/page_init.php');
 ?>
-
+<style>
+    .deleteBtn, .editBtn {
+        cursor: pointer;
+    }
+</style>
 <body class="">
 	<div class="page">
 		<div class="page-main">
@@ -73,12 +77,12 @@ include('../../database/page_init.php');
                                 </select>
                     		</div>
 						</div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
 							<div class="form-group">
 								<label for="name">Profile Picture:</label>
 								<input type="file"  class="dropify" name="image"/>
                     		</div>
-						</div>
+						</div> -->
                         <input type="hidden" class="form-control"  name="action" value="create-user">
 
 					</div>
@@ -191,7 +195,7 @@ include('../../database/page_init.php');
         $(".close").click(function(e){
             $(".modal").hide();
         });
-        $("#formData, #editForm").on('submit', (function(e){
+        $("#formData").on('submit', (function(e){
             e.preventDefault();
             $.ajax({
 				type: "POST",
@@ -199,6 +203,30 @@ include('../../database/page_init.php');
                 contentType: false, cache: false, processData:false,
 				url: "user_action.php",
 				success: function (data) {
+                    $("#addModal").hide();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Account created successfully',
+                    });
+                    loadUsers();
+
+				}
+			});
+     
+        }));
+        $("#editForm").on('submit', (function(e){
+            e.preventDefault();
+            $.ajax({
+				type: "POST",
+                data: new FormData(this),
+                contentType: false, cache: false, processData:false,
+				url: "user_action.php",
+				success: function (data) {
+                    $("#editModal").hide();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Account details updated successfully',
+                    });
                     loadUsers();
 
 				}
@@ -234,6 +262,33 @@ include('../../database/page_init.php');
                     loadUsers();
 
                     
+                }
+            });
+        });
+        $("body").on("click", ".deleteBtn", function(e) {
+            e.preventDefault();
+            var editId = $(this).parent().parent().attr('id');
+            $.ajax({
+                url: "user_action.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: editId,
+                    action: "delete-user"
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User deleted successfully',
+                    })
+                    loadUsers();
+                },
+                error: function(error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'User could be removed, try again. If problems persist, contact the admin',
+                    })
+                    loadUsers();
                 }
             });
         });

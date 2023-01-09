@@ -6,7 +6,6 @@ class Mailer{
     private $body;
     private $emailAddress;
     private $subject;
-
     public function __construct($body, $emailAddress, $subject){
         $this->body = $body;
         $this->emailAddress = $emailAddress;
@@ -14,6 +13,7 @@ class Mailer{
 
     }
     public function sendEmail($recepient){
+
         //create an instance of PHPMailer
         //create an instance of PHPMailer
 
@@ -24,24 +24,24 @@ class Mailer{
         $mail = new PHPMailer();
 
         //set a host
-        $mail->Host = "mail.chamusupplies.com";
+        $mail->Host = "mail.techsavanna.technology";
     
         //enable SMTP
         $mail->isSMTP();
-        $mail->SMTPDebug = 0;
+        $mail->SMTPDebug = 2;
     
         //set authentication to true
         $mail->SMTPAuth = true;
     
         //set login details for Gmail account
-        $mail->Username = "info@chamusupplies.com";
-        $mail->Password = "Chamu@2022";
+        $mail->Username = "ippf@techsavanna.technology";
+        $mail->Password = "w[*AjUXkLe@Q";
     
         //set type of protection
         $mail->SMTPSecure = "tls"; //or we can use TLS
     
         //set a port
-        $mail->Port = 587; //or 587 if TLS
+        $mail->Port = 465; //or 587 if TLS
     
         //set subject
         $mail->Subject = $this->subject;
@@ -56,7 +56,7 @@ class Mailer{
         
     
         //set who is sending an email
-        $mail->setFrom('amin@shiloahmega.com', 'CHAMU TIFMS');
+        $mail->setFrom('ippf@techsavanna.technology', 'CHAMU TIFMS');
     
         //set where we are sending email (recipients)
         $mail->addAddress($recepient, "Recepient Name");
@@ -66,7 +66,7 @@ class Mailer{
             return 1;
         }
         else{
-           return 0;
+           return $mail->send();
         }
     
     }

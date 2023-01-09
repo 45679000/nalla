@@ -1,4 +1,6 @@
 <?php
+require '../modules/mailer/sendEmail.php';
+
 class UserController extends Model{
     // database connection and table name
     public $username;
@@ -38,16 +40,20 @@ class UserController extends Model{
                                         );
                 $this->sessionManager->menu = $userLevels['menu_name'];
 
-                // $otp = $this->generateOtp($user_id);
-                // if($otp != null){
-                //     $mailer = new Mailer("<p>OTP CODE: ".$otp."</p>", $userDetails['email'], "OTP");
-                //     $is_sent = $mailer->sendEmail($userDetails['email']);
-                //     if($is_sent==1){
-                //         $this->sessionManager->otp=$otp;
-                //         $this->sessionManager->message="Enter the verification code sent to your email";
+                $otp = $this->generateOtp($user_id);
+                
+                if($otp != null){
+                    
+                    $mailer = new Mailer("<p>OTP CODE: ".$otp."</p>", $userDetails['email'], "OTP");
+                    $is_sent = $mailer->sendEmail($userDetails['email']);
+                    if($is_sent==1){
+                        $this->sessionManager->otp=$otp;
+                        $this->sessionManager->message="Enter the verification code sent to your email";
 
-                //     }
-                // }
+                    }else {
+                        var_dump($is_sent); die();
+                    }
+                }
                 // $_SESSION["connection"] = $this->conn;
 
 

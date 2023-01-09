@@ -61,6 +61,9 @@
         opacity: 0.3;
         color: white;
     }
+    #printLotDetail:hover {
+        cursor: pointer;
+    }
     @media screen and (max-width:450) {
         .counter {
             margin-bottom: 10px;
@@ -130,14 +133,14 @@
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="card widgets-cards">
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp icon-circle bg-success">
+                                                <div class="card-body ">
+                                                    <div class="col-12 pb-2">
+                                                        <div class="wrp icon-circle bg-success mx-auto">
                                                             <i class="si si-basket-loaded icons"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp text-wrapper">
+                                                    <div class="col-12 p-0">
+                                                        <div class="wrp text-wrapper mx-auto text-center">
                                                             <p id="totalPkgs"></p>
                                                             <p class="text-dark mt-1 mb-0">Pkgs Added</p>
                                                         </div>
@@ -147,14 +150,14 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="card widgets-cards">
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp icon-circle bg-success">
+                                                <div class="card-body">
+                                                    <div class="col-12 pb-2">
+                                                        <div class="wrp icon-circle bg-success mx-auto">
                                                             <i class="si si-basket-loaded icons"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp text-wrapper">
+                                                    <div class="col-12 p-0">
+                                                        <div class="wrp text-wrapper mx-auto text-center">
                                                             <p id="totalkgs"></p>
                                                             <p class="text-dark mt-1 mb-0">kgs Added</p>
                                                         </div>
@@ -164,14 +167,14 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="card widgets-cards">
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp icon-circle bg-success">
+                                                <div class="card-body r">
+                                                    <div class="col-12 pb-2">
+                                                        <div class="wrp icon-circle bg-success mx-auto">
                                                             <i class="si si-basket-loaded icons"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp text-wrapper">
+                                                    <div class="col-12 p-0">
+                                                        <div class="wrp text-wrapper mx-auto text-center">
                                                             <p id="price"></p>
                                                             <p class="text-dark mt-1 mb-0">Avg Sale Price</p>
                                                         </div>
@@ -181,32 +184,36 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div id="printLotDetail" class="card widgets-cards clickable">
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp icon-circle bg-secondary">
-                                                            <i class="si si-bag icons"></i>
+                                                <div class="card-body ">
+                                                    <!-- <a href="http://localhost/nalla/reports/straightline_lots.php?sino=22086/KTC/003" target="_"> -->
+                                                        <div class="col-12 pb-2">
+                                                            <div class="wrp icon-circle bg-secondary mx-auto">
+                                                                <i class="si si-bag icons"></i>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp text-wrapper">
-                                                            <p id="price"></p>
-                                                            <p class="text-dark mt-1 mb-0">Print Lot Details</p>
+                                                        <div class="col-12 p-0">
+                                                            <div class="wrp text-wrapper mx-auto text-center">
+                                                                <p id="price">(pdf)</p>
+                                                                <!-- <br> -->
+                                                                <p class="text-dark mt-1 mb-0">Print Lot Details</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    <!-- </a> -->
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div id="approveShippment" class="card widgets-cards clickable">
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp icon-circle bg-secondary">
+                                                <div class="card-body">
+                                                    <div class="col-12 pb-2">
+                                                        <div class="wrp icon-circle bg-secondary mx-auto">
                                                             <i class="si si-check icons"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp text-wrapper">
-                                                            <p id="price"></p>
+                                                    <div class="col-12 p-0">
+                                                        <div class="wrp text-wrapper mx-auto text-center">
+                                                            <!-- <p id="price"></p> -->
+                                                            <br>
                                                             <p class="text-dark mt-1 mb-0">Approve For Shippment</p>
                                                         </div>
                                                     </div>
@@ -215,15 +222,16 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div id="approveEdit" class="card widgets-cards clickable">
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp icon-circle bg-danger">
+                                                <div class="card-body">
+                                                    <div class="col-12 pb-2">
+                                                        <div class="wrp icon-circle bg-danger mx-auto">
                                                             <i class="si si-pencil icons"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp text-wrapper">
-                                                            <p id="price"></p>
+                                                    <div class="col-12 p-0">
+                                                        <div class="wrp text-wrapper mx-auto text-center">
+                                                            <!-- <p id="price"></p> -->
+                                                            <br>
                                                             <p class="text-dark mt-1 mb-0">Edit</p>
                                                         </div>
                                                     </div>
@@ -232,15 +240,16 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div id="editContract" class="card widgets-cards clickable">
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp icon-circle bg-danger">
+                                                <div class="card-body">
+                                                    <div class="col-12 pb-2">
+                                                        <div class="wrp icon-circle bg-danger mx-auto">
                                                             <i class="si si-pencil icons"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 p-0">
-                                                        <div class="wrp text-wrapper">
-                                                            <p id="price"></p>
+                                                    <div class="col-12 p-0">
+                                                        <div class="wrp text-wrapper mx-auto text-center">
+                                                            <!-- <p id="price"></p> -->
+                                                            <br>
                                                             <p class="text-dark mt-1 mb-0">Edit Contract Details</p>
                                                         </div>
                                                     </div>
@@ -633,6 +642,9 @@
             $(".swal2-confirm").click(function(e) {
                 confirmLots();
             });
+        }) 
+        $("#printLotDetail").click(function(e) {
+            window.open('http://localhost/nalla/reports/straightline_lots.php?sino='+localStorage.getItem('contractno'), '_blank')
         })
     });
 

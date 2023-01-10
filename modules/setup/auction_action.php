@@ -11,7 +11,7 @@
 
 	// Insert Record	
 	if (isset($_POST['action']) && $_POST['action'] == "insert") {
-		$auction->insertRecord();
+		print_r($auction->insertRecord($_POST['year']));
 	}
 
 	// View record

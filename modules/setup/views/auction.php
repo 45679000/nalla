@@ -1,8 +1,30 @@
 <div class="row">
        
 </div>
+<style>
+    body {
+        position: relative;
+        /* background-color: black; */
+    }
+    .lds-roller {
+        position: absolute;
+        left: 45%;
+        top: 100px;
+        z-index: 1;
+    }
+</style>
 
 <div class="container-fluid">
+    <div class="lds-roller" id="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
@@ -45,10 +67,13 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="formData">
-                    <label>Confirm that you want to generate an auction list</label>
-                    <p class="danger">Note that when you generate this list you will not be able to generate it until next year</p>
+                    <div class="form-control">
+                        <label for="year">Enter the year</label>
+                        <input class="form-control" type="text" placeholder="Example - 2000" name="year" id="year" required>
+                    </div>
+                    <!-- <p class="danger">Note that when you can generate one auction list for othis list you will not be able to generate it until next year</p> -->
        
-                    <hr>
+                    <!-- <hr> -->
                     <div class="form-group float-right">
                         <button type="submit" class="btn btn-success" id="submit">Submit</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -108,8 +133,9 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#loader').hide()
         showAllBrokers();
-        generateOrNot();
+        // generateOrNot();
         //View Record
         function showAllBrokers() {
             $.ajax({
@@ -165,23 +191,45 @@
 
         //insert ajax request data
         $("#submit").click(function(e) {
-            if ($("#formData")[0].checkValidity()) {
-                e.preventDefault();
+            e.preventDefault();
+            let year_field = $("#year").val().length
+            if (year_field == 4) {
+                $('#loader').show()
+                $("#addModal").modal('hide');
                 $.ajax({
                     url: "auction_action.php",
                     type: "POST",
                     data: $("#formData").serialize() + "&action=insert",
                     success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'List generated successfully',
-                        });
-                        $("#addModal").modal('hide');
-                        $("#formData")[0].reset();
-                        showAllBrokers();
+                        $('#loader').hide()
+                        console.log(response)
+                        if(response == 0){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Auction list of the inputed year already exist',
+                            });
+                        }else if(response == 1){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'List generated successfully',
+                            });
+                            
+                            $("#formData")[0].reset();
+                            showAllBrokers();
+                        }else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'There was a problem. Try again',
+                                footer: 'If problems persist contact the admin'
+                            })
+                        }
                         
                     }
                 });
+            }else if(year_field == 0) {
+                alert("Make sure to indicate the year")
+            }else {
+                alert("Make sure to enter the correct length of a year eg 2023")
             }
         });
 

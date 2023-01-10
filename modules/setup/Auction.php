@@ -6,19 +6,28 @@
 		public $tablename = "auctions";
 
 		// Insert customer data into customer table
-		public function insertRecord()
+		public function insertRecord($year)
 		{	
-			for($i = 1; $i<53; $i++){
-                // $year = date("Y");
-                $year = 2022;
-                $this->query = "INSERT INTO auctions(sale_no, active, auction_details)
-                VALUES(CONCAT($year, '-',  lpad($i,2,'0')), 1, 'WEEK- $i ')";
-                $this->executeQuery();
+			if(count($this->checkYear($year)) > 0){
+				return 0;
+			}else {
+				for($i = 1; $i<53; $i++){
+					// $year = date("Y");
+					$year = "$year";
+					$this->query = "INSERT INTO auctions(sale_no, active, auction_details)
+					VALUES(CONCAT($year, '-',  lpad($i,2,'0')), 1, 'WEEK- $i ')";
+					$this->executeQuery();
 
-            }
+				}
+				return 1;
+			}
+			
 		}
 
-
+		public function checkYear($year){
+			$this->query = "SELECT * FROM $this->tablename WHERE sale_no LIKE '%$year%'";
+			return $this->executeQuery();	
+		}
 		// Fetch customer records for show listing
 		public function displayRecord()
 		{

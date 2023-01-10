@@ -43,7 +43,7 @@
     <link href="<?=$path_to_root ?>assets/css/dashboard.css" rel="stylesheet" />
 
     <link href="<?=$path_to_root ?>assets/plugins/notify/css/jquery.growl.css" rel="stylesheet" />
-
+    <link href="<?=$path_to_root ?>assets/css/loader.css" rel="stylesheet" />
 
     <!-- c3.js Charts Plugin -->
     <link href="<?=$path_to_root ?>assets/plugins/charts-c3/c3-chart.css" rel="stylesheet" />

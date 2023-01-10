@@ -970,16 +970,16 @@
 			echo '<option disabled="" value="..." selected="">select</option>';
 		}
 	}
-	if (isset($_POST['si'])) {
+	// upload-files action
+	if (isset($_POST['si']) && isset($_POST['action']) && $_POST['action'] == 'upload-files') {
 		$filesArr = $_FILES["pdf"];
 		$siNo = $_POST['si']; 
         $fileNames = array_filter($filesArr['name']); 
-		// echo $filesArr['tmp_name'][0];
 		$error;
 		$countfiles = count($filesArr['name']);
 		for($i=0;$i<$countfiles;$i++){
-			$filename = $siNo.$filesArr['name'][$i];
-			// echo $filename;
+			$filename = $siNo.trim($filesArr['name'][$i], " ");
+			// echo trim($filename); die();
 			// Upload file
 			if(move_uploaded_file($filesArr['tmp_name'][$i],'../../uploads/'.$filename)){
 				$success = $shippingCtr->saveShippmentDocsName($filename,$siNo);
@@ -993,6 +993,7 @@
 				// echo $success;
 			}
 			else {
+				print_r(move_uploaded_file($filesArr['tmp_name'][$i],'../../uploads/'.$filename)); die();
 				$error = 1;
 			}
 			 
@@ -1006,7 +1007,7 @@
 		$output = "";
 		if($data){
 			foreach($data as $files){
-				$output .="<p>".$files['file_name']."<a class='danger text-right' href=".$path_to_root."uploads/".$files['file_name'].">Download<a/></p>";
+				$output .="<p>".$files['file_name']."<a class='danger text-right download-link' href=".$path_to_root."uploads/".$files['file_name'].">Download<a/></p>";
 			}
 			
 		}else {

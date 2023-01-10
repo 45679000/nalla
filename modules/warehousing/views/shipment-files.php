@@ -34,6 +34,18 @@ require_once $path_to_root . 'templates/header.php';
     select {
         border: 1px solid #333 !important;
     }
+    .download-link {
+        margin-left: 2rem;
+        border: 0px solid #fff;
+        background-color: #333;
+        color: #fff;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .download-link:hover {
+        background-color: black;
+        color: #F5FFFA;
+    }
 </style>
 
 <body class="container-fluid">
@@ -48,6 +60,7 @@ require_once $path_to_root . 'templates/header.php';
                 <div class="alert alert-danger m-5" role="alert" id="errorMessage">Error! Try again. If problems persist contact the concerned</div>
                 <div class="col-12 my-5 ">
                     <form action="" id="uploadForm" class="">
+                        <input type="hidden" name="action" value="upload-files">
                         <select id="si" name="si" class="select form-control col-md-4 col-6"><small>(required)</small></select>
                         <!-- <input type="text" name="si-no" id="si-no" placeholder="Choose si No." class="form-control"> -->
                         <input type="file" id="pdf" name="pdf[]" class="form-control" multiple>

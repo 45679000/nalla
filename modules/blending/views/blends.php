@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-3 form-group">
                             <label class="control-label">Blend Date:</label>
-                            <input type="text" class="form-control" name="sale_no" placeholder="sale_no" required="">
+                            <input type="date" class="form-control" name="sale_no" placeholder="sale_no" required="">
                         </div>   
                     </div>
          

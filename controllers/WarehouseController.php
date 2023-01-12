@@ -415,10 +415,26 @@ Class WarehouseController extends Model{
             }
         }elseif($type == 'Blend Shippment') {
             try{
-                $query = "UPDATE `shipping_instructions` INNER JOIN `shippments` ON shipping_instructions.contract_no = shippments.si_no INNER JOIN `blend_teas` ON blend_teas.stock_id = shippments.stock_id INNER JOIN `blend_master` ON shipping_instructions.contract_no = blend_master.contractno SET shippments.is_shipped = 0, shippments.confirmed= 0, shipping_instructions.status = NUll, shipping_instructions.updated_on = CURRENT_TIMESTAMP, blend_teas.confirmed = 0 , blend_master.approved = 0 WHERE shipping_instructions.instruction_id = $instructionId ";
+                $queryTwo = "UPDATE shipping_instructions INNER JOIN blend_master ON shipping_instructions.contract_no = blend_master.contractno INNER JOIN blend_teas ON blend_teas.blend_no = blend_master.id SET shipping_instructions.status = NUll, shipping_instructions.updated_on = CURRENT_TIMESTAMP, blend_teas.confirmed = 0, blend_master.approved = 0 WHERE shipping_instructions.instruction_id = $instructionId";
+                $this->query = $queryTwo;
+    
+                $this->executeQuery(); 
+                
+                $query = "UPDATE `shippments` INNER JOIN shipping_instructions ON shipping_instructions.contract_no = shippments.si_no SET shippments.is_shipped = 0, shippments.confirmed= 0 WHERE shipping_instructions.instruction_id = $instructionId";
                 $this->query = $query;
     
                 $this->executeQuery();
+                
+                $query_2 = "UPDATE `blend_master` LEFT JOIN shipping_instructions ON shipping_instructions.contract_no = blend_master.contractno SET approved = 0 WHERE shipping_instructions.instruction_id = $instructionId";
+                $this->query = $query_2;
+    
+                $this->executeQuery();
+
+                $query_3 = "UPDATE `blend_teas` LEFT JOIN blend_master ON blend_master.id = blend_teas.blend_no LEFT JOIN shipping_instructions ON shipping_instructions.contract_no = blend_master.contractno  SET confirmed = 0 WHERE shipping_instructions.instruction_id = $instructionId";
+                $this->query = $query_3;
+    
+                $this->executeQuery();
+
                 echo 'success';
             }catch(Exception $ex){
                 echo 'error';

@@ -631,11 +631,6 @@
 		$warehouses->softDelete($pk, "warehouses");
 		echo json_encode(array("status"=>"Deleted"));
 	}
-	if(isset($_POST['action']) && $_POST['action'] == "delete-warehouse"){
-		$pk = $_POST['id'];
-		$warehouses->softDelete($pk, "warehouses");
-		echo json_encode(array("status"=>"Deleted"));
-	}
 	if(isset($_POST['action']) && $_POST['action'] == "edit-material-type"){
 		$id = isset($_POST['editId']) ? $_POST['editId'] : ''; 
 		$warehouses->tablename = "material_types";
@@ -978,7 +973,7 @@
 		$error;
 		$countfiles = count($filesArr['name']);
 		for($i=0;$i<$countfiles;$i++){
-			$filename = $siNo.trim($filesArr['name'][$i], " ");
+			$filename = $siNo.str_replace(' ','',$filesArr['name'][$i]);
 			// echo trim($filename); die();
 			// Upload file
 			if(move_uploaded_file($filesArr['tmp_name'][$i],'../../uploads/'.$filename)){

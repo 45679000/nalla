@@ -13,20 +13,59 @@ require_once $path_to_root . 'templates/header.php';
     .datePicker {
         display: none;
     }
+    .error-mess {
+        color: white;
+        border-radius: 5px;
+    }
 </style>
 <div class="container-fluid p-3">
-    
+    <div class="row row-cards" id="" style="padding: 10px;">
+        <div class="col-sm-12 col-lg-1 col-md-1 d-flex align-items-stretch">
+            <div id="printRA" class="card dashboardlink h-100">
+            <div class="card-body">
+                <div class="card-box tilebox-one">
+                    <i class="icon-layers  text-muted"><a href="#"><i class="fa fa-file-pdf-o text-info" aria-hidden="true"></i></a></i>
+                    <h6 class="text-drak text-uppercase mt-0">Print RA Teas</h6>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-1 col-md-1 d-flex align-items-stretch">
+            <div id="cmdfinance" class="card dashboardlink h-100">
+                <div class="card-body">
+                    <div class="card-box tilebox-one">
+                        <i class="icon-layers  text-muted"><a href="#"><i class="fa fa-money text-primary" aria-hidden="true"></i></a></i>
+                        <h6 class="text-drak text-uppercase mt-0">Finance Reports</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-1 col-md-1 d-flex align-items-stretch">
+            <div id="purchaseList" class="card dashboardlink h-100">
+                <div class="card-body">
+                    <div class="card-box tilebox-one">
+                        <i class="icon-layers  text-muted"><a href="#"><i class="fa fa-file" aria-hidden="true"></i></a></i>
+                        <h6 class="text-drak text-uppercase mt-0">Buying List</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card p-3">
         <form method="POST" class="datePicker">
-            <div class="date-group row col-5">
-                <label for="from">Start date:</label>
-                <input type="date" id="from" name="startDate" class="form-control">
-                
-                <label for="to">End date:</label>
-                <input type="date" id="to" name="endDate" class="form-control">
-                <p class="text-danger" style="display: none;" id="helpText">Select start and end dates</p>                
-                <button class="btn btn-success" id="selectDate">Select</button>
+            <div class="date-group row col-12">
+                <div class="col-3">
+                    <label for="from">Start date:</label>
+                    <input type="date" id="from" name="startDate" class="form-control">
+                </div>
+                <div class="col-3">
+                    <label for="to">End date:</label>
+                    <input type="date" id="to" name="endDate" class="form-control">
+                </div>
             </div>
+            <p class="col-12 col-sm-6 error-mess p-2 bg-danger" style="display: none;" id="helpText"><span class="mx-2"><i class="fa fa-exclamation-triangle"></i></span> Select start and end dates</p>                
+            <button class="btn btn-success" id="selectDate">Select</button>
+            
         </form>
         <div class="row row-cards" id="dashboardWrapper" style="padding: 10px;">
         
@@ -65,10 +104,10 @@ require_once $path_to_root . 'templates/header.php';
 
 
 <script>
-    print_report("#", "Finance Reports", "fa fa-money text-primary", "cmdfinance");
-    print_report("./koolReports/stockbysaleno/stock_by_sale_no.php", "Stock By Sale No    ", "fa fa-calendar text-success", "");
-    print_report("#", "Print RA Teas", " fa fa-file-pdf-o text-info", "printRA");
-    print_report("#", "Buying List", "fa fa-file", "purchaseList");
+    // print_report("#", "Finance Reports", "fa fa-money text-primary", "cmdfinance");
+    // // print_report("./koolReports/stockbysaleno/stock_by_sale_no.php", "Stock By Sale No    ", "fa fa-calendar text-success", "");
+    // print_report("#", "Print RA Teas", " fa fa-file-pdf-o text-info", "printRA");
+    // print_report("#", "Buying List", "fa fa-file", "purchaseList");
     $("#cmdfinance").click(function(e) {
         $("#dashboardWrapper").html('<iframe src="/techteas/modules/finance/glRP/reporting/reports_main.php?Class=6" width="100%" height="1000" style="border:none;">');
     });

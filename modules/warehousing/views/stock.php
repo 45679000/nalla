@@ -127,8 +127,8 @@ $("#stock-master").html(
 
 $('.select2').select2();
 var category = "purchases";
-loadMasterStock(category);
-
+// loadMasterStock(category);
+initiateFilter();
 $(".category").click(function(element){
     
     $("#stock-master").html(
@@ -172,7 +172,28 @@ $('#filter').click(function(e){
     console.log("filtered "+saleno+" "+broker+" "+mark+" "+standard+" "+gradecode);
 
 });
+function initiateFilter() {
+    $("#stock-master").html(
+    '<div class="card-body"><div class="dimmer active"><div class="spinner2"><div class="cube1"></div><div class="cube2"></div><div>Loading....</div></div></div></div>'
+    );
+        var saleno = 'All'
+        var broker = 'All'
+        var mark = 'All'
+        var standard = 'All'
+        var gradecode = 'All'
 
+        localStorage.setItem("fsaleno", saleno);
+        localStorage.setItem("fbroker", broker);
+        localStorage.setItem("fmark", mark);
+        localStorage.setItem("fstandard", standard);
+        localStorage.setItem("fgradecode", gradecode);
+
+        if(localStorage.getItem("category")!==null){
+            category = localStorage.getItem("category");
+        }
+
+        loadMasterStock(category);
+}
 
 $('.table').DataTable({
             "pageLength": 100,

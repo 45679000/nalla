@@ -1,4 +1,5 @@
 <?php
+
 require_once "SalesByCustomer.php";
 $path_to_root = "../../../";
 $path_to_root1 = "../../../";

@@ -253,7 +253,7 @@
                     $query.= " AND broker = '$broker' ";
                 }
                 if($mark !== 'All'){
-                    $query.= " AND mark = '$mark' ";
+                    $query.= " AND closing_stock.mark = '$mark' ";
                 }
                 if($standard !== 'All'){
                     $query.= " AND standard = '$standard' ";

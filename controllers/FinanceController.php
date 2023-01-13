@@ -856,7 +856,7 @@
             try {
                $this->debugSql = false;
                $query = "SELECT booking_facility.`facility_no`, `value_date`, buying_list.broker_invoice,
-                COUNT(buying_list.buying_list_id) AS total_lots, booking_facility.amount, booking_facility.account_number
+                COUNT(buying_list.buying_list_id) AS total_lots, booking_facility.amount, booking_facility.account_number, booking_facility.`is_paid`, booking_facility.`is_processed`
                FROM `booking_facility`
                INNER JOIN buying_list ON buying_list.facility_no = booking_facility.facility_no ";
 

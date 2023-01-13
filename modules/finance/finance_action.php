@@ -1083,6 +1083,7 @@
 	if (isset($_POST['action']) && $_POST['action'] == "view-facilities") {
 
 		$purchases = $finance->Facilities($facility_no="all");
+		// print_r($purchases);die();
 	
 		// if (sizeOf($purchases) > 0) {
 			$output .='	<table class="table card-table table-vcenter text-nowrap">
@@ -1135,8 +1136,7 @@
 		// $purchaseCtrl->clean();
 		$cart = $finance->fcart($facility_no);
 		$purchaseCtrl->cart = $cart;
-		$purchaseCtrl->process_facility();
-
+		echo $purchaseCtrl->process_facility();
 
 	}
 

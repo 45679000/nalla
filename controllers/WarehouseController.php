@@ -216,6 +216,10 @@ Class WarehouseController extends Model{
         $this->executeQuery();
 
     }
+    public function softDelete($pk, $tablename){
+        $this->query = "UPDATE  ".$tablename." SET is_deleted = true, deleted_on = CURRENT_TIMESTAMP, deleted_by = $this->user  WHERE id = ".$pk."";
+        return $this->executeQuery();
+    }
     public function genLineNo($blend_id){
         $this->debugSql = false;
         $this->query = "SELECT MAX(SUBSTRING(line_no, -7)) AS line_no FROM closing_stock";

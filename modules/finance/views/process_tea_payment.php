@@ -66,6 +66,7 @@
         <script src="<?php echo $path_to_root ?>assets/plugins/datatable/vfs_fonts.js"></script>
         <script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.html5.min.js"></script>
         <script src="<?php echo $path_to_root ?>assets/plugins/datatable/buttons.print.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 <script>
@@ -81,6 +82,10 @@ $("body").on("click", ".process", function(e) {
                 facility_no: $(this).attr("id")
             },
             success: function(data) {
+				Swal.fire({
+					icon: 'success',
+					title: "Facility processed."
+				})
                 loadUnbookedLots();
             }
         });

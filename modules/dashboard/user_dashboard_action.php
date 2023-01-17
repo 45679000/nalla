@@ -1,18 +1,20 @@
 <?php
+    
+
     $path_to_root ="../../";
 	header("Access-Control-Allow-Origin: *");
     include_once($path_to_root.'models/Model.php');
     include_once($path_to_root.'database/page_init.php');
-    include ($path_to_root.'controllers/UserController.php');
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    
+    include ($path_to_root.'controllers/UserControl.php');
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
     
     $db = new Database();
     $conn = $db->getConnection();
     $user = new UserController($conn);
     $tag = isset($_POST['tag']) ? $_POST['tag'] : '';
-
     
     switch ($tag) {
         case 'totalusers':

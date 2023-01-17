@@ -404,6 +404,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'composition'){
   $blendno = $_POST['blendno'];
   $expected = $blendingCtrl->expectedComposition($blendno);
   $current = $blendingCtrl->currentComposition($blendno);
+  // print_r($expected);
+  // echo "current";
+  // print_r($current); die();
 
     $output .='
     <table style="table-layout:fixed; width:100%;" id="compositionTable" class="table table-striped table-sm table-condensed table-bordered">

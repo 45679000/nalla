@@ -126,6 +126,28 @@
         echo json_encode($user->selectOne($id, "user_id"));
 
     }
+    if($action == "get-users"){
+        $id = $_POST["id"];
+        $user->tablename = "users";
+        echo json_encode($user->selectMany());
+
+    }
+    if($action == "get-department"){
+        $id = $_POST["id"];
+        $user->tablename = "departments";
+        echo json_encode($user->selectOne($id, "department_id"));
+
+    }
+    if($action == "update_department"){
+        $res = $user->updateDepartment('departments',$_POST['name'],$_POST['head'],$_POST['department_id']);
+        echo json_encode($res);
+
+    }
+    if($action == "add_department"){
+        $res = $user->addDepartment('departments',$_POST['name'],$_POST['head']);
+        echo json_encode($res);
+
+    }
     if($action == "delete-user"){
         $id = $_POST["id"];
         $user->tablename = "users";
@@ -148,7 +170,7 @@
                             <th>Id</th>
                             <th>Department Name</th>
                             <th>Department Leader</th>
-                           
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>';
@@ -158,7 +180,15 @@
                         $html.= "<td>".$record['department_id']."</td>";
                         $html.= "<td>".$record['department_name']."</td>";
                         $html.= "<td>".$record['full_name']."</td>";
-                        $html.= "</tr>";
+                        // actions
+                        $html.= "<td>
+                            <i class='fa fa-edit text-success editBtn'></i> &nbsp;&nbsp;&nbsp;
+                            "; 
+                            // if($_SESSION['role_id'] == 1){
+                            //     $html.= "<i class='fa fa-close text-danger deleteBtn'></i> &nbsp;&nbsp;&nbsp;";
+                            // }
+
+                        $html.= "</td>";
                     }
                     $html.= '</tbody>
                 </table>

@@ -25,7 +25,7 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Chamu');
+$pdf->SetAuthor('Nala');
 $pdf->SetTitle('Blend Sheet');
 $pdf->SetSubject('Blend sheet');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');

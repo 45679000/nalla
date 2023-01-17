@@ -60,7 +60,7 @@ include $path_to_root1 .'includes/auction_ids.php';
 <body>
 <div class="page-header">
         <ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/chamu/modules/stock/index.php?view=dashboard">home</a></li>
+			<li class="breadcrumb-item"><a href="/nalla/modules/stock/index.php?view=dashboard">home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Stocks</li>
 		</ol>		
     </div>

@@ -18,27 +18,27 @@ $rpData = new ReportData($conn);
 class Invoices extends TCPDF {
 
     //Page header
-    public function Header() {
-        // Logo
-        $image_file = 'images/header.png';
-        $this->Image($image_file, 10, 10, 200, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+    // public function Header() {
+    //     // Logo
+    //     $image_file = 'images/header.png';
+    //     $this->Image($image_file, 10, 10, 200, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
 
-    }
+    // }
 
     // Page footer
-    public function Footer() {
-        // Position at 15 mm from bottom
+    // public function Footer() {
+    //     // Position at 15 mm from bottom
           
-        $this->SetY(-15);
-        // Set font
-        // $this->SetFont('helvetica', 'I', 8);
-        // // Page number
+    //     $this->SetY(-15);
+    //     // Set font
+    //     // $this->SetFont('helvetica', 'I', 8);
+    //     // // Page number
 
-        $image_file = 'images/footer.png';
-        $this->Image($image_file, 0, 278, 210, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    //     $image_file = 'images/footer.png';
+    //     $this->Image($image_file, 0, 278, 210, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+    //     $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
 
-    }
+    // }
 }
 
 $pdf = new Invoices(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -51,7 +51,7 @@ $pdf->setSubject('Invoices');
 $pdf->setKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
-$pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING);
+// $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING);
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));

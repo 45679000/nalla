@@ -12,14 +12,8 @@ class UserController extends Model{
             $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
             $user_id = $this->basicAuth($this->username, $this->password);
-            $userDetails = $this->readOne(  'users',
-                                            'user_id',
-                                             $user_id
-                                        );
-            $userDept = $this->readOne( 'departments',
-                                        'department_id',
-                                        $userDetails['department_id']
-                                        );
+            $userDetails = $this->readOne('users','user_id',$user_id);
+            $userDept = $this->readOne( 'departments','department_id',$userDetails['department_id']);
             
             if($userDetails['user_id'] != null){
                 $this->sessionManager->user_id =  $userDetails['user_id'];
@@ -263,6 +257,14 @@ class UserController extends Model{
             echo "error";
         }
         
+    }
+    public function updateDepartment($table,$name,$user_id,$department_id) {
+        $this->query = "UPDATE $table SET department_name = '$name', department_leader = '$user_id' WHERE department_id = $department_id";
+        echo $this->executeQuery();
+    }
+    public function addDepartment($table,$name,$user_id) {
+        $this->query = "INSERT INTO $table (department_name,department_leader,is_active) VALUES('$name','$user_id','1')";
+        echo $this->executeQuery();
     }
 }
 ?>
